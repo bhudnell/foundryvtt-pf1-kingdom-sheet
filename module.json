@@ -1,7 +1,7 @@
 {
-  "id": "pf1-rebellion-sheet",
-  "title": "PF1e Rebellion Sheet",
-  "description": "Everything needed to run a rebellion from Hell's Rebels",
+  "id": "pf1-kingdom-sheet",
+  "title": "PF1e Kingdom Sheet",
+  "description": "Everything needed to run a kingdom from Kingmaker",
   "version": "This is auto replaced",
   "authors": [
     {
@@ -12,32 +12,29 @@
   ],
 
   "esmodules": ["src/main.mjs"],
-  "styles": ["styles/common.css", "styles/item.css", "styles/rebellion.css"],
+  "styles": ["styles/common.css", "styles/item.css", "styles/kingdom.css"],
 
   "documentTypes": {
     "Actor": {
-      "rebellion": {
+      "kingdom": {
         "htmlFields": ["notes"]
       }
     },
     "Item": {
-      "team": {
+      "building": {
         "htmlFields": ["description"]
       },
       "event": {
         "htmlFields": ["description"]
       },
-      "ally": {
-        "htmlFields": ["description"]
-      }
     }
   },
 
   "packs": [
     {
-      "name": "events",
-      "label": "Events",
-      "path": "packs/events",
+      "name": "buildings",
+      "label": "Buildings",
+      "path": "packs/buildings",
       "type": "Item",
       "ownership": {
         "PLAYER": "OBSERVER"
@@ -45,9 +42,9 @@
       "system": "pf1"
     },
     {
-      "name": "teams",
-      "label": "Teams",
-      "path": "packs/teams",
+      "name": "events",
+      "label": "Events",
+      "path": "packs/events",
       "type": "Item",
       "ownership": {
         "PLAYER": "OBSERVER"
@@ -74,8 +71,8 @@
   ],
   "packFolders": [
     {
-      "name": "Hell's Rebels",
-      "packs": ["events", "teams", "rules", "roll-tables"]
+      "name": "Kingmaker",
+      "packs": ["buildings", "events", "rules", "roll-tables"]
     }
   ],
 
