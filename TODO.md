@@ -1,0 +1,4 @@
+- add multiple recruiters
+- roll buttons:
+  - notoriety: d100 <= notoriety score
+- actions show what teams can do them
