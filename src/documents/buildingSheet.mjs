@@ -1,12 +1,12 @@
 import { CFG } from "../config.mjs";
 
-export class EventSheet extends ItemSheet {
+export class BuildingSheet extends ItemSheet {
   static get defaultOptions() {
     const options = super.defaultOptions;
     return {
       ...options,
       template: `modules/${CFG.id}/templates/items/item-sheet.hbs`,
-      classes: [...options.classes, "kingdom", "item", "event"],
+      classes: [...options.classes, "kingdom", "item", "building"],
       tabs: [
         {
           navSelector: "nav.tabs[data-group='primary']",
@@ -23,8 +23,8 @@ export class EventSheet extends ItemSheet {
 
     const data = {
       ...item,
-      isEvent: true,
-      type: game.i18n.localize("PF1RS.Event"),
+      isBuilding: true,
+      type: game.i18n.localize("PF1RS.Building"),
       enrichedDesc: await TextEditor.enrichHTML(item.system.description),
     };
 

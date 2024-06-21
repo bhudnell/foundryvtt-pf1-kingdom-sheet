@@ -1,10 +1,10 @@
 {
-  "name": "pf1-rebellion-sheet",
+  "name": "pf1-kingdom-sheet",
   "version": "1.0.0",
-  "description": "Everything needed to run a rebellion from Hell's Rebels",
+  "description": "Everything needed to run a kingdom from Kingmaker",
   "author": "bhudnell",
   "license": "MIT",
-  "main": "rebellion-sheet.mjs",
+  "main": "src/main.mjs",
   "scripts": {
     "lint": "eslint --fix .",
     "prettier": "prettier --write .",

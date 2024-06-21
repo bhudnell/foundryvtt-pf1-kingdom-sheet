@@ -1,12 +1,10 @@
-import { rebellionSheetId, CFG, rebellionEventId, rebellionTeamId, rebellionAllyId } from "./config.mjs";
-import { AllySheet } from "./documents/allySheet.mjs";
+import { kingdomSheetId, CFG, kingdomEventId, kingdomBuildingId } from "./config.mjs";
+import { BuildingSheet } from "./documents/buildingSheet.mjs";
 import { EventSheet } from "./documents/eventSheet.mjs";
-import { RebellionSheet } from "./documents/rebellionSheet.mjs";
-import { TeamSheet } from "./documents/teamSheet.mjs";
-import { AllyModel } from "./models/allyModel.mjs";
+import { KingdomSheet } from "./documents/kingdomSheet.mjs";
+import { BuildingModel } from "./models/buildingModel.mjs";
 import { EventModel } from "./models/eventModel.mjs";
-import { RebellionModel } from "./models/rebellionModel.mjs";
-import { TeamModel } from "./models/teamModel.mjs";
+import { KingdomModel } from "./models/kingdomModel.mjs";
 import { rollEventTable } from "./utils.mjs";
 
 Hooks.on("preCreateItem", (item, data, context, user) => {
@@ -14,45 +12,39 @@ Hooks.on("preCreateItem", (item, data, context, user) => {
     return;
   }
 
-  if ([rebellionEventId, rebellionTeamId, rebellionAllyId].includes(item.type)) {
-    if (item.actor.type !== rebellionSheetId) {
-      ui.notifications.error(`"${item.actor.type}" actor can't have Rebellion items`);
+  if ([kingdomEventId, kingdomBuildingId].includes(item.type)) {
+    if (item.actor.type !== kingdomSheetId) {
+      ui.notifications.error(`"${item.actor.type}" actor can't have Kingdom items`);
       return false;
     }
   }
 
-  if (![rebellionEventId, rebellionTeamId, rebellionAllyId].includes(item.type)) {
-    if (item.actor.type === rebellionSheetId) {
-      ui.notifications.error(`"${item.actor.type}" actor can only have Rebellion items`);
+  if (![kingdomEventId, kingdomBuildingId].includes(item.type)) {
+    if (item.actor.type === kingdomSheetId) {
+      ui.notifications.error(`"${item.actor.type}" actor can only have Kingdom items`);
       return false;
     }
   }
 });
 
 Hooks.once("init", () => {
-  CONFIG.Actor.dataModels[rebellionSheetId] = RebellionModel;
-  CONFIG.Item.dataModels[rebellionEventId] = EventModel;
-  CONFIG.Item.dataModels[rebellionTeamId] = TeamModel;
-  CONFIG.Item.dataModels[rebellionAllyId] = AllyModel;
+  CONFIG.Actor.dataModels[kingdomSheetId] = KingdomModel;
+  CONFIG.Item.dataModels[kingdomEventId] = EventModel;
+  CONFIG.Item.dataModels[kingdomBuildingId] = BuildingModel;
 
-  Actors.registerSheet(CFG.id, RebellionSheet, {
-    label: game.i18n.localize("PF1RS.Sheet.Rebellion"),
-    types: [rebellionSheetId],
+  Actors.registerSheet(CFG.id, KingdomSheet, {
+    label: game.i18n.localize("PF1RS.Sheet.Kingdom"),
+    types: [kingdomSheetId],
     makeDefault: true,
   });
   Items.registerSheet(CFG.id, EventSheet, {
     label: game.i18n.localize("PF1RS.Sheet.Event"),
-    types: [rebellionEventId],
+    types: [kingdomEventId],
     makeDefault: true,
   });
-  Items.registerSheet(CFG.id, TeamSheet, {
-    label: game.i18n.localize("PF1RS.Sheet.Team"),
-    types: [rebellionTeamId],
-    makeDefault: true,
-  });
-  Items.registerSheet(CFG.id, AllySheet, {
-    label: game.i18n.localize("PF1RS.Sheet.Ally"),
-    types: [rebellionAllyId],
+  Items.registerSheet(CFG.id, BuildingSheet, {
+    label: game.i18n.localize("PF1RS.Sheet.Building"),
+    types: [kingdomBuildingId],
     makeDefault: true,
   });
 });
@@ -65,14 +57,9 @@ Hooks.on("renderChatMessage", (message, html) => {
 
 Hooks.once("ready", () => {
   loadTemplates({
-    "rebellion-sheet-actions": `modules/${CFG.id}/templates/actors/parts/actions.hbs`,
-    "rebellion-sheet-allies": `modules/${CFG.id}/templates/actors/parts/allies.hbs`,
-    "rebellion-sheet-events": `modules/${CFG.id}/templates/actors/parts/events.hbs`,
-    "rebellion-sheet-summary": `modules/${CFG.id}/templates/actors/parts/summary.hbs`,
-    "rebellion-sheet-teams": `modules/${CFG.id}/templates/actors/parts/teams.hbs`,
+    "kingdom-sheet-summary": `modules/${CFG.id}/templates/actors/parts/summary.hbs`,
     "tooltip-content": `modules/${CFG.id}/templates/actors/parts/tooltip-content.hbs`,
-    "item-sheet-ally": `modules/${CFG.id}/templates/items/parts/ally-details.hbs`,
+    "item-sheet-building": `modules/${CFG.id}/templates/items/parts/building-details.hbs`,
     "item-sheet-event": `modules/${CFG.id}/templates/items/parts/event-details.hbs`,
-    "item-sheet-team": `modules/${CFG.id}/templates/items/parts/team-details.hbs`,
   });
 });

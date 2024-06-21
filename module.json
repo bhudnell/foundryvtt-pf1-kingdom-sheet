@@ -26,7 +26,7 @@
       },
       "event": {
         "htmlFields": ["description"]
-      },
+      }
     }
   },
 
@@ -93,7 +93,7 @@
   "manifest": "This is auto replaced",
   "download": "This is auto replaced",
   "url": "This is auto replaced",
-  "readme": "https://github.com/bhudnell/foundryvtt-pf1-rebellion-sheet#readme",
-  "bugs": "https://github.com/bhudnell/foundryvtt-pf1-rebellion-sheet/issues",
-  "changelog": "https://github.com/bhudnell/foundryvtt-pf1-rebellion-sheet/blob/main/CHANGELOG.md"
+  "readme": "https://github.com/bhudnell/foundryvtt-pf1-kingdom-sheet#readme",
+  "bugs": "https://github.com/bhudnell/foundryvtt-pf1-kingdom-sheet/issues",
+  "changelog": "https://github.com/bhudnell/foundryvtt-pf1-kingdom-sheet/blob/main/CHANGELOG.md"
 }

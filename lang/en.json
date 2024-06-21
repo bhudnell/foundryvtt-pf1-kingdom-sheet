@@ -151,15 +151,14 @@
   },
   "TYPES": {
     "Actor": {
-      "pf1-rebellion-sheet": {
-        "rebellion": "Rebellion Sheet"
+      "pf1-kingdom-sheet": {
+        "kingdom": "Kingdom Sheet"
       }
     },
     "Item": {
-      "pf1-rebellion-sheet": {
+      "pf1-kingdom-sheet": {
         "event": "Event",
-        "team": "Team",
-        "ally": "Ally"
+        "building": "Building"
       }
     }
   }
