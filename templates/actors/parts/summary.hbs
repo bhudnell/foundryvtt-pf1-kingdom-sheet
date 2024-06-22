@@ -7,59 +7,27 @@
         <input type="text" name="name" value="{{ name }}" data-dtype="String" />
       </h1>
       <div class="labeledValue week flex0">
-        <span>{{localize "PF1RS.Week"}}</span>
-        {{numberInput system.week name="system.week" step=1 min=0}}
+        <span>{{localize "PF1RS.Turn"}}</span>
+        {{numberInput system.turn name="system.turn" step=1 min=0}}
       </div>
     </div>
 
     <div class="details">
-      <span>{{localize "PF1RS.Rank"}}:</span>
-      <div class="horizLabeledValue">
-        {{numberInput system.rank name="system.rank" step=1 min=1 max=system.maxRank}}
-        {{#if rankUpIndicator}}
-        <i class="fa-regular fa-circle-exclamation error" data-tooltip="PF1RS.AvailableRankUp"></i>
-        {{/if}}
-      </div>
-
-      <span>{{localize "PF1RS.MaxRank"}}:</span>
-      {{#if isGM}}
-      {{numberInput system.maxRank name="system.maxRank" step=1 min=5 max=20}}
-      {{else}}
-      <span>{{ system.maxRank }}</span>
-      {{/if}}
-
-      <span>{{localize "PF1RS.Focus"}}:</span>
-      <select name="system.focus" data-dtype="String">
-        {{selectOptions focusOptions selected=system.focus blank=""}}
-      </select>
-
-      <span>{{localize "PF1RS.Membership"}}:</span>
-      {{numberInput system.membership name="system.membership" step=1 min=0}}
-
-      <span>{{localize "PF1RS.Supporters"}}:</span>
-      {{numberInput system.supporters name="system.supporters" step=1 min=0 max=system.population}}
-
       <span>{{localize "PF1RS.Population"}}:</span>
       <span>{{ system.population }}</span>
 
       <span>{{localize "PF1RS.Treasury"}}:</span>
       {{numberInput system.treasury name="system.treasury" step=1}}
-
-      <span>{{localize "PF1RS.MinTreasury"}}:</span>
-      <span>{{ system.minTreasury }}</span>
-
-      <span>{{localize "PF1RS.Notoriety"}}:</span>
-      {{numberInput system.notoriety name="system.notoriety" step=1 min=0 max=100}}
     </div>
   </div>
 </div>
 
 <div class="flex0">
-  <h3>{{localize "PF1RS.OrgChecks"}}</h3>
+  <h3>{{localize "PF1RS.KingdomStat"}}</h3>
   <div class="info-box-joined flex0">
     {{#each checks}}
     <div class="info-box" data-tooltip-extended="{{ id }}">
-      <div class="label org-check" data-orgcheck="{{ id }}">
+      <div class="label kingdom-stat" data-kingdomstat="{{ id }}">
         <a class="rollable"><i class="fa-solid fa-dice-d20"></i></a>
         <span>{{ label }}</span>
       </div>
@@ -69,13 +37,13 @@
   </div>
 </div>
 
-<h3 class="flex0">{{localize "PF1RS.Officers"}}</h3>
+<h3 class="flex0">{{localize "PF1RS.Leadership"}}</h3>
 <ol class="item-list">
   <li class="flexrow item-list-header">
     <span class="item-detail item-position">{{localize "PF1RS.Position"}}</span>
-    <span class="item-name">{{localize "PF1RS.Officer"}}</span>
-    <span class="item-detail item-officer-bonus">{{localize "PF1RS.Bonus"}}</span>
-    <span class="item-detail item-teams-managed">{{localize "PF1RS.TeamsManaged"}}</span>
+    <span class="item-name">{{localize "PF1RS.FilledBy"}}</span>
+    <span class="item-detail item-leader-bonus">{{localize "PF1RS.Bonus"}}</span>
+    <span class="item-detail item-leader-attribute">{{localize "PF1RS.Attribute"}}</span>
   </li>
   {{#each officers}}
   <li class="flexrow item officer">
@@ -83,8 +51,8 @@
     <select class="item-name" name="system.officers.{{ id }}.actorId">
       {{selectOptions @root.validOfficerChoices selected=actorId}}
     </select>
-    <span class="item-detail item-officer-bonus">+ {{ bonus }} {{ bonusType }}</span>
-    <span class="item-detail item-teams-managed">
+    <span class="item-detail item-leader-bonus">+ {{ bonus }} {{ bonusType }}</span>
+    <span class="item-detail item-leader-attribute">
       {{#if actorId}}
       {{ currTeamsManaged }} / {{ maxTeamsManaged }}
       {{/if}}

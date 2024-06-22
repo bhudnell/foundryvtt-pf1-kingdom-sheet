@@ -29,7 +29,6 @@ export class KingdomSheet extends ActorSheet {
 
     const data = {
       ...this.actor,
-      isGM: game.user.isGM,
       enrichedNotes: await TextEditor.enrichHTML(actorData.notes),
       editable: this.isEditable,
     };
