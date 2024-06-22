@@ -5,6 +5,22 @@
   - Kingdom Size -> Fame/Infamy, Max Things Per Turn
   - Government Type -> Bonuses
 
+- Change Targets
+  - Kingdom Stat
+    - Economy
+    - Loyalty
+    - Stability
+  - Settlement Modifier
+    - Corruption
+    - Crime
+    - Productivity
+    - Law
+    - Lore
+    - Society
+  - Misc
+    - Fame
+    - Infamy
+
 - Kingdom Sheet
   - Summary
     - Government
@@ -35,40 +51,30 @@
     - Settlement Modifiers
     - Danger
     - Building List
+  - Events Tab
+  - Notes Tab
 
-- Change Targets
-  - Kingdom Stat
-    - Economy
-    - Loyalty
-    - Stability
-  - Settlement Modifier
-    - Corruption
-    - Crime
-    - Productivity
-    - Law
-    - Lore
-    - Society
-  - Misc
-    - Fame
-    - Infamy
+- Building Sheet
+  - Description Tab
+    - Description (contains everything below as text)
+    - Upgrade To
+    - Upgrade From
+    - Special
+    - Magic Items
+  - Details Tab
+    - Changes
+    - Type (House, Foundry, Castle, etc)
+    - Lot Size
+    - Cost
+    - Base Value
+    - Defense
+    - Discounts (Maybe just in the description)
+    - Limit  (Maybe just in the description)
 
-- Building Stats
-  - Changes
-  - Description
-  - Type (House, Foundry, Castle, etc)
-  - Lot Size
-  - Cost
-  - Base Value
-  - Discounts
-  - Limit
-  - Upgrade To
-  - Upgrade From
-  - Defense
-  - Special
-  - Magic Items
-
-- Event Stats
-  - Type (kingdom vs settlement)
-  - Change
-  - Description
-  - Continuous?
+- Event Sheet
+  - Description Tab
+    - Description
+  - Details Tab
+    - Type (kingdom vs settlement)
+    - Change
+    - Continuous?
