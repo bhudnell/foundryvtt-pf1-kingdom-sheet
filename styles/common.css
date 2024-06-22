@@ -1,4 +1,4 @@
-.app.sheet.rebellion {
+.app.sheet.kingdom {
   .labeledValue {
     display: flex;
     flex-direction: column;
@@ -262,22 +262,22 @@
   }
 }
 
-.app.sheet.rebellion input[type="number"] {
+.app.sheet.kingdom input[type="number"] {
   width: 48px;
   height: 27px;
   text-align: center;
 }
 
-.app.sheet.rebellion hr {
+.app.sheet.kingdom hr {
   width: 100%;
   flex: 0;
 }
 
-.app.sheet.rebellion footer {
+.app.sheet.kingdom footer {
   flex: 0;
 }
 
-.app.sheet.rebellion form {
+.app.sheet.kingdom form {
   height: 100%;
   overflow: hidden;
 
