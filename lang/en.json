@@ -1,106 +1,8 @@
 {
   "PF1RS": {
     "Summary": "Summary",
-    "AvailableRankUp": "Rank Up Available",
-    "Rank": "Rank",
-    "MaxRank": "Max Rank",
-    "Focus": "Focus",
-    "Membership": "Membership",
-    "Supporters": "Supporters",
     "Population": "Population",
     "Treasury": "Treasury",
-    "MinTreasury": "Min Treasury",
-    "Notoriety": "Notoriety",
-    "Week": "Week",
-
-    "AllOrgChecks": "All Organization Checks",
-    "OrgChecks": "Organization Checks",
-    "OrgCheck": "Org Check",
-    "OrgCheckRoll": "{check} Organization Check",
-    "Loyalty": "Loyalty",
-    "Secrecy": "Secrecy",
-    "Security": "Security",
-
-    "FromStrategist": "From Strategist",
-    "ActionsLabel": "Actions",
-    "Action": "Action",
-    "Persistent": "Persistent",
-    "Mitigated": "Mitigated",
-    "Safehouses": "Safehouses",
-    "Actions": {
-      "Abm": "Activate Black Market",
-      "Ash": "Activate Safe House",
-      "Cor": "Change Officer Role",
-      "Ca": "Covert Action",
-      "Dt": "Dismiss Team",
-      "Eg": "Earn Gold",
-      "Gi": "Gather Information",
-      "Ge": "Guarantee Event",
-      "Kc": "Knowledge Check",
-      "Ll": "Lie Low",
-      "Me": "Manipulate Events",
-      "Rs": "Recruit Supporters",
-      "Rt": "Recruit Team",
-      "Rd": "Reduce Danger",
-      "Rm": "Refresh Marketplace",
-      "Rcc": "Rescue Character",
-      "Rtc": "Restore Character",
-      "Sab": "Sabotage",
-      "Sc": "Secure Cache",
-      "Sa": "Special Action",
-      "So": "Special Order",
-      "Sd": "Spread Disinformation",
-      "Ut": "Upgrade Team",
-      "Ui": "Urban Influence"
-    },
-
-    "Officers": "Officers",
-    "Officer": "Officer",
-    "Demagogue": "Demagogue",
-    "Partisan": "Partisan",
-    "Recruiter": "Recruiter",
-    "Sentinel": "Sentinel",
-    "Spymaster": "Spymaster",
-    "Strategist": "Strategist",
-    "OfficerBonusAction": "action",
-    "OfficerBonusSecondary": "to secondary",
-    "Position": "Position",
-    "TeamsManaged": "Teams Managed",
-
-    "TeamsLabel": "Teams",
-    "Team": "Team",
-    "TeamTier": "Tier",
-    "TeamSize": "Size",
-    "Manager": "Manager",
-    "Condition": "Condition",
-    "Disabled": "Disabled",
-    "Missing": "Missing",
-    "CurrTeams": "Current Teams",
-    "MaxTeams": "Maximum Teams",
-    "GrantedActions": "Granted Actions",
-    "Teams": {
-      "StreetPerformers": "Street Performers",
-      "Rumormongers": "Rumormongers",
-      "Agitators": "Agitators",
-      "Cognoscenti": "Cognoscenti",
-      "Sneaks": "Sneaks",
-      "Thieves": "Thieves",
-      "Saboteurs": "Saboteurs",
-      "Spies": "Spies",
-      "FreedomFighters": "Freedom Fighters",
-      "Infiltrators": "Infiltrators",
-      "Cabalists": "Cabalists",
-      "Spellcasters": "Spellcasters",
-      "Peddlers": "Peddlers",
-      "Merchants": "Merchants",
-      "BlackMarketers": "Black Marketers",
-      "MerchantLords": "Merchant Lords",
-
-      "SubTypes": {
-        "General": "General",
-        "Unique": "Unique"
-      }
-    },
 
     "EventsLabel": "Events",
     "Event": "Event",
@@ -109,16 +11,6 @@
     "RollEvent": "Roll Event",
     "NoEvent": "No Event Occurred",
     "EventOccurred": "Event Occurred",
-    "Danger": "Danger",
-    "Events": {
-      "SubTypes": {
-        "Active": "Active",
-        "Misc": "Miscellaneous"
-      }
-    },
-
-    "Allies": "Allies",
-    "Ally": "Ally",
 
     "Notes": "Notes",
 
@@ -126,27 +18,15 @@
     "Misc": "Miscellaneous",
     "Target": "Target",
 
-    "FromRank": "From Rank",
-    "FromBonus": "From Bonus",
-    "Total": "Total",
-    "Base": "Base",
-    "Other": "Other",
-    "Bonus": "Bonus",
-    "Name": "Name",
-    "Description": "Description",
-    "Details": "Details",
-    "Type": "Type",
-
     "EditItem": "Edit Item",
     "DeleteItem": "Delete Item",
     "CreateItem": "Create Item",
     "NewItem": "New {type}",
 
     "Sheet": {
-      "Rebellion": "Rebellion Sheet",
-      "Event": "Rebellion Event",
-      "Team": "Rebellion Team",
-      "Ally": "Rebellion Ally"
+      "Kingdom": "Kingdom Sheet",
+      "Event": "Kingdom Event",
+      "Building": "Kingdom Building"
     }
   },
   "TYPES": {
