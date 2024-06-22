@@ -1,4 +1,74 @@
-- add multiple recruiters
-- roll buttons:
-  - notoriety: d100 <= notoriety score
-- actions show what teams can do them
+- Various mappings
+  - Alignment -> Bonuses
+  - Edict -> Bonuses
+  - Settlement Size -> Bonuses
+  - Kingdom Size -> Fame/Infamy, Max Things Per Turn
+  - Government Type -> Bonuses
+
+- Kingdom Sheet
+  - Summary
+    - Government
+    - Alignment
+    - Population
+    - Turn
+    - Control DC
+    - Kingdom Stats
+    - Max Things Per Turn
+    - Leadership
+    - Edicts
+    - Consumption
+    - Treasury
+    - Unrest
+    - Fame/Infamy
+  - Terrain Improvements
+    - Type (standard vs special)
+    - Changes
+    - Consumption/Bonus BP (might end up being changes)
+    - Cost
+    - Terrain
+  - Dynamic Settlement Tab(s)
+    - Name
+    - Base Value
+    - Defense
+    - Population
+    - Size
+    - Settlement Modifiers
+    - Danger
+    - Building List
+
+- Change Targets
+  - Kingdom Stat
+    - Economy
+    - Loyalty
+    - Stability
+  - Settlement Modifier
+    - Corruption
+    - Crime
+    - Productivity
+    - Law
+    - Lore
+    - Society
+  - Misc
+    - Fame
+    - Infamy
+
+- Building Stats
+  - Changes
+  - Description
+  - Type (House, Foundry, Castle, etc)
+  - Lot Size
+  - Cost
+  - Base Value
+  - Discounts
+  - Limit
+  - Upgrade To
+  - Upgrade From
+  - Defense
+  - Special
+  - Magic Items
+
+- Event Stats
+  - Type (kingdom vs settlement)
+  - Change
+  - Description
+  - Continuous?
