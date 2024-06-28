@@ -1,8 +1,54 @@
 {
-  "PF1RS": {
+  "PF1KS": {
     "Summary": "Summary",
     "Population": "Population",
     "Treasury": "Treasury",
+
+    "Alignment": {
+      "LG": "Lawful Good",
+      "NG": "Neutral Good",
+      "CG": "Chaotic Good",
+      "LN": "Lawful Neutral",
+      "TN": "Neutral",
+      "CN": "Chaotic Neutral",
+      "LE": "Lawful Evil",
+      "NE": "Neutral Evil",
+      "CE": "Chaotic Evil"
+    },
+
+    "Government": {
+      "Autocracy": "Autocracy",
+      "Magocracy": "Magocracy",
+      "Oligarchy": "Oligarchy",
+      "Overlord": "Overlord",
+      "Republic": "Republic",
+      "SecretSyndicate": "Secret Syndicate",
+      "Theocracy": "Theocracy"
+    },
+
+    "Edict": {
+      "Holiday": {
+        "None": "None",
+        "1": "Annual",
+        "6": "Bimonthly",
+        "12": "Monthly",
+        "24": "Weekly"
+      },
+      "Promotion": {
+        "None": "None",
+        "Token": "Token",
+        "Standard": "Standard",
+        "Aggressive": "Aggressive",
+        "Expansionist": "Expansionist"
+      },
+      "Taxation": {
+        "None": "None",
+        "Light": "Light",
+        "Normal": "Normal",
+        "Heavy": "Heavy",
+        "Overwhelming": "Overwhelming"
+      }
+    },
 
     "EventsLabel": "Events",
     "Event": "Event",
@@ -26,7 +72,8 @@
     "Sheet": {
       "Kingdom": "Kingdom Sheet",
       "Event": "Kingdom Event",
-      "Building": "Kingdom Building"
+      "Building": "Kingdom Building",
+      "Improvement": "Kingdom Terrain Improvement"
     }
   },
   "TYPES": {
@@ -38,7 +85,8 @@
     "Item": {
       "pf1-kingdom-sheet": {
         "event": "Event",
-        "building": "Building"
+        "building": "Building",
+        "improvement": "Terrain Improvement"
       }
     }
   }

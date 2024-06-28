@@ -18,6 +18,8 @@
     - Lore
     - Society
   - Misc
+    - Consumption
+    - Bonus BP
     - Fame
     - Infamy
 
@@ -29,21 +31,16 @@
     - Turn
     - Control DC
     - Kingdom Stats
-    - Max Things Per Turn
+    - Max Things Per Turn (sheet only)
     - Leadership
     - Edicts
     - Consumption
     - Treasury
     - Unrest
     - Fame/Infamy
-  - Terrain Improvements
-    - Type (standard vs special)
-    - Changes
-    - Consumption/Bonus BP (might end up being changes)
-    - Cost
-    - Terrain
   - Dynamic Settlement Tab(s)
     - Name
+    - District Count
     - Base Value
     - Defense
     - Population
@@ -51,8 +48,20 @@
     - Settlement Modifiers
     - Danger
     - Building List
+  - Terrain Improvement Tab
+    - Tile Types Owned
   - Events Tab
   - Notes Tab
+
+- Terrain Improvement Sheet
+  - Description Tab
+    - Description
+    - Cost
+    - Acceptable Terrains
+  - Details Tab
+    - Changes
+    - Quantity
+    - Type (standard vs special)
 
 - Building Sheet
   - Description Tab
@@ -62,6 +71,7 @@
     - Special
     - Magic Items
   - Details Tab
+    - Quantity
     - Changes
     - Type (House, Foundry, Castle, etc)
     - Lot Size
