@@ -1,5 +1,8 @@
 import { alignments, edicts, kingdomGovernments } from "../config.mjs";
 
+import { defineLeader } from "./leaderModel.mjs";
+import { SettlementModel } from "./settlementModel.mjs";
+
 export class KingdomModel extends foundry.abstract.TypeDataModel {
   static defineSchema() {
     const fields = foundry.data.fields;
@@ -35,7 +38,7 @@ export class KingdomModel extends foundry.abstract.TypeDataModel {
         promotion: new fields.StringField({ blank: true, choices: Object.keys(edicts.promotion) }),
         taxation: new fields.StringField({ blank: true, choices: Object.keys(edicts.taxation) }),
       }),
-      settlements: new fields.ArrayField(new fields.EmbeddedDataField(defineSettlement()), { initial: [] }),
+      settlements: new fields.ArrayField(new fields.EmbeddedDataField(SettlementModel), { initial: [] }),
       terrain: new fields.SchemaField({
         cavern: new fields.NumberField({ integer: true, initial: 0, nullable: false }),
         coast: new fields.NumberField({ integer: true, initial: 0, nullable: false }),
@@ -165,141 +168,4 @@ export class KingdomModel extends foundry.abstract.TypeDataModel {
     const abilityArr = Array.isArray(ability) ? ability : [ability];
     return this.changes.filter((c) => abilityArr.includes(c.ability)).reduce((total, c) => total + c.bonus, 0);
   }
-}
-
-function defineLeader(type) {
-  return class LeaderModel extends foundry.abstract.TypeDataModel {
-    _initialize(...args) {
-      super._initialize(...args);
-
-      this.type = type;
-      this.id = foundry.utils.randomID();
-    }
-
-    static defineSchema() {
-      const fields = foundry.data.fields;
-
-      return {
-        actorId: new fields.ForeignDocumentField(pf1.documents.actor.ActorPF, { idOnly: true }),
-      };
-    }
-
-    get name() {
-      const leader = game.actors.get(this.actorId);
-
-      if (!leader) {
-        return undefined;
-      }
-
-      return leader.name;
-    }
-
-    get bonus() {
-      const leader = game.actors.get(this.actorId);
-
-      if (!leader) {
-        return 0;
-      }
-
-      switch (this.type) {
-        // TODO
-        default:
-          return 0;
-      }
-    }
-
-    get vacantPenalty() {
-      const leader = game.actors.get(this.actorId);
-
-      if (leader) {
-        return 0;
-      }
-
-      switch (this.type) {
-        // TODO
-        default:
-          return 0;
-      }
-    }
-  };
-}
-
-function defineSettlement() {
-  return class SettlementModel extends foundry.abstract.TypeDataModel {
-    _initialize(...args) {
-      super._initialize(...args);
-
-      this.id = foundry.utils.randomID();
-    }
-
-    static defineSchema() {
-      const fields = foundry.data.fields;
-
-      return {
-        name: new fields.StringField({ blank: true }),
-        districtCount: new fields.NumberField({ integer: true, min: 0, initial: 1, nullable: false }),
-      };
-    }
-
-    prepareBaseData() {
-      this.corruption = {
-        size: 0,
-        government: 0,
-        buildings: 0,
-        other: 0,
-        total: 0,
-      };
-
-      this.crime = {
-        size: 0,
-        government: 0,
-        buildings: 0,
-        other: 0,
-        total: 0,
-      };
-
-      this.productivity = {
-        size: 0,
-        government: 0,
-        buildings: 0,
-        other: 0,
-        total: 0,
-      };
-
-      this.law = {
-        size: 0,
-        government: 0,
-        buildings: 0,
-        other: 0,
-        total: 0,
-      };
-
-      this.lore = {
-        size: 0,
-        government: 0,
-        buildings: 0,
-        other: 0,
-        total: 0,
-      };
-
-      this.society = {
-        size: 0,
-        government: 0,
-        buildings: 0,
-        other: 0,
-        total: 0,
-      };
-    }
-
-    prepareDerivedData() {
-      // TODO all below
-      this.baseValue = 0;
-      this.defense = 0;
-      this.population = 0;
-      this.size = "";
-      this.danger = 0;
-
-      // TODO settlement modifiers
-    }
-  };
 }

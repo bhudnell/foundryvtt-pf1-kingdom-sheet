@@ -3,6 +3,13 @@
     "Summary": "Summary",
     "Population": "Population",
     "Treasury": "Treasury",
+    "Economy": "Economy",
+    "Loyalty": "Loyalty",
+    "Stability": "Stability",
+    "Consumption": "Consumption",
+    "BonusBP": "Bonus Build Points",
+    "Fame": "Fame",
+    "Infamy": "Infamy",
 
     "Alignment": {
       "LG": "Lawful Good",
@@ -49,6 +56,13 @@
         "Overwhelming": "Overwhelming"
       }
     },
+
+    "Corruption": "Corruption",
+    "Crime": "Crime",
+    "Productivity": "Productivity",
+    "Law": "Law",
+    "Lore": "Lore",
+    "Society": "Society",
 
     "EventsLabel": "Events",
     "Event": "Event",

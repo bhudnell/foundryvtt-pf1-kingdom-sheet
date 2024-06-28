@@ -52,3 +52,31 @@ export const edicts = {
     4: "PF1KS.Edict.Taxation.Overwhelming",
   },
 };
+
+export const kingdomStatChangeTargets = {
+  economy: "PF1KS.Economy",
+  loyalty: "PF1KS.Loyalty",
+  stability: "PF1KS.Stability",
+};
+
+export const settlementModifierChangeTargets = {
+  corruption: "PF1KS.Corruption",
+  crime: "PF1KS.Crime",
+  productivity: "PF1KS.Productivity",
+  law: "PF1KS.Law",
+  lore: "PF1KS.Lore",
+  society: "PF1KS.Society",
+};
+
+export const miscChangeTargets = {
+  consumption: "PF1KS.Consumption",
+  bonusBP: "PF1KS.BonusBP",
+  fame: "PF1KS.Fame",
+  infamy: "PF1KS.Infamy",
+};
+
+export const allChangeTargets = {
+  ...kingdomStatChangeTargets,
+  ...settlementModifierChangeTargets,
+  ...miscChangeTargets,
+};
