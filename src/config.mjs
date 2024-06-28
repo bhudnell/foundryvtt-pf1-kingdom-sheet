@@ -5,6 +5,7 @@ export const CFG = {
 export const kingdomSheetId = `${CFG.id}.kingdom`;
 export const kingdomBuildingId = `${CFG.id}.building`;
 export const kingdomEventId = `${CFG.id}.event`;
+export const kingdomImprovementId = `${CFG.id}.improvement`;
 
 export const kingdomGovernments = {
   aut: "PF1KS.Government.Autocracy",
