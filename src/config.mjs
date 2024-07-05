@@ -7,6 +7,12 @@ export const kingdomBuildingId = `${CFG.id}.building`;
 export const kingdomEventId = `${CFG.id}.event`;
 export const kingdomImprovementId = `${CFG.id}.improvement`;
 
+export const kingdomStats = {
+  economy: "PF1KS.Economy",
+  loyalty: "PF1KS.Loyalty",
+  stability: "PF1KS.Stability",
+};
+
 export const kingdomGovernments = {
   aut: "PF1KS.Government.Autocracy",
   mag: "PF1KS.Government.Magocracy",
@@ -27,6 +33,54 @@ export const alignments = {
   le: "PF1KS.Alignment.LE",
   ne: "PF1KS.Alignment.NE",
   ce: "PF1KS.Alignment.CE",
+};
+
+export const alignmentEffects = {
+  lg: {
+    economy: 2,
+    loyalty: 2,
+    stability: 0,
+  },
+  ng: {
+    economy: 0,
+    loyalty: 2,
+    stability: 2,
+  },
+  cg: {
+    economy: 0,
+    loyalty: 4,
+    stability: 0,
+  },
+  ln: {
+    economy: 2,
+    loyalty: 0,
+    stability: 2,
+  },
+  tn: {
+    economy: 0,
+    loyalty: 0,
+    stability: 4,
+  },
+  cn: {
+    economy: 0,
+    loyalty: 2,
+    stability: 2,
+  },
+  le: {
+    economy: 4,
+    loyalty: 0,
+    stability: 0,
+  },
+  ne: {
+    economy: 2,
+    loyalty: 0,
+    stability: 2,
+  },
+  ce: {
+    economy: 2,
+    loyalty: 2,
+    stability: 0,
+  },
 };
 
 export const edicts = {
@@ -51,6 +105,147 @@ export const edicts = {
     3: "PF1KS.Edict.Taxation.Heavy",
     4: "PF1KS.Edict.Taxation.Overwhelming",
   },
+};
+
+export const edictEffects = {
+  holiday: {
+    0: {
+      economy: 0,
+      loyalty: -1,
+      stability: 0,
+      consumption: 0,
+    },
+    1: {
+      economy: 0,
+      loyalty: 1,
+      stability: 0,
+      consumption: 1,
+    },
+    2: {
+      economy: 0,
+      loyalty: 2,
+      stability: 0,
+      consumption: 2,
+    },
+    3: {
+      economy: 0,
+      loyalty: 3,
+      stability: 0,
+      consumption: 4,
+    },
+    4: {
+      economy: 0,
+      loyalty: 4,
+      stability: 0,
+      consumption: 8,
+    },
+  },
+  promotion: {
+    0: {
+      economy: 0,
+      loyalty: 0,
+      stability: -1,
+      consumption: 0,
+    },
+    1: {
+      economy: 0,
+      loyalty: 0,
+      stability: 1,
+      consumption: 1,
+    },
+    2: {
+      economy: 0,
+      loyalty: 0,
+      stability: 2,
+      consumption: 2,
+    },
+    3: {
+      economy: 0,
+      loyalty: 0,
+      stability: 3,
+      consumption: 4,
+    },
+    4: {
+      economy: 0,
+      loyalty: 0,
+      stability: 4,
+      consumption: 8,
+    },
+  },
+  taxation: {
+    0: {
+      economy: 0,
+      loyalty: 1,
+      stability: 0,
+      consumption: 0,
+    },
+    1: {
+      economy: 1,
+      loyalty: -1,
+      stability: 0,
+      consumption: 0,
+    },
+    2: {
+      economy: 2,
+      loyalty: -2,
+      stability: 0,
+      consumption: 0,
+    },
+    3: {
+      economy: 3,
+      loyalty: -4,
+      stability: 0,
+      consumption: 0,
+    },
+    4: {
+      economy: 4,
+      loyalty: -8,
+      stability: 0,
+      consumption: 0,
+    },
+  },
+};
+
+export const leadershipPenalties = {
+  ruler: {
+    unrest: 4,
+  },
+  consort: {},
+  heir: {},
+  councilor: {
+    loyalty: 2,
+    unrest: 1,
+  },
+  general: {
+    loyalty: 4,
+  },
+  diplomat: {
+    stability: 2,
+  },
+  priest: {
+    stability: 2,
+    loyalty: 2,
+    unrest: 1,
+  },
+  magister: {
+    economy: 4,
+  },
+  marshall: {
+    economy: 4,
+  },
+  enforcer: {},
+  spymaster: {
+    economy: 4,
+    unrest: 1,
+  },
+  treasurer: {
+    economy: 4,
+  },
+  warden: {
+    loyalty: 2,
+    stability: 2,
+  },
+  viceroy: {},
 };
 
 export const kingdomStatChangeTargets = {
