@@ -60,6 +60,7 @@
     - Cost
     - Base Value
     - Defense
+    - Settlement id
     - Discounts (Maybe just in the description)
     - Limit  (Maybe just in the description)
 
@@ -68,5 +69,6 @@
     - Description
   - Details Tab
     - Type (kingdom vs settlement)
+      - if settlement, settlement id
     - Change
     - Continuous?

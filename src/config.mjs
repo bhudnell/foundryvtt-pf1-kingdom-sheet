@@ -23,6 +23,16 @@ export const kingdomGovernments = {
   the: "PF1KS.Government.Theocracy",
 };
 
+export const governmentBonuses = {
+  aut: { corruption: 0, crime: 0, productivity: 0, law: 0, lore: 0, society: 0 },
+  mag: { corruption: 0, crime: 0, productivity: -1, law: 0, lore: 2, society: -1 },
+  oli: { corruption: 1, crime: 0, productivity: 0, law: -1, lore: -1, society: 1 },
+  ove: { corruption: 1, crime: -1, productivity: 0, law: 1, lore: 0, society: -1 },
+  rep: { corruption: 0, crime: -1, productivity: 1, law: -1, lore: 0, society: 1 },
+  sec: { corruption: 1, crime: 1, productivity: 1, law: -3, lore: 0, society: 0 },
+  the: { corruption: -1, crime: 0, productivity: 0, law: 1, lore: 1, society: -1 },
+};
+
 export const alignments = {
   lg: "PF1KS.Alignment.LG",
   ng: "PF1KS.Alignment.NG",
@@ -248,19 +258,24 @@ export const leadershipPenalties = {
   viceroy: {},
 };
 
-export const kingdomStatChangeTargets = {
-  economy: "PF1KS.Economy",
-  loyalty: "PF1KS.Loyalty",
-  stability: "PF1KS.Stability",
-};
-
-export const settlementModifierChangeTargets = {
+export const settlementModifiers = {
   corruption: "PF1KS.Corruption",
   crime: "PF1KS.Crime",
   productivity: "PF1KS.Productivity",
   law: "PF1KS.Law",
   lore: "PF1KS.Lore",
   society: "PF1KS.Society",
+};
+
+export const settlementValues = {
+  thorp: { modifiers: -4, danger: -10, maxBaseValue: 50 },
+  hamlet: { modifiers: -2, danger: -5, maxBaseValue: 200 },
+  village: { modifiers: -1, danger: 0, maxBaseValue: 500 },
+  stown: { modifiers: 0, danger: 0, maxBaseValue: 1000 },
+  ltown: { modifiers: 0, danger: 5, maxBaseValue: 2000 },
+  scity: { modifiers: 1, danger: 5, maxBaseValue: 4000 },
+  lcity: { modifiers: 2, danger: 10, maxBaseValue: 8000 },
+  metro: { modifiers: 4, danger: 10, maxBaseValue: 16000 },
 };
 
 export const miscChangeTargets = {
@@ -271,7 +286,7 @@ export const miscChangeTargets = {
 };
 
 export const allChangeTargets = {
-  ...kingdomStatChangeTargets,
-  ...settlementModifierChangeTargets,
+  ...kingdomStats,
+  ...settlementModifiers,
   ...miscChangeTargets,
 };
