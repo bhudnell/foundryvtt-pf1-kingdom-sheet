@@ -1,7 +1,7 @@
 import { kingdomStats } from "../config.mjs";
 
 export function defineLeader(type, bonusType) {
-  return class LeaderModel extends foundry.abstract.TypeDataModel {
+  return class LeaderModel extends foundry.abstract.DataModel {
     _initialize(...args) {
       super._initialize(...args);
 

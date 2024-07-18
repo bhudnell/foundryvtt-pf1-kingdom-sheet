@@ -7,7 +7,6 @@ import { BuildingModel } from "./models/buildingModel.mjs";
 import { EventModel } from "./models/eventModel.mjs";
 import { ImprovementModel } from "./models/improvementModel.mjs";
 import { KingdomModel } from "./models/kingdomModel.mjs";
-import { rollEventTable } from "./utils.mjs";
 
 Hooks.on("preCreateItem", (item, data, context, user) => {
   if (!item.actor) {
@@ -57,11 +56,12 @@ Hooks.once("init", () => {
   });
 });
 
-Hooks.on("renderChatMessage", (message, html) => {
-  if (message.flags?.[CFG.id]?.eventChanceCard) {
-    html.find("button.roll-event").on("click", (e) => rollEventTable(e, message));
-  }
-});
+// TODO
+// Hooks.on("renderChatMessage", (message, html) => {
+//   if (message.flags?.[CFG.id]?.eventChanceCard) {
+//     html.find("button.roll-event").on("click", (e) => rollEventTable(e, message));
+//   }
+// });
 
 Hooks.once("ready", () => {
   loadTemplates({

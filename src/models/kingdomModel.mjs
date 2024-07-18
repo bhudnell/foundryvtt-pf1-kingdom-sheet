@@ -135,6 +135,9 @@ export class KingdomModel extends foundry.abstract.TypeDataModel {
   }
 
   prepareDerivedData() {
+    // call settlements prepareDerivedData
+    this.settlements.forEach((s) => s.prepareDerivedData());
+
     // changes
     this.changes = this._prepareChanges();
 
@@ -153,7 +156,8 @@ export class KingdomModel extends foundry.abstract.TypeDataModel {
     this.consumption.districts = districts;
     this.consumption.improvements = this._getChanges("consumption", kingdomImprovementId);
     this.consumption.edicts =
-      edictEffects.holiday[this.edicts.holiday].consumption + edictEffects.promotion[this.edicts.promotion].consumption;
+      (edictEffects.holiday[this.edicts.holiday]?.consumption ?? 0) +
+      (edictEffects.promotion[this.edicts.promotion]?.consumption ?? 0);
     this.consumption.buildings = this._getChanges("consumption", kingdomBuildingId);
     this.consumption.total =
       this.consumption.size +
@@ -180,23 +184,23 @@ export class KingdomModel extends foundry.abstract.TypeDataModel {
       // TODO can this be done cleaner?
       const filled = [];
       const vacant = [];
-      for (const [key, value] of Object.entries(this.leadership)) {
-        if (value.vacant) {
-          vacant.push(key);
+      for (const leader of Object.values(this.leadership).flatMap((v) => v)) {
+        if (leader.vacant) {
+          vacant.push(leader);
         } else {
-          filled.push(key);
+          filled.push(leader);
         }
       }
 
       this[stat].buildings = this._getChanges(stat, kingdomBuildingId);
       this[stat].edicts =
-        edictEffects.holiday[this.edicts.holiday][stat] +
-        edictEffects.promotion[this.edicts.promotion][stat] +
-        edictEffects.taxation[this.edicts.taxation][stat];
+        (edictEffects.holiday[this.edicts.holiday]?.[stat] ?? 0) +
+        (edictEffects.promotion[this.edicts.promotion]?.[stat] ?? 0) +
+        (edictEffects.taxation[this.edicts.taxation]?.[stat] ?? 0);
       this[stat].leadership =
-        filled.reduce((curr, accum) => (curr.bonusTypes.includes(stat) ? curr.bonus : 0) + accum, 0) -
-        vacant.reduce((curr, accum) => (leadershipPenalties[curr.type][stat] ?? 0) + accum, 0);
-      this[stat].alignment = alignmentEffects[this.alignment][stat];
+        filled.reduce((accum, curr) => (curr.bonusTypes.includes(stat) ? curr.bonus : 0) + accum, 0) -
+        vacant.reduce((accum, curr) => (leadershipPenalties[curr.type][stat] ?? 0) + accum, 0);
+      this[stat].alignment = alignmentEffects[this.alignment]?.[stat] ?? 0;
       this[stat].unrest = this.unrest;
       this[stat].improvements = this._getChanges(stat, kingdomImprovementId);
       this[stat].events = this._getChanges(stat, kingdomEventId);

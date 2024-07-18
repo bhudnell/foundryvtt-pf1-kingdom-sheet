@@ -1,6 +1,6 @@
 import { allChangeTargets } from "../config.mjs";
 
-export class ChangeModel extends foundry.abstract.TypeDataModel {
+export class ChangeModel extends foundry.abstract.DataModel {
   _initialize(...args) {
     super._initialize(...args);
 
