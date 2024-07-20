@@ -26,6 +26,9 @@
       },
       "event": {
         "htmlFields": ["description"]
+      },
+      "improvement": {
+        "htmlFields": ["description"]
       }
     }
   },

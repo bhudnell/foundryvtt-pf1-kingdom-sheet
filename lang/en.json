@@ -98,9 +98,9 @@
     },
     "Item": {
       "pf1-kingdom-sheet": {
-        "event": "Event",
-        "building": "Building",
-        "improvement": "Terrain Improvement"
+        "event": "Kingdom Event",
+        "building": "Kingdom Building",
+        "improvement": "Kingdom Terrain Improvement"
       }
     }
   }
