@@ -2,6 +2,7 @@
   {{! Sheet Navigation }}
   <nav class="sheet-navigation tabs" data-group="primary">
     <a class="item" data-tab="summary" data-group="primary">{{localize "PF1KS.Summary"}}</a>
+    <a class="item" data-tab="leadership" data-group="primary">{{localize "PF1KS.LeadershipLabel"}}</a>
     <a class="item" data-tab="notes" data-group="primary">{{localize "PF1KS.Notes"}}</a>
   </nav>
 
@@ -10,6 +11,11 @@
     {{! Summary Tab }}
     <div class="tab summary flexcol" data-group="primary" data-tab="summary">
       {{> kingdom-sheet-summary}}
+    </div>
+
+    {{! Leadership Tab }}
+    <div class="tab summary flexcol" data-group="primary" data-tab="leadership">
+      {{> kingdom-sheet-leadership}}
     </div>
 
     {{! Notes Tab }}

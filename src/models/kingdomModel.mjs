@@ -118,6 +118,7 @@ export class KingdomModel extends foundry.abstract.TypeDataModel {
     };
 
     this.fame = {
+      base: this.fame.base,
       lore: 0,
       society: 0,
       buildings: 0,
@@ -126,6 +127,7 @@ export class KingdomModel extends foundry.abstract.TypeDataModel {
     };
 
     this.infamy = {
+      base: this.infamy.base,
       corruption: 0,
       crime: 0,
       buildings: 0,

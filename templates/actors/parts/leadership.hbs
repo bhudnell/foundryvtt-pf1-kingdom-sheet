@@ -1,0 +1,16 @@
+<ol class="item-list">
+  <li class="flexrow item-list-header">
+    <span class="item-detail item-position">{{localize "PF1KS.Position"}}</span>
+    <span class="item-name">{{localize "PF1KS.FilledBy"}}</span>
+    <span class="item-detail item-leader-bonus">{{localize "PF1KS.Bonus"}}</span>
+  </li>
+  {{#each leaders}}
+  <li class="flexrow item officer">
+    <span class="item-detail item-position">{{ label }}</span>
+    <select class="item-name" name="system.leadership.{{ id }}.actorId">
+      {{selectOptions @root.validLeadershipChoices selected=actorId}}
+    </select>
+    <span class="item-detail item-leader-bonus">+ {{ bonus }} {{ bonusType }}</span>
+  </li>
+  {{/each}}
+</ol>

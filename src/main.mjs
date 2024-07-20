@@ -66,6 +66,7 @@ Hooks.once("init", () => {
 Hooks.once("ready", () => {
   loadTemplates({
     "kingdom-sheet-summary": `modules/${CFG.id}/templates/actors/parts/summary.hbs`,
+    "kingdom-sheet-leadership": `modules/${CFG.id}/templates/actors/parts/leadership.hbs`,
     "tooltip-content": `modules/${CFG.id}/templates/actors/parts/tooltip-content.hbs`,
     "item-sheet-building": `modules/${CFG.id}/templates/items/parts/building-details.hbs`,
     "item-sheet-event": `modules/${CFG.id}/templates/items/parts/event-details.hbs`,

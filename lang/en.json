@@ -1,16 +1,21 @@
 {
   "PF1KS": {
     "Summary": "Summary",
+    "Turn": "Turn",
     "Population": "Population",
     "Treasury": "Treasury",
+    "ControlDC": "Control DC",
+    "KingdomStat": "Kingdom Stats",
     "Economy": "Economy",
     "Loyalty": "Loyalty",
     "Stability": "Stability",
+    "Unrest": "Unrest",
     "Consumption": "Consumption",
     "BonusBP": "Bonus Build Points",
     "Fame": "Fame",
     "Infamy": "Infamy",
 
+    "AlignmentLabel": "Alignment",
     "Alignment": {
       "LG": "Lawful Good",
       "NG": "Neutral Good",
@@ -23,6 +28,7 @@
       "CE": "Chaotic Evil"
     },
 
+    "GovernmentLabel": "Government",
     "Government": {
       "Autocracy": "Autocracy",
       "Magocracy": "Magocracy",
@@ -33,7 +39,9 @@
       "Theocracy": "Theocracy"
     },
 
+    "Edicts": "Edicts",
     "Edict": {
+      "HolidayLabel": "Holiday",
       "Holiday": {
         "None": "None",
         "1": "Annual",
@@ -41,6 +49,7 @@
         "12": "Monthly",
         "24": "Weekly"
       },
+      "PromotionLabel": "Promotion",
       "Promotion": {
         "None": "None",
         "Token": "Token",
@@ -48,6 +57,7 @@
         "Aggressive": "Aggressive",
         "Expansionist": "Expansionist"
       },
+      "TaxationLabel": "Taxation",
       "Taxation": {
         "None": "None",
         "Light": "Light",
@@ -56,6 +66,27 @@
         "Overwhelming": "Overwhelming"
       }
     },
+
+    "LeadershipLabel": "Leadership",
+    "Leadership": {
+      "Ruler": "Ruler",
+      "Consort": "Consort",
+      "Heir": "Heir",
+      "Councilor": "Councilor",
+      "General": "General",
+      "GrandDiplomat": "Grand Diplomat",
+      "HighPriest": "High Priest",
+      "Magister": "Magister",
+      "Marshal": "Marshal",
+      "RoyalEnforcer": "Royal Enforcer",
+      "Spymaster": "Spymaster",
+      "Treasurer": "Treasurer",
+      "Warden": "Warden",
+      "Viceroy": "Viceroy"
+    },
+    "Position": "Position",
+    "FilledBy": "Filled By",
+    "Bonus": "Bonus",
 
     "Corruption": "Corruption",
     "Crime": "Crime",

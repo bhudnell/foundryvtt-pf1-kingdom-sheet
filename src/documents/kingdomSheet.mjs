@@ -57,69 +57,69 @@ export class KingdomSheet extends ActorSheet {
       edicts: [
         {
           id: "holiday",
-          label: game.i18n.localize("PF1KS.Edicts.HolidayLabel"),
+          label: game.i18n.localize("PF1KS.Edict.HolidayLabel"),
         },
         {
           id: "promotion",
-          label: game.i18n.localize("PF1KS.Edicts.PromotionLabel"),
+          label: game.i18n.localize("PF1KS.Edict.PromotionLabel"),
         },
         {
           id: "taxation",
-          label: game.i18n.localize("PF1KS.Edicts.TaxationLabel"),
+          label: game.i18n.localize("PF1KS.Edict.TaxationLabel"),
         },
       ],
       leaders: [
         {
           id: "ruler",
-          label: game.i18n.localize("PF1RS.Leaders.Ruler"),
+          label: game.i18n.localize("PF1KS.Leadership.Ruler"),
         },
         {
           id: "consort",
-          label: game.i18n.localize("PF1RS.Leaders.Consort"),
+          label: game.i18n.localize("PF1KS.Leadership.Consort"),
         },
         {
           id: "heir",
-          label: game.i18n.localize("PF1RS.Leaders.Heir"),
+          label: game.i18n.localize("PF1KS.Leadership.Heir"),
         },
         {
           id: "councilor",
-          label: game.i18n.localize("PF1RS.Leaders.Councilor"),
+          label: game.i18n.localize("PF1KS.Leadership.Councilor"),
         },
         {
           id: "general",
-          label: game.i18n.localize("PF1RS.Leaders.General"),
+          label: game.i18n.localize("PF1KS.Leadership.General"),
         },
         {
           id: "diplomat",
-          label: game.i18n.localize("PF1RS.Leaders.GrandDiplomat"),
+          label: game.i18n.localize("PF1KS.Leadership.GrandDiplomat"),
         },
         {
           id: "priest",
-          label: game.i18n.localize("PF1RS.Leaders.HighPriest"),
+          label: game.i18n.localize("PF1KS.Leadership.HighPriest"),
         },
         {
           id: "magister",
-          label: game.i18n.localize("PF1RS.Leaders.Magister"),
+          label: game.i18n.localize("PF1KS.Leadership.Magister"),
         },
         {
           id: "marshal",
-          label: game.i18n.localize("PF1RS.Leaders.Marshal"),
+          label: game.i18n.localize("PF1KS.Leadership.Marshal"),
         },
         {
           id: "enforcer",
-          label: game.i18n.localize("PF1RS.Leaders.RoyalEnforcer"),
+          label: game.i18n.localize("PF1KS.Leadership.RoyalEnforcer"),
         },
         {
           id: "spymaster",
-          label: game.i18n.localize("PF1RS.Leaders.Spymaster"),
+          label: game.i18n.localize("PF1KS.Leadership.Spymaster"),
         },
         {
           id: "treasurer",
-          label: game.i18n.localize("PF1RS.Leaders.Treasurer"),
+          label: game.i18n.localize("PF1KS.Leadership.Treasurer"),
         },
         {
           id: "warden",
-          label: game.i18n.localize("PF1RS.Leaders.Warden"),
+          label: game.i18n.localize("PF1KS.Leadership.Warden"),
         },
       ],
     };
@@ -134,6 +134,7 @@ export class KingdomSheet extends ActorSheet {
     // notifications
     // TODO unrest > 10 warning -> lose 1 hex a turn
     // TODO unrest > 19 error -> kingdom in anarchy
+    // TODO any unrest increases such as from vacancies
 
     // dropdowns
     data.alignmentOptions = Object.fromEntries(
@@ -145,6 +146,7 @@ export class KingdomSheet extends ActorSheet {
 
     // edicts
     for (const edict of data.edicts) {
+      edict.value = actorData[edict];
       edict.options = Object.fromEntries(
         Object.entries(edicts[edict.id]).map(([key, label]) => [key, game.i18n.localize(label)])
       );
@@ -154,6 +156,9 @@ export class KingdomSheet extends ActorSheet {
     for (const abl of data.stats) {
       abl.data = actorData[abl.id];
     }
+
+    // max things per turn
+    // TODO
 
     // non-viceroy leadership
     for (const leader of data.leaders) {
@@ -168,7 +173,7 @@ export class KingdomSheet extends ActorSheet {
     data.viceroys = actorData.leadership.viceroys.map((viceroy) => {
       return {
         id: viceroy.id,
-        label: game.i18n.localize("PF1RS.Leaders.Viceroy"),
+        label: game.i18n.localize("PF1KS.Leadership.Viceroy"),
         actorId: viceroy.actorId,
         name: viceroy.name,
         bonus: viceroy.bonus,

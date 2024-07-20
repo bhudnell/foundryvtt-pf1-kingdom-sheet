@@ -45,6 +45,14 @@
       align-items: center;
       justify-content: center;
     }
+
+    .edicts {
+      flex: 1;
+      display: grid;
+      grid-template-columns: repeat(6, 1fr);
+      justify-items: center;
+      align-items: center;
+    }
   }
 
   .tab.events {

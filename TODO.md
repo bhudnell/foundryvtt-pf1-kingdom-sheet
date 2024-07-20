@@ -1,4 +1,5 @@
 - Various mappings
+
   - Alignment -> Bonuses
   - Edict -> Bonuses
   - Settlement Size -> Bonuses
@@ -6,36 +7,31 @@
   - Government Type -> Bonuses
 
 - Kingdom Sheet
-  - Summary
-    - Government
-    - Alignment
-    - Population
-    - Turn
-    - Control DC
-    - Kingdom Stats
+
+  - Summary Tab
     - Max Things Per Turn (sheet only)
-    - Leadership
-    - Edicts
-    - Consumption
-    - Treasury
-    - Unrest
-    - Fame/Infamy
-  - Dynamic Settlement Tab(s)
-    - Name
-    - District Count
-    - Base Value
-    - Defense
-    - Population
-    - Size
-    - Settlement Modifiers
-    - Danger
-    - Building List
+  - Leadership Tab
+    - Add Viceroy button
+  - Settlement Tab
+    - Each settlement has a sub-tab
+      - Name
+      - District Count
+      - Base Value
+      - Defense
+      - Population
+      - Size
+      - Settlement Modifiers
+      - Danger
+      - Building List
   - Terrain Improvement Tab
     - Tile Types Owned
   - Events Tab
   - Notes Tab
+  - Config Tab?
+    - toggle consort/second ruler (maybe on summary/leadership tab)
 
 - Terrain Improvement Sheet
+
   - Description Tab
     - Description
     - Cost
@@ -46,6 +42,7 @@
     - Type (standard vs special)
 
 - Building Sheet
+
   - Description Tab
     - Description (contains everything below as text)
     - Upgrade To
@@ -62,7 +59,7 @@
     - Defense
     - Settlement id
     - Discounts (Maybe just in the description)
-    - Limit  (Maybe just in the description)
+    - Limit (Maybe just in the description)
 
 - Event Sheet
   - Description Tab
