@@ -240,7 +240,7 @@ export const leadershipPenalties = {
   magister: {
     economy: 4,
   },
-  marshall: {
+  marshal: {
     economy: 4,
   },
   enforcer: {},

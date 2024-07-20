@@ -38,7 +38,7 @@ export class KingdomModel extends foundry.abstract.TypeDataModel {
         diplomat: new fields.EmbeddedDataField(defineLeader("diplomat", "stability")),
         priest: new fields.EmbeddedDataField(defineLeader("priest", "stability")),
         magister: new fields.EmbeddedDataField(defineLeader("magister", "economy")),
-        marshall: new fields.EmbeddedDataField(defineLeader("marshall", "economy")),
+        marshal: new fields.EmbeddedDataField(defineLeader("marshal", "economy")),
         enforcer: new fields.EmbeddedDataField(defineLeader("enforcer", "loyalty")),
         spymaster: new fields.EmbeddedDataField(defineLeader("spymaster")),
         treasurer: new fields.EmbeddedDataField(defineLeader("treasurer", "economy")),
