@@ -131,6 +131,10 @@ export class KingdomSheet extends ActorSheet {
     data.eventType = kingdomEventId;
     data.buildingType = kingdomBuildingId;
 
+    // notifications
+    // TODO unrest > 10 warning -> lose 1 hex a turn
+    // TODO unrest > 19 error -> kingdom in anarchy
+
     // dropdowns
     data.alignmentOptions = Object.fromEntries(
       Object.entries(alignments).map(([key, label]) => [key, game.i18n.localize(label)])
@@ -142,7 +146,7 @@ export class KingdomSheet extends ActorSheet {
     // edicts
     for (const edict of data.edicts) {
       edict.options = Object.fromEntries(
-        Object.entries(edicts[edict]).map(([key, label]) => [key, game.i18n.localize(label)])
+        Object.entries(edicts[edict.id]).map(([key, label]) => [key, game.i18n.localize(label)])
       );
     }
 

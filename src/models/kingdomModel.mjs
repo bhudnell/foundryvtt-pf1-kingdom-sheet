@@ -209,10 +209,9 @@ export class KingdomModel extends foundry.abstract.TypeDataModel {
         this[stat].edicts +
         this[stat].leadership +
         this[stat].alignment +
-        this[stat].unrest +
         this[stat].improvements +
-        this[stat].skill +
-        this[stat].events;
+        this[stat].events -
+        this[stat].unrest;
     }
   }
 

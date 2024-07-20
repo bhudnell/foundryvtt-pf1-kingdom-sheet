@@ -25,7 +25,7 @@
 <div class="flex0">
   <h3>{{localize "PF1KS.KingdomStat"}}</h3>
   <div class="info-box-joined flex0">
-    {{#each checks}}
+    {{#each stats}}
     <div class="info-box" data-tooltip-extended="{{ id }}">
       <div class="label kingdom-stat" data-kingdomstat="{{ id }}">
         <a class="rollable"><i class="fa-solid fa-dice-d20"></i></a>
@@ -43,20 +43,14 @@
     <span class="item-detail item-position">{{localize "PF1KS.Position"}}</span>
     <span class="item-name">{{localize "PF1KS.FilledBy"}}</span>
     <span class="item-detail item-leader-bonus">{{localize "PF1KS.Bonus"}}</span>
-    <span class="item-detail item-leader-attribute">{{localize "PF1KS.Attribute"}}</span>
   </li>
-  {{#each officers}}
+  {{#each leaders}}
   <li class="flexrow item officer">
     <span class="item-detail item-position">{{ label }}</span>
-    <select class="item-name" name="system.officers.{{ id }}.actorId">
-      {{selectOptions @root.validOfficerChoices selected=actorId}}
+    <select class="item-name" name="system.leadership.{{ id }}.actorId">
+      {{selectOptions @root.validLeadershipChoices selected=actorId}}
     </select>
     <span class="item-detail item-leader-bonus">+ {{ bonus }} {{ bonusType }}</span>
-    <span class="item-detail item-leader-attribute">
-      {{#if actorId}}
-      {{ currTeamsManaged }} / {{ maxTeamsManaged }}
-      {{/if}}
-    </span>
   </li>
   {{/each}}
 </ol>
