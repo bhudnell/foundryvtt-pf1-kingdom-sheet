@@ -35,22 +35,22 @@ Hooks.once("init", () => {
   CONFIG.Item.dataModels[kingdomImprovementId] = ImprovementModel;
 
   Actors.registerSheet(CFG.id, KingdomSheet, {
-    label: game.i18n.localize("PF1RS.Sheet.Kingdom"),
+    label: game.i18n.localize("PF1KS.Sheet.Kingdom"),
     types: [kingdomSheetId],
     makeDefault: true,
   });
   Items.registerSheet(CFG.id, EventSheet, {
-    label: game.i18n.localize("PF1RS.Sheet.Event"),
+    label: game.i18n.localize("PF1KS.Sheet.Event"),
     types: [kingdomEventId],
     makeDefault: true,
   });
   Items.registerSheet(CFG.id, BuildingSheet, {
-    label: game.i18n.localize("PF1RS.Sheet.Building"),
+    label: game.i18n.localize("PF1KS.Sheet.Building"),
     types: [kingdomBuildingId],
     makeDefault: true,
   });
   Items.registerSheet(CFG.id, ImprovementSheet, {
-    label: game.i18n.localize("PF1RS.Sheet.Improvement"),
+    label: game.i18n.localize("PF1KS.Sheet.Improvement"),
     types: [kingdomImprovementId],
     makeDefault: true,
   });

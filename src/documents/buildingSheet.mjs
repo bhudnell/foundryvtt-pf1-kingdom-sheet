@@ -24,7 +24,7 @@ export class BuildingSheet extends ItemSheet {
     const data = {
       ...item,
       isBuilding: true,
-      type: game.i18n.localize("PF1RS.Building"),
+      type: game.i18n.localize("PF1KS.Building"),
       enrichedDesc: await TextEditor.enrichHTML(item.system.description),
     };
 

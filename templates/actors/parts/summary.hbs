@@ -7,23 +7,23 @@
         <input type="text" name="name" value="{{ name }}" data-dtype="String" />
       </h1>
       <div class="labeledValue week flex0">
-        <span>{{localize "PF1RS.Turn"}}</span>
+        <span>{{localize "PF1KS.Turn"}}</span>
         {{numberInput system.turn name="system.turn" step=1 min=0}}
       </div>
     </div>
 
     <div class="details">
-      <span>{{localize "PF1RS.Population"}}:</span>
+      <span>{{localize "PF1KS.Population"}}:</span>
       <span>{{ system.population }}</span>
 
-      <span>{{localize "PF1RS.Treasury"}}:</span>
+      <span>{{localize "PF1KS.Treasury"}}:</span>
       {{numberInput system.treasury name="system.treasury" step=1}}
     </div>
   </div>
 </div>
 
 <div class="flex0">
-  <h3>{{localize "PF1RS.KingdomStat"}}</h3>
+  <h3>{{localize "PF1KS.KingdomStat"}}</h3>
   <div class="info-box-joined flex0">
     {{#each checks}}
     <div class="info-box" data-tooltip-extended="{{ id }}">
@@ -37,13 +37,13 @@
   </div>
 </div>
 
-<h3 class="flex0">{{localize "PF1RS.Leadership"}}</h3>
+<h3 class="flex0">{{localize "PF1KS.Leadership"}}</h3>
 <ol class="item-list">
   <li class="flexrow item-list-header">
-    <span class="item-detail item-position">{{localize "PF1RS.Position"}}</span>
-    <span class="item-name">{{localize "PF1RS.FilledBy"}}</span>
-    <span class="item-detail item-leader-bonus">{{localize "PF1RS.Bonus"}}</span>
-    <span class="item-detail item-leader-attribute">{{localize "PF1RS.Attribute"}}</span>
+    <span class="item-detail item-position">{{localize "PF1KS.Position"}}</span>
+    <span class="item-name">{{localize "PF1KS.FilledBy"}}</span>
+    <span class="item-detail item-leader-bonus">{{localize "PF1KS.Bonus"}}</span>
+    <span class="item-detail item-leader-attribute">{{localize "PF1KS.Attribute"}}</span>
   </li>
   {{#each officers}}
   <li class="flexrow item officer">

@@ -24,7 +24,7 @@ export class ImprovementSheet extends ItemSheet {
     const data = {
       ...item,
       isImprovement: true,
-      type: game.i18n.localize("PF1RS.Improvement"),
+      type: game.i18n.localize("PF1KS.Improvement"),
       enrichedDesc: await TextEditor.enrichHTML(item.system.description),
     };
 
