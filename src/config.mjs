@@ -13,6 +13,59 @@ export const kingdomStats = {
   stability: "PF1KS.Stability",
 };
 
+export const actionsPerTurn = {
+  0: {
+    fame: 1,
+    hexes: 1,
+    settlements: 1,
+    buildings: 1,
+    improvements: 2,
+  },
+  10: {
+    fame: 2,
+    hexes: 2,
+    settlements: 1,
+    buildings: 2,
+    improvements: 3,
+  },
+  25: {
+    fame: 3,
+    hexes: 3,
+    settlements: 1,
+    buildings: 5,
+    improvements: 5,
+  },
+  50: {
+    fame: 4,
+    hexes: 4,
+    settlements: 2,
+    buildings: 10,
+    improvements: 7,
+  },
+  100: {
+    fame: 5,
+    hexes: 8,
+    settlements: 3,
+    buildings: 20,
+    improvements: 9,
+  },
+  200: {
+    fame: 6,
+    hexes: 12,
+    settlements: 4,
+    buildings: Infinity,
+    improvements: 12,
+  },
+};
+
+export const actionsPerTurnLabels = {
+  fame: "PF1KS.Fame",
+  hexes: "PF1KS.HexClaims",
+  settlements: "PF1KS.SettlementsOrArmies",
+  buildings: "PF1KS.Buildings",
+  improvements: "PF1KS.TerrainImprovements",
+};
+
 export const kingdomGovernments = {
   aut: "PF1KS.Government.Autocracy",
   mag: "PF1KS.Government.Magocracy",

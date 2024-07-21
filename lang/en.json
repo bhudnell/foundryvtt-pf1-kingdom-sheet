@@ -4,6 +4,7 @@
     "Turn": "Turn",
     "Population": "Population",
     "Treasury": "Treasury",
+    "Size": "Size",
     "ControlDC": "Control DC",
     "KingdomStat": "Kingdom Stats",
     "Economy": "Economy",
@@ -67,6 +68,10 @@
       }
     },
 
+    "ActionsPerTurn": "Actions Per Turn",
+    "HexClaims": "Hex Claims",
+    "SettlementsOrArmies": " Settlements/Armies",
+
     "LeadershipLabel": "Leadership",
     "Leadership": {
       "Ruler": "Ruler",
@@ -88,6 +93,8 @@
     "FilledBy": "Filled By",
     "Bonus": "Bonus",
 
+    "Settlements": "Settlements",
+
     "Corruption": "Corruption",
     "Crime": "Crime",
     "Productivity": "Productivity",
@@ -95,7 +102,12 @@
     "Lore": "Lore",
     "Society": "Society",
 
-    "EventsLabel": "Events",
+    "Buildings": " Buildings",
+
+    "Terrain": "Terrain",
+    "TerrainImprovements": "Terrain Improvements",
+
+    "Events": "Events",
     "Event": "Event",
     "EventChance": "Event Chance",
     "EventChanceRoll": "Event Chance: {chance}%",

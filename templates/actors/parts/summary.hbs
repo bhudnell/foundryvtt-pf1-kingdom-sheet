@@ -6,6 +6,21 @@
       <h1>
         <input type="text" name="name" value="{{ name }}" data-dtype="String" />
       </h1>
+
+      <div class="labeledValue week flex0">
+        <span>{{localize "PF1KS.GovernmentLabel"}}</span>
+        <select name="system.government" data-dtype="String">
+          {{selectOptions governmentOptions selected=system.government blank=""}}
+        </select>
+      </div>
+
+      <div class="labeledValue week flex0">
+        <span>{{localize "PF1KS.AlignmentLabel"}}</span>
+        <select name="system.alignment" data-dtype="String">
+          {{selectOptions alignmentOptions selected=system.alignment blank=""}}
+        </select>
+      </div>
+
       <div class="labeledValue week flex0">
         <span>{{localize "PF1KS.Turn"}}</span>
         {{numberInput system.turn name="system.turn" step=1 min=0}}
@@ -13,15 +28,11 @@
     </div>
 
     <div class="details">
-      <span>{{localize "PF1KS.GovernmentLabel"}}:</span>
-      <select name="system.government" data-dtype="String">
-        {{selectOptions governmentOptions selected=system.government blank=""}}
-      </select>
+      <span>{{localize "PF1KS.ControlDC"}}:</span>
+      <span>{{ system.controlDC.total }}</span>
 
-      <span>{{localize "PF1KS.AlignmentLabel"}}:</span>
-      <select name="system.alignment" data-dtype="String">
-        {{selectOptions alignmentOptions selected=system.alignment blank=""}}
-      </select>
+      <span>{{localize "PF1KS.Size"}}:</span>
+      <span>{{ system.size }}</span>
 
       <span>{{localize "PF1KS.Population"}}:</span>
       <span>{{ system.population }}</span>
@@ -34,9 +45,6 @@
 
       <span>{{localize "PF1KS.Consumption"}}:</span>
       <span>{{ system.consumption.total }}</span>
-
-      <span>{{localize "PF1KS.ControlDC"}}:</span>
-      <span>{{ system.controlDC.total }}</span>
 
       <span>{{localize "PF1KS.Fame"}}:</span>
       <span>{{ system.fame.total }}</span>
@@ -70,6 +78,15 @@
     <select name="system.{{ label }}" data-dtype="String">
       {{selectOptions options selected=value blank=""}}
     </select>
+    {{/each}}
+  </div>
+</div>
+
+<div class="flex0">
+  <h3>{{localize "PF1KS.ActionsPerTurn"}}</h3>
+  <div class="flexcol">
+    {{#each perTurn}}
+    <span>{{localize @key}}: {{ this }}</span>
     {{/each}}
   </div>
 </div>

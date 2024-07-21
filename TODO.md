@@ -1,17 +1,7 @@
-- Various mappings
-
-  - Alignment -> Bonuses
-  - Edict -> Bonuses
-  - Settlement Size -> Bonuses
-  - Kingdom Size -> Fame/Infamy, Max Things Per Turn
-  - Government Type -> Bonuses
-
 - Kingdom Sheet
-
-  - Summary Tab
-    - Max Things Per Turn (sheet only)
-  - Leadership Tab
-    - Add Viceroy button
+  - Hook up guts
+    - Kingdom stats buttons
+    - Add/delete Viceroy buttons
   - Settlement Tab
     - Each settlement has a sub-tab
       - Name
@@ -23,15 +13,15 @@
       - Settlement Modifiers
       - Danger
       - Building List
-  - Terrain Improvement Tab
+  - Terrain Tab
     - Tile Types Owned
+    - Improvement list
   - Events Tab
   - Notes Tab
   - Config Tab?
     - toggle consort/second ruler (maybe on summary/leadership tab)
 
 - Terrain Improvement Sheet
-
   - Description Tab
     - Description
     - Cost
@@ -42,7 +32,6 @@
     - Type (standard vs special)
 
 - Building Sheet
-
   - Description Tab
     - Description (contains everything below as text)
     - Upgrade To

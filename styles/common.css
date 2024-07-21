@@ -91,7 +91,7 @@
     overflow-y: auto;
     list-style: none;
 
-    .officer {
+    .leader {
       padding-left: 2px;
     }
 
@@ -226,12 +226,8 @@
         flex: 0 0 80px;
       }
 
-      &.item-officer-bonus {
+      &.item-leader-bonus {
         flex: 0 0 100px;
-      }
-
-      &.item-teams-managed {
-        flex: 0 0 90px;
       }
 
       &.item-check {
@@ -255,6 +251,14 @@
         }
 
         .item-control {
+          flex: 0 0 16px;
+        }
+      }
+
+      &.leader-controls {
+        flex: 0 0 24px;
+
+        .leader-control {
           flex: 0 0 16px;
         }
       }

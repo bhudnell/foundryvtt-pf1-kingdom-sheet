@@ -7,7 +7,10 @@ import {
   kingdomGovernments,
   kingdomImprovementId,
   kingdomStats,
+  actionsPerTurnLabels,
+  actionsPerTurn,
 } from "../config.mjs";
+import { findLargestSmallerNumber, renameKeys } from "../utils.mjs";
 
 export class KingdomSheet extends ActorSheet {
   constructor(...args) {
@@ -135,6 +138,7 @@ export class KingdomSheet extends ActorSheet {
     // TODO unrest > 10 warning -> lose 1 hex a turn
     // TODO unrest > 19 error -> kingdom in anarchy
     // TODO any unrest increases such as from vacancies
+    // Base fame+infamy < expected
 
     // dropdowns
     data.alignmentOptions = Object.fromEntries(
@@ -157,15 +161,18 @@ export class KingdomSheet extends ActorSheet {
       abl.data = actorData[abl.id];
     }
 
-    // max things per turn
-    // TODO
+    // actions per turn
+    const sizeBonus = findLargestSmallerNumber(Object.keys(actionsPerTurn), actorData.size || 1);
+    const { fame, ...perTurnRaw } = actionsPerTurn[sizeBonus];
+    const perTurn = renameKeys(perTurnRaw, actionsPerTurnLabels);
+    data.perTurn = perTurn;
 
     // non-viceroy leadership
     for (const leader of data.leaders) {
       leader.actorId = actorData.leadership[leader.id].actorId;
       leader.name = actorData.leadership[leader.id].name;
       leader.bonus = actorData.leadership[leader.id].bonus;
-      leader.bonusType = actorData.leadership[leader.id].bonusTypes // TODO spymaster and ruler are dropdowns that can be changed
+      leader.bonusTypesLabel = actorData.leadership[leader.id].bonusTypes // TODO spymaster and ruler are dropdowns that can be changed
         .map((type) => game.i18n.localize(kingdomStats[type]))
         .join(", ");
     }
@@ -177,7 +184,8 @@ export class KingdomSheet extends ActorSheet {
         actorId: viceroy.actorId,
         name: viceroy.name,
         bonus: viceroy.bonus,
-        bonusType: viceroy.bonusTypes.map((type) => game.i18n.localize(kingdomStats[type])).join(", "),
+        bonusTypesLabel: viceroy.bonusTypes.map((type) => game.i18n.localize(kingdomStats[type])).join(", "),
+        bonusTypes: viceroy.bonusTypes,
       };
     });
 
