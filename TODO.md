@@ -5,14 +5,7 @@
   - Settlement Tab
     - Each settlement has a sub-tab
       - Name
-      - District Count
-      - Base Value
-      - Defense
-      - Population
-      - Size
-      - Settlement Modifiers
-      - Danger
-      - Building List
+      - Image?
   - Terrain Tab
     - Tile Types Owned
     - Improvement list

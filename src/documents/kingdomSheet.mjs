@@ -9,6 +9,7 @@ import {
   kingdomStats,
   actionsPerTurnLabels,
   actionsPerTurn,
+  settlementSizes,
 } from "../config.mjs";
 import { findLargestSmallerNumber, renameKeys } from "../utils.mjs";
 
@@ -30,6 +31,12 @@ export class KingdomSheet extends ActorSheet {
           contentSelector: "section.primary-body",
           initial: "summary",
           group: "primary",
+        },
+        {
+          navSelector: "nav.tabs[data-group='settlements']",
+          contentSelector: "section.settlements-body",
+          initial: "0",
+          group: "settlements",
         },
       ],
     };
@@ -215,9 +222,19 @@ export class KingdomSheet extends ActorSheet {
     return [];
   }
 
-  async _prepareSettlements() {
-    // TODO
-    return [];
+  _prepareSettlements() {
+    const settlements = [];
+    for (const settlement of this.actor.system.settlements) {
+      settlements.push({
+        ...settlement,
+        sizeLabel: game.i18n.localize(settlementSizes[settlement.size]),
+        buildings:
+          this.actor.itemTypes[kingdomBuildingId]?.filter(
+            (building) => building.system.settlementId === settlement.id
+          ) ?? [],
+      });
+    }
+    return settlements;
   }
 
   async _activateExtendedTooltip(event) {

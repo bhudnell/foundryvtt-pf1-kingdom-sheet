@@ -320,6 +320,17 @@ export const settlementModifiers = {
   society: "PF1KS.Society",
 };
 
+export const settlementSizes = {
+  thorp: "PF1KS.Settlement.Sizes.Thorp",
+  hamlet: "PF1KS.Settlement.Sizes.Hamlet",
+  village: "PF1KS.Settlement.Sizes.Village",
+  stown: "PF1KS.Settlement.Sizes.SmallTown",
+  ltown: "PF1KS.Settlement.Sizes.LargeTown",
+  scity: "PF1KS.Settlement.Sizes.SmallCity",
+  lcity: "PF1KS.Settlement.Sizes.LargeCity",
+  metro: "PF1KS.Settlement.Sizes.Metropolis",
+};
+
 export const settlementValues = {
   thorp: { modifiers: -4, danger: -10, maxBaseValue: 50 },
   hamlet: { modifiers: -2, danger: -5, maxBaseValue: 200 },
