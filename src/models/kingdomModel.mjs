@@ -144,11 +144,11 @@ export class KingdomModel extends foundry.abstract.TypeDataModel {
     this.changes = this._prepareChanges();
 
     // summary
-    this.size = Object.values(this.terrain).reduce((accum, curr) => accum + curr, 0);
+    this.size = Object.values(this.terrain).reduce((acc, curr) => acc + curr, 0);
     this.population =
-      250 * this.parent.itemTypes[kingdomBuildingId].reduce((accum, curr) => accum + curr.system.quantity, 0);
+      250 * this.parent.itemTypes[kingdomBuildingId].reduce((acc, curr) => acc + curr.system.quantity, 0);
 
-    const districts = this.settlements.reduce((accum, curr) => accum + curr.districtCount, 0);
+    const districts = this.settlements.reduce((acc, curr) => acc + curr.districtCount, 0);
 
     this.controlDC.size = this.size;
     this.controlDC.districts = districts;
@@ -200,8 +200,8 @@ export class KingdomModel extends foundry.abstract.TypeDataModel {
         (edictEffects.promotion[this.edicts.promotion]?.[stat] ?? 0) +
         (edictEffects.taxation[this.edicts.taxation]?.[stat] ?? 0);
       this[stat].leadership =
-        filled.reduce((accum, curr) => (curr.bonusTypes.includes(stat) ? curr.bonus : 0) + accum, 0) -
-        vacant.reduce((accum, curr) => (leadershipPenalties[curr.type][stat] ?? 0) + accum, 0);
+        filled.reduce((acc, curr) => (curr.bonusTypes.includes(stat) ? curr.bonus : 0) + acc, 0) -
+        vacant.reduce((acc, curr) => (leadershipPenalties[curr.type][stat] ?? 0) + acc, 0);
       this[stat].alignment = alignmentEffects[this.alignment]?.[stat] ?? 0;
       this[stat].unrest = this.unrest;
       this[stat].improvements = this._getChanges(stat, kingdomImprovementId);

@@ -4,7 +4,7 @@
     <a class="item" data-tab="summary" data-group="primary">{{localize "PF1KS.Summary"}}</a>
     <a class="item" data-tab="leadership" data-group="primary">{{localize "PF1KS.LeadershipLabel"}}</a>
     <a class="item" data-tab="settlements" data-group="primary">{{localize "PF1KS.Settlements"}}</a>
-    <a class="item" data-tab="improvements" data-group="primary">{{localize "PF1KS.Terrain"}}</a>
+    <a class="item" data-tab="terrain" data-group="primary">{{localize "PF1KS.TerrainLabel"}}</a>
     <a class="item" data-tab="events" data-group="primary">{{localize "PF1KS.Events"}}</a>
     <a class="item" data-tab="notes" data-group="primary">{{localize "PF1KS.Notes"}}</a>
   </nav>
@@ -24,6 +24,11 @@
     {{! Settlements Tab }}
     <div class="tab settlements flexcol" data-group="primary" data-tab="settlements">
       {{> kingdom-sheet-settlements}}
+    </div>
+
+    {{! Terrain Tab }}
+    <div class="tab terrain flexcol" data-group="primary" data-tab="terrain">
+      {{> kingdom-sheet-terrain}}
     </div>
 
     {{! Notes Tab }}

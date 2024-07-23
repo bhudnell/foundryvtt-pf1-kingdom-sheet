@@ -31,12 +31,7 @@
     }
 
     .details {
-      flex: 1;
-      display: grid;
       grid-template-columns: repeat(6, 1fr);
-      grid-template-rows: repeat(3, 1fr);
-      justify-items: center;
-      align-items: center;
     }
 
     .org-check {
@@ -55,18 +50,6 @@
     }
   }
 
-  .tab.settlements {
-    .details {
-      flex: 0;
-      display: grid;
-      grid-template-columns: repeat(6, 1fr);
-      grid-template-rows: repeat(3, 1fr);
-      gap: 8px;
-      justify-items: center;
-      align-items: center;
-    }
-  }
-
   .tab.events {
     .eventChance {
       display: grid;
@@ -75,6 +58,14 @@
       justify-items: center;
       align-items: center;
     }
+  }
+
+  .details {
+    display: grid;
+    grid-template-columns: repeat(8, 1fr);
+    gap: 8px;
+    justify-items: center;
+    align-items: center;
   }
 
   .item-list .item .expand-summary:hover {

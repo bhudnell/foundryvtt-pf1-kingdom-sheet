@@ -94,6 +94,22 @@
     "Bonus": "Bonus",
 
     "Settlements": "Settlements",
+    "Settlement": {
+      "Sizes": {
+        "Thorp": "Thorp",
+        "Hamlet": "Hanlet",
+        "Village": "Village",
+        "SmallTown": "Small Town",
+        "LargeTown": "Large Town",
+        "SmallCity": "Small City",
+        "LargeCity": "Large City",
+        "Metropolis": "Metropolis"
+      }
+    },
+    "DistrictCount": "District Count",
+    "BaseValue": "Base Value",
+    "Defense": "Defense",
+    "Danger": "Danger",
 
     "Corruption": "Corruption",
     "Crime": "Crime",
@@ -104,8 +120,27 @@
 
     "Buildings": " Buildings",
 
-    "Terrain": "Terrain",
-    "TerrainImprovements": "Terrain Improvements",
+    "TerrainLabel": "Terrain",
+    "Terrain": {
+      "Cavern": "Cavern",
+      "Coast": "Coast",
+      "Desert": "Desert",
+      "Forest": "Forest",
+      "Hills": "Hills",
+      "Jungle": "Jungle",
+      "Marsh": "Marsh",
+      "Mountains": "Mountains",
+      "Plains": "Plains",
+      "Water": "Water"
+    },
+
+    "Improvements": "Terrain Improvements",
+    "Improvement": {
+      "SubTypes": {
+        "General": "General",
+        "Special": "Special"
+      }
+    },
 
     "Events": "Events",
     "Event": "Event",

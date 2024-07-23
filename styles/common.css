@@ -24,6 +24,16 @@
     align-items: center;
   }
 
+  .flex-row > .flex0,
+  .flex-col > .flex0 {
+    flex: 0;
+  }
+
+  .flex-row > .flex1,
+  .flex-col > .flex1 {
+    flex: 1;
+  }
+
   .error {
     color: red;
   }

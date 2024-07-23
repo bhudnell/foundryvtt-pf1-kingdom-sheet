@@ -10,6 +10,7 @@ import {
   actionsPerTurnLabels,
   actionsPerTurn,
   settlementSizes,
+  terrainTypes,
 } from "../config.mjs";
 import { findLargestSmallerNumber, renameKeys } from "../utils.mjs";
 
@@ -205,6 +206,12 @@ export class KingdomSheet extends ActorSheet {
     // settlements
     data.settlements = this._prepareSettlements();
 
+    // terrain
+    data.terrain = Object.entries(actorData.terrain).reduce((acc, [key, value]) => {
+      acc[key] = { value, label: game.i18n.localize(terrainTypes[key]) };
+      return acc;
+    }, {});
+
     return data;
   }
 
@@ -212,14 +219,50 @@ export class KingdomSheet extends ActorSheet {
     super.activateListeners(html);
   }
 
-  async _prepareImprovements() {
-    // TODO
-    return [];
+  _prepareImprovements() {
+    const improvements = this.actor.itemTypes[kingdomImprovementId];
+    const general = {
+      label: game.i18n.localize("PF1KS.Improvement.SubTypes.General"),
+      subType: "general",
+      teams: [],
+    };
+    const special = {
+      label: game.i18n.localize("PF1KS.Improvement.SubTypes.Special"),
+      subType: "special",
+      teams: [],
+    };
+    improvements.forEach((improvement) => {
+      if (improvement.system.subType === general.subType) {
+        general.teams.push(improvement);
+      } else if (improvement.system.subType === special.subType) {
+        special.teams.push(improvement);
+      }
+    });
+
+    return [general, special];
   }
 
-  async _prepareEvents() {
-    // TODO
-    return [];
+  _prepareEvents() {
+    const events = this.actor.itemTypes[kingdomEventId];
+    const active = {
+      label: game.i18n.localize("PF1KS.Events.SubTypes.Active"),
+      subType: "active",
+      events: [],
+    };
+    const misc = {
+      label: game.i18n.localize("PF1KS.Events.SubTypes.Misc"),
+      subType: "misc",
+      events: [],
+    };
+    events.forEach((event) => {
+      if (event.system.subType === active.subType) {
+        active.events.push(event);
+      } else if (event.system.subType === misc.subType) {
+        misc.events.push(event);
+      }
+    });
+
+    return [active, misc];
   }
 
   _prepareSettlements() {

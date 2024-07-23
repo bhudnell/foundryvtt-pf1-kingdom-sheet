@@ -63,7 +63,7 @@ export const actionsPerTurnLabels = {
   hexes: "PF1KS.HexClaims",
   settlements: "PF1KS.SettlementsOrArmies",
   buildings: "PF1KS.Buildings",
-  improvements: "PF1KS.TerrainImprovements",
+  improvements: "PF1KS.Improvements",
 };
 
 export const kingdomGovernments = {
@@ -340,6 +340,19 @@ export const settlementValues = {
   scity: { modifiers: 1, danger: 5, maxBaseValue: 4000 },
   lcity: { modifiers: 2, danger: 10, maxBaseValue: 8000 },
   metro: { modifiers: 4, danger: 10, maxBaseValue: 16000 },
+};
+
+export const terrainTypes = {
+  cavern: "PF1KS.Terrain.Cavern",
+  coast: "PF1KS.Terrain.Coast",
+  desert: "PF1KS.Terrain.Desert",
+  forest: "PF1KS.Terrain.Forest",
+  hills: "PF1KS.Terrain.Hills",
+  jungle: "PF1KS.Terrain.Jungle",
+  marsh: "PF1KS.Terrain.Marsh",
+  mountains: "PF1KS.Terrain.Mountains",
+  plains: "PF1KS.Terrain.Plains",
+  water: "PF1KS.Terrain.Water",
 };
 
 export const miscChangeTargets = {
