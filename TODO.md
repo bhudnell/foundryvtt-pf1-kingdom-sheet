@@ -19,7 +19,7 @@
     - Acceptable Terrains
   - Details Tab
     - Changes
-    - Quantity
+    - Quantity (called amount to avoid conflict w/ pf1)
     - Type (standard vs special)
 
 - Building Sheet
@@ -30,7 +30,7 @@
     - Special
     - Magic Items
   - Details Tab
-    - Quantity
+    - Quantity (called amount to avoid conflict w/ pf1)
     - Changes
     - Type (House, Foundry, Castle, etc)
     - Lot Size

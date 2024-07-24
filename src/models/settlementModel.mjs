@@ -1,16 +1,16 @@
 import { kingdomBuildingId, kingdomEventId, settlementModifiers, settlementValues } from "../config.mjs";
 
 export class SettlementModel extends foundry.abstract.DataModel {
-  _initialize(...args) {
-    super._initialize(...args);
-
-    this.id = foundry.utils.randomID();
-  }
-
   static defineSchema() {
     const fields = foundry.data.fields;
 
     return {
+      id: new fields.StringField({
+        blank: false,
+        initial: () => foundry.utils.randomID(),
+        required: true,
+        readonly: true,
+      }),
       name: new fields.StringField({ blank: true }),
       districtCount: new fields.NumberField({ integer: true, min: 0, initial: 1, nullable: false }),
     };

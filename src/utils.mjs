@@ -1,3 +1,5 @@
+import { kingdomStats, miscChangeTargets, settlementModifiers } from "./config.mjs";
+
 export function findLargestSmallerNumber(arr, num) {
   return arr
     .filter((value) => value < num) // Filter out numbers larger than or equal to the target
@@ -12,4 +14,24 @@ export function renameKeys(obj, keyMap) {
     acc[newKey] = obj[key];
     return acc;
   }, {});
+}
+
+export function getChangeCategories() {
+  return [
+    {
+      key: "stats",
+      label: game.i18n.localize("PF1KS.KingdomStat"),
+      items: Object.entries(kingdomStats).map(([key, label]) => ({ key, label: game.i18n.localize(label) })),
+    },
+    {
+      key: "modifiers",
+      label: game.i18n.localize("PF1KS.SettlementModifiers"),
+      items: Object.entries(settlementModifiers).map(([key, label]) => ({ key, label: game.i18n.localize(label) })),
+    },
+    {
+      key: "misc",
+      label: game.i18n.localize("PF1KS.Misc"),
+      items: Object.entries(miscChangeTargets).map(([key, label]) => ({ key, label: game.i18n.localize(label) })),
+    },
+  ];
 }

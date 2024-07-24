@@ -1,3 +1,13 @@
+<div class="flex0 flexrow">
+  <div>
+    <span>{{localize "PF1KS.Quantity"}}:</span>
+    {{numberInput system.amount name="system.amount" step=1 min=0}}
+  </div>
+  <select class="sub-type-selector" name="system.subType">
+    {{selectOptions subTypeChoices selected=system.subType}}
+  </select>
+</div>
+
 <ol class="item-list">
   <li class="flexrow item-list-header">
     <span class="item-name item-formula">{{localize "PF1KS.Change"}}</span>
@@ -14,7 +24,7 @@
       <input type="number" value="{{ bonus }}" name="system.changes.{{ idx }}.bonus" step="1" placeholder="Formula" />
     </div>
     <div class="item-detail item-target">
-      <span class="target-change">{{ abilityLabel }}</span>
+      <span class="target-change">{{ targetLabel }}</span>
     </div>
     <div class="item-detail item-controls basic">
       <a class="item-control delete-change">
@@ -22,7 +32,7 @@
       </a>
     </div>
     <input type="hidden" value="{{ id }}" name="system.changes.{{ idx }}.id" />
-    <input type="hidden" value="{{ ability }}" name="system.changes.{{ idx }}.ability" />
+    <input type="hidden" value="{{ target }}" name="system.changes.{{ idx }}.target" />
   </li>
   {{/each}}
 </ol>

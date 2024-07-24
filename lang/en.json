@@ -106,6 +106,7 @@
         "Metropolis": "Metropolis"
       }
     },
+    "SettlementModifiers": "Settlement Modifiers",
     "DistrictCount": "District Count",
     "BaseValue": "Base Value",
     "Defense": "Defense",
@@ -135,6 +136,7 @@
     },
 
     "Improvements": "Terrain Improvements",
+    "ImprovementLabel": "Terrain Improvement",
     "Improvement": {
       "SubTypes": {
         "General": "General",
@@ -157,6 +159,10 @@
     "EventOccurred": "Event Occurred",
 
     "Notes": "Notes",
+
+    "Description": "Description",
+    "Details": "Details",
+    "Quantity": "Quantity",
 
     "Change": "Change",
     "Misc": "Miscellaneous",

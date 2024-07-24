@@ -355,6 +355,16 @@ export const terrainTypes = {
   water: "PF1KS.Terrain.Water",
 };
 
+export const eventSubTypes = {
+  active: "PF1KS.Event.SubTypes.Active",
+  misc: "PF1KS.Event.SubTypes.Misc",
+};
+
+export const improvementSubTypes = {
+  general: "PF1KS.Improvement.SubTypes.General",
+  special: "PF1KS.Improvement.SubTypes.Special",
+};
+
 export const miscChangeTargets = {
   consumption: "PF1KS.Consumption",
   bonusBP: "PF1KS.BonusBP",

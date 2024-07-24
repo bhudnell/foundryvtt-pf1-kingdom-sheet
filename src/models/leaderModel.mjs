@@ -6,18 +6,24 @@ export function defineLeader(type, bonusType) {
       super._initialize(...args);
 
       this.type = type;
-      this.id = foundry.utils.randomID();
-      this.bonusTypes = bonusType ? [bonusType] : [];
+      if (bonusType) {
+        this.bonusTypes = [bonusType];
+      }
     }
 
     static defineSchema() {
       const fields = foundry.data.fields;
 
       return {
+        id: new fields.StringField({
+          blank: false,
+          initial: () => foundry.utils.randomID(),
+          required: true,
+          readonly: true,
+        }),
         actorId: new fields.ForeignDocumentField(pf1.documents.actor.ActorPF, { idOnly: true }),
         bonusTypes: new fields.ArrayField(
-          new fields.StringField({ blank: true, choices: [Object.keys(kingdomStats)] }),
-          { initial: [] }
+          new fields.StringField({ blank: true, choices: [Object.keys(kingdomStats)] })
         ),
       };
     }

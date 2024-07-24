@@ -1,7 +1,17 @@
+import { improvementSubTypes } from "../config.mjs";
+
+import { ChangeModel } from "./changeModel.mjs";
+
 export class ImprovementModel extends foundry.abstract.TypeDataModel {
   static defineSchema() {
     const fields = foundry.data.fields;
-    return {};
+
+    return {
+      description: new fields.HTMLField(),
+      subType: new fields.StringField({ initial: "general", choices: Object.keys(improvementSubTypes) }),
+      amount: new fields.NumberField({ integer: true, min: 0, initial: 1, nullable: false }),
+      changes: new fields.ArrayField(new fields.EmbeddedDataField(ChangeModel)),
+    };
   }
 
   prepareDerivedData() {}

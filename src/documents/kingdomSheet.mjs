@@ -227,18 +227,19 @@ export class KingdomSheet extends ActorSheet {
     const general = {
       label: game.i18n.localize("PF1KS.Improvement.SubTypes.General"),
       subType: "general",
-      teams: [],
+      improvements: [],
     };
     const special = {
       label: game.i18n.localize("PF1KS.Improvement.SubTypes.Special"),
       subType: "special",
-      teams: [],
+      improvements: [],
     };
     improvements.forEach((improvement) => {
+      console.log(improvement);
       if (improvement.system.subType === general.subType) {
-        general.teams.push(improvement);
+        general.improvements.push(improvement);
       } else if (improvement.system.subType === special.subType) {
-        special.teams.push(improvement);
+        special.improvements.push(improvement);
       }
     });
 

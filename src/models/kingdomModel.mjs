@@ -43,16 +43,14 @@ export class KingdomModel extends foundry.abstract.TypeDataModel {
         spymaster: new fields.EmbeddedDataField(defineLeader("spymaster")),
         treasurer: new fields.EmbeddedDataField(defineLeader("treasurer", "economy")),
         warden: new fields.EmbeddedDataField(defineLeader("warden", "loyalty")),
-        viceroys: new fields.ArrayField(new fields.EmbeddedDataField(defineLeader("viceroy", "economy")), {
-          initial: [],
-        }),
+        viceroys: new fields.ArrayField(new fields.EmbeddedDataField(defineLeader("viceroy", "economy"))),
       }),
       edicts: new fields.SchemaField({
         holiday: new fields.StringField({ blank: true, choices: Object.keys(edicts.holiday) }),
         promotion: new fields.StringField({ blank: true, choices: Object.keys(edicts.promotion) }),
         taxation: new fields.StringField({ blank: true, choices: Object.keys(edicts.taxation) }),
       }),
-      settlements: new fields.ArrayField(new fields.EmbeddedDataField(SettlementModel), { initial: [] }),
+      settlements: new fields.ArrayField(new fields.EmbeddedDataField(SettlementModel)),
       terrain: new fields.SchemaField({
         cavern: new fields.NumberField({ integer: true, initial: 0, nullable: false }),
         coast: new fields.NumberField({ integer: true, initial: 0, nullable: false }),
@@ -145,8 +143,7 @@ export class KingdomModel extends foundry.abstract.TypeDataModel {
 
     // summary
     this.size = Object.values(this.terrain).reduce((acc, curr) => acc + curr, 0);
-    this.population =
-      250 * this.parent.itemTypes[kingdomBuildingId].reduce((acc, curr) => acc + curr.system.quantity, 0);
+    this.population = 250 * this.parent.itemTypes[kingdomBuildingId].reduce((acc, curr) => acc + curr.system.amount, 0);
 
     const districts = this.settlements.reduce((acc, curr) => acc + curr.districtCount, 0);
 
@@ -228,6 +225,7 @@ export class KingdomModel extends foundry.abstract.TypeDataModel {
           parentId: i.id,
           parentName: i.name,
           parentType: i.type,
+          parentAmount: i.system.amount,
         }))
       );
     }
@@ -253,6 +251,6 @@ export class KingdomModel extends foundry.abstract.TypeDataModel {
         }
         return true;
       })
-      .reduce((total, c) => total + c.bonus, 0);
+      .reduce((total, c) => total + c.bonus * (c.parentAmount ?? 1), 0);
   }
 }
