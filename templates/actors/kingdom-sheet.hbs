@@ -31,6 +31,11 @@
       {{> kingdom-sheet-terrain}}
     </div>
 
+    {{! Events Tab }}
+    <div class="tab events flexcol" data-group="primary" data-tab="events">
+      {{> kingdom-sheet-events}}
+    </div>
+
     {{! Notes Tab }}
     <div class="tab notes flexcol" data-group="primary" data-tab="notes">
       {{editor enrichedNotes target="system.notes" button=true editable=editable engine="prosemirror"}}

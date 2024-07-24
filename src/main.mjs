@@ -69,6 +69,7 @@ Hooks.once("ready", () => {
     "kingdom-sheet-leadership": `modules/${CFG.id}/templates/actors/parts/leadership.hbs`,
     "kingdom-sheet-settlements": `modules/${CFG.id}/templates/actors/parts/settlements.hbs`,
     "kingdom-sheet-terrain": `modules/${CFG.id}/templates/actors/parts/terrain.hbs`,
+    "kingdom-sheet-events": `modules/${CFG.id}/templates/actors/parts/events.hbs`,
     "tooltip-content": `modules/${CFG.id}/templates/actors/parts/tooltip-content.hbs`,
     "item-sheet-building": `modules/${CFG.id}/templates/items/parts/building-details.hbs`,
     "item-sheet-event": `modules/${CFG.id}/templates/items/parts/event-details.hbs`,

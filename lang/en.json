@@ -143,7 +143,13 @@
     },
 
     "Events": "Events",
-    "Event": "Event",
+    "EventLabel": "Event",
+    "Event": {
+      "SubTypes": {
+        "Active": "Active",
+        "Misc": "Miscellaneous"
+      }
+    },
     "EventChance": "Event Chance",
     "EventChanceRoll": "Event Chance: {chance}%",
     "RollEvent": "Roll Event",

@@ -24,7 +24,7 @@ export class EventSheet extends ItemSheet {
     const data = {
       ...item,
       isEvent: true,
-      type: game.i18n.localize("PF1KS.Event"),
+      type: game.i18n.localize("PF1KS.EventLabel"),
       enrichedDesc: await TextEditor.enrichHTML(item.system.description),
     };
 

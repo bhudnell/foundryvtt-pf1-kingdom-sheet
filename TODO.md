@@ -2,15 +2,13 @@
   - Hook up guts
     - Kingdom stats buttons
     - Add/delete Viceroy buttons
+    - Create/delete items
+  - Summary Tab
+    - Change Infinity to infinity symbol
   - Settlement Tab
     - Each settlement has a sub-tab
       - Name
       - Image?
-  - Terrain Tab
-    - Tile Types Owned
-    - Improvement list
-  - Events Tab
-  - Notes Tab
   - Config Tab?
     - toggle consort/second ruler (maybe on summary/leadership tab)
 
@@ -51,3 +49,7 @@
       - if settlement, settlement id
     - Change
     - Continuous?
+
+
+- Misc
+  - Clean up en.json

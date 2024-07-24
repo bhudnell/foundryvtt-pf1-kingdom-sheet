@@ -170,7 +170,10 @@ export class KingdomSheet extends ActorSheet {
     }
 
     // actions per turn
-    const sizeBonus = findLargestSmallerNumber(Object.keys(actionsPerTurn), actorData.size || 1);
+    const sizeBonus = findLargestSmallerNumber(
+      Object.keys(actionsPerTurn).map((k) => Number(k)),
+      actorData.size || 1
+    );
     const { fame, ...perTurnRaw } = actionsPerTurn[sizeBonus];
     const perTurn = renameKeys(perTurnRaw, actionsPerTurnLabels);
     data.perTurn = perTurn;
@@ -245,12 +248,12 @@ export class KingdomSheet extends ActorSheet {
   _prepareEvents() {
     const events = this.actor.itemTypes[kingdomEventId];
     const active = {
-      label: game.i18n.localize("PF1KS.Events.SubTypes.Active"),
+      label: game.i18n.localize("PF1KS.Event.SubTypes.Active"),
       subType: "active",
       events: [],
     };
     const misc = {
-      label: game.i18n.localize("PF1KS.Events.SubTypes.Misc"),
+      label: game.i18n.localize("PF1KS.Event.SubTypes.Misc"),
       subType: "misc",
       events: [],
     };
