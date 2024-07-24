@@ -11,6 +11,7 @@ import {
   actionsPerTurn,
   settlementSizes,
   terrainTypes,
+  itemSubTypes,
 } from "../config.mjs";
 import { findLargestSmallerNumber, renameKeys } from "../utils.mjs";
 
@@ -220,6 +221,10 @@ export class KingdomSheet extends ActorSheet {
 
   activateListeners(html) {
     super.activateListeners(html);
+
+    html.find(".item-delete").on("click", (e) => this._onItemDelete(e));
+    html.find(".item-edit").on("click", (e) => this._onItemEdit(e));
+    html.find(".item-create").on("click", (e) => this._onItemCreate(e));
   }
 
   _prepareImprovements() {
@@ -235,7 +240,6 @@ export class KingdomSheet extends ActorSheet {
       improvements: [],
     };
     improvements.forEach((improvement) => {
-      console.log(improvement);
       if (improvement.system.subType === general.subType) {
         general.improvements.push(improvement);
       } else if (improvement.system.subType === special.subType) {
@@ -282,6 +286,65 @@ export class KingdomSheet extends ActorSheet {
       });
     }
     return settlements;
+  }
+
+  async _onItemDelete(event) {
+    event.preventDefault();
+
+    const button = event.currentTarget;
+    if (button.disabled) {
+      return;
+    }
+
+    const itemId = event.currentTarget.closest(".item").dataset.id;
+    const item = this.actor.items.get(itemId);
+
+    button.disabled = true;
+
+    const msg = `<p>${game.i18n.localize("PF1.DeleteItemConfirmation")}</p>`;
+    try {
+      await Dialog.confirm({
+        title: game.i18n.format("PF1.DeleteItemTitle", { name: item.name }),
+        content: msg,
+        yes: () => {
+          item.delete();
+          button.disabled = false;
+        },
+        no: () => (button.disabled = false),
+        rejectClose: true,
+      });
+    } catch (e) {
+      button.disabled = false;
+    }
+  }
+
+  async _onItemEdit(event) {
+    event.preventDefault();
+    const itemId = event.currentTarget.closest(".item").dataset.id;
+    const item = this.document.items.get(itemId);
+
+    item.sheet.render(true, { focus: true });
+  }
+
+  async _onItemCreate(event) {
+    event.preventDefault();
+    const header = event.currentTarget;
+
+    const type = header.dataset.type;
+    const subType = header.dataset.subType;
+    const typeName =
+      (itemSubTypes[subType] ? `${game.i18n.localize(itemSubTypes[subType])} ` : "") +
+      game.i18n.localize(CONFIG.Item.typeLabels[type] || type);
+
+    const itemData = {
+      name: game.i18n.format("PF1.NewItem", { type: typeName }),
+      type,
+      system: { subType },
+    };
+
+    const newItem = new Item(itemData);
+
+    return this.actor.createEmbeddedDocuments("Item", [newItem.toObject()], { renderSheet: true });
   }
 
   async _activateExtendedTooltip(event) {

@@ -68,36 +68,18 @@ export class KingdomModel extends foundry.abstract.TypeDataModel {
   }
 
   prepareBaseData() {
-    this.economy = {
-      buildings: 0,
-      edicts: 0,
-      leadership: 0,
-      alignment: 0,
-      unrest: 0,
-      improvements: 0,
-      events: 0,
-      total: 0,
-    };
-    this.loyalty = {
-      buildings: 0,
-      edicts: 0,
-      leadership: 0,
-      alignment: 0,
-      unrest: 0,
-      improvements: 0,
-      events: 0,
-      total: 0,
-    };
-    this.stability = {
-      buildings: 0,
-      edicts: 0,
-      leadership: 0,
-      alignment: 0,
-      unrest: 0,
-      improvements: 0,
-      events: 0,
-      total: 0,
-    };
+    for (const stat of Object.keys(kingdomStats)) {
+      this[stat] = {
+        alignment: 0,
+        edicts: 0,
+        leadership: 0,
+        unrest: 0,
+        buildings: 0,
+        improvements: 0,
+        events: 0,
+        total: 0,
+      };
+    }
 
     this.controlDC = {
       base: 20,
@@ -109,9 +91,9 @@ export class KingdomModel extends foundry.abstract.TypeDataModel {
     this.consumption = {
       size: 0,
       districts: 0,
+      buildings: 0,
       improvements: 0,
       edicts: 0,
-      buildings: 0,
       total: 0,
     };
 
@@ -120,6 +102,7 @@ export class KingdomModel extends foundry.abstract.TypeDataModel {
       lore: 0,
       society: 0,
       buildings: 0,
+      improvements: 0,
       events: 0,
       total: 0,
     };
@@ -129,6 +112,7 @@ export class KingdomModel extends foundry.abstract.TypeDataModel {
       corruption: 0,
       crime: 0,
       buildings: 0,
+      improvements: 0,
       events: 0,
       total: 0,
     };
@@ -168,12 +152,14 @@ export class KingdomModel extends foundry.abstract.TypeDataModel {
     this.fame.lore = Math.floor(this._getChanges("lore") / 10);
     this.fame.society = Math.floor(this._getChanges("society") / 10);
     this.fame.buildings = this._getChanges("fame", kingdomBuildingId);
+    this.fame.improvements = this._getChanges("fame", kingdomImprovementId);
     this.fame.events = this._getChanges("fame", kingdomEventId);
     this.fame.total = this.fame.lore + this.fame.society + this.fame.base + this.fame.buildings + this.fame.events;
 
     this.infamy.corruption = Math.floor(this._getChanges("corruption") / 10);
     this.infamy.crime = Math.floor(this._getChanges("crime") / 10);
     this.infamy.buildings = this._getChanges("infamy", kingdomBuildingId);
+    this.infamy.improvements = this._getChanges("infamy", kingdomImprovementId);
     this.infamy.events = this._getChanges("infamy", kingdomEventId);
     this.infamy.total =
       this.infamy.corruption + this.infamy.crime + this.infamy.base + this.infamy.buildings + this.infamy.events;
@@ -222,6 +208,7 @@ export class KingdomModel extends foundry.abstract.TypeDataModel {
       changes.push(
         ...i.system.changes.map((c) => ({
           ...c,
+          id: c.id,
           parentId: i.id,
           parentName: i.name,
           parentType: i.type,
@@ -240,10 +227,10 @@ export class KingdomModel extends foundry.abstract.TypeDataModel {
     return c;
   }
 
-  _getChanges(ability, type) {
+  _getChanges(target, type) {
     return this.changes
       .filter((c) => {
-        if (c.ability !== ability) {
+        if (c.target !== target) {
           return false;
         }
         if (type && c.parentType !== type) {

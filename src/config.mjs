@@ -365,6 +365,11 @@ export const improvementSubTypes = {
   special: "PF1KS.Improvement.SubTypes.Special",
 };
 
+export const itemSubTypes = {
+  ...eventSubTypes,
+  ...improvementSubTypes,
+};
+
 export const miscChangeTargets = {
   consumption: "PF1KS.Consumption",
   bonusBP: "PF1KS.BonusBP",

@@ -175,9 +175,9 @@
 
     "Sheet": {
       "Kingdom": "Kingdom Sheet",
-      "Event": "Kingdom Event",
-      "Building": "Kingdom Building",
-      "Improvement": "Kingdom Terrain Improvement"
+      "Event": "Event",
+      "Building": "Building",
+      "Improvement": "Terrain Improvement"
     }
   },
   "TYPES": {
@@ -188,9 +188,9 @@
     },
     "Item": {
       "pf1-kingdom-sheet": {
-        "event": "Kingdom Event",
-        "building": "Kingdom Building",
-        "improvement": "Kingdom Terrain Improvement"
+        "event": "Event",
+        "building": "Building",
+        "improvement": "Terrain Improvement"
       }
     }
   }

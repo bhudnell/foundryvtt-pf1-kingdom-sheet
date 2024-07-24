@@ -2,7 +2,6 @@
   - Hook up guts
     - Kingdom stats buttons
     - Add/delete Viceroy buttons
-    - Create/delete items
   - Summary Tab
     - Change Infinity to infinity symbol
   - Settlement Tab
