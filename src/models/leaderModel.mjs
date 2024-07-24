@@ -21,7 +21,7 @@ export function defineLeader(type, bonusType) {
           required: true,
           readonly: true,
         }),
-        actorId: new fields.ForeignDocumentField(pf1.documents.actor.ActorPF, { idOnly: true }),
+        actor: new fields.ForeignDocumentField(pf1.documents.actor.ActorPF),
         bonusTypes: new fields.ArrayField(
           new fields.StringField({ blank: true, choices: [Object.keys(kingdomStats)] })
         ),
@@ -29,53 +29,48 @@ export function defineLeader(type, bonusType) {
     }
 
     get name() {
-      const leader = game.actors.get(this.actorId);
-
-      if (!leader) {
-        return undefined;
-      }
-
-      return leader.name;
+      return this.actor?.name ?? undefined;
     }
 
     get bonus() {
-      const leader = game.actors.get(this.actorId);
-
-      if (!leader) {
+      if (!this.actor) {
         return 0;
       }
 
-      const leadershipBonus = leader.itemTypes.feat.some((i) => i.name === "Leadership" && i.system.subType === "feat")
+      const leadershipBonus = this.actor.itemTypes.feat.some(
+        (i) => i.name === "Leadership" && i.system.subType === "feat"
+      )
         ? 1
         : 0;
 
       switch (this.type) {
         case "ruler":
-          return leader.system.abilities.cha.mod + leadershipBonus;
+          return this.actor.system.abilities.cha.mod + leadershipBonus;
         case "consort":
         case "heir":
-          return Math.floor(leader.system.abilities.cha.mod / 2) + leadershipBonus;
+          return Math.floor(this.actor.system.abilities.cha.mod / 2) + leadershipBonus;
         case "councilor":
         case "priest":
-          return Math.max(leader.system.abilities.cha.mod, leader.system.abilities.wis.mod) + leadershipBonus;
+          return Math.max(this.actor.system.abilities.cha.mod, this.actor.system.abilities.wis.mod) + leadershipBonus;
         case "general":
-          return Math.max(leader.system.abilities.cha.mod, leader.system.abilities.str.mod) + leadershipBonus;
+          return Math.max(this.actor.system.abilities.cha.mod, this.actor.system.abilities.str.mod) + leadershipBonus;
         case "diplomat":
         case "magister":
-          return Math.max(leader.system.abilities.cha.mod, leader.system.abilities.int.mod) + leadershipBonus;
+          return Math.max(this.actor.system.abilities.cha.mod, this.actor.system.abilities.int.mod) + leadershipBonus;
         case "marshal":
-          return Math.max(leader.system.abilities.dex.mod, leader.system.abilities.wis.mod) + leadershipBonus;
+          return Math.max(this.actor.system.abilities.dex.mod, this.actor.system.abilities.wis.mod) + leadershipBonus;
         case "enforcer":
-          return Math.max(leader.system.abilities.dex.mod, leader.system.abilities.str.mod) + leadershipBonus;
+          return Math.max(this.actor.system.abilities.dex.mod, this.actor.system.abilities.str.mod) + leadershipBonus;
         case "spymaster":
-          return Math.max(leader.system.abilities.dex.mod, leader.system.abilities.int.mod) + leadershipBonus;
+          return Math.max(this.actor.system.abilities.dex.mod, this.actor.system.abilities.int.mod) + leadershipBonus;
         case "treasurer":
-          return Math.max(leader.system.abilities.int.mod, leader.system.abilities.wis.mod) + leadershipBonus;
+          return Math.max(this.actor.system.abilities.int.mod, this.actor.system.abilities.wis.mod) + leadershipBonus;
         case "warden":
-          return Math.max(leader.system.abilities.con.mod, leader.system.abilities.str.mod) + leadershipBonus;
+          return Math.max(this.actor.system.abilities.con.mod, this.actor.system.abilities.str.mod) + leadershipBonus;
         case "viceroy":
           return (
-            Math.floor(Math.max(leader.system.abilities.int.mod, leader.system.abilities.wis.mod) / 2) + leadershipBonus
+            Math.floor(Math.max(this.actor.system.abilities.int.mod, this.actor.system.abilities.wis.mod) / 2) +
+            leadershipBonus
           );
         default:
           return 0;
@@ -83,7 +78,7 @@ export function defineLeader(type, bonusType) {
     }
 
     get vacant() {
-      return !this.actorId;
+      return !this.actor;
     }
   };
 }

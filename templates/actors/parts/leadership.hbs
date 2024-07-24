@@ -13,7 +13,7 @@
   {{#each leaders}}
   <li class="flexrow item leader">
     <span class="item-detail item-position">{{ label }}</span>
-    <select class="item-name" name="system.leadership.{{ id }}.actorId">
+    <select class="item-name" name="system.leadership.{{ id }}.actor">
       {{selectOptions @root.validLeadershipChoices selected=actorId}}
     </select>
     <span class="item-detail item-leader-bonus">+ {{ bonus }} {{ bonusTypesLabel }}</span>
@@ -24,7 +24,7 @@
   {{#each viceroys as |viceroy idx|}}
   <li class="flexrow item leader" data-id="{{ id }}">
     <span class="item-detail item-position">{{ label }}</span>
-    <select class="item-name" name="system.leadership.viecroys.{{ idx }}.actorId">
+    <select class="item-name" name="system.leadership.viecroys.{{ idx }}.actor">
       {{selectOptions @root.validLeadershipChoices selected=actorId}}
     </select>
     <span class="item-detail item-leader-bonus">+ {{ bonus }} {{ bonusTypesLabel }}</span>

@@ -45,6 +45,9 @@ export class KingdomSheet extends ActorSheet {
   }
 
   async getData() {
+    // needed to make sure the leadership actor links are updated
+    this.actor.prepareData();
+
     const actor = this.actor;
     const actorData = actor.system;
 
@@ -181,7 +184,7 @@ export class KingdomSheet extends ActorSheet {
 
     // non-viceroy leadership
     for (const leader of data.leaders) {
-      leader.actorId = actorData.leadership[leader.id].actorId;
+      leader.actorId = actorData.leadership[leader.id].actor?._id;
       leader.name = actorData.leadership[leader.id].name;
       leader.bonus = actorData.leadership[leader.id].bonus;
       leader.bonusTypesLabel = actorData.leadership[leader.id].bonusTypes // TODO spymaster and ruler are dropdowns that can be changed
@@ -193,7 +196,7 @@ export class KingdomSheet extends ActorSheet {
       return {
         id: viceroy.id,
         label: game.i18n.localize("PF1KS.Leadership.Viceroy"),
-        actorId: viceroy.actorId,
+        actorId: viceroy.actor?._id,
         name: viceroy.name,
         bonus: viceroy.bonus,
         bonusTypesLabel: viceroy.bonusTypes.map((type) => game.i18n.localize(kingdomStats[type])).join(", "),
