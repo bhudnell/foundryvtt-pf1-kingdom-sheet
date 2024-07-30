@@ -89,7 +89,11 @@
 
   "compatibility": {
     "minimum": "11",
-    "verified": "11.315"
+    "verified": "11.315",
+    "maximum": "11"
+  },
+  "relationships": {
+    "systems": [{ "id": "pf1", "compatibility": { "minimum": "9", "verified": "9.6", "maximum": "9" } }]
   },
 
   "license": "LICENSE",
