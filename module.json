@@ -93,7 +93,16 @@
     "maximum": "11"
   },
   "relationships": {
-    "systems": [{ "id": "pf1", "compatibility": { "minimum": "9", "verified": "9.6", "maximum": "9" } }]
+    "systems": [
+      {
+        "id": "pf1",
+        "type": "system",
+        "compatibility": {
+          "minimum": "9",
+          "verified": "10.4"
+        }
+      }
+    ]
   },
 
   "license": "LICENSE",
