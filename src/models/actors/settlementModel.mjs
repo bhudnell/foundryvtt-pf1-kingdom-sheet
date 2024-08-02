@@ -1,4 +1,4 @@
-import { kingdomBuildingId, kingdomEventId, settlementModifiers, settlementValues } from "../config.mjs";
+import { kingdomBuildingId, kingdomEventId, settlementModifiers, settlementValues } from "../../config.mjs";
 
 export class SettlementModel extends foundry.abstract.DataModel {
   static defineSchema() {

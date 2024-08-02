@@ -25,8 +25,4 @@ export class ImprovementSheet extends ItemBaseSheet {
 
     return data;
   }
-
-  activateListeners(html) {
-    super.activateListeners(html);
-  }
 }

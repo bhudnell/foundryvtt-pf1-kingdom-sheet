@@ -9,7 +9,7 @@ import {
   kingdomImprovementId,
   kingdomStats,
   leadershipPenalties,
-} from "../config.mjs";
+} from "../../config.mjs";
 
 import { defineLeader } from "./leaderModel.mjs";
 import { SettlementModel } from "./settlementModel.mjs";

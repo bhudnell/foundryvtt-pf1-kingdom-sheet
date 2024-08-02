@@ -3,10 +3,10 @@ import { KingdomSheet } from "./documents/actors/kingdomSheet.mjs";
 import { BuildingSheet } from "./documents/items/buildingSheet.mjs";
 import { EventSheet } from "./documents/items/eventSheet.mjs";
 import { ImprovementSheet } from "./documents/items/improvementSheet.mjs";
-import { BuildingModel } from "./models/buildingModel.mjs";
-import { EventModel } from "./models/eventModel.mjs";
-import { ImprovementModel } from "./models/improvementModel.mjs";
-import { KingdomModel } from "./models/kingdomModel.mjs";
+import { KingdomModel } from "./models/actors/kingdomModel.mjs";
+import { BuildingModel } from "./models/items/buildingModel.mjs";
+import { EventModel } from "./models/items/eventModel.mjs";
+import { ImprovementModel } from "./models/items/improvementModel.mjs";
 
 Hooks.on("preCreateItem", (item, data, context, user) => {
   if (!item.actor) {

@@ -1,4 +1,4 @@
-import { allChangeTargets, changeScopes } from "../config.mjs";
+import { allChangeTargets, changeScopes } from "../../config.mjs";
 
 export class ChangeModel extends foundry.abstract.DataModel {
   static defineSchema() {

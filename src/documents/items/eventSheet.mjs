@@ -32,8 +32,4 @@ export class EventSheet extends ItemBaseSheet {
 
     return data;
   }
-
-  activateListeners(html) {
-    super.activateListeners(html);
-  }
 }
