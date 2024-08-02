@@ -1,13 +1,13 @@
-import { CFG, allChangeTargets, improvementSubTypes } from "../config.mjs";
-import { getChangeCategories } from "../utils.mjs";
+import { CFG, allChangeTargets, changeScopes } from "../../config.mjs";
+import { getChangeCategories } from "../../utils.mjs";
 
-export class ImprovementSheet extends ItemSheet {
+export class ItemBaseSheet extends ItemSheet {
   static get defaultOptions() {
     const options = super.defaultOptions;
     return {
       ...options,
       template: `modules/${CFG.id}/templates/items/item-sheet.hbs`,
-      classes: [...options.classes, "kingdom", "item", "improvement"],
+      classes: [...options.classes, "kingdom", "item"],
       tabs: [
         {
           navSelector: "nav.tabs[data-group='primary']",
@@ -24,17 +24,16 @@ export class ImprovementSheet extends ItemSheet {
 
     const data = {
       ...item,
-      isImprovement: true,
-      type: game.i18n.localize("PF1KS.ImprovementLabel"),
       enrichedDesc: await TextEditor.enrichHTML(item.system.description),
     };
 
-    data.subTypeChoices = Object.entries(improvementSubTypes).reduce((acc, [key, label]) => {
+    // changes
+    data.scopeChoices = Object.entries(changeScopes).reduce((acc, [key, label]) => {
       acc[key] = game.i18n.localize(label);
       return acc;
     }, {});
 
-    data.changes = item.system.changes.map((c) => ({
+    data.changes = item.system.changes?.map((c) => ({
       ...c,
       id: c.id,
       targetLabel: game.i18n.localize(allChangeTargets[c.target]),

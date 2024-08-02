@@ -91,9 +91,10 @@ export class KingdomModel extends foundry.abstract.TypeDataModel {
     this.consumption = {
       size: 0,
       districts: 0,
+      edicts: 0,
       buildings: 0,
       improvements: 0,
-      edicts: 0,
+      events: 0,
       total: 0,
     };
 
@@ -137,17 +138,19 @@ export class KingdomModel extends foundry.abstract.TypeDataModel {
 
     this.consumption.size = this.size;
     this.consumption.districts = districts;
-    this.consumption.improvements = this._getChanges("consumption", kingdomImprovementId);
     this.consumption.edicts =
       (edictEffects.holiday[this.edicts.holiday]?.consumption ?? 0) +
       (edictEffects.promotion[this.edicts.promotion]?.consumption ?? 0);
     this.consumption.buildings = this._getChanges("consumption", kingdomBuildingId);
+    this.consumption.improvements = this._getChanges("consumption", kingdomImprovementId);
+    this.consumption.events = this._getChanges("consumption", kingdomEventId);
     this.consumption.total =
       this.consumption.size +
       this.consumption.districts +
-      this.consumption.improvements +
       this.consumption.edicts +
-      this.consumption.buildings;
+      this.consumption.improvements +
+      this.consumption.buildings +
+      this.consumption.events;
 
     this.fame.lore = Math.floor(this._getChanges("lore") / 10);
     this.fame.society = Math.floor(this._getChanges("society") / 10);

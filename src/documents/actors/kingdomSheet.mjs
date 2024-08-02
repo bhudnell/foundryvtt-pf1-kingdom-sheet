@@ -12,8 +12,8 @@ import {
   settlementSizes,
   terrainTypes,
   itemSubTypes,
-} from "../config.mjs";
-import { findLargestSmallerNumber, renameKeys } from "../utils.mjs";
+} from "../../config.mjs";
+import { findLargestSmallerNumber, renameKeys } from "../../utils.mjs";
 
 export class KingdomSheet extends ActorSheet {
   constructor(...args) {
@@ -212,6 +212,9 @@ export class KingdomSheet extends ActorSheet {
 
     // settlements
     data.settlements = this._prepareSettlements();
+    data.noSettlementBuildings = this.actor.itemTypes[kingdomBuildingId].filter(
+      (building) => !actorData.settlements.map((s) => s.id).includes(building.system.settlementId)
+    );
 
     // terrain
     data.terrain = Object.entries(actorData.terrain).reduce((acc, [key, value]) => {
@@ -282,10 +285,9 @@ export class KingdomSheet extends ActorSheet {
       settlements.push({
         ...settlement,
         sizeLabel: game.i18n.localize(settlementSizes[settlement.size]),
-        buildings:
-          this.actor.itemTypes[kingdomBuildingId]?.filter(
-            (building) => building.system.settlementId === settlement.id
-          ) ?? [],
+        buildings: this.actor.itemTypes[kingdomBuildingId].filter(
+          (building) => building.system.settlementId === settlement.id
+        ),
       });
     }
     return settlements;

@@ -1,8 +1,8 @@
 import { kingdomSheetId, CFG, kingdomEventId, kingdomBuildingId, kingdomImprovementId } from "./config.mjs";
-import { BuildingSheet } from "./documents/buildingSheet.mjs";
-import { EventSheet } from "./documents/eventSheet.mjs";
-import { ImprovementSheet } from "./documents/improvementSheet.mjs";
-import { KingdomSheet } from "./documents/kingdomSheet.mjs";
+import { KingdomSheet } from "./documents/actors/kingdomSheet.mjs";
+import { BuildingSheet } from "./documents/items/buildingSheet.mjs";
+import { EventSheet } from "./documents/items/eventSheet.mjs";
+import { ImprovementSheet } from "./documents/items/improvementSheet.mjs";
 import { BuildingModel } from "./models/buildingModel.mjs";
 import { EventModel } from "./models/eventModel.mjs";
 import { ImprovementModel } from "./models/improvementModel.mjs";
@@ -74,5 +74,6 @@ Hooks.once("ready", () => {
     "item-sheet-building": `modules/${CFG.id}/templates/items/parts/building-details.hbs`,
     "item-sheet-event": `modules/${CFG.id}/templates/items/parts/event-details.hbs`,
     "item-sheet-improvement": `modules/${CFG.id}/templates/items/parts/improvement-details.hbs`,
+    changes: `modules/${CFG.id}/templates/items/parts/changes.hbs`,
   });
 });

@@ -382,3 +382,9 @@ export const allChangeTargets = {
   ...settlementModifiers,
   ...miscChangeTargets,
 };
+
+export const changeScopes = {
+  kingdom: "PF1KS.Kingdom",
+  settlement: "PF1KS.Settlement",
+  hex: "PF1KS.Hex",
+};

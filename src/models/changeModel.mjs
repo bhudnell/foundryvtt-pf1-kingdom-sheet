@@ -1,4 +1,4 @@
-import { allChangeTargets } from "../config.mjs";
+import { allChangeTargets, changeScopes } from "../config.mjs";
 
 export class ChangeModel extends foundry.abstract.DataModel {
   static defineSchema() {
@@ -12,6 +12,7 @@ export class ChangeModel extends foundry.abstract.DataModel {
         readonly: true,
       }),
       target: new fields.StringField({ blank: true, choices: Object.keys(allChangeTargets) }),
+      scope: new fields.StringField({ blank: true, choices: Object.keys(changeScopes) }),
       bonus: new fields.NumberField({ integer: true }),
     };
   }
