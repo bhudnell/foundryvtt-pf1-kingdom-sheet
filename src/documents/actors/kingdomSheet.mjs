@@ -228,6 +228,9 @@ export class KingdomSheet extends ActorSheet {
     html.find(".viceroy-create").on("click", (e) => this._onViceroyCreate(e));
     html.find(".viceroy-delete").on("click", (e) => this._onViceroyDelete(e));
 
+    html.find(".settlement-create").on("click", (e) => this._onSettlementCreate(e));
+    html.find(".settlement-delete").on("click", (e) => this._onSettlementDelete(e));
+
     html.find(".item-delete").on("click", (e) => this._onItemDelete(e));
     html.find(".item-edit").on("click", (e) => this._onItemEdit(e));
     html.find(".item-create").on("click", (e) => this._onItemCreate(e));
@@ -284,6 +287,7 @@ export class KingdomSheet extends ActorSheet {
     for (const settlement of this.actor.system.settlements) {
       settlements.push({
         ...settlement,
+        id: settlement.id,
         sizeLabel: game.i18n.localize(settlementSizes[settlement.size]),
         buildings: this.actor.itemTypes[kingdomBuildingId].filter(
           (building) => building.system.settlementId === settlement.id
@@ -300,6 +304,7 @@ export class KingdomSheet extends ActorSheet {
     viceroys.push({
       type: "viceroy",
     });
+
     await this._onSubmit(event, {
       updateData: { "system.leadership.viceroys": viceroys },
     });
@@ -309,43 +314,64 @@ export class KingdomSheet extends ActorSheet {
     event.preventDefault();
 
     const viceroyId = event.currentTarget.closest(".item").dataset.id;
-
     const viceroys = foundry.utils.duplicate(this.actor.system.leadership.viceroys ?? []);
-    viceroys.findSplice((recruiter) => recruiter.id === viceroyId);
+    viceroys.findSplice((viceroy) => viceroy.id === viceroyId);
 
-    return this._onSubmit(event, {
-      updateData: { "system.leadership.viceroys": viceroys },
+    await this._onDelete({
+      button: event.currentTarget,
+      title: game.i18n.localize("PF1KS.DeleteViceroy"),
+      content: `<p>${game.i18n.localize("PF1KS.DeleteViceroyConfirmation")}</p>`,
+      onDelete: () =>
+        this._onSubmit(event, {
+          updateData: { "system.leadership.viceroys": viceroys },
+        }),
+    });
+  }
+
+  async _onSettlementCreate(event) {
+    event.preventDefault();
+
+    const settlements = foundry.utils.duplicate(this.actor.system.settlements ?? []);
+    settlements.push({
+      name: game.i18n.localize("PF1KS.NewSettlement"),
+      districtCount: 1,
+    });
+
+    await this._onSubmit(event, {
+      updateData: { "system.settlements": settlements },
+    });
+  }
+
+  async _onSettlementDelete(event) {
+    event.preventDefault();
+
+    const settlementId = event.currentTarget.closest(".settlement").dataset.id;
+    const settlements = foundry.utils.duplicate(this.actor.system.settlements ?? []);
+    const deletedSettlement = settlements.findSplice((settlement) => settlement.id === settlementId);
+
+    await this._onDelete({
+      button: event.currentTarget,
+      title: game.i18n.format("PF1KS.DeleteSettlementTitle", { name: deletedSettlement.name }),
+      content: `<p>${game.i18n.localize("PF1KS.DeleteSettlementConfirmation")}</p>`,
+      onDelete: () =>
+        this._onSubmit(event, {
+          updateData: { "system.settlements": settlements },
+        }),
     });
   }
 
   async _onItemDelete(event) {
     event.preventDefault();
 
-    const button = event.currentTarget;
-    if (button.disabled) {
-      return;
-    }
-
     const itemId = event.currentTarget.closest(".item").dataset.id;
     const item = this.actor.items.get(itemId);
 
-    button.disabled = true;
-
-    const msg = `<p>${game.i18n.localize("PF1.DeleteItemConfirmation")}</p>`;
-    try {
-      await Dialog.confirm({
-        title: game.i18n.format("PF1.DeleteItemTitle", { name: item.name }),
-        content: msg,
-        yes: () => {
-          item.delete();
-          button.disabled = false;
-        },
-        no: () => (button.disabled = false),
-        rejectClose: true,
-      });
-    } catch (e) {
-      button.disabled = false;
-    }
+    await this._onDelete({
+      button: event.currentTarget,
+      title: game.i18n.format("PF1.DeleteItemTitle", { name: item.name }),
+      content: `<p>${game.i18n.localize("PF1.DeleteItemConfirmation")}</p>`,
+      onDelete: () => item.delete(),
+    });
   }
 
   async _onItemEdit(event) {
@@ -375,6 +401,28 @@ export class KingdomSheet extends ActorSheet {
     const newItem = new Item(itemData);
 
     return this.actor.createEmbeddedDocuments("Item", [newItem.toObject()], { renderSheet: true });
+  }
+
+  async _onDelete({ button, title, content, onDelete }) {
+    if (button.disabled) {
+      return;
+    }
+    button.disabled = true;
+
+    try {
+      await Dialog.confirm({
+        title,
+        content,
+        yes: () => {
+          onDelete();
+          button.disabled = false;
+        },
+        no: () => (button.disabled = false),
+        rejectClose: true,
+      });
+    } catch (e) {
+      button.disabled = false;
+    }
   }
 
   async _activateExtendedTooltip(event) {

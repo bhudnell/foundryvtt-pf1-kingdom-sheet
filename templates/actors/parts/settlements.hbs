@@ -4,11 +4,14 @@
   <a class="item" data-tab="{{ idx }}" data-group="settlements">{{ settlement.name }}</a>
   {{/each}}
   <a class="item" data-tab="orph" data-group="settlements">Orphans</a>
+  <a class="item settlement-create" data-tooltip="PF1KS.CreateSettlement">
+    <i class="fa-solid fa-plus"></i>
+  </a>
 </nav>
 
 <section class="settlements-body">
   {{#each settlements as |settlement idx|}}
-  <div class="tab flexcol" data-group="settlements" data-tab="{{ idx }}">
+  <div class="tab flexcol settlement" data-group="settlements" data-tab="{{ idx }}" data-id="{{ id }}">
     <div class="flex0 details">
       <span>{{localize "PF1KS.DistrictCount"}}:</span>
       <span>{{ settlement.districtCount }}</span>
@@ -45,6 +48,12 @@
 
       <span>{{localize "PF1KS.Society"}}:</span>
       <span>{{ settlement.society.total }}</span>
+    </div>
+
+    <div class="flex0">
+      <a class="settlement-delete" data-tooltip="PF1KS.DeleteSettlement">
+        <i class="fa-solid fa-trash"></i>
+      </a>
     </div>
 
     <ol class="item-list">
