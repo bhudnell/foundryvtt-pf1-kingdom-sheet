@@ -1,7 +1,4 @@
 - Kingdom Sheet
-
-  - Hook up guts
-    - Kingdom stats buttons
   - Summary Tab
     - Change Infinity to infinity symbol
   - Settlement Tab
@@ -19,7 +16,6 @@
       - settlement sizes
 
 - Building Sheet
-
   - Description Tab
     - Description (contains everything below as text)
     - Upgrade To

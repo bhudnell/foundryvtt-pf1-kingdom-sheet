@@ -225,6 +225,8 @@ export class KingdomSheet extends ActorSheet {
   activateListeners(html) {
     super.activateListeners(html);
 
+    html.find(".kingdom-stat .rollable").on("click", (e) => this._onRollKingdomStat(e));
+
     html.find(".viceroy-create").on("click", (e) => this._onViceroyCreate(e));
     html.find(".viceroy-delete").on("click", (e) => this._onViceroyDelete(e));
 
@@ -295,6 +297,13 @@ export class KingdomSheet extends ActorSheet {
       });
     }
     return settlements;
+  }
+
+  async _onRollKingdomStat(event) {
+    event.preventDefault();
+    const kingdomStat = event.currentTarget.closest(".kingdom-stat").dataset.kingdomStat;
+    console.log(event.currentTarget.closest(".kingdom-stat").dataset);
+    this.actor.system.rollKingdomStat(kingdomStat, { actor: this.actor, skipDialog: true });
   }
 
   async _onViceroyCreate(event) {

@@ -130,7 +130,9 @@ export class KingdomModel extends foundry.abstract.TypeDataModel {
     this.size = Object.values(this.terrain).reduce((acc, curr) => acc + curr, 0);
     this.population =
       250 *
-      this.parent.itemTypes[kingdomBuildingId].reduce((acc, curr) => acc + curr.system.size * curr.system.amount, 0);
+      this.parent.itemTypes[kingdomBuildingId]
+        .filter((building) => building.system.settlementId)
+        .reduce((acc, curr) => acc + curr.system.size * curr.system.amount, 0);
 
     const districts = this.settlements.reduce((acc, curr) => acc + curr.districtCount, 0);
 
@@ -182,7 +184,7 @@ export class KingdomModel extends foundry.abstract.TypeDataModel {
         }
       }
 
-      this[stat].buildings = this._getChanges(stat, kingdomBuildingId);
+      this[stat].alignment = alignmentEffects[this.alignment]?.[stat] ?? 0;
       this[stat].edicts =
         (edictEffects.holiday[this.edicts.holiday]?.[stat] ?? 0) +
         (edictEffects.promotion[this.edicts.promotion]?.[stat] ?? 0) +
@@ -190,19 +192,60 @@ export class KingdomModel extends foundry.abstract.TypeDataModel {
       this[stat].leadership =
         filled.reduce((acc, curr) => (curr.bonusTypes.includes(stat) ? curr.bonus : 0) + acc, 0) -
         vacant.reduce((acc, curr) => (leadershipPenalties[curr.type][stat] ?? 0) + acc, 0);
-      this[stat].alignment = alignmentEffects[this.alignment]?.[stat] ?? 0;
       this[stat].unrest = this.unrest;
+      this[stat].buildings = this._getChanges(stat, kingdomBuildingId);
       this[stat].improvements = this._getChanges(stat, kingdomImprovementId);
       this[stat].events = this._getChanges(stat, kingdomEventId);
       this[stat].total =
-        this[stat].buildings +
+        this[stat].alignment +
         this[stat].edicts +
         this[stat].leadership +
-        this[stat].alignment +
+        this[stat].buildings +
         this[stat].improvements +
         this[stat].events -
         this[stat].unrest;
     }
+  }
+
+  async rollKingdomStat(kingdomStatId, options = {}) {
+    const check = this[kingdomStatId];
+
+    const parts = [];
+
+    if (check.alignment) {
+      parts.push(`${check.alignment}[${game.i18n.localize("PF1KS.AlignmentLabel")}]`);
+    }
+    if (check.edicts) {
+      parts.push(`${check.edicts}[${game.i18n.localize("PF1KS.Edicts")}]`);
+    }
+    if (check.leadership) {
+      parts.push(`${check.leadership}[${game.i18n.localize("PF1KS.LeadershipLabel")}]`);
+    }
+    if (check.buildings) {
+      parts.push(`${check.buildings}[${game.i18n.localize("PF1KS.Buildings")}]`);
+    }
+    if (check.improvements) {
+      parts.push(`${check.improvements}[${game.i18n.localize("PF1KS.Improvements")}]`);
+    }
+    if (check.events) {
+      parts.push(`${check.events}[${game.i18n.localize("PF1KS.Events")}]`);
+    }
+    if (check.unrest) {
+      parts.push(`-${check.unrest}[${game.i18n.localize("PF1KS.Unrest")}]`);
+    }
+
+    const label = game.i18n.localize(kingdomStats[kingdomStatId]);
+    const actor = options.actor ?? this.actor;
+    const token = options.token ?? this.token;
+
+    const rollOptions = {
+      ...options,
+      parts,
+      flavor: game.i18n.format("PF1RS.KingdomStatRoll", { check: label }),
+      speaker: ChatMessage.getSpeaker({ actor, token, alias: token?.name }),
+    };
+
+    return await pf1.dice.d20Roll(rollOptions);
   }
 
   _prepareChanges() {

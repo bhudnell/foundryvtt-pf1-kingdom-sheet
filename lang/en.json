@@ -7,6 +7,7 @@
     "Size": "Size",
     "ControlDC": "Control DC",
     "KingdomStat": "Kingdom Stats",
+    "KingdomStatRoll": "{check} Kingdom Stat",
     "Economy": "Economy",
     "Loyalty": "Loyalty",
     "Stability": "Stability",
@@ -127,7 +128,7 @@
     "Lore": "Lore",
     "Society": "Society",
 
-    "Buildings": " Buildings",
+    "Buildings": "Buildings",
     "BuildingLabel": "Building",
 
     "TerrainLabel": "Terrain",
