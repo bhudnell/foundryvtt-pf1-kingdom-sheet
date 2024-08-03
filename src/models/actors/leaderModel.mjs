@@ -28,6 +28,10 @@ export function defineLeader(type, bonusType) {
       };
     }
 
+    get actorId() {
+      return this.actor?._id ?? undefined;
+    }
+
     get name() {
       return this.actor?.name ?? undefined;
     }

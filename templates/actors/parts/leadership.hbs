@@ -24,13 +24,11 @@
   {{#each viceroys as |viceroy idx|}}
   <li class="flexrow item leader" data-id="{{ id }}">
     <span class="item-detail item-position">{{ label }}</span>
-    <select class="item-name" name="system.leadership.viecroys.{{ idx }}.actor">
+    <select class="item-name" name="system.leadership.viceroys.{{ idx }}.actor">
       {{selectOptions @root.validLeadershipChoices selected=actorId}}
     </select>
     <span class="item-detail item-leader-bonus">+ {{ bonus }} {{ bonusTypesLabel }}</span>
     <input type="hidden" value="{{ id }}" name="system.leadership.viceroys.{{ idx }}.id" />
-    <input type="hidden" value="{{ type }}" name="system.leadership.viceroys.{{ idx }}.type" />
-    <input type="hidden" value="{{ bonusTypes }}" name="system.leadership.viceroys.{{ idx }}.type" />
     <div class="item-detail leader-controls">
       <a class="leader-control viceroy-delete" data-tooltip="PF1KS.RemoveViceroy">
         <i class="fa-solid fa-trash"></i>

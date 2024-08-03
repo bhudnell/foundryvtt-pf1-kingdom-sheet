@@ -184,8 +184,7 @@ export class KingdomSheet extends ActorSheet {
 
     // non-viceroy leadership
     for (const leader of data.leaders) {
-      leader.actorId = actorData.leadership[leader.id].actor?._id;
-      leader.name = actorData.leadership[leader.id].name;
+      leader.actorId = actorData.leadership[leader.id].actorId;
       leader.bonus = actorData.leadership[leader.id].bonus;
       leader.bonusTypesLabel = actorData.leadership[leader.id].bonusTypes // TODO spymaster and ruler are dropdowns that can be changed
         .map((type) => game.i18n.localize(kingdomStats[type]))
@@ -196,11 +195,9 @@ export class KingdomSheet extends ActorSheet {
       return {
         id: viceroy.id,
         label: game.i18n.localize("PF1KS.Leadership.Viceroy"),
-        actorId: viceroy.actor?._id,
-        name: viceroy.name,
+        actorId: viceroy.actorId,
         bonus: viceroy.bonus,
         bonusTypesLabel: viceroy.bonusTypes.map((type) => game.i18n.localize(kingdomStats[type])).join(", "),
-        bonusTypes: viceroy.bonusTypes,
       };
     });
 
@@ -227,6 +224,9 @@ export class KingdomSheet extends ActorSheet {
 
   activateListeners(html) {
     super.activateListeners(html);
+
+    html.find(".viceroy-create").on("click", (e) => this._onViceroyCreate(e));
+    html.find(".viceroy-delete").on("click", (e) => this._onViceroyDelete(e));
 
     html.find(".item-delete").on("click", (e) => this._onItemDelete(e));
     html.find(".item-edit").on("click", (e) => this._onItemEdit(e));
@@ -291,6 +291,31 @@ export class KingdomSheet extends ActorSheet {
       });
     }
     return settlements;
+  }
+
+  async _onViceroyCreate(event) {
+    event.preventDefault();
+
+    const viceroys = foundry.utils.duplicate(this.actor.system.leadership.viceroys ?? []);
+    viceroys.push({
+      type: "viceroy",
+    });
+    await this._onSubmit(event, {
+      updateData: { "system.leadership.viceroys": viceroys },
+    });
+  }
+
+  async _onViceroyDelete(event) {
+    event.preventDefault();
+
+    const viceroyId = event.currentTarget.closest(".item").dataset.id;
+
+    const viceroys = foundry.utils.duplicate(this.actor.system.leadership.viceroys ?? []);
+    viceroys.findSplice((recruiter) => recruiter.id === viceroyId);
+
+    return this._onSubmit(event, {
+      updateData: { "system.leadership.viceroys": viceroys },
+    });
   }
 
   async _onItemDelete(event) {

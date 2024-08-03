@@ -89,6 +89,8 @@
       "Warden": "Warden",
       "Viceroy": "Viceroy"
     },
+    "AddViceroy": "Add Viceroy",
+    "RemoveViceroy": "Remove Viceroy",
     "Position": "Position",
     "FilledBy": "Filled By",
     "Bonus": "Bonus",
