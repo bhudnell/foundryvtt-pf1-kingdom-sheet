@@ -318,10 +318,12 @@ export const settlementModifiers = {
   law: "PF1KS.Law",
   lore: "PF1KS.Lore",
   society: "PF1KS.Society",
+  defense: "PF1KS.Defense",
+  baseValue: "PF1KS.BaseValue",
 };
 
 export const settlementSizes = {
-  thorp: "PF1KS.Settlement.Sizes.Thorp",
+  thorpe: "PF1KS.Settlement.Sizes.Thorpe",
   hamlet: "PF1KS.Settlement.Sizes.Hamlet",
   village: "PF1KS.Settlement.Sizes.Village",
   stown: "PF1KS.Settlement.Sizes.SmallTown",
@@ -332,7 +334,7 @@ export const settlementSizes = {
 };
 
 export const settlementValues = {
-  thorp: { modifiers: -4, danger: -10, maxBaseValue: 50 },
+  thorpe: { modifiers: -4, danger: -10, maxBaseValue: 50 },
   hamlet: { modifiers: -2, danger: -5, maxBaseValue: 200 },
   village: { modifiers: -1, danger: 0, maxBaseValue: 500 },
   stown: { modifiers: 0, danger: 0, maxBaseValue: 1000 },

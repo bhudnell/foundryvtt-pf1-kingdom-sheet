@@ -1,4 +1,5 @@
 - Kingdom Sheet
+
   - Hook up guts
     - Kingdom stats buttons
     - Add/delete Viceroy buttons
@@ -10,45 +11,31 @@
       - Image?
   - Config Tab?
     - toggle consort/second ruler (maybe on summary/leadership tab)
-
-- Terrain Improvement Sheet
-  - Description Tab
-    - Description
-    - Cost
-    - Acceptable Terrains
-  - Details Tab
-    - Changes
-    - Quantity (called amount to avoid conflict w/ pf1)
-    - Type (standard vs special)
+    - optional rules https://www.aonprd.com/Rules.aspx?ID=1547
+      - kingdom modifiers (crime/lore/law/etc)
+      - fame/infamy
+      - forms of government
+      - leadership skills
+      - settlement sizes
 
 - Building Sheet
+
   - Description Tab
     - Description (contains everything below as text)
     - Upgrade To
     - Upgrade From
     - Special
     - Magic Items
+    - Discounts
+    - Limit
   - Details Tab
-    - Quantity (called amount to avoid conflict w/ pf1)
+    - Quantity (name variable "amount" to avoid conflict w/ pf1)
     - Changes
     - Type (House, Foundry, Castle, etc)
     - Lot Size
     - Cost
-    - Base Value
-    - Defense
     - Settlement id
-    - Discounts (Maybe just in the description)
-    - Limit (Maybe just in the description)
-
-- Event Sheet
-  - Description Tab
-    - Description
-  - Details Tab
-    - Type (kingdom vs settlement)
-      - if settlement, settlement id
-    - Change
-    - Continuous?
-
 
 - Misc
   - Clean up en.json
+  - use eq handlebars helper instead of "isBlank" variables {{#if (eq a b)}}

@@ -1,4 +1,11 @@
-import { kingdomBuildingId, kingdomEventId, settlementModifiers, settlementValues } from "../../config.mjs";
+import {
+  governmentBonuses,
+  kingdomBuildingId,
+  kingdomEventId,
+  kingdomImprovementId,
+  settlementModifiers,
+  settlementValues,
+} from "../../config.mjs";
 
 export class SettlementModel extends foundry.abstract.DataModel {
   static defineSchema() {
@@ -19,9 +26,12 @@ export class SettlementModel extends foundry.abstract.DataModel {
   prepareDerivedData() {
     const kingdom = this.parent;
     const buildings = this.parent.parent.itemTypes[kingdomBuildingId];
-    const events = this.parent.parent.itemTypes[kingdomEventId];
 
-    this.population = 250 * 10000000; // TODO how to get items on kingdom
+    this.population =
+      250 *
+      buildings
+        .filter((building) => building.system.settlementId === this.id)
+        .reduce((acc, curr) => acc + curr.system.size * curr.system.amount, 0);
 
     // size
     if (this.population > 25000) {
@@ -34,7 +44,6 @@ export class SettlementModel extends foundry.abstract.DataModel {
       this.size = "ltown";
     } else if (this.population > 200) {
       this.size = "stown";
-      // will never go below here, but included for completion
     } else if (this.population > 60) {
       this.size = "village";
     } else if (this.population > 20) {
@@ -43,20 +52,40 @@ export class SettlementModel extends foundry.abstract.DataModel {
       this.size = "thorpe";
     }
 
-    this.baseValue = Math.min(settlementValues[this.size].maxBaseValue, 1000000); // TODO how to get items on kingdom
-    this.defense = 1000000; // TODO how to get items on kingdom
     this.danger = settlementValues[this.size].danger;
 
     // settlement modifiers
     for (const modifier of Object.keys(settlementModifiers)) {
-      const size = settlementValues[this.size].modifiers;
-      const government = 1000000; // TODO how to get kingdom government
-      const buildings = 1000000; // TODO how to get items on kingdom
-      const events = 1000000; // TODO how to get items on kingdom
+      const size = ["defense", "baseValue"].includes(modifier) ? 0 : settlementValues[this.size].modifiers;
+      const government = governmentBonuses[kingdom.government]?.[modifier] ?? 0;
+      const buildings = this._getChanges(modifier, kingdomBuildingId);
+      const improvements = this._getChanges(modifier, kingdomImprovementId);
+      const events = this._getChanges(modifier, kingdomEventId);
 
-      const total = size + government + buildings + events;
+      let total = size + government + buildings + improvements + events;
 
-      this[modifier] = { size, government, buildings, events, total };
+      if (modifier === "baseValue") {
+        total = Math.min(total, settlementValues[this.size].maxBaseValue);
+      }
+
+      this[modifier] = { size, government, buildings, improvements, events, total };
     }
+  }
+
+  _getChanges(target, type) {
+    return this.parent.changes
+      .filter((c) => {
+        if (c.scope !== "kingdom" && c.settlementId !== this.id) {
+          return false;
+        }
+        if (c.target !== target) {
+          return false;
+        }
+        if (type && c.parentType !== type) {
+          return false;
+        }
+        return true;
+      })
+      .reduce((total, c) => total + c.bonus * (c.parentAmount ?? 1), 0);
   }
 }

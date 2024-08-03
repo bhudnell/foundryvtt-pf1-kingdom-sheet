@@ -120,15 +120,17 @@ export class KingdomModel extends foundry.abstract.TypeDataModel {
   }
 
   prepareDerivedData() {
-    // call settlements prepareDerivedData
-    this.settlements.forEach((s) => s.prepareDerivedData());
-
     // changes
     this.changes = this._prepareChanges();
 
+    // call settlements prepareDerivedData
+    this.settlements.forEach((s) => s.prepareDerivedData());
+
     // summary
     this.size = Object.values(this.terrain).reduce((acc, curr) => acc + curr, 0);
-    this.population = 250 * this.parent.itemTypes[kingdomBuildingId].reduce((acc, curr) => acc + curr.system.amount, 0);
+    this.population =
+      250 *
+      this.parent.itemTypes[kingdomBuildingId].reduce((acc, curr) => acc + curr.system.size * curr.system.amount, 0);
 
     const districts = this.settlements.reduce((acc, curr) => acc + curr.districtCount, 0);
 
@@ -212,6 +214,7 @@ export class KingdomModel extends foundry.abstract.TypeDataModel {
         ...i.system.changes.map((c) => ({
           ...c,
           id: c.id,
+          settlementId: i.settlementId,
           parentId: i.id,
           parentName: i.name,
           parentType: i.type,
