@@ -17,7 +17,7 @@
     <div class="item-detail item-target">
       <span class="target-change">{{ targetLabel }}</span>
     </div>
-    <select class="item-detail item-scope" name="system.changes.{{ idx }}.scope">
+    <select class="item-detail item-scope" name="system.changes.{{ idx }}.scope" {{disabled disableScope}}>
       {{selectOptions @root.scopeChoices selected=scope}}
     </select>
     <div class="item-detail item-controls basic">

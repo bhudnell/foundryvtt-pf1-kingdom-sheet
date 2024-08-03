@@ -1,4 +1,4 @@
-import { CFG, allChangeTargets, changeScopes } from "../../config.mjs";
+import { CFG, allChangeTargets, changeScopes, settlementModifiers } from "../../config.mjs";
 import { getChangeCategories } from "../../utils.mjs";
 
 export class ItemBaseSheet extends ItemSheet {
@@ -37,6 +37,7 @@ export class ItemBaseSheet extends ItemSheet {
       ...c,
       id: c.id,
       targetLabel: game.i18n.localize(allChangeTargets[c.target]),
+      disableScope: !Object.keys(settlementModifiers).includes(c.target),
     }));
 
     return data;
@@ -93,6 +94,9 @@ export class ItemBaseSheet extends ItemSheet {
           const idx = changes.findIndex((change) => change.id === changeId);
           if (idx >= 0) {
             changes[idx] = foundry.utils.mergeObject(changes[idx], { target: key });
+            if (!Object.keys(settlementModifiers).includes(key)) {
+              changes[idx] = foundry.utils.mergeObject(changes[idx], { scope: "kingdom" });
+            }
             return this.item.update({ "system.changes": changes });
           }
         }
