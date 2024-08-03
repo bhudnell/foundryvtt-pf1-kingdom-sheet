@@ -96,7 +96,7 @@
     "Settlements": "Settlements",
     "Settlement": {
       "Sizes": {
-        "Thorp": "Thorp",
+        "Thorpe": "Thorpe",
         "Hamlet": "Hanlet",
         "Village": "Village",
         "SmallTown": "Small Town",
@@ -120,6 +120,7 @@
     "Society": "Society",
 
     "Buildings": " Buildings",
+    "BuildingLabel": "Building",
 
     "TerrainLabel": "Terrain",
     "Terrain": {
@@ -167,6 +168,11 @@
     "Change": "Change",
     "Misc": "Miscellaneous",
     "Target": "Target",
+    "ChangeScope": {
+      "Kingdom": "Kingdom",
+      "Settlement": "Settlement",
+      "Hex": "Hex"
+    },
 
     "EditItem": "Edit Item",
     "DeleteItem": "Delete Item",

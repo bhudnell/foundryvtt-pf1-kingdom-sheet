@@ -3,6 +3,7 @@
   {{#each settlements as |settlement idx|}}
   <a class="item" data-tab="{{ idx }}" data-group="settlements">{{ settlement.name }}</a>
   {{/each}}
+  <a class="item" data-tab="orph" data-group="settlements">Orphans</a>
 </nav>
 
 <section class="settlements-body">
@@ -19,10 +20,10 @@
       <span>{{ settlement.sizeLabel }}</span>
 
       <span>{{localize "PF1KS.BaseValue"}}:</span>
-      <span>{{ settlement.baseValue }}</span>
+      <span>{{ settlement.baseValue.total }}</span>
 
       <span>{{localize "PF1KS.Defense"}}:</span>
-      <span>{{ settlement.defense }}</span>
+      <span>{{ settlement.defense.total }}</span>
 
       <span>{{localize "PF1KS.Danger"}}:</span>
       <span>{{ settlement.danger }}</span>
@@ -74,4 +75,29 @@
     </ol>
   </div>
   {{/each}}
+
+  <div class="tab flexcol" data-group="settlements" data-tab="orph">
+    <ol class="item-list">
+      <li class="flexrow item-list-header">
+        <span class="item-name">{{localize "PF1KS.Buildings"}}</span>
+        <div class="item-detail item-controls"></div>
+      </li>
+      {{#each noSettlementBuildings}}
+      <li class="flexrow item" data-id="{{ id }}">
+        <div class="item-name expand-summary">
+          <div class="item-image" style="background-image: url('{{ img }}')"></div>
+          <span>{{ name }}</span>
+        </div>
+        <div class="flexrow item-detail item-controls">
+          <a class="item-control item-edit" data-tooltip="PF1KS.EditItem">
+            <i class="fa-solid fa-pen-to-square"></i>
+          </a>
+          <a class="item-control item-delete" data-tooltip="PF1KS.DeleteItem">
+            <i class="fa-solid fa-trash"></i>
+          </a>
+        </div>
+      </li>
+      {{/each}}
+    </ol>
+  </div>
 </section>
