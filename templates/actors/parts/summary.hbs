@@ -73,12 +73,20 @@
 <div class="flex0">
   <h3>{{localize "PF1KS.Edicts"}}</h3>
   <div class="edicts">
-    {{#each edicts}}
-    <span>{{ label }}:</span>
-    <select name="system.edicts.{{ id }}" data-dtype="String">
-      {{selectOptions options selected=value blank=""}}
+    <span>{{localize "PF1KS.Edict.HolidayLabel"}}:</span>
+    <select name="system.edicts.holiday" data-dtype="String">
+      {{selectOptions holidayOptions selected=system.edicts.holiday blank=""}}
     </select>
-    {{/each}}
+
+    <span>{{ localize "PF1KS.Edict.PromotionLabel" }}:</span>
+    <select name="system.edicts.promotion" data-dtype="String">
+      {{selectOptions promotionOptions selected=system.edicts.promotion blank=""}}
+    </select>
+
+    <span>{{ localize "PF1KS.Edict.TaxationLabel" }}:</span>
+    <select name="system.edicts.taxation" data-dtype="String">
+      {{selectOptions taxationOptions selected=system.edicts.taxation blank=""}}
+    </select>
   </div>
 </div>
 

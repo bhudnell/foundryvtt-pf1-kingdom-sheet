@@ -69,20 +69,6 @@ export class KingdomSheet extends ActorSheet {
           label: game.i18n.localize("PF1KS.Stability"),
         },
       ],
-      edicts: [
-        {
-          id: "holiday",
-          label: game.i18n.localize("PF1KS.Edict.HolidayLabel"),
-        },
-        {
-          id: "promotion",
-          label: game.i18n.localize("PF1KS.Edict.PromotionLabel"),
-        },
-        {
-          id: "taxation",
-          label: game.i18n.localize("PF1KS.Edict.TaxationLabel"),
-        },
-      ],
       leaders: [
         {
           id: "ruler",
@@ -159,14 +145,15 @@ export class KingdomSheet extends ActorSheet {
     data.governmentOptions = Object.fromEntries(
       Object.entries(kingdomGovernments).map(([key, label]) => [key, game.i18n.localize(label)])
     );
-
-    // edicts
-    for (const edict of data.edicts) {
-      edict.value = actorData.edicts[edict];
-      edict.options = Object.fromEntries(
-        Object.entries(edicts[edict.id]).map(([key, label]) => [key, game.i18n.localize(label)])
-      );
-    }
+    data.holidayOptions = Object.fromEntries(
+      Object.entries(edicts.holiday).map(([key, label]) => [key, game.i18n.localize(label)])
+    );
+    data.promotionOptions = Object.fromEntries(
+      Object.entries(edicts.promotion).map(([key, label]) => [key, game.i18n.localize(label)])
+    );
+    data.taxationOptions = Object.fromEntries(
+      Object.entries(edicts.taxation).map(([key, label]) => [key, game.i18n.localize(label)])
+    );
 
     // kingdom stats
     for (const abl of data.stats) {
