@@ -75,7 +75,7 @@
   <div class="edicts">
     {{#each edicts}}
     <span>{{ label }}:</span>
-    <select name="system.{{ label }}" data-dtype="String">
+    <select name="system.edicts.{{ id }}" data-dtype="String">
       {{selectOptions options selected=value blank=""}}
     </select>
     {{/each}}

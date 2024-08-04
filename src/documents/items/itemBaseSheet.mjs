@@ -26,6 +26,12 @@ export class ItemBaseSheet extends ItemSheet {
       ...item,
       enrichedDesc: await TextEditor.enrichHTML(item.system.description),
     };
+    // settlementId
+    const settlementIdChoices = { "": "" };
+    this.item.parent?.system.settlements.forEach(
+      (settlement) => (settlementIdChoices[settlement.id] = settlement.name)
+    );
+    data.settlementIdChoices = settlementIdChoices;
 
     // changes
     data.scopeChoices = Object.entries(changeScopes).reduce((acc, [key, label]) => {

@@ -241,7 +241,7 @@ export class KingdomModel extends foundry.abstract.TypeDataModel {
     const rollOptions = {
       ...options,
       parts,
-      flavor: game.i18n.format("PF1RS.KingdomStatRoll", { check: label }),
+      flavor: game.i18n.format("PF1KS.KingdomStatRoll", { check: label }),
       speaker: ChatMessage.getSpeaker({ actor, token, alias: token?.name }),
     };
 
@@ -257,7 +257,7 @@ export class KingdomModel extends foundry.abstract.TypeDataModel {
         ...i.system.changes.map((c) => ({
           ...c,
           id: c.id,
-          settlementId: i.settlementId,
+          settlementId: i.system.settlementId,
           parentId: i.id,
           parentName: i.name,
           parentType: i.type,
@@ -280,6 +280,9 @@ export class KingdomModel extends foundry.abstract.TypeDataModel {
     return this.changes
       .filter((c) => {
         if (c.target !== target) {
+          return false;
+        }
+        if (type === kingdomBuildingId && !c.settlementId) {
           return false;
         }
         if (type && c.parentType !== type) {

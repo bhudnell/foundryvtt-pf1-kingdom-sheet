@@ -162,7 +162,7 @@ export class KingdomSheet extends ActorSheet {
 
     // edicts
     for (const edict of data.edicts) {
-      edict.value = actorData[edict];
+      edict.value = actorData.edicts[edict];
       edict.options = Object.fromEntries(
         Object.entries(edicts[edict.id]).map(([key, label]) => [key, game.i18n.localize(label)])
       );
@@ -289,7 +289,6 @@ export class KingdomSheet extends ActorSheet {
     for (const settlement of this.actor.system.settlements) {
       settlements.push({
         ...settlement,
-        id: settlement.id,
         sizeLabel: game.i18n.localize(settlementSizes[settlement.size]),
         buildings: this.actor.itemTypes[kingdomBuildingId].filter(
           (building) => building.system.settlementId === settlement.id
@@ -302,7 +301,6 @@ export class KingdomSheet extends ActorSheet {
   async _onRollKingdomStat(event) {
     event.preventDefault();
     const kingdomStat = event.currentTarget.closest(".kingdom-stat").dataset.kingdomStat;
-    console.log(event.currentTarget.closest(".kingdom-stat").dataset);
     this.actor.system.rollKingdomStat(kingdomStat, { actor: this.actor, skipDialog: true });
   }
 
