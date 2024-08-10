@@ -13,6 +13,7 @@ import {
   terrainTypes,
   itemSubTypes,
   leadershipSkillBonuses,
+  settlementModifiers,
 } from "../../config.mjs";
 import { findLargestSmallerNumber, renameKeys } from "../../utils.mjs";
 
@@ -163,6 +164,12 @@ export class KingdomSheet extends ActorSheet {
     for (const abl of data.stats) {
       abl.data = actorData[abl.id];
     }
+
+    // kingdom modifiers
+    data.modifiers = Object.entries(settlementModifiers).reduce((acc, [key, value]) => {
+      acc.push({ value: actorData[key], label: game.i18n.localize(value) });
+      return acc;
+    }, []);
 
     // actions per turn
     const sizeBonus = findLargestSmallerNumber(

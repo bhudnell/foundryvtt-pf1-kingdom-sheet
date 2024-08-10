@@ -1,4 +1,4 @@
-import { kingdomStats, miscChangeTargets, settlementModifiers } from "./config.mjs";
+import { kingdomStats, miscChangeTargets, allSettlementModifiers } from "./config.mjs";
 
 export function findLargestSmallerNumber(arr, num) {
   return arr
@@ -26,7 +26,7 @@ export function getChangeCategories() {
     {
       key: "modifiers",
       label: game.i18n.localize("PF1KS.SettlementModifiers"),
-      items: Object.entries(settlementModifiers).map(([key, label]) => ({ key, label: game.i18n.localize(label) })),
+      items: Object.entries(allSettlementModifiers).map(([key, label]) => ({ key, label: game.i18n.localize(label) })),
     },
     {
       key: "misc",

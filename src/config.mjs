@@ -102,47 +102,52 @@ export const alignmentEffects = {
   lg: {
     economy: 2,
     loyalty: 2,
-    stability: 0,
+    law: 1,
+    society: 1,
   },
   ng: {
-    economy: 0,
     loyalty: 2,
     stability: 2,
+    lore: 1,
+    society: 1,
   },
   cg: {
-    economy: 0,
     loyalty: 4,
-    stability: 0,
+    crime: 1,
+    society: 1,
   },
   ln: {
     economy: 2,
-    loyalty: 0,
     stability: 2,
+    law: 1,
+    lore: 1,
   },
   tn: {
-    economy: 0,
-    loyalty: 0,
     stability: 4,
+    lore: 2,
   },
   cn: {
-    economy: 0,
     loyalty: 2,
     stability: 2,
+    crime: 1,
+    lore: 1,
   },
   le: {
     economy: 4,
-    loyalty: 0,
-    stability: 0,
+    corruption: 1,
+    law: 1,
   },
   ne: {
     economy: 2,
-    loyalty: 0,
     stability: 2,
+    corruption: 1,
+    lore: 1,
   },
   ce: {
     economy: 2,
     loyalty: 2,
-    stability: 0,
+    corruption: 1,
+    crime: 1,
   },
 };
 
@@ -333,6 +338,10 @@ export const settlementModifiers = {
   law: "PF1KS.Law",
   lore: "PF1KS.Lore",
   society: "PF1KS.Society",
+};
+
+export const allSettlementModifiers = {
+  ...settlementModifiers,
   defense: "PF1KS.Defense",
   baseValue: "PF1KS.BaseValue",
 };
@@ -405,7 +414,7 @@ export const miscChangeTargets = {
 
 export const allChangeTargets = {
   ...kingdomStats,
-  ...settlementModifiers,
+  ...allSettlementModifiers,
   ...miscChangeTargets,
 };
 

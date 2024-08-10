@@ -4,7 +4,7 @@ import {
   kingdomBuildingId,
   kingdomEventId,
   kingdomImprovementId,
-  settlementModifiers,
+  allSettlementModifiers,
   settlementValues,
 } from "../../config.mjs";
 
@@ -71,7 +71,7 @@ export class SettlementModel extends foundry.abstract.DataModel {
       : settlementValues[this.size].danger;
 
     // settlement modifiers
-    for (const modifier of Object.keys(settlementModifiers)) {
+    for (const modifier of Object.keys(allSettlementModifiers)) {
       const size = ["defense", "baseValue"].includes(modifier)
         ? 0
         : kingdom.config.altSettlementSizes

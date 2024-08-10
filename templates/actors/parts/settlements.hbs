@@ -35,22 +35,58 @@
       <span>{{ settlement.danger }}</span>
 
       <span>{{localize "PF1KS.Corruption"}}:</span>
+      {{#if @root.system.config.kingdomModifiers}}
+      <span
+        >{{ ifThen (gt @root.system.corruption.total settlement.corruption.total) @root.system.corruption.total settlement.corruption.total }}</span
+      >
+      {{else}}
       <span>{{ settlement.corruption.total }}</span>
+      {{/if}}
 
       <span>{{localize "PF1KS.Crime"}}:</span>
+      {{#if @root.system.config.kingdomModifiers}}
+      <span
+        >{{ ifThen (gt @root.system.crime.total settlement.crime.total) @root.system.crime.total settlement.crime.total }}</span
+      >
+      {{else}}
       <span>{{ settlement.crime.total }}</span>
+      {{/if}}
 
       <span>{{localize "PF1KS.Productivity"}}:</span>
+      {{#if @root.system.config.kingdomModifiers}}
+      <span
+        >{{ ifThen (gt @root.system.productivity.total settlement.productivity.total) @root.system.productivity.total settlement.productivity.total }}</span
+      >
+      {{else}}
       <span>{{ settlement.productivity.total }}</span>
+      {{/if}}
 
       <span>{{localize "PF1KS.Law"}}:</span>
+      {{#if @root.system.config.kingdomModifiers}}
+      <span
+        >{{ ifThen (gt @root.system.law.total settlement.law.total) @root.system.law.total settlement.law.total }}</span
+      >
+      {{else}}
       <span>{{ settlement.law.total }}</span>
+      {{/if}}
 
       <span>{{localize "PF1KS.Lore"}}:</span>
+      {{#if @root.system.config.kingdomModifiers}}
+      <span
+        >{{ ifThen (gt @root.system.lore.total settlement.lore.total) @root.system.lore.total settlement.lore.total }}</span
+      >
+      {{else}}
       <span>{{ settlement.lore.total }}</span>
+      {{/if}}
 
       <span>{{localize "PF1KS.Society"}}:</span>
+      {{#if @root.system.config.kingdomModifiers}}
+      <span
+        >{{ ifThen (gt @root.system.society.total settlement.society.total) @root.system.society.total settlement.society.total }}</span
+      >
+      {{else}}
       <span>{{ settlement.society.total }}</span>
+      {{/if}}
     </div>
 
     <div class="flex0">

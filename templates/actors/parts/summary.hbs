@@ -57,6 +57,13 @@
       <span>{{localize "PF1KS.Infamy"}}:</span>
       <span>{{ system.infamy.total }}</span>
       {{/if}}
+
+      {{#if system.config.kingdomModifiers}}
+      {{#each modifiers}}
+      <span>{{ label }}:</span>
+      <span>{{ value.total }}</span>
+      {{/each}}
+      {{/if}}
     </div>
   </div>
 </div>

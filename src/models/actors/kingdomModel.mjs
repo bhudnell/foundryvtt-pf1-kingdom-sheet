@@ -9,6 +9,7 @@ import {
   kingdomImprovementId,
   kingdomStats,
   leadershipPenalties,
+  settlementModifiers,
 } from "../../config.mjs";
 
 import { defineLeader } from "./leaderModel.mjs";
@@ -125,6 +126,17 @@ export class KingdomModel extends foundry.abstract.TypeDataModel {
       events: 0,
       total: 0,
     };
+
+    for (const modifier of Object.keys(settlementModifiers)) {
+      this[modifier] = {
+        settlementBase: 0,
+        alignment: 0,
+        buildings: 0,
+        improvements: 0,
+        events: 0,
+        total: 0,
+      };
+    }
   }
 
   prepareDerivedData() {
@@ -215,6 +227,19 @@ export class KingdomModel extends foundry.abstract.TypeDataModel {
         this[stat].improvements +
         this[stat].events -
         this[stat].unrest;
+    }
+
+    if (this.config.kingdomModifiers) {
+      for (const modifier of Object.keys(settlementModifiers)) {
+        const settlementBase = this.settlements.reduce((acc, curr) => acc + curr[modifier].size, 0) / 10;
+        const alignment = alignmentEffects[this.alignment]?.[modifier] ?? 0;
+        const buildings = this._getChanges(modifier, kingdomBuildingId) / 10;
+        const improvements = this._getChanges(modifier, kingdomImprovementId) / 10;
+        const events = this._getChanges(modifier, kingdomEventId) / 10;
+        const total = Math.floor(settlementBase + alignment + buildings + improvements + events);
+
+        this[modifier] = { settlementBase, alignment, buildings, improvements, events, total };
+      }
     }
   }
 
