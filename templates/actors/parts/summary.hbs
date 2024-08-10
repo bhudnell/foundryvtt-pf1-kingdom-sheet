@@ -50,11 +50,13 @@
       <span>{{localize "PF1KS.Consumption"}}:</span>
       <span>{{ system.consumption.total }}</span>
 
+      {{#if system.config.fameInfamy}}
       <span>{{localize "PF1KS.Fame"}}:</span>
       <span>{{ system.fame.total }}</span>
 
       <span>{{localize "PF1KS.Infamy"}}:</span>
       <span>{{ system.infamy.total }}</span>
+      {{/if}}
     </div>
   </div>
 </div>

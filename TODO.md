@@ -13,7 +13,6 @@
     - toggle consort/second ruler
     - optional rules https://www.aonprd.com/Rules.aspx?ID=1547
       - kingdom modifiers (crime/lore/law/etc)
-      - fame/infamy
       - settlement sizes
 
 - Building Sheet
