@@ -31,7 +31,7 @@ export class SettlementModel extends foundry.abstract.DataModel {
       250 *
       buildings
         .filter((building) => building.system.settlementId === this.id)
-        .reduce((acc, curr) => acc + curr.system.size * curr.system.amount, 0);
+        .reduce((acc, curr) => acc + curr.system.lots * curr.system.amount, 0);
 
     // size
     if (this.population > 25000) {

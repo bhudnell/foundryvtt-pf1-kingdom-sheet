@@ -88,14 +88,30 @@
       "Spymaster": "Spymaster",
       "Treasurer": "Treasurer",
       "Warden": "Warden",
-      "Viceroy": "Viceroy"
+      "Viceroy": "Viceroy",
+      "Skills": {
+        "Diplomacy": "Diplomacy",
+        "Intimidate": "Intimidate",
+        "Arcana": "Knowledge (Arcana)",
+        "Engineering": "Knowledge (Engineering)",
+        "Geography": "Knowledge (Geography)",
+        "Local": "Knowledge (Local)",
+        "Nobility": "Knowledge (Nobility)",
+        "Religion": "Knowledge (Religion)",
+        "Merchant": "Profession (Merchant)",
+        "SenseMotive": "Sense Motive",
+        "Soldier": "Profession (Soldier)",
+        "Survival": "Survival"
+      }
     },
+    "SecondRuler": "Second Ruler",
     "CreateViceroy": "Create Viceroy",
     "DeleteViceroy": "Delete Viceroy",
     "DeleteViceroyConfirmation": "Are you sure you want to delete this viceroy?",
     "Position": "Position",
     "FilledBy": "Filled By",
     "Bonus": "Bonus",
+    "SkillBonus": "Skill Bonus",
 
     "Settlements": "Settlements",
     "Settlement": {
@@ -169,6 +185,16 @@
     "EventOccurred": "Event Occurred",
 
     "Notes": "Notes",
+
+    "ConfigLabel": "Config",
+    "Config": {
+      "KingdomModifiers": "Kingdomwide Settlement Modifiers",
+      "FameInfamy": "Fame and Infamy",
+      "GovernmentForms": "Forms of Government",
+      "LeadershipSkills": "Leadership Skills",
+      "SettlementSizes": "Alternative Settlement Size Modifiers"
+    },
+    "OptionalRules": "Optional Rules",
 
     "Description": "Description",
     "Details": "Details",

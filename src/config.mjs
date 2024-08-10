@@ -311,6 +311,21 @@ export const leadershipPenalties = {
   viceroy: {},
 };
 
+export const leadershipSkillBonuses = {
+  dip: "PF1KS.Leadership.Skills.Diplomacy",
+  int: "PF1KS.Leadership.Skills.Intimidate",
+  kar: "PF1KS.Leadership.Skills.Arcana",
+  ken: "PF1KS.Leadership.Skills.Engineering",
+  kge: "PF1KS.Leadership.Skills.Geography",
+  klo: "PF1KS.Leadership.Skills.Local",
+  kno: "PF1KS.Leadership.Skills.Nobility",
+  kre: "PF1KS.Leadership.Skills.Religion",
+  mer: "PF1KS.Leadership.Skills.Merchant",
+  sen: "PF1KS.Leadership.Skills.SenseMotive",
+  sol: "PF1KS.Leadership.Skills.Soldier",
+  sur: "PF1KS.Leadership.Skills.Survival",
+};
+
 export const settlementModifiers = {
   corruption: "PF1KS.Corruption",
   crime: "PF1KS.Crime",

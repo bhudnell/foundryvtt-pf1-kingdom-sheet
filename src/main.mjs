@@ -70,10 +70,11 @@ Hooks.once("ready", () => {
     "kingdom-sheet-settlements": `modules/${CFG.id}/templates/actors/parts/settlements.hbs`,
     "kingdom-sheet-terrain": `modules/${CFG.id}/templates/actors/parts/terrain.hbs`,
     "kingdom-sheet-events": `modules/${CFG.id}/templates/actors/parts/events.hbs`,
+    "kingdom-sheet-config": `modules/${CFG.id}/templates/actors/parts/config.hbs`,
     "tooltip-content": `modules/${CFG.id}/templates/actors/parts/tooltip-content.hbs`,
     "item-sheet-building": `modules/${CFG.id}/templates/items/parts/building-details.hbs`,
     "item-sheet-event": `modules/${CFG.id}/templates/items/parts/event-details.hbs`,
     "item-sheet-improvement": `modules/${CFG.id}/templates/items/parts/improvement-details.hbs`,
-    changes: `modules/${CFG.id}/templates/items/parts/changes.hbs`,
+    "item-sheet-changes": `modules/${CFG.id}/templates/items/parts/changes.hbs`,
   });
 });

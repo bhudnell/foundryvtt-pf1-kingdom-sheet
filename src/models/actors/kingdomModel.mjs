@@ -18,7 +18,7 @@ export class KingdomModel extends foundry.abstract.TypeDataModel {
   static defineSchema() {
     const fields = foundry.data.fields;
     return {
-      government: new fields.StringField({ blank: true, choices: Object.keys(kingdomGovernments) }),
+      government: new fields.StringField({ initial: "aut", choices: Object.keys(kingdomGovernments) }),
       alignment: new fields.StringField({ blank: true, choices: Object.keys(alignments) }),
       turn: new fields.NumberField({ integer: true, min: 0, initial: 0, nullable: false }),
       treasury: new fields.NumberField({ integer: true, initial: 0, nullable: false }),
@@ -30,20 +30,20 @@ export class KingdomModel extends foundry.abstract.TypeDataModel {
         base: new fields.NumberField({ integer: true, min: 0, initial: 0, nullable: false }),
       }),
       leadership: new fields.SchemaField({
-        ruler: new fields.EmbeddedDataField(defineLeader("ruler")),
-        consort: new fields.EmbeddedDataField(defineLeader("consort", "loyalty")),
-        heir: new fields.EmbeddedDataField(defineLeader("heir", "loyalty")),
-        councilor: new fields.EmbeddedDataField(defineLeader("councilor", "loyalty")),
-        general: new fields.EmbeddedDataField(defineLeader("general", "stability")),
-        diplomat: new fields.EmbeddedDataField(defineLeader("diplomat", "stability")),
-        priest: new fields.EmbeddedDataField(defineLeader("priest", "stability")),
-        magister: new fields.EmbeddedDataField(defineLeader("magister", "economy")),
-        marshal: new fields.EmbeddedDataField(defineLeader("marshal", "economy")),
-        enforcer: new fields.EmbeddedDataField(defineLeader("enforcer", "loyalty")),
-        spymaster: new fields.EmbeddedDataField(defineLeader("spymaster")),
-        treasurer: new fields.EmbeddedDataField(defineLeader("treasurer", "economy")),
-        warden: new fields.EmbeddedDataField(defineLeader("warden", "loyalty")),
-        viceroys: new fields.ArrayField(new fields.EmbeddedDataField(defineLeader("viceroy", "economy"))),
+        ruler: new fields.EmbeddedDataField(defineLeader("ruler", "kno")),
+        consort: new fields.EmbeddedDataField(defineLeader("consort", "kno", "loyalty")),
+        heir: new fields.EmbeddedDataField(defineLeader("heir", "kno", "loyalty")),
+        councilor: new fields.EmbeddedDataField(defineLeader("councilor", "klo", "loyalty")),
+        general: new fields.EmbeddedDataField(defineLeader("general", "sol", "stability")),
+        diplomat: new fields.EmbeddedDataField(defineLeader("diplomat", "dip", "stability")),
+        priest: new fields.EmbeddedDataField(defineLeader("priest", "kre", "stability")),
+        magister: new fields.EmbeddedDataField(defineLeader("magister", "kar", "economy")),
+        marshal: new fields.EmbeddedDataField(defineLeader("marshal", "sur", "economy")),
+        enforcer: new fields.EmbeddedDataField(defineLeader("enforcer", "int", "loyalty")),
+        spymaster: new fields.EmbeddedDataField(defineLeader("spymaster", "sen")),
+        treasurer: new fields.EmbeddedDataField(defineLeader("treasurer", "mer", "economy")),
+        warden: new fields.EmbeddedDataField(defineLeader("warden", "ken", "loyalty")),
+        viceroys: new fields.ArrayField(new fields.EmbeddedDataField(defineLeader("viceroy", "kge", "economy"))),
       }),
       edicts: new fields.SchemaField({
         holiday: new fields.StringField({ blank: true, choices: Object.keys(edicts.holiday) }),
@@ -64,6 +64,14 @@ export class KingdomModel extends foundry.abstract.TypeDataModel {
         water: new fields.NumberField({ integer: true, initial: 0, nullable: false }),
       }),
       notes: new fields.HTMLField(),
+      config: new fields.SchemaField({
+        secondRuler: new fields.BooleanField({ initial: false }),
+        kingdomModifiers: new fields.BooleanField({ initial: false }),
+        fameInfany: new fields.BooleanField({ initial: false }),
+        governmentForms: new fields.BooleanField({ initial: false }),
+        leadershipSkills: new fields.BooleanField({ initial: false }),
+        altSettlementSizes: new fields.BooleanField({ initial: false }),
+      }),
     };
   }
 
@@ -132,7 +140,7 @@ export class KingdomModel extends foundry.abstract.TypeDataModel {
       250 *
       this.parent.itemTypes[kingdomBuildingId]
         .filter((building) => building.system.settlementId)
-        .reduce((acc, curr) => acc + curr.system.size * curr.system.amount, 0);
+        .reduce((acc, curr) => acc + curr.system.lots * curr.system.amount, 0);
 
     const districts = this.settlements.reduce((acc, curr) => acc + curr.districtCount, 0);
 
@@ -191,7 +199,10 @@ export class KingdomModel extends foundry.abstract.TypeDataModel {
         (edictEffects.taxation[this.edicts.taxation]?.[stat] ?? 0);
       this[stat].leadership =
         filled.reduce((acc, curr) => (curr.bonusTypes.includes(stat) ? curr.bonus : 0) + acc, 0) -
-        vacant.reduce((acc, curr) => (leadershipPenalties[curr.type][stat] ?? 0) + acc, 0);
+        vacant.reduce((acc, curr) => (leadershipPenalties[curr.type][stat] ?? 0) + acc, 0) +
+        (this.config.leadershipSkills
+          ? filled.reduce((acc, curr) => (curr.bonusTypes.includes(stat) ? curr.skillBonus : 0) + acc, 0)
+          : 0);
       this[stat].unrest = this.unrest;
       this[stat].buildings = this._getChanges(stat, kingdomBuildingId);
       this[stat].improvements = this._getChanges(stat, kingdomImprovementId);

@@ -12,6 +12,7 @@ import {
   settlementSizes,
   terrainTypes,
   itemSubTypes,
+  leadershipSkillBonuses,
 } from "../../config.mjs";
 import { findLargestSmallerNumber, renameKeys } from "../../utils.mjs";
 
@@ -176,6 +177,10 @@ export class KingdomSheet extends ActorSheet {
       leader.bonusTypesLabel = actorData.leadership[leader.id].bonusTypes // TODO spymaster and ruler are dropdowns that can be changed
         .map((type) => game.i18n.localize(kingdomStats[type]))
         .join(", ");
+      leader.skillBonus = actorData.leadership[leader.id].skillBonus;
+      leader.skillBonusLabel = game.i18n.localize(
+        leadershipSkillBonuses[actorData.leadership[leader.id].skillBonusType]
+      );
     }
     // viceroys
     data.viceroys = actorData.leadership.viceroys.map((viceroy) => {
@@ -185,6 +190,8 @@ export class KingdomSheet extends ActorSheet {
         actorId: viceroy.actorId,
         bonus: viceroy.bonus,
         bonusTypesLabel: viceroy.bonusTypes.map((type) => game.i18n.localize(kingdomStats[type])).join(", "),
+        skillBonus: viceroy.skillBonus,
+        skillBonusLabel: game.i18n.localize(leadershipSkillBonuses[viceroy.skillBonusType]),
       };
     });
 

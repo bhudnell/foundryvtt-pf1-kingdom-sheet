@@ -2,6 +2,9 @@
   <li class="flexrow item-list-header">
     <span class="item-detail item-position">{{localize "PF1KS.Position"}}</span>
     <span class="item-name">{{localize "PF1KS.FilledBy"}}</span>
+    {{#if system.config.leadershipSkills}}
+    <span class="item-detail item-leader-skill-bonus">{{localize "PF1KS.SkillBonus"}}</span>
+    {{/if}}
     <span class="item-detail item-leader-bonus">{{localize "PF1KS.Bonus"}}</span>
     <div class="item-detail leader-controls">
       <a class="leader-control viceroy-create" data-tooltip="PF1KS.CreateViceroy">
@@ -16,6 +19,9 @@
     <select class="item-name" name="system.leadership.{{ id }}.actor">
       {{selectOptions @root.validLeadershipChoices selected=actorId}}
     </select>
+    {{#if @root.system.config.leadershipSkills}}
+    <span class="item-detail item-leader-skill-bonus">+ {{ skillBonus }} {{ skillBonusLabel }}</span>
+    {{/if}}
     <span class="item-detail item-leader-bonus">+ {{ bonus }} {{ bonusTypesLabel }}</span>
     <div class="item-detail leader-controls"></div>
   </li>
@@ -27,6 +33,9 @@
     <select class="item-name" name="system.leadership.viceroys.{{ idx }}.actor">
       {{selectOptions @root.validLeadershipChoices selected=actorId}}
     </select>
+    {{#if @root.system.config.leadershipSkills}}
+    <span class="item-detail item-leader-skill-bonus">+ {{ skillBonus }} {{ skillBonusLabel }}</span>
+    {{/if}}
     <span class="item-detail item-leader-bonus">+ {{ bonus }} {{ bonusTypesLabel }}</span>
     <input type="hidden" value="{{ id }}" name="system.leadership.viceroys.{{ idx }}.id" />
     <div class="item-detail leader-controls">

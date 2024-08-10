@@ -236,6 +236,10 @@
         flex: 0 0 80px;
       }
 
+      &.item-leader-skill-bonus {
+        flex: 0 0 160px;
+      }
+
       &.item-leader-bonus {
         flex: 0 0 100px;
       }

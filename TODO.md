@@ -15,7 +15,6 @@
       - kingdom modifiers (crime/lore/law/etc)
       - fame/infamy
       - forms of government
-      - leadership skills
       - settlement sizes
 
 - Building Sheet

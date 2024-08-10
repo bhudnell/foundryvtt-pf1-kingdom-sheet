@@ -1,11 +1,12 @@
 import { kingdomStats } from "../../config.mjs";
 
-export function defineLeader(type, bonusType) {
+export function defineLeader(type, skillBonusType, bonusType) {
   return class LeaderModel extends foundry.abstract.DataModel {
     _initialize(...args) {
       super._initialize(...args);
 
       this.type = type;
+      this.skillBonusType = skillBonusType;
       if (bonusType) {
         this.bonusTypes = [bonusType];
       }
@@ -79,6 +80,61 @@ export function defineLeader(type, bonusType) {
         default:
           return 0;
       }
+    }
+
+    get skillBonus() {
+      if (!this.actor) {
+        return 0;
+      }
+
+      let ranks = 0;
+
+      switch (this.type) {
+        case "ruler":
+          ranks = this.actor.system.skills.kno.rank;
+          break;
+        case "consort":
+          ranks = this.actor.system.skills.kno.rank;
+          break;
+        case "heir":
+          ranks = this.actor.system.skills.kno.rank;
+          break;
+        case "councilor":
+          ranks = this.actor.system.skills.klo.rank;
+          break;
+        case "general":
+          ranks = this.actor.system.skills.pro.subSkills?.sol?.rank;
+          break;
+        case "diplomat":
+          ranks = this.actor.system.skills.dip.rank;
+          break;
+        case "priest":
+          ranks = this.actor.system.skills.kre.rank;
+          break;
+        case "magister":
+          ranks = this.actor.system.skills.kar.rank;
+          break;
+        case "marshal":
+          ranks = this.actor.system.skills.sur.rank;
+          break;
+        case "enforcer":
+          ranks = this.actor.system.skills.int.rank;
+          break;
+        case "spymaster":
+          ranks = this.actor.system.skills.sen.rank;
+          break;
+        case "treasurer":
+          ranks = this.actor.system.skills.pro.subSkills?.mer?.rank;
+          break;
+        case "warden":
+          ranks = this.actor.system.skills.ken.rank;
+          break;
+        case "viceroy":
+          ranks = this.actor.system.skills.kge.rank;
+          break;
+      }
+
+      return Math.floor((ranks ?? 0) / 5);
     }
 
     get vacant() {
