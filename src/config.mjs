@@ -359,6 +359,15 @@ export const settlementValues = {
   metro: { modifiers: 4, danger: 10, maxBaseValue: 16000 },
 };
 
+export const altSettlementValues = {
+  village: { modifiers: -4, danger: -10, maxBaseValue: 500 },
+  stown: { modifiers: -2, danger: -5, maxBaseValue: 1000 },
+  ltown: { modifiers: 0, danger: 0, maxBaseValue: 2000 },
+  scity: { modifiers: 1, danger: 5, maxBaseValue: 4000 },
+  lcity: { modifiers: 1, danger: 5, maxBaseValue: 8000 },
+  metro: { modifiers: 1, danger: 5, maxBaseValue: 16000 },
+};
+
 export const terrainTypes = {
   cavern: "PF1KS.Terrain.Cavern",
   coast: "PF1KS.Terrain.Coast",

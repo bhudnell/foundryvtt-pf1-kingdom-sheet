@@ -5,15 +5,13 @@
     - Ruler and Spymaster need selectors for their bonuses
   - Settlement Tab
     - What to name tab with buildings not assigned to a settlement
+    - adding building to settlement autopopulates settlementId field
     - Each settlement has a sub-tab
-      - make district count editable
-      - Name
       - Image?
   - Config Tab
     - toggle consort/second ruler
     - optional rules https://www.aonprd.com/Rules.aspx?ID=1547
       - kingdom modifiers (crime/lore/law/etc)
-      - settlement sizes
 
 - Building Sheet
   - Description Tab

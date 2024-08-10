@@ -1,4 +1,5 @@
 import {
+  altSettlementValues,
   governmentBonuses,
   kingdomBuildingId,
   kingdomEventId,
@@ -12,12 +13,7 @@ export class SettlementModel extends foundry.abstract.DataModel {
     const fields = foundry.data.fields;
 
     return {
-      id: new fields.StringField({
-        blank: false,
-        initial: () => foundry.utils.randomID(),
-        required: true,
-        readonly: true,
-      }),
+      id: new fields.StringField({ required: true, nullable: false, blank: false }),
       name: new fields.StringField({ blank: true }),
       districtCount: new fields.NumberField({ integer: true, min: 0, initial: 1, nullable: false }),
     };
@@ -26,37 +22,61 @@ export class SettlementModel extends foundry.abstract.DataModel {
   prepareDerivedData() {
     const kingdom = this.parent;
     const buildings = this.parent.parent.itemTypes[kingdomBuildingId];
+    const totalLots = buildings
+      .filter((building) => building.system.settlementId === this.id)
+      .reduce((acc, curr) => acc + curr.system.lots * curr.system.amount, 0);
+    const altSettlementMultiplier = totalLots > 40 ? this.districtCount : 1;
 
-    this.population =
-      250 *
-      buildings
-        .filter((building) => building.system.settlementId === this.id)
-        .reduce((acc, curr) => acc + curr.system.lots * curr.system.amount, 0);
+    // population
+    this.population = totalLots * 250;
 
     // size
-    if (this.population > 25000) {
-      this.size = "metro";
-    } else if (this.population > 10000) {
-      this.size = "lcity";
-    } else if (this.population > 5000) {
-      this.size = "scity";
-    } else if (this.population > 2000) {
-      this.size = "ltown";
-    } else if (this.population > 200) {
-      this.size = "stown";
-    } else if (this.population > 60) {
-      this.size = "village";
-    } else if (this.population > 20) {
-      this.size = "hamlet";
+    if (kingdom.config.altSettlementSizes) {
+      if (totalLots > 100) {
+        this.size = "metro";
+      } else if (totalLots > 40) {
+        this.size = "lcity";
+      } else if (totalLots > 20) {
+        this.size = "scity";
+      } else if (totalLots > 8) {
+        this.size = "ltown";
+      } else if (totalLots > 1) {
+        this.size = "stown";
+      } else {
+        this.size = "village";
+      }
     } else {
-      this.size = "thorpe";
+      if (this.population > 25000) {
+        this.size = "metro";
+      } else if (this.population > 10000) {
+        this.size = "lcity";
+      } else if (this.population > 5000) {
+        this.size = "scity";
+      } else if (this.population > 2000) {
+        this.size = "ltown";
+      } else if (this.population > 200) {
+        this.size = "stown";
+      } else if (this.population > 60) {
+        this.size = "village";
+      } else if (this.population > 20) {
+        this.size = "hamlet";
+      } else {
+        this.size = "thorpe";
+      }
     }
 
-    this.danger = settlementValues[this.size].danger;
+    // danger
+    this.danger = kingdom.config.altSettlementSizes
+      ? altSettlementValues[this.size].danger * altSettlementMultiplier
+      : settlementValues[this.size].danger;
 
     // settlement modifiers
     for (const modifier of Object.keys(settlementModifiers)) {
-      const size = ["defense", "baseValue"].includes(modifier) ? 0 : settlementValues[this.size].modifiers;
+      const size = ["defense", "baseValue"].includes(modifier)
+        ? 0
+        : kingdom.config.altSettlementSizes
+          ? altSettlementValues[this.size].modifiers * altSettlementMultiplier
+          : settlementValues[this.size].modifiers;
       const government = governmentBonuses[kingdom.government]?.[modifier] ?? 0;
       const buildings = this._getChanges(modifier, kingdomBuildingId);
       const improvements = this._getChanges(modifier, kingdomImprovementId);
@@ -65,7 +85,12 @@ export class SettlementModel extends foundry.abstract.DataModel {
       let total = size + government + buildings + improvements + events;
 
       if (modifier === "baseValue") {
-        total = Math.min(total, settlementValues[this.size].maxBaseValue);
+        total = Math.min(
+          total,
+          kingdom.config.altSettlementSizes
+            ? altSettlementValues[this.size].maxBaseValue
+            : settlementValues[this.size].maxBaseValue
+        );
       }
 
       this[modifier] = { size, government, buildings, improvements, events, total };

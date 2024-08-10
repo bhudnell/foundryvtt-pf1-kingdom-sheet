@@ -12,9 +12,12 @@
 <section class="settlements-body">
   {{#each settlements as |settlement idx|}}
   <div class="tab flexcol settlement" data-group="settlements" data-tab="{{ idx }}" data-id="{{ id }}">
+    <input class="flex0" type="text" name="system.settlements.{{ idx }}.name" value="{{ name }}" data-dtype="String" />
+    <input type="hidden" value="{{ id }}" name="system.settlements.{{ idx }}.id" />
+
     <div class="flex0 details">
       <span>{{localize "PF1KS.DistrictCount"}}:</span>
-      <span>{{ settlement.districtCount }}</span>
+      <input type="number" value="{{ settlement.districtCount }}" name="system.settlements.{{ idx }}.districtCount" />
 
       <span>{{localize "PF1KS.Population"}}:</span>
       <span>{{ settlement.population }}</span>
