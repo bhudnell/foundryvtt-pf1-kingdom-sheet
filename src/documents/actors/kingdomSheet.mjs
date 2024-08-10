@@ -156,6 +156,9 @@ export class KingdomSheet extends ActorSheet {
       Object.entries(edicts.taxation).map(([key, label]) => [key, game.i18n.localize(label)])
     );
 
+    // summary
+    data.governmentLabel = game.i18n.localize(kingdomGovernments[actorData.government]);
+
     // kingdom stats
     for (const abl of data.stats) {
       abl.data = actorData[abl.id];
@@ -218,6 +221,8 @@ export class KingdomSheet extends ActorSheet {
 
   activateListeners(html) {
     super.activateListeners(html);
+
+    html.find(".government-toggle").on("change", (e) => this._onGovernmentChange(e));
 
     html.find(".kingdom-stat .rollable").on("click", (e) => this._onRollKingdomStat(e));
 
@@ -290,6 +295,12 @@ export class KingdomSheet extends ActorSheet {
       });
     }
     return settlements;
+  }
+
+  _onGovernmentChange(event) {
+    if (!event.target.checked) {
+      this.actor.update({ "system.government": "aut" });
+    }
   }
 
   async _onRollKingdomStat(event) {

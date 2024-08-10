@@ -9,9 +9,13 @@
 
       <div class="labeledValue week flex0">
         <span>{{localize "PF1KS.GovernmentLabel"}}</span>
+        {{#if system.config.governmentForms}}
         <select name="system.government" data-dtype="String">
           {{selectOptions governmentOptions selected=system.government}}
         </select>
+        {{else}}
+        <span>{{ governmentLabel }}</span>
+        {{/if}}
       </div>
 
       <div class="labeledValue week flex0">

@@ -14,7 +14,6 @@
     - optional rules https://www.aonprd.com/Rules.aspx?ID=1547
       - kingdom modifiers (crime/lore/law/etc)
       - fame/infamy
-      - forms of government
       - settlement sizes
 
 - Building Sheet

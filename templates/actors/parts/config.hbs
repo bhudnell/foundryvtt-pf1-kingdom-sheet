@@ -10,7 +10,13 @@
   <input type="checkbox" name="system.config.fameInfany" {{checked system.config.fameInfany}} />
 
   <span>{{localize "PF1KS.Config.GovernmentForms"}}</span>
-  <input type="checkbox" name="system.config.governmentForms" {{checked system.config.governmentForms}} />
+  <input
+    class="government-toggle"
+    type="checkbox"
+    name="system.config.governmentForms"
+    {{checked
+    system.config.governmentForms}}
+  />
 
   <span>{{localize "PF1KS.Config.LeadershipSkills"}}</span>
   <input type="checkbox" name="system.config.leadershipSkills" {{checked system.config.leadershipSkills}} />
