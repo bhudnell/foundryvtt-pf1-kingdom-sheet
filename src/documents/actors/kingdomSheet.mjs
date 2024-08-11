@@ -324,9 +324,10 @@ export class KingdomSheet extends ActorSheet {
   async _onSettlementCreate(event) {
     event.preventDefault();
 
+    const newIdx = this.actor.system.settlements.length;
     const settlements = foundry.utils.duplicate(this.actor.system.settlements ?? []);
     settlements.push({
-      name: game.i18n.format("PF1KS.NewSettlementLabel", { number: this.actor.system.settlements.length + 1 }),
+      name: game.i18n.format("PF1KS.NewSettlementLabel", { number: newIdx + 1 }),
       id: foundry.utils.randomID(),
       districtCount: 1,
     });
@@ -334,6 +335,8 @@ export class KingdomSheet extends ActorSheet {
     await this._onSubmit(event, {
       updateData: { "system.settlements": settlements },
     });
+
+    this.activateTab(`${newIdx}`, { group: "settlements" });
   }
 
   async _onSettlementDelete(event) {

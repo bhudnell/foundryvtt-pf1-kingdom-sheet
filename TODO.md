@@ -5,11 +5,9 @@
     - Ruler and Spymaster need selectors for their bonuses
   - Settlement Tab
     - What to name tab with buildings not assigned to a settlement
-    - Each settlement has a sub-tab
-      - Image?
+    - Settlement image?
   - Config Tab
-    - optional rules https://www.aonprd.com/Rules.aspx?ID=1547
-      - add compendium entries and buttons for all rules
+    - add compendium entries and buttons for all rules https://www.aonprd.com/Rules.aspx?ID=1547
 
 - Building Sheet
   - Description Tab
