@@ -376,8 +376,14 @@ export class KingdomSheet extends ActorSheet {
     const itemData = {
       name: game.i18n.format("PF1.NewItem", { type: typeName }),
       type,
-      system: { subType },
+      system: {},
     };
+
+    if (type === kingdomBuildingId) {
+      itemData.system.settlementId = header.dataset.settlementId;
+    } else {
+      itemData.system.subType = subType;
+    }
 
     const newItem = new Item(itemData);
 

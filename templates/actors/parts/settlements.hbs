@@ -99,7 +99,12 @@
       <li class="flexrow item-list-header">
         <span class="item-name">{{localize "PF1KS.Buildings"}}</span>
         <div class="item-detail item-controls">
-          <a class="item-control item-create" data-type="{{ @root.buildingType }}" data-tooltip="PF1KS.CreateItem">
+          <a
+            class="item-control item-create"
+            data-type="{{ @root.buildingType }}"
+            data-settlement-id="{{ id }}"
+            data-tooltip="PF1KS.CreateItem"
+          >
             <i class="fa-solid fa-plus"></i>
           </a>
         </div>

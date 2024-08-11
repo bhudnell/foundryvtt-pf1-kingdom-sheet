@@ -5,7 +5,6 @@
     - Ruler and Spymaster need selectors for their bonuses
   - Settlement Tab
     - What to name tab with buildings not assigned to a settlement
-    - adding building to settlement autopopulates settlementId field
     - Each settlement has a sub-tab
       - Image?
   - Config Tab
@@ -31,3 +30,4 @@
 
 - Misc
   - Clean up en.json
+  - fix styling, its ugly
