@@ -326,7 +326,7 @@ export class KingdomSheet extends ActorSheet {
 
     const settlements = foundry.utils.duplicate(this.actor.system.settlements ?? []);
     settlements.push({
-      name: game.i18n.localize("PF1KS.NewSettlement"),
+      name: game.i18n.format("PF1KS.NewSettlementLabel", { number: this.actor.system.settlements.length + 1 }),
       id: foundry.utils.randomID(),
       districtCount: 1,
     });
