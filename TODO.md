@@ -9,7 +9,6 @@
     - Each settlement has a sub-tab
       - Image?
   - Config Tab
-    - toggle consort/second ruler
     - optional rules https://www.aonprd.com/Rules.aspx?ID=1547
       - add compendium entries and buttons for all rules
 
@@ -32,4 +31,3 @@
 
 - Misc
   - Clean up en.json
-  - use eq handlebars helper instead of "isBlank" variables {{#if (eq a b)}}

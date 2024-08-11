@@ -274,6 +274,23 @@ export const edictEffects = {
   },
 };
 
+export const leadershipRoles = {
+  ruler: "PF1KS.Leadership.Ruler",
+  consort: "PF1KS.Leadership.Consort",
+  heir: "PF1KS.Leadership.Heir",
+  councilor: "PF1KS.Leadership.Councilor",
+  general: "PF1KS.Leadership.General",
+  diplomat: "PF1KS.Leadership.GrandDiplomat",
+  priest: "PF1KS.Leadership.HighPriest",
+  magister: "PF1KS.Leadership.Magister",
+  marshal: "PF1KS.Leadership.Marshal",
+  enforcer: "PF1KS.Leadership.RoyalEnforcer",
+  spymaster: "PF1KS.Leadership.Spymaster",
+  treasurer: "PF1KS.Leadership.Treasurer",
+  warden: "PF1KS.Leadership.Warden",
+  viceroy: "PF1KS.Leadership.Viceroy",
+};
+
 export const leadershipPenalties = {
   ruler: {
     unrest: 4,

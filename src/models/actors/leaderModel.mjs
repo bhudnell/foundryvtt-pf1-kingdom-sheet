@@ -1,14 +1,18 @@
-import { kingdomStats } from "../../config.mjs";
+import { kingdomStats, leadershipRoles, leadershipSkillBonuses } from "../../config.mjs";
 
-export function defineLeader(type, skillBonusType, bonusType) {
+export function defineLeader(role, bonusType, skillBonusType) {
   return class LeaderModel extends foundry.abstract.DataModel {
     _initialize(...args) {
       super._initialize(...args);
 
-      this.type = type;
-      this.skillBonusType = skillBonusType;
-      if (bonusType) {
+      if (!this.role) {
+        this.role = role;
+      }
+      if (!this.bonusTypes.length) {
         this.bonusTypes = [bonusType];
+      }
+      if (!this.skillBonusType) {
+        this.skillBonusType = skillBonusType;
       }
     }
 
@@ -23,9 +27,9 @@ export function defineLeader(type, skillBonusType, bonusType) {
           readonly: true,
         }),
         actor: new fields.ForeignDocumentField(pf1.documents.actor.ActorPF),
-        bonusTypes: new fields.ArrayField(
-          new fields.StringField({ blank: true, choices: [Object.keys(kingdomStats)] })
-        ),
+        role: new fields.StringField({ choices: Object.keys(leadershipRoles) }),
+        bonusTypes: new fields.ArrayField(new fields.StringField({ choices: Object.keys(kingdomStats) })),
+        skillBonusType: new fields.StringField({ choices: Object.keys(leadershipSkillBonuses) }),
       };
     }
 
@@ -48,7 +52,7 @@ export function defineLeader(type, skillBonusType, bonusType) {
         ? 1
         : 0;
 
-      switch (this.type) {
+      switch (this.role) {
         case "ruler":
           return this.actor.system.abilities.cha.mod + leadershipBonus;
         case "consort":
@@ -89,7 +93,7 @@ export function defineLeader(type, skillBonusType, bonusType) {
 
       let ranks = 0;
 
-      switch (this.type) {
+      switch (this.role) {
         case "ruler":
           ranks = this.actor.system.skills.kno.rank;
           break;

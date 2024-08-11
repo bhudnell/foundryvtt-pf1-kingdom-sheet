@@ -31,20 +31,20 @@ export class KingdomModel extends foundry.abstract.TypeDataModel {
         base: new fields.NumberField({ integer: true, min: 0, initial: 0, nullable: false }),
       }),
       leadership: new fields.SchemaField({
-        ruler: new fields.EmbeddedDataField(defineLeader("ruler", "kno")),
-        consort: new fields.EmbeddedDataField(defineLeader("consort", "kno", "loyalty")),
-        heir: new fields.EmbeddedDataField(defineLeader("heir", "kno", "loyalty")),
-        councilor: new fields.EmbeddedDataField(defineLeader("councilor", "klo", "loyalty")),
-        general: new fields.EmbeddedDataField(defineLeader("general", "sol", "stability")),
-        diplomat: new fields.EmbeddedDataField(defineLeader("diplomat", "dip", "stability")),
-        priest: new fields.EmbeddedDataField(defineLeader("priest", "kre", "stability")),
-        magister: new fields.EmbeddedDataField(defineLeader("magister", "kar", "economy")),
-        marshal: new fields.EmbeddedDataField(defineLeader("marshal", "sur", "economy")),
-        enforcer: new fields.EmbeddedDataField(defineLeader("enforcer", "int", "loyalty")),
-        spymaster: new fields.EmbeddedDataField(defineLeader("spymaster", "sen")),
-        treasurer: new fields.EmbeddedDataField(defineLeader("treasurer", "mer", "economy")),
-        warden: new fields.EmbeddedDataField(defineLeader("warden", "ken", "loyalty")),
-        viceroys: new fields.ArrayField(new fields.EmbeddedDataField(defineLeader("viceroy", "kge", "economy"))),
+        ruler: new fields.EmbeddedDataField(defineLeader("ruler", "", "kno")),
+        consort: new fields.EmbeddedDataField(defineLeader("consort", "loyalty", "kno")),
+        heir: new fields.EmbeddedDataField(defineLeader("heir", "loyalty", "kno")),
+        councilor: new fields.EmbeddedDataField(defineLeader("councilor", "loyalty", "klo")),
+        general: new fields.EmbeddedDataField(defineLeader("general", "stability", "sol")),
+        diplomat: new fields.EmbeddedDataField(defineLeader("diplomat", "stability", "dip")),
+        priest: new fields.EmbeddedDataField(defineLeader("priest", "stability", "kre")),
+        magister: new fields.EmbeddedDataField(defineLeader("magister", "economy", "kar")),
+        marshal: new fields.EmbeddedDataField(defineLeader("marshal", "economy", "sur")),
+        enforcer: new fields.EmbeddedDataField(defineLeader("enforcer", "loyalty", "int")),
+        spymaster: new fields.EmbeddedDataField(defineLeader("spymaster", "", "sen")),
+        treasurer: new fields.EmbeddedDataField(defineLeader("treasurer", "economy", "mer")),
+        warden: new fields.EmbeddedDataField(defineLeader("warden", "loyalty", "ken")),
+        viceroys: new fields.ArrayField(new fields.EmbeddedDataField(defineLeader("viceroy", "economy", "kge"))),
       }),
       edicts: new fields.SchemaField({
         holiday: new fields.StringField({ blank: true, choices: Object.keys(edicts.holiday) }),
@@ -211,7 +211,7 @@ export class KingdomModel extends foundry.abstract.TypeDataModel {
         (edictEffects.taxation[this.edicts.taxation]?.[stat] ?? 0);
       this[stat].leadership =
         filled.reduce((acc, curr) => (curr.bonusTypes.includes(stat) ? curr.bonus : 0) + acc, 0) -
-        vacant.reduce((acc, curr) => (leadershipPenalties[curr.type][stat] ?? 0) + acc, 0) +
+        vacant.reduce((acc, curr) => (leadershipPenalties[curr.role][stat] ?? 0) + acc, 0) +
         (this.config.leadershipSkills
           ? filled.reduce((acc, curr) => (curr.bonusTypes.includes(stat) ? curr.skillBonus : 0) + acc, 0)
           : 0);

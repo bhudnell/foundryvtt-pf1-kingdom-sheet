@@ -15,8 +15,8 @@
 
   {{#each leaders}}
   <li class="flexrow item leader">
-    <span class="item-detail item-position">{{ label }}</span>
-    <select class="item-name" name="system.leadership.{{ id }}.actor">
+    <span class="item-detail item-position">{{ roleLabel }}</span>
+    <select class="item-name" name="system.leadership.{{ key }}.actor">
       {{selectOptions @root.validLeadershipChoices selected=actorId}}
     </select>
     {{#if @root.system.config.leadershipSkills}}
@@ -29,7 +29,7 @@
 
   {{#each viceroys as |viceroy idx|}}
   <li class="flexrow item leader" data-id="{{ id }}">
-    <span class="item-detail item-position">{{ label }}</span>
+    <span class="item-detail item-position">{{ roleLabel }}</span>
     <select class="item-name" name="system.leadership.viceroys.{{ idx }}.actor">
       {{selectOptions @root.validLeadershipChoices selected=actorId}}
     </select>

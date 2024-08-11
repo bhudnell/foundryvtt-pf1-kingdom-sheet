@@ -14,6 +14,7 @@ import {
   itemSubTypes,
   leadershipSkillBonuses,
   settlementModifiers,
+  leadershipRoles,
 } from "../../config.mjs";
 import { findLargestSmallerNumber, renameKeys } from "../../utils.mjs";
 
@@ -69,60 +70,6 @@ export class KingdomSheet extends ActorSheet {
         {
           id: "stability",
           label: game.i18n.localize("PF1KS.Stability"),
-        },
-      ],
-      leaders: [
-        {
-          id: "ruler",
-          label: game.i18n.localize("PF1KS.Leadership.Ruler"),
-        },
-        {
-          id: "consort",
-          label: game.i18n.localize("PF1KS.Leadership.Consort"),
-        },
-        {
-          id: "heir",
-          label: game.i18n.localize("PF1KS.Leadership.Heir"),
-        },
-        {
-          id: "councilor",
-          label: game.i18n.localize("PF1KS.Leadership.Councilor"),
-        },
-        {
-          id: "general",
-          label: game.i18n.localize("PF1KS.Leadership.General"),
-        },
-        {
-          id: "diplomat",
-          label: game.i18n.localize("PF1KS.Leadership.GrandDiplomat"),
-        },
-        {
-          id: "priest",
-          label: game.i18n.localize("PF1KS.Leadership.HighPriest"),
-        },
-        {
-          id: "magister",
-          label: game.i18n.localize("PF1KS.Leadership.Magister"),
-        },
-        {
-          id: "marshal",
-          label: game.i18n.localize("PF1KS.Leadership.Marshal"),
-        },
-        {
-          id: "enforcer",
-          label: game.i18n.localize("PF1KS.Leadership.RoyalEnforcer"),
-        },
-        {
-          id: "spymaster",
-          label: game.i18n.localize("PF1KS.Leadership.Spymaster"),
-        },
-        {
-          id: "treasurer",
-          label: game.i18n.localize("PF1KS.Leadership.Treasurer"),
-        },
-        {
-          id: "warden",
-          label: game.i18n.localize("PF1KS.Leadership.Warden"),
         },
       ],
     };
@@ -181,27 +128,32 @@ export class KingdomSheet extends ActorSheet {
     data.perTurn = perTurn;
 
     // non-viceroy leadership
-    for (const leader of data.leaders) {
-      leader.actorId = actorData.leadership[leader.id].actorId;
-      leader.bonus = actorData.leadership[leader.id].bonus;
-      leader.bonusTypesLabel = actorData.leadership[leader.id].bonusTypes // TODO spymaster and ruler are dropdowns that can be changed
-        .map((type) => game.i18n.localize(kingdomStats[type]))
-        .join(", ");
-      leader.skillBonus = actorData.leadership[leader.id].skillBonus;
-      leader.skillBonusLabel = game.i18n.localize(
-        leadershipSkillBonuses[actorData.leadership[leader.id].skillBonusType]
-      );
-    }
+    data.leaders = Object.entries(actorData.leadership).reduce((acc, [key, leader]) => {
+      if (key === "viceroys") {
+        return acc;
+      }
+      acc.push({
+        roleLabel: game.i18n.localize(leadershipRoles[leader.role]),
+        key,
+        actorId: leader.actorId,
+        skillBonus: leader.skillBonus,
+        skillBonusLabel: game.i18n.localize(leadershipSkillBonuses[leader.skillBonusType]),
+        bonus: leader.bonus,
+        bonusTypesLabel: leader.bonusTypes.map((type) => game.i18n.localize(kingdomStats[type])).join(", "), // TODO spymaster and ruler are dropdowns that can be changed
+      });
+      return acc;
+    }, []);
+
     // viceroys
     data.viceroys = actorData.leadership.viceroys.map((viceroy) => {
       return {
         id: viceroy.id,
-        label: game.i18n.localize("PF1KS.Leadership.Viceroy"),
+        roleLabel: game.i18n.localize(leadershipRoles[viceroy.role]),
         actorId: viceroy.actorId,
-        bonus: viceroy.bonus,
-        bonusTypesLabel: viceroy.bonusTypes.map((type) => game.i18n.localize(kingdomStats[type])).join(", "),
         skillBonus: viceroy.skillBonus,
         skillBonusLabel: game.i18n.localize(leadershipSkillBonuses[viceroy.skillBonusType]),
+        bonus: viceroy.bonus,
+        bonusTypesLabel: viceroy.bonusTypes.map((type) => game.i18n.localize(kingdomStats[type])).join(", "),
       };
     });
 
@@ -229,7 +181,8 @@ export class KingdomSheet extends ActorSheet {
   activateListeners(html) {
     super.activateListeners(html);
 
-    html.find(".government-toggle").on("change", (e) => this._onGovernmentChange(e));
+    html.find(".government-toggle").on("change", (e) => this._onGovernmentToggle(e));
+    html.find(".consort-toggle").on("change", (e) => this._onConsortToggle(e));
 
     html.find(".kingdom-stat .rollable").on("click", (e) => this._onRollKingdomStat(e));
 
@@ -304,9 +257,17 @@ export class KingdomSheet extends ActorSheet {
     return settlements;
   }
 
-  _onGovernmentChange(event) {
+  _onGovernmentToggle(event) {
     if (!event.target.checked) {
       this.actor.update({ "system.government": "aut" });
+    }
+  }
+
+  _onConsortToggle(event) {
+    if (event.target.checked) {
+      this.actor.update({ "system.leadership.consort": { bonusTypes: [""], role: "ruler" } });
+    } else {
+      this.actor.update({ "system.leadership.consort": { bonusTypes: ["loyalty"], role: "consort" } });
     }
   }
 

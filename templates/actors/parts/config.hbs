@@ -1,6 +1,12 @@
 <div class="flex0 flexcol">
   <span>{{localize "PF1KS.SecondRuler"}}</span>
-  <input type="checkbox" name="system.config.secondRuler" {{checked system.config.secondRuler}} />
+  <input
+    class="consort-toggle"
+    type="checkbox"
+    name="system.config.secondRuler"
+    {{checked
+    system.config.secondRuler}}
+  />
 
   <h3>{{localize "PF1KS.OptionalRules"}}</h3>
   <span>{{localize "PF1KS.Config.KingdomModifiers"}}</span>
