@@ -352,6 +352,12 @@ export class KingdomSheet extends ActorSheet {
           updateData: { "system.settlements": settlements },
         }),
     });
+
+    const buildingIdsToDelete = this.actor.itemTypes[kingdomBuildingId]
+      .filter((building) => building.system.settlementId === settlementId)
+      .map((building) => building._id);
+
+    await this.actor.deleteEmbeddedDocuments("Item", buildingIdsToDelete);
   }
 
   async _onItemDelete(event) {
