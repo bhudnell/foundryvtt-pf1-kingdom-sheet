@@ -197,6 +197,19 @@ export class KingdomSheet extends ActorSheet {
     html.find(".item-create").on("click", (e) => this._onItemCreate(e));
   }
 
+  async _onDropItem(event, data) {
+    const sourceItem = await Item.fromDropData(data);
+    const settlementId = event.target.closest(".tab.settlement")?.dataset.id;
+
+    const itemData = sourceItem.toObject();
+
+    if (itemData.type === kingdomBuildingId && settlementId) {
+      itemData.system.settlementId = settlementId;
+    }
+
+    return this.actor.createEmbeddedDocuments("Item", [itemData]);
+  }
+
   _prepareImprovements() {
     const improvements = this.actor.itemTypes[kingdomImprovementId];
     const general = {
