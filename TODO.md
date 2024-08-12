@@ -1,8 +1,6 @@
 - Kingdom Sheet
   - Summary Tab
     - Change Infinity to infinity symbol
-  - Leadership Tab
-    - Ruler and Spymaster need selectors for their bonuses
   - Settlement Tab
     - What to name tab with buildings not assigned to a settlement
     - Settlement image?

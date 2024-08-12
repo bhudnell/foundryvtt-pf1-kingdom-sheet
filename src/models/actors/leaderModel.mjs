@@ -1,4 +1,4 @@
-import { kingdomStats, leadershipRoles, leadershipSkillBonuses } from "../../config.mjs";
+import { leadershipBonusOptions, leadershipRoles, leadershipSkillBonuses } from "../../config.mjs";
 
 export function defineLeader(role, bonusType, skillBonusType) {
   return class LeaderModel extends foundry.abstract.DataModel {
@@ -8,8 +8,8 @@ export function defineLeader(role, bonusType, skillBonusType) {
       if (!this.role) {
         this.role = role;
       }
-      if (!this.bonusTypes.length) {
-        this.bonusTypes = [bonusType];
+      if (!this.bonusType) {
+        this.bonusType = bonusType;
       }
       if (!this.skillBonusType) {
         this.skillBonusType = skillBonusType;
@@ -28,7 +28,7 @@ export function defineLeader(role, bonusType, skillBonusType) {
         }),
         actor: new fields.ForeignDocumentField(pf1.documents.actor.ActorPF),
         role: new fields.StringField({ choices: Object.keys(leadershipRoles) }),
-        bonusTypes: new fields.ArrayField(new fields.StringField({ choices: Object.keys(kingdomStats) })),
+        bonusType: new fields.StringField({ choices: Object.keys(leadershipBonusOptions) }),
         skillBonusType: new fields.StringField({ choices: Object.keys(leadershipSkillBonuses) }),
       };
     }

@@ -291,6 +291,28 @@ export const leadershipRoles = {
   viceroy: "PF1KS.Leadership.Viceroy",
 };
 
+export const leadershipBonusTwoStats = {
+  ecoLoy: "PF1KS.EconomyLoyalty",
+  ecoSta: "PF1KS.EconomyStability",
+  loySta: "PF1KS.LoyaltyStability",
+};
+
+export const leadershipBonusOptions = {
+  ...kingdomStats,
+  ...leadershipBonusTwoStats,
+  all: "PF1KS.AllStats",
+};
+
+export const leadershipBonusToKingdomStats = {
+  economy: ["economy"],
+  loyalty: ["loyalty"],
+  stability: ["stability"],
+  ecoLoy: ["economy", "loyalty"],
+  ecoSta: ["economy", "stability"],
+  loySta: ["loyalty", "stability"],
+  all: ["economy", "loyalty", "stability"],
+};
+
 export const leadershipPenalties = {
   ruler: {
     unrest: 4,

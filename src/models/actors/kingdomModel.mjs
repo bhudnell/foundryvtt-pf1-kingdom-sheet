@@ -8,6 +8,8 @@ import {
   kingdomGovernments,
   kingdomImprovementId,
   kingdomStats,
+  leadershipBonusToKingdomStats,
+  leadershipBonusTwoStats,
   leadershipPenalties,
   settlementModifiers,
 } from "../../config.mjs";
@@ -191,6 +193,31 @@ export class KingdomModel extends foundry.abstract.TypeDataModel {
     this.infamy.total =
       this.infamy.corruption + this.infamy.crime + this.infamy.base + this.infamy.buildings + this.infamy.events;
 
+    // update ruler bonus type to option allowed by kingdom size
+    if (this.size < 26) {
+      if (!Object.keys(kingdomStats).includes(this.leadership.ruler.bonusType)) {
+        this.leadership.ruler.bonusType = "economy";
+      }
+      if (this.config.secondRuler && !Object.keys(kingdomStats).includes(this.leadership.consort.bonusType)) {
+        this.leadership.consort.bonusType = "economy";
+      }
+    } else if (this.size < 101) {
+      if (!Object.keys(leadershipBonusTwoStats).includes(this.leadership.ruler.bonusType)) {
+        this.leadership.ruler.bonusType = "ecoLoy";
+      }
+      if (
+        this.config.secondRuler &&
+        !Object.keys(leadershipBonusTwoStats).includes(this.leadership.consort.bonusType)
+      ) {
+        this.leadership.consort.bonusType = "ecoLoy";
+      }
+    } else {
+      this.leadership.ruler.bonusType = "all";
+      if (this.config.secondRuler) {
+        this.leadership.consort.bonusType = "all";
+      }
+    }
+
     // kingdom stats
     for (const stat of Object.keys(kingdomStats)) {
       // TODO can this be done cleaner?
@@ -210,10 +237,17 @@ export class KingdomModel extends foundry.abstract.TypeDataModel {
         (edictEffects.promotion[this.edicts.promotion]?.[stat] ?? 0) +
         (edictEffects.taxation[this.edicts.taxation]?.[stat] ?? 0);
       this[stat].leadership =
-        filled.reduce((acc, curr) => (curr.bonusTypes.includes(stat) ? curr.bonus : 0) + acc, 0) -
+        filled.reduce(
+          (acc, curr) => (leadershipBonusToKingdomStats[curr.bonusType]?.includes(stat) ? curr.bonus : 0) + acc,
+          0
+        ) -
         vacant.reduce((acc, curr) => (leadershipPenalties[curr.role][stat] ?? 0) + acc, 0) +
         (this.config.leadershipSkills
-          ? filled.reduce((acc, curr) => (curr.bonusTypes.includes(stat) ? curr.skillBonus : 0) + acc, 0)
+          ? filled.reduce(
+              (acc, curr) =>
+                (leadershipBonusToKingdomStats[curr.bonusType]?.includes(stat) ? curr.skillBonus : 0) + acc,
+              0
+            )
           : 0);
       this[stat].unrest = this.unrest;
       this[stat].buildings = this._getChanges(stat, kingdomBuildingId);

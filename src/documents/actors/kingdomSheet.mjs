@@ -15,6 +15,8 @@ import {
   leadershipSkillBonuses,
   settlementModifiers,
   leadershipRoles,
+  leadershipBonusOptions,
+  leadershipBonusTwoStats,
 } from "../../config.mjs";
 import { findLargestSmallerNumber, renameKeys } from "../../utils.mjs";
 
@@ -132,15 +134,34 @@ export class KingdomSheet extends ActorSheet {
       if (key === "viceroys") {
         return acc;
       }
-      acc.push({
+
+      const data = {
         roleLabel: game.i18n.localize(leadershipRoles[leader.role]),
         key,
         actorId: leader.actorId,
         skillBonus: leader.skillBonus,
         skillBonusLabel: game.i18n.localize(leadershipSkillBonuses[leader.skillBonusType]),
         bonus: leader.bonus,
-        bonusTypesLabel: leader.bonusTypes.map((type) => game.i18n.localize(kingdomStats[type])).join(", "), // TODO spymaster and ruler are dropdowns that can be changed
-      });
+        showSelector: false,
+        bonusType: leader.bonusType,
+        bonusTypeLabel: game.i18n.localize(leadershipBonusOptions[leader.bonusType]),
+      };
+      if (leader.role === "ruler") {
+        data.showSelector = actorData.size < 101;
+        data.bonusOptions = Object.fromEntries(
+          Object.entries(actorData.size < 26 ? kingdomStats : leadershipBonusTwoStats).map(([key, label]) => [
+            key,
+            game.i18n.localize(label),
+          ])
+        );
+      } else if (leader.role === "spymaster") {
+        data.showSelector = true;
+        data.bonusOptions = Object.fromEntries(
+          Object.entries(kingdomStats).map(([key, label]) => [key, game.i18n.localize(label)])
+        );
+      }
+
+      acc.push(data);
       return acc;
     }, []);
 
@@ -153,7 +174,7 @@ export class KingdomSheet extends ActorSheet {
         skillBonus: viceroy.skillBonus,
         skillBonusLabel: game.i18n.localize(leadershipSkillBonuses[viceroy.skillBonusType]),
         bonus: viceroy.bonus,
-        bonusTypesLabel: viceroy.bonusTypes.map((type) => game.i18n.localize(kingdomStats[type])).join(", "),
+        bonusTypeLabel: game.i18n.localize(leadershipBonusOptions[viceroy.bonusType]),
       };
     });
 
@@ -278,9 +299,9 @@ export class KingdomSheet extends ActorSheet {
 
   _onConsortToggle(event) {
     if (event.target.checked) {
-      this.actor.update({ "system.leadership.consort": { bonusTypes: [""], role: "ruler" } });
+      this.actor.update({ "system.leadership.consort": { bonusType: "", role: "ruler" } });
     } else {
-      this.actor.update({ "system.leadership.consort": { bonusTypes: ["loyalty"], role: "consort" } });
+      this.actor.update({ "system.leadership.consort": { bonusType: "loyalty", role: "consort" } });
     }
   }
 
