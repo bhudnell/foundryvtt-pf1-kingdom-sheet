@@ -28,6 +28,10 @@
     </div>
 
     <div class="tab details flexcol" data-group="primary" data-tab="details">
+      {{#if isArmy}}
+      {{> item-sheet-army}}
+      {{/if}}
+
       {{#if isBuilding}}
       {{> item-sheet-building}}
       {{/if}}

@@ -2,8 +2,37 @@
   - Settlement Tab
     - What to name tab with buildings not assigned to a settlement
     - Settlement image?
+  - Event tab
+    - Roll event button
+  - Army tab
+    - List of units
   - Config Tab
     - add compendium entries and buttons for all rules https://www.aonprd.com/Rules.aspx?ID=1547
+
+- Army Sheet
+  - Description Tab https://www.aonprd.com/Rules.aspx?ID=1565
+    - Name
+    - XP
+    - Alignment
+    - Type
+    - Commander
+  - Details Tab
+    - Size
+    - HP
+      - Current
+      - Max
+    - Army Challenge Rating (ACR)
+    - Defense Value (DV) - calculated
+    - Offense Modifier (OM) - calculated
+    - Tactics - checkbox list via ActorTraitSelector
+    - Resources - checkbox list via ActorTraitSelector
+    - Special abilities - checkbox list via ActorTraitSelector
+    - Speed
+    - Morale
+    - Changes
+      - Consumption (Per week)
+      - DV
+      - OM
 
 - Building Sheet
   - Description Tab

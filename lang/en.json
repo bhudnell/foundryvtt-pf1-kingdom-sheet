@@ -220,8 +220,9 @@
 
     "Sheet": {
       "Kingdom": "Kingdom Sheet",
-      "Event": "Event",
+      "Army": "Army",
       "Building": "Building",
+      "Event": "Event",
       "Improvement": "Terrain Improvement"
     }
   },
@@ -233,8 +234,9 @@
     },
     "Item": {
       "pf1-kingdom-sheet": {
-        "event": "Event",
+        "army": "Army",
         "building": "Building",
+        "event": "Event",
         "improvement": "Terrain Improvement"
       }
     }

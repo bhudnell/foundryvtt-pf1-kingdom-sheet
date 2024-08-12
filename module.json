@@ -21,6 +21,9 @@
       }
     },
     "Item": {
+      "army": {
+        "htmlFields": ["description"]
+      },
       "building": {
         "htmlFields": ["description"]
       },
@@ -35,6 +38,16 @@
 
   "packs": [
     {
+      "name": "armies",
+      "label": "Armies",
+      "path": "packs/armies",
+      "type": "Item",
+      "ownership": {
+        "PLAYER": "OBSERVER"
+      },
+      "system": "pf1"
+    },
+    {
       "name": "buildings",
       "label": "Buildings",
       "path": "packs/buildings",
@@ -48,6 +61,16 @@
       "name": "events",
       "label": "Events",
       "path": "packs/events",
+      "type": "Item",
+      "ownership": {
+        "PLAYER": "OBSERVER"
+      },
+      "system": "pf1"
+    },
+    {
+      "name": "improvements",
+      "label": "Terrain Improvements",
+      "path": "packs/improvements",
       "type": "Item",
       "ownership": {
         "PLAYER": "OBSERVER"
@@ -75,7 +98,7 @@
   "packFolders": [
     {
       "name": "Kingmaker",
-      "packs": ["buildings", "events", "rules", "roll-tables"]
+      "packs": ["armies", "buildings", "events", "improvements", "rules", "roll-tables"]
     }
   ],
 
