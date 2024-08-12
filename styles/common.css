@@ -61,6 +61,11 @@
       &:hover {
         background: rgba(155, 155, 155, 0.2);
       }
+
+      &.shrink {
+        flex: 0 0;
+        padding: 0 8px;
+      }
     }
 
     &.tabs {
