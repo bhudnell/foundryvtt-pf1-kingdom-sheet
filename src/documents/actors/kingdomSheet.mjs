@@ -128,6 +128,7 @@ export class KingdomSheet extends ActorSheet {
     const { fame, ...perTurnRaw } = actionsPerTurn[sizeBonus];
     const perTurn = renameKeys(perTurnRaw, actionsPerTurnLabels);
     data.perTurn = perTurn;
+    data.infinity = Infinity;
 
     // non-viceroy leadership
     data.leaders = Object.entries(actorData.leadership).reduce((acc, [key, leader]) => {

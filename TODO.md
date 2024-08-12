@@ -1,6 +1,4 @@
 - Kingdom Sheet
-  - Summary Tab
-    - Change Infinity to infinity symbol
   - Settlement Tab
     - What to name tab with buildings not assigned to a settlement
     - Settlement image?

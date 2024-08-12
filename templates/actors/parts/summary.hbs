@@ -107,7 +107,11 @@
   <h3>{{localize "PF1KS.ActionsPerTurn"}}</h3>
   <div class="flexcol">
     {{#each perTurn}}
+    {{#if (eq this @root.infinity)}}
+    <span>{{localize @key}}: <i class="fa-solid fa-infinity"></i></span>
+    {{else}}
     <span>{{localize @key}}: {{ this }}</span>
+    {{/if}}
     {{/each}}
   </div>
 </div>
