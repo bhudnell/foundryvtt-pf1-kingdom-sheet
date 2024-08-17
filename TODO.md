@@ -15,24 +15,14 @@
     - XP
     - Alignment
     - Type
-    - Commander
   - Details Tab
-    - Size
-    - HP
-      - Current
-      - Max
-    - Army Challenge Rating (ACR)
+    - Consumption (Per week, need to convert to per month) - calculated
     - Defense Value (DV) - calculated
     - Offense Modifier (OM) - calculated
     - Tactics - checkbox list via ActorTraitSelector
     - Resources - checkbox list via ActorTraitSelector
     - Special abilities - checkbox list via ActorTraitSelector
-    - Speed
-    - Morale
-    - Changes
-      - Consumption (Per week)
-      - DV
-      - OM
+    - Commander
 
 - Building Sheet
   - Description Tab

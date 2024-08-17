@@ -1,1 +1,75 @@
-{{> item-sheet-changes}}
+<label>{{localize "PF1KS.Size"}}</label>
+<select name="system.size">
+  {{selectOptions sizeChoices selected=system.size blank=''}}
+</select>
+
+<label>{{localize "PF1KS.HD"}}</label>
+<select name="system.hd">
+  {{selectOptions hdChoices selected=system.hd blank=''}}
+</select>
+
+<label>{{localize "PF1KS.HP"}}</label>
+<div>
+  {{numberInput system.hp.current name="system.hp.current" step=1 min=0}}
+  <span> / {{ system.hp.max }}</span>
+</div>
+
+<label>{{localize "PF1KS.ACR"}}</label>
+{{numberInput system.acr name="system.acr"}}
+
+<label>{{localize "PF1KS.ConsumptionPerMonth"}}</label>
+<span>{{ system.consumption.total }}</span>
+
+<label>{{localize "PF1KS.DV"}}</label>
+<span>{{ system.dv.total }}</span>
+
+<label>{{localize "PF1KS.OM"}}</label>
+<span>+ {{ system.om.total }}</span>
+
+<label>{{localize "PF1KS.Speed"}}</label>
+{{numberInput system.speed name="system.speed" min=0}}
+
+<label>{{localize "PF1KS.Morale"}}</label>
+{{numberInput system.morale name="system.morale" step=1 min=-5 max=4}}
+
+<div class="flex0">
+  <label>{{localize "PF1KS.Tactics"}}</label>
+  <span>{{ tactics }}</span>
+  <a class="trait-selector" data-options="tactics" data-for="system.tactics"><i class="fa-solid fa-dice-d20"></i></a>
+</div>
+
+<div class="flex0">
+  <label>{{localize "PF1KS.Resources"}}</label>
+  <span>{{ resources }}</span>
+  <a class="trait-selector" data-options="resources" data-for="system.resources"
+    ><i class="fa-solid fa-dice-d20"></i
+  ></a>
+</div>
+
+<div class="flex0">
+  <label>{{localize "PF1KS.Special"}}</label>
+  <span>{{ special }}</span>
+  <a class="trait-selector" data-options="special" data-for="system.special"><i class="fa-solid fa-dice-d20"></i></a>
+</div>
+
+<h4 class="section-header">{{localize "PF1KS.Commander"}}</h4>
+<select name="system.commander.actor">
+  {{selectOptions commanderChoices selected=actorId blank=''}}
+</select>
+
+<div class="flex0">
+  <label>{{localize "PF1KS.Boons"}}</label>
+  <span>{{ boons }}</span>
+  <a class="trait-selector" data-options="boons" data-for="system.commander.boons"
+    ><i class="fa-solid fa-dice-d20"></i
+  ></a>
+</div>
+
+<label>{{localize "PF1KS.ChaMod"}}</label>
+<span>{{ system.commander.chaMod }}</span>
+
+<label>{{localize "PF1KS.ProfSoldier"}}</label>
+<span>{{ system.commander.profSol }}</span>
+
+<label>{{localize "PF1KS.Leadership"}}</label>
+<span>{{ system.commander.leadership }}</span>
