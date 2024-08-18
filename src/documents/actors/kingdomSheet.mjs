@@ -17,6 +17,7 @@ import {
   leadershipRoles,
   leadershipBonusOptions,
   leadershipBonusTwoStats,
+  kingdomArmyId,
 } from "../../config.mjs";
 import { findLargestSmallerNumber, renameKeys } from "../../utils.mjs";
 
@@ -77,11 +78,13 @@ export class KingdomSheet extends ActorSheet {
     };
 
     // item types
-    data.improvementSections = this._prepareImprovements();
-    data.improvementType = kingdomImprovementId;
+    data.armies = this.actor.itemTypes[kingdomArmyId];
+    data.armyType = kingdomArmyId;
+    data.buildingType = kingdomBuildingId;
     data.eventSections = this._prepareEvents();
     data.eventType = kingdomEventId;
-    data.buildingType = kingdomBuildingId;
+    data.improvementSections = this._prepareImprovements();
+    data.improvementType = kingdomImprovementId;
 
     // notifications
     // TODO unrest > 10 warning -> lose 1 hex a turn

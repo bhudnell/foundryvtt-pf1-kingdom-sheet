@@ -6,6 +6,7 @@
     <a class="item" data-tab="settlements" data-group="primary">{{localize "PF1KS.Settlements"}}</a>
     <a class="item" data-tab="terrain" data-group="primary">{{localize "PF1KS.TerrainLabel"}}</a>
     <a class="item" data-tab="events" data-group="primary">{{localize "PF1KS.Events"}}</a>
+    <a class="item" data-tab="armies" data-group="primary">{{localize "PF1KS.Armies"}}</a>
     <a class="item" data-tab="notes" data-group="primary">{{localize "PF1KS.Notes"}}</a>
     <a class="item" data-tab="config" data-group="primary">{{localize "PF1KS.ConfigLabel"}}</a>
   </nav>
@@ -35,6 +36,11 @@
     {{! Events Tab }}
     <div class="tab events flexcol" data-group="primary" data-tab="events">
       {{> kingdom-sheet-events}}
+    </div>
+
+    {{! Armies Tab }}
+    <div class="tab armies flexcol" data-group="primary" data-tab="armies">
+      {{> kingdom-sheet-armies}}
     </div>
 
     {{! Notes Tab }}

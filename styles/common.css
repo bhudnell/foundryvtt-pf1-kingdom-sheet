@@ -201,6 +201,18 @@
       flex-flow: row nowrap;
       align-items: center;
 
+      &.item-number {
+        flex: 0 0 32px;
+      }
+
+      &.item-army-hp {
+        flex: 0 0 64px;
+      }
+
+      &.item-commander {
+        flex: 0 0 160px;
+      }
+
       &.item-type {
         flex: 0 0 100px;
       }

@@ -22,14 +22,14 @@ Hooks.on("preCreateItem", (item, data, context, user) => {
     return;
   }
 
-  if ([kingdomEventId, kingdomBuildingId, kingdomImprovementId].includes(item.type)) {
+  if ([kingdomArmyId, kingdomBuildingId, kingdomEventId, kingdomImprovementId].includes(item.type)) {
     if (item.actor.type !== kingdomSheetId) {
       ui.notifications.error(`"${item.actor.type}" actor can't have Kingdom items`);
       return false;
     }
   }
 
-  if (![kingdomEventId, kingdomBuildingId, kingdomImprovementId].includes(item.type)) {
+  if (![kingdomArmyId, kingdomBuildingId, kingdomEventId, kingdomImprovementId].includes(item.type)) {
     if (item.actor.type === kingdomSheetId) {
       ui.notifications.error(`"${item.actor.type}" actor can only have Kingdom items`);
       return false;
@@ -80,17 +80,18 @@ Hooks.once("init", () => {
 
 Hooks.once("ready", () => {
   loadTemplates({
-    "kingdom-sheet-summary": `modules/${CFG.id}/templates/actors/parts/summary.hbs`,
+    "kingdom-sheet-armies": `modules/${CFG.id}/templates/actors/parts/armies.hbs`,
+    "kingdom-sheet-config": `modules/${CFG.id}/templates/actors/parts/config.hbs`,
+    "kingdom-sheet-events": `modules/${CFG.id}/templates/actors/parts/events.hbs`,
     "kingdom-sheet-leadership": `modules/${CFG.id}/templates/actors/parts/leadership.hbs`,
     "kingdom-sheet-settlements": `modules/${CFG.id}/templates/actors/parts/settlements.hbs`,
+    "kingdom-sheet-summary": `modules/${CFG.id}/templates/actors/parts/summary.hbs`,
     "kingdom-sheet-terrain": `modules/${CFG.id}/templates/actors/parts/terrain.hbs`,
-    "kingdom-sheet-events": `modules/${CFG.id}/templates/actors/parts/events.hbs`,
-    "kingdom-sheet-config": `modules/${CFG.id}/templates/actors/parts/config.hbs`,
-    "tooltip-content": `modules/${CFG.id}/templates/actors/parts/tooltip-content.hbs`,
     "item-sheet-army": `modules/${CFG.id}/templates/items/parts/army-details.hbs`,
     "item-sheet-building": `modules/${CFG.id}/templates/items/parts/building-details.hbs`,
     "item-sheet-event": `modules/${CFG.id}/templates/items/parts/event-details.hbs`,
     "item-sheet-improvement": `modules/${CFG.id}/templates/items/parts/improvement-details.hbs`,
     "item-sheet-changes": `modules/${CFG.id}/templates/items/parts/changes.hbs`,
+    "tooltip-content": `modules/${CFG.id}/templates/actors/parts/tooltip-content.hbs`,
   });
 });

@@ -27,6 +27,7 @@ export class ArmyModel extends foundry.abstract.TypeDataModel {
       commander: new fields.SchemaField({
         actor: new fields.ForeignDocumentField(pf1.documents.actor.ActorPF),
         boons: new fields.SchemaField({
+          // TODO bonus tactic
           value: new fields.ArrayField(new fields.StringField({ choices: Object.keys(armySelectorOptions.boons) })),
         }),
       }),
@@ -34,25 +35,18 @@ export class ArmyModel extends foundry.abstract.TypeDataModel {
   }
 
   prepareBaseData() {
-    this.consumption = {
-      base: 0,
-      resources: 0,
-      total: 0,
-    };
-    this.dv = {
-      base: 0,
-      resources: 0,
-      total: 0,
-    };
-    this.om = {
-      base: 0,
-      resources: 0,
-      total: 0,
-    };
+    for (const t of ["consumption", "om", "dv"]) {
+      this[t] = {
+        base: 0,
+        resources: 0,
+        boons: 0,
+        total: 0,
+      };
+    }
   }
 
   prepareDerivedData() {
-    this.hp.max = Math.floor(armyHD[this.hd] * this.acr);
+    this.hp.max = Math.floor((armyHD[this.hd] ?? 0) * this.acr);
 
     this.consumption.base = Math.max(Math.floor(this.acr / 2), 1);
     this.dv.base = Math.floor(10 + this.acr);
@@ -88,15 +82,75 @@ export class ArmyModel extends foundry.abstract.TypeDataModel {
       this.om.resources += 2;
     }
 
-    this.consumption.total = (this.consumption.base + this.consumption.resources) * 4;
-    this.dv.total = this.dv.base + this.dv.resources;
-    this.om.total = this.om.base + this.om.resources;
+    // boons
+    if (this.commander.boons.value.includes("dt")) {
+      this.dv.boons += 2;
+    }
 
-    // commander getters
-    this.commander.chaMod = () => this.commander.actor?.system.abilities.cha.mod ?? 0;
-    this.commander.profSol = () =>
-      Math.floor((this.commander.actor?.system.skills.pro.subSkills.soldier?.rank ?? 0) / 5);
-    this.commander.leadership = () =>
-      (this.commander.actor?.system.attributes.hd.total ?? 0) + (this.commander.actor?.system.abilities.cha.mod ?? 0);
+    this.consumption.total = (this.consumption.base + this.consumption.resources + this.consumption.boons) * 4;
+    this.dv.total = this.dv.base + this.dv.resources + this.dv.boons;
+    this.om.total = this.om.base + this.om.resources + this.om.boons;
+
+    // commander getters TODO these might need to be functions to speed up load times?
+    this.commander.name = () => this.commander.actor?.name;
+    this.commander.moraleBonus = () => {
+      if (!this.commander.actor) {
+        return 0;
+      }
+
+      const boonBonus = this.commander.boons.value.includes("lo") ? (this.commander.leadership < 12 ? 2 : 4) : 0;
+
+      return (
+        this.commander.actor.system.abilities.cha.mod +
+        Math.floor((this.commander.actor.system.skills.pro.subSkills.soldier?.rank ?? 0) / 5) +
+        boonBonus
+      );
+    };
+    this.commander.leadership = () => {
+      if (!this.commander.actor) {
+        return 0;
+      }
+      const leadershipBonus = this.commander.actor.itemTypes.feat.some(
+        (i) => i.name === "Leadership" && i.system.subType === "feat"
+      )
+        ? 3
+        : 0;
+
+      return (
+        this.commander.actor.system.attributes.hd.total +
+        this.commander.actor.system.abilities.cha.mod +
+        leadershipBonus
+      );
+    };
+    this.commander.maxBoons = () => {
+      if (!this.commander.actor) {
+        return 0;
+      }
+
+      return 1 + Math.floor((this.commander.actor.system.skills.pro.subSkills.soldier?.rank ?? 0) / 5);
+    };
+  }
+
+  async rollMorale(options = {}) {
+    const parts = [];
+
+    if (this.morale) {
+      parts.push(`${this.morale}[${game.i18n.localize("PF1KS.BaseMorale")}]`);
+    }
+    if (this.commander.moraleBonus) {
+      parts.push(`${this.commander.moraleBonus}[${game.i18n.localize("PF1KS.CommanderBonus")}]`);
+    }
+
+    const actor = options.actor ?? this.actor; // TODO maybe needs to be parent?
+    const token = options.token ?? this.token; // TODO maybe needs to be parent?
+
+    const rollOptions = {
+      ...options,
+      parts,
+      flavor: game.i18n.localize("PF1KS.Morale"),
+      speaker: ChatMessage.getSpeaker({ actor, token, alias: token?.name }),
+    };
+
+    return await pf1.dice.d20Roll(rollOptions);
   }
 }

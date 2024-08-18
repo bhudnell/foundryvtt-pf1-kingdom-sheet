@@ -1,0 +1,43 @@
+<ol class="item-list">
+  <li class="flexrow item-list-header">
+    <span class="item-name">{{ localize "PF1KS.Armies" }}</span>
+    <div class="item-detail item-army-hp" data-tooltip="PF1KS.HP"><i class="fa-solid fa-heart"></i></div>
+    <div class="item-detail item-number" data-tooltip="PF1KS.DV"><i class="ra ra-shield"></i></div>
+    <div class="item-detail item-number" data-tooltip="PF1KS.OM"><i class="ra ra-sword"></i></div>
+    <div class="item-detail item-number" data-tooltip="PF1KS.Speed"><i class="fa-solid fa-shoe-prints"></i></div>
+    <div class="item-detail item-number" data-tooltip="PF1KS.Morale"><i class="ra ra-beer"></i></div>
+    <div class="item-detail item-number" data-tooltip="PF1KS.ConsumptionPerMonth">
+      <i class="fa-solid fa-sack-dollar"></i>
+    </div>
+    <div class="item-detail item-commander" data-tooltip="PF1KS.Commander"><i class="ra ra-player-king"></i></div>
+    <div class="item-detail item-controls">
+      <a class="item-control item-create" data-type="{{ @root.armyType }}" data-tooltip="PF1KS.CreateItem">
+        <i class="fa-solid fa-plus"></i>
+      </a>
+    </div>
+  </li>
+  {{#each armies}}
+  {{log this}}
+  <li class="flexrow item" data-id="{{ id }}">
+    <div class="item-name expand-summary">
+      <div class="item-image" style="background-image: url('{{ img }}')"></div>
+      <span>{{ name }}</span>
+    </div>
+    <span class="item-detail item-army-hp">{{ system.hp.current }} / {{ system.hp.max }}</span>
+    <span class="item-detail item-number">{{ system.dv.total }}</span>
+    <span class="item-detail item-number">+{{ system.om.total }}</span>
+    <span class="item-detail item-number">{{ system.speed }}</span>
+    <span class="item-detail item-number">{{ system.morale }}</span>
+    <span class="item-detail item-number">{{ system.consumption.total }}</span>
+    <span class="item-detail item-commander">{{ system.commander.name }}</span>
+    <div class="flexrow item-detail item-controls">
+      <a class="item-control item-edit" data-tooltip="PF1KS.EditItem">
+        <i class="fa-solid fa-pen-to-square"></i>
+      </a>
+      <a class="item-control item-delete" data-tooltip="PF1KS.DeleteItem">
+        <i class="fa-solid fa-trash"></i>
+      </a>
+    </div>
+  </li>
+  {{/each}}
+</ol>
