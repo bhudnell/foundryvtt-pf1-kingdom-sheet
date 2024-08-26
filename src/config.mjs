@@ -7,6 +7,10 @@ export const kingdomArmyId = `${CFG.id}.army`;
 export const kingdomBuildingId = `${CFG.id}.building`;
 export const kingdomEventId = `${CFG.id}.event`;
 export const kingdomImprovementId = `${CFG.id}.improvement`;
+export const kingdomBoonId = `${CFG.id}.boon`;
+export const kingdomResourceId = `${CFG.id}.resource`;
+export const kingdomSpecialId = `${CFG.id}.special`;
+export const kingdomTacticId = `${CFG.id}.tactic`;
 
 export const kingdomStats = {
   economy: "PF1KS.Economy",

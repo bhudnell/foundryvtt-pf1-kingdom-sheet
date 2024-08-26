@@ -31,6 +31,7 @@ export class ArmyModel extends foundry.abstract.TypeDataModel {
           value: new fields.ArrayField(new fields.StringField({ choices: Object.keys(armySelectorOptions.boons) })),
         }),
       }),
+      notes: new fields.HTMLField(),
     };
   }
 

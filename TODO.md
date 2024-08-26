@@ -15,14 +15,9 @@
     - XP
     - Alignment
     - Type
-  - Details Tab
-    - Consumption (Per week, need to convert to per month) - calculated
-    - Defense Value (DV) - calculated
-    - Offense Modifier (OM) - calculated
-    - Tactics - checkbox list via ActorTraitSelector
-    - Resources - checkbox list via ActorTraitSelector
-    - Special abilities - checkbox list via ActorTraitSelector
-    - Commander
+  - Rolls
+    - Offense
+    - Morale
 
 - Building Sheet
   - Description Tab
@@ -44,3 +39,4 @@
 - Misc
   - Clean up en.json
   - fix styling, its ugly
+  - add army actor/item packs

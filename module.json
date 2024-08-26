@@ -18,12 +18,12 @@
     "Actor": {
       "kingdom": {
         "htmlFields": ["notes"]
+      },
+      "army": {
+        "htmlFields": ["notes"]
       }
     },
     "Item": {
-      "army": {
-        "htmlFields": ["description"]
-      },
       "building": {
         "htmlFields": ["description"]
       },
@@ -32,21 +32,23 @@
       },
       "improvement": {
         "htmlFields": ["description"]
+      },
+      "boon": {
+        "htmlFields": ["description"]
+      },
+      "resource": {
+        "htmlFields": ["description"]
+      },
+      "special": {
+        "htmlFields": ["description"]
+      },
+      "tactic": {
+        "htmlFields": ["description"]
       }
     }
   },
 
   "packs": [
-    {
-      "name": "armies",
-      "label": "Armies",
-      "path": "packs/armies",
-      "type": "Item",
-      "ownership": {
-        "PLAYER": "OBSERVER"
-      },
-      "system": "pf1"
-    },
     {
       "name": "buildings",
       "label": "Buildings",
@@ -98,7 +100,7 @@
   "packFolders": [
     {
       "name": "Kingmaker",
-      "packs": ["armies", "buildings", "events", "improvements", "rules", "roll-tables"]
+      "packs": ["buildings", "events", "improvements", "rules", "roll-tables"]
     }
   ],
 

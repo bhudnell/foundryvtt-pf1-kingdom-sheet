@@ -220,7 +220,7 @@
 
     "Sheet": {
       "Kingdom": "Kingdom Sheet",
-      "Army": "Army",
+      "Army": "Army Sheet",
       "Building": "Building",
       "Event": "Event",
       "Improvement": "Terrain Improvement"
@@ -229,12 +229,12 @@
   "TYPES": {
     "Actor": {
       "pf1-kingdom-sheet": {
-        "kingdom": "Kingdom Sheet"
+        "kingdom": "Kingdom Sheet",
+        "army": "Army Sheet"
       }
     },
     "Item": {
       "pf1-kingdom-sheet": {
-        "army": "Army",
         "building": "Building",
         "event": "Event",
         "improvement": "Terrain Improvement"

@@ -5,14 +5,18 @@ import {
   kingdomBuildingId,
   kingdomImprovementId,
   kingdomArmyId,
+  kingdomBoonId,
+  kingdomResourceId,
+  kingdomSpecialId,
+  kingdomTacticId,
 } from "./config.mjs";
+import { ArmySheet } from "./documents/actors/armySheet.mjs";
 import { KingdomSheet } from "./documents/actors/kingdomSheet.mjs";
-import { ArmySheet } from "./documents/items/armySheet.mjs";
 import { BuildingSheet } from "./documents/items/buildingSheet.mjs";
 import { EventSheet } from "./documents/items/eventSheet.mjs";
 import { ImprovementSheet } from "./documents/items/improvementSheet.mjs";
+import { ArmyModel } from "./models/actors/armyModel.mjs";
 import { KingdomModel } from "./models/actors/kingdomModel.mjs";
-import { ArmyModel } from "./models/items/armyModel.mjs";
 import { BuildingModel } from "./models/items/buildingModel.mjs";
 import { EventModel } from "./models/items/eventModel.mjs";
 import { ImprovementModel } from "./models/items/improvementModel.mjs";
@@ -22,16 +26,25 @@ Hooks.on("preCreateItem", (item, data, context, user) => {
     return;
   }
 
-  if ([kingdomArmyId, kingdomBuildingId, kingdomEventId, kingdomImprovementId].includes(item.type)) {
-    if (item.actor.type !== kingdomSheetId) {
+  if ([kingdomBuildingId, kingdomEventId, kingdomImprovementId].includes(item.type)) {
+    if (![kingdomSheetId, kingdomArmyId].includes(item.actor.type)) {
       ui.notifications.error(`"${item.actor.type}" actor can't have Kingdom items`);
       return false;
     }
   }
 
-  if (![kingdomArmyId, kingdomBuildingId, kingdomEventId, kingdomImprovementId].includes(item.type)) {
+  // kingdom
+  if (![kingdomBuildingId, kingdomEventId, kingdomImprovementId].includes(item.type)) {
     if (item.actor.type === kingdomSheetId) {
       ui.notifications.error(`"${item.actor.type}" actor can only have Kingdom items`);
+      return false;
+    }
+  }
+
+  //army
+  if (![kingdomBoonId, kingdomResourceId, kingdomSpecialId, kingdomTacticId].includes(item.type)) {
+    if (item.actor.type === kingdomArmyId) {
+      ui.notifications.error(`"${item.actor.type}" actor can only have Army items`);
       return false;
     }
   }
@@ -39,7 +52,8 @@ Hooks.on("preCreateItem", (item, data, context, user) => {
 
 Hooks.once("init", () => {
   CONFIG.Actor.dataModels[kingdomSheetId] = KingdomModel;
-  CONFIG.Item.dataModels[kingdomArmyId] = ArmyModel;
+  CONFIG.Actor.dataModels[kingdomArmyId] = ArmyModel;
+
   CONFIG.Item.dataModels[kingdomBuildingId] = BuildingModel;
   CONFIG.Item.dataModels[kingdomEventId] = EventModel;
   CONFIG.Item.dataModels[kingdomImprovementId] = ImprovementModel;
@@ -49,11 +63,12 @@ Hooks.once("init", () => {
     types: [kingdomSheetId],
     makeDefault: true,
   });
-  Items.registerSheet(CFG.id, ArmySheet, {
+  Actors.registerSheet(CFG.id, ArmySheet, {
     label: game.i18n.localize("PF1KS.Sheet.Army"),
     types: [kingdomArmyId],
     makeDefault: true,
   });
+
   Items.registerSheet(CFG.id, BuildingSheet, {
     label: game.i18n.localize("PF1KS.Sheet.Building"),
     types: [kingdomBuildingId],
@@ -80,18 +95,21 @@ Hooks.once("init", () => {
 
 Hooks.once("ready", () => {
   loadTemplates({
-    "kingdom-sheet-armies": `modules/${CFG.id}/templates/actors/parts/armies.hbs`,
-    "kingdom-sheet-config": `modules/${CFG.id}/templates/actors/parts/config.hbs`,
-    "kingdom-sheet-events": `modules/${CFG.id}/templates/actors/parts/events.hbs`,
-    "kingdom-sheet-leadership": `modules/${CFG.id}/templates/actors/parts/leadership.hbs`,
-    "kingdom-sheet-settlements": `modules/${CFG.id}/templates/actors/parts/settlements.hbs`,
-    "kingdom-sheet-summary": `modules/${CFG.id}/templates/actors/parts/summary.hbs`,
-    "kingdom-sheet-terrain": `modules/${CFG.id}/templates/actors/parts/terrain.hbs`,
-    "item-sheet-army": `modules/${CFG.id}/templates/items/parts/army-details.hbs`,
+    "kingdom-sheet-armies": `modules/${CFG.id}/templates/actors/kingdom/parts/armies.hbs`,
+    "kingdom-sheet-config": `modules/${CFG.id}/templates/actors/kingdom/parts/config.hbs`,
+    "kingdom-sheet-events": `modules/${CFG.id}/templates/actors/kingdom/parts/events.hbs`,
+    "kingdom-sheet-leadership": `modules/${CFG.id}/templates/actors/kingdom/parts/leadership.hbs`,
+    "kingdom-sheet-settlements": `modules/${CFG.id}/templates/actors/kingdom/parts/settlements.hbs`,
+    "kingdom-sheet-summary": `modules/${CFG.id}/templates/actors/kingdom/parts/summary.hbs`,
+    "kingdom-sheet-terrain": `modules/${CFG.id}/templates/actors/kingdom/parts/terrain.hbs`,
+
+    "army-sheet-summary": `modules/${CFG.id}/templates/actors/army/parts/summary.hbs`,
+
+    // "tooltip-content": `modules/${CFG.id}/templates/actors/tooltip-content.hbs`, TODO needed?
+
     "item-sheet-building": `modules/${CFG.id}/templates/items/parts/building-details.hbs`,
     "item-sheet-event": `modules/${CFG.id}/templates/items/parts/event-details.hbs`,
     "item-sheet-improvement": `modules/${CFG.id}/templates/items/parts/improvement-details.hbs`,
     "item-sheet-changes": `modules/${CFG.id}/templates/items/parts/changes.hbs`,
-    "tooltip-content": `modules/${CFG.id}/templates/actors/parts/tooltip-content.hbs`,
   });
 });

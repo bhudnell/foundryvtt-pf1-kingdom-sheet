@@ -1,22 +1,37 @@
-import { armyHD, armySelectorOptions, armySizes } from "../../config.mjs";
+import { armyHD, armySelectorOptions, armySizes, CFG } from "../../config.mjs";
 
-import { ItemBaseSheet } from "./itemBaseSheet.mjs";
+export class ArmySheet extends ActorSheet {
+  constructor(...args) {
+    super(...args);
 
-export class ArmySheet extends ItemBaseSheet {
+    this._expandedItems = new Set();
+  }
   static get defaultOptions() {
     const options = super.defaultOptions;
     return {
       ...options,
-      classes: [...options.classes, "army"],
+      template: `modules/${CFG.id}/templates/actors/army/army-sheet.hbs`,
+      classes: [...options.classes, "kingdom", "actor"],
+      tabs: [
+        {
+          navSelector: "nav.tabs[data-group='primary']",
+          contentSelector: "section.primary-body",
+          initial: "summary",
+          group: "primary",
+        },
+      ],
     };
   }
 
   async getData() {
-    const data = await super.getData();
-    const itemData = this.item.system;
+    const actor = this.actor;
+    const actorData = actor.system;
 
-    data.isArmy = true;
-    data.type = game.i18n.localize("PF1KS.ArmyLabel");
+    const data = {
+      ...this.actor,
+      enrichedNotes: await TextEditor.enrichHTML(actorData.notes),
+      editable: this.isEditable,
+    };
 
     // selectors
     data.sizeChoices = Object.entries(armySizes).reduce((acc, [key, label]) => {
@@ -29,16 +44,16 @@ export class ArmySheet extends ItemBaseSheet {
     }, {});
 
     // labels
-    data.tactics = itemData.tactics.value
+    data.tactics = actorData.tactics.value
       .map((tactic) => game.i18n.localize(armySelectorOptions.tactics[tactic]))
       .join(", ");
-    data.resources = itemData.resources.value
+    data.resources = actorData.resources.value
       .map((res) => game.i18n.localize(armySelectorOptions.resources[res]))
       .join(", ");
-    data.special = itemData.special.value
+    data.special = actorData.special.value
       .map((special) => game.i18n.localize(armySelectorOptions.special[special]))
       .join(", ");
-    data.boons = itemData.commander.boons.value
+    data.boons = actorData.commander.boons.value
       .map((boons) => game.i18n.localize(armySelectorOptions.boons[boons]))
       .join(", ");
 
@@ -49,7 +64,7 @@ export class ArmySheet extends ItemBaseSheet {
         acc[actor.id] = actor.name;
         return acc;
       }, {});
-    data.actorId = itemData.commander.actor?.id;
+    data.actorId = actorData.commander.actor?.id;
 
     return data;
   }

@@ -31,7 +31,7 @@ export class KingdomSheet extends ActorSheet {
     const options = super.defaultOptions;
     return {
       ...options,
-      template: `modules/${CFG.id}/templates/actors/kingdom-sheet.hbs`,
+      template: `modules/${CFG.id}/templates/actors/kingdom/kingdom-sheet.hbs`,
       classes: [...options.classes, "kingdom", "actor"],
       tabs: [
         {
@@ -472,7 +472,7 @@ export class KingdomSheet extends ActorSheet {
       return;
     }
 
-    const text = await renderTemplate(`modules/${CFG.id}/templates/actors/parts/tooltip-content.hbs`, templateData);
+    const text = await renderTemplate(`modules/${CFG.id}/templates/actors/tooltip-content.hbs`, templateData);
 
     game.tooltip.activate(el, {
       text,
