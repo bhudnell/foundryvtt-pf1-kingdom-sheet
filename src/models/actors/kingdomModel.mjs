@@ -14,6 +14,7 @@ import {
   settlementModifiers,
 } from "../../config.mjs";
 
+import { ArmyProxyModel } from "./armyProxyModel.mjs";
 import { defineLeader } from "./leaderModel.mjs";
 import { SettlementModel } from "./settlementModel.mjs";
 
@@ -66,6 +67,7 @@ export class KingdomModel extends foundry.abstract.TypeDataModel {
         plains: new fields.NumberField({ integer: true, initial: 0, nullable: false }),
         water: new fields.NumberField({ integer: true, initial: 0, nullable: false }),
       }),
+      armies: new fields.ArrayField(new fields.EmbeddedDataField(ArmyProxyModel)),
       notes: new fields.HTMLField(),
       config: new fields.SchemaField({
         secondRuler: new fields.BooleanField({ initial: false }),
@@ -142,6 +144,9 @@ export class KingdomModel extends foundry.abstract.TypeDataModel {
   }
 
   prepareDerivedData() {
+    // remove armies who's actors are gone
+    this._validateArmies();
+
     // changes
     this.changes = this._prepareChanges();
 
@@ -316,6 +321,10 @@ export class KingdomModel extends foundry.abstract.TypeDataModel {
     };
 
     return await pf1.dice.d20Roll(rollOptions);
+  }
+
+  _validateArmies() {
+    this.armies = this.armies.filter((army) => army.actor);
   }
 
   _prepareChanges() {

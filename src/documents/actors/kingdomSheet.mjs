@@ -78,8 +78,6 @@ export class KingdomSheet extends ActorSheet {
     };
 
     // item types
-    data.armies = this.actor.itemTypes[kingdomArmyId];
-    data.armyType = kingdomArmyId;
     data.buildingType = kingdomBuildingId;
     data.eventSections = this._prepareEvents();
     data.eventType = kingdomEventId;
@@ -200,6 +198,9 @@ export class KingdomSheet extends ActorSheet {
       return acc;
     }, {});
 
+    // armies
+    data.armies = this._prepareArmies();
+
     return data;
   }
 
@@ -217,6 +218,10 @@ export class KingdomSheet extends ActorSheet {
     html.find(".settlement-create").on("click", (e) => this._onSettlementCreate(e));
     html.find(".settlement-delete").on("click", (e) => this._onSettlementDelete(e));
 
+    html.find(".army-create").on("click", (e) => this._onArmyCreate(e));
+    html.find(".army-edit").on("click", (e) => this._onArmyEdit(e));
+    html.find(".army-delete").on("click", (e) => this._onArmyDelete(e));
+
     html.find(".item-delete").on("click", (e) => this._onItemDelete(e));
     html.find(".item-edit").on("click", (e) => this._onItemEdit(e));
     html.find(".item-create").on("click", (e) => this._onItemCreate(e));
@@ -233,6 +238,28 @@ export class KingdomSheet extends ActorSheet {
     }
 
     return this.actor.createEmbeddedDocuments("Item", [itemData]);
+  }
+
+  // allows dropping armies onto kingdoms
+  async _onDropActor(event, data) {
+    event.preventDefault();
+
+    const actorData = await Actor.fromDropData(data);
+
+    if (actorData.type !== kingdomArmyId) {
+      return false;
+    }
+
+    const source = actorData.getFlag("core", "sourceId").split(".")[0];
+
+    let army;
+    if (source === "Actor") {
+      army = await fromUuid(data.uuid);
+    } else {
+      army = await Actor.create(actorData.toObject());
+    }
+
+    return this._createArmy(army._id);
   }
 
   _prepareImprovements() {
@@ -293,6 +320,19 @@ export class KingdomSheet extends ActorSheet {
       });
     }
     return settlements;
+  }
+
+  _prepareArmies() {
+    const armies = this.actor.system.armies.map((army) => {
+      return {
+        id: army.id,
+        img: army.actor.img,
+        name: army.actor.name,
+        system: army.actor.system,
+      };
+    });
+
+    return armies;
   }
 
   _onGovernmentToggle(event) {
@@ -386,6 +426,56 @@ export class KingdomSheet extends ActorSheet {
       .map((building) => building._id);
 
     await this.actor.deleteEmbeddedDocuments("Item", buildingIdsToDelete);
+  }
+
+  async _onArmyCreate(event) {
+    event.preventDefault();
+
+    const newArmy = await Actor.create({
+      name: game.i18n.localize("PF1KS.NewArmy"),
+      type: kingdomArmyId,
+    });
+
+    return this._createArmy(newArmy._id);
+  }
+
+  async _createArmy(actorId) {
+    const armies = foundry.utils.duplicate(this.actor.system.armies ?? []);
+    armies.push({
+      id: foundry.utils.randomID(),
+      actor: actorId,
+    });
+
+    await this._onSubmit(event, {
+      updateData: { "system.armies": armies },
+    });
+  }
+
+  async _onArmyEdit(event) {
+    event.preventDefault();
+    const armyId = event.currentTarget.closest(".item").dataset.id;
+    const army = this.actor.system.armies.find((army) => army.id === armyId);
+
+    army.actor.sheet.render(true, { focus: true });
+  }
+
+  async _onArmyDelete(event) {
+    event.preventDefault();
+
+    const armyId = event.currentTarget.closest(".item").dataset.id;
+    const armies = foundry.utils.duplicate(this.actor.system.armies ?? []);
+    const deletedArmy = armies.findSplice((army) => army.id === armyId);
+    const deletedArmyActor = this.actor.system.armies.find((army) => army.id === deletedArmy.id).actor;
+
+    await this._onDelete({
+      button: event.currentTarget,
+      title: game.i18n.format("PF1KS.DeleteArmyTitle", { name: deletedArmyActor?.name }),
+      content: `<p>${game.i18n.localize("PF1KS.DeleteArmyConfirmation")}</p>`,
+      onDelete: async () =>
+        await this._onSubmit(event, {
+          updateData: { "system.armies": armies },
+        }),
+    });
   }
 
   async _onItemDelete(event) {

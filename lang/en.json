@@ -188,6 +188,13 @@
     "NoEvent": "No Event Occurred",
     "EventOccurred": "Event Occurred",
 
+    "CreateArmy": "Create Army",
+    "NewArmy": "New Army",
+    "EditArmy": "Edit Army",
+    "DeleteArmy": "Delete Army",
+    "DeleteArmyTitle": "Delete Army: {name}",
+    "DeleteArmyConfirmation": "Are you sure you want to delete this army?",
+
     "Notes": "Notes",
 
     "ConfigLabel": "Config",

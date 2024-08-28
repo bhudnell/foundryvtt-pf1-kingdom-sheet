@@ -11,13 +11,12 @@
     </div>
     <div class="item-detail item-commander" data-tooltip="PF1KS.Commander"><i class="ra ra-player-king"></i></div>
     <div class="item-detail item-controls">
-      <a class="item-control item-create" data-type="{{ @root.armyType }}" data-tooltip="PF1KS.CreateItem">
+      <a class="item-control army-create" data-tooltip="PF1KS.CreateArmy">
         <i class="fa-solid fa-plus"></i>
       </a>
     </div>
   </li>
   {{#each armies}}
-  {{log this}}
   <li class="flexrow item" data-id="{{ id }}">
     <div class="item-name expand-summary">
       <div class="item-image" style="background-image: url('{{ img }}')"></div>
@@ -31,10 +30,10 @@
     <span class="item-detail item-number">{{ system.consumption.total }}</span>
     <span class="item-detail item-commander">{{ system.commander.name }}</span>
     <div class="flexrow item-detail item-controls">
-      <a class="item-control item-edit" data-tooltip="PF1KS.EditItem">
+      <a class="item-control army-edit" data-tooltip="PF1KS.EditArmy">
         <i class="fa-solid fa-pen-to-square"></i>
       </a>
-      <a class="item-control item-delete" data-tooltip="PF1KS.DeleteItem">
+      <a class="item-control army-delete" data-tooltip="PF1KS.DeleteArmy">
         <i class="fa-solid fa-trash"></i>
       </a>
     </div>

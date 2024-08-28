@@ -45,6 +45,7 @@
     "loadTemplates": "readonly",
     "Actors": "readonly",
     "Items": "readonly",
+    "Actor": "readonly",
     "ActorSheet": "readonly",
     "Item": "readonly",
     "ItemSheet": "readonly",
