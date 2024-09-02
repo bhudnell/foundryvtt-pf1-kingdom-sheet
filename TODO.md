@@ -37,6 +37,4 @@
     - Settlement id
 
 - Misc
-  - Clean up en.json
-  - fix styling, its ugly
   - add army actor/item packs

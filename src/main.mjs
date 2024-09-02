@@ -10,16 +10,16 @@ import {
   kingdomSpecialId,
   kingdomTacticId,
 } from "./config.mjs";
-import { ArmySheet } from "./documents/actors/armySheet.mjs";
-import { KingdomSheet } from "./documents/actors/kingdomSheet.mjs";
-import { BuildingSheet } from "./documents/items/buildingSheet.mjs";
-import { EventSheet } from "./documents/items/eventSheet.mjs";
-import { ImprovementSheet } from "./documents/items/improvementSheet.mjs";
 import { ArmyModel } from "./models/actors/armyModel.mjs";
 import { KingdomModel } from "./models/actors/kingdomModel.mjs";
 import { BuildingModel } from "./models/items/buildingModel.mjs";
 import { EventModel } from "./models/items/eventModel.mjs";
 import { ImprovementModel } from "./models/items/improvementModel.mjs";
+import { ArmySheet } from "./sheets/actors/armySheet.mjs";
+import { KingdomSheet } from "./sheets/actors/kingdomSheet.mjs";
+import { BuildingSheet } from "./sheets/items/buildingSheet.mjs";
+import { EventSheet } from "./sheets/items/eventSheet.mjs";
+import { ImprovementSheet } from "./sheets/items/improvementSheet.mjs";
 
 Hooks.on("preCreateItem", (item, data, context, user) => {
   if (!item.actor) {
@@ -53,7 +53,6 @@ Hooks.on("preCreateItem", (item, data, context, user) => {
 Hooks.once("init", () => {
   CONFIG.Actor.dataModels[kingdomSheetId] = KingdomModel;
   CONFIG.Actor.dataModels[kingdomArmyId] = ArmyModel;
-
   CONFIG.Item.dataModels[kingdomBuildingId] = BuildingModel;
   CONFIG.Item.dataModels[kingdomEventId] = EventModel;
   CONFIG.Item.dataModels[kingdomImprovementId] = ImprovementModel;
@@ -68,7 +67,6 @@ Hooks.once("init", () => {
     types: [kingdomArmyId],
     makeDefault: true,
   });
-
   Items.registerSheet(CFG.id, BuildingSheet, {
     label: game.i18n.localize("PF1KS.Sheet.Building"),
     types: [kingdomBuildingId],
@@ -93,6 +91,31 @@ Hooks.once("init", () => {
 //   }
 // });
 
+// TODO this is its own module
+// Hooks.on("renderCombatTracker", async (app, html, data) => {
+//   let xpTotal = 0;
+//   for (const combatant of data.combat.combatants) {
+//     if (combatant.actor.type === "npc" && combatant.token.disposition === -1) {
+//       xpTotal += combatant.actor.getCRExp(combatant.actor.system.details.cr.total);
+//     }
+//   }
+
+//   const temp = pf1.config.CR_EXP_LEVELS.filter((xp) => xp <= xpTotal);
+//   const approxCr = temp.length - 1;
+
+//   const header = html.find(".combat-tracker-header");
+//   header.append(`<div>Approx. CR: ${approxCr}</div>`);
+// });
+
+// TODO after next pf1 version bump
+// Hooks.on("renderTooltipPF", async (app, html, data) => {
+//   if (data.type === kingdomArmyId) {
+//     console.log("render army");
+//   } else if (data.type === kingdomSheetId) {
+//     console.log("render kingdom");
+//   }
+// });
+
 Hooks.once("ready", () => {
   loadTemplates({
     "kingdom-sheet-armies": `modules/${CFG.id}/templates/actors/kingdom/parts/armies.hbs`,
@@ -104,6 +127,8 @@ Hooks.once("ready", () => {
     "kingdom-sheet-terrain": `modules/${CFG.id}/templates/actors/kingdom/parts/terrain.hbs`,
 
     "army-sheet-summary": `modules/${CFG.id}/templates/actors/army/parts/summary.hbs`,
+    "army-sheet-features": `modules/${CFG.id}/templates/actors/army/parts/features.hbs`,
+    "army-sheet-commander": `modules/${CFG.id}/templates/actors/army/parts/commander.hbs`,
 
     // "tooltip-content": `modules/${CFG.id}/templates/actors/tooltip-content.hbs`, TODO needed?
 

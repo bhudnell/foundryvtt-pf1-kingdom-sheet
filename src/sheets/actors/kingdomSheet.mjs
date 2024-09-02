@@ -32,7 +32,7 @@ export class KingdomSheet extends ActorSheet {
     return {
       ...options,
       template: `modules/${CFG.id}/templates/actors/kingdom/kingdom-sheet.hbs`,
-      classes: [...options.classes, "kingdom", "actor"],
+      classes: [...options.classes, "pf1", "actor", "kingdom"],
       tabs: [
         {
           navSelector: "nav.tabs[data-group='primary']",
@@ -360,7 +360,7 @@ export class KingdomSheet extends ActorSheet {
 
     const viceroys = foundry.utils.duplicate(this.actor.system.leadership.viceroys ?? []);
     viceroys.push({
-      type: "viceroy",
+      role: "viceroy",
     });
 
     await this._onSubmit(event, {
