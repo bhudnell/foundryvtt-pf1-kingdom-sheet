@@ -2,7 +2,7 @@
   <li class="flexrow item-list-header">
     <h3 class="item-position">{{localize "PF1KS.Position"}}</h3>
     <span class="item-name">{{localize "PF1KS.FilledBy"}}</span>
-    {{#if system.config.leadershipSkills}}
+    {{#if system.settings.optionalRules.leadershipSkills}}
     <span class="item-detail item-leader-skill-bonus">{{localize "PF1KS.SkillBonus"}}</span>
     {{/if}}
     <span class="item-detail item-leader-bonus">{{localize "PF1KS.Bonus"}}</span>
@@ -19,7 +19,7 @@
     <select class="item-name" name="system.leadership.{{ key }}.actor">
       {{selectOptions @root.validLeadershipChoices selected=actorId}}
     </select>
-    {{#if @root.system.config.leadershipSkills}}
+    {{#if @root.system.settings.optionalRules.leadershipSkills}}
     <span class="item-detail item-leader-skill-bonus">+ {{ skillBonus }} {{ skillBonusLabel }}</span>
     {{/if}}
     {{#if showSelector}}
@@ -42,7 +42,7 @@
     <select class="item-name" name="system.leadership.viceroys.{{ idx }}.actor">
       {{selectOptions @root.validLeadershipChoices selected=actorId}}
     </select>
-    {{#if @root.system.config.leadershipSkills}}
+    {{#if @root.system.settings.optionalRules.leadershipSkills}}
     <span class="item-detail item-leader-skill-bonus">+{{ skillBonus }} {{ skillBonusLabel }}</span>
     {{/if}}
     <span class="item-detail item-leader-bonus">+{{ bonus }} {{ bonusTypeLabel }}</span>

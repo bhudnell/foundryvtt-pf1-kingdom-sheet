@@ -8,6 +8,7 @@
     "ControlDC": "Control DC",
     "KingdomStat": "Kingdom Stats",
     "KingdomStatRoll": "{check} Kingdom Stat",
+    "KingdomModifiers": "Kingdom Modifiers",
     "Economy": "Economy",
     "Loyalty": "Loyalty",
     "Stability": "Stability",
@@ -130,6 +131,7 @@
         "Metropolis": "Metropolis"
       }
     },
+    "NoSettlementBuildings": "Buildings Without Settlements",
     "CreateSettlement": "Create Settlement",
     "NewSettlementLabel": "Settlement {number}",
     "DeleteSettlement": "Delete Settlement",
@@ -230,14 +232,15 @@
 
     "Notes": "Notes",
 
-    "ConfigLabel": "Config",
-    "Config": {
+    "SettingsLabel": "Settings",
+    "Settings": {
       "KingdomModifiers": "Kingdomwide Settlement Modifiers",
       "FameInfamy": "Fame and Infamy",
       "GovernmentForms": "Forms of Government",
       "LeadershipSkills": "Leadership Skills",
       "SettlementSizes": "Alternative Settlement Size Modifiers"
     },
+    "BaseSetup": "Base Setup",
     "OptionalRules": "Optional Rules",
 
     "Description": "Description",

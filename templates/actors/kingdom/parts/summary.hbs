@@ -8,7 +8,7 @@
 
     <div class="flex1 details">
       <span>{{localize "PF1KS.GovernmentLabel"}}:</span>
-      {{#if system.config.governmentForms}}
+      {{#if system.settings.optionalRules.governmentForms}}
       <select name="system.government">
         {{selectOptions governmentOptions selected=system.government}}
       </select>
@@ -60,7 +60,7 @@
   </div>
 </div>
 
-{{#if system.config.kingdomModifiers}}
+{{#if system.settings.optionalRules.kingdomModifiers}}
 <div class="flex0">
   <h3>{{localize "PF1KS.KingdomModifiers"}}</h3>
   <div class="info-box-joined flex0">
@@ -109,9 +109,9 @@
     </div>
   </div>
 
-  {{#if system.config.fameInfamy}}
+  {{#if system.settings.optionalRules.fameInfamy}}
   <div class="flexcol">
-    <h3 class="flex0">{{localize "PF1KS.Config.FameInfamy"}}</h3>
+    <h3 class="flex0">{{localize "PF1KS.Settings.FameInfamy"}}</h3>
     <div class="subdetail">
       <span class="label">{{ localize "PF1KS.Fame" }}:</span>
       <span>{{ system.fame.total }}</span>

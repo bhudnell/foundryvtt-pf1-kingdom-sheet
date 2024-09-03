@@ -1,0 +1,30 @@
+<h2>{{localize "PF1KS.BaseSetup"}}</h2>
+<ul>
+  <li>
+    <label class="checkbox">
+      <input
+        class="secondRuler"
+        type="checkbox"
+        name="system.settings.secondRuler"
+        {{checked
+        system.settings.secondRuler}}
+      />
+      {{localize "PF1KS.SecondRuler"}}
+    </label>
+  </li>
+</ul>
+
+<h2>{{localize "PF1KS.OptionalRules"}}</h2>
+<ul>
+  {{#each optionalRules}}
+  <li>
+    <label class="checkbox">
+      <input class="{{ name }}" type="checkbox" name="system.settings.optionalRules.{{ name }}" {{checked value}} />
+      {{ label }}
+    </label>
+    <a class="compendium-entry" data-compendium-entry="{{ compendiumEntry }}">
+      <i class="fa-solid fa-book"></i>
+    </a>
+  </li>
+  {{/each}}
+</ul>

@@ -80,4 +80,11 @@
       }
     }
   }
+
+  .tab.settings {
+    > ul {
+      list-style: none;
+      flex: 0;
+    }
+  }
 }

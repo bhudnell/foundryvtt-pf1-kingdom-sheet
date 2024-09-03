@@ -119,7 +119,7 @@ Hooks.once("init", () => {
 Hooks.once("ready", () => {
   loadTemplates({
     "kingdom-sheet-armies": `modules/${CFG.id}/templates/actors/kingdom/parts/armies.hbs`,
-    "kingdom-sheet-config": `modules/${CFG.id}/templates/actors/kingdom/parts/config.hbs`,
+    "kingdom-sheet-settings": `modules/${CFG.id}/templates/actors/kingdom/parts/settings.hbs`,
     "kingdom-sheet-events": `modules/${CFG.id}/templates/actors/kingdom/parts/events.hbs`,
     "kingdom-sheet-leadership": `modules/${CFG.id}/templates/actors/kingdom/parts/leadership.hbs`,
     "kingdom-sheet-settlements": `modules/${CFG.id}/templates/actors/kingdom/parts/settlements.hbs`,

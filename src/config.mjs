@@ -434,6 +434,22 @@ export const terrainTypes = {
   water: "PF1KS.Terrain.Water",
 };
 
+export const optionalRules = {
+  kingdomModifiers: "PF1KS.Settings.KingdomModifiers",
+  fameInfamy: "PF1KS.Settings.FameInfamy",
+  governmentForms: "PF1KS.Settings.GovernmentForms",
+  leadershipSkills: "PF1KS.Settings.LeadershipSkills",
+  altSettlementSizes: "PF1KS.Settings.SettlementSizes",
+};
+
+export const compendiumEntries = {
+  kingdomModifiers: "TODO",
+  fameInfamy: "TODO",
+  governmentForms: "TODO",
+  leadershipSkills: "TODO",
+  altSettlementSizes: "TODO",
+};
+
 export const armySizes = {
   "-4": "PF1KS.Army.Size.Fine",
   "-3": "PF1KS.Army.Size.Diminutive",

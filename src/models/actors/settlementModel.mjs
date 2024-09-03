@@ -32,7 +32,7 @@ export class SettlementModel extends foundry.abstract.DataModel {
     this.population = totalLots * 250;
 
     // size
-    if (kingdom.config.altSettlementSizes) {
+    if (kingdom.settings.optionalRules.altSettlementSizes) {
       if (totalLots > 100) {
         this.size = "metro";
       } else if (totalLots > 40) {
@@ -67,7 +67,7 @@ export class SettlementModel extends foundry.abstract.DataModel {
     }
 
     // danger
-    this.danger = kingdom.config.altSettlementSizes
+    this.danger = kingdom.settings.optionalRules.altSettlementSizes
       ? altSettlementValues[this.size].danger * altSettlementMultiplier
       : settlementValues[this.size].danger;
 
@@ -75,7 +75,7 @@ export class SettlementModel extends foundry.abstract.DataModel {
     for (const modifier of Object.keys(allSettlementModifiers)) {
       const size = ["defense", "baseValue"].includes(modifier)
         ? 0
-        : kingdom.config.altSettlementSizes
+        : kingdom.settings.optionalRules.altSettlementSizes
           ? altSettlementValues[this.size].modifiers * altSettlementMultiplier
           : settlementValues[this.size].modifiers;
       const government = governmentBonuses[kingdom.government]?.[modifier] ?? 0;
@@ -88,7 +88,7 @@ export class SettlementModel extends foundry.abstract.DataModel {
       if (modifier === "baseValue") {
         total = Math.min(
           total,
-          kingdom.config.altSettlementSizes
+          kingdom.settings.optionalRules.altSettlementSizes
             ? altSettlementValues[this.size].maxBaseValue
             : settlementValues[this.size].maxBaseValue
         );

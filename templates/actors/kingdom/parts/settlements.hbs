@@ -3,8 +3,10 @@
   {{#each settlements as |settlement idx|}}
   <a class="item" data-tab="{{ idx }}" data-group="settlements">{{ settlement.name }}</a>
   {{/each}}
-  <a class="item shrink" data-tab="orph" data-group="settlements">Orphans</a>
-  <a class="item shrink settlement-create" data-tooltip="PF1KS.CreateSettlement">
+  <a class="item icon" data-tab="orph" data-group="settlements" data-tooltip="PF1KS.NoSettlementBuildings">
+    <i class="fa-solid fa-house-circle-exclamation"></i>
+  </a>
+  <a class="item icon settlement-create" data-tooltip="PF1KS.CreateSettlement">
     <i class="fa-solid fa-plus"></i>
   </a>
 </nav>
@@ -44,7 +46,7 @@
       <span>{{ settlement.danger }}</span>
 
       <span>{{localize "PF1KS.Corruption"}}:</span>
-      {{#if @root.system.config.kingdomModifiers}}
+      {{#if @root.system.settings.optionalRules.kingdomModifiers}}
       <span
         >{{ ifThen (gt @root.system.corruption.total settlement.corruption.total) @root.system.corruption.total settlement.corruption.total }}</span
       >
@@ -53,7 +55,7 @@
       {{/if}}
 
       <span>{{localize "PF1KS.Crime"}}:</span>
-      {{#if @root.system.config.kingdomModifiers}}
+      {{#if @root.system.settings.optionalRules.kingdomModifiers}}
       <span
         >{{ ifThen (gt @root.system.crime.total settlement.crime.total) @root.system.crime.total settlement.crime.total }}</span
       >
@@ -62,7 +64,7 @@
       {{/if}}
 
       <span>{{localize "PF1KS.Productivity"}}:</span>
-      {{#if @root.system.config.kingdomModifiers}}
+      {{#if @root.system.settings.optionalRules.kingdomModifiers}}
       <span
         >{{ ifThen (gt @root.system.productivity.total settlement.productivity.total) @root.system.productivity.total settlement.productivity.total }}</span
       >
@@ -71,7 +73,7 @@
       {{/if}}
 
       <span>{{localize "PF1KS.Law"}}:</span>
-      {{#if @root.system.config.kingdomModifiers}}
+      {{#if @root.system.settings.optionalRules.kingdomModifiers}}
       <span
         >{{ ifThen (gt @root.system.law.total settlement.law.total) @root.system.law.total settlement.law.total }}</span
       >
@@ -80,7 +82,7 @@
       {{/if}}
 
       <span>{{localize "PF1KS.Lore"}}:</span>
-      {{#if @root.system.config.kingdomModifiers}}
+      {{#if @root.system.settings.optionalRules.kingdomModifiers}}
       <span
         >{{ ifThen (gt @root.system.lore.total settlement.lore.total) @root.system.lore.total settlement.lore.total }}</span
       >
@@ -89,7 +91,7 @@
       {{/if}}
 
       <span>{{localize "PF1KS.Society"}}:</span>
-      {{#if @root.system.config.kingdomModifiers}}
+      {{#if @root.system.settings.optionalRules.kingdomModifiers}}
       <span
         >{{ ifThen (gt @root.system.society.total settlement.society.total) @root.system.society.total settlement.society.total }}</span
       >

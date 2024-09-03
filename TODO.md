@@ -1,10 +1,8 @@
 - Kingdom Sheet
-  - Settlement Tab
-    - What to name tab with buildings not assigned to a settlement
   - Event tab
     - Roll event button
-  - Config Tab
-    - add compendium entries and buttons for all rules https://www.aonprd.com/Rules.aspx?ID=1547
+  - Settings Tab
+    - add compendium entries for all rules https://www.aonprd.com/Rules.aspx?ID=1547
 
 - Army Sheet
   - Description Tab https://www.aonprd.com/Rules.aspx?ID=1565
@@ -34,5 +32,5 @@
     - Settlement id
 
 - Misc
-  - add army actor/item packs
+  - add army actor/item packs to module.json
   - add duplicate item button and handling

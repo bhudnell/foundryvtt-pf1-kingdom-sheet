@@ -3,6 +3,7 @@ import {
   alignments,
   edictEffects,
   edicts,
+  governmentBonuses,
   kingdomBuildingId,
   kingdomEventId,
   kingdomGovernments,
@@ -69,13 +70,15 @@ export class KingdomModel extends foundry.abstract.TypeDataModel {
       }),
       armies: new fields.ArrayField(new fields.EmbeddedDataField(ArmyProxyModel)),
       notes: new fields.HTMLField(),
-      config: new fields.SchemaField({
+      settings: new fields.SchemaField({
         secondRuler: new fields.BooleanField({ initial: false }),
-        kingdomModifiers: new fields.BooleanField({ initial: false }),
-        fameInfamy: new fields.BooleanField({ initial: false }),
-        governmentForms: new fields.BooleanField({ initial: false }),
-        leadershipSkills: new fields.BooleanField({ initial: false }),
-        altSettlementSizes: new fields.BooleanField({ initial: false }),
+        optionalRules: new fields.SchemaField({
+          kingdomModifiers: new fields.BooleanField({ initial: false }),
+          fameInfamy: new fields.BooleanField({ initial: false }),
+          governmentForms: new fields.BooleanField({ initial: false }),
+          leadershipSkills: new fields.BooleanField({ initial: false }),
+          altSettlementSizes: new fields.BooleanField({ initial: false }),
+        }),
       }),
     };
   }
@@ -203,7 +206,7 @@ export class KingdomModel extends foundry.abstract.TypeDataModel {
       if (!Object.keys(kingdomStats).includes(this.leadership.ruler.bonusType)) {
         this.leadership.ruler.bonusType = "economy";
       }
-      if (this.config.secondRuler && !Object.keys(kingdomStats).includes(this.leadership.consort.bonusType)) {
+      if (this.settings.secondRuler && !Object.keys(kingdomStats).includes(this.leadership.consort.bonusType)) {
         this.leadership.consort.bonusType = "economy";
       }
     } else if (this.size < 101) {
@@ -211,14 +214,14 @@ export class KingdomModel extends foundry.abstract.TypeDataModel {
         this.leadership.ruler.bonusType = "ecoLoy";
       }
       if (
-        this.config.secondRuler &&
+        this.settings.secondRuler &&
         !Object.keys(leadershipBonusTwoStats).includes(this.leadership.consort.bonusType)
       ) {
         this.leadership.consort.bonusType = "ecoLoy";
       }
     } else {
       this.leadership.ruler.bonusType = "all";
-      if (this.config.secondRuler) {
+      if (this.settings.secondRuler) {
         this.leadership.consort.bonusType = "all";
       }
     }
@@ -247,7 +250,7 @@ export class KingdomModel extends foundry.abstract.TypeDataModel {
           0
         ) -
         vacant.reduce((acc, curr) => (leadershipPenalties[curr.role][stat] ?? 0) + acc, 0) +
-        (this.config.leadershipSkills
+        (this.settings.optionalRules.leadershipSkills
           ? filled.reduce(
               (acc, curr) =>
                 (leadershipBonusToKingdomStats[curr.bonusType]?.includes(stat) ? curr.skillBonus : 0) + acc,
@@ -268,16 +271,17 @@ export class KingdomModel extends foundry.abstract.TypeDataModel {
         this[stat].unrest;
     }
 
-    if (this.config.kingdomModifiers) {
+    if (this.settings.optionalRules.kingdomModifiers) {
       for (const modifier of Object.keys(settlementModifiers)) {
         const settlementBase = this.settlements.reduce((acc, curr) => acc + curr[modifier].size, 0) / 10;
         const alignment = alignmentEffects[this.alignment]?.[modifier] ?? 0;
+        const government = governmentBonuses[this.government]?.[modifier] ?? 0;
         const buildings = this._getChanges(modifier, kingdomBuildingId) / 10;
         const improvements = this._getChanges(modifier, kingdomImprovementId) / 10;
         const events = this._getChanges(modifier, kingdomEventId) / 10;
-        const total = Math.floor(settlementBase + alignment + buildings + improvements + events);
+        const total = Math.floor(settlementBase + alignment + government + buildings + improvements + events);
 
-        this[modifier] = { settlementBase, alignment, buildings, improvements, events, total };
+        this[modifier] = { settlementBase, alignment, government, buildings, improvements, events, total };
       }
     }
   }

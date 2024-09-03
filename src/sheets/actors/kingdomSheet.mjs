@@ -18,6 +18,8 @@ import {
   leadershipBonusOptions,
   leadershipBonusTwoStats,
   kingdomArmyId,
+  compendiumEntries,
+  optionalRules,
 } from "../../config.mjs";
 import { findLargestSmallerNumber, renameKeys } from "../../utils.mjs";
 
@@ -201,14 +203,17 @@ export class KingdomSheet extends ActorSheet {
     // armies
     data.armies = this._prepareArmies();
 
+    // optional rules
+    data.optionalRules = this._prepareOptionalRules();
+
     return data;
   }
 
   activateListeners(html) {
     super.activateListeners(html);
 
-    html.find(".government-toggle").on("change", (e) => this._onGovernmentToggle(e));
-    html.find(".consort-toggle").on("change", (e) => this._onConsortToggle(e));
+    html.find(".governmentForms").on("change", (e) => this._onGovernmentToggle(e));
+    html.find(".secondRuler").on("change", (e) => this._onSecondRulerToggle(e));
 
     html.find(".kingdom-stat .rollable").on("click", (e) => this._onRollKingdomStat(e));
 
@@ -225,6 +230,8 @@ export class KingdomSheet extends ActorSheet {
     html.find(".item-delete").on("click", (e) => this._onItemDelete(e));
     html.find(".item-edit").on("click", (e) => this._onItemEdit(e));
     html.find(".item-create").on("click", (e) => this._onItemCreate(e));
+
+    html.find("a.compendium-entry").on("click", (e) => this._onOpenCompendiumEntry(e));
   }
 
   async _onDropItem(event, data) {
@@ -309,30 +316,31 @@ export class KingdomSheet extends ActorSheet {
   }
 
   _prepareSettlements() {
-    const settlements = [];
-    for (const settlement of this.actor.system.settlements) {
-      settlements.push({
-        ...settlement,
-        sizeLabel: game.i18n.localize(settlementSizes[settlement.size]),
-        buildings: this.actor.itemTypes[kingdomBuildingId].filter(
-          (building) => building.system.settlementId === settlement.id
-        ),
-      });
-    }
-    return settlements;
+    return this.actor.system.settlements.map((settlement) => ({
+      ...settlement,
+      sizeLabel: game.i18n.localize(settlementSizes[settlement.size]),
+      buildings: this.actor.itemTypes[kingdomBuildingId].filter(
+        (building) => building.system.settlementId === settlement.id
+      ),
+    }));
   }
 
   _prepareArmies() {
-    const armies = this.actor.system.armies.map((army) => {
-      return {
-        id: army.id,
-        img: army.actor.img,
-        name: army.actor.name,
-        system: army.actor.system,
-      };
-    });
+    return this.actor.system.armies.map((army) => ({
+      id: army.id,
+      img: army.actor.img,
+      name: army.actor.name,
+      system: army.actor.system,
+    }));
+  }
 
-    return armies;
+  _prepareOptionalRules() {
+    return Object.entries(this.actor.system.settings.optionalRules).map(([key, value]) => ({
+      name: key,
+      value,
+      label: game.i18n.localize(optionalRules[key]),
+      compendiumEntry: compendiumEntries[key],
+    }));
   }
 
   _onGovernmentToggle(event) {
@@ -341,7 +349,7 @@ export class KingdomSheet extends ActorSheet {
     }
   }
 
-  _onConsortToggle(event) {
+  _onSecondRulerToggle(event) {
     if (event.target.checked) {
       this.actor.update({ "system.leadership.consort": { bonusType: "", role: "ruler" } });
     } else {
@@ -547,6 +555,30 @@ export class KingdomSheet extends ActorSheet {
     } catch (e) {
       button.disabled = false;
     }
+  }
+
+  async _onOpenCompendiumEntry(event) {
+    const uuid = event.currentTarget.dataset.compendiumEntry;
+
+    const journal = await fromUuid(uuid);
+
+    if (!journal) {
+      return;
+    }
+
+    if (journal instanceof JournalEntryPage) {
+      journal.parent.sheet.render(true, {
+        pageId: journal.id,
+        editable: false,
+        collapsed: true,
+        width: 600,
+        height: 700,
+      });
+    } else {
+      journal.sheet.render(true, { editable: false });
+    }
+
+    return journal;
   }
 
   async _activateExtendedTooltip(event) {
