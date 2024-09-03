@@ -3,13 +3,13 @@
 
   <div class="flexcol basic-info">
     <h1 class="flex0">
-      <input type="text" name="name" value="{{ name }}" data-dtype="String" />
+      <input type="text" name="name" value="{{ name }}" />
     </h1>
 
     <div class="flex1 details">
       <span>{{localize "PF1KS.GovernmentLabel"}}:</span>
       {{#if system.config.governmentForms}}
-      <select name="system.government" data-dtype="String">
+      <select name="system.government">
         {{selectOptions governmentOptions selected=system.government}}
       </select>
       {{else}}
@@ -17,7 +17,7 @@
       {{/if}}
 
       <span>{{localize "PF1KS.AlignmentLabel"}}:</span>
-      <select name="system.alignment" data-dtype="String">
+      <select name="system.alignment">
         {{selectOptions alignmentOptions selected=system.alignment blank=""}}
       </select>
 
@@ -79,17 +79,17 @@
     <h3 class="flex0">{{localize "PF1KS.Edicts"}}</h3>
     <div class="subdetail">
       <span class="label">{{localize "PF1KS.Edict.HolidayLabel"}}:</span>
-      <select name="system.edicts.holiday" data-dtype="String">
+      <select name="system.edicts.holiday">
         {{selectOptions holidayOptions selected=system.edicts.holiday blank=""}}
       </select>
 
       <span class="label">{{ localize "PF1KS.Edict.PromotionLabel" }}:</span>
-      <select name="system.edicts.promotion" data-dtype="String">
+      <select name="system.edicts.promotion">
         {{selectOptions promotionOptions selected=system.edicts.promotion blank=""}}
       </select>
 
       <span class="label">{{ localize "PF1KS.Edict.TaxationLabel" }}:</span>
-      <select name="system.edicts.taxation" data-dtype="String">
+      <select name="system.edicts.taxation">
         {{selectOptions taxationOptions selected=system.edicts.taxation blank=""}}
       </select>
     </div>

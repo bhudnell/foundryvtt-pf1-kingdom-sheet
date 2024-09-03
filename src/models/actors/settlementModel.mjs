@@ -14,6 +14,7 @@ export class SettlementModel extends foundry.abstract.DataModel {
 
     return {
       id: new fields.StringField({ required: true, nullable: false, blank: false }),
+      // img: new fields.FilePathField({ categories: ["IMAGE"] }), // TODO revisit if foundry ever allows filePathFields within ArrayFields. See https://github.com/foundryvtt/foundryvtt/issues/11471
       name: new fields.StringField({ blank: true }),
       districtCount: new fields.NumberField({ integer: true, min: 0, initial: 1, nullable: false }),
     };

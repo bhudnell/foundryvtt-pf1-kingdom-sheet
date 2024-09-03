@@ -56,4 +56,28 @@
       margin: 8px 0;
     }
   }
+
+  .tab.settlements {
+    .header {
+      flex: 0;
+      display: flex;
+      gap: 4px;
+
+      /* > img {
+        height: 100%;
+        flex: 0 0 42px;
+      } */
+
+      > h1 {
+        flex: 1;
+      }
+
+      .settlement-controls {
+        flex: 0 0 42px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+      }
+    }
+  }
 }

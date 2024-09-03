@@ -1,11 +1,8 @@
 - Kingdom Sheet
   - Settlement Tab
     - What to name tab with buildings not assigned to a settlement
-    - Settlement image?
   - Event tab
     - Roll event button
-  - Army tab
-    - List of units
   - Config Tab
     - add compendium entries and buttons for all rules https://www.aonprd.com/Rules.aspx?ID=1547
 
