@@ -316,13 +316,24 @@ export class KingdomSheet extends ActorSheet {
   }
 
   _prepareSettlements() {
-    return this.actor.system.settlements.map((settlement) => ({
-      ...settlement,
-      sizeLabel: game.i18n.localize(settlementSizes[settlement.size]),
-      buildings: this.actor.itemTypes[kingdomBuildingId].filter(
-        (building) => building.system.settlementId === settlement.id
-      ),
-    }));
+    return this.actor.system.settlements.map((settlement) => {
+      const { defense, baseValue, ...modifiers } = settlement.modifiers;
+
+      return {
+        ...settlement,
+        defense,
+        baseValue,
+        modifiers: Object.entries(modifiers).map(([key, value]) => ({
+          label: game.i18n.localize(settlementModifiers[key]),
+          value: value.total,
+          kingdomValue: this.actor.system.modifiers?.[key].total,
+        })),
+        sizeLabel: game.i18n.localize(settlementSizes[settlement.size]),
+        buildings: this.actor.itemTypes[kingdomBuildingId].filter(
+          (building) => building.system.settlementId === settlement.id
+        ),
+      };
+    });
   }
 
   _prepareArmies() {

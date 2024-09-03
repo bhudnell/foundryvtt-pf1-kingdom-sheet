@@ -134,10 +134,12 @@ export class KingdomModel extends foundry.abstract.TypeDataModel {
       total: 0,
     };
 
+    this.modifiers = {};
     for (const modifier of Object.keys(settlementModifiers)) {
-      this[modifier] = {
+      this.modifiers[modifier] = {
         settlementBase: 0,
         alignment: 0,
+        government: 0,
         buildings: 0,
         improvements: 0,
         events: 0,
@@ -273,7 +275,7 @@ export class KingdomModel extends foundry.abstract.TypeDataModel {
 
     if (this.settings.optionalRules.kingdomModifiers) {
       for (const modifier of Object.keys(settlementModifiers)) {
-        const settlementBase = this.settlements.reduce((acc, curr) => acc + curr[modifier].size, 0) / 10;
+        const settlementBase = this.settlements.reduce((acc, curr) => acc + curr.modifiers[modifier].size, 0) / 10;
         const alignment = alignmentEffects[this.alignment]?.[modifier] ?? 0;
         const government = governmentBonuses[this.government]?.[modifier] ?? 0;
         const buildings = this._getChanges(modifier, kingdomBuildingId) / 10;
@@ -281,7 +283,7 @@ export class KingdomModel extends foundry.abstract.TypeDataModel {
         const events = this._getChanges(modifier, kingdomEventId) / 10;
         const total = Math.floor(settlementBase + alignment + government + buildings + improvements + events);
 
-        this[modifier] = { settlementBase, alignment, government, buildings, improvements, events, total };
+        this.modifiers[modifier] = { settlementBase, alignment, government, buildings, improvements, events, total };
       }
     }
   }

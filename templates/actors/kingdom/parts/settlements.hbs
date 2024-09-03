@@ -1,10 +1,14 @@
 {{!-- Settlements Navigation --}}
 <nav class="sheet-navigation tabs" data-group="settlements">
   {{#each settlements as |settlement idx|}}
-  <a class="item" data-tab="{{ idx }}" data-group="settlements">{{ settlement.name }}</a>
+  <a class="item" data-tab="{{ idx }}" data-group="settlements">{{ name }}</a>
   {{/each}}
   <a class="item icon" data-tab="orph" data-group="settlements" data-tooltip="PF1KS.NoSettlementBuildings">
+    {{#if noSettlementBuildings.length}}
     <i class="fa-solid fa-house-circle-exclamation"></i>
+    {{else}}
+    <i class="fa-solid fa-house"></i>
+    {{/if}}
   </a>
   <a class="item icon settlement-create" data-tooltip="PF1KS.CreateSettlement">
     <i class="fa-solid fa-plus"></i>
@@ -28,76 +32,31 @@
 
     <div class="flex0 details">
       <span>{{localize "PF1KS.DistrictCount"}}:</span>
-      <input type="number" value="{{ settlement.districtCount }}" name="system.settlements.{{ idx }}.districtCount" />
+      <input type="number" value="{{ districtCount }}" name="system.settlements.{{ idx }}.districtCount" />
 
       <span>{{localize "PF1KS.Population"}}:</span>
-      <span>{{ settlement.population }}</span>
+      <span>{{ population }}</span>
 
       <span>{{localize "PF1KS.Size"}}:</span>
-      <span>{{ settlement.sizeLabel }}</span>
-
-      <span>{{localize "PF1KS.BaseValue"}}:</span>
-      <span>{{ settlement.baseValue.total }}</span>
-
-      <span>{{localize "PF1KS.Defense"}}:</span>
-      <span>{{ settlement.defense.total }}</span>
+      <span>{{ sizeLabel }}</span>
 
       <span>{{localize "PF1KS.Danger"}}:</span>
-      <span>{{ settlement.danger }}</span>
+      <span>{{ danger }}</span>
 
-      <span>{{localize "PF1KS.Corruption"}}:</span>
-      {{#if @root.system.settings.optionalRules.kingdomModifiers}}
-      <span
-        >{{ ifThen (gt @root.system.corruption.total settlement.corruption.total) @root.system.corruption.total settlement.corruption.total }}</span
-      >
-      {{else}}
-      <span>{{ settlement.corruption.total }}</span>
-      {{/if}}
+      <span>{{localize "PF1KS.BaseValue"}}:</span>
+      <span>{{ baseValue.total }}</span>
 
-      <span>{{localize "PF1KS.Crime"}}:</span>
-      {{#if @root.system.settings.optionalRules.kingdomModifiers}}
-      <span
-        >{{ ifThen (gt @root.system.crime.total settlement.crime.total) @root.system.crime.total settlement.crime.total }}</span
-      >
-      {{else}}
-      <span>{{ settlement.crime.total }}</span>
-      {{/if}}
+      <span>{{localize "PF1KS.Defense"}}:</span>
+      <span>{{ defense.total }}</span>
 
-      <span>{{localize "PF1KS.Productivity"}}:</span>
+      {{#each modifiers}}
+      <span>{{ label }}:</span>
       {{#if @root.system.settings.optionalRules.kingdomModifiers}}
-      <span
-        >{{ ifThen (gt @root.system.productivity.total settlement.productivity.total) @root.system.productivity.total settlement.productivity.total }}</span
-      >
+      <span>{{ ifThen (gt kingdomValue value) kingdomValue value }}</span>
       {{else}}
-      <span>{{ settlement.productivity.total }}</span>
+      <span>{{ value }}</span>
       {{/if}}
-
-      <span>{{localize "PF1KS.Law"}}:</span>
-      {{#if @root.system.settings.optionalRules.kingdomModifiers}}
-      <span
-        >{{ ifThen (gt @root.system.law.total settlement.law.total) @root.system.law.total settlement.law.total }}</span
-      >
-      {{else}}
-      <span>{{ settlement.law.total }}</span>
-      {{/if}}
-
-      <span>{{localize "PF1KS.Lore"}}:</span>
-      {{#if @root.system.settings.optionalRules.kingdomModifiers}}
-      <span
-        >{{ ifThen (gt @root.system.lore.total settlement.lore.total) @root.system.lore.total settlement.lore.total }}</span
-      >
-      {{else}}
-      <span>{{ settlement.lore.total }}</span>
-      {{/if}}
-
-      <span>{{localize "PF1KS.Society"}}:</span>
-      {{#if @root.system.settings.optionalRules.kingdomModifiers}}
-      <span
-        >{{ ifThen (gt @root.system.society.total settlement.society.total) @root.system.society.total settlement.society.total }}</span
-      >
-      {{else}}
-      <span>{{ settlement.society.total }}</span>
-      {{/if}}
+      {{/each}}
     </div>
 
     <ol class="item-list">
