@@ -6,7 +6,7 @@
     <span class="item-detail item-leader-skill-bonus">{{localize "PF1KS.SkillBonus"}}</span>
     {{/if}}
     <span class="item-detail item-leader-bonus">{{localize "PF1KS.Bonus"}}</span>
-    <div class="item-detail item-controls basic">
+    <div class="item-detail item-controls one-button">
       <a class="leader-control viceroy-create" data-tooltip="PF1KS.CreateViceroy">
         <i class="fa-solid fa-plus"></i>
       </a>
@@ -32,7 +32,7 @@
     {{else}}
     <span class="item-detail item-leader-bonus">+{{ bonus }} {{ bonusTypeLabel }}</span>
     {{/if}}
-    <div class="item-detail l item-controls basic"></div>
+    <div class="item-detail l item-controls one-button"></div>
   </li>
   {{/each}}
 
@@ -47,7 +47,7 @@
     {{/if}}
     <span class="item-detail item-leader-bonus">+{{ bonus }} {{ bonusTypeLabel }}</span>
     <input type="hidden" value="{{ id }}" name="system.leadership.viceroys.{{ idx }}.id" />
-    <div class="item-detail item-controls basic">
+    <div class="item-detail item-controls one-button">
       <a class="leader-control viceroy-delete" data-tooltip="PF1KS.DeleteViceroy">
         <i class="fa-solid fa-trash"></i>
       </a>

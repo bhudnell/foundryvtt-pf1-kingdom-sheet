@@ -255,9 +255,13 @@
       "Settlement": "Settlement",
       "Hex": "Hex"
     },
+    "DeleteChange": "Delete Change",
+    "DuplicateChange": "Duplicate Change",
+    "AddChange": "Add Change",
 
     "EditItem": "Edit Item",
     "DeleteItem": "Delete Item",
+    "DuplicateItem": "Duplicate Item",
     "CreateItem": "Create Item",
     "NewItem": "New {type}",
 

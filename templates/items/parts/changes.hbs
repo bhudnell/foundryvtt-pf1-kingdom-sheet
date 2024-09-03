@@ -2,8 +2,8 @@
   <li class="flexrow item-list-header">
     <span class="item-name item-formula">{{localize "PF1KS.Change"}}</span>
     <span class="item-detail item-target">{{localize "PF1KS.Target"}}</span>
-    <div class="item-detail item-controls basic">
-      <a class="item-control add-change">
+    <div class="item-detail item-controls two-button">
+      <a class="item-control add-change" data-tooltip="PF1KS.AddChange">
         <i class="fa-solid fa-plus"></i>
       </a>
     </div>
@@ -20,8 +20,11 @@
     <select class="item-detail item-scope" name="system.changes.{{ idx }}.scope" {{disabled disableScope}}>
       {{selectOptions @root.scopeChoices selected=scope}}
     </select>
-    <div class="item-detail item-controls basic">
-      <a class="item-control delete-change">
+    <div class="item-detail item-controls two-button">
+      <a class="item-control duplicate-change" data-tooltip="PF1KS.DuplicateChange">
+        <i class="fa-solid fa-copy"></i>
+      </a>
+      <a class="item-control delete-change" data-tooltip="PF1KS.DeleteChange">
         <i class="fa-solid fa-trash"></i>
       </a>
     </div>

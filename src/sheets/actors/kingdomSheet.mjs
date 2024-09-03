@@ -119,7 +119,7 @@ export class KingdomSheet extends ActorSheet {
 
     // kingdom modifiers
     data.modifiers = Object.entries(settlementModifiers).reduce((acc, [key, value]) => {
-      acc.push({ value: actorData[key], label: game.i18n.localize(value) });
+      acc.push({ value: actorData.modifiers[key], label: game.i18n.localize(value) });
       return acc;
     }, []);
 
@@ -228,6 +228,7 @@ export class KingdomSheet extends ActorSheet {
     html.find(".army-delete").on("click", (e) => this._onArmyDelete(e));
 
     html.find(".item-delete").on("click", (e) => this._onItemDelete(e));
+    html.find(".item-duplicate").on("click", (e) => this._onItemDuplicate(e));
     html.find(".item-edit").on("click", (e) => this._onItemEdit(e));
     html.find(".item-create").on("click", (e) => this._onItemCreate(e));
 
@@ -511,10 +512,34 @@ export class KingdomSheet extends ActorSheet {
     });
   }
 
+  async _onItemDuplicate(event) {
+    event.preventDefault();
+    const itemId = event.currentTarget.closest(".item").dataset.id;
+    const item = this.actor.items.get(itemId);
+
+    const itemData = item.toObject();
+    delete itemData._id;
+
+    const searchUnusedName = (name) => {
+      let iter = 1;
+      let newName;
+      do {
+        iter += 1;
+        newName = `${name} (${iter})`;
+      } while (this.actor.items.getName(newName));
+      return newName;
+    };
+    itemData.name = itemData.name.replace(/\s+\(\d+\)$/, "");
+    itemData.name = searchUnusedName(itemData.name);
+
+    const items = await this.actor.createEmbeddedDocuments("Item", [itemData]);
+    items?.forEach((item) => item.sheet.render(true));
+  }
+
   async _onItemEdit(event) {
     event.preventDefault();
     const itemId = event.currentTarget.closest(".item").dataset.id;
-    const item = this.document.items.get(itemId);
+    const item = this.actor.items.get(itemId);
 
     item.sheet.render(true, { focus: true });
   }

@@ -33,4 +33,4 @@
 
 - Misc
   - add army actor/item packs to module.json
-  - add duplicate item button and handling
+  - add additional columns to buildings, terrain, and events item lists

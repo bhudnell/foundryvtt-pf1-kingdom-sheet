@@ -53,6 +53,7 @@ export class ItemBaseSheet extends ItemSheet {
     super.activateListeners(html);
 
     html.find(".add-change").on("click", (e) => this._onAddChange(e));
+    html.find(".duplicate-change").on("click", (e) => this._onDuplicateChange(e));
     html.find(".delete-change").on("click", (e) => this._onDeleteChange(e));
     html.find(".target-change").on("click", (e) => this._onTargetChange(e));
   }
@@ -67,9 +68,26 @@ export class ItemBaseSheet extends ItemSheet {
     });
   }
 
+  _onDuplicateChange(event) {
+    event.preventDefault();
+    const changeId = event.currentTarget.closest(".item").dataset.id;
+    const change = this.item.system.changes.find((c) => c.id === changeId);
+
+    const changes = foundry.utils.duplicate(this.item.system.changes ?? []);
+    if (change) {
+      const newChange = foundry.utils.duplicate(change);
+      delete newChange.id;
+
+      changes.push(newChange);
+
+      return this._onSubmit(event, {
+        updateData: { "system.changes": changes },
+      });
+    }
+  }
+
   async _onDeleteChange(event) {
     event.preventDefault();
-
     const changeId = event.currentTarget.closest(".item").dataset.id;
 
     const changes = foundry.utils.duplicate(this.item.system.changes ?? []);
@@ -82,7 +100,6 @@ export class ItemBaseSheet extends ItemSheet {
 
   _onTargetChange(event) {
     event.preventDefault();
-
     const changeId = event.currentTarget.closest(".item").dataset.id;
     const change = this.item.system.changes.find((c) => c.id === changeId);
 

@@ -24,8 +24,12 @@
       &.item-controls {
         flex: 0 0 80px;
 
-        &.basic {
-          flex: 0 0 24px;
+        &.two-button {
+          flex: 0 0 56px;
+        }
+
+        &.one-button {
+          flex: 0 0 32px;
         }
 
         .item-control {
