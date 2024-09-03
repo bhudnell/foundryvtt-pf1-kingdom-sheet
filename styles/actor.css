@@ -22,6 +22,12 @@
 
       > div {
         flex: 1;
+        align-items: center;
+
+        > h3 {
+          width: 100%;
+          text-align: center;
+        }
       }
 
       .subdetail {

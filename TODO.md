@@ -38,3 +38,4 @@
 
 - Misc
   - add army actor/item packs
+  - add duplicate item button and handling
