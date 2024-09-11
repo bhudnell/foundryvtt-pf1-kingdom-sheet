@@ -53,15 +53,15 @@
 
       &.item-leader-bonus {
         flex: 0 0 110px;
-        gap: 4px;
+      }
 
-        > span {
-          padding-left: 4px;
-        }
+      &.item-leader-bonus-value {
+        flex: 0 0 20px;
+        border-right: unset;
+      }
 
-        > select {
-          border: unset;
-        }
+      &.item-leader-bonus-type {
+        flex: 0 0 90px;
       }
 
       /* changes stuff todo needed?*/

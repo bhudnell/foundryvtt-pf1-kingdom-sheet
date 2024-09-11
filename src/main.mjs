@@ -91,22 +91,6 @@ Hooks.once("init", () => {
 //   }
 // });
 
-// TODO this is its own module
-// Hooks.on("renderCombatTracker", async (app, html, data) => {
-//   let xpTotal = 0;
-//   for (const combatant of data.combat.combatants) {
-//     if (combatant.actor.type === "npc" && combatant.token.disposition === -1) {
-//       xpTotal += combatant.actor.getCRExp(combatant.actor.system.details.cr.total);
-//     }
-//   }
-
-//   const temp = pf1.config.CR_EXP_LEVELS.filter((xp) => xp <= xpTotal);
-//   const approxCr = temp.length - 1;
-
-//   const header = html.find(".combat-tracker-header");
-//   header.append(`<div>Approx. CR: ${approxCr}</div>`);
-// });
-
 // TODO after next pf1 version bump
 // Hooks.on("renderTooltipPF", async (app, html, data) => {
 //   if (data.type === kingdomArmyId) {

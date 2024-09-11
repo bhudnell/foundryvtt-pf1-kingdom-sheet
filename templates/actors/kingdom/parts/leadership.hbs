@@ -22,17 +22,15 @@
     {{#if @root.system.settings.optionalRules.leadershipSkills}}
     <span class="item-detail item-leader-skill-bonus">+ {{ skillBonus }} {{ skillBonusLabel }}</span>
     {{/if}}
+    <span class="item-detail item-leader-bonus-value">+{{ bonus }}</span>
     {{#if showSelector}}
-    <div class="item-detail item-leader-bonus">
-      <span>+{{ bonus }}</span>
-      <select name="system.leadership.{{ key }}.bonusType">
-        {{selectOptions bonusOptions selected=bonusType}}
-      </select>
-    </div>
+    <select class="item-detail item-leader-bonus-type" name="system.leadership.{{ key }}.bonusType">
+      {{selectOptions bonusOptions selected=bonusType}}
+    </select>
     {{else}}
-    <span class="item-detail item-leader-bonus">+{{ bonus }} {{ bonusTypeLabel }}</span>
+    <span class="item-detail item-leader-bonus-type">{{ bonusTypeLabel }}</span>
     {{/if}}
-    <div class="item-detail l item-controls one-button"></div>
+    <div class="item-detail item-controls one-button"></div>
   </li>
   {{/each}}
 
