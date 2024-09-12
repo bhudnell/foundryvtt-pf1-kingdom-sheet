@@ -1,21 +1,48 @@
 <form autocomplete="off">
-  <header class="header">
+  <header class="sheet-header flexrow">
     <img class="profile" src="{{ img }}" data-edit="img" />
-    <div class="details">
-      <h1>
+    <div class="header-details flexrow">
+      <h1 class="item-name">
         <input type="text" name="name" value="{{ name }}" />
       </h1>
       <ul class="summary">
-        <li>{{ type }}</li>
         {{#each states}}
         <li>
-          <input type="checkbox" name="{{ field }}" {{checked value}} />
-          <label>{{ label }}</label>
+          <label>
+            <input type="checkbox" name="{{ field }}" {{checked value}} />
+            {{ label }}
+          </label>
         </li>
         {{/each}}
       </ul>
     </div>
   </header>
+
+  <section class="sidebar">
+    <header>
+      <h3 class="item-type">{{ type }}</h3>
+      <h4 class="item-subtype">{{ subType }}</h4>
+    </header>
+
+    {{#each sidebarContent}}
+    {{#if isBoolean}}
+    <label class="descriptor checkbox">
+      <input type="checkbox" name="{{ name }}" {{checked value}} {{disabled disabled}} />
+      <span>{{ label }}</span>
+    </label>
+    {{else if isNumber}}
+    <label class="descriptor">
+      <span>{{ label }}</span>
+      <input type="number" name="{{ name }}" value="{{ value }}" {{disabled disabled}} />
+    </label>
+    {{else if isString}}
+    <label class="descriptor">
+      <span>{{ label }}</span>
+      <input name="{{ name }}" type="text" value="{{ value }}" {{disabled disabled}} />
+    </label>
+    {{/if}}
+    {{/each}}
+  </section>
 
   <nav class="sheet-navigation tabs" data-group="primary">
     <a class="item" data-tab="description">{{ localize "PF1KS.Description" }}</a>
@@ -27,16 +54,12 @@
       {{editor enrichedDesc target="system.description" button=true engine="prosemirror"}}
     </div>
 
-    <div class="tab details flexcol" data-group="primary" data-tab="details">
+    <div class="tab details" data-group="primary" data-tab="details">
       {{#if isBuilding}}
       {{> item-sheet-building}}
-      {{/if}}
-
-      {{#if isEvent}}
+      {{else if isEvent}}
       {{> item-sheet-event}}
-      {{/if}}
-
-      {{#if isImprovement}}
+      {{else if isImprovement}}
       {{> item-sheet-improvement}}
       {{/if}}
     </div>

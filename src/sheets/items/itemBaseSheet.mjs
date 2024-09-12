@@ -7,7 +7,7 @@ export class ItemBaseSheet extends ItemSheet {
     return {
       ...options,
       template: `modules/${CFG.id}/templates/items/item-sheet.hbs`,
-      classes: [...options.classes, "kingdom", "item"],
+      classes: [...options.classes, "pf1", "item", "kingdom"],
       tabs: [
         {
           navSelector: "nav.tabs[data-group='primary']",

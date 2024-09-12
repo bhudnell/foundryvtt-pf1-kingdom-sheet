@@ -1,7 +1,8 @@
-<ol class="item-list">
+<ol class="item-list changes">
   <li class="flexrow item-list-header">
-    <span class="item-name item-formula">{{localize "PF1KS.Change"}}</span>
+    <span class="item-detail item-formula">{{localize "PF1KS.Change"}}</span>
     <span class="item-detail item-target">{{localize "PF1KS.Target"}}</span>
+    <span class="item-detail item-scope">{{localize "PF1KS.Scope"}}</span>
     <div class="item-detail item-controls two-button">
       <a class="item-control add-change" data-tooltip="PF1KS.AddChange">
         <i class="fa-solid fa-plus"></i>
@@ -11,12 +12,15 @@
 
   {{#each changes as |change idx|}}
   <li class="flexrow item" data-id="{{ id }}">
-    <div class="item-name item-formula">
-      <input type="number" value="{{ bonus }}" name="system.changes.{{ idx }}.bonus" step="1" placeholder="Formula" />
-    </div>
-    <div class="item-detail item-target">
-      <span class="target-change">{{ targetLabel }}</span>
-    </div>
+    <input
+      class="item-detail item-formula"
+      type="number"
+      value="{{ bonus }}"
+      name="system.changes.{{ idx }}.bonus"
+      step="1"
+      placeholder="Formula"
+    />
+    <span class="item-detail item-target target-change">{{ targetLabel }}</span>
     <select class="item-detail item-scope" name="system.changes.{{ idx }}.scope" {{disabled disableScope}}>
       {{selectOptions @root.scopeChoices selected=scope}}
     </select>

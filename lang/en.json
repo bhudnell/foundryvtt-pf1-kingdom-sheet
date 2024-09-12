@@ -119,6 +119,7 @@
     "SkillBonus": "Skill Bonus",
 
     "Settlements": "Settlements",
+    "SettlementLabel": "Settlement",
     "Settlement": {
       "Sizes": {
         "Thorpe": "Thorpe",
@@ -246,10 +247,13 @@
     "Description": "Description",
     "Details": "Details",
     "Quantity": "Quantity",
+    "Type": "Type",
 
     "Change": "Change",
+    "Changes": "Changes",
     "Misc": "Miscellaneous",
     "Target": "Target",
+    "Scope": "Scope",
     "ChangeScope": {
       "Kingdom": "Kingdom",
       "Settlement": "Settlement",

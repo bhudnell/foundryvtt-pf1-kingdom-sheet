@@ -1,132 +1,25 @@
 .app.sheet.kingdom.item {
-  min-width: 425px;
+  min-width: 580px;
   min-height: 450px;
 
-  .header {
-    display: flex;
-    gap: 6px;
-    border-bottom: 2px groove #eeede0;
+  .changes {
+    overflow: unset;
 
-    .profile {
-      width: 100px;
-      height: 100px;
-      object-fit: contain;
-      border: 1px solid black;
-    }
+    .target-change {
+      border: 1px solid var(--color-border-light-tertiary);
+      background: rgba(0, 0, 0, 0.05);
+      white-space: nowrap;
+      overflow: hidden;
+      height: 24px;
+      line-height: 24px;
+      border-radius: 4px;
+      text-align: center;
+      cursor: pointer;
+      font-size: var(--font-size-12, 9pt);
 
-    .details {
-      flex: 1;
-      display: flex;
-      flex-direction: column;
-
-      .summary {
-        padding: 0;
-        margin: 0;
-        list-style: none;
-        flex: 1;
-        display: flex;
-        align-items: center;
-
-        > * {
-          padding: 8px 4px;
-          color: #4b4a44;
-        }
-
-        > :not(:first-child) {
-          border-left: 2px groove #eeede0;
-        }
+      &:hover {
+        box-shadow: 0 0 8px red;
       }
     }
   }
-
-  .section-header {
-    border-top: 2px groove #eeede0;
-    border-bottom: 2px groove #eeede0;
-    margin-top: 8px;
-    padding-right: 8px;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    flex: 0;
-
-    font-variant: small-caps;
-    font-size: var(--font-size-20, 16pt);
-    font-family: "Nodesto", "Signika", "Palatino Linotype", serif;
-  }
-
-  .details {
-    display: flex;
-    flex-direction: column;
-
-    .sub-type-selector {
-      width: 100%;
-    }
-  }
-
-  .form-group {
-    flex: 0;
-
-    .form-fields {
-      justify-content: start;
-    }
-
-    .flex0 {
-      flex: 0;
-      display: flex;
-      align-items: center;
-      gap: 4px;
-    }
-  }
-
-  .target-change {
-    border: 1px solid var(--color-border-light-tertiary);
-    background: rgba(0, 0, 0, 0.05);
-    white-space: nowrap;
-    overflow: hidden;
-    height: 26px;
-    line-height: 26px;
-    border-radius: 4px;
-    text-align: center;
-    cursor: pointer;
-    font-size: var(--font-size-12, 9pt);
-
-    &:hover {
-      box-shadow: 0 0 8px red;
-    }
-  }
-}
-
-.app.sheet.kingdom.item h1 {
-  flex: 0;
-  height: 60px;
-  padding: 5px;
-  margin: 0;
-  border-bottom: 2px groove #eeede0;
-}
-
-.app.sheet.kingdom.item h1 input {
-  height: 48px;
-  border: 1px solid transparent;
-  background: none;
-
-  &:hover {
-    border: 1px solid black;
-    box-shadow: 0 0 8px red;
-  }
-}
-
-.app.sheet.kingdom.item .header .details .summary li {
-  display: flex;
-  gap: 4px;
-  align-items: center;
-  width: 33.33%;
-}
-
-.app.sheet.kingdom.item .header .details .summary input[type="checkbox"] {
-  margin: 0;
-}
-
-.app.sheet.kingdom.item .form-group .form-fields input[type="number"] {
-  text-align: start;
-  padding-left: 6px;
 }
