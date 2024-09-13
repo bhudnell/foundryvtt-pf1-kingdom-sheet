@@ -2,20 +2,31 @@
   {{selectOptions commanderChoices selected=actorId blank=''}}
 </select>
 
+<span>{{localize "PF1KS.KingdomLeader"}}</span>
 <input type="checkbox" name="system.commander.kingdomLeader" {{checked system.commander.kingdomLeader}} />
 
-<label>{{localize "PF1KS.Army.MoraleBonus"}}</label>
-<span>{{ system.commander.moraleBonus }}</span>
-
-<label>{{localize "PF1KS.Army.Leadership"}}</label>
-<span>{{ system.commander.leadership }}</span>
-
-<label>{{localize "PF1KS.Army.MaxBoons"}}</label>
-<span>{{ system.commander.maxBoons }}</span>
+<div class="flex0">
+  <div class="info-box-joined">
+    <div class="info-box">
+      <h5>{{ localize "PF1KS.Army.MoraleBonus" }}</h5>
+      <span class="value">{{ system.commander.moraleBonus }}</span>
+    </div>
+    <div class="info-box">
+      <h5>{{localize "PF1KS.Army.Leadership" }}</h5>
+      <span class="value">{{ system.commander.leadership }}</span>
+    </div>
+    <div class="info-box">
+      <h5>{{localize "PF1KS.Army.MaxBoons" }}</h5>
+      <span class="value">{{ system.commander.maxBoons }}</span>
+    </div>
+  </div>
+</div>
 
 <ol class="item-list">
   <li class="flexrow item-list-header">
-    <span class="item-name">{{ label }}</span>
+    <div class="item-name">
+      <h3>{{ localize "PF1KS.Boons" }}</h3>
+    </div>
     <div class="item-detail item-controls">
       <a class="item-control item-create" data-type="{{ boonType }}" data-tooltip="PF1KS.CreateItem">
         <i class="fa-solid fa-plus"></i>

@@ -19,7 +19,7 @@ export class ArmySheet extends ActorSheet {
     return {
       ...options,
       template: `modules/${CFG.id}/templates/actors/army/army-sheet.hbs`,
-      classes: [...options.classes, "kingdom", "actor"],
+      classes: [...options.classes, "pf1", "actor", "kingdom"],
       tabs: [
         {
           navSelector: "nav.tabs[data-group='primary']",

@@ -1,59 +1,61 @@
-<div class="header">
+<div class="summary-header">
   <img class="profile" src="{{ img }}" data-edit="img" />
 
-  <div class="flex-col">
-    <h1>
+  <div class="flexcol basic-info">
+    <h1 class="flex0">
       <input type="text" name="name" value="{{ name }}" />
     </h1>
 
     <div class="flex1 details">
-      <label>{{localize "PF1KS.Army.SizeLabel"}}:</label>
+      <span>{{localize "PF1KS.Army.SizeLabel"}}:</span>
       <select name="system.size">
         {{selectOptions sizeChoices selected=system.size blank=''}}
       </select>
 
-      <label>{{localize "PF1KS.Army.HD"}}:</label>
+      <span>{{localize "PF1KS.Army.HD"}}:</span>
       <select name="system.hd">
         {{selectOptions hdChoices selected=system.hd blank=''}}
       </select>
 
-      <label>{{localize "PF1KS.Army.ACR"}}</label>
+      <span>{{localize "PF1KS.Army.ACR"}}</span>
       {{numberInput system.acr name="system.acr"}}
 
-      <label>{{localize "PF1KS.Army.ConsumptionPerMonth" }}</label>
+      <span>{{localize "PF1KS.Army.ConsumptionPerMonth" }}</span>
       <span>{{ system.consumption.total }}</span>
 
-      <label>{{localize "PF1KS.Army.Speed" }}</label>
+      <span>{{localize "PF1KS.Army.Speed" }}</span>
       <span>{{ system.speed }}</span>
 
-      <label>{{ localize "PF1KS.Army.Morale" }}</label>
+      <span>{{ localize "PF1KS.Army.Morale" }}</span>
       {{numberInput system.morale name="system.morale" step=1 min=-5 max=4}}
     </div>
   </div>
 </div>
 
 <div class="flex0">
+  <h3>{{localize "PF1KS.HitPoints"}}</h3>
   <div class="info-box-joined flex0">
     <div class="info-box">
-      <span class="label">{{ localize "PF1KS.Army.HpCurrent" }}</span>
+      <h5>{{ localize "PF1KS.Army.HpCurrent" }}</h5>
       {{numberInput system.hp.current name="system.hp.current" step=1 min=0}}
     </div>
     <div class="info-box">
-      <span class="label">{{localize "PF1KS.Army.HpMax" }}</span>
+      <h5>{{localize "PF1KS.Army.HpMax" }}</h5>
       <span class="value">{{ system.hp.max }}</span>
     </div>
   </div>
 
+  <h3>{{localize "PF1KS.Stuff"}}</h3>
   <div class="info-box-joined flex0">
     <div class="info-box">
-      <span class="label">{{localize "PF1KS.Army.DV" }}</span>
+      <h5 class="label">{{localize "PF1KS.Army.DV" }}</h5>
       <span class="value">{{ system.dv.total }}</span>
     </div>
     <div class="info-box">
-      <div class="label">
+      <h5>
         <a class="rollable"><i class="fa-solid fa-dice-d20"></i></a>
         <span>{{ localize "PF1KS.Army.OM" }}</span>
-      </div>
+      </h5>
       <span class="value">+{{ system.om.total }}</span>
     </div>
   </div>
