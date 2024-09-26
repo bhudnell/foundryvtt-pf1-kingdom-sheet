@@ -2,61 +2,100 @@
   <img class="profile" src="{{ img }}" data-edit="img" />
 
   <div class="flexcol basic-info">
-    <h1 class="flex0">
-      <input type="text" name="name" value="{{ name }}" />
-    </h1>
+    <div class="flexrow name-xp">
+      <h1 class="char-name">
+        <input type="text" name="name" value="{{ name }}" />
+      </h1>
+      <div class="hd-level">
+        <div class="inputs">
+          <div class="info-box">
+            <h5>{{localize "PF1KS.Army.ACR" }}</h5>
+            {{numberInput system.acr name="system.acr"}}
+          </div>
+          <div class="info-box">
+            <h5>{{localize "PF1KS.Army.Exp" }}</h5>
+            <span class="value">{{ system.exp }}</span>
+          </div>
+        </div>
+      </div>
+    </div>
 
     <div class="flex1 details">
+      <span>{{localize "PF1KS.Army.Type"}}:</span>
+      <input class="army-type" type="text" name="system.type" value="{{ system.type }}" />
+
+      <span>{{localize "PF1KS.AlignmentLabel"}}:</span>
+      <select name="system.alignment">
+        {{selectOptions alignmentChoices selected=system.alignment blank=''}}
+      </select>
+
       <span>{{localize "PF1KS.Army.SizeLabel"}}:</span>
       <select name="system.size">
-        {{selectOptions sizeChoices selected=system.size blank=''}}
+        {{selectOptions sizeChoices selected=system.size blank='' nameAttr="key" labelAttr='label'}}
       </select>
 
       <span>{{localize "PF1KS.Army.HD"}}:</span>
       <select name="system.hd">
-        {{selectOptions hdChoices selected=system.hd blank=''}}
+        {{selectOptions hdChoices selected=system.hd}}
       </select>
 
-      <span>{{localize "PF1KS.Army.ACR"}}</span>
-      {{numberInput system.acr name="system.acr"}}
-
-      <span>{{localize "PF1KS.Army.ConsumptionPerMonth" }}</span>
+      <span data-tooltip="PF1KS.Army.ConsumptionPerMonth">{{localize "PF1KS.Consumption" }}:</span>
       <span>{{ system.consumption.total }}</span>
 
-      <span>{{localize "PF1KS.Army.Speed" }}</span>
-      <span>{{ system.speed }}</span>
+      <span>{{localize "PF1KS.Army.Speed" }}:</span>
+      {{numberInput system.speed name="system.speed" min=0}}
 
-      <span>{{ localize "PF1KS.Army.Morale" }}</span>
-      {{numberInput system.morale name="system.morale" step=1 min=-5 max=4}}
+      <span>{{ localize "PF1KS.Army.Morale" }}:</span>
+      {{numberInput system.morale.base name="system.morale.base" step=1 min=-5 max=4}}
+
+      <span>{{localize "PF1KS.Army.StrategyLabel"}}:</span>
+      <select name="system.strategy">
+        {{selectOptions strategyChoices selected=system.strategy nameAttr="key" labelAttr='label'}}
+      </select>
     </div>
   </div>
 </div>
 
-<div class="flex0">
-  <h3>{{localize "PF1KS.HitPoints"}}</h3>
-  <div class="info-box-joined flex0">
-    <div class="info-box">
-      <h5>{{ localize "PF1KS.Army.HpCurrent" }}</h5>
-      {{numberInput system.hp.current name="system.hp.current" step=1 min=0}}
-    </div>
-    <div class="info-box">
-      <h5>{{localize "PF1KS.Army.HpMax" }}</h5>
-      <span class="value">{{ system.hp.max }}</span>
+<section class="army-attributes">
+  <div class="info-box-header">
+    <h3>{{localize "PF1KS.Army.HP"}}</h3>
+    <div class="info-box-joined flex0">
+      <div class="info-box">
+        <h5>{{ localize "PF1KS.Army.HpCurrent" }}</h5>
+        {{numberInput system.hp.current name="system.hp.current" step=1 min=0}}
+      </div>
+      <div class="info-box">
+        <h5>{{localize "PF1KS.Army.HpMax" }}</h5>
+        <span class="value">{{ system.hp.max }}</span>
+      </div>
     </div>
   </div>
 
-  <h3>{{localize "PF1KS.Stuff"}}</h3>
-  <div class="info-box-joined flex0">
-    <div class="info-box">
-      <h5 class="label">{{localize "PF1KS.Army.DV" }}</h5>
-      <span class="value">{{ system.dv.total }}</span>
-    </div>
-    <div class="info-box">
-      <h5>
-        <a class="rollable"><i class="fa-solid fa-dice-d20"></i></a>
-        <span>{{ localize "PF1KS.Army.OM" }}</span>
-      </h5>
-      <span class="value">+{{ system.om.total }}</span>
+  <div class="info-box-header">
+    <h3>{{localize "PF1KS.Army.Attributes"}}</h3>
+    <div class="info-box-joined flex0">
+      <div class="info-box">
+        <h5>{{localize "PF1KS.Army.DV" }}</h5>
+        <span class="value">{{ system.dv.total }}</span>
+      </div>
+      <div class="info-box">
+        <h5>
+          <a class="rollable"><i class="fa-solid fa-dice-d20"></i></a>
+          <span>{{ localize "PF1KS.Army.OM" }}</span>
+        </h5>
+        <span class="value">{{ numberFormat system.om.total sign=true }}</span>
+      </div>
+      <div class="info-box">
+        <h5>{{ localize "PF1KS.Army.DamageBonus" }}</h5>
+        <span class="value">{{ numberFormat system.damageBonus sign=true }}</span>
+      </div>
+      <div class="info-box">
+        <h5>
+          <a class="rollable"><i class="fa-solid fa-dice-d20"></i></a>
+          <span>{{ localize "PF1KS.Army.Morale" }}</span>
+        </h5>
+        <span class="value">{{ numberFormat system.morale.total sign=true }}</span>
+      </div>
     </div>
   </div>
-</div>
+</section>

@@ -20,9 +20,11 @@
       {{selectOptions @root.validLeadershipChoices selected=actorId}}
     </select>
     {{#if @root.system.settings.optionalRules.leadershipSkills}}
-    <span class="item-detail item-leader-skill-bonus">+ {{ skillBonus }} {{ skillBonusLabel }}</span>
+    <span class="item-detail item-leader-skill-bonus"
+      >{{ numberFormat skillBonus sign=true }} {{ skillBonusLabel }}</span
+    >
     {{/if}}
-    <span class="item-detail item-leader-bonus-value">+{{ bonus }}</span>
+    <span class="item-detail item-leader-bonus-value">{{ numberFormat bonus sign=true }}</span>
     {{#if showSelector}}
     <select class="item-detail item-leader-bonus-type" name="system.leadership.{{ key }}.bonusType">
       {{selectOptions bonusOptions selected=bonusType}}
@@ -41,9 +43,11 @@
       {{selectOptions @root.validLeadershipChoices selected=actorId}}
     </select>
     {{#if @root.system.settings.optionalRules.leadershipSkills}}
-    <span class="item-detail item-leader-skill-bonus">+{{ skillBonus }} {{ skillBonusLabel }}</span>
+    <span class="item-detail item-leader-skill-bonus"
+      >{{ numberFormat skillBonus sign=true }} {{ skillBonusLabel }}</span
+    >
     {{/if}}
-    <span class="item-detail item-leader-bonus">+{{ bonus }} {{ bonusTypeLabel }}</span>
+    <span class="item-detail item-leader-bonus">{{ numberFormat bonus sign=true }} {{ bonusTypeLabel }}</span>
     <input type="hidden" value="{{ id }}" name="system.leadership.viceroys.{{ idx }}.id" />
     <div class="item-detail item-controls one-button">
       <a class="leader-control viceroy-delete" data-tooltip="PF1KS.DeleteViceroy">

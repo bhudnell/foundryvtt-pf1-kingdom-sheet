@@ -1,7 +1,8 @@
 import {
+  alignments,
   armyHD,
-  armySelectorOptions,
   armySizes,
+  armyStrategy,
   CFG,
   kingdomResourceId,
   kingdomSpecialId,
@@ -45,14 +46,16 @@ export class ArmySheet extends ActorSheet {
     data.featureSections = this._prepareFeatures();
 
     // selectors
-    data.sizeChoices = Object.entries(armySizes).reduce((acc, [key, label]) => {
-      acc[key] = game.i18n.localize(label);
-      return acc;
-    }, {});
-    data.hdChoices = Object.keys(armyHD).reduce((acc, key) => {
-      acc[key] = key;
-      return acc;
-    }, {});
+    data.alignmentChoices = Object.fromEntries(
+      Object.entries(alignments).map(([key, label]) => [key, game.i18n.localize(label)])
+    );
+    data.hdChoices = Object.fromEntries(Object.keys(armyHD).map((key) => [key, key]));
+    data.sizeChoices = Object.entries(armySizes)
+      .map(([key, label]) => ({ key, label: game.i18n.localize(label) }))
+      .sort((a, b) => Number(a.key) - Number(b.key));
+    data.strategyChoices = Object.entries(armyStrategy)
+      .map(([key, label]) => ({ key, label: game.i18n.localize(label) }))
+      .sort((a, b) => Number(a.key) - Number(b.key));
 
     // commander
     data.commanderChoices = game.actors

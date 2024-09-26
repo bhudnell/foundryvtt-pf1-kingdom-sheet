@@ -1,4 +1,4 @@
-import { armyHD, armyConsumptionScaling, armySelectorOptions, armySizes, alignments } from "../../config.mjs";
+import { armyHD, armyConsumptionScaling, armySizes, alignments, kingdomTacticId, armyStrategy } from "../../config.mjs";
 
 import { CommanderModel } from "./commanderModel.mjs";
 
@@ -14,9 +14,11 @@ export class ArmyModel extends foundry.abstract.TypeDataModel {
         current: new fields.NumberField({ integer: true, min: 0 }),
       }),
       acr: new fields.NumberField(),
-      seCount: new fields.NumberField({ integer: true, min: 0 }),
       speed: new fields.NumberField({ min: 0 }),
-      morale: new fields.NumberField({ integer: true, min: -5, max: 4, initial: 0 }),
+      strategy: new fields.StringField({ choices: Object.keys(armyStrategy), initial: "0" }),
+      morale: new fields.SchemaField({
+        base: new fields.NumberField({ integer: true, min: -5, max: 4, initial: 0 }),
+      }),
       commander: new fields.EmbeddedDataField(CommanderModel),
       notes: new fields.HTMLField(),
     };
@@ -26,11 +28,29 @@ export class ArmyModel extends foundry.abstract.TypeDataModel {
     for (const stat of ["consumption", "om", "dv"]) {
       this[stat] = {
         base: 0,
+        tactics: 0,
         resources: 0,
+        special: 0,
         boons: 0,
         total: 0,
       };
     }
+
+    this.morale.tactics = 0;
+    this.morale.resources = 0;
+    this.morale.special = 0;
+    this.morale.boons = 0;
+    this.morale.commander = 0;
+    this.morale.total = 0;
+
+    this.om.strategy = 0;
+    this.dv.strategy = 0;
+    this.damageBonus = 0;
+
+    this.tactics = {
+      current: 0,
+      max: 0,
+    };
   }
 
   prepareDerivedData() {
@@ -40,11 +60,46 @@ export class ArmyModel extends foundry.abstract.TypeDataModel {
     this.dv.base = Math.floor(10 + this.acr);
     this.om.base = Math.floor(this.acr);
 
-    // todo item change handling
+    this.om.strategy = this.strategy * 2;
+    this.dv.strategy = this.strategy * -2;
+    this.damageBonus = this.strategy * 3;
 
-    this.consumption.total = (this.consumption.base + this.consumption.resources + this.consumption.boons) * 4;
-    this.dv.total = this.dv.base + this.dv.resources + this.dv.boons;
-    this.om.total = this.om.base + this.om.resources + this.om.boons;
+    this.morale.commander = this.commander.moraleBonus;
+
+    for (const stat of ["consumption", "om", "dv", "morale"]) {
+      this[stat].tactics = 0; // todo item change handling
+      this[stat].resources = 0; // todo item change handling
+      this[stat].special = 0; // todo item change handling
+      this[stat].boons = 0; // todo item change handling
+    }
+
+    this.consumption.total =
+      (this.consumption.base +
+        this.consumption.tactics +
+        this.consumption.resources +
+        this.consumption.resources +
+        this.consumption.boons) *
+      4;
+    this.dv.total =
+      this.dv.base + this.dv.tactics + this.dv.resources + this.dv.special + this.dv.boons + this.dv.strategy;
+    this.om.total =
+      this.om.base + this.om.tactics + this.om.resources + this.om.special + this.om.boons + this.om.strategy;
+    this.morale.total =
+      this.morale.base +
+      this.morale.tactics +
+      this.morale.resources +
+      this.morale.special +
+      this.morale.boons +
+      this.morale.commander;
+
+    this.tactics.current = this.parent.itemTypes[kingdomTacticId].length;
+    this.tactics.max = Math.max(0, Math.floor(this.acr / 2));
+
+    if (this.acr < 1.0) {
+      this.exp = Math.floor(Math.max(400 * this.acr, 0));
+    } else {
+      this.exp = pf1.config.CR_EXP_LEVELS[this.acr];
+    }
   }
 
   async rollMorale(options = {}) {

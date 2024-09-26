@@ -4,15 +4,7 @@
   - Settings Tab
     - add compendium entries for all rules https://www.aonprd.com/Rules.aspx?ID=1547
 
-- Army Sheet
-  - Description Tab https://www.aonprd.com/Rules.aspx?ID=1565
-    - Name
-    - XP
-    - Alignment
-    - Type
-  - Rolls
-    - Offense
-    - Morale
+- Army Sheet https://www.aonprd.com/Rules.aspx?ID=1565
 
 - Building Sheet
   - Description Tab

@@ -87,4 +87,37 @@
       flex: 0;
     }
   }
+
+  .army-attributes {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+  }
+
+  .tab.commander {
+    .header {
+      flex: 0;
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+      margin-bottom: 8px;
+    }
+
+    .form-group label {
+      flex: 0 0 120px;
+      text-align: right;
+    }
+
+    .form-group select {
+      flex: 0 0 400px;
+    }
+  }
+
+  .name-xp {
+    margin-bottom: 8px;
+  }
+
+  .army-type {
+    grid-column: 2 / 5;
+  }
 }

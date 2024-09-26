@@ -74,6 +74,11 @@
   .form-header {
     margin-top: 4px;
   }
+
+  .info-box input[type="number"] {
+    width: 100%;
+    border: unset;
+  }
 }
 
 .app.sheet.kingdom input[type="number"] {

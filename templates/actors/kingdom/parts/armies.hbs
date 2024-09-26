@@ -26,7 +26,7 @@
     </div>
     <span class="item-detail item-army-hp">{{ system.hp.current }} / {{ system.hp.max }}</span>
     <span class="item-detail item-number">{{ system.dv.total }}</span>
-    <span class="item-detail item-number">+{{ system.om.total }}</span>
+    <span class="item-detail item-number">{{ numberFormat system.om.total sign=true }}</span>
     <span class="item-detail item-number">{{ system.speed }}</span>
     <span class="item-detail item-number">{{ system.morale }}</span>
     <span class="item-detail item-number">{{ system.consumption.total }}</span>

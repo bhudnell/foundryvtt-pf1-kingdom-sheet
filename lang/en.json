@@ -193,20 +193,28 @@
 
     "Armies": "Armies",
     "Army": {
+      "Type": "Type",
       "HP": "Hit Points",
       "HpCurrent": "Current",
       "HpMax": "Maximum",
       "HD": "HD",
       "ACR": "ACR",
+      "Exp": "Experience",
       "ConsumptionPerMonth": "Consumption (per month)",
       "Speed": "Speed",
+      "Attributes": "Attributes",
       "Morale": "Morale",
       "DV": "DV",
       "OM": "OM",
+      "DamageBonus": "Damage Bonus",
       "Features": "Features",
       "Commander": "Commander",
+      "KingdomLeader": "Kingdom Leader?",
+      "ChaMod": "Charisma Modifier",
+      "ProfSoldier": "Profession (Soldier)",
       "MoraleBonus": "Morale Bonus",
       "Leadership": "Leadership",
+      "CurrentBoons": "Current Boons",
       "MaxBoons": "Max Boons",
       "SizeLabel": "Size",
       "Size": {
@@ -220,9 +228,20 @@
         "Gargantuan": "Gargantuan",
         "Colossal": "Colossal"
       },
+      "StrategyLabel": "Strategy",
+      "Strategy": {
+        "Defensive": "Defensive",
+        "Cautious": "Cautious",
+        "Standard": "Standard",
+        "Aggressive": "Aggressive",
+        "Reckless": "Reckless"
+      },
       "Tactics": "Tactics",
+      "CurrentTactics": " Current Tactics",
+      "MaxTactics": "Max Tactics",
       "Resources": "Resources",
-      "Special": "Special"
+      "Special": "Special",
+      "Boons": "Boons"
     },
     "CreateArmy": "Create Army",
     "NewArmy": "New Army",
