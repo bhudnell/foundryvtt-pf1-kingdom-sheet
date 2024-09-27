@@ -61,6 +61,12 @@
       {{> item-sheet-event}}
       {{else if isImprovement}}
       {{> item-sheet-improvement}}
+      {{else if isBoon}}
+      {{> item-sheet-boon}}
+      {{else if isSpecial}}
+      {{> item-sheet-special}}
+      {{else if isTactic}}
+      {{> item-sheet-tactic}}
       {{/if}}
     </div>
   </section>

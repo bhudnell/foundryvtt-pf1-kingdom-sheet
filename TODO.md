@@ -5,6 +5,15 @@
     - add compendium entries for all rules https://www.aonprd.com/Rules.aspx?ID=1547
 
 - Army Sheet https://www.aonprd.com/Rules.aspx?ID=1565
+  - Resources need to be checkboxes
+  - Changes
+    - OM
+    - DV
+    - Morale
+    - Bonus tactic
+    - Consumption
+    - Speed
+    - Damage
 
 - Building Sheet
   - Description Tab

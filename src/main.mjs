@@ -6,20 +6,25 @@ import {
   kingdomImprovementId,
   kingdomArmyId,
   kingdomBoonId,
-  kingdomResourceId,
   kingdomSpecialId,
   kingdomTacticId,
 } from "./config.mjs";
 import { ArmyModel } from "./models/actors/armyModel.mjs";
 import { KingdomModel } from "./models/actors/kingdomModel.mjs";
+import { BoonModel } from "./models/items/boonModel.mjs";
 import { BuildingModel } from "./models/items/buildingModel.mjs";
 import { EventModel } from "./models/items/eventModel.mjs";
 import { ImprovementModel } from "./models/items/improvementModel.mjs";
+import { SpecialModel } from "./models/items/specialModel.mjs";
+import { TacticModel } from "./models/items/tacticModel.mjs";
 import { ArmySheet } from "./sheets/actors/armySheet.mjs";
 import { KingdomSheet } from "./sheets/actors/kingdomSheet.mjs";
+import { BoonSheet } from "./sheets/items/boonSheet.mjs";
 import { BuildingSheet } from "./sheets/items/buildingSheet.mjs";
 import { EventSheet } from "./sheets/items/eventSheet.mjs";
 import { ImprovementSheet } from "./sheets/items/improvementSheet.mjs";
+import { SpecialSheet } from "./sheets/items/specialSheet.mjs";
+import { TacticSheet } from "./sheets/items/tacticSheet.mjs";
 
 Hooks.on("preCreateItem", (item, data, context, user) => {
   if (!item.actor) {
@@ -42,7 +47,7 @@ Hooks.on("preCreateItem", (item, data, context, user) => {
   }
 
   //army
-  if (![kingdomBoonId, kingdomResourceId, kingdomSpecialId, kingdomTacticId].includes(item.type)) {
+  if (![kingdomBoonId, kingdomSpecialId, kingdomTacticId].includes(item.type)) {
     if (item.actor.type === kingdomArmyId) {
       ui.notifications.error(`"${item.actor.type}" actor can only have Army items`);
       return false;
@@ -56,6 +61,9 @@ Hooks.once("init", () => {
   CONFIG.Item.dataModels[kingdomBuildingId] = BuildingModel;
   CONFIG.Item.dataModels[kingdomEventId] = EventModel;
   CONFIG.Item.dataModels[kingdomImprovementId] = ImprovementModel;
+  CONFIG.Item.dataModels[kingdomBoonId] = BoonModel;
+  CONFIG.Item.dataModels[kingdomSpecialId] = SpecialModel;
+  CONFIG.Item.dataModels[kingdomTacticId] = TacticModel;
 
   Actors.registerSheet(CFG.id, KingdomSheet, {
     label: game.i18n.localize("PF1KS.Sheet.Kingdom"),
@@ -80,6 +88,21 @@ Hooks.once("init", () => {
   Items.registerSheet(CFG.id, ImprovementSheet, {
     label: game.i18n.localize("PF1KS.Sheet.Improvement"),
     types: [kingdomImprovementId],
+    makeDefault: true,
+  });
+  Items.registerSheet(CFG.id, BoonSheet, {
+    label: game.i18n.localize("PF1KS.Sheet.Boon"),
+    types: [kingdomBoonId],
+    makeDefault: true,
+  });
+  Items.registerSheet(CFG.id, SpecialSheet, {
+    label: game.i18n.localize("PF1KS.Sheet.Special"),
+    types: [kingdomSpecialId],
+    makeDefault: true,
+  });
+  Items.registerSheet(CFG.id, TacticSheet, {
+    label: game.i18n.localize("PF1KS.Sheet.Tactic"),
+    types: [kingdomTacticId],
     makeDefault: true,
   });
 });
@@ -119,6 +142,9 @@ Hooks.once("ready", () => {
     "item-sheet-building": `modules/${CFG.id}/templates/items/parts/building-details.hbs`,
     "item-sheet-event": `modules/${CFG.id}/templates/items/parts/event-details.hbs`,
     "item-sheet-improvement": `modules/${CFG.id}/templates/items/parts/improvement-details.hbs`,
+    "item-sheet-boon": `modules/${CFG.id}/templates/items/parts/boon-details.hbs`,
+    "item-sheet-special": `modules/${CFG.id}/templates/items/parts/special-details.hbs`,
+    "item-sheet-tactic": `modules/${CFG.id}/templates/items/parts/tactic-details.hbs`,
     "item-sheet-changes": `modules/${CFG.id}/templates/items/parts/changes.hbs`,
   });
 });
