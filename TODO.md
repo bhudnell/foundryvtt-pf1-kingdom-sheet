@@ -38,5 +38,6 @@
 - Misc
   - add army actor/item packs to module.json
   - add additional columns to buildings, terrain, and events item lists
+  - add additional columns to tactics item lists
   - add context notes to changes
   - tootips everwhere

@@ -28,7 +28,7 @@ export class ItemBaseSheet extends ItemSheet {
     };
     // settlementId
     const settlementIdChoices = { "": "" };
-    this.item.parent?.system.settlements.forEach(
+    this.item.parent?.system.settlements?.forEach(
       (settlement) => (settlementIdChoices[settlement.id] = settlement.name)
     );
     data.settlementIdChoices = settlementIdChoices;

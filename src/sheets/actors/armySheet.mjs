@@ -1,4 +1,13 @@
-import { alignments, armyHD, armySizes, armyStrategy, CFG, kingdomSpecialId, kingdomTacticId } from "../../config.mjs";
+import {
+  alignments,
+  armyHD,
+  armySizes,
+  armyStrategy,
+  CFG,
+  kingdomBoonId,
+  kingdomSpecialId,
+  kingdomTacticId,
+} from "../../config.mjs";
 
 export class ArmySheet extends ActorSheet {
   constructor(...args) {
@@ -56,6 +65,8 @@ export class ArmySheet extends ActorSheet {
         return acc;
       }, {});
     data.actorId = actorData.commander.actor?.id;
+    data.boons = actor.itemTypes[kingdomBoonId];
+    data.boonType = kingdomBoonId;
 
     return data;
   }
