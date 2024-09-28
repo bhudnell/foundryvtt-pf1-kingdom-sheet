@@ -19,6 +19,16 @@ export class ArmyModel extends foundry.abstract.TypeDataModel {
       morale: new fields.SchemaField({
         base: new fields.NumberField({ integer: true, min: -5, max: 4, initial: 0 }),
       }),
+      resources: new fields.SchemaField({
+        potions: new fields.BooleanField(),
+        impArmor: new fields.BooleanField(),
+        magArmor: new fields.BooleanField(),
+        impWeapons: new fields.BooleanField(),
+        magWeapons: new fields.BooleanField(),
+        mounts: new fields.BooleanField(),
+        ranged: new fields.BooleanField(),
+        seCount: new fields.NumberField({ integer: true, min: 0, initial: 0 }),
+      }),
       commander: new fields.EmbeddedDataField(CommanderModel),
       notes: new fields.HTMLField(),
     };
@@ -37,7 +47,6 @@ export class ArmyModel extends foundry.abstract.TypeDataModel {
     }
 
     this.morale.tactics = 0;
-    this.morale.resources = 0;
     this.morale.special = 0;
     this.morale.boons = 0;
     this.morale.commander = 0;
@@ -68,16 +77,17 @@ export class ArmyModel extends foundry.abstract.TypeDataModel {
 
     for (const stat of ["consumption", "om", "dv", "morale"]) {
       this[stat].tactics = 0; // todo item change handling
-      this[stat].resources = 0; // todo item change handling
       this[stat].special = 0; // todo item change handling
       this[stat].boons = 0; // todo item change handling
     }
+
+    this._prepareResources();
 
     this.consumption.total =
       (this.consumption.base +
         this.consumption.tactics +
         this.consumption.resources +
-        this.consumption.resources +
+        this.consumption.special +
         this.consumption.boons) *
       4;
     this.dv.total =
@@ -85,12 +95,7 @@ export class ArmyModel extends foundry.abstract.TypeDataModel {
     this.om.total =
       this.om.base + this.om.tactics + this.om.resources + this.om.special + this.om.boons + this.om.strategy;
     this.morale.total =
-      this.morale.base +
-      this.morale.tactics +
-      this.morale.resources +
-      this.morale.special +
-      this.morale.boons +
-      this.morale.commander;
+      this.morale.base + this.morale.tactics + this.morale.special + this.morale.boons + this.morale.commander;
 
     this.tactics.current = this.parent.itemTypes[kingdomTacticId].length;
     this.tactics.max = Math.max(0, Math.floor(this.acr / 2));
@@ -123,5 +128,40 @@ export class ArmyModel extends foundry.abstract.TypeDataModel {
     };
 
     return await pf1.dice.d20Roll(rollOptions);
+  }
+
+  _prepareResources() {
+    if (this.resources.impArmor) {
+      this.dv.resources += 1;
+      this.consumption.resources += 1;
+    }
+    if (this.resources.magArmor) {
+      this.dv.resources += 2;
+      this.consumption.resources += 2;
+    }
+    if (this.resources.impWeapons) {
+      this.om.resources += 1;
+      this.consumption.resources += 1;
+    }
+    if (this.resources.magWeapons) {
+      this.om.resources += 2;
+      this.consumption.resources += 2;
+    }
+    if (this.resources.mounts) {
+      this.dv.resources += 2;
+      this.om.resources += 2;
+      this.consumption.resources += 1;
+    }
+    if (this.resources.ranged) {
+      this.consumption.resources += 1;
+    }
+
+    // multiply consumption by scaling factor
+    this.consumption.resources *= armyConsumptionScaling[this.size];
+
+    if (this.resources.seCount) {
+      this.om.resources += 2;
+      this.consumption.resources += 3 * this.seCount;
+    }
   }
 }

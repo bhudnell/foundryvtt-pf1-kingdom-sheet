@@ -236,10 +236,20 @@
         "Aggressive": "Aggressive",
         "Reckless": "Reckless"
       },
+      "ResourcesLabel": "Resources",
+      "Resources": {
+        "Potions": "Healing Potions",
+        "ImpArmor": "Improved Armor",
+        "MagArmor": "Magic Armor",
+        "ImpWeapons": "Improved Weapons",
+        "MagWeapons": "Magic Weapons",
+        "Mounts": "Mounts",
+        "Ranged": "Ranged Weapons",
+        "Siege": "Siege Engines"
+      },
       "Tactics": "Tactics",
       "CurrentTactics": " Current Tactics",
       "MaxTactics": "Max Tactics",
-      "Resources": "Resources",
       "Special": "Special",
       "Boons": "Boons"
     },
@@ -308,7 +318,10 @@
       "pf1-kingdom-sheet": {
         "building": "Building",
         "event": "Event",
-        "improvement": "Terrain Improvement"
+        "improvement": "Terrain Improvement",
+        "boon": "Boon",
+        "special": "Special Ability",
+        "tactic": "Tactic"
       }
     }
   }

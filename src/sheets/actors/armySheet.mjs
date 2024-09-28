@@ -1,13 +1,4 @@
-import {
-  alignments,
-  armyHD,
-  armySizes,
-  armyStrategy,
-  CFG,
-  kingdomResourceId,
-  kingdomSpecialId,
-  kingdomTacticId,
-} from "../../config.mjs";
+import { alignments, armyHD, armySizes, armyStrategy, CFG, kingdomSpecialId, kingdomTacticId } from "../../config.mjs";
 
 export class ArmySheet extends ActorSheet {
   constructor(...args) {
@@ -42,7 +33,7 @@ export class ArmySheet extends ActorSheet {
       editable: this.isEditable,
     };
 
-    // features (tactics, resources, special)
+    // features (tactics, special)
     data.featureSections = this._prepareFeatures();
 
     // selectors
@@ -83,18 +74,13 @@ export class ArmySheet extends ActorSheet {
       featureType: kingdomTacticId,
       features: this.actor.itemTypes[kingdomTacticId],
     };
-    const resources = {
-      label: game.i18n.localize("PF1KS.Army.Resources"),
-      featureType: kingdomResourceId,
-      features: this.actor.itemTypes[kingdomResourceId],
-    };
     const special = {
       label: game.i18n.localize("PF1KS.Army.Special"),
       featureType: kingdomSpecialId,
       features: this.actor.itemTypes[kingdomSpecialId],
     };
 
-    return [tactics, resources, special];
+    return [tactics, special];
   }
 
   async _onItemDelete(event) {

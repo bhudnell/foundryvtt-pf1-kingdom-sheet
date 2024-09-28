@@ -149,8 +149,8 @@ export class KingdomModel extends foundry.abstract.TypeDataModel {
   }
 
   prepareDerivedData() {
-    // remove armies who's actors are gone
-    this._validateArmies();
+    // make sure armies are prepared before referencing them
+    this._prepareArmies();
 
     // changes
     this.changes = this._prepareChanges();
@@ -329,7 +329,9 @@ export class KingdomModel extends foundry.abstract.TypeDataModel {
     return await pf1.dice.d20Roll(rollOptions);
   }
 
-  _validateArmies() {
+  _prepareArmies() {
+    // armies
+    this.armies.forEach((army) => army.actor.prepareData());
     this.armies = this.armies.filter((army) => army.actor);
   }
 

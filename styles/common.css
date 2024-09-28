@@ -84,3 +84,11 @@
 .app.sheet.kingdom input[type="number"] {
   text-align: center;
 }
+
+.app.sheet.kingdom select {
+  width: 100%;
+}
+
+.app.sheet.kingdom input[type="number"] {
+  width: 100%;
+}
