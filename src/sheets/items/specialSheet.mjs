@@ -13,7 +13,7 @@ export class SpecialSheet extends ItemBaseSheet {
     const data = await super.getData();
 
     data.isSpecial = true;
-    data.type = game.i18n.localize("PF1KS.Special");
+    data.type = game.i18n.localize("PF1KS.Sheet.Special");
 
     return data;
   }

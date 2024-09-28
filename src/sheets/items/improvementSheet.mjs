@@ -16,7 +16,7 @@ export class ImprovementSheet extends ItemBaseSheet {
     const data = await super.getData();
 
     data.isImprovement = true;
-    data.type = game.i18n.localize("PF1KS.ImprovementLabel");
+    data.type = game.i18n.localize("PF1KS.Sheet.Improvement");
     data.subType = game.i18n.localize(itemSubTypes[itemData.subType]);
 
     // subType

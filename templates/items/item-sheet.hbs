@@ -21,7 +21,9 @@
   <section class="sidebar">
     <header>
       <h3 class="item-type">{{ type }}</h3>
+      {{#if subType}}
       <h4 class="item-subtype">{{ subType }}</h4>
+      {{/if}}
     </header>
 
     {{#each sidebarContent}}

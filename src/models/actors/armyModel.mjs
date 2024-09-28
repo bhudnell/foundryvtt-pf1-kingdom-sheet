@@ -157,7 +157,7 @@ export class ArmyModel extends foundry.abstract.TypeDataModel {
     }
 
     // multiply consumption by scaling factor
-    this.consumption.resources *= armyConsumptionScaling[this.size];
+    this.consumption.resources = Math.floor(this.consumption.resources * (armyConsumptionScaling[this.size] ?? 1));
 
     if (this.resources.seCount) {
       this.om.resources += 2;

@@ -10,10 +10,18 @@ export class TacticSheet extends ItemBaseSheet {
   }
 
   async getData() {
+    const itemData = this.item.system;
     const data = await super.getData();
 
     data.isTactic = true;
-    data.type = game.i18n.localize("PF1KS.Tactic");
+    data.type = game.i18n.localize("PF1KS.Sheet.Tactic");
+    data.states = [
+      {
+        field: "system.disabled",
+        value: itemData.disabled,
+        label: game.i18n.localize("PF1KS.Disabled"),
+      },
+    ];
 
     return data;
   }

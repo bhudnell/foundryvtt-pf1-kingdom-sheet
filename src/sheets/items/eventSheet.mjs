@@ -16,7 +16,7 @@ export class EventSheet extends ItemBaseSheet {
     const data = await super.getData();
 
     data.isEvent = true;
-    data.type = game.i18n.localize("PF1KS.EventLabel");
+    data.type = game.i18n.localize("PF1KS.Sheet.Event");
     data.subType = game.i18n.localize(itemSubTypes[itemData.subType]);
 
     // subType

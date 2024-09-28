@@ -13,7 +13,7 @@ export class BuildingSheet extends ItemBaseSheet {
     const data = await super.getData();
 
     data.isBuilding = true;
-    data.type = game.i18n.localize("PF1KS.BuildingLabel");
+    data.type = game.i18n.localize("PF1KS.Sheet.Building");
 
     return data;
   }

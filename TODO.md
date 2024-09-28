@@ -1,11 +1,14 @@
 - Kingdom Sheet
   - Event tab
     - Roll event button
+    - event last turn? (yes 25%, no 75%)
   - Settings Tab
     - add compendium entries for all rules https://www.aonprd.com/Rules.aspx?ID=1547
 
 - Army Sheet https://www.aonprd.com/Rules.aspx?ID=1565
-  - Resources need to be checkboxes
+  - Hook up buttons
+  - Resources chan only have one of imp/mag armor and one of imp/mag weapons
+  - curr hp cant be more than max
   - Changes
     - OM
     - DV
@@ -36,3 +39,4 @@
   - add army actor/item packs to module.json
   - add additional columns to buildings, terrain, and events item lists
   - add context notes to changes
+  - tootips everwhere

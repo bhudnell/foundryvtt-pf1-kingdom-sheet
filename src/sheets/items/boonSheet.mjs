@@ -13,7 +13,7 @@ export class BoonSheet extends ItemBaseSheet {
     const data = await super.getData();
 
     data.isBoon = true;
-    data.type = game.i18n.localize("PF1KS.Boon");
+    data.type = game.i18n.localize("PF1KS.Sheet.Boon");
 
     return data;
   }

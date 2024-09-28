@@ -152,7 +152,6 @@
     "Society": "Society",
 
     "Buildings": "Buildings",
-    "BuildingLabel": "Building",
 
     "TerrainLabel": "Terrain",
     "Terrain": {
@@ -169,7 +168,6 @@
     },
 
     "Improvements": "Terrain Improvements",
-    "ImprovementLabel": "Terrain Improvement",
     "Improvement": {
       "SubTypes": {
         "General": "General",
@@ -178,7 +176,6 @@
     },
 
     "Events": "Events",
-    "EventLabel": "Event",
     "Event": {
       "SubTypes": {
         "Active": "Active",
@@ -250,7 +247,7 @@
       "Tactics": "Tactics",
       "CurrentTactics": " Current Tactics",
       "MaxTactics": "Max Tactics",
-      "Special": "Special",
+      "Special": "Special Abilities",
       "Boons": "Boons"
     },
     "CreateArmy": "Create Army",
@@ -304,7 +301,10 @@
       "Army": "Army Sheet",
       "Building": "Building",
       "Event": "Event",
-      "Improvement": "Terrain Improvement"
+      "Improvement": "Terrain Improvement",
+      "Boon": "Boon",
+      "Special": "Special Ability",
+      "Tactic": "Tactic"
     }
   },
   "TYPES": {
