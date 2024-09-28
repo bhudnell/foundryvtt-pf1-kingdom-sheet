@@ -200,6 +200,7 @@
       "ConsumptionPerMonth": "Consumption (per month)",
       "Speed": "Speed",
       "Attributes": "Attributes",
+      "AttributeRoll": "{check} Check",
       "Morale": "Morale",
       "DV": "DV",
       "OM": "OM",
@@ -276,6 +277,7 @@
     "Continuous": "Continuous",
     "Type": "Type",
     "Disabled": "Disabled",
+    "Base": "Base",
 
     "Change": "Change",
     "Changes": "Changes",

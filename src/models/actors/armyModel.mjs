@@ -1,4 +1,12 @@
-import { armyHD, armyConsumptionScaling, armySizes, alignments, kingdomTacticId, armyStrategy } from "../../config.mjs";
+import {
+  armyHD,
+  armyConsumptionScaling,
+  armySizes,
+  alignments,
+  kingdomTacticId,
+  armyStrategy,
+  armyAttributes,
+} from "../../config.mjs";
 
 import { CommanderModel } from "./commanderModel.mjs";
 
@@ -107,23 +115,41 @@ export class ArmyModel extends foundry.abstract.TypeDataModel {
     }
   }
 
-  async rollMorale(options = {}) {
+  async rollAttribute(attributeId, options = {}) {
+    const check = this[attributeId];
+
     const parts = [];
 
-    if (this.morale) {
-      parts.push(`${this.morale}[${game.i18n.localize("PF1KS.BaseMorale")}]`);
+    if (check.base) {
+      parts.push(`${check.base}[${game.i18n.localize("PF1KS.Base")}]`);
     }
-    if (this.commander.moraleBonus) {
-      parts.push(`${this.commander.moraleBonus}[${game.i18n.localize("PF1KS.CommanderBonus")}]`);
+    if (check.tactics) {
+      parts.push(`${check.tactics}[${game.i18n.localize("PF1KS.Army.Tactics")}]`);
+    }
+    if (check.special) {
+      parts.push(`${check.special}[${game.i18n.localize("PF1KS.Army.Special")}]`);
+    }
+    if (check.boons) {
+      parts.push(`${check.boons}[${game.i18n.localize("PF1KS.Army.Boons")}]`);
+    }
+    if (check.resources) {
+      parts.push(`${check.resources}[${game.i18n.localize("PF1KS.Army.ResourcesLabel")}]`);
+    }
+    if (check.strategy) {
+      parts.push(`${check.strategy}[${game.i18n.localize("PF1KS.Army.StrategyLabel")}]`);
+    }
+    if (check.commander) {
+      parts.push(`${check.commander}[${game.i18n.localize("PF1KS.Army.Commander")}]`);
     }
 
+    const label = game.i18n.localize(armyAttributes[attributeId]);
     const actor = options.actor ?? this.actor;
     const token = options.token ?? this.token;
 
     const rollOptions = {
       ...options,
       parts,
-      flavor: game.i18n.localize("PF1KS.Morale"),
+      flavor: game.i18n.format("PF1KS.Army.AttributeRoll", { check: label }),
       speaker: ChatMessage.getSpeaker({ actor, token, alias: token?.name }),
     };
 

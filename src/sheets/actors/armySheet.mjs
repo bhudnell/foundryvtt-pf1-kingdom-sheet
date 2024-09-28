@@ -74,7 +74,10 @@ export class ArmySheet extends ActorSheet {
   activateListeners(html) {
     super.activateListeners(html);
 
+    html.find(".attribute .rollable").on("click", (e) => this._onRollAttribute(e));
+
     html.find(".item-delete").on("click", (e) => this._onItemDelete(e));
+    html.find(".item-duplicate").on("click", (e) => this._onItemDuplicate(e));
     html.find(".item-edit").on("click", (e) => this._onItemEdit(e));
     html.find(".item-create").on("click", (e) => this._onItemCreate(e));
   }
@@ -94,6 +97,12 @@ export class ArmySheet extends ActorSheet {
     return [tactics, special];
   }
 
+  async _onRollAttribute(event) {
+    event.preventDefault();
+    const attribute = event.currentTarget.closest(".attribute").dataset.attribute;
+    this.actor.system.rollAttribute(attribute, { actor: this.actor });
+  }
+
   async _onItemDelete(event) {
     event.preventDefault();
 
@@ -106,6 +115,30 @@ export class ArmySheet extends ActorSheet {
       content: `<p>${game.i18n.localize("PF1.DeleteItemConfirmation")}</p>`,
       onDelete: () => item.delete(),
     });
+  }
+
+  async _onItemDuplicate(event) {
+    event.preventDefault();
+    const itemId = event.currentTarget.closest(".item").dataset.id;
+    const item = this.actor.items.get(itemId);
+
+    const itemData = item.toObject();
+    delete itemData._id;
+
+    const searchUnusedName = (name) => {
+      let iter = 1;
+      let newName;
+      do {
+        iter += 1;
+        newName = `${name} (${iter})`;
+      } while (this.actor.items.getName(newName));
+      return newName;
+    };
+    itemData.name = itemData.name.replace(/\s+\(\d+\)$/, "");
+    itemData.name = searchUnusedName(itemData.name);
+
+    const items = await this.actor.createEmbeddedDocuments("Item", [itemData]);
+    items?.forEach((item) => item.sheet.render(true));
   }
 
   async _onItemEdit(event) {

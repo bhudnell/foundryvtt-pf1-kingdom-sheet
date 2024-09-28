@@ -449,6 +449,13 @@ export const compendiumEntries = {
   altSettlementSizes: "TODO",
 };
 
+export const armyAttributes = {
+  dv: "PF1KS.Army.DV",
+  om: "PF1KS.Army.OM",
+  damage: "PF1KS.Army.Damage",
+  morale: "PF1KS.Army.Morale",
+};
+
 export const armySizes = {
   "-4": "PF1KS.Army.Size.Fine",
   "-3": "PF1KS.Army.Size.Diminutive",

@@ -6,7 +6,7 @@
     - add compendium entries for all rules https://www.aonprd.com/Rules.aspx?ID=1547
 
 - Army Sheet https://www.aonprd.com/Rules.aspx?ID=1565
-  - Hook up buttons
+  - Add damage bonus to OM check card
   - Resources chan only have one of imp/mag armor and one of imp/mag weapons
   - curr hp cant be more than max
   - Changes
@@ -40,4 +40,5 @@
   - add additional columns to buildings, terrain, and events item lists
   - add additional columns to tactics item lists
   - add context notes to changes
+  - add modifier type to changes (add or multiply)
   - tootips everwhere

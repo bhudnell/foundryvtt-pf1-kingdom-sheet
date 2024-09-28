@@ -372,7 +372,7 @@ export class KingdomSheet extends ActorSheet {
   async _onRollKingdomStat(event) {
     event.preventDefault();
     const kingdomStat = event.currentTarget.closest(".kingdom-stat").dataset.kingdomStat;
-    this.actor.system.rollKingdomStat(kingdomStat, { actor: this.actor, skipDialog: true });
+    this.actor.system.rollKingdomStat(kingdomStat, { actor: this.actor });
   }
 
   async _onViceroyCreate(event) {
