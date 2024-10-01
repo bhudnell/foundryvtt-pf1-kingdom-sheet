@@ -7,8 +7,6 @@
 
 - Army Sheet https://www.aonprd.com/Rules.aspx?ID=1565
   - Add damage bonus to OM check card
-  - Resources chan only have one of imp/mag armor and one of imp/mag weapons
-  - curr hp cant be more than max
   - Changes
     - OM
     - DV

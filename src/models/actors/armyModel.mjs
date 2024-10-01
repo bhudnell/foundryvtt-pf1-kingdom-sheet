@@ -72,6 +72,7 @@ export class ArmyModel extends foundry.abstract.TypeDataModel {
 
   prepareDerivedData() {
     this.hp.max = Math.floor((armyHD[this.hd] ?? 0) * this.acr);
+    this.hp.current = Math.min(this.hp.current, this.hp.max);
 
     this.consumption.base = Math.max(Math.floor(this.acr / 2), 1);
     this.dv.base = Math.floor(10 + this.acr);

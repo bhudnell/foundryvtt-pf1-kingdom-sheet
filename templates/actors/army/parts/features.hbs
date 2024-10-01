@@ -1,19 +1,47 @@
 <h3 class="flex0">{{localize "PF1KS.Army.ResourcesLabel"}}</h3>
 <div class="resources">
   <label>
-    <input type="checkbox" name="system.resources.impArmor" {{checked system.resources.impArmor}} />
+    <input
+      class="resource"
+      data-pair="magArmor"
+      type="checkbox"
+      name="system.resources.impArmor"
+      {{checked
+      system.resources.impArmor}}
+    />
     {{ localize "PF1KS.Army.Resources.ImpArmor" }}
   </label>
   <label>
-    <input type="checkbox" name="system.resources.magArmor" {{checked system.resources.magArmor}} />
+    <input
+      class="resource"
+      data-pair="impArmor"
+      type="checkbox"
+      name="system.resources.magArmor"
+      {{checked
+      system.resources.magArmor}}
+    />
     {{ localize "PF1KS.Army.Resources.MagArmor" }}
   </label>
   <label>
-    <input type="checkbox" name="system.resources.impWeapons" {{checked system.resources.impWeapons}} />
+    <input
+      class="resource"
+      data-pair="magWeapons"
+      type="checkbox"
+      name="system.resources.impWeapons"
+      {{checked
+      system.resources.impWeapons}}
+    />
     {{ localize "PF1KS.Army.Resources.ImpWeapons" }}
   </label>
   <label>
-    <input type="checkbox" name="system.resources.magWeapons" {{checked system.resources.magWeapons}} />
+    <input
+      class="resource"
+      data-pair="impWeapons"
+      type="checkbox"
+      name="system.resources.magWeapons"
+      {{checked
+      system.resources.magWeapons}}
+    />
     {{ localize "PF1KS.Army.Resources.MagWeapons" }}
   </label>
   <label>

@@ -74,6 +74,8 @@ export class ArmySheet extends ActorSheet {
   activateListeners(html) {
     super.activateListeners(html);
 
+    html.find(".resource").on("change", (e) => this._onTogglePairedResource(e));
+
     html.find(".attribute .rollable").on("click", (e) => this._onRollAttribute(e));
 
     html.find(".item-delete").on("click", (e) => this._onItemDelete(e));
@@ -95,6 +97,14 @@ export class ArmySheet extends ActorSheet {
     };
 
     return [tactics, special];
+  }
+
+  _onTogglePairedResource(event) {
+    const pair = event.currentTarget.closest(".resource").dataset.pair;
+
+    if (event.target.checked) {
+      this.actor.update({ "system.resources": { [pair]: false } });
+    }
   }
 
   async _onRollAttribute(event) {
