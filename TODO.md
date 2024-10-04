@@ -1,7 +1,4 @@
 - Kingdom Sheet
-  - Event tab
-    - Roll event button
-    - event last turn? (yes 25%, no 75%)
   - Settings Tab
     - add compendium entries for all rules https://www.aonprd.com/Rules.aspx?ID=1547
 
@@ -40,3 +37,4 @@
   - add context notes to changes
   - add modifier type to changes (add or multiply)
   - tootips everwhere
+  - create compendium items

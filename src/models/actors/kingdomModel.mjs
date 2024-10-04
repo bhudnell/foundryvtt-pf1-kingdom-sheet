@@ -1,6 +1,7 @@
 import {
   alignmentEffects,
   alignments,
+  CFG,
   edictEffects,
   edicts,
   governmentBonuses,
@@ -68,6 +69,7 @@ export class KingdomModel extends foundry.abstract.TypeDataModel {
         plains: new fields.NumberField({ integer: true, initial: 0, nullable: false }),
         water: new fields.NumberField({ integer: true, initial: 0, nullable: false }),
       }),
+      eventLastTurn: new fields.BooleanField(),
       armies: new fields.ArrayField(new fields.EmbeddedDataField(ArmyProxyModel)),
       notes: new fields.HTMLField(),
       settings: new fields.SchemaField({
@@ -327,6 +329,39 @@ export class KingdomModel extends foundry.abstract.TypeDataModel {
     };
 
     return await pf1.dice.d20Roll(rollOptions);
+  }
+
+  async rollEvent(options = {}) {
+    const roll = new pf1.dice.RollPF("1d100");
+
+    await roll.evaluate();
+
+    const eventChance = this.eventLastTurn ? 25 : 75;
+
+    const eventOccurred = roll.total <= eventChance;
+
+    const actor = options.actor ?? this.actor;
+    const token = options.token ?? this.token;
+
+    const templateData = {
+      label: game.i18n.format("PF1KS.EventChanceRoll", { chance: eventChance }),
+      formula: roll.formula,
+      natural: roll.total,
+      bonus: 0,
+      total: roll.total,
+      tooltip: await roll.getTooltip(),
+      eventOccurred,
+    };
+
+    const messageData = {
+      type: CONST.CHAT_MESSAGE_TYPES.ROLL,
+      sound: options.noSound ? undefined : CONFIG.sounds.dice,
+      content: await renderTemplate(`modules/${CFG.id}/templates/chat/event-roll.hbs`, templateData),
+      speaker: ChatMessage.getSpeaker({ actor, token, alias: token?.name }),
+      flags: { [CFG.id]: { eventChanceCard: true } },
+    };
+
+    await ChatMessage.create(messageData);
   }
 
   _prepareArmies() {

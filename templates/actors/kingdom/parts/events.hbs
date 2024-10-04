@@ -1,3 +1,27 @@
+<div class="event-chance">
+  <div class="info-box-header">
+    <h3>
+      <a class="rollable" data-tooltip="PF1KS.RollEvent">
+        <i class="fa-solid fa-dice-d20"></i>
+        <span>{{localize "PF1KS.EventLabel"}}</span>
+      </a>
+    </h3>
+
+    <div class="info-box-joined flex0">
+      <div class="info-box">
+        <h5>{{ localize "PF1KS.EventChance" }}</h5>
+        <span class="value">{{ eventChance }}%</span>
+      </div>
+      <div class="info-box">
+        <h5>{{localize "PF1KS.EventLastTurn" }}</h5>
+        <div class="value">
+          <input type="checkbox" name="system.eventLastTurn" {{checked system.eventLastTurn}} />
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
 <ol class="item-groups-list">
   {{#each eventSections}}
   <ol class="item-list">

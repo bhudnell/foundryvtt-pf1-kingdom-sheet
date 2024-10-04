@@ -1,4 +1,4 @@
-import { kingdomStats, miscChangeTargets, allSettlementModifiers } from "./config.mjs";
+import { kingdomStats, miscChangeTargets, allSettlementModifiers, CFG } from "./config.mjs";
 
 export function findLargestSmallerNumber(arr, num) {
   return arr
@@ -34,4 +34,11 @@ export function getChangeCategories() {
       items: Object.entries(miscChangeTargets).map(([key, label]) => ({ key, label: game.i18n.localize(label) })),
     },
   ];
+}
+
+export async function rollEventTable(event, message) {
+  event.preventDefault();
+
+  const table = await fromUuid(`Compendium.${CFG.id}.roll-tables.RollTable.NT591DKj9zNeithf`);
+  return table.draw();
 }

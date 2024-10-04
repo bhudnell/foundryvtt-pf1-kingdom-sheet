@@ -79,13 +79,6 @@ export class KingdomSheet extends ActorSheet {
       ],
     };
 
-    // item types
-    data.buildingType = kingdomBuildingId;
-    data.eventSections = this._prepareEvents();
-    data.eventType = kingdomEventId;
-    data.improvementSections = this._prepareImprovements();
-    data.improvementType = kingdomImprovementId;
-
     // notifications
     // TODO unrest > 10 warning -> lose 1 hex a turn
     // TODO unrest > 19 error -> kingdom in anarchy
@@ -189,16 +182,24 @@ export class KingdomSheet extends ActorSheet {
     data.validLeadershipChoices = leadershipChoices;
 
     // settlements
+    data.buildingType = kingdomBuildingId;
     data.settlements = this._prepareSettlements();
     data.noSettlementBuildings = this.actor.itemTypes[kingdomBuildingId].filter(
       (building) => !actorData.settlements.map((s) => s.id).includes(building.system.settlementId)
     );
 
     // terrain
+    data.improvementSections = this._prepareImprovements();
+    data.improvementType = kingdomImprovementId;
     data.terrain = Object.entries(actorData.terrain).reduce((acc, [key, value]) => {
       acc[key] = { value, label: game.i18n.localize(terrainTypes[key]) };
       return acc;
     }, {});
+
+    // events
+    data.eventSections = this._prepareEvents();
+    data.eventType = kingdomEventId;
+    data.eventChance = actorData.eventLastTurn ? 25 : 75;
 
     // armies
     data.armies = this._prepareArmies();
@@ -216,6 +217,7 @@ export class KingdomSheet extends ActorSheet {
     html.find(".secondRuler").on("change", (e) => this._onSecondRulerToggle(e));
 
     html.find(".kingdom-stat .rollable").on("click", (e) => this._onRollKingdomStat(e));
+    html.find(".event-chance .rollable").on("click", (e) => this._onRollEventChance(e));
 
     html.find(".viceroy-create").on("click", (e) => this._onViceroyCreate(e));
     html.find(".viceroy-delete").on("click", (e) => this._onViceroyDelete(e));
@@ -373,6 +375,11 @@ export class KingdomSheet extends ActorSheet {
     event.preventDefault();
     const kingdomStat = event.currentTarget.closest(".kingdom-stat").dataset.kingdomStat;
     this.actor.system.rollKingdomStat(kingdomStat, { actor: this.actor });
+  }
+
+  async _onRollEventChance(event) {
+    event.preventDefault();
+    this.actor.system.rollEvent({ actor: this.actor });
   }
 
   async _onViceroyCreate(event) {

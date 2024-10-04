@@ -80,6 +80,20 @@
     }
   }
 
+  .tab.events {
+    .event-chance {
+      flex: 0;
+      margin-bottom: 8px;
+
+      .rollable {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        gap: 4px;
+      }
+    }
+  }
+
   .tab.settings {
     > ul {
       list-style: none;

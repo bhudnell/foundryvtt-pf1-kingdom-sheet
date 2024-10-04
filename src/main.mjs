@@ -25,6 +25,7 @@ import { EventSheet } from "./sheets/items/eventSheet.mjs";
 import { ImprovementSheet } from "./sheets/items/improvementSheet.mjs";
 import { SpecialSheet } from "./sheets/items/specialSheet.mjs";
 import { TacticSheet } from "./sheets/items/tacticSheet.mjs";
+import { rollEventTable } from "./utils.mjs";
 
 Hooks.on("preCreateItem", (item, data, context, user) => {
   if (!item.actor) {
@@ -107,12 +108,11 @@ Hooks.once("init", () => {
   });
 });
 
-// TODO
-// Hooks.on("renderChatMessage", (message, html) => {
-//   if (message.flags?.[CFG.id]?.eventChanceCard) {
-//     html.find("button.roll-event").on("click", (e) => rollEventTable(e, message));
-//   }
-// });
+Hooks.on("renderChatMessage", (message, html) => {
+  if (message.flags?.[CFG.id]?.eventChanceCard) {
+    html.find("button.roll-event").on("click", (e) => rollEventTable(e, message));
+  }
+});
 
 // TODO after next pf1 version bump
 // Hooks.on("renderTooltipPF", async (app, html, data) => {

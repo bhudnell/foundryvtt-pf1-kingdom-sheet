@@ -176,12 +176,14 @@
     },
 
     "Events": "Events",
+    "EventLabel": "Event",
     "Event": {
       "SubTypes": {
         "Active": "Active",
         "Misc": "Miscellaneous"
       }
     },
+    "EventLastTurn": "Event last turn?",
     "EventChance": "Event Chance",
     "EventChanceRoll": "Event Chance: {chance}%",
     "RollEvent": "Roll Event",
