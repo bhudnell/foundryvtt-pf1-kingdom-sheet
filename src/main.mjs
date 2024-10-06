@@ -1,3 +1,11 @@
+import { ArmySheet } from "./applications/actors/armySheet.mjs";
+import { KingdomSheet } from "./applications/actors/kingdomSheet.mjs";
+import { BoonSheet } from "./applications/items/boonSheet.mjs";
+import { BuildingSheet } from "./applications/items/buildingSheet.mjs";
+import { EventSheet } from "./applications/items/eventSheet.mjs";
+import { ImprovementSheet } from "./applications/items/improvementSheet.mjs";
+import { SpecialSheet } from "./applications/items/specialSheet.mjs";
+import { TacticSheet } from "./applications/items/tacticSheet.mjs";
 import {
   kingdomSheetId,
   CFG,
@@ -8,24 +16,16 @@ import {
   kingdomBoonId,
   kingdomSpecialId,
   kingdomTacticId,
-} from "./config.mjs";
-import { ArmyModel } from "./models/actors/armyModel.mjs";
-import { KingdomModel } from "./models/actors/kingdomModel.mjs";
-import { BoonModel } from "./models/items/boonModel.mjs";
-import { BuildingModel } from "./models/items/buildingModel.mjs";
-import { EventModel } from "./models/items/eventModel.mjs";
-import { ImprovementModel } from "./models/items/improvementModel.mjs";
-import { SpecialModel } from "./models/items/specialModel.mjs";
-import { TacticModel } from "./models/items/tacticModel.mjs";
-import { ArmySheet } from "./sheets/actors/armySheet.mjs";
-import { KingdomSheet } from "./sheets/actors/kingdomSheet.mjs";
-import { BoonSheet } from "./sheets/items/boonSheet.mjs";
-import { BuildingSheet } from "./sheets/items/buildingSheet.mjs";
-import { EventSheet } from "./sheets/items/eventSheet.mjs";
-import { ImprovementSheet } from "./sheets/items/improvementSheet.mjs";
-import { SpecialSheet } from "./sheets/items/specialSheet.mjs";
-import { TacticSheet } from "./sheets/items/tacticSheet.mjs";
-import { rollEventTable } from "./utils.mjs";
+} from "./config/config.mjs";
+import { ArmyModel } from "./dataModels/actors/armyModel.mjs";
+import { KingdomModel } from "./dataModels/actors/kingdomModel.mjs";
+import { BoonModel } from "./dataModels/items/boonModel.mjs";
+import { BuildingModel } from "./dataModels/items/buildingModel.mjs";
+import { EventModel } from "./dataModels/items/eventModel.mjs";
+import { ImprovementModel } from "./dataModels/items/improvementModel.mjs";
+import { SpecialModel } from "./dataModels/items/specialModel.mjs";
+import { TacticModel } from "./dataModels/items/tacticModel.mjs";
+import { rollEventTable } from "./util/utils.mjs";
 
 Hooks.on("preCreateItem", (item, data, context, user) => {
   if (!item.actor) {
