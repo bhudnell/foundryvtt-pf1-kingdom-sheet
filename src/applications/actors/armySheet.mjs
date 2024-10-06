@@ -7,7 +7,7 @@ import {
   kingdomBoonId,
   kingdomSpecialId,
   kingdomTacticId,
-} from "../../config.mjs";
+} from "../../config/config.mjs";
 
 export class ArmySheet extends ActorSheet {
   constructor(...args) {

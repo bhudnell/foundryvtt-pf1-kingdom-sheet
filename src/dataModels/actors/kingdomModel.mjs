@@ -14,7 +14,7 @@ import {
   leadershipBonusTwoStats,
   leadershipPenalties,
   settlementModifiers,
-} from "../../config.mjs";
+} from "../../config/config.mjs";
 
 import { ArmyProxyModel } from "./armyProxyModel.mjs";
 import { defineLeader } from "./leaderModel.mjs";

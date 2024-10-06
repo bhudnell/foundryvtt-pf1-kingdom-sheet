@@ -6,7 +6,7 @@ import {
   kingdomImprovementId,
   allSettlementModifiers,
   settlementValues,
-} from "../../config.mjs";
+} from "../../config/config.mjs";
 
 export class SettlementModel extends foundry.abstract.DataModel {
   static defineSchema() {

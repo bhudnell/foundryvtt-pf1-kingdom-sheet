@@ -1,4 +1,4 @@
-import { improvementSubTypes, itemSubTypes } from "../../config.mjs";
+import { improvementSubTypes, itemSubTypes } from "../../config/config.mjs";
 
 import { ItemBaseSheet } from "./itemBaseSheet.mjs";
 

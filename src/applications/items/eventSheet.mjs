@@ -1,4 +1,4 @@
-import { eventSubTypes, itemSubTypes } from "../../config.mjs";
+import { eventSubTypes, itemSubTypes } from "../../config/config.mjs";
 
 import { ItemBaseSheet } from "./itemBaseSheet.mjs";
 

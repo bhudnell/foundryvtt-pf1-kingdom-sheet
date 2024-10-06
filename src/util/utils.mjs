@@ -1,4 +1,4 @@
-import { kingdomStats, miscChangeTargets, allSettlementModifiers, CFG } from "./config.mjs";
+import { kingdomStats, miscChangeTargets, allSettlementModifiers, CFG } from "../config/config.mjs";
 
 export function findLargestSmallerNumber(arr, num) {
   return arr

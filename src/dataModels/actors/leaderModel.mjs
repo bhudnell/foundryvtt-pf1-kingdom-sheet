@@ -1,4 +1,4 @@
-import { leadershipBonusOptions, leadershipRoles, leadershipSkillBonuses } from "../../config.mjs";
+import { leadershipBonusOptions, leadershipRoles, leadershipSkillBonuses } from "../../config/config.mjs";
 
 export function defineLeader(role, bonusType, skillBonusType) {
   return class LeaderModel extends foundry.abstract.DataModel {

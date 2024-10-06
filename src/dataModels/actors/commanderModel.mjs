@@ -1,4 +1,4 @@
-import { kingdomBoonId } from "../../config.mjs";
+import { kingdomBoonId } from "../../config/config.mjs";
 
 export class CommanderModel extends foundry.abstract.DataModel {
   static defineSchema() {

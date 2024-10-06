@@ -6,7 +6,7 @@ import {
   kingdomTacticId,
   armyStrategy,
   armyAttributes,
-} from "../../config.mjs";
+} from "../../config/config.mjs";
 
 import { CommanderModel } from "./commanderModel.mjs";
 

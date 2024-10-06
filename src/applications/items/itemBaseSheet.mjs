@@ -1,5 +1,5 @@
-import { CFG, allChangeTargets, changeScopes, allSettlementModifiers } from "../../config.mjs";
-import { getChangeCategories } from "../../utils.mjs";
+import { CFG, allChangeTargets, changeScopes, allSettlementModifiers } from "../../config/config.mjs";
+import { getChangeCategories } from "../../util/utils.mjs";
 
 export class ItemBaseSheet extends ItemSheet {
   static get defaultOptions() {

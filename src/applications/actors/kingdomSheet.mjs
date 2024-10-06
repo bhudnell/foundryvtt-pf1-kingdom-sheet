@@ -20,8 +20,8 @@ import {
   kingdomArmyId,
   compendiumEntries,
   optionalRules,
-} from "../../config.mjs";
-import { findLargestSmallerNumber, renameKeys } from "../../utils.mjs";
+} from "../../config/config.mjs";
+import { findLargestSmallerNumber, renameKeys } from "../../util/utils.mjs";
 
 export class KingdomSheet extends ActorSheet {
   constructor(...args) {
