@@ -3,30 +3,26 @@ import { eventSubTypes, itemSubTypes } from "../../config/config.mjs";
 import { ItemBaseSheet } from "./itemBaseSheet.mjs";
 
 export class EventSheet extends ItemBaseSheet {
-  static get defaultOptions() {
-    const options = super.defaultOptions;
-    return {
-      ...options,
-      classes: [...options.classes, "event"],
-    };
-  }
-
-  async getData() {
+  async getData(options = {}) {
     const itemData = this.item.system;
-    const data = await super.getData();
+    const context = await super.getData(options);
 
-    data.isEvent = true;
-    data.type = game.i18n.localize("PF1KS.Sheet.Event");
-    data.subType = game.i18n.localize(itemSubTypes[itemData.subType]);
+    // settlementId
+    const settlementIdChoices = { "": "" };
+    this.item.parent?.system.settlements?.forEach(
+      (settlement) => (settlementIdChoices[settlement.id] = settlement.name)
+    );
+    context.settlementIdChoices = settlementIdChoices;
 
     // subType
-    data.subTypeChoices = Object.entries(eventSubTypes).reduce((acc, [key, label]) => {
+    context.subType = game.i18n.localize(itemSubTypes[itemData.subType]);
+    context.subTypeChoices = Object.entries(eventSubTypes).reduce((acc, [key, label]) => {
       acc[key] = game.i18n.localize(label);
       return acc;
     }, {});
 
     // sidebar info
-    data.sidebarContent = [
+    context.sidebarContent = [
       {
         isBoolean: true,
         name: "system.continuous",
@@ -35,6 +31,6 @@ export class EventSheet extends ItemBaseSheet {
       },
     ];
 
-    return data;
+    return context;
   }
 }

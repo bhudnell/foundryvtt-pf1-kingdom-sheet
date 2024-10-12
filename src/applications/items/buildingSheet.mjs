@@ -1,20 +1,16 @@
 import { ItemBaseSheet } from "./itemBaseSheet.mjs";
 
 export class BuildingSheet extends ItemBaseSheet {
-  static get defaultOptions() {
-    const options = super.defaultOptions;
-    return {
-      ...options,
-      classes: [...options.classes, "building"],
-    };
-  }
+  async getData(options = {}) {
+    const context = await super.getData(options);
 
-  async getData() {
-    const data = await super.getData();
+    // settlementId
+    const settlementIdChoices = { "": "" };
+    this.item.parent?.system.settlements?.forEach(
+      (settlement) => (settlementIdChoices[settlement.id] = settlement.name)
+    );
+    context.settlementIdChoices = settlementIdChoices;
 
-    data.isBuilding = true;
-    data.type = game.i18n.localize("PF1KS.Sheet.Building");
-
-    return data;
+    return context;
   }
 }

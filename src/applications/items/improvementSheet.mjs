@@ -3,30 +3,26 @@ import { improvementSubTypes, itemSubTypes } from "../../config/config.mjs";
 import { ItemBaseSheet } from "./itemBaseSheet.mjs";
 
 export class ImprovementSheet extends ItemBaseSheet {
-  static get defaultOptions() {
-    const options = super.defaultOptions;
-    return {
-      ...options,
-      classes: [...options.classes, "improvement"],
-    };
-  }
-
-  async getData() {
+  async getData(options = {}) {
     const itemData = this.item.system;
-    const data = await super.getData();
+    const context = await super.getData(options);
 
-    data.isImprovement = true;
-    data.type = game.i18n.localize("PF1KS.Sheet.Improvement");
-    data.subType = game.i18n.localize(itemSubTypes[itemData.subType]);
+    // settlementId
+    const settlementIdChoices = { "": "" };
+    this.item.parent?.system.settlements?.forEach(
+      (settlement) => (settlementIdChoices[settlement.id] = settlement.name)
+    );
+    context.settlementIdChoices = settlementIdChoices;
 
     // subType
-    data.subTypeChoices = Object.entries(improvementSubTypes).reduce((acc, [key, label]) => {
+    context.subType = game.i18n.localize(itemSubTypes[itemData.subType]);
+    context.subTypeChoices = Object.entries(improvementSubTypes).reduce((acc, [key, label]) => {
       acc[key] = game.i18n.localize(label);
       return acc;
     }, {});
 
     // sidebar info
-    data.sidebarContent = [
+    context.sidebarContent = [
       {
         isNumber: true,
         name: "system.amount",
@@ -35,6 +31,6 @@ export class ImprovementSheet extends ItemBaseSheet {
       },
     ];
 
-    return data;
+    return context;
   }
 }
