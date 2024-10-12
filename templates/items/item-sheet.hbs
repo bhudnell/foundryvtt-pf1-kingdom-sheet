@@ -1,9 +1,9 @@
-<form autocomplete="off">
+<form class="{{ cssClass }} flexcol" autocomplete="off" data-tooltip-class="pf1">
   <header class="sheet-header flexrow">
-    <img class="profile" src="{{ img }}" data-edit="img" />
+    <img class="profile" src="{{ item.img }}" data-tooltip="{{ item.name }}" data-edit="img" />
     <div class="header-details flexrow">
       <h1 class="item-name">
-        <input type="text" name="name" value="{{ name }}" />
+        <input type="text" name="name" value="{{ item.name }}" />
       </h1>
       <ul class="summary">
         {{#each states}}
@@ -20,7 +20,7 @@
 
   <section class="sidebar">
     <header>
-      <h3 class="item-type">{{ type }}</h3>
+      <h3 class="item-type">{{ itemType }}</h3>
       {{#if subType}}
       <h4 class="item-subtype">{{ subType }}</h4>
       {{/if}}
@@ -47,14 +47,13 @@
   </section>
 
   <nav class="sheet-navigation tabs" data-group="primary">
-    <a class="item" data-tab="description">{{ localize "PF1KS.Description" }}</a>
-    <a class="item" data-tab="details">{{ localize "PF1KS.Details" }}</a>
+    <a class="item" data-tab="description">{{ localize "PF1.Description" }}</a>
+    <a class="item" data-tab="details">{{ localize "PF1.Details" }}</a>
+    <a class="item" data-tab="changes">{{ localize "PF1.Changes" }}</a>
   </nav>
 
   <section class="primary-body">
-    <div class="tab notes flexcol" data-group="primary" data-tab="description">
-      {{editor enrichedDesc target="system.description" button=true engine="prosemirror"}}
-    </div>
+    {{> "systems/pf1/templates/items/parts/item-description.hbs"}}
 
     <div class="tab details" data-group="primary" data-tab="details">
       {{#if isBuilding}}
@@ -70,6 +69,10 @@
       {{else if isTactic}}
       {{> item-sheet-tactic}}
       {{/if}}
+    </div>
+
+    <div class="tab changes" data-group="primary" data-tab="changes">
+      {{> item-sheet-changes}}
     </div>
   </section>
 </form>
