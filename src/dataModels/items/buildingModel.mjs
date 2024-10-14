@@ -6,7 +6,7 @@ export class BuildingModel extends ItemBaseModel {
 
     const schema = {
       settlementId: new fields.StringField(),
-      amount: new fields.NumberField({ integer: true, min: 0, initial: 1, nullable: false }),
+      quantity: new fields.NumberField({ integer: true, min: 0, initial: 1, nullable: false }),
       lots: new fields.NumberField({ integer: true, min: 0, initial: 1, nullable: false }),
     };
     this.addDefaultSchemaFields(schema);
