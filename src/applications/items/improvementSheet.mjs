@@ -9,7 +9,7 @@ export class ImprovementSheet extends ItemBaseSheet {
 
     // settlementId
     const settlementIdChoices = { "": "" };
-    this.item.parent?.system.settlements?.forEach(
+    this.item.parent?.system.settlements.forEach(
       (settlement) => (settlementIdChoices[settlement.id] = settlement.name)
     );
     context.settlementIdChoices = settlementIdChoices;
@@ -25,9 +25,9 @@ export class ImprovementSheet extends ItemBaseSheet {
     context.sidebarContent = [
       {
         isNumber: true,
-        name: "system.amount",
+        name: "system.quantity",
         label: game.i18n.localize("PF1KS.Quantity"),
-        value: itemData.amount,
+        value: itemData.quantity,
       },
     ];
 

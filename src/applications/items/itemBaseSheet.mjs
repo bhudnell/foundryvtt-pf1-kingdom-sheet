@@ -34,4 +34,8 @@ export class ItemBaseSheet extends pf1.applications.item.ItemSheetPF {
 
     return context;
   }
+
+  async _updateObject(event, formData) {
+    return ItemSheet.prototype._updateObject.call(this, event, formData);
+  }
 }

@@ -9,7 +9,7 @@ export class EventSheet extends ItemBaseSheet {
 
     // settlementId
     const settlementIdChoices = { "": "" };
-    this.item.parent?.system.settlements?.forEach(
+    this.item.parent?.system.settlements.forEach(
       (settlement) => (settlementIdChoices[settlement.id] = settlement.name)
     );
     context.settlementIdChoices = settlementIdChoices;
