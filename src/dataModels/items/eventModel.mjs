@@ -1,17 +1,19 @@
 import { eventSubTypes } from "../../config/config.mjs";
 
-import { ChangeModel } from "./changeModel.mjs";
+import { ItemBaseModel } from "./itemBaseModel.mjs";
 
-export class EventModel extends foundry.abstract.TypeDataModel {
+export class EventModel extends ItemBaseModel {
   static defineSchema() {
     const fields = foundry.data.fields;
-    return {
-      description: new fields.HTMLField(),
+
+    const schema = {
       subType: new fields.StringField({ initial: "active", choices: Object.keys(eventSubTypes) }),
       settlementId: new fields.StringField(),
       continuous: new fields.BooleanField({ initial: false }),
-      changes: new fields.ArrayField(new fields.EmbeddedDataField(ChangeModel)),
     };
+    this.addDefaultSchemaFields(schema);
+
+    return schema;
   }
 
   prepareDerivedData() {}

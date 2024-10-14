@@ -1,11 +1,13 @@
-import { ChangeModel } from "./changeModel.mjs";
+import { ItemBaseModel } from "./itemBaseModel.mjs";
 
-export class BoonModel extends foundry.abstract.TypeDataModel {
+export class BoonModel extends ItemBaseModel {
   static defineSchema() {
     const fields = foundry.data.fields;
-    return {
-      changes: new fields.ArrayField(new fields.EmbeddedDataField(ChangeModel)),
-    };
+
+    const schema = {};
+    this.addDefaultSchemaFields(schema);
+
+    return schema;
   }
 
   prepareDerivedData() {}

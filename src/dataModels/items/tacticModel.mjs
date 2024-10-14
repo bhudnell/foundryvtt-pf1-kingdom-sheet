@@ -1,12 +1,15 @@
-import { ChangeModel } from "./changeModel.mjs";
+import { ItemBaseModel } from "./itemBaseModel.mjs";
 
-export class TacticModel extends foundry.abstract.TypeDataModel {
+export class TacticModel extends ItemBaseModel {
   static defineSchema() {
     const fields = foundry.data.fields;
-    return {
+
+    const schema = {
       disabled: new fields.BooleanField({ initial: true }),
-      changes: new fields.ArrayField(new fields.EmbeddedDataField(ChangeModel)),
     };
+    this.addDefaultSchemaFields(schema);
+
+    return schema;
   }
 
   prepareDerivedData() {}
