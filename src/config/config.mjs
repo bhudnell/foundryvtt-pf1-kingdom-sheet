@@ -4,12 +4,16 @@ export const CFG = {
 
 export const kingdomSheetId = `${CFG.id}.kingdom`;
 export const kingdomArmyId = `${CFG.id}.army`;
+
 export const kingdomBuildingId = `${CFG.id}.building`;
 export const kingdomEventId = `${CFG.id}.event`;
 export const kingdomImprovementId = `${CFG.id}.improvement`;
 export const kingdomBoonId = `${CFG.id}.boon`;
 export const kingdomSpecialId = `${CFG.id}.special`;
 export const kingdomTacticId = `${CFG.id}.tactic`;
+
+export const kingdomItemTypes = [kingdomBuildingId, kingdomEventId, kingdomImprovementId];
+export const armyItemTypes = [kingdomBoonId, kingdomSpecialId, kingdomTacticId];
 
 export const kingdomStats = {
   economy: "PF1KS.Economy",
@@ -508,23 +512,4 @@ export const improvementSubTypes = {
 export const itemSubTypes = {
   ...eventSubTypes,
   ...improvementSubTypes,
-};
-
-export const miscChangeTargets = {
-  consumption: "PF1KS.Consumption",
-  bonusBP: "PF1KS.BonusBP",
-  fame: "PF1KS.Fame",
-  infamy: "PF1KS.Infamy",
-};
-
-export const allChangeTargets = {
-  ...kingdomStats,
-  ...allSettlementModifiers,
-  ...miscChangeTargets,
-};
-
-export const changeScopes = {
-  kingdom: "PF1KS.ChangeScope.Kingdom",
-  settlement: "PF1KS.ChangeScope.Settlement",
-  hex: "PF1KS.ChangeScope.Hex",
 };
