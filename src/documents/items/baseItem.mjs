@@ -64,20 +64,22 @@ export class BaseItem extends pf1.documents.item.ItemPF {
     }
   }
 
-  async _preUpdate(changed, context, user) {
-    await super._preUpdate(changed, context, user);
+  async update(data, context = {}) {
+    const changed = foundry.utils.expandObject(data);
 
     // No system data changes
     if (!changed.system) {
       return;
     }
 
-    const keepPaths = ["system.contextNotes", "system.changes"];
+    const keepPaths = ["system.contextNotes"];
 
     const itemData = this.toObject();
     for (const path of keepPaths) {
       keepUpdateArray(itemData, changed, path);
     }
+
+    super.update(foundry.utils.flattenObject(changed), context);
   }
 
   getLabels({ actionId, rollData } = {}) {
