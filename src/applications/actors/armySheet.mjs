@@ -9,18 +9,12 @@ import {
   kingdomTacticId,
 } from "../../config/config.mjs";
 
-export class ArmySheet extends ActorSheet {
-  constructor(...args) {
-    super(...args);
-
-    this._expandedItems = new Set();
-  }
+export class ArmySheet extends pf1.applications.actor.ActorSheetPF {
   static get defaultOptions() {
     const options = super.defaultOptions;
     return {
       ...options,
-      template: `modules/${CFG.id}/templates/actors/army/army-sheet.hbs`,
-      classes: [...options.classes, "pf1", "actor", "kingdom"],
+      classes: [...options.classes, "kingdom"],
       tabs: [
         {
           navSelector: "nav.tabs[data-group='primary']",
@@ -32,18 +26,29 @@ export class ArmySheet extends ActorSheet {
     };
   }
 
+  get template() {
+    return `modules/${CFG.id}/templates/actors/army/${this.isEditable ? "edit" : "view"}.hbs`;
+  }
+
   async getData() {
     const actor = this.actor;
     const actorData = actor.system;
+    const isOwner = actor.isOwner;
 
     const data = {
       ...this.actor,
-      enrichedNotes: await TextEditor.enrichHTML(actorData.notes),
+      owner: isOwner,
+      enrichedNotes: await TextEditor.enrichHTML(actorData.notes.value ?? "", {
+        rolldata: actor.getRollData(),
+        async: true,
+        secrets: this.object.isOwner,
+        relativeTo: this.actor,
+      }),
       editable: this.isEditable,
+      cssClass: isOwner ? "editable" : "locked",
     };
 
-    // features (tactics, special)
-    data.featureSections = this._prepareFeatures();
+    data.sections = this._prepareItems();
 
     // selectors
     data.alignmentChoices = Object.fromEntries(
@@ -65,8 +70,6 @@ export class ArmySheet extends ActorSheet {
         return acc;
       }, {});
     data.actorId = actorData.commander.actor?.id;
-    data.boons = actor.itemTypes[kingdomBoonId];
-    data.boonType = kingdomBoonId;
 
     return data;
   }
@@ -77,26 +80,37 @@ export class ArmySheet extends ActorSheet {
     html.find(".resource").on("change", (e) => this._onTogglePairedResource(e));
 
     html.find(".attribute .rollable").on("click", (e) => this._onRollAttribute(e));
-
-    html.find(".item-delete").on("click", (e) => this._onItemDelete(e));
-    html.find(".item-duplicate").on("click", (e) => this._onItemDuplicate(e));
-    html.find(".item-edit").on("click", (e) => this._onItemEdit(e));
-    html.find(".item-create").on("click", (e) => this._onItemCreate(e));
   }
 
-  _prepareFeatures() {
-    const tactics = {
-      label: game.i18n.localize("PF1KS.Army.Tactics"),
-      featureType: kingdomTacticId,
-      features: this.actor.itemTypes[kingdomTacticId],
-    };
-    const special = {
-      label: game.i18n.localize("PF1KS.Army.Special"),
-      featureType: kingdomSpecialId,
-      features: this.actor.itemTypes[kingdomSpecialId],
-    };
+  _prepareItems() {
+    const features = [];
+    for (const section of Object.values(pf1.config.sheetSections.armyFeature)) {
+      section.items = this.actor.itemTypes[section.create.type];
+      features.push(section);
+    }
 
-    return [tactics, special];
+    const boons = [];
+    for (const section of Object.values(pf1.config.sheetSections.armyBoon)) {
+      section.items = this.actor.itemTypes[section.create.type];
+      boons.push(section);
+    }
+
+    const categories = [
+      { key: "features", sections: features },
+      { key: "boons", sections: boons },
+    ];
+
+    for (const { key, sections } of categories) {
+      const set = this._filters.sections[key];
+      for (const section of sections) {
+        if (!section) {
+          continue;
+        }
+        section._hidden = set?.size > 0 && !set.has(section.id);
+      }
+    }
+
+    return { features, boons };
   }
 
   _onTogglePairedResource(event) {
@@ -113,120 +127,146 @@ export class ArmySheet extends ActorSheet {
     this.actor.system.rollAttribute(attribute, { actor: this.actor });
   }
 
-  async _onItemDelete(event) {
-    event.preventDefault();
-
-    const itemId = event.currentTarget.closest(".item").dataset.id;
-    const item = this.actor.items.get(itemId);
-
-    await this._onDelete({
-      button: event.currentTarget,
-      title: game.i18n.format("PF1.DeleteItemTitle", { name: item.name }),
-      content: `<p>${game.i18n.localize("PF1.DeleteItemConfirmation")}</p>`,
-      onDelete: () => item.delete(),
-    });
-  }
-
-  async _onItemDuplicate(event) {
-    event.preventDefault();
-    const itemId = event.currentTarget.closest(".item").dataset.id;
-    const item = this.actor.items.get(itemId);
-
-    const itemData = item.toObject();
-    delete itemData._id;
-
-    const searchUnusedName = (name) => {
-      let iter = 1;
-      let newName;
-      do {
-        iter += 1;
-        newName = `${name} (${iter})`;
-      } while (this.actor.items.getName(newName));
-      return newName;
-    };
-    itemData.name = itemData.name.replace(/\s+\(\d+\)$/, "");
-    itemData.name = searchUnusedName(itemData.name);
-
-    const items = await this.actor.createEmbeddedDocuments("Item", [itemData]);
-    items?.forEach((item) => item.sheet.render(true));
-  }
-
-  async _onItemEdit(event) {
-    event.preventDefault();
-    const itemId = event.currentTarget.closest(".item").dataset.id;
-    const item = this.document.items.get(itemId);
-
-    item.sheet.render(true, { focus: true });
-  }
-
-  async _onItemCreate(event) {
-    event.preventDefault();
-    const header = event.currentTarget;
-
-    const type = header.dataset.type;
-    const typeName = game.i18n.localize(CONFIG.Item.typeLabels[type] || type);
-
-    const itemData = {
-      name: game.i18n.format("PF1.NewItem", { type: typeName }),
-      type,
-      system: {},
-    };
-
-    const newItem = new Item(itemData);
-
-    return this.actor.createEmbeddedDocuments("Item", [newItem.toObject()], { renderSheet: true });
-  }
-
-  async _onDelete({ button, title, content, onDelete }) {
-    if (button.disabled) {
-      return;
-    }
-    button.disabled = true;
-
-    try {
-      await Dialog.confirm({
-        title,
-        content,
-        yes: () => {
-          onDelete();
-          button.disabled = false;
-        },
-        no: () => (button.disabled = false),
-        rejectClose: true,
-      });
-    } catch (e) {
-      button.disabled = false;
-    }
-  }
-
-  async _activateExtendedTooltip(event) {
-    const el = event.currentTarget;
-    const [id, subId] = el.dataset.tooltipExtended.split(".");
-    if (!id) {
-      return;
-    }
-
-    const templateData = this._generateTooltipData(id, subId);
-
-    if (!templateData.length) {
-      return;
-    }
-
-    const text = await renderTemplate(`modules/${CFG.id}/templates/actors/tooltip-content.hbs`, templateData);
-
-    game.tooltip.activate(el, {
-      text,
-      cssClass: "kingdom",
-    });
-  }
-
-  _generateTooltipData(id, subId) {
-    const data = [];
-    const actorData = this.actor.system;
-    switch (id) {
-      // TODO
+  // overrides
+  _focusTabByItem(item) {
+    let tabId;
+    switch (item.type) {
+      case kingdomBoonId:
+        tabId = "commander";
+        break;
+      case kingdomSpecialId:
+      case kingdomTacticId:
+        tabId = "features";
+        break;
       default:
+        tabId = "summary";
     }
-    return data;
+
+    if (tabId) {
+      this.activateTab(tabId, "primary");
+    }
+  }
+
+  _getTooltipContext(fullId, context) {
+    const actor = this.actor;
+    const actorData = actor.system;
+
+    // Lazy roll data
+    const lazy = {
+      get rollData() {
+        this._rollData ??= actor.getRollData();
+        return this._rollData;
+      },
+    };
+
+    const getSource = (path) => this.actor.sourceDetails[path];
+
+    const getNotes = (context, all = true) => {
+      const noteObjs = actor.getContextNotes(context, all);
+      return actor.formatContextNotes(noteObjs, lazy.rollData, { roll: false });
+    };
+
+    let header, subHeader;
+    const details = [];
+    const paths = [];
+    const sources = [];
+    let notes;
+
+    const re = /^(?<id>[\w-]+)(?:\.(?<detail>.*))?$/.exec(fullId);
+    const { id } = re?.groups ?? {};
+
+    switch (id) {
+      case "speed":
+        sources.push(
+          {
+            sources: getSource("system.speed.total"),
+            untyped: true,
+          },
+          {
+            sources: getSource("system.speed.base"),
+            untyped: true,
+          }
+        );
+        paths.push(
+          {
+            path: "@speed.base",
+            value: actorData.speed.base,
+            unit: game.i18n.localize("PF1KS.Army.SpeedUnit"),
+          },
+          {
+            path: "@speed.total",
+            value: actorData.speed.total,
+            unit: game.i18n.localize("PF1KS.Army.SpeedUnit"),
+          }
+        );
+        break;
+      case "morale":
+        paths.push(
+          {
+            path: "@morale.base",
+            value: actorData.morale.base,
+          },
+          {
+            path: "@morale.commander",
+            value: actorData.morale.commander,
+          },
+          {
+            path: "@morale.total",
+            value: actorData.morale.total,
+          }
+        );
+        sources.push({
+          sources: getSource("system.morale.total"),
+          untyped: true,
+        });
+        notes = getNotes(`${CFG.changePrefix}_morale`);
+        break;
+      case "dv":
+      case "om":
+      case "consumption":
+        paths.push(
+          {
+            path: `@${id}.base`,
+            value: actorData[id].base,
+          },
+          {
+            path: `@${id}.total`,
+            value: actorData[id].total,
+          }
+        );
+        sources.push({
+          sources: getSource(`system.${id}.total`),
+          untyped: true,
+        });
+        notes = getNotes(`${CFG.changePrefix}_${id}`);
+        break;
+      case "damageBonus":
+        paths.push({
+          path: "@damageBonus.total",
+          value: actorData.damageBonus.total,
+        });
+        sources.push({
+          sources: getSource("system.damageBonus.total"),
+          untyped: true,
+        });
+        notes = getNotes(`${CFG.changePrefix}_damage`);
+        break;
+      case "maxTactics":
+        sources.push({
+          sources: getSource("system.tactics.max.total"),
+          untyped: true,
+        });
+        break;
+
+      default:
+        throw new Error(`Invalid extended tooltip identifier "${fullId}"`);
+    }
+
+    context.header = header;
+    context.subHeader = subHeader;
+    context.details = details;
+    context.paths = paths;
+    context.sources = sources;
+    context.notes = notes ?? [];
   }
 }
