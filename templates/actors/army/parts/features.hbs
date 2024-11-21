@@ -10,8 +10,9 @@
 
 <ol class="item-groups-list">
   {{#each sections.features as |section sid|
+
   }}{{#unless section._hidden}}
-  <ol class="item-list" data-type="feat" data-subtype="{{ id }}">
+  <ol class="item-list">
     <li class="item-list-header flexrow">
       <div class="item-name">
         <h3>{{ section.label }}</h3>
@@ -22,6 +23,11 @@
         {{#if section.interface.create}}
         <a class="item-control item-create" data-tooltip="PF1.CreateItem" data-create="{{ section.path }}">
           <i class="fas fa-plus"></i>
+        </a>
+        {{/if}}
+        {{#if section.interface.browse}}
+        <a data-action="browse" data-category="{{ section.id }}" data-tooltip="{{ section.browseLabel }}">
+          <i class="fas fa-folder-plus"></i>
         </a>
         {{/if}}
       </div>
@@ -50,6 +56,7 @@
     {{/each}}
   </ol>
   {{/unless
+
   }}{{/each}}
 </ol>
 

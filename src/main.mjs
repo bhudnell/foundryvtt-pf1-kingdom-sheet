@@ -7,6 +7,9 @@ import { ImprovementSheet } from "./applications/items/improvementSheet.mjs";
 import { SpecialSheet } from "./applications/items/specialSheet.mjs";
 import { TacticSheet } from "./applications/items/tacticSheet.mjs";
 import * as Config from "./config/_module.mjs";
+import { BoonBrowser } from "./config/compendiumBrowser/boonBrowser.mjs";
+import { SpecialBrowser } from "./config/compendiumBrowser/specialBrowser.mjs";
+import { TacticBrowser } from "./config/compendiumBrowser/tacticBrowser.mjs";
 import {
   kingdomSheetId,
   CFG,
@@ -236,4 +239,16 @@ Hooks.once("ready", () => {
 
     "item-sheet-changes": `modules/${CFG.id}/templates/items/parts/changes.hbs`,
   });
+
+  pf1.applications.compendiums.boon = new BoonBrowser();
+  pf1.applications.compendiums.tactic = new TacticBrowser();
+  pf1.applications.compendiums.special = new SpecialBrowser();
+
+  pf1.applications.compendiumBrowser.boon = BoonBrowser;
+  pf1.applications.compendiumBrowser.tactic = TacticBrowser;
+  pf1.applications.compendiumBrowser.special = SpecialBrowser;
+
+  game.model.Item[kingdomBoonId] = {};
+  game.model.Item[kingdomTacticId] = {};
+  game.model.Item[kingdomSpecialId] = {};
 });

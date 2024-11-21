@@ -47,9 +47,39 @@
 
   "packs": [
     {
-      "name": "buildings",
+      "name": "boon",
+      "label": "Boons",
+      "path": "packs/boon",
+      "type": "Item",
+      "ownership": {
+        "PLAYER": "OBSERVER"
+      },
+      "system": "pf1"
+    },
+    {
+      "name": "tactic",
+      "label": "Tactics",
+      "path": "packs/tactic",
+      "type": "Item",
+      "ownership": {
+        "PLAYER": "OBSERVER"
+      },
+      "system": "pf1"
+    },
+    {
+      "name": "special",
+      "label": "Special Abilities",
+      "path": "packs/special",
+      "type": "Item",
+      "ownership": {
+        "PLAYER": "OBSERVER"
+      },
+      "system": "pf1"
+    },
+    {
+      "name": "building",
       "label": "Buildings",
-      "path": "packs/buildings",
+      "path": "packs/building",
       "type": "Item",
       "ownership": {
         "PLAYER": "OBSERVER"
@@ -57,9 +87,9 @@
       "system": "pf1"
     },
     {
-      "name": "events",
+      "name": "event",
       "label": "Events",
-      "path": "packs/events",
+      "path": "packs/event",
       "type": "Item",
       "ownership": {
         "PLAYER": "OBSERVER"
@@ -67,9 +97,9 @@
       "system": "pf1"
     },
     {
-      "name": "improvements",
+      "name": "improvement",
       "label": "Terrain Improvements",
-      "path": "packs/improvements",
+      "path": "packs/improvement",
       "type": "Item",
       "ownership": {
         "PLAYER": "OBSERVER"
@@ -86,8 +116,9 @@
       }
     },
     {
-      "name": "roll-tables",
+      "name": "roll-table",
       "label": "Roll Tables",
+      "path": "packs/roll-table",
       "type": "RollTable",
       "ownership": {
         "PLAYER": "OBSERVER"
@@ -97,7 +128,7 @@
   "packFolders": [
     {
       "name": "Kingmaker",
-      "packs": ["buildings", "events", "improvements", "rules", "roll-tables"]
+      "packs": ["boon", "tactic", "special", "building", "event", "improvement", "rules", "roll-table"]
     }
   ],
 

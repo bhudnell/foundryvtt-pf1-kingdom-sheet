@@ -298,6 +298,12 @@
     "CreateItem": "Create Item",
     "NewItem": "New {type}",
 
+    "Browse": {
+      "Boons": "Browse Boons",
+      "Tactics": "Browse Tactics",
+      "Special": "Browse Special Abilities"
+    },
+
     "Sheet": {
       "Kingdom": "Kingdom Sheet",
       "Army": "Army Sheet",

@@ -17,8 +17,10 @@ export const sheetSections = {
       id: "tactic",
       interface: {
         create: true,
+        browse: true,
       },
       label: `PF1.Subtypes.Item.${kingdomTacticId}.Plural`,
+      browseLabel: "PF1KS.Browse.Tactics",
       path: "armyFeature.tactic",
     },
     special: {
@@ -28,8 +30,10 @@ export const sheetSections = {
       id: "special",
       interface: {
         create: true,
+        browse: true,
       },
       label: `PF1.Subtypes.Item.${kingdomSpecialId}.Plural`,
+      browseLabel: "PF1KS.Browse.Special",
       path: "armyFeature.special",
     },
   },
@@ -38,11 +42,13 @@ export const sheetSections = {
       category: "armyBoon",
       create: { type: kingdomBoonId },
       filters: { type: kingdomBoonId },
-      id: "default",
+      id: "boon",
       interface: {
         create: true,
+        browse: true,
       },
       label: `PF1.Subtypes.Item.${kingdomBoonId}.Plural`,
+      browseLabel: "PF1KS.Browse.Boons",
       path: "armyBoon.default",
     },
   },
@@ -51,7 +57,7 @@ export const sheetSections = {
       category: "kingdomBuilding",
       create: { type: kingdomBuildingId },
       filters: { type: kingdomBuildingId },
-      id: "default",
+      id: "building",
       interface: {
         create: true,
       },
@@ -112,7 +118,7 @@ export const sheetSections = {
       category: "kingdomArmy",
       create: { type: kingdomArmyId },
       filters: { type: kingdomArmyId },
-      id: "default",
+      id: "army",
       interface: {
         create: true,
       },
