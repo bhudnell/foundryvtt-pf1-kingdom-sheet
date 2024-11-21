@@ -1,4 +1,4 @@
-import { kingdomStats, miscChangeTargets, allSettlementModifiers, CFG } from "../config/config.mjs";
+import { CFG } from "../config/config.mjs";
 
 export function findLargestSmallerNumber(arr, num) {
   return arr
@@ -16,24 +16,27 @@ export function renameKeys(obj, keyMap) {
   }, {});
 }
 
-export function getChangeCategories() {
-  return [
-    {
-      key: "stats",
-      label: game.i18n.localize("PF1KS.KingdomStat"),
-      items: Object.entries(kingdomStats).map(([key, label]) => ({ key, label: game.i18n.localize(label) })),
-    },
-    {
-      key: "modifiers",
-      label: game.i18n.localize("PF1KS.SettlementModifiers"),
-      items: Object.entries(allSettlementModifiers).map(([key, label]) => ({ key, label: game.i18n.localize(label) })),
-    },
-    {
-      key: "misc",
-      label: game.i18n.localize("PF1KS.Misc"),
-      items: Object.entries(miscChangeTargets).map(([key, label]) => ({ key, label: game.i18n.localize(label) })),
-    },
-  ];
+export function keepUpdateArray(sourceObj, targetObj, keepPath) {
+  const newValue = foundry.utils.getProperty(targetObj, keepPath);
+  if (newValue == null) {
+    return;
+  }
+  if (Array.isArray(newValue)) {
+    return;
+  }
+
+  const newArray = foundry.utils.deepClone(foundry.utils.getProperty(sourceObj, keepPath) || []);
+
+  for (const [key, value] of Object.entries(newValue)) {
+    if (foundry.utils.getType(value) === "Object") {
+      const subData = foundry.utils.expandObject(value);
+      newArray[key] = foundry.utils.mergeObject(newArray[key], subData);
+    } else {
+      newArray[key] = value;
+    }
+  }
+
+  foundry.utils.setProperty(targetObj, keepPath, newArray);
 }
 
 export async function rollEventTable(event, message) {
@@ -41,4 +44,19 @@ export async function rollEventTable(event, message) {
 
   const table = await fromUuid(`Compendium.${CFG.id}.roll-tables.RollTable.NT591DKj9zNeithf`);
   return table.draw();
+}
+
+export class DefaultChange extends pf1.components.ItemChange {
+  constructor(formula, target, flavor, options = {}) {
+    const data = {
+      formula,
+      target,
+      type: "untyped",
+      operator: "add",
+      priority: 1000,
+      flavor: game.i18n.localize(flavor),
+    };
+
+    super(data, options);
+  }
 }

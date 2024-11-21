@@ -23,7 +23,7 @@
     - Discounts
     - Limit
   - Details Tab
-    - Quantity (name variable "amount" to avoid conflict w/ pf1)
+    - Quantity
     - Changes
     - Type (House, Foundry, Castle, etc)
     - Lot Size
@@ -34,7 +34,6 @@
   - add army actor/item packs to module.json
   - add additional columns to buildings, terrain, and events item lists
   - add additional columns to tactics item lists
-  - add context notes to changes
-  - add modifier type to changes (add or multiply)
   - tootips everwhere
   - create compendium items
+  - clean up en.json

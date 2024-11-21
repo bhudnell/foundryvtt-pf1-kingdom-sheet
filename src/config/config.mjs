@@ -1,5 +1,6 @@
 export const CFG = {
   id: "pf1-kingdom-sheet",
+  changePrefix: "pf1ks",
 };
 
 export const kingdomSheetId = `${CFG.id}.kingdom`;
@@ -456,7 +457,7 @@ export const compendiumEntries = {
 export const armyAttributes = {
   dv: "PF1KS.Army.DV",
   om: "PF1KS.Army.OM",
-  damage: "PF1KS.Army.Damage",
+  damage: "PF1KS.Army.DamageBonus",
   morale: "PF1KS.Army.Morale",
 };
 

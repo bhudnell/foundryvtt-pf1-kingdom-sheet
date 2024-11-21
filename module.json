@@ -17,30 +17,30 @@
   "documentTypes": {
     "Actor": {
       "kingdom": {
-        "htmlFields": ["notes"]
+        "htmlFields": ["notes.value"]
       },
       "army": {
-        "htmlFields": ["notes"]
+        "htmlFields": ["notes.value"]
       }
     },
     "Item": {
       "building": {
-        "htmlFields": ["description"]
+        "htmlFields": ["description.value"]
       },
       "event": {
-        "htmlFields": ["description"]
+        "htmlFields": ["description.value"]
       },
       "improvement": {
-        "htmlFields": ["description"]
+        "htmlFields": ["description.value"]
       },
       "boon": {
-        "htmlFields": ["description"]
+        "htmlFields": ["description.value"]
       },
       "special": {
-        "htmlFields": ["description"]
+        "htmlFields": ["description.value"]
       },
       "tactic": {
-        "htmlFields": ["description"]
+        "htmlFields": ["description.value"]
       }
     }
   },
@@ -115,13 +115,20 @@
     "maximum": "11"
   },
   "relationships": {
+    "requires": [
+      {
+        "id": "lib-wrapper",
+        "type": "module"
+      }
+    ],
     "systems": [
       {
         "id": "pf1",
         "type": "system",
         "compatibility": {
           "minimum": "10",
-          "verified": "10.4"
+          "verified": "10.8",
+          "maximum": "10.x"
         }
       }
     ]
