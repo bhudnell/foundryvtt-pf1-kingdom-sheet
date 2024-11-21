@@ -199,8 +199,9 @@
       "HD": "HD",
       "ACR": "ACR",
       "Exp": "Experience",
-      "ConsumptionPerMonth": "Consumption (per month)",
+      "ConsumptionPerWeek": "Consumption (per week)",
       "Speed": "Speed",
+      "SpeedUnit": "Hexes",
       "Attributes": "Attributes",
       "AttributeRoll": "{check} Check",
       "Morale": "Morale",
@@ -250,6 +251,7 @@
       "Tactics": "Tactics",
       "CurrentTactics": " Current Tactics",
       "MaxTactics": "Max Tactics",
+      "BonusTactic": "Bonus Tactic",
       "Special": "Special Abilities",
       "Boons": "Boons"
     },
@@ -283,14 +285,9 @@
 
     "Change": "Change",
     "Changes": "Changes",
+    "ArmyAttributes": "Army Attributes",
     "Misc": "Miscellaneous",
     "Target": "Target",
-    "Scope": "Scope",
-    "ChangeScope": {
-      "Kingdom": "Kingdom",
-      "Settlement": "Settlement",
-      "Hex": "Hex"
-    },
     "DeleteChange": "Delete Change",
     "DuplicateChange": "Duplicate Change",
     "AddChange": "Add Change",
@@ -327,6 +324,26 @@
         "boon": "Boon",
         "special": "Special Ability",
         "tactic": "Tactic"
+      }
+    }
+  },
+  "PF1": {
+    "Subtypes": {
+      "Item": {
+        "pf1-kingdom-sheet": {
+          "boon": {
+            "Single": "Boon",
+            "Plural": "Boons"
+          },
+          "special": {
+            "Single": "Special Ability",
+            "Plural": "Special Abilities"
+          },
+          "tactic": {
+            "Single": "Tactic",
+            "Plural": "Tactics"
+          }
+        }
       }
     }
   }

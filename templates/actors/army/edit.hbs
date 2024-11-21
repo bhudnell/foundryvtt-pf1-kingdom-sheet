@@ -1,4 +1,4 @@
-<form autocomplete="off">
+<form class="{{ cssClass }}" data-tooltip-class="pf1" autocomplete="off">
   {{! Sheet Navigation }}
   <nav class="sheet-navigation tabs" data-group="primary">
     <a class="item" data-tab="summary" data-group="primary">{{localize "PF1KS.Summary"}}</a>
@@ -11,22 +11,24 @@
   <section class="primary-body">
     {{! Summary Tab }}
     <div class="tab summary flexcol" data-group="primary" data-tab="summary">
-      {{> army-sheet-summary}}
+      {{~> army-sheet-summary}}
     </div>
 
     {{! Features Tab }}
     <div class="tab features flexcol" data-group="primary" data-tab="features">
-      {{> army-sheet-features}}
+      {{~> army-sheet-features}}
     </div>
 
     {{! Commander Tab }}
     <div class="tab commander flexcol" data-group="primary" data-tab="commander">
-      {{> army-sheet-commander}}
+      {{~> army-sheet-commander}}
     </div>
 
     {{! Notes Tab }}
-    <div class="tab notes flexcol" data-group="primary" data-tab="notes">
-      {{editor enrichedNotes target="system.notes" button=true editable=editable engine="prosemirror"}}
+    <div class="tab actor-notes flexcol" data-group="primary" data-tab="notes">
+      <div class="primary-content">
+        {{editor enrichedNotes target="system.notes" button=true editable=editable engine="prosemirror"}}
+      </div>
     </div>
   </section>
 </form>

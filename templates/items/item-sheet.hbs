@@ -53,26 +53,26 @@
   </nav>
 
   <section class="primary-body">
-    {{> "systems/pf1/templates/items/parts/item-description.hbs"}}
+    {{~> "systems/pf1/templates/items/parts/item-description.hbs"}}
 
     <div class="tab details" data-group="primary" data-tab="details">
       {{#if isBuilding}}
-      {{> item-sheet-building}}
+      {{~> item-sheet-building}}
       {{else if isEvent}}
-      {{> item-sheet-event}}
+      {{~> item-sheet-event}}
       {{else if isImprovement}}
-      {{> item-sheet-improvement}}
+      {{~> item-sheet-improvement}}
       {{else if isBoon}}
-      {{> item-sheet-boon}}
+      {{~> item-sheet-boon}}
       {{else if isSpecial}}
-      {{> item-sheet-special}}
+      {{~> item-sheet-special}}
       {{else if isTactic}}
-      {{> item-sheet-tactic}}
+      {{~> item-sheet-tactic}}
       {{/if}}
     </div>
 
     <div class="tab changes" data-group="primary" data-tab="changes">
-      {{> item-sheet-changes}}
+      {{~> item-sheet-changes}}
     </div>
   </section>
 </form>
