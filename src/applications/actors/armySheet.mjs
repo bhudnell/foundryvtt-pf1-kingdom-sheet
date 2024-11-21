@@ -89,15 +89,15 @@ export class ArmySheet extends pf1.applications.actor.ActorSheetPF {
       features.push(section);
     }
 
-    const boons = [];
-    for (const section of Object.values(pf1.config.sheetSections.armyBoon)) {
+    const commander = [];
+    for (const section of Object.values(pf1.config.sheetSections.armyCommander)) {
       section.items = this.actor.itemTypes[section.create.type];
-      boons.push(section);
+      commander.push(section);
     }
 
     const categories = [
       { key: "features", sections: features },
-      { key: "boons", sections: boons },
+      { key: "commander", sections: commander },
     ];
 
     for (const { key, sections } of categories) {
@@ -110,7 +110,7 @@ export class ArmySheet extends pf1.applications.actor.ActorSheetPF {
       }
     }
 
-    return { features, boons };
+    return { features, commander };
   }
 
   _onTogglePairedResource(event) {
