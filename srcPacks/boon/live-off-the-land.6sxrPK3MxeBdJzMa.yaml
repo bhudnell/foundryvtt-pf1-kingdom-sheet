@@ -1,0 +1,30 @@
+type: pf1-kingdom-sheet.boon
+name: Live off the Land
+system:
+  description:
+    value: >-
+      <p>The commander makes the army trap game, hunt, and fish to augment its
+      food supplies. Reduce the army’s Consumption and speed by half for any
+      week this boon is used. The GM may rule that Huge and larger armies
+      deplete the available resources from a hex over 1d3 weeks, requiring the
+      army to move if it wants to maintain the reduced Consumption level.</p>
+  changes:
+    - _id: 4Q43jFlc
+      formula: max(1, floor(@consumption.total / 2))
+      target: pf1ks_consumption
+      type: untyped
+      operator: set
+      priority: -10000
+    - _id: 6lhyWH4Z
+      formula: max(1, floor(@speed.total / 2))
+      target: pf1ks_speed
+      type: untyped
+      operator: set
+      priority: -10000
+  contextNotes: []
+  sources: []
+_id: 6sxrPK3MxeBdJzMa
+img: icons/svg/upgrade.svg
+sort: 0
+_key: '!items!6sxrPK3MxeBdJzMa'
+

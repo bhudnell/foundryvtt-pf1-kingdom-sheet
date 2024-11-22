@@ -1,0 +1,26 @@
+type: pf1-kingdom-sheet.boon
+name: Bloodied but Unbroken
+system:
+  description:
+    value: >-
+      <p>The commander inspires the army to be at its greatest in the most
+      desperate times. When an army’s hit points are at half its full normal hit
+      points or fewer, it gains a +1 bonus on Offense checks. a commander must
+      have Leadership 4 or higher to select this boon. At Leadership 10 or
+      higher, this bonus increases to +2.</p>
+  changes:
+    - _id: ydBN6weJ
+      formula: >-
+        @hp.current <= floor(@hp.max / 2) ? @commander.leadership > 9 ? 2 : 1 :
+        0
+      target: pf1ks_om
+      type: untyped
+      operator: add
+      priority: 0
+  contextNotes: []
+  sources: []
+_id: krqji3np5UtWQSOv
+img: icons/svg/upgrade.svg
+sort: 0
+_key: '!items!krqji3np5UtWQSOv'
+

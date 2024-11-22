@@ -3,7 +3,7 @@ import path from "path";
 
 import { extractPack } from "@foundryvtt/foundryvtt-cli";
 
-import { CFG } from "../src/config.mjs";
+import { CFG } from "../src/config/config.mjs";
 
 import { compiledPacksDir, sourcePacksDir } from "./config.mjs";
 import * as utils from "./utils.mjs";

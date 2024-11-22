@@ -1,0 +1,22 @@
+type: pf1-kingdom-sheet.boon
+name: Defensive Tactics
+system:
+  description:
+    value: >-
+      <p>The commander is especially good at defensive tactics. Increase the
+      army’s DV by 2. a commander must have Leadership 5 or higher to select
+      this boon.</p>
+  changes:
+    - _id: N0hpEaXi
+      formula: '2'
+      target: pf1ks_dv
+      type: untyped
+      operator: add
+      priority: 0
+  contextNotes: []
+  sources: []
+_id: qmdSJijCudwt6J0V
+img: icons/svg/upgrade.svg
+sort: 0
+_key: '!items!qmdSJijCudwt6J0V'
+

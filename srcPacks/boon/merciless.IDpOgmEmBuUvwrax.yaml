@@ -1,0 +1,21 @@
+type: pf1-kingdom-sheet.boon
+name: Merciless
+system:
+  description:
+    value: >-
+      <p>The commander encourages the army to be ruthless in its tactics and
+      spare no wounded enemies. The army gains a +1 bonus on opposed Morale
+      checks to prevent another army from withdrawing and on the last Offense
+      check against a routed army or one using the withdraw tactic.</p>
+  changes: []
+  contextNotes:
+    - text: +[[1]] to prevent withdraw
+      target: pf1ks_morale
+    - text: +[[1]] vs routed or withdrawing army
+      target: pf1ks_om
+  sources: []
+_id: IDpOgmEmBuUvwrax
+img: icons/svg/upgrade.svg
+sort: 0
+_key: '!items!IDpOgmEmBuUvwrax'
+

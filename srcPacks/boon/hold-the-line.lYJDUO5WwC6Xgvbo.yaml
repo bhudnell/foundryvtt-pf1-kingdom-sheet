@@ -1,0 +1,19 @@
+type: pf1-kingdom-sheet.boon
+name: Hold the Line
+system:
+  description:
+    value: >-
+      <p>The commander is skilled at convincing the army to maintain morale
+      against dangerous opponents. If the army fails a Morale check to avoid a
+      rout, it may reroll that check. It must accept the results of the second
+      check, even if it is worse.</p>
+  changes: []
+  contextNotes:
+    - text: on failure, can reroll to avoid rout
+      target: pf1ks_morale
+  sources: []
+_id: lYJDUO5WwC6Xgvbo
+img: icons/svg/upgrade.svg
+sort: 0
+_key: '!items!lYJDUO5WwC6Xgvbo'
+
