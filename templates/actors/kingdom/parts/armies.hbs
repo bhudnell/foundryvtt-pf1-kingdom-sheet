@@ -8,7 +8,7 @@
     <div class="item-detail item-number" data-tooltip="PF1KS.Army.OM"><i class="ra ra-sword"></i></div>
     <div class="item-detail item-number" data-tooltip="PF1KS.Army.Speed"><i class="fa-solid fa-shoe-prints"></i></div>
     <div class="item-detail item-number" data-tooltip="PF1KS.Army.Morale"><i class="ra ra-beer"></i></div>
-    <div class="item-detail item-number" data-tooltip="PF1KS.Army.ConsumptionPerMonth">
+    <div class="item-detail item-number" data-tooltip="PF1KS.Army.ConsumptionPerWeek">
       <i class="fa-solid fa-sack-dollar"></i>
     </div>
     <div class="item-detail item-commander" data-tooltip="PF1KS.Army.Commander"><i class="ra ra-player-king"></i></div>
@@ -27,7 +27,7 @@
     <span class="item-detail item-army-hp">{{ system.hp.current }} / {{ system.hp.max }}</span>
     <span class="item-detail item-number">{{ system.dv.total }}</span>
     <span class="item-detail item-number">{{ numberFormat system.om.total sign=true }}</span>
-    <span class="item-detail item-number">{{ system.speed }}</span>
+    <span class="item-detail item-number">{{ system.speed.total }}</span>
     <span class="item-detail item-number">{{ system.morale.total }}</span>
     <span class="item-detail item-number">{{ system.consumption.total }}</span>
     <span class="item-detail item-commander">{{ system.commander.name }}</span>
