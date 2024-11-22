@@ -77,6 +77,7 @@ export class ArmySheet extends pf1.applications.actor.ActorSheetPF {
   activateListeners(html) {
     super.activateListeners(html);
 
+    html.find(".item-toggle-data").on("click", (e) => this._itemToggleData(e));
     html.find(".resource").on("change", (e) => this._onTogglePairedResource(e));
 
     html.find(".attribute .rollable").on("click", (e) => this._onRollAttribute(e));
@@ -113,7 +114,21 @@ export class ArmySheet extends pf1.applications.actor.ActorSheetPF {
     return { features, commander };
   }
 
-  _onTogglePairedResource(event) {
+  async _itemToggleData(event) {
+    event.preventDefault();
+    const el = event.currentTarget;
+
+    const itemId = el.closest(".item").dataset.itemId;
+    const item = this.actor.items.get(itemId);
+    const property = el.dataset.name;
+
+    const updateData = { system: {} };
+    foundry.utils.setProperty(updateData.system, property, !foundry.utils.getProperty(item.system, property));
+
+    item.update(updateData);
+  }
+
+  async _onTogglePairedResource(event) {
     const pair = event.currentTarget.closest(".resource").dataset.pair;
 
     if (event.target.checked) {

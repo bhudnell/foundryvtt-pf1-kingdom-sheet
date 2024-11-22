@@ -16,6 +16,7 @@ export const sheetSections = {
       interface: {
         create: true,
         browse: true,
+        disable: true,
       },
       label: `PF1.Subtypes.Item.${kingdomTacticId}.Plural`,
       browseLabel: "PF1KS.Browse.Tactics",

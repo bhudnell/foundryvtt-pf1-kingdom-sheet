@@ -14,6 +14,11 @@ export class BaseItem extends pf1.documents.item.ItemPF {
     return this.constructor.hasChanges;
   }
 
+  // todo does this need different triggers per item type?
+  get isActive() {
+    return !this.system.disabled;
+  }
+
   static getDefaultArtwork(itemData) {
     const result = super.getDefaultArtwork(itemData);
     const image = pf1.config.defaultIcons.items[itemData?.type];
