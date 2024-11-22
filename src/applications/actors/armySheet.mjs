@@ -176,6 +176,24 @@ export class ArmySheet extends pf1.applications.actor.ActorSheetPF {
     const { id } = re?.groups ?? {};
 
     switch (id) {
+      case "acr":
+        paths.push({
+          path: "@acr",
+          value: actorData.acr,
+        });
+        break;
+      case "hp":
+        paths.push(
+          {
+            path: "@hp.current",
+            value: actorData.hp.current,
+          },
+          {
+            path: "@hp.max",
+            value: actorData.hp.max,
+          }
+        );
+        break;
       case "speed":
         sources.push(
           {
@@ -256,6 +274,22 @@ export class ArmySheet extends pf1.applications.actor.ActorSheetPF {
           sources: getSource("system.tactics.max.total"),
           untyped: true,
         });
+        break;
+      case "commander":
+        paths.push(
+          {
+            path: "@commander.chaMod",
+            value: actorData.commander.chaMod,
+          },
+          {
+            path: "@commander.profSoldier",
+            value: actorData.commander.profSoldier,
+          },
+          {
+            path: "@commander.leadership",
+            value: actorData.commander.leadership,
+          }
+        );
         break;
 
       default:
