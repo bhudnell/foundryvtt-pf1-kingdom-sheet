@@ -71,7 +71,9 @@ export class KingdomModel extends foundry.abstract.TypeDataModel {
       }),
       eventLastTurn: new fields.BooleanField(),
       armies: new fields.ArrayField(new fields.EmbeddedDataField(ArmyProxyModel)),
-      notes: new fields.HTMLField(),
+      notes: new fields.SchemaField({
+        value: new fields.HTMLField({ required: false, blank: true }),
+      }),
       settings: new fields.SchemaField({
         secondRuler: new fields.BooleanField({ initial: false }),
         optionalRules: new fields.SchemaField({
@@ -86,43 +88,14 @@ export class KingdomModel extends foundry.abstract.TypeDataModel {
   }
 
   prepareBaseData() {
-    for (const stat of Object.keys(kingdomStats)) {
-      this[stat] = {
-        alignment: 0,
-        edicts: 0,
-        leadership: 0,
-        unrest: 0,
-        buildings: 0,
-        improvements: 0,
-        events: 0,
-        total: 0,
-      };
+    for (const stat of [...Object.keys(kingdomStats), "consumption", "bonusBP"]) {
+      this[stat] = { total: 0 };
     }
-
-    this.controlDC = {
-      base: 20,
-      size: 0,
-      districts: 0,
-      total: 0,
-    };
-
-    this.consumption = {
-      size: 0,
-      districts: 0,
-      edicts: 0,
-      buildings: 0,
-      improvements: 0,
-      events: 0,
-      total: 0,
-    };
 
     this.fame = {
       base: this.fame.base,
       lore: 0,
       society: 0,
-      buildings: 0,
-      improvements: 0,
-      events: 0,
       total: 0,
     };
 
@@ -130,9 +103,6 @@ export class KingdomModel extends foundry.abstract.TypeDataModel {
       base: this.infamy.base,
       corruption: 0,
       crime: 0,
-      buildings: 0,
-      improvements: 0,
-      events: 0,
       total: 0,
     };
 
@@ -154,9 +124,6 @@ export class KingdomModel extends foundry.abstract.TypeDataModel {
     // make sure armies are prepared before referencing them
     this._prepareArmies();
 
-    // changes
-    this.changes = this._prepareChanges();
-
     // call settlements prepareDerivedData
     this.settlements.forEach((s) => s.prepareDerivedData());
 
@@ -166,44 +133,17 @@ export class KingdomModel extends foundry.abstract.TypeDataModel {
       250 *
       this.parent.itemTypes[kingdomBuildingId]
         .filter((building) => building.system.settlementId)
-        .reduce((acc, curr) => acc + curr.system.lots * curr.system.amount, 0);
-
-    const districts = this.settlements.reduce((acc, curr) => acc + curr.districtCount, 0);
-
-    this.controlDC.size = this.size;
-    this.controlDC.districts = districts;
-    this.controlDC.total = this.controlDC.base + this.controlDC.size + this.controlDC.districts;
-
-    this.consumption.size = this.size;
-    this.consumption.districts = districts;
-    this.consumption.edicts =
-      (edictEffects.holiday[this.edicts.holiday]?.consumption ?? 0) +
-      (edictEffects.promotion[this.edicts.promotion]?.consumption ?? 0);
-    this.consumption.buildings = this._getChanges("consumption", kingdomBuildingId);
-    this.consumption.improvements = this._getChanges("consumption", kingdomImprovementId);
-    this.consumption.events = this._getChanges("consumption", kingdomEventId);
-    this.consumption.total =
-      this.consumption.size +
-      this.consumption.districts +
-      this.consumption.edicts +
-      this.consumption.improvements +
-      this.consumption.buildings +
-      this.consumption.events;
+        .reduce((acc, curr) => acc + curr.system.lots * curr.system.quantity, 0);
+    this.totalDistricts = this.settlements.reduce((acc, curr) => acc + curr.districtCount, 0);
+    this.controlDC = 20 + this.size + this.totalDistricts;
 
     this.fame.lore = Math.floor(this._getChanges("lore") / 10);
     this.fame.society = Math.floor(this._getChanges("society") / 10);
-    this.fame.buildings = this._getChanges("fame", kingdomBuildingId);
-    this.fame.improvements = this._getChanges("fame", kingdomImprovementId);
-    this.fame.events = this._getChanges("fame", kingdomEventId);
-    this.fame.total = this.fame.lore + this.fame.society + this.fame.base + this.fame.buildings + this.fame.events;
+    this.fame.total = this.fame.lore + this.fame.society + this.fame.base;
 
     this.infamy.corruption = Math.floor(this._getChanges("corruption") / 10);
     this.infamy.crime = Math.floor(this._getChanges("crime") / 10);
-    this.infamy.buildings = this._getChanges("infamy", kingdomBuildingId);
-    this.infamy.improvements = this._getChanges("infamy", kingdomImprovementId);
-    this.infamy.events = this._getChanges("infamy", kingdomEventId);
-    this.infamy.total =
-      this.infamy.corruption + this.infamy.crime + this.infamy.base + this.infamy.buildings + this.infamy.events;
+    this.infamy.total = this.infamy.corruption + this.infamy.crime + this.infamy.base;
 
     // update ruler bonus type to option allowed by kingdom size
     if (this.size < 26) {
@@ -230,51 +170,6 @@ export class KingdomModel extends foundry.abstract.TypeDataModel {
       }
     }
 
-    // kingdom stats
-    for (const stat of Object.keys(kingdomStats)) {
-      // TODO can this be done cleaner?
-      const filled = [];
-      const vacant = [];
-      for (const leader of Object.values(this.leadership).flatMap((v) => v)) {
-        if (leader.vacant) {
-          vacant.push(leader);
-        } else {
-          filled.push(leader);
-        }
-      }
-
-      this[stat].alignment = alignmentEffects[this.alignment]?.[stat] ?? 0;
-      this[stat].edicts =
-        (edictEffects.holiday[this.edicts.holiday]?.[stat] ?? 0) +
-        (edictEffects.promotion[this.edicts.promotion]?.[stat] ?? 0) +
-        (edictEffects.taxation[this.edicts.taxation]?.[stat] ?? 0);
-      this[stat].leadership =
-        filled.reduce(
-          (acc, curr) => (leadershipBonusToKingdomStats[curr.bonusType]?.includes(stat) ? curr.bonus : 0) + acc,
-          0
-        ) -
-        vacant.reduce((acc, curr) => (leadershipPenalties[curr.role][stat] ?? 0) + acc, 0) +
-        (this.settings.optionalRules.leadershipSkills
-          ? filled.reduce(
-              (acc, curr) =>
-                (leadershipBonusToKingdomStats[curr.bonusType]?.includes(stat) ? curr.skillBonus : 0) + acc,
-              0
-            )
-          : 0);
-      this[stat].unrest = this.unrest;
-      this[stat].buildings = this._getChanges(stat, kingdomBuildingId);
-      this[stat].improvements = this._getChanges(stat, kingdomImprovementId);
-      this[stat].events = this._getChanges(stat, kingdomEventId);
-      this[stat].total =
-        this[stat].alignment +
-        this[stat].edicts +
-        this[stat].leadership +
-        this[stat].buildings +
-        this[stat].improvements +
-        this[stat].events -
-        this[stat].unrest;
-    }
-
     if (this.settings.optionalRules.kingdomModifiers) {
       for (const modifier of Object.keys(settlementModifiers)) {
         const settlementBase = this.settlements.reduce((acc, curr) => acc + curr.modifiers[modifier].size, 0) / 10;
@@ -291,30 +186,15 @@ export class KingdomModel extends foundry.abstract.TypeDataModel {
   }
 
   async rollKingdomStat(kingdomStatId, options = {}) {
-    const check = this[kingdomStatId];
-
     const parts = [];
 
-    if (check.alignment) {
-      parts.push(`${check.alignment}[${game.i18n.localize("PF1KS.AlignmentLabel")}]`);
-    }
-    if (check.edicts) {
-      parts.push(`${check.edicts}[${game.i18n.localize("PF1KS.Edicts")}]`);
-    }
-    if (check.leadership) {
-      parts.push(`${check.leadership}[${game.i18n.localize("PF1KS.LeadershipLabel")}]`);
-    }
-    if (check.buildings) {
-      parts.push(`${check.buildings}[${game.i18n.localize("PF1KS.Buildings")}]`);
-    }
-    if (check.improvements) {
-      parts.push(`${check.improvements}[${game.i18n.localize("PF1KS.Improvements")}]`);
-    }
-    if (check.events) {
-      parts.push(`${check.events}[${game.i18n.localize("PF1KS.Events")}]`);
-    }
-    if (check.unrest) {
-      parts.push(`-${check.unrest}[${game.i18n.localize("PF1KS.Unrest")}]`);
+    const changes = pf1.documents.actor.changes.getHighestChanges(
+      this.changes.filter((c) => c.operator !== "set" && c.target === kingdomStatId && c.value),
+      { ignoreTarget: true }
+    );
+
+    for (const c of changes) {
+      parts.push(`${c.value * (c.parent.system.quantity ?? 1)}[${c.flavor}]`);
     }
 
     const label = game.i18n.localize(kingdomStats[kingdomStatId]);
@@ -366,52 +246,25 @@ export class KingdomModel extends foundry.abstract.TypeDataModel {
 
   _prepareArmies() {
     // armies
-    this.armies.forEach((army) => army.actor.prepareData());
     this.armies = this.armies.filter((army) => army.actor);
-  }
-
-  _prepareChanges() {
-    const changeItems = this.parent.items.filter((item) => item.system.changes?.length > 0);
-
-    const changes = [];
-    for (const i of changeItems) {
-      changes.push(
-        ...i.system.changes.map((c) => ({
-          ...c,
-          id: c.id,
-          settlementId: i.system.settlementId,
-          parentId: i.id,
-          parentName: i.name,
-          parentType: i.type,
-          parentAmount: i.system.amount,
-        }))
-      );
-    }
-
-    const c = new Collection();
-    for (const change of changes) {
-      // Avoid ID conflicts
-      const parentId = change.parentId ?? "Actor";
-      const uniqueId = `${parentId}-${change.id}`;
-      c.set(uniqueId, change);
-    }
-    return c;
+    this.armies.forEach((army) => army.actor.prepareData());
   }
 
   _getChanges(target, type) {
-    return this.changes
+    return this.parent.changes
       .filter((c) => {
         if (c.target !== target) {
           return false;
         }
-        if (type === kingdomBuildingId && !c.settlementId) {
-          return false;
-        }
-        if (type && c.parentType !== type) {
+        if (type && c.parent.type !== type) {
           return false;
         }
         return true;
       })
-      .reduce((total, c) => total + c.bonus * (c.parentAmount ?? 1), 0);
+      .reduce((total, c) => total + c.value * (c.parent.system.quantity ?? 1), 0);
+  }
+
+  get skills() {
+    return {};
   }
 }

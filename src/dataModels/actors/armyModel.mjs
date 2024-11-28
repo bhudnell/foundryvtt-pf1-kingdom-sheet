@@ -111,6 +111,7 @@ export class ArmyModel extends foundry.abstract.TypeDataModel {
       this.changes.filter((c) => c.operator !== "set" && c.target === attributeId && c.value),
       { ignoreTarget: true }
     );
+
     for (const c of changes) {
       parts.push(`${c.value}[${c.flavor}]`);
     }

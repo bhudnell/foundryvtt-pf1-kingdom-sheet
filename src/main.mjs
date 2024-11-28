@@ -228,8 +228,6 @@ Hooks.once("ready", () => {
     "army-sheet-features": `modules/${CFG.id}/templates/actors/army/parts/features.hbs`,
     "army-sheet-commander": `modules/${CFG.id}/templates/actors/army/parts/commander.hbs`,
 
-    // "tooltip-content": `modules/${CFG.id}/templates/actors/tooltip-content.hbs`, TODO needed?
-
     "item-sheet-building": `modules/${CFG.id}/templates/items/parts/building-details.hbs`,
     "item-sheet-event": `modules/${CFG.id}/templates/items/parts/event-details.hbs`,
     "item-sheet-improvement": `modules/${CFG.id}/templates/items/parts/improvement-details.hbs`,

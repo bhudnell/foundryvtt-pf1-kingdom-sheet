@@ -1,6 +1,6 @@
 import { CFG } from "../config/config.mjs";
 
-export function getChangeFlat(result, target, modifierType, value) {
+export function getChangeFlat(result, target, modifierType, value, actor) {
   if (!target.startsWith(CFG.changePrefix)) {
     return result;
   }
@@ -36,32 +36,18 @@ export function getChangeFlat(result, target, modifierType, value) {
     case `${CFG.changePrefix}_stability`:
       result.push("system.stability.total");
       break;
-    case `${CFG.changePrefix}_defense`: // todo settlement modifiers
-      result.push("system.morale.total");
-      break;
+    // settlement modifiers are handled outside the normal change flow
+    case `${CFG.changePrefix}_defense`:
     case `${CFG.changePrefix}_baseValue`:
-      result.push("system.morale.total");
-      break;
     case `${CFG.changePrefix}_corruption`:
-      result.push("system.morale.total");
-      break;
     case `${CFG.changePrefix}_crime`:
-      result.push("system.morale.total");
-      break;
     case `${CFG.changePrefix}_productivity`:
-      result.push("system.morale.total");
-      break;
     case `${CFG.changePrefix}_law`:
-      result.push("system.morale.total");
-      break;
     case `${CFG.changePrefix}_lore`:
-      result.push("system.morale.total");
-      break;
     case `${CFG.changePrefix}_society`:
-      result.push("system.morale.total");
       break;
-    case `${CFG.changePrefix}_bonusBP`: // todo bonus BP
-      result.push("system.morale.total");
+    case `${CFG.changePrefix}_bonusBP`:
+      result.push("system.bonusBP.total");
       break;
     case `${CFG.changePrefix}_fame`:
       result.push("system.fame.total");
