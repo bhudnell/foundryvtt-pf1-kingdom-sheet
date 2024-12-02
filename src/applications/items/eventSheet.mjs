@@ -8,15 +8,15 @@ export class EventSheet extends ItemBaseSheet {
     const context = await super.getData(options);
 
     // settlementId
-    const settlementIdChoices = { "": "" };
+    const settlementIdOptions = { "": "" };
     this.item.parent?.system.settlements.forEach(
-      (settlement) => (settlementIdChoices[settlement.id] = settlement.name)
+      (settlement) => (settlementIdOptions[settlement.id] = settlement.name)
     );
-    context.settlementIdChoices = settlementIdChoices;
+    context.settlementIdOptions = settlementIdOptions;
 
     // subType
     context.subType = game.i18n.localize(itemSubTypes[itemData.subType]);
-    context.subTypeChoices = Object.entries(eventSubTypes).reduce((acc, [key, label]) => {
+    context.subTypeOptions = Object.entries(eventSubTypes).reduce((acc, [key, label]) => {
       acc[key] = game.i18n.localize(label);
       return acc;
     }, {});

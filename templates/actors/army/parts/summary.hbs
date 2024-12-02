@@ -26,17 +26,17 @@
 
       <span>{{localize "PF1KS.AlignmentLabel"}}:</span>
       <select name="system.alignment">
-        {{selectOptions alignmentChoices selected=system.alignment blank=''}}
+        {{selectOptions alignmentOptions selected=system.alignment blank=''}}
       </select>
 
       <span>{{localize "PF1KS.Army.SizeLabel"}}:</span>
       <select name="system.size">
-        {{selectOptions sizeChoices selected=system.size blank='' nameAttr="key" labelAttr='label'}}
+        {{selectOptions sizeOptions selected=system.size blank='' nameAttr="key" labelAttr='label'}}
       </select>
 
       <span>{{localize "PF1KS.Army.HD"}}:</span>
       <select name="system.hd">
-        {{selectOptions hdChoices selected=system.hd}}
+        {{selectOptions hdOptions selected=system.hd}}
       </select>
     </div>
   </div>
@@ -108,7 +108,7 @@
           <h5>{{ localize "PF1KS.Army.StrategyLabel" }}</h5>
           <span class="value"
             ><select name="system.strategy">
-              {{selectOptions strategyChoices selected=system.strategy nameAttr="key" labelAttr='label'}}
+              {{selectOptions strategyOptions selected=system.strategy nameAttr="key" labelAttr='label'}}
             </select></span
           >
         </div>

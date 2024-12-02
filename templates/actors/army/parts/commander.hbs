@@ -4,7 +4,7 @@
       <label>{{localize "PF1KS.Army.Commander"}}</label>
       <div class="form-fields">
         <select name="system.commander.actor">
-          {{selectOptions commanderChoices selected=actorId blank=''}}
+          {{selectOptions commanderOptions selected=actorId blank=''}}
         </select>
       </div>
     </div>
@@ -54,16 +54,12 @@
 
       {{#if @root.owner}}
       <div class="item-controls">
-        {{#if section.interface.create}}
         <a class="item-control item-create" data-tooltip="PF1.CreateItem" data-create="{{ section.path }}">
           <i class="fas fa-plus"></i>
         </a>
-        {{/if}}
-        {{#if section.interface.browse}}
         <a data-action="browse" data-category="{{ section.id }}" data-tooltip="{{ section.browseLabel }}">
           <i class="fas fa-folder-plus"></i>
         </a>
-        {{/if}}
       </div>
       {{/if}}
     </li>

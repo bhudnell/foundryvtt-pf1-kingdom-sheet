@@ -51,19 +51,19 @@ export class ArmySheet extends pf1.applications.actor.ActorSheetPF {
     data.sections = this._prepareItems();
 
     // selectors
-    data.alignmentChoices = Object.fromEntries(
+    data.alignmentOptions = Object.fromEntries(
       Object.entries(alignments).map(([key, label]) => [key, game.i18n.localize(label)])
     );
-    data.hdChoices = Object.fromEntries(Object.keys(armyHD).map((key) => [key, key]));
-    data.sizeChoices = Object.entries(armySizes)
+    data.hdOptions = Object.fromEntries(Object.keys(armyHD).map((key) => [key, key]));
+    data.sizeOptions = Object.entries(armySizes)
       .map(([key, label]) => ({ key, label: game.i18n.localize(label) }))
       .sort((a, b) => Number(a.key) - Number(b.key));
-    data.strategyChoices = Object.entries(armyStrategy)
+    data.strategyOptions = Object.entries(armyStrategy)
       .map(([key, label]) => ({ key, label: game.i18n.localize(label) }))
       .sort((a, b) => Number(a.key) - Number(b.key));
 
     // commander
-    data.commanderChoices = game.actors
+    data.commanderOptions = game.actors
       .filter((actor) => actor.permission > 0 && (actor.type === "character" || actor.type === "npc"))
       .reduce((acc, actor) => {
         acc[actor.id] = actor.name;
@@ -84,21 +84,39 @@ export class ArmySheet extends pf1.applications.actor.ActorSheetPF {
   }
 
   _prepareItems() {
-    const features = [];
-    for (const section of Object.values(pf1.config.sheetSections.armyFeature)) {
-      section.items = this.actor.itemTypes[section.create.type];
-      features.push(section);
+    const [features, boons] = this.actor.items.reduce(
+      (arr, item) => {
+        if (item.type === kingdomBoonId) {
+          arr[1].push(item);
+        } else {
+          arr[0].push(item);
+        }
+        return arr;
+      },
+      [[], []]
+    );
+
+    const featuresSections = Object.values(pf1.config.sheetSections.armyFeature).map((data) => ({ ...data }));
+    for (const i of features) {
+      const section = featuresSections.find((section) => this._applySectionFilter(i, section));
+      if (section) {
+        section.items ??= [];
+        section.items.push(i);
+      }
     }
 
-    const commander = [];
-    for (const section of Object.values(pf1.config.sheetSections.armyCommander)) {
-      section.items = this.actor.itemTypes[section.create.type];
-      commander.push(section);
+    const commanderSections = Object.values(pf1.config.sheetSections.armyCommander).map((data) => ({ ...data }));
+    for (const i of boons) {
+      const section = featuresSections.find((section) => this._applySectionFilter(i, section));
+      if (section) {
+        section.items ??= [];
+        section.items.push(i);
+      }
     }
 
     const categories = [
-      { key: "features", sections: features },
-      { key: "commander", sections: commander },
+      { key: "features", sections: featuresSections },
+      { key: "commander", sections: commanderSections },
     ];
 
     for (const { key, sections } of categories) {
@@ -111,7 +129,7 @@ export class ArmySheet extends pf1.applications.actor.ActorSheetPF {
       }
     }
 
-    return { features, commander };
+    return { features: featuresSections, commander: commanderSections };
   }
 
   async _itemToggleData(event) {

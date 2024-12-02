@@ -5,29 +5,6 @@ import { DefaultChange } from "../../util/utils.mjs";
 import { BaseActor } from "./baseActor.mjs";
 
 export class ArmyActor extends BaseActor {
-  _prepareChanges() {
-    const changes = [];
-
-    this._addDefaultChanges(changes);
-
-    this.changeItems = this.items.filter(
-      (item) => item.type.startsWith(`${CFG.id}.`) && item.hasChanges && item.isActive
-    );
-
-    for (const i of this.changeItems) {
-      changes.push(...i.changes);
-    }
-
-    const c = new Collection();
-    for (const change of changes) {
-      // Avoid ID conflicts
-      const parentId = change.parent?.id ?? "Actor";
-      const uniqueId = `${parentId}-${change._id}`;
-      c.set(uniqueId, change);
-    }
-    this.changes = c;
-  }
-
   // todo any more?
   _addDefaultChanges(changes) {
     const system = this.system;

@@ -12,10 +12,8 @@ export const sheetSections = {
   armyFeature: {
     tactic: {
       create: { type: kingdomTacticId },
-      filters: { type: kingdomTacticId },
+      filters: [{ type: kingdomTacticId }],
       interface: {
-        create: true,
-        browse: true,
         disable: true,
       },
       label: `PF1.Subtypes.Item.${kingdomTacticId}.Plural`,
@@ -23,11 +21,8 @@ export const sheetSections = {
     },
     special: {
       create: { type: kingdomSpecialId },
-      filters: { type: kingdomSpecialId },
-      interface: {
-        create: true,
-        browse: true,
-      },
+      filters: [{ type: kingdomSpecialId }],
+      interface: {},
       label: `PF1.Subtypes.Item.${kingdomSpecialId}.Plural`,
       browseLabel: "PF1KS.Browse.Special",
     },
@@ -35,11 +30,8 @@ export const sheetSections = {
   armyCommander: {
     boon: {
       create: { type: kingdomBoonId },
-      filters: { type: kingdomBoonId },
-      interface: {
-        create: true,
-        browse: true,
-      },
+      filters: [{ type: kingdomBoonId }],
+      interface: {},
       label: `PF1.Subtypes.Item.${kingdomBoonId}.Plural`,
       browseLabel: "PF1KS.Browse.Boons",
     },
@@ -47,56 +39,44 @@ export const sheetSections = {
   kingdomSettlement: {
     building: {
       create: { type: kingdomBuildingId },
-      filters: { type: kingdomBuildingId },
-      interface: {
-        create: true,
-      },
+      filters: [{ type: kingdomBuildingId }],
+      interface: {},
       label: `PF1.Subtypes.Item.${kingdomBuildingId}.Plural`,
     },
   },
   kingdomTerrain: {
     general: {
       create: { type: kingdomImprovementId, system: { subType: "general" } },
-      filters: { type: kingdomImprovementId, system: { subType: "general" } },
-      interface: {
-        create: true,
-      },
-      label: `PF1.Subtypes.Item.${kingdomImprovementId}.Plural`,
+      filters: [{ type: kingdomImprovementId, subTypes: ["general"] }],
+      interface: {},
+      label: `PF1.Subtypes.Item.${kingdomImprovementId}.general.Plural`,
     },
     special: {
       create: { type: kingdomImprovementId, system: { subType: "special" } },
-      filters: { type: kingdomImprovementId, system: { subType: "special" } },
-      interface: {
-        create: true,
-      },
-      label: `PF1.Subtypes.Item.${kingdomImprovementId}.Plural`,
+      filters: [{ type: kingdomImprovementId, subTypes: ["special"] }],
+      interface: {},
+      label: `PF1.Subtypes.Item.${kingdomImprovementId}.special.Plural`,
     },
   },
   kingdomEvent: {
     active: {
       create: { type: kingdomEventId, system: { subType: "active" } },
-      filters: { type: kingdomEventId, system: { subType: "active" } },
-      interface: {
-        create: true,
-      },
-      label: `PF1.Subtypes.Item.${kingdomEventId}.Plural`,
+      filters: [{ type: kingdomEventId, subTypes: ["active"] }],
+      interface: {},
+      label: `PF1.Subtypes.Item.${kingdomEventId}.active.Plural`,
     },
     misc: {
       create: { type: kingdomEventId, system: { subType: "misc" } },
-      filters: { type: kingdomEventId, system: { subType: "misc" } },
-      interface: {
-        create: true,
-      },
-      label: `PF1.Subtypes.Item.${kingdomEventId}.Plural`,
+      filters: [{ type: kingdomEventId, subTypes: ["misc"] }],
+      interface: {},
+      label: `PF1.Subtypes.Item.${kingdomEventId}.misc.Plural`,
     },
   },
   kingdomArmy: {
     army: {
       create: { type: kingdomArmyId },
-      filters: { type: kingdomArmyId },
-      interface: {
-        create: true,
-      },
+      filters: [{ type: kingdomArmyId }],
+      interface: {},
       label: `PF1.Subtypes.Item.${kingdomArmyId}.Plural`,
     },
   },

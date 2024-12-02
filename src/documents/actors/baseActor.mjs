@@ -1,5 +1,4 @@
-import { buffTargets } from "../../config/buffTargets.mjs";
-import { CFG } from "../../config/config.mjs";
+import { CFG, kingdomBuildingId } from "../../config/config.mjs";
 
 export class BaseActor extends pf1.documents.actor.ActorBasePF {
   constructor(...args) {
@@ -177,14 +176,12 @@ export class BaseActor extends pf1.documents.actor.ActorBasePF {
       });
   }
 
-  // todo this seems fucky
   getContextNotes(context, all = true) {
     if (context.string) {
       context = context.string;
     }
     const result = this.allNotes;
 
-    const notes = result.filter((n) => n.target === context);
     for (const note of result) {
       note.notes = note.notes.filter((o) => o.target === context).map((o) => o.text);
     }
@@ -207,5 +204,33 @@ export class BaseActor extends pf1.documents.actor.ActorBasePF {
 
       return cur;
     }, []);
+  }
+
+  // todo might need to break out into child classes
+  _prepareChanges() {
+    const changes = [];
+
+    this._addDefaultChanges(changes);
+
+    this.changeItems = this.items.filter(
+      (item) =>
+        item.type.startsWith(`${CFG.id}.`) &&
+        item.hasChanges &&
+        item.isActive &&
+        (item.type !== kingdomBuildingId || item.system.settlementId) // buildings must have a settlement ID to count
+    );
+
+    for (const i of this.changeItems) {
+      changes.push(...i.changes);
+    }
+
+    const c = new Collection();
+    for (const change of changes) {
+      // Avoid ID conflicts
+      const parentId = change.parent?.id ?? "Actor";
+      const uniqueId = `${parentId}-${change._id}`;
+      c.set(uniqueId, change);
+    }
+    this.changes = c;
   }
 }

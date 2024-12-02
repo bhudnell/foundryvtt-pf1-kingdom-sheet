@@ -5,11 +5,11 @@ export class BuildingSheet extends ItemBaseSheet {
     const context = await super.getData(options);
 
     // settlementId
-    const settlementIdChoices = { "": "" };
+    const settlementIdOptions = { "": "" };
     this.item.parent?.system.settlements.forEach(
-      (settlement) => (settlementIdChoices[settlement.id] = settlement.name)
+      (settlement) => (settlementIdOptions[settlement.id] = settlement.name)
     );
-    context.settlementIdChoices = settlementIdChoices;
+    context.settlementIdOptions = settlementIdOptions;
 
     return context;
   }
