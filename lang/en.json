@@ -202,7 +202,6 @@
       "ConsumptionPerWeek": "Consumption (per week)",
       "Speed": "Speed",
       "SpeedUnit": "Hexes",
-      "Attributes": "Attributes",
       "AttributeRoll": "{check} Check",
       "Morale": "Morale",
       "DV": "DV",
@@ -292,12 +291,6 @@
     "DuplicateChange": "Duplicate Change",
     "AddChange": "Add Change",
 
-    "EditItem": "Edit Item",
-    "DeleteItem": "Delete Item",
-    "DuplicateItem": "Duplicate Item",
-    "CreateItem": "Create Item",
-    "NewItem": "New {type}",
-
     "Browse": {
       "Boons": "Browse Boons",
       "Tactics": "Browse Tactics",
@@ -348,6 +341,26 @@
           "tactic": {
             "Single": "Tactic",
             "Plural": "Tactics"
+          },
+          "event": {
+            "active": {
+              "Single": "Active Event",
+              "Plural": "Active"
+            },
+            "misc": {
+              "Single": "Miscellaneous Event",
+              "Plural": "Miscellaneous"
+            }
+          },
+          "improvement": {
+            "general": {
+              "Single": "Terrain Improvement",
+              "Plural": "Terrain Improvements"
+            },
+            "special": {
+              "Single": "Special Terrain",
+              "Plural": "Special Terrain"
+            }
           }
         }
       }

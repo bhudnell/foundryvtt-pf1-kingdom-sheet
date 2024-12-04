@@ -21,34 +21,6 @@
         flex: 0 0 99%;
       }
     }
-
-    .subdetails-body {
-      display: flex;
-      gap: 8px;
-
-      > div {
-        flex: 1;
-        align-items: center;
-
-        > h3 {
-          width: 100%;
-          text-align: center;
-        }
-      }
-
-      .subdetail {
-        flex: 0;
-        display: grid;
-        grid-template-columns: auto auto;
-        gap: 8px;
-        align-items: baseline;
-        justify-content: start;
-
-        .label {
-          justify-self: end;
-        }
-      }
-    }
   }
 
   .tab:is(.settlements, .terrain) {
@@ -108,12 +80,10 @@
     }
   }
 
-  .tab.summary {
-    .army-attributes {
-      display: flex;
-      flex-direction: column;
-      gap: 8px;
-    }
+  .subdetails-body {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
 
     .resources {
       flex: 0;

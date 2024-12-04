@@ -10,7 +10,7 @@
         <div class="inputs">
           <div class="info-box" data-tooltip-extended="acr">
             <h5>{{localize "PF1KS.Army.ACR" }}</h5>
-            <span class="text-box direct" name="system.acr" data-dtype="Number">{{ system.acr }}</span>
+            <span class="value text-box direct" name="system.acr" data-dtype="Number">{{ system.acr }}</span>
           </div>
           <div class="info-box">
             <h5>{{localize "PF1KS.Army.Exp" }}</h5>
@@ -22,7 +22,7 @@
 
     <div class="character-summary flexrow">
       <div class="full-width">
-        <input type="text" name="system.type" value="{{ system.type }}" data-tooltip="PF1KS.Army.Type" placeholder="{{localize "PF1KS.Army.Type"}}" />
+        <input type="text" name="system.type" value="{{ system.type }}" data-tooltip="PF1KS.Army.Type" />
       </div>
 
       <div>
@@ -46,14 +46,16 @@
   </div>
 </div>
 
-<section class="army-attributes">
+<section class="subdetails-body">
   <div class="attributes">
     <div class="info-box-header" data-tooltip-extended="hp">
       <h3>{{localize "PF1KS.Army.HP"}}</h3>
       <div class="info-box-joined flex0">
         <div class="info-box">
           <h5>{{ localize "PF1KS.Army.HpCurrent" }}</h5>
-          <span class="text-box direct" name="system.hp.current" data-dtype="Number">{{ system.hp.current }}</span>
+          <span class="value text-box direct" name="system.hp.current" data-dtype="Number">{{
+            system.hp.current
+          }}</span>
         </div>
         <div class="info-box">
           <h5>{{localize "PF1KS.Army.HpMax" }}</h5>
@@ -67,7 +69,9 @@
       <div class="info-box-joined flex0">
         <div class="info-box" data-tooltip-extended="speed">
           <h5>{{ localize "PF1KS.Army.Speed" }}</h5>
-          <span class="text-box direct" name="system.speed.base" data-dtype="Number">{{ system.speed.total }}</span>
+          <span class="value text-box direct" name="system.speed.base" data-dtype="Number">{{
+            system.speed.total
+          }}</span>
         </div>
         <div class="info-box" data-tooltip-extended="consumption">
           <h5>{{localize "PF1KS.Army.ConsumptionPerWeek" }}</h5>
@@ -79,7 +83,7 @@
 
   <div class="attributes">
     <div class="info-box-header">
-      <h3>{{localize "PF1KS.Army.Attributes"}}</h3>
+      <h3>{{localize "PF1.Attributes"}}</h3>
       <div class="info-box-joined flex0">
         <div class="info-box" data-tooltip-extended="dv">
           <h5>{{localize "PF1KS.Army.DV" }}</h5>
@@ -102,7 +106,7 @@
             <span>{{ localize "PF1KS.Army.Morale" }}</span>
           </h5>
           <span
-            class="text-box direct"
+            class="value text-box direct"
             name="system.morale.base"
             data-dtype="Number"
             >{{ numberFormat system.morale.total sign=true }}</span
@@ -110,11 +114,9 @@
         </div>
         <div class="info-box">
           <h5>{{ localize "PF1KS.Army.StrategyLabel" }}</h5>
-          <span class="value"
-            ><select name="system.strategy">
-              {{selectOptions strategyOptions selected=system.strategy nameAttr="key" labelAttr='label'}}
-            </select></span
-          >
+          <select class="value" name="system.strategy">
+            {{selectOptions strategyOptions selected=system.strategy nameAttr="key" labelAttr='label'}}
+          </select>
         </div>
       </div>
     </div>
