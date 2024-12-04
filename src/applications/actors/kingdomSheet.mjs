@@ -23,18 +23,12 @@ import {
 } from "../../config/config.mjs";
 import { findLargestSmallerNumber, renameKeys } from "../../util/utils.mjs";
 
-export class KingdomSheet extends ActorSheet {
-  constructor(...args) {
-    super(...args);
-
-    this._expandedItems = new Set();
-  }
+export class KingdomSheet extends pf1.applications.actor.ActorSheetPF {
   static get defaultOptions() {
     const options = super.defaultOptions;
     return {
       ...options,
-      template: `modules/${CFG.id}/templates/actors/kingdom/kingdom-sheet.hbs`,
-      classes: [...options.classes, "pf1", "actor", "kingdom"],
+      classes: [...options.classes, "kingdom"],
       tabs: [
         {
           navSelector: "nav.tabs[data-group='primary']",
@@ -52,17 +46,29 @@ export class KingdomSheet extends ActorSheet {
     };
   }
 
+  get template() {
+    return `modules/${CFG.id}/templates/actors/kingdom/${this.isEditable ? "edit" : "view"}.hbs`;
+  }
+
   async getData() {
-    // needed to make sure the leadership actor links are updated
+    // needed to make sure the leadership actor links are updated todo can I move this to the data model preparederiveddata? like i do for armies
     this.actor.prepareData();
 
     const actor = this.actor;
     const actorData = actor.system;
+    const isOwner = actor.isOwner;
 
     const data = {
       ...this.actor,
-      enrichedNotes: await TextEditor.enrichHTML(actorData.notes),
+      owner: isOwner,
+      enrichedNotes: await TextEditor.enrichHTML(actorData.notes.value ?? "", {
+        rolldata: actor.getRollData(),
+        async: true,
+        secrets: this.object.isOwner,
+        relativeTo: this.actor,
+      }),
       editable: this.isEditable,
+      cssClass: isOwner ? "editable" : "locked",
       stats: [
         {
           id: "economy",
@@ -85,7 +91,7 @@ export class KingdomSheet extends ActorSheet {
     // TODO any unrest increases such as from vacancies
     // Base fame+infamy < expected
 
-    // dropdowns
+    // selectors
     data.alignmentOptions = Object.fromEntries(
       Object.entries(alignments).map(([key, label]) => [key, game.i18n.localize(label)])
     );
@@ -175,11 +181,13 @@ export class KingdomSheet extends ActorSheet {
       };
     });
 
-    const leadershipChoices = { "": "" };
+    const leadershipOptions = { "": "" };
     game.actors
       .filter((actor) => actor.permission > 0 && (actor.type === "character" || actor.type === "npc"))
-      .forEach((actor) => (leadershipChoices[actor.id] = actor.name));
-    data.validLeadershipChoices = leadershipChoices;
+      .forEach((actor) => (leadershipOptions[actor.id] = actor.name));
+    data.validLeadershipOptions = leadershipOptions;
+
+    data.sections = this._prepareItems();
 
     // settlements
     data.buildingType = kingdomBuildingId;
@@ -189,16 +197,12 @@ export class KingdomSheet extends ActorSheet {
     );
 
     // terrain
-    data.improvementSections = this._prepareImprovements();
-    data.improvementType = kingdomImprovementId;
     data.terrain = Object.entries(actorData.terrain).reduce((acc, [key, value]) => {
       acc[key] = { value, label: game.i18n.localize(terrainTypes[key]) };
       return acc;
     }, {});
 
     // events
-    data.eventSections = this._prepareEvents();
-    data.eventType = kingdomEventId;
     data.eventChance = actorData.eventLastTurn ? 25 : 75;
 
     // armies
@@ -228,94 +232,53 @@ export class KingdomSheet extends ActorSheet {
     html.find(".army-create").on("click", (e) => this._onArmyCreate(e));
     html.find(".army-edit").on("click", (e) => this._onArmyEdit(e));
     html.find(".army-delete").on("click", (e) => this._onArmyDelete(e));
-
-    html.find(".item-delete").on("click", (e) => this._onItemDelete(e));
-    html.find(".item-duplicate").on("click", (e) => this._onItemDuplicate(e));
-    html.find(".item-edit").on("click", (e) => this._onItemEdit(e));
-    html.find(".item-create").on("click", (e) => this._onItemCreate(e));
-
-    html.find("a.compendium-entry").on("click", (e) => this._onOpenCompendiumEntry(e));
   }
 
-  async _onDropItem(event, data) {
-    const sourceItem = await Item.fromDropData(data);
-    const settlementId = event.target.closest(".tab.settlement")?.dataset.id;
+  _prepareItems() {
+    const [improvements, events] = this.actor.items.reduce(
+      (arr, item) => {
+        if (item.type === kingdomImprovementId) {
+          arr[0].push(item);
+        } else if (item.type === kingdomEventId) {
+          arr[1].push(item);
+        }
+        return arr;
+      },
+      [[], []]
+    );
 
-    const itemData = sourceItem.toObject();
-
-    if (itemData.type === kingdomBuildingId && settlementId) {
-      itemData.system.settlementId = settlementId;
-    }
-
-    return this.actor.createEmbeddedDocuments("Item", [itemData]);
-  }
-
-  // allows dropping armies onto kingdoms
-  async _onDropActor(event, data) {
-    event.preventDefault();
-
-    const actorData = await Actor.fromDropData(data);
-
-    if (actorData.type !== kingdomArmyId) {
-      return false;
-    }
-
-    const source = actorData.getFlag("core", "sourceId").split(".")[0];
-
-    let army;
-    if (source === "Actor") {
-      army = await fromUuid(data.uuid);
-    } else {
-      army = await Actor.create(actorData.toObject());
-    }
-
-    return this._createArmy(army._id);
-  }
-
-  _prepareImprovements() {
-    const improvements = this.actor.itemTypes[kingdomImprovementId];
-    const general = {
-      label: game.i18n.localize("PF1KS.Improvement.SubTypes.General"),
-      subType: "general",
-      improvements: [],
-    };
-    const special = {
-      label: game.i18n.localize("PF1KS.Improvement.SubTypes.Special"),
-      subType: "special",
-      improvements: [],
-    };
-    improvements.forEach((improvement) => {
-      if (improvement.system.subType === general.subType) {
-        general.improvements.push(improvement);
-      } else if (improvement.system.subType === special.subType) {
-        special.improvements.push(improvement);
+    const terrainSections = Object.values(pf1.config.sheetSections.kingdomTerrain).map((data) => ({ ...data }));
+    for (const i of improvements) {
+      const section = terrainSections.find((section) => this._applySectionFilter(i, section));
+      if (section) {
+        section.items ??= [];
+        section.items.push(i);
       }
-    });
+    }
 
-    return [general, special];
-  }
-
-  _prepareEvents() {
-    const events = this.actor.itemTypes[kingdomEventId];
-    const active = {
-      label: game.i18n.localize("PF1KS.Event.SubTypes.Active"),
-      subType: "active",
-      events: [],
-    };
-    const misc = {
-      label: game.i18n.localize("PF1KS.Event.SubTypes.Misc"),
-      subType: "misc",
-      events: [],
-    };
-    events.forEach((event) => {
-      if (event.system.subType === active.subType) {
-        active.events.push(event);
-      } else if (event.system.subType === misc.subType) {
-        misc.events.push(event);
+    const eventsSections = Object.values(pf1.config.sheetSections.kingdomEvent).map((data) => ({ ...data }));
+    for (const i of events) {
+      const section = eventsSections.find((section) => this._applySectionFilter(i, section));
+      if (section) {
+        section.items ??= [];
+        section.items.push(i);
       }
-    });
+    }
 
-    return [active, misc];
+    const categories = [
+      { key: "terrain", sections: terrainSections },
+      { key: "events", sections: eventsSections },
+    ];
+    for (const { key, sections } of categories) {
+      const set = this._filters.sections[key];
+      for (const section of sections) {
+        if (!section) {
+          continue;
+        }
+        section._hidden = set?.size > 0 && !set.has(section.id);
+      }
+    }
+    return { terrain: terrainSections, events: eventsSections };
   }
 
   _prepareSettlements() {
@@ -505,79 +468,6 @@ export class KingdomSheet extends ActorSheet {
     });
   }
 
-  async _onItemDelete(event) {
-    event.preventDefault();
-
-    const itemId = event.currentTarget.closest(".item").dataset.id;
-    const item = this.actor.items.get(itemId);
-
-    await this._onDelete({
-      button: event.currentTarget,
-      title: game.i18n.format("PF1.DeleteItemTitle", { name: item.name }),
-      content: `<p>${game.i18n.localize("PF1.DeleteItemConfirmation")}</p>`,
-      onDelete: () => item.delete(),
-    });
-  }
-
-  async _onItemDuplicate(event) {
-    event.preventDefault();
-    const itemId = event.currentTarget.closest(".item").dataset.id;
-    const item = this.actor.items.get(itemId);
-
-    const itemData = item.toObject();
-    delete itemData._id;
-
-    const searchUnusedName = (name) => {
-      let iter = 1;
-      let newName;
-      do {
-        iter += 1;
-        newName = `${name} (${iter})`;
-      } while (this.actor.items.getName(newName));
-      return newName;
-    };
-    itemData.name = itemData.name.replace(/\s+\(\d+\)$/, "");
-    itemData.name = searchUnusedName(itemData.name);
-
-    const items = await this.actor.createEmbeddedDocuments("Item", [itemData]);
-    items?.forEach((item) => item.sheet.render(true));
-  }
-
-  async _onItemEdit(event) {
-    event.preventDefault();
-    const itemId = event.currentTarget.closest(".item").dataset.id;
-    const item = this.actor.items.get(itemId);
-
-    item.sheet.render(true, { focus: true });
-  }
-
-  async _onItemCreate(event) {
-    event.preventDefault();
-    const header = event.currentTarget;
-
-    const type = header.dataset.type;
-    const subType = header.dataset.subType;
-    const typeName =
-      (itemSubTypes[subType] ? `${game.i18n.localize(itemSubTypes[subType])} ` : "") +
-      game.i18n.localize(CONFIG.Item.typeLabels[type] || type);
-
-    const itemData = {
-      name: game.i18n.format("PF1.NewItem", { type: typeName }),
-      type,
-      system: {},
-    };
-
-    if (type === kingdomBuildingId) {
-      itemData.system.settlementId = header.dataset.settlementId;
-    } else {
-      itemData.system.subType = subType;
-    }
-
-    const newItem = new Item(itemData);
-
-    return this.actor.createEmbeddedDocuments("Item", [newItem.toObject()], { renderSheet: true });
-  }
-
   async _onDelete({ button, title, content, onDelete }) {
     if (button.disabled) {
       return;
@@ -600,58 +490,134 @@ export class KingdomSheet extends ActorSheet {
     }
   }
 
-  async _onOpenCompendiumEntry(event) {
-    const uuid = event.currentTarget.dataset.compendiumEntry;
-
-    const journal = await fromUuid(uuid);
-
-    if (!journal) {
-      return;
+  // overrides
+  async _onDropItem(event, data) {
+    if (!this.actor.isOwner) {
+      return void ui.notifications.warn("PF1.Error.NoActorPermission", { localize: true });
     }
 
-    if (journal instanceof JournalEntryPage) {
-      journal.parent.sheet.render(true, {
-        pageId: journal.id,
-        editable: false,
-        collapsed: true,
-        width: 600,
-        height: 700,
-      });
-    } else {
-      journal.sheet.render(true, { editable: false });
-    }
+    const sourceItem = await Item.implementation.fromDropData(data);
+    const settlementId = event.target.closest(".tab.settlement")?.dataset.id;
 
-    return journal;
-  }
+    const sameActor = sourceItem.actor === this.actor && !data.containerId;
 
-  async _activateExtendedTooltip(event) {
-    const el = event.currentTarget;
-    const [id, subId] = el.dataset.tooltipExtended.split(".");
-    if (!id) {
-      return;
-    }
-
-    const templateData = this._generateTooltipData(id, subId);
-
-    if (!templateData.length) {
-      return;
-    }
-
-    const text = await renderTemplate(`modules/${CFG.id}/templates/actors/tooltip-content.hbs`, templateData);
-
-    game.tooltip.activate(el, {
-      text,
-      cssClass: "kingdom",
+    const itemData = game.items.fromCompendium(sourceItem, {
+      clearFolder: true,
+      keepId: sameActor,
+      clearSort: !sameActor,
     });
+
+    // Handle item sorting within the same actor
+    if (sameActor) {
+      return this._onSortItem(event, itemData);
+    }
+
+    // Create the owned item
+    this._alterDropItemData(itemData, sourceItem);
+
+    // if building dropped on a settlement, add the settlement id
+    if (itemData.type === kingdomBuildingId && settlementId) {
+      itemData.system.settlementId = settlementId;
+    }
+
+    return this._onDropItemCreate(itemData);
   }
 
-  _generateTooltipData(id, subId) {
-    const data = [];
-    const actorData = this.actor.system;
-    switch (id) {
-      // TODO
-      default:
+  // allows dropping armies onto kingdoms
+  async _onDropActor(event, data) {
+    event.preventDefault();
+
+    const actorData = await Actor.fromDropData(data);
+
+    if (actorData.type !== kingdomArmyId) {
+      return false;
     }
-    return data;
+
+    const source = actorData.getFlag("core", "sourceId").split(".")[0];
+
+    let army;
+    if (source === "Actor") {
+      army = await fromUuid(data.uuid);
+    } else {
+      army = await Actor.create(actorData.toObject());
+    }
+
+    const created = await this._createArmy(army._id);
+    this.activateTab("armies", "primary");
+    return created;
+  }
+
+  _focusTabByItem(item) {
+    let tabId;
+    switch (item.type) {
+      case kingdomBuildingId:
+        tabId = "settlements";
+        break;
+      case kingdomImprovementId:
+        tabId = "terrain";
+        break;
+      case kingdomEventId:
+        tabId = "events";
+        break;
+      default:
+        tabId = "summary";
+    }
+
+    if (tabId) {
+      this.activateTab(tabId, "primary");
+    }
+  }
+
+  _getTooltipContext(fullId, context) {
+    const actor = this.actor;
+    const actorData = actor.system;
+
+    // Lazy roll data
+    const lazy = {
+      get rollData() {
+        this._rollData ??= actor.getRollData();
+        return this._rollData;
+      },
+    };
+
+    const getSource = (path) => this.actor.sourceDetails[path];
+
+    const getNotes = (context, all = true) => {
+      const noteObjs = actor.getContextNotes(context, all);
+      return actor.formatContextNotes(noteObjs, lazy.rollData, { roll: false });
+    };
+
+    let header, subHeader;
+    const details = [];
+    const paths = [];
+    const sources = [];
+    let notes;
+
+    const re = /^(?<id>[\w-]+)(?:\.(?<detail>.*))?$/.exec(fullId);
+    const { id } = re?.groups ?? {};
+
+    switch (id) {
+      case "damageBonus":
+        paths.push({
+          path: "@damageBonus.total",
+          value: actorData.damageBonus.total,
+        });
+        sources.push({
+          sources: getSource("system.damageBonus.total"),
+          untyped: true,
+        });
+        notes = getNotes(`${CFG.changePrefix}_damage`);
+        break;
+
+      default:
+        throw new Error(`Invalid extended tooltip identifier "${fullId}"`);
+    }
+
+    context.header = header;
+    context.subHeader = subHeader;
+    context.details = details;
+    context.paths = paths;
+    context.sources = sources;
+    context.notes = notes ?? [];
   }
 }
