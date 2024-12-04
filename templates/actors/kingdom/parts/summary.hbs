@@ -15,10 +15,10 @@
 </div>
 
 <section class="subdetails-body">
-  <div class="attributes">
+  <div class="attributes flexrow">
     <div class="info-box-header">
       <h3>{{localize "PF1.Attributes"}}</h3>
-      <div class="info-box-joined flex0">
+      <div class="info-box-joined">
         <div class="info-box">
           <h5>{{ localize "PF1KS.GovernmentLabel" }}</h5>
           {{#if system.settings.optionalRules.governmentForms}}
@@ -63,14 +63,14 @@
     </div>
   </div>
 
-  <div class="attributes">
+  <div class="attributes flexrow">
     <div class="info-box-header">
       <h3>{{localize "PF1KS.KingdomStat"}}</h3>
-      <div class="info-box-joined flex0">
+      <div class="info-box-joined">
         {{#each stats}}
         <div class="info-box" data-tooltip-extended="{{ id }}">
           <h5 class="kingdom-stat" data-kingdom-stat="{{ id }}">
-            <a class="rollable"><i class="fa-solid fa-dice-d20"></i></a>
+            <a class="rollable"><i class="fa-solid fa-dice"></i></a>
             <span>{{ label }}</span>
           </h5>
           <span class="value">{{ data.total }}</span>
@@ -81,7 +81,7 @@
 
     <div class="info-box-header">
       <h3>{{localize "PF1KS.Edicts"}}</h3>
-      <div class="info-box-joined flex0">
+      <div class="info-box-joined">
         <div class="info-box">
           <h5>{{ localize "PF1KS.Edict.HolidayLabel" }}</h5>
           <select class="value" name="system.edicts.holiday">
@@ -105,10 +105,10 @@
   </div>
 
   {{#if system.settings.optionalRules.kingdomModifiers}}
-  <div class="attributes">
+  <div class="attributes flexrow">
     <div class="info-box-header">
       <h3>{{localize "PF1KS.KingdomModifiers"}}</h3>
-      <div class="info-box-joined flex0">
+      <div class="info-box-joined">
         {{#each modifiers}}
         <div class="info-box" data-tooltip-extended="{{ id }}">
           <h5>{{ label }}</h5>
@@ -120,10 +120,10 @@
   </div>
   {{/if}}
 
-  <div class="attributes">
+  <div class="attributes flexrow">
     <div class="info-box-header">
       <h3>{{localize "PF1KS.ActionsPerTurn"}}</h3>
-      <div class="info-box-joined flex0">
+      <div class="info-box-joined">
         {{#each perTurn}}
         <div class="info-box">
           <h5>{{localize @key}}</h5>
@@ -140,7 +140,7 @@
     {{#if system.settings.optionalRules.fameInfamy}}
     <div class="info-box-header">
       <h3>{{localize "PF1KS.Settings.FameInfamy"}}</h3>
-      <div class="info-box-joined flex0">
+      <div class="info-box-joined">
         <div class="info-box" data-tooltip-extended="fame">
           <h5>{{localize "PF1KS.Fame" }}</h5>
           <span class="value">{{ system.fame.total }}</span>

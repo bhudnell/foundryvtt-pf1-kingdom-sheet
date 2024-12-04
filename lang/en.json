@@ -154,6 +154,7 @@
     "Buildings": "Buildings",
 
     "TerrainLabel": "Terrain",
+    "HexTypes": "Hex Types",
     "Terrain": {
       "Cavern": "Cavern",
       "Coast": "Coast",

@@ -22,7 +22,7 @@
 
     <div class="character-summary flexrow">
       <div class="full-width">
-        <input type="text" name="system.type" value="{{ system.type }}" data-tooltip="PF1KS.Army.Type" placeholder="{{localize "PF1KS.Army.Type"}}" />
+        <input type="text" name="system.type" value="{{ system.type }}" data-tooltip="PF1KS.Army.Type" />
       </div>
 
       <div>
@@ -47,10 +47,10 @@
 </div>
 
 <section class="subdetails-body">
-  <div class="attributes">
+  <div class="attributes flexrow">
     <div class="info-box-header" data-tooltip-extended="hp">
       <h3>{{localize "PF1KS.Army.HP"}}</h3>
-      <div class="info-box-joined flex0">
+      <div class="info-box-joined">
         <div class="info-box">
           <h5>{{ localize "PF1KS.Army.HpCurrent" }}</h5>
           <span class="value text-box direct" name="system.hp.current" data-dtype="Number">{{
@@ -66,7 +66,7 @@
 
     <div class="info-box-header">
       <h3>{{localize "PF1KS.Misc"}}</h3>
-      <div class="info-box-joined flex0">
+      <div class="info-box-joined">
         <div class="info-box" data-tooltip-extended="speed">
           <h5>{{ localize "PF1KS.Army.Speed" }}</h5>
           <span class="value text-box direct" name="system.speed.base" data-dtype="Number">{{
@@ -81,17 +81,17 @@
     </div>
   </div>
 
-  <div class="attributes">
+  <div class="attributes flexrow">
     <div class="info-box-header">
       <h3>{{localize "PF1.Attributes"}}</h3>
-      <div class="info-box-joined flex0">
+      <div class="info-box-joined">
         <div class="info-box" data-tooltip-extended="dv">
           <h5>{{localize "PF1KS.Army.DV" }}</h5>
           <span class="value">{{ system.dv.total }}</span>
         </div>
         <div class="info-box" data-tooltip-extended="om">
           <h5 class="attribute" data-attribute="om">
-            <a class="rollable"><i class="fa-solid fa-dice-d20"></i></a>
+            <a class="rollable"><i class="fa-solid fa-dice"></i></a>
             <span>{{ localize "PF1KS.Army.OM" }}</span>
           </h5>
           <span class="value">{{ numberFormat system.om.total sign=true }}</span>
@@ -102,7 +102,7 @@
         </div>
         <div class="info-box" data-tooltip-extended="morale">
           <h5 class="attribute" data-attribute="morale">
-            <a class="rollable"><i class="fa-solid fa-dice-d20"></i></a>
+            <a class="rollable"><i class="fa-solid fa-dice"></i></a>
             <span>{{ localize "PF1KS.Army.Morale" }}</span>
           </h5>
           <span
