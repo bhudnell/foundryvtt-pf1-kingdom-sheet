@@ -20,24 +20,28 @@
       </div>
     </div>
 
-    <div class="flex1 details">
-      <span>{{localize "PF1KS.Army.Type"}}:</span>
-      <input class="army-type" type="text" name="system.type" value="{{ system.type }}" />
+    <div class="character-summary flexrow">
+      <div class="full-width">
+        <input type="text" name="system.type" value="{{ system.type }}" data-tooltip="PF1KS.Army.Type" />
+      </div>
 
-      <span>{{localize "PF1KS.AlignmentLabel"}}:</span>
-      <select name="system.alignment">
-        {{selectOptions alignmentOptions selected=system.alignment blank=''}}
-      </select>
+      <div>
+        <select name="system.alignment" data-tooltip="PF1KS.AlignmentLabel">
+          {{selectOptions alignmentOptions selected=system.alignment blank=''}}
+        </select>
+      </div>
 
-      <span>{{localize "PF1KS.Army.SizeLabel"}}:</span>
-      <select name="system.size">
-        {{selectOptions sizeOptions selected=system.size blank='' nameAttr="key" labelAttr='label'}}
-      </select>
+      <div>
+        <select name="system.size" data-tooltip="PF1KS.Army.SizeLabel">
+          {{selectOptions sizeOptions selected=system.size blank='' nameAttr="key" labelAttr='label'}}
+        </select>
+      </div>
 
-      <span>{{localize "PF1KS.Army.HD"}}:</span>
-      <select name="system.hd">
-        {{selectOptions hdOptions selected=system.hd}}
-      </select>
+      <div>
+        <select name="system.hd" data-tooltip="PF1KS.Army.HD">
+          {{selectOptions hdOptions selected=system.hd}}
+        </select>
+      </div>
     </div>
   </div>
 </div>

@@ -3,16 +3,23 @@
   min-height: 650px;
 
   .tab.summary {
-    gap: 8px;
+    .character-summary {
+      > div:nth-child(3n - 2) {
+        border-right: none;
+      }
 
-    .details {
-      display: grid;
-      grid-template-columns: repeat(6, 1fr);
-      grid-template-rows: repeat(3, 1fr);
-      gap: 4px 8px;
-      justify-items: center;
-      align-items: center;
-      margin-bottom: 8px;
+      > div:nth-child(3n) {
+        border-right: var(--pf1-border-groove);
+      }
+
+      > div > select {
+        width: 100%;
+        border: none;
+      }
+
+      > div.full-width {
+        flex: 0 0 99%;
+      }
     }
 
     .subdetails-body {
@@ -101,13 +108,13 @@
     }
   }
 
-  .army-attributes {
-    display: flex;
-    flex-direction: column;
-    gap: 8px;
-  }
-
   .tab.summary {
+    .army-attributes {
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+
     .resources {
       flex: 0;
       display: grid;
@@ -145,14 +152,6 @@
     .form-group select {
       flex: 0 0 400px;
     }
-  }
-
-  .name-xp {
-    margin-bottom: 8px;
-  }
-
-  .army-type {
-    grid-column: 2 / 8;
   }
 
   .info-box-header {

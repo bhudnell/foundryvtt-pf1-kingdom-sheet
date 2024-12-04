@@ -107,7 +107,7 @@ export class ArmySheet extends pf1.applications.actor.ActorSheetPF {
 
     const commanderSections = Object.values(pf1.config.sheetSections.armyCommander).map((data) => ({ ...data }));
     for (const i of boons) {
-      const section = featuresSections.find((section) => this._applySectionFilter(i, section));
+      const section = commanderSections.find((section) => this._applySectionFilter(i, section));
       if (section) {
         section.items ??= [];
         section.items.push(i);

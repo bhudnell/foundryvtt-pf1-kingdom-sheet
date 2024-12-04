@@ -1,4 +1,48 @@
 .app.sheet.kingdom {
+  .item-controls {
+    flex: 0 0 68px;
+  }
+
+  .item-detail {
+    &.item-number {
+      flex: 0 0 32px;
+    }
+
+    /* army stuff */
+    /* &.item-army-hp {
+      flex: 0 0 64px;
+    }
+
+    &.item-commander {
+      flex: 0 0 160px;
+    } */
+
+    /* leadership stuff */
+    /* &.item-leader-skill-bonus {
+      flex: 0 0 160px;
+    }
+
+    &.item-leader-bonus {
+      flex: 0 0 110px;
+    }
+
+    &.item-leader-bonus-value {
+      flex: 0 0 20px;
+      border-right: unset;
+    }
+
+    &.item-leader-bonus-type {
+      flex: 0 0 90px;
+    } */
+
+    /* change stuff */
+    /* &.item-target {
+      flex: 1;
+    } */
+  }
+}
+
+.app.sheet.kingdom.test {
   .sheet-navigation .item.icon {
     flex: 0 0;
     padding: 0 8px;
@@ -15,80 +59,9 @@
       border-right: 1px solid var(--color-border-light-secondary);
       text-align: center;
     }
-
-    .item-detail {
-      &.item-number {
-        flex: 0 0 32px;
-      }
-
-      &.item-controls {
-        flex: 0 0 80px;
-
-        &.two-button {
-          flex: 0 0 56px;
-        }
-
-        &.one-button {
-          flex: 0 0 32px;
-        }
-
-        .item-control {
-          flex: 0 0 16px;
-        }
-      }
-
-      /* army stuff */
-      &.item-army-hp {
-        flex: 0 0 64px;
-      }
-
-      &.item-commander {
-        flex: 0 0 160px;
-      }
-
-      /* leadership stuff */
-      &.item-leader-skill-bonus {
-        flex: 0 0 160px;
-      }
-
-      &.item-leader-bonus {
-        flex: 0 0 110px;
-      }
-
-      &.item-leader-bonus-value {
-        flex: 0 0 20px;
-        border-right: unset;
-      }
-
-      &.item-leader-bonus-type {
-        flex: 0 0 90px;
-      }
-
-      /* change stuff */
-      &.item-target {
-        flex: 1;
-      }
-    }
-  }
-
-  .form-header {
-    margin-top: 4px;
-  }
-
-  .info-box input[type="number"] {
-    width: 100%;
-    border: unset;
   }
 }
 
 .app.sheet.kingdom input[type="number"] {
   text-align: center;
-}
-
-.app.sheet.kingdom select {
-  width: 100%;
-}
-
-.app.sheet.kingdom input[type="number"] {
-  width: 100%;
 }
