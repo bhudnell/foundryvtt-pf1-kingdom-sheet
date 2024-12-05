@@ -1,5 +1,3 @@
-import { CFG } from "../config/config.mjs";
-
 export function findLargestSmallerNumber(arr, num) {
   return arr
     .filter((value) => value < num) // Filter out numbers larger than or equal to the target
@@ -14,6 +12,18 @@ export function renameKeys(obj, keyMap) {
     acc[newKey] = obj[key];
     return acc;
   }, {});
+}
+
+export function moduleToObject(module) {
+  const result = {};
+  for (const key in module) {
+    if (Object.prototype.toString.call(module[key]) === "[object Module]") {
+      result[key] = moduleToObject(module[key]);
+    } else {
+      result[key] = module[key];
+    }
+  }
+  return result;
 }
 
 export function keepUpdateArray(sourceObj, targetObj, keepPath) {
@@ -42,7 +52,7 @@ export function keepUpdateArray(sourceObj, targetObj, keepPath) {
 export async function rollEventTable(event, message) {
   event.preventDefault();
 
-  const table = await fromUuid(`Compendium.${CFG.id}.roll-tables.RollTable.NT591DKj9zNeithf`);
+  const table = await fromUuid(`Compendium.${pf1ks.config.CFG.id}.roll-tables.RollTable.NT591DKj9zNeithf`);
   return table.draw();
 }
 

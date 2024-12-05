@@ -95,18 +95,6 @@ export const governmentBonuses = {
   the: { corruption: -1, crime: 0, productivity: 0, law: 1, lore: 1, society: -1 },
 };
 
-export const alignments = {
-  lg: "PF1KS.Alignment.LG",
-  ng: "PF1KS.Alignment.NG",
-  cg: "PF1KS.Alignment.CG",
-  ln: "PF1KS.Alignment.LN",
-  tn: "PF1KS.Alignment.TN",
-  cn: "PF1KS.Alignment.CN",
-  le: "PF1KS.Alignment.LE",
-  ne: "PF1KS.Alignment.NE",
-  ce: "PF1KS.Alignment.CE",
-};
-
 export const alignmentEffects = {
   lg: {
     economy: 2,
@@ -462,15 +450,27 @@ export const armyAttributes = {
 };
 
 export const armySizes = {
-  "-4": "PF1KS.Army.Size.Fine",
-  "-3": "PF1KS.Army.Size.Diminutive",
-  "-2": "PF1KS.Army.Size.Tiny",
-  "-1": "PF1KS.Army.Size.Small",
-  0: "PF1KS.Army.Size.Medium",
-  1: "PF1KS.Army.Size.Large",
-  2: "PF1KS.Army.Size.Huge",
-  3: "PF1KS.Army.Size.Gargantuan",
-  4: "PF1KS.Army.Size.Colossal",
+  0: "PF1KS.Army.Size.Fine",
+  1: "PF1KS.Army.Size.Diminutive",
+  2: "PF1KS.Army.Size.Tiny",
+  3: "PF1KS.Army.Size.Small",
+  4: "PF1KS.Army.Size.Medium",
+  5: "PF1KS.Army.Size.Large",
+  6: "PF1KS.Army.Size.Huge",
+  7: "PF1KS.Army.Size.Gargantuan",
+  8: "PF1KS.Army.Size.Colossal",
+};
+
+export const armyConsumptionScaling = {
+  0: 1 / 8,
+  1: 1 / 6,
+  2: 1 / 4,
+  3: 1 / 2,
+  4: 1,
+  5: 2,
+  6: 4,
+  7: 10,
+  8: 20,
 };
 
 export const armyHD = {
@@ -481,23 +481,11 @@ export const armyHD = {
 };
 
 export const armyStrategy = {
-  "-2": "PF1KS.Army.Strategy.Defensive",
-  "-1": "PF1KS.Army.Strategy.Cautious",
-  0: "PF1KS.Army.Strategy.Standard",
-  1: "PF1KS.Army.Strategy.Aggressive",
-  2: "PF1KS.Army.Strategy.Reckless",
-};
-
-export const armyConsumptionScaling = {
-  "-4": 1 / 8,
-  "-3": 1 / 6,
-  "-2": 1 / 4,
-  "-1": 1 / 2,
-  0: 1,
-  1: 2,
-  2: 4,
-  3: 10,
-  4: 20,
+  0: "PF1KS.Army.Strategy.Defensive",
+  1: "PF1KS.Army.Strategy.Cautious",
+  2: "PF1KS.Army.Strategy.Standard",
+  3: "PF1KS.Army.Strategy.Aggressive",
+  4: "PF1KS.Army.Strategy.Reckless",
 };
 
 export const eventSubTypes = {

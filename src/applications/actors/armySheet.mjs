@@ -1,14 +1,3 @@
-import {
-  alignments,
-  armyHD,
-  armySizes,
-  armyStrategy,
-  CFG,
-  kingdomBoonId,
-  kingdomSpecialId,
-  kingdomTacticId,
-} from "../../config/config.mjs";
-
 export class ArmySheet extends pf1.applications.actor.ActorSheetPF {
   static get defaultOptions() {
     const options = super.defaultOptions;
@@ -27,7 +16,7 @@ export class ArmySheet extends pf1.applications.actor.ActorSheetPF {
   }
 
   get template() {
-    return `modules/${CFG.id}/templates/actors/army/${this.isEditable ? "edit" : "view"}.hbs`;
+    return `modules/${pf1ks.config.CFG.id}/templates/actors/army/${this.isEditable ? "edit" : "view"}.hbs`;
   }
 
   async getData() {
@@ -51,16 +40,10 @@ export class ArmySheet extends pf1.applications.actor.ActorSheetPF {
     data.sections = this._prepareItems();
 
     // selectors
-    data.alignmentOptions = Object.fromEntries(
-      Object.entries(alignments).map(([key, label]) => [key, game.i18n.localize(label)])
-    );
-    data.hdOptions = Object.fromEntries(Object.keys(armyHD).map((key) => [key, key]));
-    data.sizeOptions = Object.entries(armySizes)
-      .map(([key, label]) => ({ key, label: game.i18n.localize(label) }))
-      .sort((a, b) => Number(a.key) - Number(b.key));
-    data.strategyOptions = Object.entries(armyStrategy)
-      .map(([key, label]) => ({ key, label: game.i18n.localize(label) }))
-      .sort((a, b) => Number(a.key) - Number(b.key));
+    data.alignmentOptions = pf1.config.alignments;
+    data.hdOptions = Object.fromEntries(Object.keys(pf1ks.config.armyHD).map((key) => [key, key]));
+    data.sizeOptions = pf1ks.config.armySizes;
+    data.strategyOptions = pf1ks.config.armyStrategy;
 
     // commander
     data.commanderOptions = game.actors
@@ -86,7 +69,7 @@ export class ArmySheet extends pf1.applications.actor.ActorSheetPF {
   _prepareItems() {
     const [features, boons] = this.actor.items.reduce(
       (arr, item) => {
-        if (item.type === kingdomBoonId) {
+        if (item.type === pf1ks.config.kingdomBoonId) {
           arr[1].push(item);
         } else {
           arr[0].push(item);
@@ -164,11 +147,11 @@ export class ArmySheet extends pf1.applications.actor.ActorSheetPF {
   _focusTabByItem(item) {
     let tabId;
     switch (item.type) {
-      case kingdomBoonId:
+      case pf1ks.config.kingdomBoonId:
         tabId = "commander";
         break;
-      case kingdomSpecialId:
-      case kingdomTacticId:
+      case pf1ks.config.kingdomSpecialId:
+      case pf1ks.config.kingdomTacticId:
         tabId = "features";
         break;
       default:
@@ -270,7 +253,7 @@ export class ArmySheet extends pf1.applications.actor.ActorSheetPF {
           sources: getSource("system.morale.total"),
           untyped: true,
         });
-        notes = getNotes(`${CFG.changePrefix}_morale`);
+        notes = getNotes(`${pf1ks.config.CFG.changePrefix}_morale`);
         break;
       case "dv":
       case "om":
@@ -289,7 +272,7 @@ export class ArmySheet extends pf1.applications.actor.ActorSheetPF {
           sources: getSource(`system.${id}.total`),
           untyped: true,
         });
-        notes = getNotes(`${CFG.changePrefix}_${id}`);
+        notes = getNotes(`${pf1ks.config.CFG.changePrefix}_${id}`);
         break;
       case "damageBonus":
         paths.push({
@@ -300,7 +283,7 @@ export class ArmySheet extends pf1.applications.actor.ActorSheetPF {
           sources: getSource("system.damageBonus.total"),
           untyped: true,
         });
-        notes = getNotes(`${CFG.changePrefix}_damage`);
+        notes = getNotes(`${pf1ks.config.CFG.changePrefix}_damage`);
         break;
       case "maxTactics":
         sources.push({

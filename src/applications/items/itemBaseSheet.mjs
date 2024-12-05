@@ -1,13 +1,3 @@
-import {
-  CFG,
-  kingdomBoonId,
-  kingdomBuildingId,
-  kingdomEventId,
-  kingdomImprovementId,
-  kingdomSpecialId,
-  kingdomTacticId,
-} from "../../config/config.mjs";
-
 export class ItemBaseSheet extends pf1.applications.item.ItemSheetPF {
   static get defaultOptions() {
     const options = super.defaultOptions;
@@ -18,19 +8,19 @@ export class ItemBaseSheet extends pf1.applications.item.ItemSheetPF {
   }
 
   get template() {
-    return `modules/${CFG.id}/templates/items/item-sheet.hbs`;
+    return `modules/${pf1ks.config.CFG.id}/templates/items/item-sheet.hbs`;
   }
 
   async getData(options = {}) {
     const context = await super.getData(options);
 
     const item = this.item;
-    context.isBuilding = item.type === kingdomBuildingId;
-    context.isEvent = item.type === kingdomEventId;
-    context.isImprovement = item.type === kingdomImprovementId;
-    context.isBoon = item.type === kingdomBoonId;
-    context.isSpecial = item.type === kingdomSpecialId;
-    context.isTactic = item.type === kingdomTacticId;
+    context.isBuilding = item.type === pf1ks.config.kingdomBuildingId;
+    context.isEvent = item.type === pf1ks.config.kingdomEventId;
+    context.isImprovement = item.type === pf1ks.config.kingdomImprovementId;
+    context.isBoon = item.type === pf1ks.config.kingdomBoonId;
+    context.isSpecial = item.type === pf1ks.config.kingdomSpecialId;
+    context.isTactic = item.type === pf1ks.config.kingdomTacticId;
 
     return context;
   }

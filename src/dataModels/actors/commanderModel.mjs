@@ -1,5 +1,3 @@
-import { kingdomBoonId } from "../../config/config.mjs";
-
 export class CommanderModel extends foundry.abstract.DataModel {
   static defineSchema() {
     const fields = foundry.data.fields;
@@ -63,7 +61,7 @@ export class CommanderModel extends foundry.abstract.DataModel {
   }
 
   get currBoons() {
-    return this.parent.parent.itemTypes[kingdomBoonId].length;
+    return this.parent.parent.itemTypes[pf1ks.config.kingdomBoonId].length;
   }
 
   get maxBoons() {

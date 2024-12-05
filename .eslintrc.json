@@ -54,6 +54,7 @@
     "ChatMessage": "readonly",
     "JournalEntryPage": "readonly",
     "pf1": "readonly",
+    "pf1ks": "readonly",
     "libWrapper": "readonly"
   }
 }

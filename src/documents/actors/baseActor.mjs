@@ -1,5 +1,3 @@
-import { CFG, kingdomBuildingId } from "../../config/config.mjs";
-
 export class BaseActor extends pf1.documents.actor.ActorBasePF {
   constructor(...args) {
     super(...args);
@@ -164,7 +162,7 @@ export class BaseActor extends pf1.documents.actor.ActorBasePF {
     return this.items
       .filter(
         (item) =>
-          item.type.startsWith(`${CFG.id}.`) &&
+          item.type.startsWith(`${pf1ks.config.CFG.id}.`) &&
           item.isActive &&
           (item.system.contextNotes?.length > 0 || item.system._contextNotes?.length > 0)
       )
@@ -214,10 +212,10 @@ export class BaseActor extends pf1.documents.actor.ActorBasePF {
 
     this.changeItems = this.items.filter(
       (item) =>
-        item.type.startsWith(`${CFG.id}.`) &&
+        item.type.startsWith(`${pf1ks.config.CFG.id}.`) &&
         item.hasChanges &&
         item.isActive &&
-        (item.type !== kingdomBuildingId || item.system.settlementId) // buildings must have a settlement ID to count
+        (item.type !== pf1ks.config.kingdomBuildingId || item.system.settlementId) // buildings must have a settlement ID to count
     );
 
     for (const i of this.changeItems) {

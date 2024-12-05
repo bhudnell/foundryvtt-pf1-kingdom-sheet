@@ -1,58 +1,56 @@
-import { CFG } from "../config/config.mjs";
-
 export function getChangeFlat(result, target, modifierType, value, actor) {
-  if (!target.startsWith(CFG.changePrefix)) {
+  if (!target.startsWith(pf1ks.config.CFG.changePrefix)) {
     return result;
   }
 
   switch (target) {
-    case `${CFG.changePrefix}_consumption`:
+    case `${pf1ks.config.CFG.changePrefix}_consumption`:
       result.push("system.consumption.total");
       break;
-    case `${CFG.changePrefix}_speed`:
+    case `${pf1ks.config.CFG.changePrefix}_speed`:
       result.push("system.speed.total");
       break;
-    case `${CFG.changePrefix}_bonus_tactic`:
+    case `${pf1ks.config.CFG.changePrefix}_bonus_tactic`:
       result.push("system.tactics.max.total");
       break;
-    case `${CFG.changePrefix}_dv`:
+    case `${pf1ks.config.CFG.changePrefix}_dv`:
       result.push("system.dv.total");
       break;
-    case `${CFG.changePrefix}_om`:
+    case `${pf1ks.config.CFG.changePrefix}_om`:
       result.push("system.om.total");
       break;
-    case `${CFG.changePrefix}_damage`:
+    case `${pf1ks.config.CFG.changePrefix}_damage`:
       result.push("system.damageBonus.total");
       break;
-    case `${CFG.changePrefix}_morale`:
+    case `${pf1ks.config.CFG.changePrefix}_morale`:
       result.push("system.morale.total");
       break;
-    case `${CFG.changePrefix}_economy`:
+    case `${pf1ks.config.CFG.changePrefix}_economy`:
       result.push("system.economy.total");
       break;
-    case `${CFG.changePrefix}_loyalty`:
+    case `${pf1ks.config.CFG.changePrefix}_loyalty`:
       result.push("system.loyalty.total");
       break;
-    case `${CFG.changePrefix}_stability`:
+    case `${pf1ks.config.CFG.changePrefix}_stability`:
       result.push("system.stability.total");
       break;
     // settlement modifiers are handled outside the normal change flow
-    case `${CFG.changePrefix}_defense`:
-    case `${CFG.changePrefix}_baseValue`:
-    case `${CFG.changePrefix}_corruption`:
-    case `${CFG.changePrefix}_crime`:
-    case `${CFG.changePrefix}_productivity`:
-    case `${CFG.changePrefix}_law`:
-    case `${CFG.changePrefix}_lore`:
-    case `${CFG.changePrefix}_society`:
+    case `${pf1ks.config.CFG.changePrefix}_defense`:
+    case `${pf1ks.config.CFG.changePrefix}_baseValue`:
+    case `${pf1ks.config.CFG.changePrefix}_corruption`:
+    case `${pf1ks.config.CFG.changePrefix}_crime`:
+    case `${pf1ks.config.CFG.changePrefix}_productivity`:
+    case `${pf1ks.config.CFG.changePrefix}_law`:
+    case `${pf1ks.config.CFG.changePrefix}_lore`:
+    case `${pf1ks.config.CFG.changePrefix}_society`:
       break;
-    case `${CFG.changePrefix}_bonusBP`:
+    case `${pf1ks.config.CFG.changePrefix}_bonusBP`:
       result.push("system.bonusBP.total");
       break;
-    case `${CFG.changePrefix}_fame`:
+    case `${pf1ks.config.CFG.changePrefix}_fame`:
       result.push("system.fame.total");
       break;
-    case `${CFG.changePrefix}_infamy`:
+    case `${pf1ks.config.CFG.changePrefix}_infamy`:
       result.push("system.infamy.total");
       break;
   }

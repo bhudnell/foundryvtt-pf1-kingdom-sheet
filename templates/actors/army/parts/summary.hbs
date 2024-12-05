@@ -22,7 +22,7 @@
 
     <div class="character-summary flexrow">
       <div class="full-width">
-        <input type="text" name="system.type" value="{{ system.type }}" data-tooltip="PF1KS.Army.Type" placeholder="{{localize "PF1KS.Army.Type"}}"/>
+        <input type="text" name="system.type" value="{{ system.type }}" data-tooltip="PF1KS.Army.Type" />
       </div>
 
       <div>
@@ -33,7 +33,7 @@
 
       <div>
         <select name="system.size" data-tooltip="PF1KS.Army.SizeLabel">
-          {{selectOptions sizeOptions selected=system.size blank='' nameAttr="key" labelAttr='label'}}
+          {{selectOptions sizeOptions selected=system.size blank=''}}
         </select>
       </div>
 
@@ -115,7 +115,7 @@
         <div class="info-box">
           <h5>{{ localize "PF1KS.Army.StrategyLabel" }}</h5>
           <select class="value" name="system.strategy">
-            {{selectOptions strategyOptions selected=system.strategy nameAttr="key" labelAttr='label'}}
+            {{selectOptions strategyOptions selected=system.strategy}}
           </select>
         </div>
       </div>

@@ -1,5 +1,3 @@
-import { armyHD, armySizes, alignments, kingdomTacticId, armyStrategy, armyAttributes } from "../../config/config.mjs";
-
 import { CommanderModel } from "./commanderModel.mjs";
 
 export class ArmyModel extends foundry.abstract.TypeDataModel {
@@ -8,10 +6,10 @@ export class ArmyModel extends foundry.abstract.TypeDataModel {
     return {
       acr: new fields.NumberField(),
       type: new fields.StringField(),
-      alignment: new fields.StringField({ choices: Object.keys(alignments) }),
-      size: new fields.StringField({ choices: Object.keys(armySizes) }),
-      hd: new fields.StringField({ choices: Object.keys(armyHD) }),
-      strategy: new fields.StringField({ choices: Object.keys(armyStrategy), initial: "0" }),
+      alignment: new fields.StringField({ choices: Object.keys(pf1.config.alignments) }),
+      size: new fields.StringField({ choices: Object.keys(pf1ks.config.armySizes) }),
+      hd: new fields.StringField({ choices: Object.keys(pf1ks.config.armyHD) }),
+      strategy: new fields.StringField({ choices: Object.keys(pf1ks.config.armyStrategy), initial: "0" }),
 
       hp: new fields.SchemaField({
         current: new fields.NumberField({ required: true, integer: true, min: 0, initial: 0 }),
@@ -67,7 +65,7 @@ export class ArmyModel extends foundry.abstract.TypeDataModel {
   }
 
   prepareDerivedData() {
-    this.hp.max = Math.floor((armyHD[this.hd] ?? 0) * this.acr);
+    this.hp.max = Math.floor((pf1ks.config.armyHD[this.hd] ?? 0) * this.acr);
     this.hp.current = Math.min(this.hp.current, this.hp.max);
 
     this.speed.total = this.speed.base;
@@ -84,7 +82,7 @@ export class ArmyModel extends foundry.abstract.TypeDataModel {
     this.morale.commander = this.commander.moraleBonus;
     this.morale.total = this.morale.base + this.morale.commander;
 
-    this.tactics.current = this.parent.itemTypes[kingdomTacticId].length;
+    this.tactics.current = this.parent.itemTypes[pf1ks.config.kingdomTacticId].length;
     this.tactics.max.base = Math.max(0, Math.floor(this.acr / 2));
     this.tactics.max.total = this.tactics.max.base;
 
@@ -116,7 +114,7 @@ export class ArmyModel extends foundry.abstract.TypeDataModel {
       parts.push(`${c.value}[${c.flavor}]`);
     }
 
-    const label = game.i18n.localize(armyAttributes[attributeId]);
+    const label = pf1ks.config.armyAttributes[attributeId];
     const actor = options.actor ?? this.actor;
     const token = options.token ?? this.token;
 

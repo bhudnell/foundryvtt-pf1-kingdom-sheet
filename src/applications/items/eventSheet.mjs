@@ -1,5 +1,3 @@
-import { eventSubTypes, itemSubTypes } from "../../config/config.mjs";
-
 import { ItemBaseSheet } from "./itemBaseSheet.mjs";
 
 export class EventSheet extends ItemBaseSheet {
@@ -15,11 +13,8 @@ export class EventSheet extends ItemBaseSheet {
     context.settlementIdOptions = settlementIdOptions;
 
     // subType
-    context.subType = game.i18n.localize(itemSubTypes[itemData.subType]);
-    context.subTypeOptions = Object.entries(eventSubTypes).reduce((acc, [key, label]) => {
-      acc[key] = game.i18n.localize(label);
-      return acc;
-    }, {});
+    context.subType = pf1ks.config.itemSubTypes[itemData.subType];
+    context.subTypeOptions = pf1ks.config.eventSubTypes;
 
     // sidebar info
     context.sidebarContent = [

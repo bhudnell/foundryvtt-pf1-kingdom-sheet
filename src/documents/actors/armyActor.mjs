@@ -1,5 +1,4 @@
 import { armyBuffTargets, commonBuffTargets } from "../../config/buffTargets.mjs";
-import { armyConsumptionScaling, CFG } from "../../config/config.mjs";
 import { DefaultChange } from "../../util/utils.mjs";
 
 import { BaseActor } from "./baseActor.mjs";
@@ -11,59 +10,63 @@ export class ArmyActor extends BaseActor {
 
     // strategy
     changes.push(
-      new DefaultChange(system.strategy * -2, `${CFG.changePrefix}_dv`, "PF1KS.Army.StrategyLabel"),
-      new DefaultChange(system.strategy * 2, `${CFG.changePrefix}_om`, "PF1KS.Army.StrategyLabel"),
-      new DefaultChange(system.strategy * 3, `${CFG.changePrefix}_damage`, "PF1KS.Army.StrategyLabel")
+      new DefaultChange((system.strategy - 2) * -2, `${pf1ks.config.CFG.changePrefix}_dv`, "PF1KS.Army.StrategyLabel"),
+      new DefaultChange((system.strategy - 2) * 2, `${pf1ks.config.CFG.changePrefix}_om`, "PF1KS.Army.StrategyLabel"),
+      new DefaultChange(
+        (system.strategy - 2) * 3,
+        `${pf1ks.config.CFG.changePrefix}_damage`,
+        "PF1KS.Army.StrategyLabel"
+      )
     );
 
     // resources
     if (system.resources.impArmor) {
       changes.push(
-        new DefaultChange(1, `${CFG.changePrefix}_dv`, "PF1KS.Army.Resources.ImpArmor"),
+        new DefaultChange(1, `${pf1ks.config.CFG.changePrefix}_dv`, "PF1KS.Army.Resources.ImpArmor"),
         new DefaultChange(
-          Math.max(Math.floor(armyConsumptionScaling[system.size] ?? 1), 1),
-          `${CFG.changePrefix}_consumption`,
+          Math.max(Math.floor(pf1ks.config.armyConsumptionScaling[system.size] ?? 1), 1),
+          `${pf1ks.config.CFG.changePrefix}_consumption`,
           "PF1KS.Army.Resources.ImpArmor"
         )
       );
     }
     if (system.resources.magArmor) {
       changes.push(
-        new DefaultChange(2, `${CFG.changePrefix}_dv`, "PF1KS.Army.Resources.MagArmor"),
+        new DefaultChange(2, `${pf1ks.config.CFG.changePrefix}_dv`, "PF1KS.Army.Resources.MagArmor"),
         new DefaultChange(
-          Math.max(Math.floor(2 * (armyConsumptionScaling[system.size] ?? 1)), 1),
-          `${CFG.changePrefix}_consumption`,
+          Math.max(Math.floor(2 * (pf1ks.config.armyConsumptionScaling[system.size] ?? 1)), 1),
+          `${pf1ks.config.CFG.changePrefix}_consumption`,
           "PF1KS.Army.Resources.MagArmor"
         )
       );
     }
     if (system.resources.impWeapons) {
       changes.push(
-        new DefaultChange(1, `${CFG.changePrefix}_om`, "PF1KS.Army.Resources.ImpWeapons"),
+        new DefaultChange(1, `${pf1ks.config.CFG.changePrefix}_om`, "PF1KS.Army.Resources.ImpWeapons"),
         new DefaultChange(
-          Math.max(Math.floor(armyConsumptionScaling[system.size] ?? 1), 1),
-          `${CFG.changePrefix}_consumption`,
+          Math.max(Math.floor(pf1ks.config.armyConsumptionScaling[system.size] ?? 1), 1),
+          `${pf1ks.config.CFG.changePrefix}_consumption`,
           "PF1KS.Army.Resources.ImpWeapons"
         )
       );
     }
     if (system.resources.magWeapons) {
       changes.push(
-        new DefaultChange(2, `${CFG.changePrefix}_om`, "PF1KS.Army.Resources.MagWeapons"),
+        new DefaultChange(2, `${pf1ks.config.CFG.changePrefix}_om`, "PF1KS.Army.Resources.MagWeapons"),
         new DefaultChange(
-          Math.max(Math.floor(2 * (armyConsumptionScaling[system.size] ?? 1)), 1),
-          `${CFG.changePrefix}_consumption`,
+          Math.max(Math.floor(2 * (pf1ks.config.armyConsumptionScaling[system.size] ?? 1)), 1),
+          `${pf1ks.config.CFG.changePrefix}_consumption`,
           "PF1KS.Army.Resources.MagWeapons"
         )
       );
     }
     if (system.resources.mounts) {
       changes.push(
-        new DefaultChange(2, `${CFG.changePrefix}_dv`, "PF1KS.Army.Resources.Mounts"),
-        new DefaultChange(2, `${CFG.changePrefix}_om`, "PF1KS.Army.Resources.Mounts"),
+        new DefaultChange(2, `${pf1ks.config.CFG.changePrefix}_dv`, "PF1KS.Army.Resources.Mounts"),
+        new DefaultChange(2, `${pf1ks.config.CFG.changePrefix}_om`, "PF1KS.Army.Resources.Mounts"),
         new DefaultChange(
-          Math.max(Math.floor(armyConsumptionScaling[system.size] ?? 1), 1),
-          `${CFG.changePrefix}_consumption`,
+          Math.max(Math.floor(pf1ks.config.armyConsumptionScaling[system.size] ?? 1), 1),
+          `${pf1ks.config.CFG.changePrefix}_consumption`,
           "PF1KS.Army.Resources.Mounts"
         )
       );
@@ -71,8 +74,8 @@ export class ArmyActor extends BaseActor {
     if (system.resources.ranged) {
       changes.push(
         new DefaultChange(
-          Math.max(Math.floor(armyConsumptionScaling[system.size] ?? 1), 1),
-          `${CFG.changePrefix}_consumption`,
+          Math.max(Math.floor(pf1ks.config.armyConsumptionScaling[system.size] ?? 1), 1),
+          `${pf1ks.config.CFG.changePrefix}_consumption`,
           "PF1KS.Army.Resources.Ranged"
         )
       );
@@ -80,8 +83,12 @@ export class ArmyActor extends BaseActor {
 
     if (system.resources.seCount) {
       changes.push(
-        new DefaultChange(2, `${CFG.changePrefix}_om`, "PF1KS.Army.Resources.Siege"),
-        new DefaultChange(3 * system.resources.seCount, `${CFG.changePrefix}_consumption`, "PF1KS.Army.Resources.Siege")
+        new DefaultChange(2, `${pf1ks.config.CFG.changePrefix}_om`, "PF1KS.Army.Resources.Siege"),
+        new DefaultChange(
+          3 * system.resources.seCount,
+          `${pf1ks.config.CFG.changePrefix}_consumption`,
+          "PF1KS.Army.Resources.Siege"
+        )
       );
     }
   }
