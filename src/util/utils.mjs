@@ -14,6 +14,14 @@ export function renameKeys(obj, keyMap) {
   }, {});
 }
 
+/**
+ * Recursively transforms an ES module to a regular, writable object.
+ *
+ * @internal
+ * @template T
+ * @param {T} module - The ES module to transform.
+ * @returns {T} The transformed module.
+ */
 export function moduleToObject(module) {
   const result = {};
   for (const key in module) {

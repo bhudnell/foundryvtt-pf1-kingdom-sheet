@@ -6,7 +6,7 @@
   "license": "MIT",
   "main": "src/main.mjs",
   "scripts": {
-    "lint": "eslint --fix .",
+    "lint": "eslint --fix **/*.{mjs,js}",
     "prettier": "prettier --write .",
     "prepare": "husky",
     "unpack": "node ./tools/extractPacks.mjs",
