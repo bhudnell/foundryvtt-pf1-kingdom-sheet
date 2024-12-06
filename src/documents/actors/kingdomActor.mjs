@@ -1,17 +1,70 @@
 import { kingdomBuffTargets, commonBuffTargets } from "../../config/buffTargets.mjs";
-import {
-  alignmentEffects,
-  CFG,
-  edictEffects,
-  kingdomStats,
-  leadershipBonusToKingdomStats,
-  leadershipPenalties,
-} from "../../config/config.mjs";
 import { DefaultChange } from "../../util/utils.mjs";
 
 import { BaseActor } from "./baseActor.mjs";
 
 export class KingdomActor extends BaseActor {
+  async rollKingdomStat(kingdomStatId, options = {}) {
+    const parts = [];
+
+    const changes = pf1.documents.actor.changes.getHighestChanges(
+      this.changes.filter(
+        (c) => c.operator !== "set" && c.target === `${pf1ks.config.CFG.changePrefix}_${kingdomStatId}` && c.value
+      ),
+      { ignoreTarget: true }
+    );
+
+    for (const c of changes) {
+      parts.push(`${c.value * (c.parent?.system.quantity ?? 1)}[${c.flavor}]`);
+    }
+
+    const label = pf1ks.config.kingdomStats[kingdomStatId];
+    const actor = options.actor ?? this;
+    const token = options.token ?? this.token;
+
+    const rollOptions = {
+      ...options,
+      parts,
+      flavor: game.i18n.format("PF1KS.KingdomStatRoll", { check: label }),
+      speaker: ChatMessage.getSpeaker({ actor, token, alias: token?.name }),
+    };
+
+    return await pf1.dice.d20Roll(rollOptions);
+  }
+
+  async rollEvent(options = {}) {
+    const roll = new pf1.dice.RollPF("1d100");
+
+    await roll.evaluate();
+
+    const eventChance = this.system.eventLastTurn ? 25 : 75;
+
+    const eventOccurred = roll.total <= eventChance;
+
+    const actor = options.actor ?? this;
+    const token = options.token ?? this.token;
+
+    const templateData = {
+      label: game.i18n.format("PF1KS.EventChanceRoll", { chance: eventChance }),
+      formula: roll.formula,
+      natural: roll.total,
+      bonus: 0,
+      total: roll.total,
+      tooltip: await roll.getTooltip(),
+      eventOccurred,
+    };
+
+    const messageData = {
+      type: CONST.CHAT_MESSAGE_TYPES.ROLL,
+      sound: options.noSound ? undefined : CONFIG.sounds.dice,
+      content: await renderTemplate(`modules/${pf1ks.config.CFG.id}/templates/chat/event-roll.hbs`, templateData),
+      speaker: ChatMessage.getSpeaker({ actor, token, alias: token?.name }),
+      flags: { [pf1ks.config.CFG.id]: { eventChanceCard: true } },
+    };
+
+    await ChatMessage.create(messageData);
+  }
+
   // todo see if using @variables works too also on armyactor
   _addDefaultChanges(changes) {
     const system = this.system;
@@ -26,52 +79,56 @@ export class KingdomActor extends BaseActor {
         filledRoles.push(leader);
       }
     }
-    for (const stat of Object.keys(kingdomStats)) {
+    for (const stat of Object.keys(pf1ks.config.kingdomStats)) {
       // alignment
       changes.push(
         new DefaultChange(
-          alignmentEffects[system.alignment]?.[stat] ?? 0,
-          `${CFG.changePrefix}_${stat}`,
-          "PF1KS.Alignment"
+          pf1ks.config.alignmentEffects[system.alignment]?.[stat] ?? 0,
+          `${pf1ks.config.CFG.changePrefix}_${stat}`,
+          "PF1.Alignment"
         ),
 
         // edicts
         new DefaultChange(
-          edictEffects.holiday[system.edicts.holiday]?.[stat] ?? 0,
-          `${CFG.changePrefix}_${stat}`,
-          "PF1KS.Edicts.Holiday"
+          pf1ks.config.edictEffects.holiday[system.edicts.holiday]?.[stat] ?? 0,
+          `${pf1ks.config.CFG.changePrefix}_${stat}`,
+          game.i18n.format("PF1KS.Edict.HolidayChange", { value: pf1ks.config.edicts.holiday[system.edicts.holiday] })
         ),
         new DefaultChange(
-          edictEffects.promotion[system.edicts.promotion]?.[stat] ?? 0,
-          `${CFG.changePrefix}_${stat}`,
-          "PF1KS.Edicts.Promotion"
+          pf1ks.config.edictEffects.promotion[system.edicts.promotion]?.[stat] ?? 0,
+          `${pf1ks.config.CFG.changePrefix}_${stat}`,
+          game.i18n.format("PF1KS.Edict.PromotionChange", {
+            value: pf1ks.config.edicts.promotion[system.edicts.promotion],
+          })
         ),
         new DefaultChange(
-          edictEffects.taxation[system.edicts.taxation]?.[stat] ?? 0,
-          `${CFG.changePrefix}_${stat}`,
-          "PF1KS.Edicts.Taxation"
+          pf1ks.config.edictEffects.taxation[system.edicts.taxation]?.[stat] ?? 0,
+          `${pf1ks.config.CFG.changePrefix}_${stat}`,
+          game.i18n.format("PF1KS.Edict.TaxationChange", {
+            value: pf1ks.config.edicts.taxation[system.edicts.taxation],
+          })
         ),
 
         // leadership
         ...filledRoles.map(
           (leader) =>
             new DefaultChange(
-              leadershipBonusToKingdomStats[leader.bonusType]?.includes(stat) ? leader.bonus : 0,
-              `${CFG.changePrefix}_${stat}`,
-              leader.role
+              pf1ks.config.leadershipBonusToKingdomStats[leader.bonusType]?.includes(stat) ? leader.bonus : 0,
+              `${pf1ks.config.CFG.changePrefix}_${stat}`,
+              pf1ks.config.leadershipRoles[leader.role]
             )
         ),
         ...vacantRoles.map(
           (leader) =>
             new DefaultChange(
-              -(leadershipPenalties[leader.role][stat] ?? 0),
-              `${CFG.changePrefix}_${stat}`,
-              `${leader.role} (Vacant)` // todo i18n-ify
+              -(pf1ks.config.leadershipPenalties[leader.role][stat] ?? 0),
+              `${pf1ks.config.CFG.changePrefix}_${stat}`,
+              game.i18n.format("PF1KS.LeaderVacant", { value: pf1ks.config.leadershipRoles[leader.role] })
             )
         ),
 
         // unrest
-        new DefaultChange(-system.unrest, `${CFG.changePrefix}_${stat}`, "PF1KS.Unrest")
+        new DefaultChange(-system.unrest, `${pf1ks.config.CFG.changePrefix}_${stat}`, "PF1KS.Unrest")
       );
 
       if (system.settings.optionalRules.leadershipSkills) {
@@ -79,9 +136,9 @@ export class KingdomActor extends BaseActor {
           ...filledRoles.map(
             (leader) =>
               new DefaultChange(
-                leadershipBonusToKingdomStats[leader.bonusType]?.includes(stat) ? leader.skillBonus : 0,
-                `${CFG.changePrefix}_${stat}`,
-                `${leader.role} (Skill Bonus)` // todo i18n-ify
+                pf1ks.config.leadershipBonusToKingdomStats[leader.bonusType]?.includes(stat) ? leader.skillBonus : 0,
+                `${pf1ks.config.CFG.changePrefix}_${stat}`,
+                game.i18n.format("PF1KS.LeaderSkillBonus", { value: pf1ks.config.leadershipRoles[leader.role] })
               )
           )
         );
@@ -90,25 +147,51 @@ export class KingdomActor extends BaseActor {
 
     // consumption
     changes.push(
-      new DefaultChange(system.size, `${CFG.changePrefix}_consumption`, "PF1KS.Size"),
-      new DefaultChange(system.totalDistricts, `${CFG.changePrefix}_consumption`, "PF1KS.Districts"),
+      new DefaultChange(system.size, `${pf1ks.config.CFG.changePrefix}_consumption`, "PF1KS.Size"),
+      new DefaultChange(system.totalDistricts, `${pf1ks.config.CFG.changePrefix}_consumption`, "PF1KS.Districts"),
       new DefaultChange(
-        edictEffects.holiday[system.edicts.holiday]?.consumption ?? 0,
-        `${CFG.changePrefix}_consumption`,
-        "PF1KS.Edicts.Holiday"
+        pf1ks.config.edictEffects.holiday[system.edicts.holiday]?.consumption ?? 0,
+        `${pf1ks.config.CFG.changePrefix}_consumption`,
+        game.i18n.format("PF1KS.Edict.HolidayChange", { value: pf1ks.config.edicts.holiday[system.edicts.holiday] })
       ),
       new DefaultChange(
-        edictEffects.promotion[system.edicts.promotion]?.consumption ?? 0,
-        `${CFG.changePrefix}_consumption`,
-        "PF1KS.Edicts.Promotion"
+        pf1ks.config.edictEffects.promotion[system.edicts.promotion]?.consumption ?? 0,
+        `${pf1ks.config.CFG.changePrefix}_consumption`,
+        game.i18n.format("PF1KS.Edict.PromotionChange", {
+          value: pf1ks.config.edicts.promotion[system.edicts.promotion],
+        })
       )
     );
 
-    // TODO more
+    // fame/infamy
+    changes.push(
+      new DefaultChange(
+        Math.floor(this._getChanges("lore") / 10),
+        `${pf1ks.config.CFG.changePrefix}_fame`,
+        "PF1KS.Lore"
+      ),
+      new DefaultChange(
+        Math.floor(this._getChanges("society") / 10),
+        `${pf1ks.config.CFG.changePrefix}_fame`,
+        "PF1KS.Society"
+      ),
+      new DefaultChange(
+        Math.floor(this._getChanges("corruption") / 10),
+        `${pf1ks.config.CFG.changePrefix}_infamy`,
+        "PF1KS.Corruption"
+      ),
+      new DefaultChange(
+        Math.floor(this._getChanges("crime") / 10),
+        `${pf1ks.config.CFG.changePrefix}_infamy`,
+        "PF1KS.Crime"
+      )
+    );
+
+    // TODO more?
   }
 
   _setSourceDetails() {
-    const sourceDetails = {};
+    const sourceDetails = { "system.controlDC": [] };
     // Get empty source arrays
     for (const b of Object.keys({ ...kingdomBuffTargets, ...commonBuffTargets })) {
       const buffTargets = pf1.documents.actor.changes.getChangeFlat.call(this, b, null);
@@ -119,17 +202,33 @@ export class KingdomActor extends BaseActor {
       }
     }
 
-    // TODO
-    // for (let attributeId of ["dv", "om", "consumption", "morale"]) {
-    //   sourceDetails[`system.${attributeId}.total`].push({
-    //     name: game.i18n.localize("PF1.Base"),
-    //     value: this.system[attributeId].base,
-    //   });
-    // }
-    // sourceDetails["system.morale.total"].push({
-    //   name: game.i18n.localize("PF1KS.Army.Commander"),
-    //   value: this.system.morale.commander,
-    // });
+    // control DC
+    sourceDetails["system.controlDC"].push(
+      {
+        name: game.i18n.localize("PF1.Base"),
+        value: game.i18n.format("PF1.SetTo", { value: 20 }),
+      },
+      {
+        name: game.i18n.localize("PF1KS.Size"),
+        value: this.system.size,
+      },
+      {
+        name: game.i18n.localize("PF1KS.Districts"),
+        value: this.system.totalDistricts,
+      }
+    );
+
+    // fame/infamy
+    for (let attributeId of ["fame", "infamy"]) {
+      if (this.system[attributeId].base) {
+        sourceDetails[`system.${attributeId}.total`].push({
+          name: game.i18n.localize("PF1.Base"),
+          value: this.system[attributeId].base,
+        });
+      }
+    }
+
+    // TODO more?
     // sourceDetails["system.speed.total"].push({
     //   name: game.i18n.localize("PF1.Base"),
     //   value: game.i18n.format("PF1.SetTo", { value: this.system.speed.base }),
@@ -176,5 +275,21 @@ export class KingdomActor extends BaseActor {
     }
 
     this.sourceDetails = sourceDetails;
+  }
+
+  _getChanges(target, type) {
+    return (
+      this.changes
+        ?.filter((c) => {
+          if (c.target !== target) {
+            return false;
+          }
+          if (type && c.parent.type !== type) {
+            return false;
+          }
+          return true;
+        })
+        .reduce((total, c) => total + c.value * (c.parent.system.quantity ?? 1), 0) ?? 0
+    );
   }
 }

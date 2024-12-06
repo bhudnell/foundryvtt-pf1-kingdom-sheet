@@ -1,13 +1,3 @@
-import {
-  altSettlementValues,
-  governmentBonuses,
-  kingdomBuildingId,
-  kingdomEventId,
-  kingdomImprovementId,
-  allSettlementModifiers,
-  settlementValues,
-} from "../../config/config.mjs";
-
 export class SettlementModel extends foundry.abstract.DataModel {
   static defineSchema() {
     const fields = foundry.data.fields;
@@ -22,7 +12,7 @@ export class SettlementModel extends foundry.abstract.DataModel {
 
   prepareDerivedData() {
     const kingdom = this.parent;
-    const buildings = this.parent.parent.itemTypes[kingdomBuildingId];
+    const buildings = this.parent.parent.itemTypes[pf1ks.config.kingdomBuildingId];
     const totalLots = buildings
       .filter((building) => building.system.settlementId === this.id)
       .reduce((acc, curr) => acc + curr.system.lots * curr.system.quantity, 0);
@@ -50,21 +40,21 @@ export class SettlementModel extends foundry.abstract.DataModel {
     }
 
     // danger
-    this.danger = settlementValues[this.size].danger;
+    this.danger = pf1ks.config.settlementValues[this.size].danger;
 
     // settlement modifiers
     this.modifiers = {};
-    for (const modifier of Object.keys(allSettlementModifiers)) {
-      const size = ["defense", "baseValue"].includes(modifier) ? 0 : settlementValues[this.size].modifiers;
-      const government = governmentBonuses[kingdom.government]?.[modifier] ?? 0;
-      const buildings = this._getChanges(modifier, kingdomBuildingId);
-      const improvements = this._getChanges(modifier, kingdomImprovementId);
-      const events = this._getChanges(modifier, kingdomEventId);
+    for (const modifier of Object.keys(pf1ks.config.allSettlementModifiers)) {
+      const size = ["defense", "baseValue"].includes(modifier) ? 0 : pf1ks.config.settlementValues[this.size].modifiers;
+      const government = pf1ks.config.governmentBonuses[kingdom.government]?.[modifier] ?? 0;
+      const buildings = this._getChanges(modifier, pf1ks.config.kingdomBuildingId);
+      const improvements = this._getChanges(modifier, pf1ks.config.kingdomImprovementId);
+      const events = this._getChanges(modifier, pf1ks.config.kingdomEventId);
 
       let total = size + government + buildings + improvements + events;
 
       if (modifier === "baseValue") {
-        total = Math.min(total, settlementValues[this.size].maxBaseValue);
+        total = Math.min(total, pf1ks.config.settlementValues[this.size].maxBaseValue);
       }
 
       this.modifiers[modifier] = { size, government, buildings, improvements, events, total };
@@ -90,13 +80,13 @@ export class SettlementModel extends foundry.abstract.DataModel {
       }
 
       // danger
-      this.danger = altSettlementValues[this.size].danger * altSettlementMultiplier;
+      this.danger = pf1ks.config.altSettlementValues[this.size].danger * altSettlementMultiplier;
 
       // modifiers
-      for (const modifier of Object.keys(allSettlementModifiers)) {
+      for (const modifier of Object.keys(pf1ks.config.allSettlementModifiers)) {
         const size = ["defense", "baseValue"].includes(modifier)
           ? 0
-          : altSettlementValues[this.size].modifiers * altSettlementMultiplier;
+          : pf1ks.config.altSettlementValues[this.size].modifiers * altSettlementMultiplier;
 
         this.modifiers[modifier].total += size - this.modifiers[modifier].size;
         this.modifiers[modifier].size = size;
@@ -104,7 +94,7 @@ export class SettlementModel extends foundry.abstract.DataModel {
         if (modifier === "baseValue") {
           this.modifiers[modifier].total = Math.min(
             this.modifiers[modifier].total,
-            altSettlementValues[this.size].maxBaseValue
+            pf1ks.config.altSettlementValues[this.size].maxBaseValue
           );
         }
       }
@@ -114,7 +104,10 @@ export class SettlementModel extends foundry.abstract.DataModel {
   _getChanges(target, type) {
     return this.parent.parent.changes
       .filter((c) => {
-        if (Object.keys(allSettlementModifiers).includes(c.target) && c.parent.system.settlementId !== this.id) {
+        if (
+          Object.keys(pf1ks.config.allSettlementModifiers).includes(c.target) &&
+          c.parent.system.settlementId !== this.id
+        ) {
           return false;
         }
         if (c.target !== target) {

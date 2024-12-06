@@ -1,26 +1,3 @@
-import {
-  CFG,
-  alignments,
-  edicts,
-  kingdomBuildingId,
-  kingdomEventId,
-  kingdomGovernments,
-  kingdomImprovementId,
-  kingdomStats,
-  actionsPerTurnLabels,
-  actionsPerTurn,
-  settlementSizes,
-  terrainTypes,
-  itemSubTypes,
-  leadershipSkillBonuses,
-  settlementModifiers,
-  leadershipRoles,
-  leadershipBonusOptions,
-  leadershipBonusTwoStats,
-  kingdomArmyId,
-  compendiumEntries,
-  optionalRules,
-} from "../../config/config.mjs";
 import { findLargestSmallerNumber, renameKeys } from "../../util/utils.mjs";
 
 export class KingdomSheet extends pf1.applications.actor.ActorSheetPF {
@@ -47,7 +24,7 @@ export class KingdomSheet extends pf1.applications.actor.ActorSheetPF {
   }
 
   get template() {
-    return `modules/${CFG.id}/templates/actors/kingdom/${this.isEditable ? "edit" : "view"}.hbs`;
+    return `modules/${pf1ks.config.CFG.id}/templates/actors/kingdom/${this.isEditable ? "edit" : "view"}.hbs`;
   }
 
   async getData() {
@@ -92,24 +69,14 @@ export class KingdomSheet extends pf1.applications.actor.ActorSheetPF {
     // Base fame+infamy < expected
 
     // selectors
-    data.alignmentOptions = Object.fromEntries(
-      Object.entries(alignments).map(([key, label]) => [key, game.i18n.localize(label)])
-    );
-    data.governmentOptions = Object.fromEntries(
-      Object.entries(kingdomGovernments).map(([key, label]) => [key, game.i18n.localize(label)])
-    );
-    data.holidayOptions = Object.fromEntries(
-      Object.entries(edicts.holiday).map(([key, label]) => [key, game.i18n.localize(label)])
-    );
-    data.promotionOptions = Object.fromEntries(
-      Object.entries(edicts.promotion).map(([key, label]) => [key, game.i18n.localize(label)])
-    );
-    data.taxationOptions = Object.fromEntries(
-      Object.entries(edicts.taxation).map(([key, label]) => [key, game.i18n.localize(label)])
-    );
+    data.alignmentOptions = pf1.config.alignments;
+    data.governmentOptions = pf1ks.config.kingdomGovernments;
+    data.holidayOptions = pf1ks.config.edicts.holiday;
+    data.promotionOptions = pf1ks.config.edicts.promotion;
+    data.taxationOptions = pf1ks.config.edicts.taxation;
 
     // summary
-    data.governmentLabel = game.i18n.localize(kingdomGovernments[actorData.government]);
+    data.governmentLabel = pf1ks.config.kingdomGovernments[actorData.government];
 
     // kingdom stats
     for (const abl of data.stats) {
@@ -117,18 +84,18 @@ export class KingdomSheet extends pf1.applications.actor.ActorSheetPF {
     }
 
     // kingdom modifiers
-    data.modifiers = Object.entries(settlementModifiers).reduce((acc, [key, value]) => {
-      acc.push({ value: actorData.modifiers[key], label: game.i18n.localize(value) });
-      return acc;
-    }, []);
+    data.modifiers = Object.entries(pf1ks.config.settlementModifiers).map(([key, label]) => ({
+      value: actorData.modifiers[key],
+      label,
+    }));
 
     // actions per turn
     const sizeBonus = findLargestSmallerNumber(
-      Object.keys(actionsPerTurn).map((k) => Number(k)),
+      Object.keys(pf1ks.config.actionsPerTurn).map((k) => Number(k)),
       actorData.size || 1
     );
-    const { fame, ...perTurnRaw } = actionsPerTurn[sizeBonus];
-    const perTurn = renameKeys(perTurnRaw, actionsPerTurnLabels);
+    const { fame, ...perTurnRaw } = pf1ks.config.actionsPerTurn[sizeBonus];
+    const perTurn = renameKeys(perTurnRaw, pf1ks.config.actionsPerTurnLabels);
     data.perTurn = perTurn;
     data.infinity = Infinity;
 
@@ -139,29 +106,22 @@ export class KingdomSheet extends pf1.applications.actor.ActorSheetPF {
       }
 
       const data = {
-        roleLabel: game.i18n.localize(leadershipRoles[leader.role]),
+        roleLabel: pf1ks.config.leadershipRoles[leader.role],
         key,
         actorId: leader.actorId,
         skillBonus: leader.skillBonus,
-        skillBonusLabel: game.i18n.localize(leadershipSkillBonuses[leader.skillBonusType]),
+        skillBonusLabel: pf1ks.config.leadershipSkillBonuses[leader.skillBonusType],
         bonus: leader.bonus,
         showSelector: false,
         bonusType: leader.bonusType,
-        bonusTypeLabel: game.i18n.localize(leadershipBonusOptions[leader.bonusType]),
+        bonusTypeLabel: pf1ks.config.leadershipBonusOptions[leader.bonusType],
       };
       if (leader.role === "ruler") {
         data.showSelector = actorData.size < 101;
-        data.bonusOptions = Object.fromEntries(
-          Object.entries(actorData.size < 26 ? kingdomStats : leadershipBonusTwoStats).map(([key, label]) => [
-            key,
-            game.i18n.localize(label),
-          ])
-        );
+        data.bonusOptions = actorData.size < 26 ? pf1ks.config.kingdomStats : pf1ks.config.leadershipBonusTwoStats;
       } else if (leader.role === "spymaster") {
         data.showSelector = true;
-        data.bonusOptions = Object.fromEntries(
-          Object.entries(kingdomStats).map(([key, label]) => [key, game.i18n.localize(label)])
-        );
+        data.bonusOptions = pf1ks.config.kingdomStats;
       }
 
       acc.push(data);
@@ -172,12 +132,12 @@ export class KingdomSheet extends pf1.applications.actor.ActorSheetPF {
     data.viceroys = actorData.leadership.viceroys.map((viceroy) => {
       return {
         id: viceroy.id,
-        roleLabel: game.i18n.localize(leadershipRoles[viceroy.role]),
+        roleLabel: pf1ks.config.leadershipRoles[viceroy.role],
         actorId: viceroy.actorId,
         skillBonus: viceroy.skillBonus,
-        skillBonusLabel: game.i18n.localize(leadershipSkillBonuses[viceroy.skillBonusType]),
+        skillBonusLabel: pf1ks.config.leadershipSkillBonuses[viceroy.skillBonusType],
         bonus: viceroy.bonus,
-        bonusTypeLabel: game.i18n.localize(leadershipBonusOptions[viceroy.bonusType]),
+        bonusTypeLabel: pf1ks.config.leadershipBonusOptions[viceroy.bonusType],
       };
     });
 
@@ -190,17 +150,18 @@ export class KingdomSheet extends pf1.applications.actor.ActorSheetPF {
     data.sections = this._prepareItems();
 
     // settlements
-    data.buildingType = kingdomBuildingId;
+    data.buildingType = pf1ks.config.kingdomBuildingId;
     data.settlements = this._prepareSettlements();
-    data.noSettlementBuildings = this.actor.itemTypes[kingdomBuildingId].filter(
+    data.noSettlementBuildings = this.actor.itemTypes[pf1ks.config.kingdomBuildingId].filter(
       (building) => !actorData.settlements.map((s) => s.id).includes(building.system.settlementId)
     );
 
     // terrain
-    data.terrain = Object.entries(actorData.terrain).reduce((acc, [key, value]) => {
-      acc[key] = { value, label: game.i18n.localize(terrainTypes[key]) };
-      return acc;
-    }, {});
+    data.terrain = Object.entries(actorData.terrain).map(([key, value]) => ({
+      key,
+      value,
+      label: pf1ks.config.terrainTypes[key],
+    }));
 
     // events
     data.eventChance = actorData.eventLastTurn ? 25 : 75;
@@ -237,9 +198,9 @@ export class KingdomSheet extends pf1.applications.actor.ActorSheetPF {
   _prepareItems() {
     const [improvements, events] = this.actor.items.reduce(
       (arr, item) => {
-        if (item.type === kingdomImprovementId) {
+        if (item.type === pf1ks.config.kingdomImprovementId) {
           arr[0].push(item);
-        } else if (item.type === kingdomEventId) {
+        } else if (item.type === pf1ks.config.kingdomEventId) {
           arr[1].push(item);
         }
         return arr;
@@ -290,12 +251,12 @@ export class KingdomSheet extends pf1.applications.actor.ActorSheetPF {
         defense,
         baseValue,
         modifiers: Object.entries(modifiers).map(([key, value]) => ({
-          label: game.i18n.localize(settlementModifiers[key]),
+          label: pf1ks.config.settlementModifiers[key],
           value: value.total,
           kingdomValue: this.actor.system.modifiers?.[key].total,
         })),
-        sizeLabel: game.i18n.localize(settlementSizes[settlement.size]),
-        buildings: this.actor.itemTypes[kingdomBuildingId].filter(
+        sizeLabel: pf1ks.config.settlementSizes[settlement.size],
+        buildings: this.actor.itemTypes[pf1ks.config.kingdomBuildingId].filter(
           (building) => building.system.settlementId === settlement.id
         ),
       };
@@ -315,8 +276,8 @@ export class KingdomSheet extends pf1.applications.actor.ActorSheetPF {
     return Object.entries(this.actor.system.settings.optionalRules).map(([key, value]) => ({
       name: key,
       value,
-      label: game.i18n.localize(optionalRules[key]),
-      compendiumEntry: compendiumEntries[key],
+      label: pf1ks.config.optionalRules[key],
+      compendiumEntry: pf1ks.config.compendiumEntries[key],
     }));
   }
 
@@ -337,12 +298,12 @@ export class KingdomSheet extends pf1.applications.actor.ActorSheetPF {
   async _onRollKingdomStat(event) {
     event.preventDefault();
     const kingdomStat = event.currentTarget.closest(".kingdom-stat").dataset.kingdomStat;
-    this.actor.system.rollKingdomStat(kingdomStat, { actor: this.actor });
+    this.actor.rollKingdomStat(kingdomStat, { actor: this.actor });
   }
 
   async _onRollEventChance(event) {
     event.preventDefault();
-    this.actor.system.rollEvent({ actor: this.actor });
+    this.actor.rollEvent({ actor: this.actor });
   }
 
   async _onViceroyCreate(event) {
@@ -411,7 +372,7 @@ export class KingdomSheet extends pf1.applications.actor.ActorSheetPF {
         }),
     });
 
-    const buildingIdsToDelete = this.actor.itemTypes[kingdomBuildingId]
+    const buildingIdsToDelete = this.actor.itemTypes[pf1ks.config.kingdomBuildingId]
       .filter((building) => building.system.settlementId === settlementId)
       .map((building) => building._id);
 
@@ -423,7 +384,7 @@ export class KingdomSheet extends pf1.applications.actor.ActorSheetPF {
 
     const newArmy = await Actor.create({
       name: game.i18n.localize("PF1KS.NewArmy"),
-      type: kingdomArmyId,
+      type: pf1ks.config.kingdomArmyId,
     });
 
     return this._createArmy(newArmy._id);
@@ -516,7 +477,7 @@ export class KingdomSheet extends pf1.applications.actor.ActorSheetPF {
     this._alterDropItemData(itemData, sourceItem);
 
     // if building dropped on a settlement, add the settlement id
-    if (itemData.type === kingdomBuildingId && settlementId) {
+    if (itemData.type === pf1ks.config.kingdomBuildingId && settlementId) {
       itemData.system.settlementId = settlementId;
     }
 
@@ -529,7 +490,7 @@ export class KingdomSheet extends pf1.applications.actor.ActorSheetPF {
 
     const actorData = await Actor.fromDropData(data);
 
-    if (actorData.type !== kingdomArmyId) {
+    if (actorData.type !== pf1ks.config.kingdomArmyId) {
       return false;
     }
 
@@ -550,13 +511,13 @@ export class KingdomSheet extends pf1.applications.actor.ActorSheetPF {
   _focusTabByItem(item) {
     let tabId;
     switch (item.type) {
-      case kingdomBuildingId:
+      case pf1ks.config.kingdomBuildingId:
         tabId = "settlements";
         break;
-      case kingdomImprovementId:
+      case pf1ks.config.kingdomImprovementId:
         tabId = "terrain";
         break;
-      case kingdomEventId:
+      case pf1ks.config.kingdomEventId:
         tabId = "events";
         break;
       default:
@@ -597,16 +558,73 @@ export class KingdomSheet extends pf1.applications.actor.ActorSheetPF {
     const { id } = re?.groups ?? {};
 
     switch (id) {
-      case "damageBonus":
+      case "controlDC":
         paths.push({
-          path: "@damageBonus.total",
-          value: actorData.damageBonus.total,
+          path: "@controlDC",
+          value: actorData.controlDC,
         });
         sources.push({
-          sources: getSource("system.damageBonus.total"),
+          sources: getSource("system.controlDC"),
           untyped: true,
         });
-        notes = getNotes(`${CFG.changePrefix}_damage`);
+        break;
+      case "consumption":
+        paths.push({
+          path: "@consumption.total",
+          value: actorData.consumption.total,
+        });
+        sources.push({
+          sources: getSource("system.consumption.total"),
+          untyped: true,
+        });
+        notes = getNotes(`${pf1ks.config.CFG.changePrefix}_consumption`);
+        break;
+      case "economy":
+      case "loyalty":
+      case "stability":
+        paths.push({
+          path: `@${id}.total`,
+          value: actorData[id].total,
+        });
+        sources.push({
+          sources: getSource(`system.${id}.total`),
+          untyped: true,
+        });
+        notes = getNotes(`${pf1ks.config.CFG.changePrefix}_${id}`);
+        break;
+      case "fame":
+        paths.push(
+          {
+            path: "@fame.base",
+            value: actorData.fame.base,
+          },
+          {
+            path: "@fame.total",
+            value: actorData.fame.total,
+          }
+        );
+        sources.push({
+          sources: getSource("system.fame.total"),
+          untyped: true,
+        });
+        notes = getNotes(`${pf1ks.config.CFG.changePrefix}_fame`);
+        break;
+      case "infamy":
+        paths.push(
+          {
+            path: "@infamy.base",
+            value: actorData.infamy.base,
+          },
+          {
+            path: "@infamy.total",
+            value: actorData.infamy.total,
+          }
+        );
+        sources.push({
+          sources: getSource("system.infamy.total"),
+          untyped: true,
+        });
+        notes = getNotes(`${pf1ks.config.CFG.changePrefix}_infamy`);
         break;
 
       default:

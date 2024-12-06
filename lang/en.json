@@ -22,19 +22,6 @@
     "Fame": "Fame",
     "Infamy": "Infamy",
 
-    "AlignmentLabel": "Alignment",
-    "Alignment": {
-      "LG": "Lawful Good",
-      "NG": "Neutral Good",
-      "CG": "Chaotic Good",
-      "LN": "Lawful Neutral",
-      "TN": "Neutral",
-      "CN": "Chaotic Neutral",
-      "LE": "Lawful Evil",
-      "NE": "Neutral Evil",
-      "CE": "Chaotic Evil"
-    },
-
     "GovernmentLabel": "Government",
     "Government": {
       "Autocracy": "Autocracy",
@@ -48,6 +35,7 @@
 
     "Edicts": "Edicts",
     "Edict": {
+      "HolidayChange": "Holidays - {value}",
       "HolidayLabel": "Holiday",
       "Holiday": {
         "None": "None",
@@ -56,6 +44,7 @@
         "12": "Monthly",
         "24": "Weekly"
       },
+      "PromotionChange": "Promotion - {value}",
       "PromotionLabel": "Promotion",
       "Promotion": {
         "None": "None",
@@ -64,6 +53,7 @@
         "Aggressive": "Aggressive",
         "Expansionist": "Expansionist"
       },
+      "TaxationChange": "Taxation - {value}",
       "TaxationLabel": "Taxation",
       "Taxation": {
         "None": "None",
@@ -79,6 +69,8 @@
     "SettlementsOrArmies": " Settlements/Armies",
 
     "LeadershipLabel": "Leadership",
+    "LeaderVacant": "{value} (Vacant)",
+    "LeaderSkillBonus": "{value} (Skill Bonus)",
     "Leadership": {
       "Ruler": "Ruler",
       "Consort": "Consort",
@@ -140,6 +132,7 @@
     "DeleteSettlementConfirmation": "Are you sure you want to delete this settlement?",
     "SettlementModifiers": "Settlement Modifiers",
     "DistrictCount": "District Count",
+    "Districts": "Districts",
     "BaseValue": "Base Value",
     "Defense": "Defense",
     "Danger": "Danger",

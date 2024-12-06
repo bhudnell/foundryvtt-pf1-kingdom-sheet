@@ -17,7 +17,7 @@
   <li class="flexrow item leader">
     <span class="item-position">{{ roleLabel }}</span>
     <select class="item-name" name="system.leadership.{{ key }}.actor">
-      {{selectOptions @root.validLeadershipChoices selected=actorId}}
+      {{selectOptions @root.validLeadershipOptions selected=actorId}}
     </select>
     {{#if @root.system.settings.optionalRules.leadershipSkills}}
     <span class="item-detail item-leader-skill-bonus"
@@ -40,7 +40,7 @@
   <li class="flexrow item leader" data-id="{{ id }}">
     <span class="item-position">{{ roleLabel }}</span>
     <select class="item-name" name="system.leadership.viceroys.{{ idx }}.actor">
-      {{selectOptions @root.validLeadershipChoices selected=actorId}}
+      {{selectOptions @root.validLeadershipOptions selected=actorId}}
     </select>
     {{#if @root.system.settings.optionalRules.leadershipSkills}}
     <span class="item-detail item-leader-skill-bonus"

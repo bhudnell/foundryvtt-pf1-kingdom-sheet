@@ -1,21 +1,3 @@
-import {
-  alignmentEffects,
-  alignments,
-  CFG,
-  edictEffects,
-  edicts,
-  governmentBonuses,
-  kingdomBuildingId,
-  kingdomEventId,
-  kingdomGovernments,
-  kingdomImprovementId,
-  kingdomStats,
-  leadershipBonusToKingdomStats,
-  leadershipBonusTwoStats,
-  leadershipPenalties,
-  settlementModifiers,
-} from "../../config/config.mjs";
-
 import { ArmyProxyModel } from "./armyProxyModel.mjs";
 import { defineLeader } from "./leaderModel.mjs";
 import { SettlementModel } from "./settlementModel.mjs";
@@ -24,8 +6,8 @@ export class KingdomModel extends foundry.abstract.TypeDataModel {
   static defineSchema() {
     const fields = foundry.data.fields;
     return {
-      government: new fields.StringField({ initial: "aut", choices: Object.keys(kingdomGovernments) }),
-      alignment: new fields.StringField({ blank: true, choices: Object.keys(alignments) }),
+      government: new fields.StringField({ initial: "aut", choices: Object.keys(pf1ks.config.kingdomGovernments) }),
+      alignment: new fields.StringField({ blank: true, choices: Object.keys(pf1.config.alignments) }),
       turn: new fields.NumberField({ integer: true, min: 0, initial: 0, nullable: false }),
       treasury: new fields.NumberField({ integer: true, initial: 0, nullable: false }),
       unrest: new fields.NumberField({ integer: true, min: 0, initial: 0, nullable: false }),
@@ -52,9 +34,9 @@ export class KingdomModel extends foundry.abstract.TypeDataModel {
         viceroys: new fields.ArrayField(new fields.EmbeddedDataField(defineLeader("viceroy", "economy", "kge"))),
       }),
       edicts: new fields.SchemaField({
-        holiday: new fields.StringField({ blank: true, choices: Object.keys(edicts.holiday) }),
-        promotion: new fields.StringField({ blank: true, choices: Object.keys(edicts.promotion) }),
-        taxation: new fields.StringField({ blank: true, choices: Object.keys(edicts.taxation) }),
+        holiday: new fields.StringField({ blank: true, choices: Object.keys(pf1ks.config.edicts.holiday) }),
+        promotion: new fields.StringField({ blank: true, choices: Object.keys(pf1ks.config.edicts.promotion) }),
+        taxation: new fields.StringField({ blank: true, choices: Object.keys(pf1ks.config.edicts.taxation) }),
       }),
       settlements: new fields.ArrayField(new fields.EmbeddedDataField(SettlementModel)),
       terrain: new fields.SchemaField({
@@ -88,28 +70,15 @@ export class KingdomModel extends foundry.abstract.TypeDataModel {
   }
 
   prepareBaseData() {
-    for (const stat of [...Object.keys(kingdomStats), "consumption", "bonusBP"]) {
-      this[stat] = { total: 0 };
+    for (const stat of [...Object.keys(pf1ks.config.kingdomStats), "consumption", "bonusBP", "fame", "infamy"]) {
+      this[stat] ??= {};
+      this[stat].total = 0;
     }
 
-    this.fame = {
-      base: this.fame.base,
-      lore: 0,
-      society: 0,
-      total: 0,
-    };
-
-    this.infamy = {
-      base: this.infamy.base,
-      corruption: 0,
-      crime: 0,
-      total: 0,
-    };
-
     this.modifiers = {};
-    for (const modifier of Object.keys(settlementModifiers)) {
+    for (const modifier of Object.keys(pf1ks.config.settlementModifiers)) {
       this.modifiers[modifier] = {
-        settlementBase: 0,
+        settlementSize: 0,
         alignment: 0,
         government: 0,
         buildings: 0,
@@ -131,35 +100,33 @@ export class KingdomModel extends foundry.abstract.TypeDataModel {
     this.size = Object.values(this.terrain).reduce((acc, curr) => acc + curr, 0);
     this.population =
       250 *
-      this.parent.itemTypes[kingdomBuildingId]
+      this.parent.itemTypes[pf1ks.config.kingdomBuildingId]
         .filter((building) => building.system.settlementId)
         .reduce((acc, curr) => acc + curr.system.lots * curr.system.quantity, 0);
     this.totalDistricts = this.settlements.reduce((acc, curr) => acc + curr.districtCount, 0);
     this.controlDC = 20 + this.size + this.totalDistricts;
 
-    this.fame.lore = Math.floor(this._getChanges("lore") / 10);
-    this.fame.society = Math.floor(this._getChanges("society") / 10);
-    this.fame.total = this.fame.lore + this.fame.society + this.fame.base;
-
-    this.infamy.corruption = Math.floor(this._getChanges("corruption") / 10);
-    this.infamy.crime = Math.floor(this._getChanges("crime") / 10);
-    this.infamy.total = this.infamy.corruption + this.infamy.crime + this.infamy.base;
+    this.fame.total = this.fame.base;
+    this.infamy.total = this.infamy.base;
 
     // update ruler bonus type to option allowed by kingdom size
     if (this.size < 26) {
-      if (!Object.keys(kingdomStats).includes(this.leadership.ruler.bonusType)) {
+      if (!Object.keys(pf1ks.config.kingdomStats).includes(this.leadership.ruler.bonusType)) {
         this.leadership.ruler.bonusType = "economy";
       }
-      if (this.settings.secondRuler && !Object.keys(kingdomStats).includes(this.leadership.consort.bonusType)) {
+      if (
+        this.settings.secondRuler &&
+        !Object.keys(pf1ks.config.kingdomStats).includes(this.leadership.consort.bonusType)
+      ) {
         this.leadership.consort.bonusType = "economy";
       }
     } else if (this.size < 101) {
-      if (!Object.keys(leadershipBonusTwoStats).includes(this.leadership.ruler.bonusType)) {
+      if (!Object.keys(pf1ks.config.leadershipBonusTwoStats).includes(this.leadership.ruler.bonusType)) {
         this.leadership.ruler.bonusType = "ecoLoy";
       }
       if (
         this.settings.secondRuler &&
-        !Object.keys(leadershipBonusTwoStats).includes(this.leadership.consort.bonusType)
+        !Object.keys(pf1ks.config.leadershipBonusTwoStats).includes(this.leadership.consort.bonusType)
       ) {
         this.leadership.consort.bonusType = "ecoLoy";
       }
@@ -171,77 +138,18 @@ export class KingdomModel extends foundry.abstract.TypeDataModel {
     }
 
     if (this.settings.optionalRules.kingdomModifiers) {
-      for (const modifier of Object.keys(settlementModifiers)) {
-        const settlementBase = this.settlements.reduce((acc, curr) => acc + curr.modifiers[modifier].size, 0) / 10;
-        const alignment = alignmentEffects[this.alignment]?.[modifier] ?? 0;
-        const government = governmentBonuses[this.government]?.[modifier] ?? 0;
-        const buildings = this._getChanges(modifier, kingdomBuildingId) / 10;
-        const improvements = this._getChanges(modifier, kingdomImprovementId) / 10;
-        const events = this._getChanges(modifier, kingdomEventId) / 10;
-        const total = Math.floor(settlementBase + alignment + government + buildings + improvements + events);
+      for (const modifier of Object.keys(pf1ks.config.settlementModifiers)) {
+        const settlementSize = this.settlements.reduce((acc, curr) => acc + curr.modifiers[modifier].size, 0) / 10;
+        const alignment = pf1ks.config.alignmentEffects[this.alignment]?.[modifier] ?? 0;
+        const government = pf1ks.config.governmentBonuses[this.government]?.[modifier] ?? 0;
+        const buildings = this._getChanges(modifier, pf1ks.config.kingdomBuildingId) / 10;
+        const improvements = this._getChanges(modifier, pf1ks.config.kingdomImprovementId) / 10;
+        const events = this._getChanges(modifier, pf1ks.config.kingdomEventId) / 10;
+        const total = Math.floor(settlementSize + alignment + government + buildings + improvements + events);
 
-        this.modifiers[modifier] = { settlementBase, alignment, government, buildings, improvements, events, total };
+        this.modifiers[modifier] = { settlementSize, alignment, government, buildings, improvements, events, total };
       }
     }
-  }
-
-  async rollKingdomStat(kingdomStatId, options = {}) {
-    const parts = [];
-
-    const changes = pf1.documents.actor.changes.getHighestChanges(
-      this.changes.filter((c) => c.operator !== "set" && c.target === kingdomStatId && c.value),
-      { ignoreTarget: true }
-    );
-
-    for (const c of changes) {
-      parts.push(`${c.value * (c.parent.system.quantity ?? 1)}[${c.flavor}]`);
-    }
-
-    const label = game.i18n.localize(kingdomStats[kingdomStatId]);
-    const actor = options.actor ?? this.actor;
-    const token = options.token ?? this.token;
-
-    const rollOptions = {
-      ...options,
-      parts,
-      flavor: game.i18n.format("PF1KS.KingdomStatRoll", { check: label }),
-      speaker: ChatMessage.getSpeaker({ actor, token, alias: token?.name }),
-    };
-
-    return await pf1.dice.d20Roll(rollOptions);
-  }
-
-  async rollEvent(options = {}) {
-    const roll = new pf1.dice.RollPF("1d100");
-
-    await roll.evaluate();
-
-    const eventChance = this.eventLastTurn ? 25 : 75;
-
-    const eventOccurred = roll.total <= eventChance;
-
-    const actor = options.actor ?? this.actor;
-    const token = options.token ?? this.token;
-
-    const templateData = {
-      label: game.i18n.format("PF1KS.EventChanceRoll", { chance: eventChance }),
-      formula: roll.formula,
-      natural: roll.total,
-      bonus: 0,
-      total: roll.total,
-      tooltip: await roll.getTooltip(),
-      eventOccurred,
-    };
-
-    const messageData = {
-      type: CONST.CHAT_MESSAGE_TYPES.ROLL,
-      sound: options.noSound ? undefined : CONFIG.sounds.dice,
-      content: await renderTemplate(`modules/${CFG.id}/templates/chat/event-roll.hbs`, templateData),
-      speaker: ChatMessage.getSpeaker({ actor, token, alias: token?.name }),
-      flags: { [CFG.id]: { eventChanceCard: true } },
-    };
-
-    await ChatMessage.create(messageData);
   }
 
   _prepareArmies() {
