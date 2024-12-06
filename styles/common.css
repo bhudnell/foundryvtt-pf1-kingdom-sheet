@@ -1,9 +1,18 @@
 .app.sheet.kingdom {
   .item-controls {
     flex: 0 0 68px;
+
+    &.one-button {
+      flex: 0 0 32px;
+    }
   }
 
   .item-detail {
+    > select {
+      border-style: none;
+      padding: 0;
+    }
+
     &.item-number {
       flex: 0 0 32px;
     }
@@ -18,12 +27,20 @@
     }
 
     /* leadership stuff */
-    /* &.item-leader-skill-bonus {
+    &.item-position {
+      flex: 0 0 120px;
+    }
+
+    &.item-actor {
+      flex: 1;
+    }
+
+    &.item-leader-skill-bonus {
       flex: 0 0 160px;
     }
 
     &.item-leader-bonus {
-      flex: 0 0 110px;
+      flex: 0 0 100px;
     }
 
     &.item-leader-bonus-value {
@@ -32,8 +49,12 @@
     }
 
     &.item-leader-bonus-type {
-      flex: 0 0 90px;
-    } */
+      justify-content: start;
+
+      > span {
+        padding-left: 4px;
+      }
+    }
 
     /* change stuff */
     /* &.item-target {

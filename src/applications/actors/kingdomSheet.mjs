@@ -322,7 +322,7 @@ export class KingdomSheet extends pf1.applications.actor.ActorSheetPF {
   async _onViceroyDelete(event) {
     event.preventDefault();
 
-    const viceroyId = event.currentTarget.closest(".item").dataset.id;
+    const viceroyId = event.currentTarget.closest(".item").dataset.itemId;
     const viceroys = foundry.utils.duplicate(this.actor.system.leadership.viceroys ?? []);
     viceroys.findSplice((viceroy) => viceroy.id === viceroyId);
 

@@ -4,7 +4,7 @@
     {{#each terrain}}
     <div class="info-box">
       <h5>{{ label }}</h5>
-      <span class="value text-box direct" name={{concat "system.terrain." key}} data-dtype="Number">{{ value }}</span>
+      <span class="value text-box direct" data-dtype="Number">{{ value }}</span>
     </div>
     {{/each}}
   </div>
@@ -44,7 +44,7 @@
     </li>
 
     {{#each section.items as |item iid|}}
-    <li class="item flexrow uncharged" data-item-id="{{ item.id }}">
+    <li class="item flexrow" data-item-id="{{ item.id }}">
       <div class="item-name rollable">
         <div
           class="item-image"

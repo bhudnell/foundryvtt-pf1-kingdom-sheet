@@ -1,59 +1,89 @@
-<ol class="item-list">
-  <li class="flexrow item-list-header">
-    <h3 class="item-position">{{localize "PF1KS.Position"}}</h3>
-    <span class="item-name">{{localize "PF1KS.FilledBy"}}</span>
-    {{#if system.settings.optionalRules.leadershipSkills}}
-    <span class="item-detail item-leader-skill-bonus">{{localize "PF1KS.SkillBonus"}}</span>
-    {{/if}}
-    <span class="item-detail item-leader-bonus">{{localize "PF1KS.Bonus"}}</span>
-    <div class="item-detail item-controls one-button">
-      <a class="leader-control viceroy-create" data-tooltip="PF1KS.CreateViceroy">
-        <i class="fa-solid fa-plus"></i>
-      </a>
-    </div>
-  </li>
+<ol class="item-groups-list">
+  <ol class="item-list">
+    <li class="item-list-header flexrow">
+      <div class="item-detail item-position">
+        <h3>{{localize "PF1KS.Position"}}</h3>
+      </div>
+      <div class="item-detail item-actor">
+        <label>{{localize "PF1KS.FilledBy"}}</label>
+      </div>
+      {{#if system.settings.optionalRules.leadershipSkills}}
+      <div class="item-detail item-leader-skill-bonus">
+        <label>{{localize "PF1KS.SkillBonus"}}</label>
+      </div>
+      {{/if}}
+      <div class="item-detail item-leader-bonus">
+        <label>{{localize "PF1KS.Bonus"}}</label>
+      </div>
+      {{#if @root.owner}}
+      <div class="item-controls one-button">
+        <a class="viceroy-create" data-tooltip="PF1KS.CreateViceroy">
+          <i class="fa-solid fa-plus"></i>
+        </a>
+      </div>
+      {{/if}}
+    </li>
 
-  {{#each leaders}}
-  <li class="flexrow item leader">
-    <span class="item-position">{{ roleLabel }}</span>
-    <select class="item-name" name="system.leadership.{{ key }}.actor">
-      {{selectOptions @root.validLeadershipOptions selected=actorId}}
-    </select>
-    {{#if @root.system.settings.optionalRules.leadershipSkills}}
-    <span class="item-detail item-leader-skill-bonus"
-      >{{ numberFormat skillBonus sign=true }} {{ skillBonusLabel }}</span
-    >
-    {{/if}}
-    <span class="item-detail item-leader-bonus-value">{{ numberFormat bonus sign=true }}</span>
-    {{#if showSelector}}
-    <select class="item-detail item-leader-bonus-type" name="system.leadership.{{ key }}.bonusType">
-      {{selectOptions bonusOptions selected=bonusType}}
-    </select>
-    {{else}}
-    <span class="item-detail item-leader-bonus-type">{{ bonusTypeLabel }}</span>
-    {{/if}}
-    <div class="item-detail item-controls one-button"></div>
-  </li>
-  {{/each}}
+    {{#each leaders}}
+    <li class="flexrow item">
+      <div class="item-detail item-position">
+        <span>{{ roleLabel }}</span>
+      </div>
+      <div class="item-detail item-actor">
+        <select name="system.leadership.{{ key }}.actor">
+          {{selectOptions @root.validLeadershipOptions selected=actorId}}
+        </select>
+      </div>
+      {{#if @root.system.settings.optionalRules.leadershipSkills}}
+      <div class="item-detail item-leader-skill-bonus">
+        <span>{{ numberFormat skillBonus sign=true }} {{ skillBonusLabel }}</span>
+      </div>
+      {{/if}}
+      <div class="item-detail item-leader-bonus-value">
+        <span>{{ numberFormat bonus sign=true }}</span>
+      </div>
+      <div class="item-detail item-leader-bonus-type">
+        {{#if showSelector}}
+        <select name="system.leadership.{{ key }}.bonusType">
+          {{selectOptions bonusOptions selected=bonusType}}
+        </select>
+        {{else}}
+        <span>{{ bonusTypeLabel }}</span>
+        {{/if}}
+      </div>
+      <div class="item-controls one-button"></div>
+    </li>
+    {{/each}}
 
-  {{#each viceroys as |viceroy idx|}}
-  <li class="flexrow item leader" data-id="{{ id }}">
-    <span class="item-position">{{ roleLabel }}</span>
-    <select class="item-name" name="system.leadership.viceroys.{{ idx }}.actor">
-      {{selectOptions @root.validLeadershipOptions selected=actorId}}
-    </select>
-    {{#if @root.system.settings.optionalRules.leadershipSkills}}
-    <span class="item-detail item-leader-skill-bonus"
-      >{{ numberFormat skillBonus sign=true }} {{ skillBonusLabel }}</span
-    >
-    {{/if}}
-    <span class="item-detail item-leader-bonus">{{ numberFormat bonus sign=true }} {{ bonusTypeLabel }}</span>
-    <input type="hidden" value="{{ id }}" name="system.leadership.viceroys.{{ idx }}.id" />
-    <div class="item-detail item-controls one-button">
-      <a class="leader-control viceroy-delete" data-tooltip="PF1KS.DeleteViceroy">
-        <i class="fa-solid fa-trash"></i>
-      </a>
-    </div>
-  </li>
-  {{/each}}
+    {{#each viceroys as |viceroy idx|}}
+    <li class="flexrow item" data-item-id="{{ id }}">
+      <div class="item-detail item-position">
+        <span class="item-position">{{ roleLabel }}</span>
+      </div>
+      <div class="item-detail item-actor">
+        <select class="item-name" name="system.leadership.viceroys.{{ idx }}.actor">
+          {{selectOptions @root.validLeadershipOptions selected=actorId}}
+        </select>
+      </div>
+      {{#if @root.system.settings.optionalRules.leadershipSkills}}
+      <div class="item-detail item-leader-skill-bonus">
+        <span>{{ numberFormat skillBonus sign=true }} {{ skillBonusLabel }}</span>
+      </div>
+      {{/if}}
+      <div class="item-detail item-leader-bonus-value">
+        <span>{{ numberFormat bonus sign=true }}</span>
+      </div>
+      <div class="item-detail item-leader-bonus-type">
+        <span>{{ bonusTypeLabel }}</span>
+      </div>
+      {{!-- todo can i add this to keepupdatearray --}}
+      <input type="hidden" value="{{ id }}" name="system.leadership.viceroys.{{ idx }}.id" />
+      <div class="item-controls one-button">
+        <a class="viceroy-delete" data-tooltip="PF1KS.DeleteViceroy">
+          <i class="fa-solid fa-trash"></i>
+        </a>
+      </div>
+    </li>
+    {{/each}}
+  </ol>
 </ol>
