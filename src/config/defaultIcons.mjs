@@ -1,25 +1,16 @@
-import {
-  kingdomArmyId,
-  kingdomBoonId,
-  kingdomBuildingId,
-  kingdomEventId,
-  kingdomImprovementId,
-  kingdomSheetId,
-  kingdomSpecialId,
-  kingdomTacticId,
-} from "./config.mjs";
+import { armyId, boonId, buildingId, eventId, improvementId, kingdomId, specialId, tacticId } from "./config.mjs";
 
 export const defaultIcons = {
   actors: {
-    [kingdomSheetId]: "icons/svg/city.svg",
-    [kingdomArmyId]: "icons/svg/combat.svg",
+    [kingdomId]: "icons/svg/city.svg",
+    [armyId]: "icons/svg/combat.svg",
   },
   items: {
-    [kingdomBuildingId]: "icons/svg/house.svg",
-    [kingdomEventId]: "icons/svg/clockwork.svg",
-    [kingdomImprovementId]: "icons/svg/windmill.svg",
-    [kingdomBoonId]: "icons/svg/upgrade.svg",
-    [kingdomSpecialId]: "icons/svg/daze.svg",
-    [kingdomTacticId]: "icons/svg/target.svg",
+    [buildingId]: "icons/svg/house.svg",
+    [eventId]: "icons/svg/clockwork.svg",
+    [improvementId]: "icons/svg/windmill.svg",
+    [boonId]: "icons/svg/upgrade.svg",
+    [specialId]: "icons/svg/daze.svg",
+    [tacticId]: "icons/svg/target.svg",
   },
 };

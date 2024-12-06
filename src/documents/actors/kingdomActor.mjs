@@ -9,7 +9,7 @@ export class KingdomActor extends BaseActor {
 
     const changes = pf1.documents.actor.changes.getHighestChanges(
       this.changes.filter(
-        (c) => c.operator !== "set" && c.target === `${pf1ks.config.CFG.changePrefix}_${kingdomStatId}` && c.value
+        (c) => c.operator !== "set" && c.target === `${pf1ks.config.changePrefix}_${kingdomStatId}` && c.value
       ),
       { ignoreTarget: true }
     );
@@ -57,9 +57,9 @@ export class KingdomActor extends BaseActor {
     const messageData = {
       type: CONST.CHAT_MESSAGE_TYPES.ROLL,
       sound: options.noSound ? undefined : CONFIG.sounds.dice,
-      content: await renderTemplate(`modules/${pf1ks.config.CFG.id}/templates/chat/event-roll.hbs`, templateData),
+      content: await renderTemplate(`modules/${pf1ks.config.moduleId}/templates/chat/event-roll.hbs`, templateData),
       speaker: ChatMessage.getSpeaker({ actor, token, alias: token?.name }),
-      flags: { [pf1ks.config.CFG.id]: { eventChanceCard: true } },
+      flags: { [pf1ks.config.moduleId]: { eventChanceCard: true } },
     };
 
     await ChatMessage.create(messageData);
@@ -84,26 +84,26 @@ export class KingdomActor extends BaseActor {
       changes.push(
         new DefaultChange(
           pf1ks.config.alignmentEffects[system.alignment]?.[stat] ?? 0,
-          `${pf1ks.config.CFG.changePrefix}_${stat}`,
+          `${pf1ks.config.changePrefix}_${stat}`,
           "PF1.Alignment"
         ),
 
         // edicts
         new DefaultChange(
           pf1ks.config.edictEffects.holiday[system.edicts.holiday]?.[stat] ?? 0,
-          `${pf1ks.config.CFG.changePrefix}_${stat}`,
+          `${pf1ks.config.changePrefix}_${stat}`,
           game.i18n.format("PF1KS.Edict.HolidayChange", { value: pf1ks.config.edicts.holiday[system.edicts.holiday] })
         ),
         new DefaultChange(
           pf1ks.config.edictEffects.promotion[system.edicts.promotion]?.[stat] ?? 0,
-          `${pf1ks.config.CFG.changePrefix}_${stat}`,
+          `${pf1ks.config.changePrefix}_${stat}`,
           game.i18n.format("PF1KS.Edict.PromotionChange", {
             value: pf1ks.config.edicts.promotion[system.edicts.promotion],
           })
         ),
         new DefaultChange(
           pf1ks.config.edictEffects.taxation[system.edicts.taxation]?.[stat] ?? 0,
-          `${pf1ks.config.CFG.changePrefix}_${stat}`,
+          `${pf1ks.config.changePrefix}_${stat}`,
           game.i18n.format("PF1KS.Edict.TaxationChange", {
             value: pf1ks.config.edicts.taxation[system.edicts.taxation],
           })
@@ -114,7 +114,7 @@ export class KingdomActor extends BaseActor {
           (leader) =>
             new DefaultChange(
               pf1ks.config.leadershipBonusToKingdomStats[leader.bonusType]?.includes(stat) ? leader.bonus : 0,
-              `${pf1ks.config.CFG.changePrefix}_${stat}`,
+              `${pf1ks.config.changePrefix}_${stat}`,
               pf1ks.config.leadershipRoles[leader.role]
             )
         ),
@@ -122,13 +122,13 @@ export class KingdomActor extends BaseActor {
           (leader) =>
             new DefaultChange(
               -(pf1ks.config.leadershipPenalties[leader.role][stat] ?? 0),
-              `${pf1ks.config.CFG.changePrefix}_${stat}`,
+              `${pf1ks.config.changePrefix}_${stat}`,
               game.i18n.format("PF1KS.LeaderVacant", { value: pf1ks.config.leadershipRoles[leader.role] })
             )
         ),
 
         // unrest
-        new DefaultChange(-system.unrest, `${pf1ks.config.CFG.changePrefix}_${stat}`, "PF1KS.Unrest")
+        new DefaultChange(-system.unrest, `${pf1ks.config.changePrefix}_${stat}`, "PF1KS.Unrest")
       );
 
       if (system.settings.optionalRules.leadershipSkills) {
@@ -137,7 +137,7 @@ export class KingdomActor extends BaseActor {
             (leader) =>
               new DefaultChange(
                 pf1ks.config.leadershipBonusToKingdomStats[leader.bonusType]?.includes(stat) ? leader.skillBonus : 0,
-                `${pf1ks.config.CFG.changePrefix}_${stat}`,
+                `${pf1ks.config.changePrefix}_${stat}`,
                 game.i18n.format("PF1KS.LeaderSkillBonus", { value: pf1ks.config.leadershipRoles[leader.role] })
               )
           )
@@ -147,16 +147,16 @@ export class KingdomActor extends BaseActor {
 
     // consumption
     changes.push(
-      new DefaultChange(system.size, `${pf1ks.config.CFG.changePrefix}_consumption`, "PF1KS.Size"),
-      new DefaultChange(system.totalDistricts, `${pf1ks.config.CFG.changePrefix}_consumption`, "PF1KS.Districts"),
+      new DefaultChange(system.size, `${pf1ks.config.changePrefix}_consumption`, "PF1KS.Size"),
+      new DefaultChange(system.totalDistricts, `${pf1ks.config.changePrefix}_consumption`, "PF1KS.Districts"),
       new DefaultChange(
         pf1ks.config.edictEffects.holiday[system.edicts.holiday]?.consumption ?? 0,
-        `${pf1ks.config.CFG.changePrefix}_consumption`,
+        `${pf1ks.config.changePrefix}_consumption`,
         game.i18n.format("PF1KS.Edict.HolidayChange", { value: pf1ks.config.edicts.holiday[system.edicts.holiday] })
       ),
       new DefaultChange(
         pf1ks.config.edictEffects.promotion[system.edicts.promotion]?.consumption ?? 0,
-        `${pf1ks.config.CFG.changePrefix}_consumption`,
+        `${pf1ks.config.changePrefix}_consumption`,
         game.i18n.format("PF1KS.Edict.PromotionChange", {
           value: pf1ks.config.edicts.promotion[system.edicts.promotion],
         })
@@ -165,24 +165,20 @@ export class KingdomActor extends BaseActor {
 
     // fame/infamy
     changes.push(
-      new DefaultChange(
-        Math.floor(this._getChanges("lore") / 10),
-        `${pf1ks.config.CFG.changePrefix}_fame`,
-        "PF1KS.Lore"
-      ),
+      new DefaultChange(Math.floor(this._getChanges("lore") / 10), `${pf1ks.config.changePrefix}_fame`, "PF1KS.Lore"),
       new DefaultChange(
         Math.floor(this._getChanges("society") / 10),
-        `${pf1ks.config.CFG.changePrefix}_fame`,
+        `${pf1ks.config.changePrefix}_fame`,
         "PF1KS.Society"
       ),
       new DefaultChange(
         Math.floor(this._getChanges("corruption") / 10),
-        `${pf1ks.config.CFG.changePrefix}_infamy`,
+        `${pf1ks.config.changePrefix}_infamy`,
         "PF1KS.Corruption"
       ),
       new DefaultChange(
         Math.floor(this._getChanges("crime") / 10),
-        `${pf1ks.config.CFG.changePrefix}_infamy`,
+        `${pf1ks.config.changePrefix}_infamy`,
         "PF1KS.Crime"
       )
     );

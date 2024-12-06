@@ -1,20 +1,18 @@
-export const CFG = {
-  id: "pf1-kingdom-sheet",
-  changePrefix: "pf1ks",
-};
+export const moduleId = "pf1-kingdom-sheet";
+export const changePrefix = "pf1ks";
 
-export const kingdomSheetId = `${CFG.id}.kingdom`;
-export const kingdomArmyId = `${CFG.id}.army`;
+export const kingdomId = `${moduleId}.kingdom`;
+export const armyId = `${moduleId}.army`;
 
-export const kingdomBuildingId = `${CFG.id}.building`;
-export const kingdomEventId = `${CFG.id}.event`;
-export const kingdomImprovementId = `${CFG.id}.improvement`;
-export const kingdomBoonId = `${CFG.id}.boon`;
-export const kingdomSpecialId = `${CFG.id}.special`;
-export const kingdomTacticId = `${CFG.id}.tactic`;
+export const buildingId = `${moduleId}.building`;
+export const eventId = `${moduleId}.event`;
+export const improvementId = `${moduleId}.improvement`;
+export const boonId = `${moduleId}.boon`;
+export const specialId = `${moduleId}.special`;
+export const tacticId = `${moduleId}.tactic`;
 
-export const kingdomItemTypes = [kingdomBuildingId, kingdomEventId, kingdomImprovementId];
-export const armyItemTypes = [kingdomBoonId, kingdomSpecialId, kingdomTacticId];
+export const kingdomItemTypes = [buildingId, eventId, improvementId];
+export const armyItemTypes = [boonId, specialId, tacticId];
 
 export const kingdomStats = {
   economy: "PF1KS.Economy",

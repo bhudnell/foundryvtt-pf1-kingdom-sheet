@@ -100,7 +100,7 @@ export class KingdomModel extends foundry.abstract.TypeDataModel {
     this.size = Object.values(this.terrain).reduce((acc, curr) => acc + curr, 0);
     this.population =
       250 *
-      this.parent.itemTypes[pf1ks.config.kingdomBuildingId]
+      this.parent.itemTypes[pf1ks.config.buildingId]
         .filter((building) => building.system.settlementId)
         .reduce((acc, curr) => acc + curr.system.lots * curr.system.quantity, 0);
     this.totalDistricts = this.settlements.reduce((acc, curr) => acc + curr.districtCount, 0);
@@ -142,9 +142,9 @@ export class KingdomModel extends foundry.abstract.TypeDataModel {
         const settlementSize = this.settlements.reduce((acc, curr) => acc + curr.modifiers[modifier].size, 0) / 10;
         const alignment = pf1ks.config.alignmentEffects[this.alignment]?.[modifier] ?? 0;
         const government = pf1ks.config.governmentBonuses[this.government]?.[modifier] ?? 0;
-        const buildings = this._getChanges(modifier, pf1ks.config.kingdomBuildingId) / 10;
-        const improvements = this._getChanges(modifier, pf1ks.config.kingdomImprovementId) / 10;
-        const events = this._getChanges(modifier, pf1ks.config.kingdomEventId) / 10;
+        const buildings = this._getChanges(modifier, pf1ks.config.buildingId) / 10;
+        const improvements = this._getChanges(modifier, pf1ks.config.improvementId) / 10;
+        const events = this._getChanges(modifier, pf1ks.config.eventId) / 10;
         const total = Math.floor(settlementSize + alignment + government + buildings + improvements + events);
 
         this.modifiers[modifier] = { settlementSize, alignment, government, buildings, improvements, events, total };

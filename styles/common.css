@@ -9,13 +9,13 @@
     }
 
     /* army stuff */
-    /* &.item-army-hp {
+    &.item-army-hp {
       flex: 0 0 64px;
     }
 
     &.item-commander {
       flex: 0 0 160px;
-    } */
+    }
 
     /* leadership stuff */
     /* &.item-leader-skill-bonus {

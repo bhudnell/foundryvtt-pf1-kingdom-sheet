@@ -16,7 +16,7 @@ export class ArmySheet extends pf1.applications.actor.ActorSheetPF {
   }
 
   get template() {
-    return `modules/${pf1ks.config.CFG.id}/templates/actors/army/${this.isEditable ? "edit" : "view"}.hbs`;
+    return `modules/${pf1ks.config.moduleId}/templates/actors/army/${this.isEditable ? "edit" : "view"}.hbs`;
   }
 
   async getData() {
@@ -69,7 +69,7 @@ export class ArmySheet extends pf1.applications.actor.ActorSheetPF {
   _prepareItems() {
     const [features, boons] = this.actor.items.reduce(
       (arr, item) => {
-        if (item.type === pf1ks.config.kingdomBoonId) {
+        if (item.type === pf1ks.config.boonId) {
           arr[1].push(item);
         } else {
           arr[0].push(item);
@@ -147,11 +147,11 @@ export class ArmySheet extends pf1.applications.actor.ActorSheetPF {
   _focusTabByItem(item) {
     let tabId;
     switch (item.type) {
-      case pf1ks.config.kingdomBoonId:
+      case pf1ks.config.boonId:
         tabId = "commander";
         break;
-      case pf1ks.config.kingdomSpecialId:
-      case pf1ks.config.kingdomTacticId:
+      case pf1ks.config.specialId:
+      case pf1ks.config.tacticId:
         tabId = "features";
         break;
       default:
@@ -253,7 +253,7 @@ export class ArmySheet extends pf1.applications.actor.ActorSheetPF {
           sources: getSource("system.morale.total"),
           untyped: true,
         });
-        notes = getNotes(`${pf1ks.config.CFG.changePrefix}_morale`);
+        notes = getNotes(`${pf1ks.config.changePrefix}_morale`);
         break;
       case "dv":
       case "om":
@@ -272,7 +272,7 @@ export class ArmySheet extends pf1.applications.actor.ActorSheetPF {
           sources: getSource(`system.${id}.total`),
           untyped: true,
         });
-        notes = getNotes(`${pf1ks.config.CFG.changePrefix}_${id}`);
+        notes = getNotes(`${pf1ks.config.changePrefix}_${id}`);
         break;
       case "damageBonus":
         paths.push({
@@ -283,7 +283,7 @@ export class ArmySheet extends pf1.applications.actor.ActorSheetPF {
           sources: getSource("system.damageBonus.total"),
           untyped: true,
         });
-        notes = getNotes(`${pf1ks.config.CFG.changePrefix}_damage`);
+        notes = getNotes(`${pf1ks.config.changePrefix}_damage`);
         break;
       case "maxTactics":
         sources.push({

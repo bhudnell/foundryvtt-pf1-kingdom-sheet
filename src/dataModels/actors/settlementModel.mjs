@@ -12,7 +12,7 @@ export class SettlementModel extends foundry.abstract.DataModel {
 
   prepareDerivedData() {
     const kingdom = this.parent;
-    const buildings = this.parent.parent.itemTypes[pf1ks.config.kingdomBuildingId];
+    const buildings = this.parent.parent.itemTypes[pf1ks.config.buildingId];
     const totalLots = buildings
       .filter((building) => building.system.settlementId === this.id)
       .reduce((acc, curr) => acc + curr.system.lots * curr.system.quantity, 0);
@@ -47,9 +47,9 @@ export class SettlementModel extends foundry.abstract.DataModel {
     for (const modifier of Object.keys(pf1ks.config.allSettlementModifiers)) {
       const size = ["defense", "baseValue"].includes(modifier) ? 0 : pf1ks.config.settlementValues[this.size].modifiers;
       const government = pf1ks.config.governmentBonuses[kingdom.government]?.[modifier] ?? 0;
-      const buildings = this._getChanges(modifier, pf1ks.config.kingdomBuildingId);
-      const improvements = this._getChanges(modifier, pf1ks.config.kingdomImprovementId);
-      const events = this._getChanges(modifier, pf1ks.config.kingdomEventId);
+      const buildings = this._getChanges(modifier, pf1ks.config.buildingId);
+      const improvements = this._getChanges(modifier, pf1ks.config.improvementId);
+      const events = this._getChanges(modifier, pf1ks.config.eventId);
 
       let total = size + government + buildings + improvements + events;
 

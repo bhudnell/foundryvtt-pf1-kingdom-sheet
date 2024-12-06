@@ -24,7 +24,7 @@ export class KingdomSheet extends pf1.applications.actor.ActorSheetPF {
   }
 
   get template() {
-    return `modules/${pf1ks.config.CFG.id}/templates/actors/kingdom/${this.isEditable ? "edit" : "view"}.hbs`;
+    return `modules/${pf1ks.config.moduleId}/templates/actors/kingdom/${this.isEditable ? "edit" : "view"}.hbs`;
   }
 
   async getData() {
@@ -150,9 +150,9 @@ export class KingdomSheet extends pf1.applications.actor.ActorSheetPF {
     data.sections = this._prepareItems();
 
     // settlements
-    data.buildingType = pf1ks.config.kingdomBuildingId;
+    data.buildingType = pf1ks.config.buildingId;
     data.settlements = this._prepareSettlements();
-    data.noSettlementBuildings = this.actor.itemTypes[pf1ks.config.kingdomBuildingId].filter(
+    data.noSettlementBuildings = this.actor.itemTypes[pf1ks.config.buildingId].filter(
       (building) => !actorData.settlements.map((s) => s.id).includes(building.system.settlementId)
     );
 
@@ -198,9 +198,9 @@ export class KingdomSheet extends pf1.applications.actor.ActorSheetPF {
   _prepareItems() {
     const [improvements, events] = this.actor.items.reduce(
       (arr, item) => {
-        if (item.type === pf1ks.config.kingdomImprovementId) {
+        if (item.type === pf1ks.config.improvementId) {
           arr[0].push(item);
-        } else if (item.type === pf1ks.config.kingdomEventId) {
+        } else if (item.type === pf1ks.config.eventId) {
           arr[1].push(item);
         }
         return arr;
@@ -256,7 +256,7 @@ export class KingdomSheet extends pf1.applications.actor.ActorSheetPF {
           kingdomValue: this.actor.system.modifiers?.[key].total,
         })),
         sizeLabel: pf1ks.config.settlementSizes[settlement.size],
-        buildings: this.actor.itemTypes[pf1ks.config.kingdomBuildingId].filter(
+        buildings: this.actor.itemTypes[pf1ks.config.buildingId].filter(
           (building) => building.system.settlementId === settlement.id
         ),
       };
@@ -372,7 +372,7 @@ export class KingdomSheet extends pf1.applications.actor.ActorSheetPF {
         }),
     });
 
-    const buildingIdsToDelete = this.actor.itemTypes[pf1ks.config.kingdomBuildingId]
+    const buildingIdsToDelete = this.actor.itemTypes[pf1ks.config.buildingId]
       .filter((building) => building.system.settlementId === settlementId)
       .map((building) => building._id);
 
@@ -384,7 +384,7 @@ export class KingdomSheet extends pf1.applications.actor.ActorSheetPF {
 
     const newArmy = await Actor.create({
       name: game.i18n.localize("PF1KS.NewArmy"),
-      type: pf1ks.config.kingdomArmyId,
+      type: pf1ks.config.armyId,
     });
 
     return this._createArmy(newArmy._id);
@@ -477,7 +477,7 @@ export class KingdomSheet extends pf1.applications.actor.ActorSheetPF {
     this._alterDropItemData(itemData, sourceItem);
 
     // if building dropped on a settlement, add the settlement id
-    if (itemData.type === pf1ks.config.kingdomBuildingId && settlementId) {
+    if (itemData.type === pf1ks.config.buildingId && settlementId) {
       itemData.system.settlementId = settlementId;
     }
 
@@ -490,7 +490,7 @@ export class KingdomSheet extends pf1.applications.actor.ActorSheetPF {
 
     const actorData = await Actor.fromDropData(data);
 
-    if (actorData.type !== pf1ks.config.kingdomArmyId) {
+    if (actorData.type !== pf1ks.config.armyId) {
       return false;
     }
 
@@ -511,13 +511,13 @@ export class KingdomSheet extends pf1.applications.actor.ActorSheetPF {
   _focusTabByItem(item) {
     let tabId;
     switch (item.type) {
-      case pf1ks.config.kingdomBuildingId:
+      case pf1ks.config.buildingId:
         tabId = "settlements";
         break;
-      case pf1ks.config.kingdomImprovementId:
+      case pf1ks.config.improvementId:
         tabId = "terrain";
         break;
-      case pf1ks.config.kingdomEventId:
+      case pf1ks.config.eventId:
         tabId = "events";
         break;
       default:
@@ -577,7 +577,7 @@ export class KingdomSheet extends pf1.applications.actor.ActorSheetPF {
           sources: getSource("system.consumption.total"),
           untyped: true,
         });
-        notes = getNotes(`${pf1ks.config.CFG.changePrefix}_consumption`);
+        notes = getNotes(`${pf1ks.config.changePrefix}_consumption`);
         break;
       case "economy":
       case "loyalty":
@@ -590,7 +590,7 @@ export class KingdomSheet extends pf1.applications.actor.ActorSheetPF {
           sources: getSource(`system.${id}.total`),
           untyped: true,
         });
-        notes = getNotes(`${pf1ks.config.CFG.changePrefix}_${id}`);
+        notes = getNotes(`${pf1ks.config.changePrefix}_${id}`);
         break;
       case "fame":
         paths.push(
@@ -607,7 +607,7 @@ export class KingdomSheet extends pf1.applications.actor.ActorSheetPF {
           sources: getSource("system.fame.total"),
           untyped: true,
         });
-        notes = getNotes(`${pf1ks.config.CFG.changePrefix}_fame`);
+        notes = getNotes(`${pf1ks.config.changePrefix}_fame`);
         break;
       case "infamy":
         paths.push(
@@ -624,7 +624,7 @@ export class KingdomSheet extends pf1.applications.actor.ActorSheetPF {
           sources: getSource("system.infamy.total"),
           untyped: true,
         });
-        notes = getNotes(`${pf1ks.config.CFG.changePrefix}_infamy`);
+        notes = getNotes(`${pf1ks.config.changePrefix}_infamy`);
         break;
 
       default:

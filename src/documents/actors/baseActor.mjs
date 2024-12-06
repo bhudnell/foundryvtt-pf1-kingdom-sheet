@@ -162,7 +162,7 @@ export class BaseActor extends pf1.documents.actor.ActorBasePF {
     return this.items
       .filter(
         (item) =>
-          item.type.startsWith(`${pf1ks.config.CFG.id}.`) &&
+          item.type.startsWith(`${pf1ks.config.moduleId}.`) &&
           item.isActive &&
           (item.system.contextNotes?.length > 0 || item.system._contextNotes?.length > 0)
       )
@@ -212,10 +212,10 @@ export class BaseActor extends pf1.documents.actor.ActorBasePF {
 
     this.changeItems = this.items.filter(
       (item) =>
-        item.type.startsWith(`${pf1ks.config.CFG.id}.`) &&
+        item.type.startsWith(`${pf1ks.config.moduleId}.`) &&
         item.hasChanges &&
         item.isActive &&
-        (item.type !== pf1ks.config.kingdomBuildingId || item.system.settlementId) // buildings must have a settlement ID to count
+        (item.type !== pf1ks.config.buildingId || item.system.settlementId) // buildings must have a settlement ID to count
     );
 
     for (const i of this.changeItems) {

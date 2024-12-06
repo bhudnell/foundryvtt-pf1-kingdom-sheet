@@ -61,7 +61,7 @@ export class CommanderModel extends foundry.abstract.DataModel {
   }
 
   get currBoons() {
-    return this.parent.parent.itemTypes[pf1ks.config.kingdomBoonId].length;
+    return this.parent.parent.itemTypes[pf1ks.config.boonId].length;
   }
 
   get maxBoons() {
