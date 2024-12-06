@@ -140,7 +140,7 @@ export class ArmySheet extends pf1.applications.actor.ActorSheetPF {
   async _onRollAttribute(event) {
     event.preventDefault();
     const attribute = event.currentTarget.closest(".attribute").dataset.attribute;
-    this.actor.system.rollAttribute(attribute, { actor: this.actor });
+    this.actor.rollAttribute(attribute, { actor: this.actor });
   }
 
   // overrides

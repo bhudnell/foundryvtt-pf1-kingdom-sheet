@@ -93,41 +93,6 @@ export class ArmyModel extends foundry.abstract.TypeDataModel {
     }
   }
 
-  async rollAttribute(attributeId, options = {}) {
-    const check = this[attributeId];
-
-    const parts = [];
-
-    if (check.base) {
-      parts.push(`${check.base}[${game.i18n.localize("PF1KS.Base")}]`);
-    }
-    if (check.commander) {
-      parts.push(`${check.commander}[${game.i18n.localize("PF1KS.Army.Commander")}]`);
-    }
-
-    const changes = pf1.documents.actor.changes.getHighestChanges(
-      this.changes.filter((c) => c.operator !== "set" && c.target === attributeId && c.value),
-      { ignoreTarget: true }
-    );
-
-    for (const c of changes) {
-      parts.push(`${c.value}[${c.flavor}]`);
-    }
-
-    const label = pf1ks.config.armyAttributes[attributeId];
-    const actor = options.actor ?? this.actor;
-    const token = options.token ?? this.token;
-
-    const rollOptions = {
-      ...options,
-      parts,
-      flavor: game.i18n.format("PF1KS.Army.AttributeRoll", { check: label }),
-      speaker: ChatMessage.getSpeaker({ actor, token, alias: token?.name }),
-    };
-
-    return await pf1.dice.d20Roll(rollOptions);
-  }
-
   get skills() {
     return {};
   }

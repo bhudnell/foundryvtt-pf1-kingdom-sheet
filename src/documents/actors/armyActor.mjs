@@ -4,6 +4,43 @@ import { DefaultChange } from "../../util/utils.mjs";
 import { BaseActor } from "./baseActor.mjs";
 
 export class ArmyActor extends BaseActor {
+  async rollAttribute(attributeId, options = {}) {
+    const check = this.system[attributeId];
+
+    const parts = [];
+
+    if (check.base) {
+      parts.push(`${check.base}[${game.i18n.localize("PF1KS.Base")}]`);
+    }
+    if (check.commander) {
+      parts.push(`${check.commander}[${game.i18n.localize("PF1KS.Army.Commander")}]`);
+    }
+
+    const changes = pf1.documents.actor.changes.getHighestChanges(
+      this.changes.filter(
+        (c) => c.operator !== "set" && c.target === `${pf1ks.config.CFG.changePrefix}_${attributeId}` && c.value
+      ),
+      { ignoreTarget: true }
+    );
+
+    for (const c of changes) {
+      parts.push(`${c.value}[${c.flavor}]`);
+    }
+
+    const label = pf1ks.config.armyAttributes[attributeId];
+    const actor = options.actor ?? this;
+    const token = options.token ?? this.token;
+
+    const rollOptions = {
+      ...options,
+      parts,
+      flavor: game.i18n.format("PF1KS.Army.AttributeRoll", { check: label }),
+      speaker: ChatMessage.getSpeaker({ actor, token, alias: token?.name }),
+    };
+
+    return await pf1.dice.d20Roll(rollOptions);
+  }
+
   // todo any more?
   _addDefaultChanges(changes) {
     const system = this.system;
