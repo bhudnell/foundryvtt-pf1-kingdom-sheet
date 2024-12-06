@@ -34,6 +34,7 @@ export const sheetSections = {
       filters: [{ type: buildingId }],
       interface: {},
       label: `PF1.Subtypes.Item.${buildingId}.Plural`,
+      browseLabel: "PF1KS.Browse.Buildings",
     },
   },
   kingdomTerrain: {
@@ -42,12 +43,14 @@ export const sheetSections = {
       filters: [{ type: improvementId, subTypes: ["general"] }],
       interface: {},
       label: `PF1.Subtypes.Item.${improvementId}.general.Plural`,
+      browseLabel: "PF1KS.Browse.Improvements",
     },
     special: {
       create: { type: improvementId, system: { subType: "special" } },
       filters: [{ type: improvementId, subTypes: ["special"] }],
       interface: {},
       label: `PF1.Subtypes.Item.${improvementId}.special.Plural`,
+      browseLabel: "PF1KS.Browse.Improvements",
     },
   },
   kingdomEvent: {
@@ -56,12 +59,14 @@ export const sheetSections = {
       filters: [{ type: eventId, subTypes: ["active"] }],
       interface: {},
       label: `PF1.Subtypes.Item.${eventId}.active.Plural`,
+      browseLabel: "PF1KS.Browse.Events",
     },
     misc: {
       create: { type: eventId, system: { subType: "misc" } },
       filters: [{ type: eventId, subTypes: ["misc"] }],
       interface: {},
       label: `PF1.Subtypes.Item.${eventId}.misc.Plural`,
+      browseLabel: "PF1KS.Browse.Events",
     },
   },
   kingdomArmy: {

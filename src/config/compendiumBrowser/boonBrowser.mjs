@@ -9,6 +9,6 @@ class BoonFilter extends pf1.applications.compendiumBrowser.filters.BaseFilter {
 
 export class BoonBrowser extends pf1.applications.compendiumBrowser.CompendiumBrowser {
   static documentName = "Item";
-  static typeName = boonId;
+  static typeName = "PF1KS.Army.Boons";
   static filterClasses = [commonFilters.PackFilter, commonFilters.TagFilter, BoonFilter];
 }

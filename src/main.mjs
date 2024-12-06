@@ -8,6 +8,9 @@ import { SpecialSheet } from "./applications/items/specialSheet.mjs";
 import { TacticSheet } from "./applications/items/tacticSheet.mjs";
 import * as Config from "./config/_module.mjs";
 import { BoonBrowser } from "./config/compendiumBrowser/boonBrowser.mjs";
+import { BuildingBrowser } from "./config/compendiumBrowser/buildingBrowser.mjs";
+import { EventBrowser } from "./config/compendiumBrowser/eventBrowser.mjs";
+import { ImprovementBrowser } from "./config/compendiumBrowser/improvementBrowser.mjs";
 import { SpecialBrowser } from "./config/compendiumBrowser/specialBrowser.mjs";
 import { TacticBrowser } from "./config/compendiumBrowser/tacticBrowser.mjs";
 import * as PF1KS from "./config/config.mjs";
@@ -230,14 +233,23 @@ Hooks.once("ready", () => {
   });
 
   pf1.applications.compendiums.boon = new BoonBrowser();
+  pf1.applications.compendiums.building = new BuildingBrowser();
+  pf1.applications.compendiums.event = new EventBrowser();
+  pf1.applications.compendiums.improvement = new ImprovementBrowser();
   pf1.applications.compendiums.tactic = new TacticBrowser();
   pf1.applications.compendiums.special = new SpecialBrowser();
 
   pf1.applications.compendiumBrowser.boon = BoonBrowser;
+  pf1.applications.compendiumBrowser.building = BuildingBrowser;
+  pf1.applications.compendiumBrowser.event = EventBrowser;
+  pf1.applications.compendiumBrowser.improvement = ImprovementBrowser;
   pf1.applications.compendiumBrowser.tactic = TacticBrowser;
   pf1.applications.compendiumBrowser.special = SpecialBrowser;
 
   game.model.Item[PF1KS.boonId] = {};
+  game.model.Item[PF1KS.buildingId] = {};
+  game.model.Item[PF1KS.eventId] = {};
+  game.model.Item[PF1KS.improvementId] = {};
   game.model.Item[PF1KS.tacticId] = {};
   game.model.Item[PF1KS.specialId] = {};
 });

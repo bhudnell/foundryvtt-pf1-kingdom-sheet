@@ -287,6 +287,9 @@
 
     "Browse": {
       "Boons": "Browse Boons",
+      "Buildings": "Browse Buildings",
+      "Events": "Browse Events",
+      "Improvements": "Browse Terrain Improvements",
       "Tactics": "Browse Tactics",
       "Special": "Browse Special Abilities"
     },
