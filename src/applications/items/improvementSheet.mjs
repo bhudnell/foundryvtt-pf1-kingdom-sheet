@@ -13,10 +13,10 @@ export class ImprovementSheet extends ItemBaseSheet {
     context.settlementIdOptions = settlementIdOptions;
 
     // subType
-    context.subType = pf1ks.config.itemSubTypes[itemData.subType];
     context.subTypeOptions = pf1ks.config.improvementSubTypes;
 
     // sidebar info
+    context.subType = pf1ks.config.itemSubTypes[itemData.subType];
     context.sidebarContent = [
       {
         isNumber: true,

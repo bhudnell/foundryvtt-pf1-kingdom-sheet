@@ -4,36 +4,9 @@
 
 - Army Sheet https://www.aonprd.com/Rules.aspx?ID=1565
   - Add damage bonus to OM check card
-  - Changes
-    - OM
-    - DV
-    - Morale
-    - Bonus tactic
-    - Consumption
-    - Speed
-    - Damage
-
-- Building Sheet
-  - Description Tab
-    - Description (contains everything below as text)
-    - Upgrade To
-    - Upgrade From
-    - Special
-    - Magic Items
-    - Discounts
-    - Limit
-  - Details Tab
-    - Quantity
-    - Changes
-    - Type (House, Foundry, Castle, etc)
-    - Lot Size
-    - Cost
-    - Settlement id
 
 - Misc
   - add army actor/item packs to module.json
-  - add additional columns to buildings, terrain, and events item lists
-  - add additional columns to tactics item lists
-  - tootips everwhere
+  - edict/government/alignment tootips
   - create compendium items
   - clean up en.json

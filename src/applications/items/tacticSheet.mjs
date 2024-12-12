@@ -2,9 +2,10 @@ import { ItemBaseSheet } from "./itemBaseSheet.mjs";
 
 export class TacticSheet extends ItemBaseSheet {
   async getData(options = {}) {
+    const itemData = this.item.system;
     const context = await super.getData(options);
 
-    const itemData = this.item.system;
+    // sidebar info
     context.states = [
       {
         field: "system.disabled",

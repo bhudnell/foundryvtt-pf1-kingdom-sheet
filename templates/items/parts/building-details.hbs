@@ -1,5 +1,31 @@
-<div class="flex0 flexrow">
-  <select name="system.settlementId">
-    {{selectOptions settlementIdOptions selected=system.settlementId}}
-  </select>
+<div class="form-group">
+  <label>{{localize "PF1KS.SettlementLabel"}}</label>
+  <div class="form-fields">
+    <select name="system.settlementId">
+      {{selectOptions settlementIdOptions selected=system.settlementId}}
+    </select>
+  </div>
+</div>
+
+<div class="form-group">
+  <label>{{localize "PF1KS.BuildingType"}}</label>
+  <div class="form-fields">
+    <select class="sub-type-selector" name="system.type">
+      {{selectOptions buildingTypeOptions selected=system.type}}
+    </select>
+  </div>
+</div>
+
+<div class="form-group">
+  <label>{{localize "PF1.Type"}}</label>
+  <div class="form-fields">
+    {{numberInput system.lots name="system.lots" step=1 min=0}}
+  </div>
+</div>
+
+<div class="form-group">
+  <label>{{localize "PF1.Type"}}</label>
+  <div class="form-fields">
+    {{numberInput system.cost name="system.cost" step=1 min=0}}
+  </div>
 </div>

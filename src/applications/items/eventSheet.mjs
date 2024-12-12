@@ -13,10 +13,10 @@ export class EventSheet extends ItemBaseSheet {
     context.settlementIdOptions = settlementIdOptions;
 
     // subType
-    context.subType = pf1ks.config.itemSubTypes[itemData.subType];
     context.subTypeOptions = pf1ks.config.eventSubTypes;
 
     // sidebar info
+    context.subType = pf1ks.config.itemSubTypes[itemData.subType];
     context.sidebarContent = [
       {
         isBoolean: true,
