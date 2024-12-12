@@ -5,6 +5,10 @@
     &.one-button {
       flex: 0 0 32px;
     }
+
+    &.five-button {
+      flex: 0 0 110px;
+    }
   }
 
   .item-detail {
@@ -15,6 +19,11 @@
 
     &.item-number {
       flex: 0 0 32px;
+    }
+
+    /* building stuff */
+    &.item-building-type {
+      flex: 0 0 120px;
     }
 
     /* army stuff */

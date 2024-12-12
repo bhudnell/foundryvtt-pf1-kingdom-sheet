@@ -4,6 +4,81 @@ import { DefaultChange } from "../../util/utils.mjs";
 import { BaseActor } from "./baseActor.mjs";
 
 export class KingdomActor extends BaseActor {
+  prepareDerivedData() {
+    super.prepareDerivedData();
+
+    // kingdom modifiers
+    if (this.system.settings.optionalRules.kingdomModifiers) {
+      for (const modifier of Object.keys(pf1ks.config.settlementModifiers)) {
+        const settlementSize =
+          this.system.settlements.reduce((acc, curr) => acc + curr.modifiers[modifier].size, 0) / 10;
+        const alignment = pf1ks.config.alignmentEffects[this.system.alignment]?.[modifier] ?? 0;
+        const government = pf1ks.config.governmentBonuses[this.system.government]?.[modifier] ?? 0;
+        const buildings = this._getChanges(modifier, pf1ks.config.buildingId) / 10;
+        const improvements = this._getChanges(modifier, pf1ks.config.improvementId) / 10;
+        const events = this._getChanges(modifier, pf1ks.config.eventId) / 10;
+        const total = Math.floor(settlementSize + alignment + government + buildings + improvements + events);
+
+        this.system.modifiers[modifier] = {
+          settlementSize,
+          alignment,
+          government,
+          buildings,
+          improvements,
+          events,
+          total,
+        };
+      }
+    }
+
+    // settlement modifiers
+    // this is split between here and settlementModel.mjs because of the change system.
+    // size, alignment, and government are handled in settlementModel.mjs and item changes and the totals are handled here
+    for (const settlement of this.system.settlements) {
+      for (const modifier of Object.keys(pf1ks.config.allSettlementModifiers)) {
+        const { size, alignment, government } = settlement.modifiers[modifier];
+        const buildings = this._getChanges(modifier, pf1ks.config.buildingId, settlement.id);
+        const improvements = this._getChanges(modifier, pf1ks.config.improvementId, settlement.id);
+        const events = this._getChanges(modifier, pf1ks.config.eventId, settlement.id);
+
+        let settlementTotal = size + alignment + government + buildings + improvements + events;
+
+        if (modifier === "baseValue") {
+          settlementTotal = Math.min(
+            settlementTotal,
+            this.system.settings.optionalRules.altSettlementSizes
+              ? pf1ks.config.altSettlementValues[settlement.size].maxBaseValue
+              : pf1ks.config.settlementValues[settlement.size].maxBaseValue
+          );
+        }
+
+        let total = settlementTotal;
+        if (
+          this.system.settings.optionalRules.kingdomModifiers &&
+          Object.keys(pf1ks.config.settlementModifiers).includes(modifier)
+        ) {
+          total = Math.max(total, this.system.modifiers[modifier].total);
+        }
+
+        settlement.modifiers[modifier] = {
+          size,
+          alignment,
+          government,
+          buildings,
+          improvements,
+          events,
+          settlementTotal,
+          total,
+        };
+      }
+    }
+
+    // deleting this because it only exists to get settlement modifier changes to parse
+    delete this.system.someFakeData;
+
+    this._setSourceDetails();
+  }
+
   async rollKingdomStat(kingdomStatId, options = {}) {
     const parts = [];
 
@@ -187,8 +262,8 @@ export class KingdomActor extends BaseActor {
   }
 
   _setSourceDetails() {
-    const sourceDetails = { "system.controlDC": [] };
     // Get empty source arrays
+    const sourceDetails = {};
     for (const b of Object.keys({ ...kingdomBuffTargets, ...commonBuffTargets })) {
       const buffTargets = pf1.documents.actor.changes.getChangeFlat.call(this, b, null);
       for (const bt of buffTargets) {
@@ -199,7 +274,7 @@ export class KingdomActor extends BaseActor {
     }
 
     // control DC
-    sourceDetails["system.controlDC"].push(
+    sourceDetails["system.controlDC"] = [
       {
         name: game.i18n.localize("PF1.Base"),
         value: game.i18n.format("PF1.SetTo", { value: 20 }),
@@ -211,8 +286,36 @@ export class KingdomActor extends BaseActor {
       {
         name: game.i18n.localize("PF1KS.Districts"),
         value: this.system.totalDistricts,
+      },
+    ];
+
+    // kingdom modifiers
+    Object.keys(pf1ks.config.settlementModifiers).forEach((mod) => {
+      sourceDetails[`system.modifiers.${mod}.total`] = [];
+      if (this.system.modifiers[mod].alignment) {
+        sourceDetails[`system.modifiers.${mod}.total`].push({
+          name: game.i18n.localize("PF1.Alignment"),
+          value: this.system.modifiers[mod].alignment,
+        });
       }
-    );
+      if (this.system.modifiers[mod].government) {
+        sourceDetails[`system.modifiers.${mod}.total`].push({
+          name: game.i18n.localize("PF1KS.GovernmentLabel"),
+          value: this.system.modifiers[mod].government,
+        });
+      }
+      const settlementTotal =
+        this.system.modifiers[mod].settlementSize +
+        this.system.modifiers[mod].buildings +
+        this.system.modifiers[mod].improvements +
+        this.system.modifiers[mod].events;
+      if (settlementTotal) {
+        sourceDetails[`system.modifiers.${mod}.total`].push({
+          name: game.i18n.localize("PF1KS.Settlements"),
+          value: Math.floor(settlementTotal),
+        });
+      }
+    });
 
     // fame/infamy
     for (let attributeId of ["fame", "infamy"]) {
@@ -223,6 +326,64 @@ export class KingdomActor extends BaseActor {
         });
       }
     }
+
+    // settlement stuff
+    this.system.settlements.forEach((s, idx) => {
+      // danger
+      sourceDetails[`system.settlements.${idx}.danger`] = [];
+      if (s.danger) {
+        sourceDetails[`system.settlements.${idx}.danger`].push({
+          name: game.i18n.localize("PF1.Base"),
+          value: s.danger,
+        });
+      }
+      // modifiers
+      Object.keys(pf1ks.config.allSettlementModifiers).forEach((mod) => {
+        sourceDetails[`system.settlements.${idx}.modifiers.${mod}.total`] = [];
+        if (s.modifiers[mod].size) {
+          sourceDetails[`system.settlements.${idx}.modifiers.${mod}.total`].push({
+            name: game.i18n.localize("PF1KS.Settlement.Size"),
+            value: s.modifiers[mod].size,
+          });
+        }
+        if (s.modifiers[mod].alignment) {
+          sourceDetails[`system.settlements.${idx}.modifiers.${mod}.total`].push({
+            name: game.i18n.localize("PF1.Alignment"),
+            value: s.modifiers[mod].alignment,
+          });
+        }
+        if (s.modifiers[mod].government) {
+          sourceDetails[`system.settlements.${idx}.modifiers.${mod}.total`].push({
+            name: game.i18n.localize("PF1KS.GovernmentLabel"),
+            value: s.modifiers[mod].government,
+          });
+        }
+        if (s.modifiers[mod].buildings) {
+          sourceDetails[`system.settlements.${idx}.modifiers.${mod}.total`].push({
+            name: game.i18n.localize("PF1KS.Buildings"),
+            value: s.modifiers[mod].buildings,
+          });
+        }
+        if (s.modifiers[mod].improvements) {
+          sourceDetails[`system.settlements.${idx}.modifiers.${mod}.total`].push({
+            name: game.i18n.localize("PF1KS.Improvements"),
+            value: s.modifiers[mod].improvements,
+          });
+        }
+        if (s.modifiers[mod].events) {
+          sourceDetails[`system.settlements.${idx}.modifiers.${mod}.total`].push({
+            name: game.i18n.localize("PF1KS.Events"),
+            value: s.modifiers[mod].events,
+          });
+        }
+        if (s.modifiers[mod].total > s.modifiers[mod].settlementTotal) {
+          sourceDetails[`system.settlements.${idx}.modifiers.${mod}.total`].push({
+            name: game.i18n.localize("PF1KS.KingdomModifier"),
+            value: game.i18n.format("PF1.SetTo", { value: s.modifiers[mod].total }),
+          });
+        }
+      });
+    });
 
     // TODO more?
     // sourceDetails["system.speed.total"].push({
@@ -273,19 +434,29 @@ export class KingdomActor extends BaseActor {
     this.sourceDetails = sourceDetails;
   }
 
-  _getChanges(target, type) {
-    return (
-      this.changes
-        ?.filter((c) => {
-          if (c.target !== target) {
-            return false;
-          }
-          if (type && c.parent.type !== type) {
-            return false;
-          }
-          return true;
-        })
-        .reduce((total, c) => total + c.value * (c.parent.system.quantity ?? 1), 0) ?? 0
-    );
+  _getChanges(target, type, settlementId) {
+    if (!this.changes) {
+      return 0;
+    }
+
+    return this.changes
+      .filter((c) => {
+        const changeTarget = c.target.split("_")[1];
+        if (changeTarget !== target) {
+          return false;
+        }
+        if (type && c.parent.type !== type) {
+          return false;
+        }
+        if (
+          settlementId &&
+          Object.keys(pf1ks.config.allSettlementModifiers).includes(changeTarget) &&
+          c.parent.system.settlementId !== settlementId
+        ) {
+          return false;
+        }
+        return true;
+      })
+      .reduce((total, c) => total + c.value * (c.parent.system.quantity ?? 1), 0);
   }
 }

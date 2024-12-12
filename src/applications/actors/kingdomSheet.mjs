@@ -66,7 +66,7 @@ export class KingdomSheet extends pf1.applications.actor.ActorSheetPF {
     // TODO unrest > 10 warning -> lose 1 hex a turn
     // TODO unrest > 19 error -> kingdom in anarchy
     // TODO any unrest increases such as from vacancies
-    // Base fame+infamy < expected
+    // TODO Base fame+infamy < or > expected
 
     // selectors
     data.alignmentOptions = pf1.config.alignments;
@@ -85,6 +85,7 @@ export class KingdomSheet extends pf1.applications.actor.ActorSheetPF {
 
     // kingdom modifiers
     data.modifiers = Object.entries(pf1ks.config.settlementModifiers).map(([key, label]) => ({
+      id: key,
       value: actorData.modifiers[key],
       label,
     }));
@@ -149,11 +150,9 @@ export class KingdomSheet extends pf1.applications.actor.ActorSheetPF {
 
     data.sections = this._prepareItems();
 
-    // settlements
-    data.buildingType = pf1ks.config.buildingId;
-    data.settlements = this._prepareSettlements();
+    // settlements todo move into _prepareItems?
     data.noSettlementBuildings = this.actor.itemTypes[pf1ks.config.buildingId].filter(
-      (building) => !actorData.settlements.map((s) => s.id).includes(building.system.settlementId)
+      (building) => !building.system.settlementId
     );
 
     // terrain
@@ -180,6 +179,7 @@ export class KingdomSheet extends pf1.applications.actor.ActorSheetPF {
 
     html.find(".governmentForms").on("change", (e) => this._onGovernmentToggle(e));
     html.find(".secondRuler").on("change", (e) => this._onSecondRulerToggle(e));
+    html.find(".item-toggle-data").on("click", (e) => this._itemToggleData(e));
 
     html.find(".kingdom-stat .rollable").on("click", (e) => this._onRollKingdomStat(e));
     html.find(".event-chance .rollable").on("click", (e) => this._onRollEventChance(e));
@@ -196,29 +196,46 @@ export class KingdomSheet extends pf1.applications.actor.ActorSheetPF {
   }
 
   _prepareItems() {
-    const [improvements, events] = this.actor.items.reduce(
-      (arr, item) => {
-        if (item.type === pf1ks.config.improvementId) {
-          arr[0].push(item);
-        } else if (item.type === pf1ks.config.eventId) {
-          arr[1].push(item);
-        }
-        return arr;
-      },
-      [[], []]
-    );
+    const settlementSections = this.actor.system.settlements.map((settlement) => {
+      const { defense, baseValue, ...modifiers } = settlement.modifiers;
+
+      return {
+        ...settlement,
+        defense,
+        baseValue,
+        modifiers: Object.entries(modifiers).map(([key, value]) => {
+          return {
+            id: key,
+            label: pf1ks.config.settlementModifiers[key],
+            value: value.total,
+          };
+        }),
+        sizeLabel: pf1ks.config.settlementSizes[settlement.size],
+        buildings: {
+          ...pf1.config.sheetSections.kingdomSettlement.building,
+          items: this.actor.itemTypes[pf1ks.config.buildingId]
+            .filter((building) => building.system.settlementId === settlement.id)
+            .map((building) => ({
+              ...building,
+              id: building.id,
+              isEmpty: building.system.quantity === 0,
+              buildingType: pf1ks.config.buildingTypes[building.system.type],
+            })),
+        },
+      };
+    });
 
     const terrainSections = Object.values(pf1.config.sheetSections.kingdomTerrain).map((data) => ({ ...data }));
-    for (const i of improvements) {
+    for (const i of this.actor.itemTypes[pf1ks.config.improvementId]) {
       const section = terrainSections.find((section) => this._applySectionFilter(i, section));
       if (section) {
         section.items ??= [];
-        section.items.push(i);
+        section.items.push({ ...i, id: i.id, isEmpty: i.system.quantity === 0 });
       }
     }
 
     const eventsSections = Object.values(pf1.config.sheetSections.kingdomEvent).map((data) => ({ ...data }));
-    for (const i of events) {
+    for (const i of this.actor.itemTypes[pf1ks.config.eventId]) {
       const section = eventsSections.find((section) => this._applySectionFilter(i, section));
       if (section) {
         section.items ??= [];
@@ -239,28 +256,8 @@ export class KingdomSheet extends pf1.applications.actor.ActorSheetPF {
         section._hidden = set?.size > 0 && !set.has(section.id);
       }
     }
-    return { terrain: terrainSections, events: eventsSections };
-  }
 
-  _prepareSettlements() {
-    return this.actor.system.settlements.map((settlement) => {
-      const { defense, baseValue, ...modifiers } = settlement.modifiers;
-
-      return {
-        ...settlement,
-        defense,
-        baseValue,
-        modifiers: Object.entries(modifiers).map(([key, value]) => ({
-          label: pf1ks.config.settlementModifiers[key],
-          value: value.total,
-          kingdomValue: this.actor.system.modifiers?.[key].total,
-        })),
-        sizeLabel: pf1ks.config.settlementSizes[settlement.size],
-        buildings: this.actor.itemTypes[pf1ks.config.buildingId].filter(
-          (building) => building.system.settlementId === settlement.id
-        ),
-      };
-    });
+    return { terrain: terrainSections, events: eventsSections, settlements: settlementSections };
   }
 
   _prepareArmies() {
@@ -293,6 +290,20 @@ export class KingdomSheet extends pf1.applications.actor.ActorSheetPF {
     } else {
       this.actor.update({ "system.leadership.consort": { bonusType: "loyalty", role: "consort" } });
     }
+  }
+
+  async _itemToggleData(event) {
+    event.preventDefault();
+    const el = event.currentTarget;
+
+    const itemId = el.closest(".item").dataset.itemId;
+    const item = this.actor.items.get(itemId);
+    const property = el.dataset.name;
+
+    const updateData = { system: {} };
+    foundry.utils.setProperty(updateData.system, property, !foundry.utils.getProperty(item.system, property));
+
+    item.update(updateData);
   }
 
   async _onRollKingdomStat(event) {
@@ -451,6 +462,8 @@ export class KingdomSheet extends pf1.applications.actor.ActorSheetPF {
     }
   }
 
+  // TODO when creating a building in a settlement, I need to figure out a way to pre-populate the settlement id
+
   // overrides
   async _onDropItem(event, data) {
     if (!this.actor.isOwner) {
@@ -555,7 +568,7 @@ export class KingdomSheet extends pf1.applications.actor.ActorSheetPF {
     let notes;
 
     const re = /^(?<id>[\w-]+)(?:\.(?<detail>.*))?$/.exec(fullId);
-    const { id } = re?.groups ?? {};
+    const { id, detail } = re?.groups ?? {};
 
     switch (id) {
       case "controlDC":
@@ -626,6 +639,62 @@ export class KingdomSheet extends pf1.applications.actor.ActorSheetPF {
         });
         notes = getNotes(`${pf1ks.config.changePrefix}_infamy`);
         break;
+      case "corruption":
+      case "crime":
+      case "productivity":
+      case "law":
+      case "lore":
+      case "society":
+        paths.push({
+          path: `@modifiers.${id}.total`,
+          value: actorData.modifiers[id].total,
+        });
+        sources.push({
+          sources: getSource(`system.modifiers.${id}.total`),
+          untyped: true,
+        });
+        // notes = getNotes(`${pf1ks.config.changePrefix}_infamy`); // todo how to make context notes work
+        break;
+      case "settlement-danger": {
+        const settlement = actorData.settlements[detail];
+        paths.push({
+          path: `@settlements.${detail}.danger`,
+          value: settlement.danger,
+        });
+        sources.push({
+          sources: getSource(`system.settlements.${detail}.danger`),
+          untyped: true,
+        });
+        // notes = getNotes(`${pf1ks.config.changePrefix}_infamy`);
+        break;
+      }
+      case "settlement-corruption":
+      case "settlement-crime":
+      case "settlement-productivity":
+      case "settlement-law":
+      case "settlement-lore":
+      case "settlement-society":
+      case "settlement-defense":
+      case "settlement-baseValue": {
+        const [, modifier] = id.split("-");
+        const settlement = actorData.settlements[detail];
+        paths.push(
+          {
+            path: `@settlements.${detail}.modifiers.${modifier}.settlementTotal`,
+            value: settlement.modifiers[modifier].settlementTotal,
+          },
+          {
+            path: `@settlements.${detail}.modifiers.${modifier}.total`,
+            value: settlement.modifiers[modifier].total,
+          }
+        );
+        sources.push({
+          sources: getSource(`system.settlements.${detail}.modifiers.${modifier}.total`),
+          untyped: true,
+        });
+        // notes = getNotes(`${pf1ks.config.changePrefix}_infamy`);
+        break;
+      }
 
       default:
         throw new Error(`Invalid extended tooltip identifier "${fullId}"`);

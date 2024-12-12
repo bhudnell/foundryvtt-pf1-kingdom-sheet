@@ -204,7 +204,6 @@ export class BaseActor extends pf1.documents.actor.ActorBasePF {
     }, []);
   }
 
-  // todo might need to break out into child classes
   _prepareChanges() {
     const changes = [];
 

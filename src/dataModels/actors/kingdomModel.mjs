@@ -136,40 +136,12 @@ export class KingdomModel extends foundry.abstract.TypeDataModel {
         this.leadership.consort.bonusType = "all";
       }
     }
-
-    if (this.settings.optionalRules.kingdomModifiers) {
-      for (const modifier of Object.keys(pf1ks.config.settlementModifiers)) {
-        const settlementSize = this.settlements.reduce((acc, curr) => acc + curr.modifiers[modifier].size, 0) / 10;
-        const alignment = pf1ks.config.alignmentEffects[this.alignment]?.[modifier] ?? 0;
-        const government = pf1ks.config.governmentBonuses[this.government]?.[modifier] ?? 0;
-        const buildings = this._getChanges(modifier, pf1ks.config.buildingId) / 10;
-        const improvements = this._getChanges(modifier, pf1ks.config.improvementId) / 10;
-        const events = this._getChanges(modifier, pf1ks.config.eventId) / 10;
-        const total = Math.floor(settlementSize + alignment + government + buildings + improvements + events);
-
-        this.modifiers[modifier] = { settlementSize, alignment, government, buildings, improvements, events, total };
-      }
-    }
   }
 
   _prepareArmies() {
     // armies
     this.armies = this.armies.filter((army) => army.actor);
     this.armies.forEach((army) => army.actor.prepareData());
-  }
-
-  _getChanges(target, type) {
-    return this.parent.changes
-      .filter((c) => {
-        if (c.target !== target) {
-          return false;
-        }
-        if (type && c.parent.type !== type) {
-          return false;
-        }
-        return true;
-      })
-      .reduce((total, c) => total + c.value * (c.parent.system.quantity ?? 1), 0);
   }
 
   get skills() {

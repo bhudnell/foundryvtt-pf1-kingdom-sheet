@@ -55,7 +55,6 @@
     .header {
       flex: 0;
       display: flex;
-      gap: 4px;
 
       /* > img {
         height: 100%;
@@ -64,6 +63,12 @@
 
       > h1 {
         flex: 1;
+        margin: 0;
+        line-height: 1.5em;
+
+        > input {
+          height: 100%;
+        }
       }
 
       .settlement-controls {

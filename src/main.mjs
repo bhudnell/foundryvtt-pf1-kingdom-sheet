@@ -267,6 +267,7 @@ Hooks.once("i18nInit", () => {
     "settlementModifiers",
     "allSettlementModifiers",
     "settlementSizes",
+    "buildingTypes",
     "terrainTypes",
     "optionalRules",
     "armyAttributes",
