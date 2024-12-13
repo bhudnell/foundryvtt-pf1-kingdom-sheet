@@ -40,7 +40,8 @@ export function defineLeader(role, bonusType, skillBonusType) {
     }
 
     get bonus() {
-      if (!this.actor) {
+      // the second part of this check is an arbitrary value that only exists if the referenced actor has been prepared
+      if (!this.actor || !this.actor.system.abilities.cha.mod) {
         return 0;
       }
 

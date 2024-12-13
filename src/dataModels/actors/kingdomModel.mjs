@@ -90,8 +90,8 @@ export class KingdomModel extends foundry.abstract.TypeDataModel {
   }
 
   prepareDerivedData() {
-    // make sure armies are prepared before referencing them
-    this._prepareArmies();
+    // delete armies whose actor has been deleted
+    this.armies = this.armies.filter((army) => army.actor);
 
     // call settlements prepareDerivedData
     this.settlements.forEach((s) => s.prepareDerivedData());
@@ -136,12 +136,6 @@ export class KingdomModel extends foundry.abstract.TypeDataModel {
         this.leadership.consort.bonusType = "all";
       }
     }
-  }
-
-  _prepareArmies() {
-    // armies
-    this.armies = this.armies.filter((army) => army.actor);
-    this.armies.forEach((army) => army.actor.prepareData());
   }
 
   get skills() {

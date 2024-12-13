@@ -204,6 +204,13 @@ Hooks.once("init", () => {
   foundry.utils.mergeObject(pf1.config, Object.assign({}, Config));
 });
 
+Hooks.once("setup", () => {
+  // re-prepare kingdoms and armies once all their dependencies are prepared
+  game.actors
+    .filter((a) => [pf1ks.config.kingdomId, pf1ks.config.armyId].includes(a.type))
+    .forEach((a) => a.prepareData());
+});
+
 Hooks.once("ready", () => {
   if (!game.modules.get("lib-wrapper")?.active && game.user.isGM) {
     ui.notifications.error("Module XYZ requires the 'libWrapper' module. Please install and activate it."); // TODO

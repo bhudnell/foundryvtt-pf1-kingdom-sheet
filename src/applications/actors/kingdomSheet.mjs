@@ -28,9 +28,6 @@ export class KingdomSheet extends pf1.applications.actor.ActorSheetPF {
   }
 
   async getData() {
-    // needed to make sure the leadership actor links are updated todo can I move this to the data model preparederiveddata? like i do for armies
-    this.actor.prepareData();
-
     const actor = this.actor;
     const actorData = actor.system;
     const isOwner = actor.isOwner;
