@@ -149,6 +149,8 @@
 
     "Buildings": "Buildings",
     "BuildingType": "Building Type",
+    "Lots": "Number of lots",
+    "Cost": "Cost (BP)",
     "Building": {
       "Academy": "Academy",
       "Alchemist": "Alchemist",

@@ -14,9 +14,8 @@ export class BaseItem extends pf1.documents.item.ItemPF {
     return this.constructor.hasChanges;
   }
 
-  // todo does this need different triggers per item type?
   get isActive() {
-    return !this.system.disabled;
+    return !this.system.disabled && (this.system.quantity == null || this.system.quantity > 0);
   }
 
   static getDefaultArtwork(itemData) {

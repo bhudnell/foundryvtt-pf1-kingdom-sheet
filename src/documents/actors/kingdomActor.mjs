@@ -256,8 +256,6 @@ export class KingdomActor extends BaseActor {
         "PF1KS.Crime"
       )
     );
-
-    // TODO more?
   }
 
   _setSourceDetails() {
@@ -383,16 +381,6 @@ export class KingdomActor extends BaseActor {
         }
       });
     });
-
-    // TODO more?
-    // sourceDetails["system.speed.total"].push({
-    //   name: game.i18n.localize("PF1.Base"),
-    //   value: game.i18n.format("PF1.SetTo", { value: this.system.speed.base }),
-    // });
-    // sourceDetails["system.tactics.max.total"].push({
-    //   name: game.i18n.localize("PF1.Base"),
-    //   value: this.system.tactics.max.base,
-    // });
 
     // Add extra data
     const rollData = this.getRollData();

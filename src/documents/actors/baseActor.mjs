@@ -243,6 +243,7 @@ export class BaseActor extends pf1.documents.actor.ActorBasePF {
 
     const c = new Collection();
     for (const change of changes) {
+      // todo change bonus needs to be multiplied by quantity if it exists
       // Avoid ID conflicts
       const parentId = change.parent?.id ?? "Actor";
       const uniqueId = `${parentId}-${change._id}`;
