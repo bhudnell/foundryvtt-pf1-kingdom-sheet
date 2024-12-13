@@ -581,20 +581,11 @@ export class KingdomSheet extends pf1.applications.actor.ActorSheetPF {
           untyped: true,
         });
         break;
-      case "consumption":
-        paths.push({
-          path: "@consumption.total",
-          value: actorData.consumption.total,
-        });
-        sources.push({
-          sources: getSource("system.consumption.total"),
-          untyped: true,
-        });
-        notes = getNotes(`${pf1ks.config.changePrefix}_consumption`);
-        break;
       case "economy":
       case "loyalty":
       case "stability":
+      case "bonusBP":
+      case "consumption":
         paths.push({
           path: `@${id}.total`,
           value: actorData[id].total,
@@ -606,38 +597,22 @@ export class KingdomSheet extends pf1.applications.actor.ActorSheetPF {
         notes = getNotes(`${pf1ks.config.changePrefix}_${id}`);
         break;
       case "fame":
-        paths.push(
-          {
-            path: "@fame.base",
-            value: actorData.fame.base,
-          },
-          {
-            path: "@fame.total",
-            value: actorData.fame.total,
-          }
-        );
-        sources.push({
-          sources: getSource("system.fame.total"),
-          untyped: true,
-        });
-        notes = getNotes(`${pf1ks.config.changePrefix}_fame`);
-        break;
       case "infamy":
         paths.push(
           {
-            path: "@infamy.base",
-            value: actorData.infamy.base,
+            path: `@${id}.base`,
+            value: actorData[id].base,
           },
           {
-            path: "@infamy.total",
-            value: actorData.infamy.total,
+            path: `@${id}.total`,
+            value: actorData[id].total,
           }
         );
         sources.push({
-          sources: getSource("system.infamy.total"),
+          sources: getSource(`system.${id}.total`),
           untyped: true,
         });
-        notes = getNotes(`${pf1ks.config.changePrefix}_infamy`);
+        notes = getNotes(`${pf1ks.config.changePrefix}_${id}`);
         break;
       case "corruption":
       case "crime":

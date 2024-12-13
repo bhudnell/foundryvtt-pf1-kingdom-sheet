@@ -19,7 +19,6 @@
     <div class="info-box-header">
       <h3>{{localize "PF1.Attributes"}}</h3>
       <div class="info-box-joined">
-        {{!-- todo bonus BP --}}
         <div class="info-box">
           <h5>{{ localize "PF1KS.GovernmentLabel" }}</h5>
           {{#if system.settings.optionalRules.governmentForms}}
@@ -36,10 +35,6 @@
             {{selectOptions alignmentOptions selected=system.alignment blank=""}}
           </select>
         </div>
-        <div class="info-box" data-tooltip-extended="controlDC">
-          <h5>{{localize "PF1KS.ControlDC" }}</h5>
-          <span class="value">{{ system.controlDC }}</span>
-        </div>
         <div class="info-box">
           <h5>{{localize "PF1KS.Size" }}</h5>
           <span class="value">{{ system.size }}</span>
@@ -48,6 +43,12 @@
           <h5>{{localize "PF1KS.Population" }}</h5>
           <span class="value">{{ system.population }}</span>
         </div>
+      </div>
+      <div class="info-box-joined">
+        <div class="info-box" data-tooltip-extended="controlDC">
+          <h5>{{localize "PF1KS.ControlDC" }}</h5>
+          <span class="value">{{ system.controlDC }}</span>
+        </div>
         <div class="info-box">
           <h5>{{localize "PF1KS.Unrest" }}</h5>
           <span class="value text-box direct" name="system.unrest" data-dtype="Number">{{ system.unrest }}</span>
@@ -55,6 +56,10 @@
         <div class="info-box">
           <h5>{{localize "PF1KS.Treasury" }}</h5>
           <span class="value text-box direct" name="system.treasury" data-dtype="Number">{{ system.treasury }}</span>
+        </div>
+        <div class="info-box" data-tooltip-extended="bonusBP">
+          <h5>{{localize "PF1KS.BonusBPShort" }}</h5>
+          <span class="value">{{ numberFormat system.bonusBP.total sign=true}}</span>
         </div>
         <div class="info-box" data-tooltip-extended="consumption">
           <h5>{{localize "PF1KS.Consumption" }}</h5>
@@ -74,7 +79,7 @@
             <a class="rollable"><i class="fa-solid fa-dice"></i></a>
             <span>{{ label }}</span>
           </h5>
-          <span class="value">{{ data.total }}</span>
+          <span class="value">{{ numberFormat data.total sign=true }}</span>
         </div>
         {{/each}}
       </div>
@@ -113,7 +118,7 @@
         {{#each modifiers}}
         <div class="info-box" data-tooltip-extended="{{ id }}">
           <h5>{{ label }}</h5>
-          <span class="value">{{ value.total }}</span>
+          <span class="value">{{ numberFormat value.total sign=true }}</span>
         </div>
         {{/each}}
       </div>
@@ -144,12 +149,17 @@
       <div class="info-box-joined">
         <div class="info-box" data-tooltip-extended="fame">
           <h5>{{localize "PF1KS.Fame" }}</h5>
-          <span class="value text-box direct" name="system.fame.base" data-dtype="Number">{{ system.fame.total }}</span>
+          <span
+            class="value text-box direct"
+            name="system.fame.base"
+            data-dtype="Number"
+            >{{ numberFormat system.fame.total sign=true }}</span
+          >
         </div>
         <div class="info-box" data-tooltip-extended="infamy">
           <h5>{{localize "PF1KS.Infamy" }}</h5>
           <span class="value text-box direct" name="system.infamy.base" data-dtype="Number">{{
-            system.infamy.total
+            numberFormat system.infamy.total sign=true
           }}</span>
         </div>
       </div>

@@ -54,7 +54,7 @@
             </div>
             <div class="info-box" data-tooltip-extended="settlement-danger.{{ idx }}">
               <h5>{{ localize "PF1KS.Danger" }}</h5>
-              <span class="value">{{ danger }}</span>
+              <span class="value">{{ numberFormat danger sign=true }}</span>
             </div>
             <div class="info-box" data-tooltip-extended="settlement-baseValue.{{ idx }}">
               <h5>{{ localize "PF1KS.BaseValue" }}</h5>
@@ -62,7 +62,7 @@
             </div>
             <div class="info-box" data-tooltip-extended="settlement-defense.{{ idx }}">
               <h5>{{ localize "PF1KS.Defense" }}</h5>
-              <span class="value">{{ defense.total }}</span>
+              <span class="value">{{ numberFormat defense.total sign=true }}</span>
             </div>
           </div>
         </div>
@@ -75,7 +75,7 @@
             {{#each modifiers}}
             <div class="info-box" data-tooltip-extended="settlement-{{ id }}.{{ idx }}">
               <h5>{{ label }}</h5>
-              <span class="value">{{ value }}</span>
+              <span class="value">{{ numberFormat value sign=true }}</span>
             </div>
             {{/each}}
           </div>

@@ -21,6 +21,10 @@
         flex: 0 0 99%;
       }
     }
+
+    .info-box-joined {
+      flex: 0 0 100%;
+    }
   }
 
   .tab.terrain {
