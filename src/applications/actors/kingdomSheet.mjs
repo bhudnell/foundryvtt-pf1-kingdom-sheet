@@ -46,20 +46,6 @@ export class KingdomSheet extends pf1.applications.actor.ActorSheetPF {
       }),
       editable: this.isEditable,
       cssClass: isOwner ? "editable" : "locked",
-      stats: [
-        {
-          id: "economy",
-          label: game.i18n.localize("PF1KS.Economy"),
-        },
-        {
-          id: "loyalty",
-          label: game.i18n.localize("PF1KS.Loyalty"),
-        },
-        {
-          id: "stability",
-          label: game.i18n.localize("PF1KS.Stability"),
-        },
-      ],
     };
 
     // notifications
@@ -79,8 +65,9 @@ export class KingdomSheet extends pf1.applications.actor.ActorSheetPF {
     data.governmentLabel = pf1ks.config.kingdomGovernments[actorData.government];
 
     // kingdom stats
-    for (const abl of data.stats) {
-      abl.data = actorData[abl.id];
+    data.stats = [];
+    for (const [stat, label] of Object.entries(pf1ks.config.kingdomStats)) {
+      data.stats.push({ id: stat, label, value: actorData[stat] });
     }
 
     // kingdom modifiers

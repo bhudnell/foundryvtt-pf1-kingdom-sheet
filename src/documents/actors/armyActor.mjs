@@ -41,7 +41,6 @@ export class ArmyActor extends BaseActor {
     return await pf1.dice.d20Roll(rollOptions);
   }
 
-  // todo any more?
   _addDefaultChanges(changes) {
     const system = this.system;
 
@@ -166,7 +165,6 @@ export class ArmyActor extends BaseActor {
         sourceDetails[path] ||= [];
         for (const src of grp) {
           src.operator ||= "add";
-          // TODO: Separate source name from item type label
           const label = this.constructor._getSourceLabel(src);
           let srcValue =
             src.value ??

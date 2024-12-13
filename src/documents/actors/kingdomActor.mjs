@@ -140,7 +140,6 @@ export class KingdomActor extends BaseActor {
     await ChatMessage.create(messageData);
   }
 
-  // todo see if using @variables works too also on armyactor
   _addDefaultChanges(changes) {
     const system = this.system;
 
@@ -404,7 +403,6 @@ export class KingdomActor extends BaseActor {
         sourceDetails[path] ||= [];
         for (const src of grp) {
           src.operator ||= "add";
-          // TODO: Separate source name from item type label
           const label = this.constructor._getSourceLabel(src);
           let srcValue =
             src.value ??
