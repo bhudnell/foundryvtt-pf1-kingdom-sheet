@@ -1,3 +1,5 @@
+import { keepUpdateArray } from "../../util/utils.mjs";
+
 export class BaseActor extends pf1.documents.actor.ActorBasePF {
   constructor(...args) {
     super(...args);
@@ -73,6 +75,24 @@ export class BaseActor extends pf1.documents.actor.ActorBasePF {
   }
 
   refreshDerivedData() {}
+
+  async update(data, context = {}) {
+    const changed = foundry.utils.expandObject(data);
+
+    // No system data changes
+    if (!changed.system) {
+      return;
+    }
+
+    const keepPaths = ["system.settlements"];
+
+    const itemData = this.toObject();
+    for (const path of keepPaths) {
+      keepUpdateArray(itemData, changed, path);
+    }
+
+    super.update(foundry.utils.flattenObject(changed), context);
+  }
 
   /**
    * Retrieve data used to fill in roll variables.
