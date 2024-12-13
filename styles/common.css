@@ -1,9 +1,18 @@
 .app.sheet.kingdom {
+  .sheet-navigation .item.icon {
+    flex: 0 0;
+    padding: 0 8px;
+  }
+
   .item-controls {
     flex: 0 0 68px;
 
     &.one-button {
       flex: 0 0 32px;
+    }
+
+    &.two-button {
+      flex: 0 0 48px;
     }
 
     &.five-button {
@@ -63,31 +72,6 @@
       > span {
         padding-left: 4px;
       }
-    }
-
-    /* change stuff */
-    /* &.item-target {
-      flex: 1;
-    } */
-  }
-}
-
-.app.sheet.kingdom.test {
-  .sheet-navigation .item.icon {
-    flex: 0 0;
-    padding: 0 8px;
-  }
-
-  .item-list {
-    .item-list-header span.item-name {
-      padding-left: 8px;
-    }
-
-    .item-position {
-      flex: 0 0 100px;
-      border: unset;
-      border-right: 1px solid var(--color-border-light-secondary);
-      text-align: center;
     }
   }
 }

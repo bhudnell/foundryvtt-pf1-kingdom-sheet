@@ -134,7 +134,6 @@ export class KingdomSheet extends pf1.applications.actor.ActorSheetPF {
 
     data.sections = this._prepareItems();
 
-    // settlements todo move into _prepareItems?
     data.noSettlementBuildings = this.actor.itemTypes[pf1ks.config.buildingId].filter(
       (building) => !building.system.settlementId
     );
