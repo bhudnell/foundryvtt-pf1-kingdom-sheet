@@ -526,6 +526,7 @@ export class KingdomSheet extends pf1.applications.actor.ActorSheetPF {
   }
 
   _getTooltipContext(fullId, context) {
+    // TODO edict/government/alignment tootips
     const actor = this.actor;
     const actorData = actor.system;
 

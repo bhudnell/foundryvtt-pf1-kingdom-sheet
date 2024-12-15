@@ -60,12 +60,6 @@ export class BaseItem extends pf1.documents.item.ItemPF {
   prepareDerivedData() {
     super.prepareDerivedData();
     this.flags ??= {};
-
-    if (this.system._contextNotes?.length) {
-      this.system._contextNotes = this.system._contextNotes.map(
-        (cn) => new pf1.components.ContextNote(cn, { parent: this })
-      );
-    }
   }
 
   async update(data, context = {}) {
