@@ -4,7 +4,8 @@
     <a class="item" data-tab="summary" data-group="primary">{{localize "PF1KS.Summary"}}</a>
     <a class="item" data-tab="features" data-group="primary">{{localize "PF1KS.Army.Features"}}</a>
     <a class="item" data-tab="commander" data-group="primary">{{localize "PF1KS.Army.Commander"}}</a>
-    <a class="item" data-tab="notes" data-group="primary">{{localize "PF1KS.Notes"}}</a>
+    <a class="item" data-tab="conditions" data-group="primary">{{localize "PF1KS.Conditions"}}</a>
+    <a class="item" data-tab="notes" data-group="primary">{{localize "PF1.Notes"}}</a>
   </nav>
 
   {{! Sheet Body }}
@@ -22,6 +23,11 @@
     {{! Commander Tab }}
     <div class="tab commander flexcol" data-group="primary" data-tab="commander">
       {{~> army-sheet-commander}}
+    </div>
+
+    {{! Conditions Tab }}
+    <div class="tab conditions buffs flexcol" data-group="primary" data-tab="conditions">
+      {{~> army-sheet-conditions}}
     </div>
 
     {{! Notes Tab }}

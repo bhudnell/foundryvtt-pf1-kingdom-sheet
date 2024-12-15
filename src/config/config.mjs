@@ -506,12 +506,13 @@ export const optionalRules = {
   altSettlementSizes: "PF1KS.Settings.SettlementSizes",
 };
 
+// todo add compendium entries https://www.aonprd.com/Rules.aspx?ID=1547
 export const compendiumEntries = {
-  kingdomModifiers: "TODO",
-  fameInfamy: "TODO",
-  governmentForms: "TODO",
-  leadershipSkills: "TODO",
-  altSettlementSizes: "TODO",
+  kingdomModifiers: "",
+  fameInfamy: "",
+  governmentForms: "",
+  leadershipSkills: "",
+  altSettlementSizes: "",
 };
 
 export const armyAttributes = {
@@ -558,6 +559,197 @@ export const armyStrategy = {
   2: "PF1KS.Army.Strategy.Standard",
   3: "PF1KS.Army.Strategy.Aggressive",
   4: "PF1KS.Army.Strategy.Reckless",
+};
+
+// todo add compendium entries https://www.aonprd.com/Rules.aspx?ID=1575
+export const armyConditions = {
+  [`${changePrefix}-advantageous-terrain`]: {
+    id: `${changePrefix}-advantageous-terrain`,
+    name: "PF1KS.Condition.AdvantageousTerrain",
+    texture: `modules/${moduleId}/icons/advantageousTerrain.svg`,
+    mechanics: {
+      changes: [
+        {
+          formula: 2,
+          target: `${changePrefix}_dv`,
+          type: "untyped",
+        },
+      ],
+    },
+    journal: "",
+  },
+  [`${changePrefix}-ambush`]: {
+    id: `${changePrefix}-ambush`,
+    name: "PF1KS.Condition.Ambush",
+    texture: `modules/${moduleId}/icons/ambush.svg`,
+    journal: "",
+  },
+  [`${changePrefix}-battlefield-advantage`]: {
+    id: `${changePrefix}-battlefield-advantage`,
+    name: "PF1KS.Condition.BattlefieldAdvantage",
+    texture: `modules/${moduleId}/icons/battlefieldAdvantage.svg`,
+    mechanics: {
+      changes: [
+        {
+          formula: 2,
+          target: `${changePrefix}_dv`,
+          type: "untyped",
+        },
+        {
+          formula: 2,
+          target: `${changePrefix}_om`,
+          type: "untyped",
+        },
+      ],
+    },
+    journal: "",
+  },
+  [`${changePrefix}-darkness`]: {
+    id: `${changePrefix}-darkness`,
+    name: "PF1KS.Condition.Darkness",
+    texture: `modules/${moduleId}/icons/darkness.svg`,
+    mechanics: {
+      changes: [
+        {
+          formula: -3,
+          target: `${changePrefix}_dv`,
+          type: "untyped",
+        },
+        {
+          formula: -2,
+          target: `${changePrefix}_om`,
+          type: "untyped",
+        },
+      ],
+    },
+    journal: "",
+  },
+  [`${changePrefix}-dim-light`]: {
+    id: `${changePrefix}-dim-light`,
+    name: "PF1KS.Condition.DimLight",
+    texture: `modules/${moduleId}/icons/dimLight.svg`,
+    mechanics: {
+      changes: [
+        {
+          formula: 1,
+          target: `${changePrefix}_om`,
+          type: "untyped",
+        },
+      ],
+    },
+    journal: "",
+  },
+  [`${changePrefix}-fog`]: {
+    id: `${changePrefix}-fog`,
+    name: "PF1KS.Condition.Fog",
+    texture: `modules/${moduleId}/icons/fog.svg`,
+    mechanics: {
+      changes: [
+        {
+          formula: "floor(@damageBonus.total / 2)",
+          target: `${changePrefix}_damage`,
+          type: "untyped",
+          operator: "set",
+          priority: 1001,
+        },
+      ],
+      contextNotes: [
+        {
+          text: "+[[2]] to withdraw",
+          target: `${changePrefix}_morale`,
+        },
+      ],
+    },
+    journal: "",
+  },
+  [`${changePrefix}-fortifications`]: {
+    id: `${changePrefix}-fortifications`,
+    name: "PF1KS.Condition.Fortifications",
+    texture: `modules/${moduleId}/icons/fortifications.svg`,
+    mechanics: {
+      contextNotes: [
+        {
+          text: "add fortification Defense",
+          target: `${changePrefix}_dv`,
+        },
+      ],
+    },
+    journal: "",
+  },
+  [`${changePrefix}-rain`]: {
+    id: `${changePrefix}-rain`,
+    name: "PF1KS.Condition.Rain",
+    texture: `modules/${moduleId}/icons/rain.svg`,
+    mechanics: {
+      contextNotes: [
+        {
+          text: "[[-4]] during the Ranged phase",
+          target: `${changePrefix}_om`,
+        },
+      ],
+    },
+    journal: "",
+  },
+  [`${changePrefix}-sandstorm`]: {
+    id: `${changePrefix}-sandstorm`,
+    name: "PF1KS.Condition.Sandstorm",
+    texture: `modules/${moduleId}/icons/sandstorm.svg`,
+    mechanics: {
+      changes: [
+        {
+          formula: "floor(@damageBonus.total / 2)",
+          target: `${changePrefix}_damage`,
+          type: "untyped",
+          operator: "set",
+          priority: 1001,
+        },
+      ],
+      contextNotes: [
+        {
+          text: "+[[2]] to withdraw",
+          target: `${changePrefix}_morale`,
+        },
+      ],
+    },
+    journal: "",
+  },
+  [`${changePrefix}-snow`]: {
+    id: `${changePrefix}-snow`,
+    name: "PF1KS.Condition.Snow",
+    texture: `modules/${moduleId}/icons/snow.svg`,
+    mechanics: {
+      changes: [
+        {
+          formula: "floor(@damageBonus.total / 2)",
+          target: `${changePrefix}_damage`,
+          type: "untyped",
+          operator: "set",
+          priority: 1001,
+        },
+      ],
+      contextNotes: [
+        {
+          text: "[[-4]] during the Ranged phase",
+          target: `${changePrefix}_om`,
+        },
+      ],
+    },
+    journal: "",
+  },
+  [`${changePrefix}-wind`]: {
+    id: `${changePrefix}-wind`,
+    name: "PF1KS.Condition.Wind",
+    texture: `modules/${moduleId}/icons/wind.svg`,
+    mechanics: {
+      contextNotes: [
+        {
+          text: "Wind modifier penalties from @UUID[Compendium.pf-content.pf-rules.JournalEntry.GUKeQEgdxbleWA0l]{Table 13-10: Wind Effects} to Ranged phase",
+          target: `${changePrefix}_om`,
+        },
+      ],
+    },
+    journal: "",
+  },
 };
 
 export const eventSubTypes = {

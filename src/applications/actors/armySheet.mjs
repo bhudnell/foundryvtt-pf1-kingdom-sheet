@@ -54,6 +54,15 @@ export class ArmySheet extends pf1.applications.actor.ActorSheetPF {
       }, {});
     data.actorId = actorData.commander.actor?.id;
 
+    // conditions
+    data.conditions = Object.values(pf1ks.config.armyConditions).map((cond) => ({
+      id: cond.id,
+      img: cond.texture,
+      active: actorData.conditions[cond.id] ?? false,
+      label: cond.name,
+      compendium: cond.journal,
+    }));
+
     return data;
   }
 

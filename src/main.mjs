@@ -67,13 +67,24 @@ Hooks.once("libWrapper.Ready", () => {
     PF1KS.moduleId,
     "TokenHUD.prototype._getStatusEffectChoices",
     function (wrapper) {
+      const army = {};
+      const core = {};
+
+      Object.entries(wrapper()).forEach(([key, value]) => {
+        if (value.id.startsWith(PF1KS.changePrefix)) {
+          army[key] = value;
+        } else {
+          core[key] = value;
+        }
+      });
+
       if (this.object.actor.type === PF1KS.kingdomId) {
-        return {}; // TODO any conditions?
+        return {};
       }
       if (this.object.actor.type === PF1KS.armyId) {
-        return {}; // TODO add battlefield conditions https://www.aonprd.com/Rules.aspx?ID=1575
+        return army;
       }
-      return wrapper();
+      return core;
     },
     libWrapper.MIXED
   );
@@ -202,6 +213,19 @@ Hooks.once("init", () => {
   }
 
   foundry.utils.mergeObject(pf1.config, Object.assign({}, Config));
+  CONFIG.statusEffects.push(
+    ...Object.values(PF1KS.armyConditions).map((c) => ({
+      id: c.id,
+      name: c.name,
+      icon: c.texture,
+      get label() {
+        return this.name;
+      },
+      set label(name) {
+        this.name = name;
+      },
+    }))
+  );
 });
 
 Hooks.once("setup", () => {
@@ -228,6 +252,7 @@ Hooks.once("ready", () => {
     "army-sheet-summary": `modules/${PF1KS.moduleId}/templates/actors/army/parts/summary.hbs`,
     "army-sheet-features": `modules/${PF1KS.moduleId}/templates/actors/army/parts/features.hbs`,
     "army-sheet-commander": `modules/${PF1KS.moduleId}/templates/actors/army/parts/commander.hbs`,
+    "army-sheet-conditions": `modules/${PF1KS.moduleId}/templates/actors/army/parts/conditions.hbs`,
 
     "item-sheet-building": `modules/${PF1KS.moduleId}/templates/items/parts/building-details.hbs`,
     "item-sheet-event": `modules/${PF1KS.moduleId}/templates/items/parts/event-details.hbs`,
@@ -303,7 +328,21 @@ Hooks.once("i18nInit", () => {
     }, {});
   };
 
+  const doLocalizeKeys = (obj, keys = []) => {
+    for (const path of Object.keys(foundry.utils.flattenObject(obj))) {
+      const key = path.split(".").at(-1);
+      if (keys.includes(key)) {
+        const value = foundry.utils.getProperty(obj, path);
+        if (value) {
+          foundry.utils.setProperty(obj, path, game.i18n.localize(value));
+        }
+      }
+    }
+  };
+
   for (let o of toLocalize) {
     pf1ks.config[o] = doLocalize(pf1ks.config[o], o);
   }
+
+  doLocalizeKeys(pf1ks.config.armyConditions, ["name"]);
 });

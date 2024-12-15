@@ -44,16 +44,15 @@ export class BaseActor extends pf1.documents.actor.ActorBasePF {
   applyActiveEffects() {
     // Apply active effects. Required for status effects in v11 and onward, such as blind and invisible.
     super.applyActiveEffects();
+
+    this.prepareConditions();
+
     this._prepareChanges();
   }
 
   prepareBaseData() {
     this._initialized = false;
     super.prepareBaseData();
-
-    if (Hooks.events.pf1PrepareBaseActorData?.length) {
-      Hooks.callAll("pf1PrepareBaseActorData", this);
-    }
 
     /** @type {Record<string, SourceInfo>} */
     this.sourceInfo = {};
@@ -138,11 +137,6 @@ export class BaseActor extends pf1.documents.actor.ActorBasePF {
 
     this._rollData = result;
 
-    // Call hook
-    if (Hooks.events.pf1GetRollData?.length > 0) {
-      Hooks.callAll("pf1GetRollData", this, result);
-    }
-
     return result;
   }
 
@@ -179,19 +173,40 @@ export class BaseActor extends pf1.documents.actor.ActorBasePF {
   }
 
   get allNotes() {
-    return this.items
+    const allNotes = this.items
       .filter(
         (item) =>
-          item.type.startsWith(`${pf1ks.config.moduleId}.`) &&
-          item.isActive &&
-          (item.system.contextNotes?.length > 0 || item.system._contextNotes?.length > 0)
+          item.type.startsWith(`${pf1ks.config.moduleId}.`) && item.isActive && item.system.contextNotes?.length > 0
       )
       .map((item) => {
         const notes = [];
         notes.push(...(item.system.contextNotes ?? []));
-        notes.push(...(item.system._contextNotes ?? []));
         return { notes, item };
       });
+
+    // add condition notes
+    for (const [con, v] of Object.entries(this.system.conditions)) {
+      if (!v) {
+        continue;
+      }
+      const condition = pf1ks.config.armyConditions[con];
+      if (!condition) {
+        continue;
+      }
+
+      const mechanic = condition.mechanics;
+      if (!mechanic) {
+        continue;
+      }
+
+      const conditionNotes = [];
+      for (const note of mechanic.contextNotes ?? []) {
+        conditionNotes.push(new pf1.components.ContextNote(note, { parent: this }));
+      }
+      allNotes.push({ notes: conditionNotes, item: null });
+    }
+
+    return allNotes;
   }
 
   getContextNotes(context, all = true) {
@@ -229,6 +244,8 @@ export class BaseActor extends pf1.documents.actor.ActorBasePF {
 
     this._addDefaultChanges(changes);
 
+    this._addConditionChanges(changes);
+
     this.changeItems = this.items.filter(
       (item) =>
         item.type.startsWith(`${pf1ks.config.moduleId}.`) &&
@@ -250,5 +267,123 @@ export class BaseActor extends pf1.documents.actor.ActorBasePF {
       c.set(uniqueId, change);
     }
     this.changes = c;
+  }
+
+  _addConditionChanges(changes) {
+    for (const [con, v] of Object.entries(this.system.conditions)) {
+      if (!v) {
+        continue;
+      }
+      const condition = pf1ks.config.armyConditions[con];
+      if (!condition) {
+        continue;
+      }
+
+      const mechanic = condition.mechanics;
+      if (!mechanic) {
+        continue;
+      }
+
+      for (const change of mechanic.changes ?? []) {
+        const changeData = { ...change, flavor: condition.name };
+        const changeObj = new pf1.components.ItemChange(changeData);
+        changes.push(changeObj);
+      }
+    }
+  }
+
+  async toggleCondition(conditionId, aeData) {
+    let active = !this.hasCondition(conditionId);
+    if (active && aeData) {
+      active = aeData;
+    }
+    return this.setCondition(conditionId, active);
+  }
+
+  async setCondition(conditionId, enabled, context) {
+    if (typeof enabled !== "boolean" && foundry.utils.getType(enabled) !== "Object") {
+      throw new TypeError("Actor.setCondition() enabled state must be a boolean or plain object");
+    }
+    return this.setConditions({ [conditionId]: enabled }, context);
+  }
+
+  hasCondition(conditionId) {
+    return this.statuses.has(conditionId);
+  }
+
+  async setConditions(conditions = {}, context = {}) {
+    conditions = foundry.utils.deepClone(conditions);
+
+    // Create update data
+    const toDelete = [],
+      toCreate = [];
+
+    for (const [conditionId, value] of Object.entries(conditions)) {
+      const currentCondition = pf1ks.config.armyConditions[conditionId];
+      if (currentCondition === undefined) {
+        console.error("Unrecognized condition:", conditionId);
+        delete conditions[conditionId];
+        continue;
+      }
+
+      const oldAe = this.hasCondition(conditionId) ? this.effects.find((ae) => ae.statuses.has(conditionId)) : null;
+
+      // Create
+      if (value) {
+        if (!oldAe) {
+          const aeData = {
+            flags: {
+              pf1: {
+                autoDelete: true,
+              },
+            },
+            statuses: [conditionId],
+            name: currentCondition.name,
+            icon: currentCondition.texture,
+            label: currentCondition.name,
+          };
+
+          // Special boolean for easy overlay
+          if (value?.overlay) {
+            delete value.overlay;
+            foundry.utils.setProperty(aeData.flags, "core.overlay", true);
+          }
+
+          if (typeof value !== "boolean") {
+            foundry.utils.mergeObject(aeData, value);
+          }
+
+          toCreate.push(aeData);
+        } else {
+          delete conditions[conditionId];
+        }
+      }
+      // Delete
+      else {
+        if (oldAe) {
+          toDelete.push(oldAe.id);
+        } else {
+          delete conditions[conditionId];
+        }
+      }
+    }
+
+    // Perform updates
+    // Inform update handlers they don't need to do work
+    if (toDelete.length) {
+      const deleteContext = foundry.utils.deepClone(context);
+      // Prevent double render
+      if (context.trender && toCreate.length) {
+        deleteContext.render = false;
+      }
+      // Without await the deletions may not happen at all, presumably due to race condition, if AEs are also created.
+      await this.deleteEmbeddedDocuments("ActiveEffect", toDelete, deleteContext);
+    }
+    if (toCreate.length) {
+      const createContext = foundry.utils.deepClone(context);
+      await this.createEmbeddedDocuments("ActiveEffect", toCreate, createContext);
+    }
+
+    return conditions;
   }
 }

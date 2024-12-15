@@ -8,6 +8,7 @@ export class ArmyActor extends BaseActor {
     const check = this.system[attributeId];
 
     const parts = [];
+    const props = [];
 
     if (check.base) {
       parts.push(`${check.base}[${game.i18n.localize("PF1KS.Base")}]`);
@@ -27,14 +28,26 @@ export class ArmyActor extends BaseActor {
       parts.push(`${c.value}[${c.flavor}]`);
     }
 
+    // Add context notes
+    const rollData = options.rollData || this.getRollData();
+    const noteObjects = this.getContextNotes(`${pf1ks.config.changePrefix}_${attributeId}`);
+    const notes = this.formatContextNotes(noteObjects, rollData);
+    if (notes.length > 0) {
+      props.push({ header: game.i18n.localize("PF1.Notes"), value: notes });
+    }
+
     const label = pf1ks.config.armyAttributes[attributeId];
     const actor = options.actor ?? this;
     const token = options.token ?? this.token;
 
+    // TODO add damage bonus to card when OM is rolled
+
     const rollOptions = {
       ...options,
       parts,
+      rollData,
       flavor: game.i18n.format("PF1KS.Army.AttributeRoll", { check: label }),
+      chatTemplateData: { properties: props },
       speaker: ChatMessage.getSpeaker({ actor, token, alias: token?.name }),
     };
 
@@ -192,5 +205,21 @@ export class ArmyActor extends BaseActor {
     }
 
     this.sourceDetails = sourceDetails;
+  }
+
+  prepareConditions() {
+    this.system.conditions = {};
+    const conditions = this.system.conditions;
+
+    for (const condition of Object.keys(pf1ks.config.armyConditions)) {
+      conditions[condition] = false;
+    }
+
+    // Fill in actual state
+    for (const status of this.statuses) {
+      if (status in conditions) {
+        conditions[status] = true;
+      }
+    }
   }
 }

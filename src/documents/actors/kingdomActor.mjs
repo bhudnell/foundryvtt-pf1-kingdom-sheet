@@ -81,6 +81,7 @@ export class KingdomActor extends BaseActor {
 
   async rollKingdomStat(kingdomStatId, options = {}) {
     const parts = [];
+    const props = [];
 
     const changes = pf1.documents.actor.changes.getHighestChanges(
       this.changes.filter(
@@ -93,6 +94,14 @@ export class KingdomActor extends BaseActor {
       parts.push(`${c.value * (c.parent?.system.quantity ?? 1)}[${c.flavor}]`);
     }
 
+    // Add context notes
+    const rollData = options.rollData || this.getRollData();
+    const noteObjects = this.getContextNotes(`${pf1ks.config.changePrefix}_${kingdomStatId}`);
+    const notes = this.formatContextNotes(noteObjects, rollData);
+    if (notes.length > 0) {
+      props.push({ header: game.i18n.localize("PF1.Notes"), value: notes });
+    }
+
     const label = pf1ks.config.kingdomStats[kingdomStatId];
     const actor = options.actor ?? this;
     const token = options.token ?? this.token;
@@ -100,7 +109,9 @@ export class KingdomActor extends BaseActor {
     const rollOptions = {
       ...options,
       parts,
+      rollData,
       flavor: game.i18n.format("PF1KS.KingdomStatRoll", { check: label }),
+      chatTemplateData: { properties: props },
       speaker: ChatMessage.getSpeaker({ actor, token, alias: token?.name }),
     };
 
@@ -444,5 +455,9 @@ export class KingdomActor extends BaseActor {
         return true;
       })
       .reduce((total, c) => total + c.value * (c.parent.system.quantity ?? 1), 0);
+  }
+
+  prepareConditions() {
+    this.system.conditions = {};
   }
 }

@@ -364,6 +364,21 @@
     "DuplicateChange": "Duplicate Change",
     "AddChange": "Add Change",
 
+    "Conditions": "Conditions",
+    "Condition": {
+      "AdvantageousTerrain": "Advantageous Terrain",
+      "Ambush": "Ambush",
+      "BattlefieldAdvantage": "Battlefield Advantage",
+      "Darkness": "Darkness",
+      "DimLight": "Dim Light",
+      "Fog": "Fog",
+      "Fortifications": "Fortifications",
+      "Rain": "Rain",
+      "Sandstorm": "Sandstorm",
+      "Snow": "Snow",
+      "Wind": "Wind"
+    },
+
     "Browse": {
       "Boons": "Browse Boons",
       "Buildings": "Browse Buildings",
