@@ -91,7 +91,7 @@ export class KingdomActor extends BaseActor {
     );
 
     for (const c of changes) {
-      parts.push(`${c.value * (c.parent?.system.quantity ?? 1)}[${c.flavor}]`);
+      parts.push(`${c.value}[${c.flavor}]`);
     }
 
     // Add context notes
@@ -454,7 +454,7 @@ export class KingdomActor extends BaseActor {
         }
         return true;
       })
-      .reduce((total, c) => total + c.value * (c.parent.system.quantity ?? 1), 0);
+      .reduce((total, c) => total + c.value, 0);
   }
 
   prepareConditions() {

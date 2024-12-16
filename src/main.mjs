@@ -26,7 +26,7 @@ import { ArmyActor } from "./documents/actors/armyActor.mjs";
 import { KingdomActor } from "./documents/actors/kingdomActor.mjs";
 import { BaseItem } from "./documents/items/baseItem.mjs";
 import { getChangeFlat } from "./hooks/getChangeFlat.mjs";
-import { moduleToObject, rollEventTable } from "./util/utils.mjs";
+import { applyChange, moduleToObject, rollEventTable } from "./util/utils.mjs";
 
 export { PF1KS as config };
 globalThis.pf1ks = moduleToObject({
@@ -63,6 +63,7 @@ Hooks.on("preCreateItem", (item, data, context, user) => {
 Hooks.once("libWrapper.Ready", () => {
   console.log(`${PF1KS.moduleId} | Registering LibWrapper Hooks`);
 
+  // changes token HUD conditions for module actors
   libWrapper.register(
     PF1KS.moduleId,
     "TokenHUD.prototype._getStatusEffectChoices",
@@ -89,6 +90,7 @@ Hooks.once("libWrapper.Ready", () => {
     libWrapper.MIXED
   );
 
+  // adds subtypes for improvement and event item creation
   libWrapper.register(
     PF1KS.moduleId,
     "pf1.applications.item.CreateDialog.prototype.getSubtypes",
@@ -108,6 +110,20 @@ Hooks.once("libWrapper.Ready", () => {
 
         default:
           return wrapper(type);
+      }
+    },
+    libWrapper.MIXED
+  );
+
+  // lets changes be multiplied by quantity for module
+  libWrapper.register(
+    PF1KS.moduleId,
+    "pf1.components.ItemChange.prototype.applyChange",
+    function (wrapper, actor, targets, options) {
+      if (actor.type.startsWith(PF1KS.moduleId)) {
+        applyChange(this, actor, targets, options);
+      } else {
+        return wrapper(actor, targets, options);
       }
     },
     libWrapper.MIXED

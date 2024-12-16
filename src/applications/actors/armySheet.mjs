@@ -186,8 +186,8 @@ export class ArmySheet extends pf1.applications.actor.ActorSheetPF {
 
     const getSource = (path) => this.actor.sourceDetails[path];
 
-    const getNotes = (context, all = true) => {
-      const noteObjs = actor.getContextNotes(context, all);
+    const getNotes = (context) => {
+      const noteObjs = actor.getContextNotes(context);
       return actor.formatContextNotes(noteObjs, lazy.rollData, { roll: false });
     };
 

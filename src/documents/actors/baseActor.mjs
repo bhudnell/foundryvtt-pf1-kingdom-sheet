@@ -75,24 +75,6 @@ export class BaseActor extends pf1.documents.actor.ActorBasePF {
 
   refreshDerivedData() {}
 
-  async update(data, context = {}) {
-    const changed = foundry.utils.expandObject(data);
-
-    // No system data changes
-    if (!changed.system) {
-      return;
-    }
-
-    const keepPaths = ["system.settlements"];
-
-    const itemData = this.toObject();
-    for (const path of keepPaths) {
-      keepUpdateArray(itemData, changed, path);
-    }
-
-    super.update(foundry.utils.flattenObject(changed), context);
-  }
-
   /**
    * Retrieve data used to fill in roll variables.
    *
@@ -209,14 +191,16 @@ export class BaseActor extends pf1.documents.actor.ActorBasePF {
     return allNotes;
   }
 
-  getContextNotes(context, all = true) {
+  getContextNotes(context, settlementId) {
     if (context.string) {
       context = context.string;
     }
     const result = this.allNotes;
 
     for (const note of result) {
-      note.notes = note.notes.filter((o) => o.target === context).map((o) => o.text);
+      note.notes = note.notes
+        .filter((o) => o.target === context && o.parent.system.settlementId === settlementId)
+        .map((o) => o.text);
     }
 
     return result.filter((n) => n.notes.length);
@@ -260,7 +244,6 @@ export class BaseActor extends pf1.documents.actor.ActorBasePF {
 
     const c = new Collection();
     for (const change of changes) {
-      // todo change bonus needs to be multiplied by quantity if it exists
       // Avoid ID conflicts
       const parentId = change.parent?.id ?? "Actor";
       const uniqueId = `${parentId}-${change._id}`;

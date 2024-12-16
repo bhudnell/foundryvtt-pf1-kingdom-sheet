@@ -1,4 +1,4 @@
-import { findLargestSmallerNumber, renameKeys } from "../../util/utils.mjs";
+import { findLargestSmallerNumber, keepUpdateArray, renameKeys } from "../../util/utils.mjs";
 
 export class KingdomSheet extends pf1.applications.actor.ActorSheetPF {
   static get defaultOptions() {
@@ -448,6 +448,20 @@ export class KingdomSheet extends pf1.applications.actor.ActorSheetPF {
   // TODO when creating a building in a settlement, I need to figure out a way to pre-populate the settlement id
 
   // overrides
+  async _updateObject(event, formData) {
+    const changed = foundry.utils.expandObject(formData);
+
+    if (changed.system) {
+      const keepPaths = ["system.settlements"];
+
+      const itemData = this.actor.toObject();
+      for (const path of keepPaths) {
+        keepUpdateArray(itemData, changed, path);
+      }
+    }
+    return super._updateObject(event, changed);
+  }
+
   async _onDropItem(event, data) {
     if (!this.actor.isOwner) {
       return void ui.notifications.warn("PF1.Error.NoActorPermission", { localize: true });
@@ -540,8 +554,8 @@ export class KingdomSheet extends pf1.applications.actor.ActorSheetPF {
 
     const getSource = (path) => this.actor.sourceDetails[path];
 
-    const getNotes = (context, all = true) => {
-      const noteObjs = actor.getContextNotes(context, all);
+    const getNotes = (context, settlementId) => {
+      const noteObjs = actor.getContextNotes(context, settlementId);
       return actor.formatContextNotes(noteObjs, lazy.rollData, { roll: false });
     };
 
@@ -612,7 +626,7 @@ export class KingdomSheet extends pf1.applications.actor.ActorSheetPF {
           sources: getSource(`system.modifiers.${id}.total`),
           untyped: true,
         });
-        // notes = getNotes(`${pf1ks.config.changePrefix}_infamy`); // todo how to make context notes work
+        notes = getNotes(`${pf1ks.config.changePrefix}_${id}`);
         break;
       case "settlement-danger": {
         const settlement = actorData.settlements[detail];
@@ -624,7 +638,7 @@ export class KingdomSheet extends pf1.applications.actor.ActorSheetPF {
           sources: getSource(`system.settlements.${detail}.danger`),
           untyped: true,
         });
-        // notes = getNotes(`${pf1ks.config.changePrefix}_infamy`);
+        notes = getNotes(`${pf1ks.config.changePrefix}_danger`);
         break;
       }
       case "settlement-corruption":
@@ -651,7 +665,7 @@ export class KingdomSheet extends pf1.applications.actor.ActorSheetPF {
           sources: getSource(`system.settlements.${detail}.modifiers.${modifier}.total`),
           untyped: true,
         });
-        // notes = getNotes(`${pf1ks.config.changePrefix}_infamy`);
+        notes = getNotes(`${pf1ks.config.changePrefix}_${modifier}`, settlement.id);
         break;
       }
 
