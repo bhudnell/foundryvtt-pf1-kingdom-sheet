@@ -445,9 +445,57 @@ export class KingdomSheet extends pf1.applications.actor.ActorSheetPF {
     }
   }
 
-  // TODO when creating a building in a settlement, I need to figure out a way to pre-populate the settlement id
-
   // overrides
+  _onItemCreate(event) {
+    event.preventDefault();
+    const el = event.currentTarget;
+
+    const [categoryId, sectionId] = el.dataset.create?.split(".") ?? [];
+    const createData = foundry.utils.deepClone(pf1.config.sheetSections[categoryId]?.[sectionId]?.create);
+    if (!createData) {
+      throw new Error(`No creation data found for "${categoryId}.${sectionId}"`);
+    }
+    const type = createData.type || el.dataset.type;
+    const subType = createData.system?.subType;
+    const typeName = game.i18n.localize(
+      subType ? `PF1.Subtypes.Item.${type}.${subType}.Single` : CONFIG.Item.typeLabels[type]
+    );
+
+    const settlementId = el.dataset.settlementId;
+
+    if (settlementId) {
+      createData.system ??= {};
+      createData.system.settlementId = settlementId;
+    }
+
+    const newItem = new Item.implementation({ name: game.i18n.format("PF1.NewItem", { type: typeName }), type });
+    newItem.updateSource(createData);
+
+    this._sortNewItem(newItem);
+
+    // Get old items of same general category
+    const oldItems = this.actor.itemTypes[type]
+      .filter((oldItem) => pf1.utils.isItemSameSubGroup(newItem, oldItem))
+      .sort((a, b) => b.sort - a.sort);
+
+    if (oldItems.length) {
+      // Ensure no duplicate names occur
+      const baseName = newItem.name;
+      let newName = baseName;
+      let i = 2;
+      const names = new Set(oldItems.map((i) => i.name));
+      while (names.has(newName)) {
+        newName = `${baseName} (${i++})`;
+      }
+
+      if (newName !== newItem.name) {
+        newItem.updateSource({ name: newName });
+      }
+    }
+
+    return this.actor.createEmbeddedDocuments("Item", [newItem.toObject()], { renderSheet: true });
+  }
+
   async _updateObject(event, formData) {
     const changed = foundry.utils.expandObject(formData);
 
