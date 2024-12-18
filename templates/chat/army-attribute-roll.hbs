@@ -11,6 +11,7 @@
     >
       {{ total }}
     </h4>
+    {{{tooltip}}}
   </div>
 </div>
 
@@ -19,6 +20,7 @@
 <div class="dice-roll">
   <div class="dice-result">
     <h4 class="dice-total">{{numberFormat damageBonus.total sign=true}}</h4>
+    {{{damageTooltip}}}
   </div>
 </div>
 {{/if}}
@@ -28,7 +30,7 @@
   <label>{{ header }}</label>
   <div class="flexrow tag-list">
     {{#each value}}
-    <span class="tag"></span>
+    <span class="tag">{{{this}}}</span>
     {{/each}}
   </div>
 </div>
