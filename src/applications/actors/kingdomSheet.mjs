@@ -590,7 +590,6 @@ export class KingdomSheet extends pf1.applications.actor.ActorSheetPF {
   }
 
   _getTooltipContext(fullId, context) {
-    // TODO edict/government/alignment tootips
     const actor = this.actor;
     const actorData = actor.system;
 
@@ -643,6 +642,42 @@ export class KingdomSheet extends pf1.applications.actor.ActorSheetPF {
           untyped: true,
         });
         notes = getNotes(`${pf1ks.config.changePrefix}_${id}`);
+        break;
+      case "holiday":
+        if (actorData.edicts[id]) {
+          paths.push({
+            path: game.i18n.localize("PF1KS.Loyalty"),
+            value: pf1ks.config.edictEffects[id][actorData.edicts[id]].loyalty.signedString(),
+          });
+          paths.push({
+            path: game.i18n.localize("PF1KS.Consumption"),
+            value: pf1ks.config.edictEffects[id][actorData.edicts[id]].consumption.signedString(),
+          });
+        }
+        break;
+      case "promotion":
+        if (actorData.edicts[id]) {
+          paths.push({
+            path: game.i18n.localize("PF1KS.Stability"),
+            value: pf1ks.config.edictEffects[id][actorData.edicts[id]].stability.signedString(),
+          });
+          paths.push({
+            path: game.i18n.localize("PF1KS.Consumption"),
+            value: pf1ks.config.edictEffects[id][actorData.edicts[id]].consumption.signedString(),
+          });
+        }
+        break;
+      case "taxation":
+        if (actorData.edicts[id]) {
+          paths.push({
+            path: game.i18n.localize("PF1KS.Economy"),
+            value: pf1ks.config.edictEffects[id][actorData.edicts[id]].economy.signedString(),
+          });
+          paths.push({
+            path: game.i18n.localize("PF1KS.Loyalty"),
+            value: pf1ks.config.edictEffects[id][actorData.edicts[id]].loyalty.signedString(),
+          });
+        }
         break;
       case "fame":
       case "infamy":
