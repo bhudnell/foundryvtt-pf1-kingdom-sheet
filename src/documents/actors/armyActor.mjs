@@ -5,6 +5,18 @@ import { BaseActor } from "./baseActor.mjs";
 
 export class ArmyActor extends BaseActor {
   async rollAttribute(attributeId, options = {}) {
+    const {
+      skipDialog = pf1.documents.settings.getSkipActionPrompt(),
+      staticRoll = null,
+      chatMessage = true,
+      compendium,
+      noSound = false,
+      dice = pf1.dice.D20RollPF.standardRoll,
+      subject,
+      bonus = "",
+      messageData = undefined,
+    } = options;
+
     const check = this.system[attributeId];
 
     const parts = [];
@@ -28,6 +40,28 @@ export class ArmyActor extends BaseActor {
       parts.push(`${c.value}[${c.flavor}]`);
     }
 
+    // add damange bonus to OM roll
+    let damageBonus, damageTooltip;
+    if (attributeId === "om") {
+      const tooltipParts = [];
+      const damageChanges = pf1.documents.actor.changes.getHighestChanges(
+        this.changes.filter(
+          (c) => c.operator !== "set" && c.target === `${pf1ks.config.changePrefix}_damage` && c.value
+        ),
+        { ignoreTarget: true }
+      );
+      for (const c of damageChanges) {
+        tooltipParts.push({
+          flavor: c.flavor,
+          total: c.value.signedString(),
+        });
+      }
+      console.error(tooltipParts);
+
+      damageTooltip = await renderTemplate("systems/pf1/templates/dice/tooltip.hbs", { parts: tooltipParts });
+      damageBonus = this.system.damageBonus;
+    }
+
     // Add context notes
     const rollData = options.rollData || this.getRollData();
     const noteObjects = this.getContextNotes(`${pf1ks.config.changePrefix}_${attributeId}`);
@@ -40,18 +74,32 @@ export class ArmyActor extends BaseActor {
     const actor = options.actor ?? this;
     const token = options.token ?? this.token;
 
-    // TODO add damage bonus to card when OM is rolled
+    let rollMode = options.rollMode;
 
-    const rollOptions = {
-      ...options,
-      parts,
-      rollData,
-      flavor: game.i18n.format("PF1KS.Army.AttributeRoll", { check: label }),
-      chatTemplateData: { properties: props },
-      speaker: ChatMessage.getSpeaker({ actor, token, alias: token?.name }),
-    };
+    const formula = [dice, ...parts].join("+");
+    const flavor = game.i18n.format("PF1KS.Army.AttributeRoll", { check: label });
+    const speaker = ChatMessage.getSpeaker({ actor, token, alias: token?.name });
 
-    return await pf1.dice.d20Roll(rollOptions);
+    const roll = new pf1.dice.D20RollPF(formula, rollData, { flavor, staticRoll, bonus }, { speaker });
+    if (!skipDialog) {
+      const title = speaker?.alias ? `${speaker.alias}: ${flavor}` : flavor;
+      const dialogResult = await roll.promptDialog({ title, rollMode, subject, speaker });
+      if (dialogResult === null) {
+        return;
+      }
+
+      // Move roll mode selection from roll data
+      rollMode = roll.options.rollMode;
+      delete roll.options.rollMode;
+    }
+
+    const chatTemplate = `modules/${pf1ks.config.moduleId}/templates/chat/army-attribute-roll.hbs`;
+    const chatTemplateData = { properties: props, damageBonus, damageTooltip };
+
+    return roll.toMessage(
+      { ...messageData, speaker },
+      { create: chatMessage, noSound, chatTemplate, chatTemplateData, compendium, subject, rollMode }
+    );
   }
 
   _addDefaultChanges(changes) {

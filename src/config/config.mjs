@@ -644,19 +644,14 @@ export const armyConditions = {
     name: "PF1KS.Condition.Fog",
     texture: `modules/${moduleId}/icons/fog.svg`,
     mechanics: {
-      changes: [
-        {
-          formula: "floor(@damageBonus.total / 2)",
-          target: `${changePrefix}_damage`,
-          type: "untyped",
-          operator: "set",
-          priority: 1001,
-        },
-      ],
       contextNotes: [
         {
           text: "+[[2]] to withdraw",
           target: `${changePrefix}_morale`,
+        },
+        {
+          text: "half damage",
+          target: `${changePrefix}_om`,
         },
       ],
     },
@@ -695,19 +690,14 @@ export const armyConditions = {
     name: "PF1KS.Condition.Sandstorm",
     texture: `modules/${moduleId}/icons/sandstorm.svg`,
     mechanics: {
-      changes: [
-        {
-          formula: "floor(@damageBonus.total / 2)",
-          target: `${changePrefix}_damage`,
-          type: "untyped",
-          operator: "set",
-          priority: 1001,
-        },
-      ],
       contextNotes: [
         {
           text: "+[[2]] to withdraw",
           target: `${changePrefix}_morale`,
+        },
+        {
+          text: "half damage",
+          target: `${changePrefix}_om`,
         },
       ],
     },
@@ -718,18 +708,13 @@ export const armyConditions = {
     name: "PF1KS.Condition.Snow",
     texture: `modules/${moduleId}/icons/snow.svg`,
     mechanics: {
-      changes: [
-        {
-          formula: "floor(@damageBonus.total / 2)",
-          target: `${changePrefix}_damage`,
-          type: "untyped",
-          operator: "set",
-          priority: 1001,
-        },
-      ],
       contextNotes: [
         {
           text: "[[-4]] during the Ranged phase",
+          target: `${changePrefix}_om`,
+        },
+        {
+          text: "half damage",
           target: `${changePrefix}_om`,
         },
       ],
