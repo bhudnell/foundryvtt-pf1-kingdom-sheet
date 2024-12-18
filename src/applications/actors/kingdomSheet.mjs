@@ -446,6 +446,8 @@ export class KingdomSheet extends pf1.applications.actor.ActorSheetPF {
   }
 
   // overrides
+  // this function is almost identical to the system function on actor-sheet.mjs, except it allows
+  // the settlementId of buildings to be pre-populated
   _onItemCreate(event) {
     event.preventDefault();
     const el = event.currentTarget;
@@ -461,8 +463,8 @@ export class KingdomSheet extends pf1.applications.actor.ActorSheetPF {
       subType ? `PF1.Subtypes.Item.${type}.${subType}.Single` : CONFIG.Item.typeLabels[type]
     );
 
+    // This is the part I had to add
     const settlementId = el.dataset.settlementId;
-
     if (settlementId) {
       createData.system ??= {};
       createData.system.settlementId = settlementId;

@@ -7,30 +7,6 @@ export class KingdomActor extends BaseActor {
   prepareDerivedData() {
     super.prepareDerivedData();
 
-    // kingdom modifiers
-    if (this.system.settings.optionalRules.kingdomModifiers) {
-      for (const modifier of Object.keys(pf1ks.config.settlementModifiers)) {
-        const settlementSize =
-          this.system.settlements.reduce((acc, curr) => acc + curr.modifiers[modifier].size, 0) / 10;
-        const alignment = pf1ks.config.alignmentEffects[this.system.alignment]?.[modifier] ?? 0;
-        const government = pf1ks.config.governmentBonuses[this.system.government]?.[modifier] ?? 0;
-        const buildings = this._getChanges(modifier, pf1ks.config.buildingId) / 10;
-        const improvements = this._getChanges(modifier, pf1ks.config.improvementId) / 10;
-        const events = this._getChanges(modifier, pf1ks.config.eventId) / 10;
-        const total = Math.floor(settlementSize + alignment + government + buildings + improvements + events);
-
-        this.system.modifiers[modifier] = {
-          settlementSize,
-          alignment,
-          government,
-          buildings,
-          improvements,
-          events,
-          total,
-        };
-      }
-    }
-
     // settlement modifiers
     // this is split between here and settlementModel.mjs because of the change system.
     // size, alignment, and government are handled in settlementModel.mjs and item changes and the totals are handled here
@@ -52,14 +28,6 @@ export class KingdomActor extends BaseActor {
           );
         }
 
-        let total = settlementTotal;
-        if (
-          this.system.settings.optionalRules.kingdomModifiers &&
-          Object.keys(pf1ks.config.settlementModifiers).includes(modifier)
-        ) {
-          total = Math.max(total, this.system.modifiers[modifier].total);
-        }
-
         settlement.modifiers[modifier] = {
           size,
           alignment,
@@ -68,8 +36,40 @@ export class KingdomActor extends BaseActor {
           improvements,
           events,
           settlementTotal,
+          total: settlementTotal,
+        };
+      }
+    }
+
+    // kingdom modifiers
+    if (this.system.settings.optionalRules.kingdomModifiers) {
+      for (const modifier of Object.keys(pf1ks.config.settlementModifiers)) {
+        const allSettlements = Math.floor(
+          this.system.settlements.reduce((acc, curr) => acc + curr.modifiers[modifier].settlementTotal, 0) / 10
+        );
+        const alignment = pf1ks.config.alignmentEffects[this.system.alignment]?.[modifier] ?? 0;
+        const government = pf1ks.config.governmentBonuses[this.system.government]?.[modifier] ?? 0;
+
+        const total = allSettlements + alignment + government;
+
+        this.system.modifiers[modifier] = {
+          allSettlements,
+          alignment,
+          government,
           total,
         };
+      }
+    }
+
+    // take higher of settlement modifiers and kingdom modifiers
+    if (this.system.settings.optionalRules.kingdomModifiers) {
+      for (const settlement of this.system.settlements) {
+        for (const modifier of Object.keys(pf1ks.config.settlementModifiers)) {
+          settlement.modifiers[modifier].total = Math.max(
+            settlement.modifiers[modifier].total,
+            this.system.modifiers[modifier].total
+          );
+        }
       }
     }
 
@@ -312,15 +312,10 @@ export class KingdomActor extends BaseActor {
           value: this.system.modifiers[mod].government,
         });
       }
-      const settlementTotal =
-        this.system.modifiers[mod].settlementSize +
-        this.system.modifiers[mod].buildings +
-        this.system.modifiers[mod].improvements +
-        this.system.modifiers[mod].events;
-      if (settlementTotal) {
+      if (this.system.modifiers[mod].allSettlements) {
         sourceDetails[`system.modifiers.${mod}.total`].push({
           name: game.i18n.localize("PF1KS.Settlements"),
-          value: Math.floor(settlementTotal),
+          value: this.system.modifiers[mod].allSettlements,
         });
       }
     });
