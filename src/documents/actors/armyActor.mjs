@@ -23,7 +23,7 @@ export class ArmyActor extends BaseActor {
     const props = [];
 
     if (check.base) {
-      parts.push(`${check.base}[${game.i18n.localize("PF1KS.Base")}]`);
+      parts.push(`${check.base}[${game.i18n.localize("PF1.Base")}]`);
     }
     if (check.commander) {
       parts.push(`${check.commander}[${game.i18n.localize("PF1KS.Army.Commander")}]`);

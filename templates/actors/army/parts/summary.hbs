@@ -13,7 +13,7 @@
             <span class="value text-box direct" name="system.acr" data-dtype="Number">{{ system.acr }}</span>
           </div>
           <div class="info-box">
-            <h5>{{localize "PF1KS.Army.Exp" }}</h5>
+            <h5>{{localize "PF1.Experience" }}</h5>
             <span class="value">{{ system.exp }}</span>
           </div>
         </div>
@@ -22,7 +22,7 @@
 
     <div class="character-summary flexrow">
       <div class="full-width">
-        <input type="text" name="system.type" value="{{ system.type }}" data-tooltip="PF1KS.Army.Type" placeholder="{{localize "PF1KS.Army.Type"}}" />
+        <input type="text" name="system.type" value="{{ system.type }}" data-tooltip="PF1.Type" />
       </div>
 
       <div>
@@ -32,13 +32,13 @@
       </div>
 
       <div>
-        <select name="system.size" data-tooltip="PF1KS.Army.SizeLabel">
+        <select name="system.size" data-tooltip="PF1.Size">
           {{selectOptions sizeOptions selected=system.size blank=''}}
         </select>
       </div>
 
       <div>
-        <select name="system.hd" data-tooltip="PF1KS.Army.HD">
+        <select name="system.hd" data-tooltip="PF1.HitDieShort">
           {{selectOptions hdOptions selected=system.hd}}
         </select>
       </div>
@@ -49,26 +49,26 @@
 <section class="subdetails-body">
   <div class="attributes flexrow">
     <div class="info-box-header" data-tooltip-extended="hp">
-      <h3>{{localize "PF1KS.Army.HP"}}</h3>
+      <h3>{{localize "PF1.HitPoints"}}</h3>
       <div class="info-box-joined">
         <div class="info-box">
-          <h5>{{ localize "PF1KS.Army.HpCurrent" }}</h5>
+          <h5>{{ localize "PF1.Current" }}</h5>
           <span class="value text-box direct" name="system.hp.current" data-dtype="Number">{{
             system.hp.current
           }}</span>
         </div>
         <div class="info-box">
-          <h5>{{localize "PF1KS.Army.HpMax" }}</h5>
+          <h5>{{localize "PF1.Maximum" }}</h5>
           <span class="value">{{ system.hp.max }}</span>
         </div>
       </div>
     </div>
 
     <div class="info-box-header">
-      <h3>{{localize "PF1KS.Misc"}}</h3>
+      <h3>{{localize "PF1.Misc"}}</h3>
       <div class="info-box-joined">
         <div class="info-box" data-tooltip-extended="speed">
-          <h5>{{ localize "PF1KS.Army.Speed" }}</h5>
+          <h5>{{ localize "PF1.Movement.Speed" }}</h5>
           <span class="value text-box direct" name="system.speed.base" data-dtype="Number">{{
             system.speed.total
           }}</span>
@@ -97,7 +97,7 @@
           <span class="value">{{ numberFormat system.om.total sign=true }}</span>
         </div>
         <div class="info-box" data-tooltip-extended="damageBonus">
-          <h5>{{ localize "PF1KS.Army.DamageBonus" }}</h5>
+          <h5>{{ localize "PF1.DamageBonus" }}</h5>
           <span class="value">{{ numberFormat system.damageBonus.total sign=true }}</span>
         </div>
         <div class="info-box" data-tooltip-extended="morale">

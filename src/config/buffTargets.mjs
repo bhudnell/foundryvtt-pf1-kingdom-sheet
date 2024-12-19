@@ -14,7 +14,7 @@ export const commonBuffTargets = {
 export const armyBuffTargets = {
   [`${changePrefix}_speed`]: {
     category: `${changePrefix}_misc`,
-    label: "PF1KS.Army.Speed",
+    label: "PF1.Movement.Speed",
     filters: { item: { include: armyItemTypes } },
   },
   [`${changePrefix}_bonus_tactic`]: {
@@ -70,7 +70,7 @@ export const buffTargetCategories = {
     filters: { item: { include: kingdomItemTypes } },
   },
   [`${changePrefix}_misc`]: {
-    label: "PF1KS.Misc",
+    label: "PF1.Misc",
     filters: { item: { include: [...kingdomItemTypes, ...armyItemTypes] } },
   },
   [`${changePrefix}_army_attributes`]: {

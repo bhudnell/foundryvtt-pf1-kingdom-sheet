@@ -376,7 +376,7 @@ export const settlementModifiers = {
 
 export const allSettlementModifiers = {
   ...settlementModifiers,
-  defense: "PF1KS.Defense",
+  defense: "PF1.Defense",
   baseValue: "PF1KS.BaseValue",
 };
 
@@ -518,20 +518,20 @@ export const compendiumEntries = {
 export const armyAttributes = {
   dv: "PF1KS.Army.DV",
   om: "PF1KS.Army.OM",
-  damage: "PF1KS.Army.DamageBonus",
+  damage: "PF1.DamageBonus",
   morale: "PF1KS.Army.Morale",
 };
 
 export const armySizes = {
-  0: "PF1KS.Army.Size.Fine",
-  1: "PF1KS.Army.Size.Diminutive",
-  2: "PF1KS.Army.Size.Tiny",
-  3: "PF1KS.Army.Size.Small",
-  4: "PF1KS.Army.Size.Medium",
-  5: "PF1KS.Army.Size.Large",
-  6: "PF1KS.Army.Size.Huge",
-  7: "PF1KS.Army.Size.Gargantuan",
-  8: "PF1KS.Army.Size.Colossal",
+  0: "PF1.ActorSize.fine",
+  1: "PF1.ActorSize.dim",
+  2: "PF1.ActorSize.tiny",
+  3: "PF1.ActorSize.sm",
+  4: "PF1.ActorSize.med",
+  5: "PF1.ActorSize.lg",
+  6: "PF1.ActorSize.huge",
+  7: "PF1.ActorSize.grg",
+  8: "PF1.ActorSize.col",
 };
 
 export const armyConsumptionScaling = {

@@ -232,7 +232,7 @@ export class KingdomActor extends BaseActor {
 
     // consumption
     changes.push(
-      new DefaultChange(system.size, `${pf1ks.config.changePrefix}_consumption`, "PF1KS.Size"),
+      new DefaultChange(system.size, `${pf1ks.config.changePrefix}_consumption`, "PF1.Size"),
       new DefaultChange(system.totalDistricts, `${pf1ks.config.changePrefix}_consumption`, "PF1KS.Districts"),
       new DefaultChange(
         pf1ks.config.edictEffects.holiday[system.edicts.holiday]?.consumption ?? 0,
@@ -288,7 +288,7 @@ export class KingdomActor extends BaseActor {
         value: game.i18n.format("PF1.SetTo", { value: 20 }),
       },
       {
-        name: game.i18n.localize("PF1KS.Size"),
+        name: game.i18n.localize("PF1.Size"),
         value: this.system.size,
       },
       {
@@ -345,7 +345,7 @@ export class KingdomActor extends BaseActor {
         sourceDetails[`system.settlements.${idx}.modifiers.${mod}.total`] = [];
         if (s.modifiers[mod].size) {
           sourceDetails[`system.settlements.${idx}.modifiers.${mod}.total`].push({
-            name: game.i18n.localize("PF1KS.Settlement.Size"),
+            name: game.i18n.localize("PF1.Size"),
             value: s.modifiers[mod].size,
           });
         }

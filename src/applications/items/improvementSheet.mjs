@@ -21,7 +21,7 @@ export class ImprovementSheet extends ItemBaseSheet {
       {
         isNumber: true,
         name: "system.quantity",
-        label: game.i18n.localize("PF1KS.Quantity"),
+        label: game.i18n.localize("PF1.Quantity"),
         value: itemData.quantity,
       },
     ];

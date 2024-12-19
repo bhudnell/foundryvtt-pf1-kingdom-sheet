@@ -33,7 +33,7 @@ export const contextNoteCategories = {
     filters: { item: { include: kingdomItemTypes } },
   },
   [`${changePrefix}_misc`]: {
-    label: "PF1KS.Misc",
+    label: "PF1.Misc",
     filters: { item: { include: [...kingdomItemTypes, ...armyItemTypes] } },
   },
   [`${changePrefix}_army_attributes`]: {

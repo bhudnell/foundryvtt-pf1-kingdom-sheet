@@ -43,7 +43,7 @@ Hooks.on("preCreateItem", (item, data, context, user) => {
     ![PF1KS.kingdomId, PF1KS.armyId].includes(item.actor.type) &&
     [...PF1KS.kingdomItemTypes, ...PF1KS.armyItemTypes].includes(item.type)
   ) {
-    ui.notifications.error("PF1KS.NoKingdomOrArmyItemsOnActor", { localize: true }); // TODO add to en.json
+    ui.notifications.error("PF1KS.NoKingdomOrArmyItemsOnActor", { localize: true });
     return false;
   }
 
@@ -253,7 +253,7 @@ Hooks.once("setup", () => {
 
 Hooks.once("ready", () => {
   if (!game.modules.get("lib-wrapper")?.active && game.user.isGM) {
-    ui.notifications.error("Module XYZ requires the 'libWrapper' module. Please install and activate it."); // TODO
+    ui.notifications.error("PF1KS.LibWrapperError");
   }
 
   loadTemplates({

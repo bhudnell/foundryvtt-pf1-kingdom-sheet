@@ -10,7 +10,7 @@ export class TacticSheet extends ItemBaseSheet {
       {
         field: "system.disabled",
         value: itemData.disabled,
-        label: game.i18n.localize("PF1KS.Disabled"),
+        label: game.i18n.localize("PF1.Disabled"),
       },
     ];
 

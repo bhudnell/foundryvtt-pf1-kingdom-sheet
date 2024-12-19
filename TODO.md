@@ -1,4 +1,3 @@
 - add army actor/item packs to module.json
 - create compendium items
-- clean up en.json
 - Compare economy/loyalty/stability rolls to control DC to determine success/failure

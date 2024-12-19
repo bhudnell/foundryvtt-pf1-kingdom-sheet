@@ -1,10 +1,8 @@
 {
   "PF1KS": {
-    "Summary": "Summary",
     "Turn": "Turn",
     "Population": "Population",
     "Treasury": "Treasury",
-    "Size": "Size",
     "ControlDC": "Control DC",
     "KingdomStat": "Kingdom Stats",
     "KingdomStatRoll": "{check} Kingdom Stat",
@@ -113,13 +111,11 @@
     "DeleteViceroyConfirmation": "Are you sure you want to delete this viceroy?",
     "Position": "Position",
     "FilledBy": "Filled By",
-    "Bonus": "Bonus",
     "SkillBonus": "Skill Bonus",
 
     "Settlements": "Settlements",
     "SettlementLabel": "Settlement",
     "Settlement": {
-      "Size": "Size",
       "Sizes": {
         "Thorpe": "Thorpe",
         "Hamlet": "Hanlet",
@@ -141,7 +137,6 @@
     "DistrictCount": "District Count",
     "Districts": "Districts",
     "BaseValue": "Base Value",
-    "Defense": "Defense",
     "Danger": "Danger",
 
     "Corruption": "Corruption",
@@ -269,42 +264,20 @@
 
     "Armies": "Armies",
     "Army": {
-      "Type": "Type",
-      "HP": "Hit Points",
-      "HpCurrent": "Current",
-      "HpMax": "Maximum",
-      "HD": "HD",
       "ACR": "ACR",
-      "Exp": "Experience",
       "ConsumptionPerWeek": "Consumption (per week)",
-      "Speed": "Speed",
       "SpeedUnit": "Hexes",
       "AttributeRoll": "{check} Check",
       "Morale": "Morale",
       "DV": "DV",
       "OM": "OM",
-      "DamageBonus": "Damage Bonus",
-      "Features": "Features",
       "Commander": "Commander",
       "KingdomLeader": "Kingdom Leader?",
-      "ChaMod": "Charisma Modifier",
       "ProfSoldier": "Profession (Soldier)",
       "MoraleBonus": "Morale Bonus",
       "Leadership": "Leadership",
       "CurrentBoons": "Current Boons",
       "MaxBoons": "Max Boons",
-      "SizeLabel": "Size",
-      "Size": {
-        "Fine": "Fine",
-        "Diminutive": "Diminutive",
-        "Tiny": "Tiny",
-        "Small": "Small",
-        "Medium": "Medium",
-        "Large": "Large",
-        "Huge": "Huge",
-        "Gargantuan": "Gargantuan",
-        "Colossal": "Colossal"
-      },
       "StrategyLabel": "Strategy",
       "Strategy": {
         "Defensive": "Defensive",
@@ -338,9 +311,6 @@
     "DeleteArmyTitle": "Delete Army: {name}",
     "DeleteArmyConfirmation": "Are you sure you want to delete this army?",
 
-    "Notes": "Notes",
-
-    "SettingsLabel": "Settings",
     "Settings": {
       "KingdomModifiers": "Kingdomwide Settlement Modifiers",
       "FameInfamy": "Fame and Infamy",
@@ -348,27 +318,11 @@
       "LeadershipSkills": "Leadership Skills",
       "SettlementSizes": "Alternative Settlement Size Modifiers"
     },
-    "BaseSetup": "Base Setup",
-    "OptionalRules": "Optional Rules",
 
-    "Description": "Description",
-    "Details": "Details",
-    "Quantity": "Quantity",
     "Continuous": "Continuous",
-    "Type": "Type",
-    "Disabled": "Disabled",
-    "Base": "Base",
 
-    "Change": "Change",
-    "Changes": "Changes",
     "ArmyAttributes": "Army Attributes",
-    "Misc": "Miscellaneous",
-    "Target": "Target",
-    "DeleteChange": "Delete Change",
-    "DuplicateChange": "Duplicate Change",
-    "AddChange": "Add Change",
 
-    "Conditions": "Conditions",
     "Condition": {
       "AdvantageousTerrain": "Advantageous Terrain",
       "Ambush": "Ambush",
@@ -401,7 +355,12 @@
       "Boon": "Boon",
       "Special": "Special Ability",
       "Tactic": "Tactic"
-    }
+    },
+
+    "NoKingdomOrArmyItemsOnActor": "This actor cannot have Kingdom or Army items.",
+    "OnlyKingdomItemsOnActor": "Kingdom actors can only have Building, Event, and Terrain Improvement items.",
+    "OnlyArmyItemsOnActor": "Army actors can only have Boon, Special Ability, and Tactic items.",
+    "LibWrapperError": "The PF1 Kingdom Sheet module requires the 'libWrapper' module. Please install and activate it."
   },
   "TYPES": {
     "Actor": {
