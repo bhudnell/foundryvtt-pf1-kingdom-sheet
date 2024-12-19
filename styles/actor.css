@@ -22,6 +22,11 @@
     .info-box-joined {
       flex: 0 0 100%;
     }
+
+    .fa-triangle-exclamation {
+      color: var(--pf1-color-text-error);
+      text-shadow: 0 0 3px var(--pf1-faint);
+    }
   }
 
   .tab.terrain {

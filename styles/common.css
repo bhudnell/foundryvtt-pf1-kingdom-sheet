@@ -74,11 +74,6 @@
       }
     }
   }
-
-  .fa-triangle-exclamation {
-    color: var(--pf1-red);
-    text-shadow: 0 0 3px var(--pf1-faint);
-  }
 }
 
 .app.sheet.kingdom input[type="number"] {
