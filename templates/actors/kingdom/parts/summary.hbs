@@ -50,7 +50,12 @@
           <span class="value">{{ system.controlDC }}</span>
         </div>
         <div class="info-box">
-          <h5>{{localize "PF1KS.Unrest" }}</h5>
+          <h5>
+            {{#if unrestError}}
+            <i class="fa-solid fa-triangle-exclamation" data-tooltip="{{ unrestError }}"></i>
+            {{/if}}
+            <span>{{ localize "PF1KS.Unrest" }}</span>
+          </h5>
           <span class="value text-box direct" name="system.unrest" data-dtype="Number">{{ system.unrest }}</span>
         </div>
         <div class="info-box">
@@ -145,7 +150,12 @@
 
     {{#if system.settings.optionalRules.fameInfamy}}
     <div class="info-box-header">
-      <h3>{{localize "PF1KS.Settings.FameInfamy"}}</h3>
+      <h3>
+        {{#if fameInfamyError}}
+        <i class="fa-solid fa-triangle-exclamation" data-tooltip="{{ fameInfamyError }}"></i>
+        {{/if}}
+        <span>{{ localize "PF1KS.Settings.FameInfamy" }}</span>
+      </h3>
       <div class="info-box-joined">
         <div class="info-box" data-tooltip-extended="fame">
           <h5>{{localize "PF1KS.Fame" }}</h5>

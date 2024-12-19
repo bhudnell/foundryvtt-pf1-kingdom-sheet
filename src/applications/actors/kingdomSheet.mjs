@@ -45,11 +45,7 @@ export class KingdomSheet extends pf1.applications.actor.ActorSheetPF {
       cssClass: isOwner ? "editable" : "locked",
     };
 
-    // notifications
-    // TODO unrest > 10 warning -> lose 1 hex a turn
-    // TODO unrest > 19 error -> kingdom in anarchy
     // TODO any unrest increases such as from vacancies
-    // TODO Base fame+infamy < or > expected
 
     // selectors
     data.alignmentOptions = pf1.config.alignments;
@@ -153,6 +149,20 @@ export class KingdomSheet extends pf1.applications.actor.ActorSheetPF {
 
     // optional rules
     data.optionalRules = this._prepareOptionalRules();
+
+    // notifications
+    if (actorData.unrest > 10 && actorData.unrest < 20) {
+      data.unrestError = game.i18n.localize("PF1KS.UnrestWarning");
+    }
+    if (actorData.unrest > 19) {
+      data.unrestError = game.i18n.localize("PF1KS.UnrestError");
+    }
+    if (actorData.fame.base + actorData.infamy.base > fame) {
+      data.fameInfamyError = game.i18n.localize("PF1KS.FamyInfamyError");
+    }
+    if (actorData.fame.base + actorData.infamy.base < fame) {
+      data.fameInfamyError = game.i18n.localize("PF1KS.MissingFamyInfamyError");
+    }
 
     return data;
   }

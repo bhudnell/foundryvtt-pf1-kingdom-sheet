@@ -18,11 +18,15 @@
     "LoyaltyStability": "Loy & Stab",
     "AllStats": "All Stats",
     "Unrest": "Unrest",
+    "UnrestWarning": "Kingdom loses 1 hex per turn",
+    "UnrestError": "Kingdom is in anarchy!",
     "Consumption": "Consumption",
     "BonusBP": "Bonus Build Points",
     "BonusBPShort": "Bonus BP",
     "Fame": "Fame",
     "Infamy": "Infamy",
+    "FamyInfamyError": "Base fame + infamy is too high for the kingdom's size",
+    "MissingFamyInfamyError": "Base fame + infamy is too low for the kingdom's size",
 
     "GovernmentLabel": "Government",
     "Government": {
