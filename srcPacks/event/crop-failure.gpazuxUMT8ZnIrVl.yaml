@@ -1,0 +1,23 @@
+type: pf1-kingdom-sheet.event
+name: Crop Failure
+system:
+  subType: active
+  continuous: false
+  description:
+    value: >-
+      <p>Pests, blight, and weather ruin the harvest in the settlement’s hex and
+      all adjacent hexes. </p><hr /><p>Attempt two Stability checks. If both
+      succeed, the problem is fixed before your kingdom takes any penalties from
+      the event. If only one succeeds, affected farms reduce Consumption by 1
+      (instead of the normal reduction) in the next Upkeep phase. If neither
+      succeeds, affected farms do not reduce Consumption at all in the next
+      Upkeep phase.</p>
+  changes: []
+  contextNotes: []
+  sources: []
+  settlementId: ''
+_id: gpazuxUMT8ZnIrVl
+img: icons/svg/clockwork.svg
+sort: 0
+_key: '!items!gpazuxUMT8ZnIrVl'
+

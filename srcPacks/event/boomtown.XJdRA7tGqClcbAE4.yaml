@@ -1,0 +1,20 @@
+type: pf1-kingdom-sheet.event
+name: Boomtown
+system:
+  subType: active
+  continuous: false
+  description:
+    value: >-
+      <p>Randomly select one settlement. Commerce booms among that
+      settlement.</p><hr /><p>Until the next Event phase, Economy increases by
+      the number of buildings in the settlement that grant an Economy bonus, and
+      Corruption increases by 1d4 in that settlement.</p>
+  changes: []
+  contextNotes: []
+  sources: []
+  settlementId: ''
+_id: XJdRA7tGqClcbAE4
+img: icons/svg/clockwork.svg
+sort: 0
+_key: '!items!XJdRA7tGqClcbAE4'
+

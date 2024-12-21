@@ -1,0 +1,25 @@
+type: pf1-kingdom-sheet.event
+name: Natural Blessing
+system:
+  subType: active
+  continuous: false
+  description:
+    value: >-
+      <p>A natural event, such as a bloom of rare and beautiful wildflowers or a
+      good omen in the stars, raises your kingdom’s morale. </p><hr /><p>You
+      gain a +4 bonus on Stability checks until the next Event phase.</p>
+  changes:
+    - _id: cM3cl7V4
+      formula: '4'
+      target: pf1ks_stability
+      type: untyped
+      operator: add
+      priority: 0
+  contextNotes: []
+  sources: []
+  settlementId: ''
+_id: YTibVZ6FTJwlHQX8
+img: icons/svg/clockwork.svg
+sort: 0
+_key: '!items!YTibVZ6FTJwlHQX8'
+

@@ -1,0 +1,36 @@
+type: pf1-kingdom-sheet.event
+name: Good Weather
+system:
+  subType: active
+  continuous: false
+  description:
+    value: >-
+      <p>Good weather raises spirits and productivity. </p><hr /><p>Economy,
+      Loyalty, and Productivity increase by 2 until the next Event phase.</p>
+  changes:
+    - _id: bf9iakw8
+      formula: '2'
+      target: pf1ks_economy
+      type: untyped
+      operator: add
+      priority: 0
+    - _id: a41Zpf2o
+      formula: '2'
+      target: pf1ks_loyalty
+      type: untyped
+      operator: add
+      priority: 0
+    - _id: qwNvPrKt
+      formula: '2'
+      target: pf1ks_productivity
+      type: untyped
+      operator: add
+      priority: 0
+  contextNotes: []
+  sources: []
+  settlementId: ''
+_id: wHV83yKL5vfRRQqU
+img: icons/svg/clockwork.svg
+sort: 0
+_key: '!items!wHV83yKL5vfRRQqU'
+

@@ -1,0 +1,22 @@
+type: pf1-kingdom-sheet.event
+name: Archaeological Find
+system:
+  subType: active
+  continuous: false
+  description:
+    value: ''
+  changes:
+    - _id: CLbMAWzv
+      formula: '1'
+      target: pf1ks_lore
+      type: untyped
+      operator: add
+      priority: 0
+  contextNotes: []
+  sources: []
+  settlementId: ''
+_id: G7ecOdRsnJBtVdLJ
+img: icons/svg/clockwork.svg
+sort: 0
+_key: '!items!G7ecOdRsnJBtVdLJ'
+

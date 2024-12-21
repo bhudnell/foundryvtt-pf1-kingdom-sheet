@@ -1,0 +1,20 @@
+type: pf1-kingdom-sheet.event
+name: Wealthy Immigrant
+system:
+  subType: active
+  continuous: false
+  description:
+    value: >-
+      <p>A rich merchant or a noble from another land is impressed with your
+      kingdom and asks to construct a Mansion (01–75) or Noble Villa (76–100) in
+      the settlement at no cost to you. If you allow it, the building provides
+      its normal benefits to your kingdom.</p>
+  changes: []
+  contextNotes: []
+  sources: []
+  settlementId: ''
+_id: 9XCAGn7x5kmNGaPy
+img: icons/svg/clockwork.svg
+sort: 0
+_key: '!items!9XCAGn7x5kmNGaPy'
+

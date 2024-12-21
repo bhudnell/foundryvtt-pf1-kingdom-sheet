@@ -21,6 +21,7 @@
 # Improvements
 
 - Building images
+- Add damaged field to buildings -> exist but provide no benefits
 - Field on kingdom sheet to show monthly unrest increases from vacancies/continuous events
 - Compare economy/loyalty/stability rolls to control DC to determine success/failure
-- Include magic item slots for settlements/buildings
+- Include magic item slots for settlements/buildings/events

@@ -1,0 +1,20 @@
+type: pf1-kingdom-sheet.event
+name: Feud
+system:
+  subType: active
+  continuous: true
+  description:
+    value: >-
+      <p>Nobles (or other influential rival groups) are bickering.</p><hr
+      /><p>Attempt a Loyalty check. If you succeed, you end the event but Unrest
+      increases by 1. If you fail, Corruption increases by 1, Unrest increases
+      by 1d6, and the event is continuous.</p>
+  changes: []
+  contextNotes: []
+  sources: []
+  settlementId: ''
+_id: CjKIgd0R9K8yLVBw
+img: icons/svg/clockwork.svg
+sort: 0
+_key: '!items!CjKIgd0R9K8yLVBw'
+

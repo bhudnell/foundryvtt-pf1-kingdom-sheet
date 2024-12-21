@@ -1,0 +1,19 @@
+type: pf1-kingdom-sheet.event
+name: Economic Boom
+system:
+  subType: active
+  continuous: false
+  description:
+    value: >-
+      <p>Trade is booming in your kingdom!</p><hr /><p> Your Treasury increases
+      by 1d6 BP (each time you roll a 6, add the result to the total and roll
+      again).</p>
+  changes: []
+  contextNotes: []
+  sources: []
+  settlementId: ''
+_id: sdNxf64OPZYporB7
+img: icons/svg/clockwork.svg
+sort: 0
+_key: '!items!sdNxf64OPZYporB7'
+

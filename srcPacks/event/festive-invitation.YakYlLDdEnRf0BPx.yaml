@@ -1,0 +1,21 @@
+type: pf1-kingdom-sheet.event
+name: Festive Invitation
+system:
+  subType: active
+  continuous: false
+  description:
+    value: >-
+      <p>Your kingdom’s leaders are invited to a festival in a neighboring
+      kingdom. </p><hr /><p>If you attend and bring 1d4 BP worth of gifts, for 1
+      year Society increases by 1, Fame increases by 1 for any check relating to
+      that kingdom, and you gain a +2 bonus on edict checks relating to that
+      kingdom.</p>
+  changes: []
+  contextNotes: []
+  sources: []
+  settlementId: ''
+_id: YakYlLDdEnRf0BPx
+img: icons/svg/clockwork.svg
+sort: 0
+_key: '!items!YakYlLDdEnRf0BPx'
+

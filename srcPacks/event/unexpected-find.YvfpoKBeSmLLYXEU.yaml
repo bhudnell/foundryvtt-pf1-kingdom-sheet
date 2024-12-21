@@ -1,0 +1,21 @@
+type: pf1-kingdom-sheet.event
+name: Unexpected Find
+system:
+  subType: active
+  continuous: false
+  description:
+    value: >-
+      <p>Local citizens discover a forgotten magical item. </p><hr /><p>The
+      settlement gains one temporary minor (01–70) or medium (71–100) magic item
+      slot that is automatically filled in the next Upkeep phase. This slot and
+      the item go away if the item is purchased or in the next Event phase,
+      whichever comes first.</p>
+  changes: []
+  contextNotes: []
+  sources: []
+  settlementId: ''
+_id: YvfpoKBeSmLLYXEU
+img: icons/svg/clockwork.svg
+sort: 0
+_key: '!items!YvfpoKBeSmLLYXEU'
+

@@ -1,0 +1,22 @@
+type: pf1-kingdom-sheet.event
+name: Building Demand
+system:
+  subType: active
+  continuous: true
+  description:
+    value: >-
+      <p>The citizens demand a particular building be built (01–75) or
+      demolished (76–100).</p><hr /><p>Select the building type randomly from
+      those available for the settlement. If the demand is not met by the next
+      Event phase, Unrest increases by 1. Alternatively, you can suppress the
+      citizens’ demands and negate the event by succeeding at a Loyalty check,
+      but this reduces Loyalty by 2 and increases Unrest by 1.</p>
+  changes: []
+  contextNotes: []
+  sources: []
+  settlementId: ''
+_id: LByiDFC9XSaOZzJl
+img: icons/svg/clockwork.svg
+sort: 0
+_key: '!items!LByiDFC9XSaOZzJl'
+

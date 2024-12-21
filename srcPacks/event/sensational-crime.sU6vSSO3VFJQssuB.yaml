@@ -1,0 +1,24 @@
+type: pf1-kingdom-sheet.event
+name: Sensational Crime
+system:
+  subType: active
+  continuous: true
+  description:
+    value: >-
+      <p>A serial killer, arsonist, or daring bandit plagues your kingdom.
+      </p><hr /><p>Attempt two Stability checks, adding the settlement’s Law and
+      subtracting its Crime. If you succeed at both checks, the criminal is
+      caught before your kingdom takes any penalties from the event. If you fail
+      at one, the criminal escapes, Unrest increases by 1, and the event is
+      continuous. If you fail at both, the criminal makes a fool of the
+      authorities; Law and Loyalty decrease by 1, Treasury decreases by 1d4 BP,
+      Unrest increases by 2, and the event is continuous.</p>
+  changes: []
+  contextNotes: []
+  sources: []
+  settlementId: ''
+_id: sU6vSSO3VFJQssuB
+img: icons/svg/clockwork.svg
+sort: 0
+_key: '!items!sU6vSSO3VFJQssuB'
+

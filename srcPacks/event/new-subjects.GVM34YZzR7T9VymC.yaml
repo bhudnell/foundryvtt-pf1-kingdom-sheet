@@ -1,0 +1,32 @@
+type: pf1-kingdom-sheet.event
+name: New Subjects
+system:
+  subType: active
+  continuous: false
+  description:
+    value: >-
+      <p>A small group of indigenous intelligent creatures joins your kingdom
+      and submits to your rule. </p><hr /><p>Society and Stability increase by
+      1, Unrest decreases by 1, and your Treasury increases by 1d6 BP (each time
+      you roll a 6, add the result to the total and roll again).</p>
+  changes:
+    - _id: NFkd0wS6
+      formula: '1'
+      target: pf1ks_stability
+      type: untyped
+      operator: add
+      priority: 0
+    - _id: Sq8eZTlR
+      formula: '1'
+      target: pf1ks_society
+      type: untyped
+      operator: add
+      priority: 0
+  contextNotes: []
+  sources: []
+  settlementId: ''
+_id: GVM34YZzR7T9VymC
+img: icons/svg/clockwork.svg
+sort: 0
+_key: '!items!GVM34YZzR7T9VymC'
+

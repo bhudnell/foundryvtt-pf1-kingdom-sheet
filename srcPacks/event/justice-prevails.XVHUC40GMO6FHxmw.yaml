@@ -1,0 +1,37 @@
+type: pf1-kingdom-sheet.event
+name: Justice Prevails
+system:
+  subType: active
+  continuous: false
+  description:
+    value: >-
+      <p>Authorities shut down a major criminal operation or thwart a plot
+      against the settlement.</p><hr /><p>Law and Loyalty increase by 1 and
+      Crime and Unrest decreases by 1.</p>
+  changes:
+    - _id: q1j9ZL77
+      formula: '1'
+      target: pf1ks_loyalty
+      type: untyped
+      operator: add
+      priority: 0
+    - _id: sdH4fXB2
+      formula: '1'
+      target: pf1ks_law
+      type: untyped
+      operator: add
+      priority: 0
+    - _id: fCoAy9Hu
+      formula: '-1'
+      target: pf1ks_crime
+      type: untyped
+      operator: add
+      priority: 0
+  contextNotes: []
+  sources: []
+  settlementId: ''
+_id: XVHUC40GMO6FHxmw
+img: icons/svg/clockwork.svg
+sort: 0
+_key: '!items!XVHUC40GMO6FHxmw'
+
