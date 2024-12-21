@@ -1,0 +1,44 @@
+type: pf1-kingdom-sheet.building
+name: Stockyard
+system:
+  quantity: 1
+  lots: 4
+  cost: 20
+  description:
+    value: >-
+      <p>Barns and pens that store herd animals and prepare them for nearby
+      slaughterhouses.</p><hr /><p><strong>Kingdom</strong> Economy +1,
+      Stability –1</p><p><strong>Discount</strong> Stable,
+      Tannery</p><p><strong>Special</strong> Farms in this hex or adjacent hexes
+      reduce Consumption by 3 instead of 2</p><p><strong>Settlement</strong>
+      Productivity +1</p>
+  changes:
+    - _id: jYyoPBQB
+      formula: '1'
+      target: pf1ks_economy
+      type: untyped
+      operator: add
+      priority: 0
+    - _id: urgIdLvA
+      formula: '-1'
+      target: pf1ks_stability
+      type: untyped
+      operator: add
+      priority: 0
+    - _id: LIvCQnKd
+      formula: '1'
+      target: pf1ks_productivity
+      type: untyped
+      operator: add
+      priority: 0
+  contextNotes:
+    - text: Farms in this or adjacent hexes reduce by 3 instead of 2
+      target: pf1ks_consumption
+  sources: []
+  settlementId: ''
+  type: stockyard
+_id: IivIiLee2qmeNGUx
+img: icons/svg/house.svg
+sort: 0
+_key: '!items!IivIiLee2qmeNGUx'
+

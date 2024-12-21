@@ -1,0 +1,34 @@
+type: pf1-kingdom-sheet.building
+name: Garrison
+system:
+  quantity: 1
+  lots: 2
+  cost: 28
+  description:
+    value: >-
+      <p>A large building to house armies, train guards, and recruit
+      militia.</p><hr /><p><strong>Kingdom</strong> Loyalty +2, Stability +2,
+      Unrest –2</p><p><strong>Discount</strong> City Wall, Granary,
+      Jail</p><p><strong>Upgrade From</strong> Barracks</p>
+  changes:
+    - _id: G5dR64cG
+      formula: '2'
+      target: pf1ks_loyalty
+      type: untyped
+      operator: add
+      priority: 0
+    - _id: LLpTWneQ
+      formula: '2'
+      target: pf1ks_stability
+      type: untyped
+      operator: add
+      priority: 0
+  contextNotes: []
+  sources: []
+  settlementId: ''
+  type: garrison
+_id: 7VrhXKFZ6iI26El8
+img: icons/svg/house.svg
+sort: 0
+_key: '!items!7VrhXKFZ6iI26El8'
+

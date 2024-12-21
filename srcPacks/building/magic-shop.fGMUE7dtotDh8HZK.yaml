@@ -1,0 +1,36 @@
+type: pf1-kingdom-sheet.building
+name: Magic Shop
+system:
+  quantity: 1
+  lots: 1
+  cost: 68
+  description:
+    value: >-
+      <p>A shop that specializes in magic items and spells.</p><hr
+      /><p><strong>Kingdom</strong> Economy +1</p><p><strong>Limit</strong>
+      Adjacent to 2 Houses</p><p><strong>Upgrade From</strong> Luxury
+      Store</p><p><strong>Special</strong> Base value +2,000
+      gp</p><p><strong>Magic Items</strong> 4 minor wondrous items, 2 medium
+      wondrous items, 1 major wondrous item</p>
+  changes:
+    - _id: 2VIHuyjx
+      formula: '1'
+      target: pf1ks_economy
+      type: untyped
+      operator: add
+      priority: 0
+    - _id: 4mfedoNw
+      formula: '2000'
+      target: pf1ks_baseValue
+      type: untyped
+      operator: add
+      priority: 0
+  contextNotes: []
+  sources: []
+  settlementId: ''
+  type: magic_shop
+_id: fGMUE7dtotDh8HZK
+img: icons/svg/house.svg
+sort: 0
+_key: '!items!fGMUE7dtotDh8HZK'
+

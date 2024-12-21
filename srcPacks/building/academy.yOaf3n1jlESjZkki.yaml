@@ -1,0 +1,58 @@
+type: pf1-kingdom-sheet.building
+name: Academy
+system:
+  quantity: 1
+  lots: 2
+  cost: 52
+  description:
+    value: >-
+      <p>An institution of higher learning.</p><hr /><p><strong>Kingdom</strong>
+      Economy +2, Loyalty +2</p><p><strong>Discount</strong> Caster's Tower,
+      Library, Magic Shop</p><p><strong>Upgrade From</strong>
+      Library</p><p><strong>Upgrade To</strong> University</p><p><strong>Magic
+      Items</strong> 3 minor scrolls or wondrous items, 2 medium scrolls or
+      wondrous items</p><p><strong>Settlement</strong> Lore +2, Productivity +1,
+      Society +2; increase Lore bonus by 2 for questions relating to one
+      Knowledge or Profession skill</p>
+  changes:
+    - _id: ea6V5jN0
+      formula: '2'
+      target: pf1ks_economy
+      type: untyped
+      operator: add
+      priority: 0
+    - _id: q2aDRgiq
+      formula: '2'
+      target: pf1ks_loyalty
+      type: untyped
+      operator: add
+      priority: 0
+    - _id: gPJ1dSRm
+      formula: '2'
+      target: pf1ks_lore
+      type: untyped
+      operator: add
+      priority: 0
+    - _id: LkV81hdz
+      formula: '1'
+      target: pf1ks_productivity
+      type: untyped
+      operator: add
+      priority: 0
+    - _id: xLPE3ryp
+      formula: '2'
+      target: pf1ks_society
+      type: untyped
+      operator: add
+      priority: 0
+  contextNotes:
+    - text: +[[2]] for questions relating to one Knowledge or Profession skill
+      target: pf1ks_lore
+  sources: []
+  settlementId: ''
+  type: academy
+_id: yOaf3n1jlESjZkki
+img: icons/svg/house.svg
+sort: 0
+_key: '!items!yOaf3n1jlESjZkki'
+

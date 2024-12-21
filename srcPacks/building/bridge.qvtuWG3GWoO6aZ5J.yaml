@@ -1,0 +1,27 @@
+type: pf1-kingdom-sheet.building
+name: Bridge
+system:
+  quantity: 1
+  lots: 0
+  cost: 6
+  description:
+    value: >-
+      <p>Allows travel across a river or Waterway, easing transportation.</p><hr
+      /><p><strong>Kingdom</strong> Economy +1</p><p><strong>Special</strong>
+      Shares the space with a river or Waterway lot</p>
+  changes:
+    - _id: ZGNFaWV2
+      formula: '1'
+      target: pf1ks_economy
+      type: untyped
+      operator: add
+      priority: 0
+  contextNotes: []
+  sources: []
+  settlementId: ''
+  type: academy
+_id: qvtuWG3GWoO6aZ5J
+img: icons/svg/house.svg
+sort: 0
+_key: '!items!qvtuWG3GWoO6aZ5J'
+

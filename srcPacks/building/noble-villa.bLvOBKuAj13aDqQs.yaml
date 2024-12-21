@@ -1,0 +1,53 @@
+type: pf1-kingdom-sheet.building
+name: Noble Villa
+system:
+  quantity: 1
+  lots: 2
+  cost: 24
+  description:
+    value: >-
+      <p>A sprawling manor with luxurious grounds that houses a noble's family
+      and staff.</p><hr /><p><strong>Kingdom</strong> Economy +1, Loyalty +1,
+      Stability +1; Fame +1</p><p><strong>Discount</strong> Exotic Artisan,
+      Luxury Store, Mansion</p><p><strong>Upgrade From</strong>
+      Mansion</p><p><strong>Settlement</strong> Society +1</p>
+  changes:
+    - _id: Vq2phvta
+      formula: '1'
+      target: pf1ks_economy
+      type: untyped
+      operator: add
+      priority: 0
+    - _id: 2M8CHSgY
+      formula: '1'
+      target: pf1ks_loyalty
+      type: untyped
+      operator: add
+      priority: 0
+    - _id: ld3ADOsJ
+      formula: '1'
+      target: pf1ks_stability
+      type: untyped
+      operator: add
+      priority: 0
+    - _id: coO8BkbL
+      formula: '1'
+      target: pf1ks_fame
+      type: untyped
+      operator: add
+      priority: 0
+    - _id: PYzZ588w
+      formula: '1'
+      target: pf1ks_society
+      type: untyped
+      operator: add
+      priority: 0
+  contextNotes: []
+  sources: []
+  settlementId: ''
+  type: noble_villa
+_id: bLvOBKuAj13aDqQs
+img: icons/svg/house.svg
+sort: 0
+_key: '!items!bLvOBKuAj13aDqQs'
+

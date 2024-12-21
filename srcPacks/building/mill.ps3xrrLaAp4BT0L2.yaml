@@ -1,0 +1,42 @@
+type: pf1-kingdom-sheet.building
+name: Mill
+system:
+  quantity: 1
+  lots: 1
+  cost: 6
+  description:
+    value: >-
+      <p>A building used to cut lumber or grind grain.</p><hr
+      /><p><strong>Kingdom</strong> Economy +1, Stability
+      +1</p><p><strong>Limit</strong> Adjacent to water district
+      border</p><p><strong>Special</strong> With GM approval, you can construct
+      a windmill at the same cost without the water district border
+      requirement</p><p><strong>Settlement</strong> Productivity +1</p>
+  changes:
+    - _id: CMKWQAI6
+      formula: '1'
+      target: pf1ks_economy
+      type: untyped
+      operator: add
+      priority: 0
+    - _id: 1180zKCb
+      formula: '1'
+      target: pf1ks_stability
+      type: untyped
+      operator: add
+      priority: 0
+    - _id: ab219urL
+      formula: '1'
+      target: pf1ks_productivity
+      type: untyped
+      operator: add
+      priority: 0
+  contextNotes: []
+  sources: []
+  settlementId: ''
+  type: mill
+_id: ps3xrrLaAp4BT0L2
+img: icons/svg/house.svg
+sort: 0
+_key: '!items!ps3xrrLaAp4BT0L2'
+

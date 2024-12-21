@@ -1,0 +1,24 @@
+type: pf1-kingdom-sheet.building
+name: Waterway
+system:
+  quantity: 1
+  lots: 1
+  cost: 3
+  description:
+    value: >-
+      <p>A river or canal occupying part of the District Grid. At the GM's
+      option, a natural Waterway may already exist on the grid, requiring no
+      action or BP to build. If you construct a City Wall that touches or
+      crosses the Waterway, you must also build Watergates on the same
+      turn.</p><hr /><p><strong>Special</strong> Counts as water district border
+      for adjacent buildings</p>
+  changes: []
+  contextNotes: []
+  sources: []
+  settlementId: ''
+  type: waterway
+_id: BSgDfwRI0BE3FkhA
+img: icons/svg/house.svg
+sort: 0
+_key: '!items!BSgDfwRI0BE3FkhA'
+

@@ -1,0 +1,27 @@
+type: pf1-kingdom-sheet.building
+name: Dump
+system:
+  quantity: 1
+  lots: 1
+  cost: 4
+  description:
+    value: >-
+      <p>A centralized place to dispose of refuse.</p><hr
+      /><p><strong>Kingdom</strong> Stability +1</p><p><strong>Limit</strong>
+      Cannot be adjacent to House, Mansion, or Noble Villa</p>
+  changes:
+    - _id: a3WMH2AK
+      formula: '1'
+      target: pf1ks_stability
+      type: untyped
+      operator: add
+      priority: 0
+  contextNotes: []
+  sources: []
+  settlementId: ''
+  type: dump
+_id: oWmqyAnBfEeZrhkS
+img: icons/svg/house.svg
+sort: 0
+_key: '!items!oWmqyAnBfEeZrhkS'
+

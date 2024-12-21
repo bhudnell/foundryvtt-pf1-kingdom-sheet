@@ -1,6 +1,6 @@
 # foundryvtt-pf1-kingdom-sheet
 
-Provides support for running a kingdom within the Pathfinder 1 game system. Includes the Kingdom Sheet actor type and TODO item types.
+Provides support for running a kingdom within the Pathfinder 1 game system. Includes the Kingdom and Army actor types, Building, Event, and Terrain Improvement Kingdom item types, and Boon, Special Ability, and Tactic Army item types.
 
 ---
 
@@ -8,9 +8,39 @@ Provides support for running a kingdom within the Pathfinder 1 game system. Incl
 
 ## Kingdom Sheet
 
-The base actor for managing a kingdom. TODO are Items that can be added to the sheet
+The base actor for managing a kingdom. Buildings, Events, and Terrain Improvements are Items that can be added to the sheet
+
+## Army Sheet
+
+The base actor for a mass combat army. Boons, Special Abilities, and Tactics are Items that can be added to the sheet
 
 # Items
+
+## Kingdom Items
+
+### Building
+
+TODO
+
+### Event
+
+TODO
+
+### Terrain Improvement
+
+TODO
+
+## Army Items
+
+### Boon
+
+TODO
+
+### Special Ability
+
+TODO
+
+### Tactic
 
 TODO
 

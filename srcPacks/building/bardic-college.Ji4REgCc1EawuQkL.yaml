@@ -1,0 +1,48 @@
+type: pf1-kingdom-sheet.building
+name: Bardic College
+system:
+  quantity: 1
+  lots: 2
+  cost: 40
+  description:
+    value: >-
+      <p>A center for artistic learning. Education in a Bardic College also
+      includes research into a wide-range of historical topics.</p><hr
+      /><p><strong>Kingdom</strong> Economy +1, Loyalty +3, Stability +1; Fame
+      +1</p><p><strong>Discount</strong> Library, Museum,
+      Theater</p><p><strong>Magic Items</strong> 2 minor scrolls or wondrous
+      items</p>
+  changes:
+    - _id: SHrw7jF2
+      formula: '1'
+      target: pf1ks_economy
+      type: untyped
+      operator: add
+      priority: 0
+    - _id: jIcHIcBP
+      formula: '3'
+      target: pf1ks_loyalty
+      type: untyped
+      operator: add
+      priority: 0
+    - _id: JOGimzHA
+      formula: '1'
+      target: pf1ks_stability
+      type: untyped
+      operator: add
+      priority: 0
+    - _id: A8Pb0pvr
+      formula: '1'
+      target: pf1ks_fame
+      type: untyped
+      operator: add
+      priority: 0
+  contextNotes: []
+  sources: []
+  settlementId: ''
+  type: bardic_college
+_id: Ji4REgCc1EawuQkL
+img: icons/svg/house.svg
+sort: 0
+_key: '!items!Ji4REgCc1EawuQkL'
+

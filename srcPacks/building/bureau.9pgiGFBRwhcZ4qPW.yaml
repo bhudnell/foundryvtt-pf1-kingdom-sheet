@@ -1,0 +1,52 @@
+type: pf1-kingdom-sheet.building
+name: Bureau
+system:
+  quantity: 1
+  lots: 2
+  cost: 10
+  description:
+    value: >-
+      <p>A large warren of offices for clerks and record-keepers working for a
+      guild or government.</p><hr /><p><strong>Kingdom</strong> Economy +1,
+      Loyalty –1, Stability +1</p><p><strong>Settlement</strong> Corruption +1,
+      Law +1</p>
+  changes:
+    - _id: ySRPQ0tN
+      formula: '1'
+      target: pf1ks_economy
+      type: untyped
+      operator: add
+      priority: 0
+    - _id: wbEzEOJQ
+      formula: '-1'
+      target: pf1ks_loyalty
+      type: untyped
+      operator: add
+      priority: 0
+    - _id: xkq98riX
+      formula: '1'
+      target: pf1ks_stability
+      type: untyped
+      operator: add
+      priority: 0
+    - _id: OIooQqYB
+      formula: '1'
+      target: pf1ks_corruption
+      type: untyped
+      operator: add
+      priority: 0
+    - _id: IBoksR9R
+      formula: '1'
+      target: pf1ks_law
+      type: untyped
+      operator: add
+      priority: 0
+  contextNotes: []
+  sources: []
+  settlementId: ''
+  type: bureau
+_id: 9pgiGFBRwhcZ4qPW
+img: icons/svg/house.svg
+sort: 0
+_key: '!items!9pgiGFBRwhcZ4qPW'
+

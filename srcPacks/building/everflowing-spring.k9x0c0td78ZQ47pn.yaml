@@ -1,0 +1,23 @@
+type: pf1-kingdom-sheet.building
+name: Everflowing Spring
+system:
+  quantity: 1
+  lots: 0
+  cost: 5
+  description:
+    value: >-
+      <p>A fountain built around several decanters of endless water that
+      provides an inexhaustible supply of fresh water.</p><hr
+      /><p><strong>Limit</strong> Settlement must have a building that can
+      create medium magic items</p><p><strong>Special</strong> Can share lot
+      with Castle, Cathedral, Market, Monument, Park, or Town Hall</p>
+  changes: []
+  contextNotes: []
+  sources: []
+  settlementId: ''
+  type: everflowing_spring
+_id: k9x0c0td78ZQ47pn
+img: icons/svg/house.svg
+sort: 0
+_key: '!items!k9x0c0td78ZQ47pn'
+

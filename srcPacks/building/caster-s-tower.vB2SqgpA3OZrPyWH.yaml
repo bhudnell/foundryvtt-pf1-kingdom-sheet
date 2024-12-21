@@ -1,0 +1,33 @@
+type: pf1-kingdom-sheet.building
+name: Caster's Tower
+system:
+  quantity: 1
+  lots: 1
+  cost: 30
+  description:
+    value: >-
+      <p>The home and laboratory for a spellcaster.</p><hr
+      /><p><strong>Kingdom</strong> Economy +1, Loyalty +1</p><p><strong>Magic
+      Items</strong> 3 minor items, 2 medium items</p>
+  changes:
+    - _id: BTpy3E0u
+      formula: '1'
+      target: pf1ks_economy
+      type: untyped
+      operator: add
+      priority: 0
+    - _id: GuFPojNu
+      formula: '1'
+      target: pf1ks_loyalty
+      type: untyped
+      operator: add
+      priority: 0
+  contextNotes: []
+  sources: []
+  settlementId: ''
+  type: casters_tower
+_id: vB2SqgpA3OZrPyWH
+img: icons/svg/house.svg
+sort: 0
+_key: '!items!vB2SqgpA3OZrPyWH'
+

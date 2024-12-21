@@ -1,0 +1,29 @@
+type: pf1-kingdom-sheet.building
+name: Magical Streetlamps
+system:
+  quantity: 1
+  lots: 0
+  cost: 5
+  description:
+    value: >-
+      <p>Continual flame lamps that illuminate the lot.</p><hr
+      /><p><strong>Limit</strong> Settlement must have a Cathedral, Magic Shop,
+      Magical Academy, or Temple</p><p><strong>Special</strong> Can share a lot
+      with any building or improvement</p><p><strong>Settlement</strong> Crime
+      –1</p>
+  changes:
+    - _id: jUKoE6UF
+      formula: '-1'
+      target: pf1ks_crime
+      type: untyped
+      operator: add
+      priority: 0
+  contextNotes: []
+  sources: []
+  settlementId: ''
+  type: magical_streetlamps
+_id: 47OvHeRe72JfAZH0
+img: icons/svg/house.svg
+sort: 0
+_key: '!items!47OvHeRe72JfAZH0'
+

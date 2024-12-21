@@ -1,0 +1,51 @@
+type: pf1-kingdom-sheet.building
+name: Magical Academy
+system:
+  quantity: 1
+  lots: 2
+  cost: 58
+  description:
+    value: >-
+      <p>An institution for training students in spellcasting, magic item
+      crafting, and various arcane arts.</p><hr /><p><strong>Kingdom</strong>
+      Economy +2; Fame +1</p><p><strong>Discount</strong> Caster's Tower,
+      Library, Magic Shop</p><p><strong>Magic Items</strong> 3 minor potions,
+      scrolls, or wondrous items; 1 medium potion, scroll, or wondrous
+      item</p><p><strong>Settlement</strong> Lore +2, Society +1; increase Lore
+      bonus by 2 for questions relating to Knowledge (arcana)</p>
+  changes:
+    - _id: AK2C2BfZ
+      formula: '2'
+      target: pf1ks_economy
+      type: untyped
+      operator: add
+      priority: 0
+    - _id: Le0jaQkP
+      formula: '1'
+      target: pf1ks_fame
+      type: untyped
+      operator: add
+      priority: 0
+    - _id: XcYtqmQw
+      formula: '2'
+      target: pf1ks_lore
+      type: untyped
+      operator: add
+      priority: 0
+    - _id: 6n43jIn3
+      formula: '1'
+      target: pf1ks_society
+      type: untyped
+      operator: add
+      priority: 0
+  contextNotes:
+    - text: +[[2]] for questions relating to Knowledge (arcana)
+      target: pf1ks_lore
+  sources: []
+  settlementId: ''
+  type: magical_academy
+_id: eBLVb8f2WCP2Bzyi
+img: icons/svg/house.svg
+sort: 0
+_key: '!items!eBLVb8f2WCP2Bzyi'
+

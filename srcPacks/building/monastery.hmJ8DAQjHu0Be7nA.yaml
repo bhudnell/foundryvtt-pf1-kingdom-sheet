@@ -1,0 +1,39 @@
+type: pf1-kingdom-sheet.building
+name: Monastery
+system:
+  quantity: 1
+  lots: 2
+  cost: 16
+  description:
+    value: >-
+      <p>A cloister for meditation, study, and the pursuit of various other
+      scholarly paths.</p><hr /><p><strong>Kingdom</strong> Stability
+      +1</p><p><strong>Settlement</strong> Law +1, Lore +1</p>
+  changes:
+    - _id: WiSnHEUx
+      formula: '1'
+      target: pf1ks_stability
+      type: untyped
+      operator: add
+      priority: 0
+    - _id: fPXU76uv
+      formula: '1'
+      target: pf1ks_law
+      type: untyped
+      operator: add
+      priority: 0
+    - _id: JSwspfvA
+      formula: '1'
+      target: pf1ks_lore
+      type: untyped
+      operator: add
+      priority: 0
+  contextNotes: []
+  sources: []
+  settlementId: ''
+  type: monastery
+_id: hmJ8DAQjHu0Be7nA
+img: icons/svg/house.svg
+sort: 0
+_key: '!items!hmJ8DAQjHu0Be7nA'
+

@@ -1,0 +1,34 @@
+type: pf1-kingdom-sheet.building
+name: Observatory
+system:
+  quantity: 1
+  lots: 1
+  cost: 12
+  description:
+    value: >-
+      <p>A dome or tower with optical devices for viewing the heavens.</p><hr
+      /><p><strong>Kingdom</strong> Stability +1</p><p><strong>Magic
+      Items</strong> 1 minor scroll or wondrous
+      item</p><p><strong>Settlement</strong> Lore +2</p>
+  changes:
+    - _id: l0xwsHpy
+      formula: '1'
+      target: pf1ks_stability
+      type: untyped
+      operator: add
+      priority: 0
+    - _id: GGApFTZt
+      formula: '2'
+      target: pf1ks_lore
+      type: untyped
+      operator: add
+      priority: 0
+  contextNotes: []
+  sources: []
+  settlementId: ''
+  type: observatory
+_id: 7Yki0x86TDULBcVz
+img: icons/svg/house.svg
+sort: 0
+_key: '!items!7Yki0x86TDULBcVz'
+

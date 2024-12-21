@@ -1,0 +1,59 @@
+type: pf1-kingdom-sheet.building
+name: University
+system:
+  quantity: 1
+  lots: 4
+  cost: 78
+  description:
+    value: >-
+      <p>An institution of higher learning, focusing mainly on mundane subjects
+      but dabbling in magical theory.</p><hr /><p><strong>Kingdom</strong>
+      Economy +3, Loyalty +3; Fame +1</p><p><strong>Discount</strong> Academy,
+      Bardic College, Library, Magical Academy, Military Academy,
+      Museum</p><p><strong>Upgrade From</strong> Academy</p><p><strong>Magic
+      Items</strong> 4 minor scrolls or wondrous items, 2 medium scrolls or
+      wondrous items</p><p><strong>Settlement</strong> Lore +4, Society +3;
+      increase Lore bonus by 4 for questions relating to one Knowledge or
+      Profession skill</p>
+  changes:
+    - _id: kgpf0HaV
+      formula: '3'
+      target: pf1ks_economy
+      type: untyped
+      operator: add
+      priority: 0
+    - _id: qjJOOYRl
+      formula: '3'
+      target: pf1ks_loyalty
+      type: untyped
+      operator: add
+      priority: 0
+    - _id: nezm2u0Y
+      formula: '1'
+      target: pf1ks_fame
+      type: untyped
+      operator: add
+      priority: 0
+    - _id: k70rNrDm
+      formula: '4'
+      target: pf1ks_lore
+      type: untyped
+      operator: add
+      priority: 0
+    - _id: dEdkWptj
+      formula: '3'
+      target: pf1ks_society
+      type: untyped
+      operator: add
+      priority: 0
+  contextNotes:
+    - text: +[[4]] for questions relating to one Knowledge or Profession skill
+      target: pf1ks_lore
+  sources: []
+  settlementId: ''
+  type: university
+_id: lzLPVU0DeZqUF4On
+img: icons/svg/house.svg
+sort: 0
+_key: '!items!lzLPVU0DeZqUF4On'
+

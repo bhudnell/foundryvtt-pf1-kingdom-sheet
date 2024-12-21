@@ -1,0 +1,61 @@
+type: pf1-kingdom-sheet.building
+name: Museum
+system:
+  quantity: 1
+  lots: 2
+  cost: 30
+  description:
+    value: >-
+      <p>A place to display art and artifacts both modern and historical. The GM
+      may allow the kingdom leaders to display a valuable item (such as a magic
+      item or bejeweled statue) in the museum, increasing Fame during this
+      display by 1 for every 10,000 gp of the item's price (maximum +5 Fame),
+      and by an additional 1 if the item is significant to the kingdom's
+      history.</p><hr /><p><strong>Kingdom</strong> Economy +1, Loyalty +1; Fame
+      +1</p><p><strong>Settlement</strong> Lore +2, Society +1; increase Lore
+      bonus by 2 for questions relating to Knowledge (history); apply Lore bonus
+      on Appraise checks regarding art objects</p>
+  changes:
+    - _id: D9QnZdp1
+      formula: '1'
+      target: pf1ks_economy
+      type: untyped
+      operator: add
+      priority: 0
+    - _id: Kk2Gswhj
+      formula: '1'
+      target: pf1ks_loyalty
+      type: untyped
+      operator: add
+      priority: 0
+    - _id: HbyNFzH5
+      formula: '1'
+      target: pf1ks_fame
+      type: untyped
+      operator: add
+      priority: 0
+    - _id: UlW3pCzq
+      formula: '2'
+      target: pf1ks_lore
+      type: untyped
+      operator: add
+      priority: 0
+    - _id: CB8YX46l
+      formula: '1'
+      target: pf1ks_society
+      type: untyped
+      operator: add
+      priority: 0
+  contextNotes:
+    - text: +[[2]] for questions relating to Knowledge (history)
+      target: pf1ks_lore
+    - text: applies to Appraise checks regarding art objects
+      target: pf1ks_lore
+  sources: []
+  settlementId: ''
+  type: museum
+_id: 1jFc1EqBJ9fDhcD4
+img: icons/svg/house.svg
+sort: 0
+_key: '!items!1jFc1EqBJ9fDhcD4'
+

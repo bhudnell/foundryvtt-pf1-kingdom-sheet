@@ -1,0 +1,54 @@
+type: pf1-kingdom-sheet.building
+name: Black Market
+system:
+  quantity: 1
+  lots: 1
+  cost: 50
+  description:
+    value: >-
+      <p>A number of shops with secret and usually illegal wares.</p><hr
+      /><p><strong>Kingdom</strong> Economy +2, Stability +1, Unrest
+      +1</p><p><strong>Discount</strong> Brothel</p><p><strong>Limit</strong>
+      Adjacent to 2 Houses</p><p><strong>Special</strong> Base value +2,000
+      gp</p><p><strong>Magic Items</strong> 2 minor items, 1 medium item, 1
+      major item</p><p><strong>Settlement</strong> Corruption +2, Crime +2</p>
+  changes:
+    - _id: xk6EK7Qf
+      formula: '2'
+      target: pf1ks_economy
+      type: untyped
+      operator: add
+      priority: 0
+    - _id: QqG2YlcU
+      formula: '1'
+      target: pf1ks_stability
+      type: untyped
+      operator: add
+      priority: 0
+    - _id: 0B2kPwAl
+      formula: '2000'
+      target: pf1ks_baseValue
+      type: untyped
+      operator: add
+      priority: 0
+    - _id: H5dL8r91
+      formula: '2'
+      target: pf1ks_corruption
+      type: untyped
+      operator: add
+      priority: 0
+    - _id: OZlwOPoz
+      formula: '2'
+      target: pf1ks_crime
+      type: untyped
+      operator: add
+      priority: 0
+  contextNotes: []
+  sources: []
+  settlementId: ''
+  type: black_market
+_id: btFSHuhEyeObSH0T
+img: icons/svg/house.svg
+sort: 0
+_key: '!items!btFSHuhEyeObSH0T'
+

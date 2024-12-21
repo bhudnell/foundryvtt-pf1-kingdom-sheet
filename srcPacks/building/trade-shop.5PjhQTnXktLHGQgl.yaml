@@ -1,0 +1,48 @@
+type: pf1-kingdom-sheet.building
+name: Trade Shop
+system:
+  quantity: 1
+  lots: 1
+  cost: 10
+  description:
+    value: >-
+      <p>A shop front for a tradesperson, such as a baker, butcher, candle
+      maker, cobbler, rope maker, or wainwright.</p><hr
+      /><p><strong>Kingdom</strong> Economy +1, Stability
+      +1</p><p><strong>Limit</strong> Adjacent to 1 House</p><p><strong>Upgrade
+      To</strong> Guildhall</p><p><strong>Special</strong> Base value +500
+      gp</p><p><strong>Settlement</strong> Productivity +1</p>
+  changes:
+    - _id: eK6LdJDD
+      formula: '1'
+      target: pf1ks_economy
+      type: untyped
+      operator: add
+      priority: 0
+    - _id: nLgQXGcI
+      formula: '1'
+      target: pf1ks_stability
+      type: untyped
+      operator: add
+      priority: 0
+    - _id: Tc7coltb
+      formula: '500'
+      target: pf1ks_baseValue
+      type: untyped
+      operator: add
+      priority: 0
+    - _id: 0tr9HSG0
+      formula: '1'
+      target: pf1ks_productivity
+      type: untyped
+      operator: add
+      priority: 0
+  contextNotes: []
+  sources: []
+  settlementId: ''
+  type: trade_shop
+_id: 5PjhQTnXktLHGQgl
+img: icons/svg/house.svg
+sort: 0
+_key: '!items!5PjhQTnXktLHGQgl'
+

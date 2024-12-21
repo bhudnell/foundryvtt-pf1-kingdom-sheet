@@ -1,0 +1,35 @@
+type: pf1-kingdom-sheet.building
+name: Temple
+system:
+  quantity: 1
+  lots: 2
+  cost: 32
+  description:
+    value: >-
+      <p>A large place of worship dedicated to a deity.</p><hr
+      /><p><strong>Kingdom</strong> Loyalty +2, Stability +2, Unrest
+      –2</p><p><strong>Discount</strong> Graveyard, Monument,
+      Shrine</p><p><strong>Upgrade From</strong> Shrine</p><p><strong>Magic
+      Items</strong> 2 minor items</p>
+  changes:
+    - _id: xjhyc2mK
+      formula: '2'
+      target: pf1ks_loyalty
+      type: untyped
+      operator: add
+      priority: 0
+    - _id: RKyaQgio
+      formula: '2'
+      target: pf1ks_stability
+      type: untyped
+      operator: add
+      priority: 0
+  contextNotes: []
+  sources: []
+  settlementId: ''
+  type: temple
+_id: niY8MygzGaff66B8
+img: icons/svg/house.svg
+sort: 0
+_key: '!items!niY8MygzGaff66B8'
+

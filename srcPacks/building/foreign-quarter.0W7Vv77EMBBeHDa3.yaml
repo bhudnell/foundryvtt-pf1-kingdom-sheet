@@ -1,0 +1,55 @@
+type: pf1-kingdom-sheet.building
+name: Foreign Quarter
+system:
+  quantity: 1
+  lots: 4
+  cost: 30
+  description:
+    value: >-
+      <p>An area with many foreigners, as well as shops and services catering to
+      them.</p><hr /><p><strong>Kingdom</strong> Economy +3, Stability
+      –1</p><p><strong>Special</strong> Increase the value of trade routes by 5%
+      (maximum 100%)</p><p><strong>Settlement</strong> Crime +1, Lore +1,
+      Society +2</p>
+  changes:
+    - _id: 3GewOXdi
+      formula: '3'
+      target: pf1ks_economy
+      type: untyped
+      operator: add
+      priority: 0
+    - _id: TAG0CGqt
+      formula: '-1'
+      target: pf1ks_stability
+      type: untyped
+      operator: add
+      priority: 0
+    - _id: bQAPLDYx
+      formula: '1'
+      target: pf1ks_crime
+      type: untyped
+      operator: add
+      priority: 0
+    - _id: iMuGrW6V
+      formula: '1'
+      target: pf1ks_lore
+      type: untyped
+      operator: add
+      priority: 0
+    - _id: KyGjRB0f
+      formula: '2'
+      target: pf1ks_society
+      type: untyped
+      operator: add
+      priority: 0
+  contextNotes:
+    - text: Increase value of trade routes by 5%
+      target: pf1ks_economy
+  sources: []
+  settlementId: ''
+  type: foreign_quarter
+_id: 0W7Vv77EMBBeHDa3
+img: icons/svg/house.svg
+sort: 0
+_key: '!items!0W7Vv77EMBBeHDa3'
+

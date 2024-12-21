@@ -368,9 +368,9 @@ export const leadershipSkillBonuses = {
 export const settlementModifiers = {
   corruption: "PF1KS.Corruption",
   crime: "PF1KS.Crime",
-  productivity: "PF1KS.Productivity",
   law: "PF1KS.Law",
   lore: "PF1KS.Lore",
+  productivity: "PF1KS.Productivity",
   society: "PF1KS.Society",
 };
 
@@ -479,8 +479,8 @@ export const buildingTypes = {
   trade_shop: "PF1KS.Building.TradeShop",
   university: "PF1KS.Building.University",
   watchtower: "PF1KS.Building.Watchtower",
-  watergate: "PF1KS.Building.Watergate",
   waterfront: "PF1KS.Building.Waterfront",
+  watergate: "PF1KS.Building.Watergate",
   waterway: "PF1KS.Building.Waterway",
   custom: "PF1KS.Building.Custom",
 };

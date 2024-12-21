@@ -1,0 +1,26 @@
+type: pf1-kingdom-sheet.building
+name: Park
+system:
+  quantity: 1
+  lots: 1
+  cost: 4
+  description:
+    value: >-
+      <p>A plot of land set aside for its serene beauty.</p><hr
+      /><p><strong>Kingdom</strong> Loyalty +1, Unrest –1</p>
+  changes:
+    - _id: ikeQU2Ay
+      formula: '1'
+      target: pf1ks_loyalty
+      type: untyped
+      operator: add
+      priority: 0
+  contextNotes: []
+  sources: []
+  settlementId: ''
+  type: park
+_id: 7xTdNq48FAd2zS6W
+img: icons/svg/house.svg
+sort: 0
+_key: '!items!7xTdNq48FAd2zS6W'
+

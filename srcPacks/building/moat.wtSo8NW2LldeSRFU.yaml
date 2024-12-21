@@ -1,0 +1,31 @@
+type: pf1-kingdom-sheet.building
+name: Moat
+system:
+  quantity: 1
+  lots: 0
+  cost: 2
+  description:
+    value: >-
+      <p>A fortification of one side of a district with an open or water-filled
+      ditch, often backed by a low dike or embankment. The GM may allow a river
+      or similar natural feature to function as a moat for one or more sides of
+      a district.</p><hr /><p><strong>Kingdom</strong> Unrest –1 (once per
+      settlement)</p><p><strong>Limit</strong> Land district
+      border</p><p><strong>Special</strong> Defense +1; cannot be damaged by
+      siege engines</p>
+  changes:
+    - _id: 8UylF8Vo
+      formula: '1'
+      target: pf1ks_defense
+      type: untyped
+      operator: add
+      priority: 0
+  contextNotes: []
+  sources: []
+  settlementId: ''
+  type: moat
+_id: wtSo8NW2LldeSRFU
+img: icons/svg/house.svg
+sort: 0
+_key: '!items!wtSo8NW2LldeSRFU'
+

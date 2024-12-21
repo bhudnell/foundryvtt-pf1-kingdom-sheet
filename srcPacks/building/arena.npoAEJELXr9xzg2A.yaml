@@ -1,0 +1,42 @@
+type: pf1-kingdom-sheet.building
+name: Arena
+system:
+  quantity: 1
+  lots: 4
+  cost: 40
+  description:
+    value: >-
+      <p>A large public structure for competitions and team sports.</p><hr
+      /><p><strong>Kingdom</strong> Stability +4; Fame
+      +1</p><p><strong>Discount</strong> Brothel, Garrison, Inn, Stable,
+      Theater</p><p><strong>Limit</strong> 1 per
+      settlement</p><p><strong>Upgrade From</strong>
+      Theater</p><p><strong>Settlement</strong> Crime +1</p>
+  changes:
+    - _id: i5bjMgQd
+      formula: '4'
+      target: pf1ks_stability
+      type: untyped
+      operator: add
+      priority: 0
+    - _id: 7afPcs7T
+      formula: '1'
+      target: pf1ks_fame
+      type: untyped
+      operator: add
+      priority: 0
+    - _id: WmuKtbAv
+      formula: '1'
+      target: pf1ks_crime
+      type: untyped
+      operator: add
+      priority: 0
+  contextNotes: []
+  sources: []
+  settlementId: ''
+  type: arena
+_id: npoAEJELXr9xzg2A
+img: icons/svg/house.svg
+sort: 0
+_key: '!items!npoAEJELXr9xzg2A'
+

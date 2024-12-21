@@ -1,0 +1,26 @@
+type: pf1-kingdom-sheet.building
+name: Orphanage
+system:
+  quantity: 1
+  lots: 1
+  cost: 6
+  description:
+    value: >-
+      <p>A place for housing and taking care of large numbers of orphans.</p><hr
+      /><p><strong>Kingdom</strong> Stability +1, Unrest –1</p>
+  changes:
+    - _id: 9WcUc9lj
+      formula: '1'
+      target: pf1ks_stability
+      type: untyped
+      operator: add
+      priority: 0
+  contextNotes: []
+  sources: []
+  settlementId: ''
+  type: orphanage
+_id: Yh8jCLTHOeCktyTn
+img: icons/svg/house.svg
+sort: 0
+_key: '!items!Yh8jCLTHOeCktyTn'
+

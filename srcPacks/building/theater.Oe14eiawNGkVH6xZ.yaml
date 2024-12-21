@@ -1,0 +1,34 @@
+type: pf1-kingdom-sheet.building
+name: Theater
+system:
+  quantity: 1
+  lots: 2
+  cost: 24
+  description:
+    value: >-
+      <p>A venue for entertainments such as plays, operas, and concerts.</p><hr
+      /><p><strong>Kingdom</strong> Economy +2, Stability
+      +2</p><p><strong>Discount</strong> Brothel, Exotic Artisan, Inn, Park,
+      Tavern</p><p><strong>Upgrade To</strong> Arena</p>
+  changes:
+    - _id: 8NCZVIoI
+      formula: '2'
+      target: pf1ks_economy
+      type: untyped
+      operator: add
+      priority: 0
+    - _id: Hoy8s0BJ
+      formula: '2'
+      target: pf1ks_stability
+      type: untyped
+      operator: add
+      priority: 0
+  contextNotes: []
+  sources: []
+  settlementId: ''
+  type: theater
+_id: Oe14eiawNGkVH6xZ
+img: icons/svg/house.svg
+sort: 0
+_key: '!items!Oe14eiawNGkVH6xZ'
+

@@ -1,0 +1,46 @@
+type: pf1-kingdom-sheet.building
+name: Inn
+system:
+  quantity: 1
+  lots: 1
+  cost: 10
+  description:
+    value: >-
+      <p>A place for visitors to rest.</p><hr /><p><strong>Kingdom</strong>
+      Economy +1, Loyalty +1</p><p><strong>Limit</strong> Adjacent to 1
+      House</p><p><strong>Special</strong> Base value +500
+      gp</p><p><strong>Settlement</strong> Society +1</p>
+  changes:
+    - _id: yL8iorr1
+      formula: '1'
+      target: pf1ks_economy
+      type: untyped
+      operator: add
+      priority: 0
+    - _id: TBoTCiFT
+      formula: '1'
+      target: pf1ks_loyalty
+      type: untyped
+      operator: add
+      priority: 0
+    - _id: vkxWmNsQ
+      formula: '500'
+      target: pf1ks_baseValue
+      type: untyped
+      operator: add
+      priority: 0
+    - _id: NNXNKsRW
+      formula: '1'
+      target: pf1ks_society
+      type: untyped
+      operator: add
+      priority: 0
+  contextNotes: []
+  sources: []
+  settlementId: ''
+  type: inn
+_id: rR4VRuPQOOrw6Wcp
+img: icons/svg/house.svg
+sort: 0
+_key: '!items!rR4VRuPQOOrw6Wcp'
+

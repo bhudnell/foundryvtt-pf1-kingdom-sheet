@@ -9,6 +9,11 @@ import {
 
 export const contextNoteTargets = {
   [`${changePrefix}_consumption`]: { category: `${changePrefix}_misc`, label: "PF1KS.Consumption" },
+  [`${changePrefix}_bonusBP`]: {
+    category: `${changePrefix}_misc`,
+    label: "PF1KS.BonusBP",
+    filters: { item: { include: kingdomItemTypes } },
+  },
   ...Object.entries(kingdomStats).reduce((acc, [key, label]) => {
     acc[`${changePrefix}_${key}`] = { category: `${changePrefix}_kingdom_stats`, label };
     return acc;
