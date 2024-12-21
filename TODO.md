@@ -1,7 +1,6 @@
 - create compendium items
   - Special Abilities
   - Tactics
-  - Terrain Improvements
   - Rules
     - Optional Kingdom Rules
     - Army Conditions

@@ -1,0 +1,42 @@
+type: pf1-kingdom-sheet.improvement
+name: Fort
+system:
+  subType: general
+  quantity: 1
+  description:
+    value: >-
+      <p>A Fort is a walled encampment for military forces outside a settlement.
+      You can upgrade a Watchtower to a Fort (Unrest decreases when you do so,
+      just as if you had built the Fort from scratch).</p><hr
+      /><p><strong>Terrain</strong>: Any land.</p><p><strong>Effect</strong>:
+      Stability +2, Defense +4, increase Consumption by 1 BP; Unrest decreases
+      by 1 when completed. If this hex becomes a settlement, this improvement
+      counts as one Barracks and one Stables
+      building.</p><p><strong>Cost</strong>: 24 BP.</p>
+  changes:
+    - _id: DvXmTqt5
+      formula: '2'
+      target: pf1ks_stability
+      type: untyped
+      operator: add
+      priority: 0
+    - _id: Q3Che8nL
+      formula: '4'
+      target: pf1ks_defense
+      type: untyped
+      operator: add
+      priority: 0
+    - _id: PhueNIV3
+      formula: '1'
+      target: pf1ks_consumption
+      type: untyped
+      operator: add
+      priority: 0
+  contextNotes: []
+  sources: []
+  settlementId: ''
+_id: k6hIAglPcNLDXL9f
+img: icons/svg/windmill.svg
+sort: 0
+_key: '!items!k6hIAglPcNLDXL9f'
+

@@ -1,0 +1,35 @@
+type: pf1-kingdom-sheet.improvement
+name: Watchtower
+system:
+  subType: general
+  quantity: 1
+  description:
+    value: >-
+      <p>A Watchtower flies your flag, is a safe place for your patrols, and
+      establishes your power on the frontier. A Watchtower cannot share a hex
+      with a Fort or another Watchtower.</p><hr /><p><strong>Terrain</strong>:
+      Any land.</p><p><strong>Effect</strong>: Stability +1, Defense +2; Unrest
+      decreases by 1 when completed. If this hex becomes a settlement, this
+      improvement counts as a Watchtower building.</p><p><strong>Cost</strong>:
+      12 BP.</p>
+  changes:
+    - _id: mZAPunjo
+      formula: '1'
+      target: pf1ks_stability
+      type: untyped
+      operator: add
+      priority: 0
+    - _id: hx5Xa3MF
+      formula: '2'
+      target: pf1ks_defense
+      type: untyped
+      operator: add
+      priority: 0
+  contextNotes: []
+  sources: []
+  settlementId: ''
+_id: kG45dPUMJTjovnnS
+img: icons/svg/windmill.svg
+sort: 0
+_key: '!items!kG45dPUMJTjovnnS'
+

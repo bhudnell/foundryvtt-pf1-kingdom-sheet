@@ -1,0 +1,27 @@
+type: pf1-kingdom-sheet.improvement
+name: Farm
+system:
+  subType: general
+  quantity: 1
+  description:
+    value: >-
+      <p>A Farm helps feed your kingdom.</p><hr /><p><strong>Terrain</strong>:
+      Desert (requires canal, coastline, or river), hill, or
+      plain.</p><p><strong>Effect</strong>: Consumption decreases by 2
+      BP.</p><p><strong>Cost</strong>: See Table 4–6: Terrain and Terrain
+      Improvements.</p>
+  changes:
+    - _id: GVlXrNWB
+      formula: '-2'
+      target: pf1ks_consumption
+      type: untyped
+      operator: add
+      priority: 0
+  contextNotes: []
+  sources: []
+  settlementId: ''
+_id: lw2jZjqUPKeMMoM8
+img: icons/svg/windmill.svg
+sort: 0
+_key: '!items!lw2jZjqUPKeMMoM8'
+

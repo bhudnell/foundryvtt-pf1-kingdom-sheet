@@ -1,0 +1,32 @@
+type: pf1-kingdom-sheet.improvement
+name: River
+system:
+  subType: special
+  quantity: 1
+  description:
+    value: >-
+      <p>A River allows water travel through your kingdom, facilitating trade
+      and allowing irrigation. </p><hr /><p>Economy increases by 1 for every 4
+      River hexes claimed, and Stability increases by 1 for every 8 such hexes
+      claimed.</p>
+  changes:
+    - _id: BiWabt6h
+      formula: '.25'
+      target: pf1ks_economy
+      type: untyped
+      operator: add
+      priority: 0
+    - _id: tiULFnIp
+      formula: '.125'
+      target: pf1ks_stability
+      type: untyped
+      operator: add
+      priority: 0
+  contextNotes: []
+  sources: []
+  settlementId: ''
+_id: yhEubBfiB5uK1BsE
+img: icons/svg/windmill.svg
+sort: 0
+_key: '!items!yhEubBfiB5uK1BsE'
+

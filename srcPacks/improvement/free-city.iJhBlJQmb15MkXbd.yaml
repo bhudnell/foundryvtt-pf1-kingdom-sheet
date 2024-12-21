@@ -1,0 +1,22 @@
+type: pf1-kingdom-sheet.improvement
+name: Free City
+system:
+  subType: special
+  quantity: 1
+  description:
+    value: >-
+      <p>A Free City is a settlement that is not part of any established
+      kingdom. Claiming a hex with a Free City is an excellent way to add a
+      fully functional settlement to your kingdom.</p><hr /><p> In order to
+      claim a Free City hex peacefully, you must succeed at a Stability check.
+      Failure indicates radicals and upstarts in the settlement and Unrest
+      increases by 1d4.</p>
+  changes: []
+  contextNotes: []
+  sources: []
+  settlementId: ''
+_id: iJhBlJQmb15MkXbd
+img: icons/svg/windmill.svg
+sort: 0
+_key: '!items!iJhBlJQmb15MkXbd'
+
