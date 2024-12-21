@@ -1,0 +1,21 @@
+type: pf1-kingdom-sheet.event
+name: Bandit Activity + Reroll
+system:
+  subType: active
+  continuous: false
+  description:
+    value: >-
+      <p>Bandits are preying upon those who travel through your kingdom. </p><hr
+      /><p>Attempt a Stability check. If you succeed, your kingdom’s defenses
+      stop the bandits before they cause any harm. If you fail, the bandits
+      reduce your kingdom’s Treasury by 1d6 BP (each time you roll a 6, add the
+      result to the total and roll again).</p>
+  changes: []
+  contextNotes: []
+  sources: []
+  settlementId: ''
+img: icons/svg/clockwork.svg
+_id: q3B1jH6GdrKu1c49
+sort: 0
+_key: '!items!q3B1jH6GdrKu1c49'
+

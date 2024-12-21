@@ -60,7 +60,7 @@ export function keepUpdateArray(sourceObj, targetObj, keepPath) {
 export async function rollEventTable(event, message) {
   event.preventDefault();
 
-  const table = await fromUuid(`Compendium.${pf1ks.config.moduleId}.roll-tables.RollTable.NT591DKj9zNeithf`); // TODO replace with real id
+  const table = await fromUuid(`Compendium.${pf1ks.config.moduleId}.roll-table.RollTable.veIcI8coYE6ZRqFG`);
   return table.draw();
 }
 

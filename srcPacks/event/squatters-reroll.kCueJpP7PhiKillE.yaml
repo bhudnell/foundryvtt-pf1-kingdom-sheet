@@ -1,0 +1,38 @@
+type: pf1-kingdom-sheet.event
+name: Squatters + Reroll
+system:
+  subType: active
+  continuous: true
+  description:
+    value: >-
+      <p>An empty settlement lot is taken over by beggars, troublemakers, and
+      people unable to find adequate work or housing; they camp there with
+      tents, wagons, and shanties. You cannot use the lot for anything until the
+      squatters are dispersed. </p><hr /><p>Fame and Stability decrease by 1,
+      and Unrest increases by 2. You may try to disperse the squatters with a
+      Stability check. Success means the squatters are dispersed and the event
+      is not continuous, but if a House or Tenement is not built in that lot on
+      the next turn, Infamy increases by 1 and Unrest by 2. Failing the
+      Stability check means the event is continuous, and you may not build on
+      that lot until the event is resolved.</p>
+  changes:
+    - _id: dLq6NEUJ
+      formula: '-1'
+      target: pf1ks_stability
+      type: untyped
+      operator: add
+      priority: 0
+    - _id: Y0TUJFcT
+      formula: '-1'
+      target: pf1ks_fame
+      type: untyped
+      operator: add
+      priority: 0
+  contextNotes: []
+  sources: []
+  settlementId: ''
+img: icons/svg/clockwork.svg
+_id: kCueJpP7PhiKillE
+sort: 0
+_key: '!items!kCueJpP7PhiKillE'
+

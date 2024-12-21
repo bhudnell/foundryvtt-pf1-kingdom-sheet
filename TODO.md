@@ -1,13 +1,10 @@
 - create compendium items
-  - Events
   - Special Abilities
   - Tactics
   - Terrain Improvements
   - Rules
     - Optional Kingdom Rules
     - Army Conditions
-  - Roll Tables
-    - Events -> update function in utils.mjs
 
 - Update README
 
