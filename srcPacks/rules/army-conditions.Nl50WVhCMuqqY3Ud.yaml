@@ -1,0 +1,301 @@
+name: Army Conditions
+_id: Nl50WVhCMuqqY3Ud
+pages:
+  - sort: 100000
+    name: Advantageous Terrain
+    type: text
+    _id: QlOueCvJDAky3jEM
+    title:
+      show: true
+      level: 1
+    image: {}
+    text:
+      format: 1
+      content: >-
+        <p>Generally, if one army occupies a position of superiority (such as
+        being atop a hill, wedged in a narrow canyon, or protected by a deep
+        river along one flank), the defending army increases its DV by 2.</p>
+    video:
+      controls: true
+      volume: 0.5
+    src: null
+    system: {}
+    _key: '!journal.pages!Nl50WVhCMuqqY3Ud.QlOueCvJDAky3jEM'
+  - sort: 200000
+    name: Ambush
+    type: text
+    _id: 1L3BEwjri4p8YYlu
+    title:
+      show: true
+      level: 1
+    image: {}
+    text:
+      format: 1
+      content: >-
+        <p>In order to attempt to ambush an army, the entire ambushing army must
+        have concealment. The ambusher attempts an Offense check against the
+        target army’s DV. If successful, the battle begins but the target army
+        doesn’t get to act during the Tactics phase. Otherwise, the battle
+        proceeds normally.</p>
+    video:
+      controls: true
+      volume: 0.5
+    src: null
+    system: {}
+    _key: '!journal.pages!Nl50WVhCMuqqY3Ud.1L3BEwjri4p8YYlu'
+  - sort: 300000
+    name: Battlefield Advantage
+    type: text
+    _id: gH8jLvKjrm9ZTD4v
+    title:
+      show: true
+      level: 1
+    image: {}
+    text:
+      format: 1
+      content: >-
+        <p>If an army is particularly familiar with a battlefield, it’s OM and
+        DV increase by 2.</p>
+    video:
+      controls: true
+      volume: 0.5
+    src: null
+    system: {}
+    _key: '!journal.pages!Nl50WVhCMuqqY3Ud.gH8jLvKjrm9ZTD4v'
+  - sort: 400000
+    name: Darkness
+    type: text
+    _id: 8asxsFmrYySzf6E6
+    title:
+      show: true
+      level: 1
+    image: {}
+    text:
+      format: 1
+      content: <p>Darkness reduces all armies’ OM by 2 and DV by 3.</p>
+    video:
+      controls: true
+      volume: 0.5
+    src: null
+    system: {}
+    _key: '!journal.pages!Nl50WVhCMuqqY3Ud.8asxsFmrYySzf6E6'
+  - sort: 500000
+    name: Dim Light
+    type: text
+    _id: cCDikJWec80mnG6n
+    title:
+      show: true
+      level: 1
+    image: {}
+    text:
+      format: 1
+      content: <p>Dim light reduces all armies’ OM by 1.</p>
+    video:
+      controls: true
+      volume: 0.5
+    src: null
+    system: {}
+    _key: '!journal.pages!Nl50WVhCMuqqY3Ud.cCDikJWec80mnG6n'
+  - sort: 600000
+    name: Fog
+    type: text
+    _id: c0jSYSCCExA9az4e
+    title:
+      show: true
+      level: 1
+    image: {}
+    text:
+      format: 1
+      content: >-
+        <p>Fog reduces damage by half and gives the armies a +2 bonus on Morale
+        checks to use the withdraw tactic.</p>
+    video:
+      controls: true
+      volume: 0.5
+    src: null
+    system: {}
+    _key: '!journal.pages!Nl50WVhCMuqqY3Ud.c0jSYSCCExA9az4e'
+  - sort: 700000
+    name: Fortifications
+    type: text
+    _id: XzyCEUqKwco2nQsr
+    title:
+      show: true
+      level: 1
+    image: {}
+    text:
+      format: 1
+      content: >-
+        <p>An army located in a fortification adds the fortification’s Defense
+        to its DV. A settlement’s Defense is determined by the types of
+        buildings it contains, as detailed in the kingdom-building rules. If the
+        game isn’t using the kingdom-building rules, a typical fortification
+        increases DV by 8.</p>
+    video:
+      controls: true
+      volume: 0.5
+    src: null
+    system: {}
+    _key: '!journal.pages!Nl50WVhCMuqqY3Ud.XzyCEUqKwco2nQsr'
+  - sort: 800000
+    name: Rain
+    type: text
+    _id: qm2lJRiqWyr2LRf6
+    title:
+      show: true
+      level: 1
+    image: {}
+    text:
+      format: 1
+      content: >-
+        <p>Rain affects modifiers to OM in the Ranged phase as if it were severe
+        wind; see @UUID[.oh8QvomTx3B9zlSe]{Wind Effects}</p>
+      markdown: ''
+    video:
+      controls: true
+      volume: 0.5
+    src: null
+    system: {}
+    _key: '!journal.pages!Nl50WVhCMuqqY3Ud.qm2lJRiqWyr2LRf6'
+  - sort: 800000
+    name: Sandstorm
+    type: text
+    _id: WhAGk6DEzmQLBK12
+    title:
+      show: true
+      level: 1
+    image: {}
+    text:
+      format: 1
+      content: >-
+        <p>A sandstorm counts as fog and deals 1 hp of damage to all armies
+        during each Ranged and Melee phase.<br /></p>
+    video:
+      controls: true
+      volume: 0.5
+    src: null
+    system: {}
+    _key: '!journal.pages!Nl50WVhCMuqqY3Ud.WhAGk6DEzmQLBK12'
+  - sort: 800000
+    name: Snow
+    type: text
+    _id: oViI7Sz7xSxP5rXv
+    title:
+      show: true
+      level: 1
+    image: {}
+    text:
+      format: 1
+      content: >-
+        <p>Snow affects ranged attacks like rain, and affects damage like
+        fog.</p>
+    video:
+      controls: true
+      volume: 0.5
+    src: null
+    system: {}
+    _key: '!journal.pages!Nl50WVhCMuqqY3Ud.oViI7Sz7xSxP5rXv'
+  - sort: 900000
+    name: Wind
+    type: text
+    _id: LGLfLNQbfGP2meKG
+    title:
+      show: true
+      level: 1
+    image: {}
+    text:
+      format: 1
+      content: >-
+        <p>The wind modifiers to ranged attacks apply to OM in the Ranged phase;
+        see @UUID[.oh8QvomTx3B9zlSe]{Wind Effects}</p>
+    video:
+      controls: true
+      volume: 0.5
+    src: null
+    system: {}
+    _key: '!journal.pages!Nl50WVhCMuqqY3Ud.LGLfLNQbfGP2meKG'
+  - sort: 1000000
+    name: Wind Effects
+    type: text
+    _id: oh8QvomTx3B9zlSe
+    title:
+      show: true
+      level: 1
+    image: {}
+    text:
+      format: 1
+      content: >-
+        <h2>Table 13-10: Wind Effects</h2><table><tbody><tr><td
+        data-colwidth="99"><p></p></td><td data-colwidth="101"><p></p></td><td
+        data-colwidth="172"><p style="text-align:center">Ranged
+        Attacks</p></td><td data-colwidth="103"><p></p></td><td
+        data-colwidth="148"><p></p></td><td><p></p></td></tr><tr><td
+        data-colwidth="99"><p style="text-align:center">Wind Force</p></td><td
+        data-colwidth="101"><p style="text-align:center">Wind Speed</p></td><td
+        data-colwidth="172"><p style="text-align:center">Normal/Siege
+        Weapons<sup>1</sup></p></td><td data-colwidth="103"><p
+        style="text-align:center">Checked Size<sup>2</sup></p></td><td
+        data-colwidth="148"><p style="text-align:center">Blown Away
+        Size<sup>3</sup></p></td><td><p style="text-align:center">Fly
+        Penalty</p></td></tr><tr><td data-colwidth="99"><p
+        style="text-align:center">Light</p></td><td data-colwidth="101"><p
+        style="text-align:center">0-10 mph</p></td><td data-colwidth="172"><p
+        style="text-align:center">—/—</p></td><td data-colwidth="103"><p
+        style="text-align:center">—</p></td><td data-colwidth="148"><p
+        style="text-align:center">—</p></td><td><p
+        style="text-align:center">—</p></td></tr><tr><td data-colwidth="99"><p
+        style="text-align:center">Moderate</p></td><td data-colwidth="101"><p
+        style="text-align:center">11-20 mph</p></td><td data-colwidth="172"><p
+        style="text-align:center">—/—</p></td><td data-colwidth="103"><p
+        style="text-align:center">—</p></td><td data-colwidth="148"><p
+        style="text-align:center">—</p></td><td><p
+        style="text-align:center">—</p></td></tr><tr><td data-colwidth="99"><p
+        style="text-align:center">Strong</p></td><td data-colwidth="101"><p
+        style="text-align:center">21-30 mph</p></td><td data-colwidth="172"><p
+        style="text-align:center">-2/—</p></td><td data-colwidth="103"><p
+        style="text-align:center">Tiny</p></td><td data-colwidth="148"><p
+        style="text-align:center">—</p></td><td><p
+        style="text-align:center">—2</p></td></tr><tr><td data-colwidth="99"><p
+        style="text-align:center">Severe</p></td><td data-colwidth="101"><p
+        style="text-align:center">31-50 mph</p></td><td data-colwidth="172"><p
+        style="text-align:center">-4/—</p></td><td data-colwidth="103"><p
+        style="text-align:center">Small</p></td><td data-colwidth="148"><p
+        style="text-align:center">Tiny</p></td><td><p
+        style="text-align:center">—4</p></td></tr><tr><td data-colwidth="99"><p
+        style="text-align:center">Windstorm</p></td><td data-colwidth="101"><p
+        style="text-align:center">51-74 mph</p></td><td data-colwidth="172"><p
+        style="text-align:center">Impossible/—2</p></td><td
+        data-colwidth="103"><p style="text-align:center">Medium</p></td><td
+        data-colwidth="148"><p style="text-align:center">Small</p></td><td><p
+        style="text-align:center">—8</p></td></tr><tr><td data-colwidth="99"><p
+        style="text-align:center">Hurricane</p></td><td data-colwidth="101"><p
+        style="text-align:center">75-174 mph</p></td><td data-colwidth="172"><p
+        style="text-align:center">Impossible/—4</p></td><td
+        data-colwidth="103"><p style="text-align:center">Large</p></td><td
+        data-colwidth="148"><p style="text-align:center">Medium</p></td><td><p
+        style="text-align:center">—12</p></td></tr><tr><td data-colwidth="99"><p
+        style="text-align:center">Tornado</p></td><td data-colwidth="101"><p
+        style="text-align:center">175-300 mph</p></td><td data-colwidth="172"><p
+        style="text-align:center">Impossible/Impossible</p></td><td
+        data-colwidth="103"><p style="text-align:center">Huge</p></td><td
+        data-colwidth="148"><p style="text-align:center">Large</p></td><td><p
+        style="text-align:center">—16</p></td></tr></tbody></table><p>1 The
+        siege weapon category includes ballista and catapult attacks as well as
+        boulders tossed by giants.</p><p>2 Checked Size: Creatures of this size
+        or smaller are unable to move forward against the force of the wind
+        unless they succeed on a DC 10 Strength check (if on the ground) or a DC
+        20 Fly skill check if airborne.</p><p>3 Blown Away Size: Creatures on
+        the ground are knocked prone and rolled 1d4 × 10 feet, taking 1d4 points
+        of nonlethal damage per 10 feet, unless they make a DC 15 Strength
+        check. Flying creatures are blown back 2d6 × 10 feet and take 2d6 points
+        of nonlethal damage due to battering and buffeting, unless they succeed
+        on a DC 25 Fly skill check.</p>
+    video:
+      controls: true
+      volume: 0.5
+    src: null
+    system: {}
+    _key: '!journal.pages!Nl50WVhCMuqqY3Ud.oh8QvomTx3B9zlSe'
+sort: 0
+_key: '!journal!Nl50WVhCMuqqY3Ud'
+

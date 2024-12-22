@@ -506,13 +506,15 @@ export const optionalRules = {
   altSettlementSizes: "PF1KS.Settings.SettlementSizes",
 };
 
-// todo add compendium entries https://www.aonprd.com/Rules.aspx?ID=1547
 export const compendiumEntries = {
-  kingdomModifiers: "",
-  fameInfamy: "",
-  governmentForms: "",
-  leadershipSkills: "",
-  altSettlementSizes: "",
+  kingdomModifiers:
+    "Compendium.pf1-kingdom-sheet.rules.JournalEntry.t1XuuI6w0ZUtN6Hj.JournalEntryPage.rcTSKRBGdY4SI2R6",
+  fameInfamy: "Compendium.pf1-kingdom-sheet.rules.JournalEntry.t1XuuI6w0ZUtN6Hj.JournalEntryPage.2GNT3yLzFoYTILTL",
+  governmentForms: "Compendium.pf1-kingdom-sheet.rules.JournalEntry.t1XuuI6w0ZUtN6Hj.JournalEntryPage.v08HsMlBmn66rMUk",
+  leadershipSkills:
+    "Compendium.pf1-kingdom-sheet.rules.JournalEntry.t1XuuI6w0ZUtN6Hj.JournalEntryPage.CY9GAp1XjXgu5pmi",
+  altSettlementSizes:
+    "Compendium.pf1-kingdom-sheet.rules.JournalEntry.t1XuuI6w0ZUtN6Hj.JournalEntryPage.nZyEv4PWABJwIeLD",
 };
 
 export const armyAttributes = {
@@ -561,7 +563,6 @@ export const armyStrategy = {
   4: "PF1KS.Army.Strategy.Reckless",
 };
 
-// todo add compendium entries https://www.aonprd.com/Rules.aspx?ID=1575
 export const armyConditions = {
   [`${changePrefix}-advantageous-terrain`]: {
     id: `${changePrefix}-advantageous-terrain`,
@@ -576,13 +577,13 @@ export const armyConditions = {
         },
       ],
     },
-    journal: "",
+    journal: "Compendium.pf1-kingdom-sheet.rules.JournalEntry.Nl50WVhCMuqqY3Ud.JournalEntryPage.QlOueCvJDAky3jEM",
   },
   [`${changePrefix}-ambush`]: {
     id: `${changePrefix}-ambush`,
     name: "PF1KS.Condition.Ambush",
     texture: `modules/${moduleId}/icons/ambush.svg`,
-    journal: "",
+    journal: "Compendium.pf1-kingdom-sheet.rules.JournalEntry.Nl50WVhCMuqqY3Ud.JournalEntryPage.1L3BEwjri4p8YYlu",
   },
   [`${changePrefix}-battlefield-advantage`]: {
     id: `${changePrefix}-battlefield-advantage`,
@@ -602,7 +603,7 @@ export const armyConditions = {
         },
       ],
     },
-    journal: "",
+    journal: "Compendium.pf1-kingdom-sheet.rules.JournalEntry.Nl50WVhCMuqqY3Ud.JournalEntryPage.gH8jLvKjrm9ZTD4v",
   },
   [`${changePrefix}-darkness`]: {
     id: `${changePrefix}-darkness`,
@@ -622,7 +623,7 @@ export const armyConditions = {
         },
       ],
     },
-    journal: "",
+    journal: "Compendium.pf1-kingdom-sheet.rules.JournalEntry.Nl50WVhCMuqqY3Ud.JournalEntryPage.8asxsFmrYySzf6E6",
   },
   [`${changePrefix}-dim-light`]: {
     id: `${changePrefix}-dim-light`,
@@ -637,7 +638,7 @@ export const armyConditions = {
         },
       ],
     },
-    journal: "",
+    journal: "Compendium.pf1-kingdom-sheet.rules.JournalEntry.Nl50WVhCMuqqY3Ud.JournalEntryPage.cCDikJWec80mnG6n",
   },
   [`${changePrefix}-fog`]: {
     id: `${changePrefix}-fog`,
@@ -655,7 +656,7 @@ export const armyConditions = {
         },
       ],
     },
-    journal: "",
+    journal: "Compendium.pf1-kingdom-sheet.rules.JournalEntry.Nl50WVhCMuqqY3Ud.JournalEntryPage.c0jSYSCCExA9az4e",
   },
   [`${changePrefix}-fortifications`]: {
     id: `${changePrefix}-fortifications`,
@@ -669,7 +670,7 @@ export const armyConditions = {
         },
       ],
     },
-    journal: "",
+    journal: "Compendium.pf1-kingdom-sheet.rules.JournalEntry.Nl50WVhCMuqqY3Ud.JournalEntryPage.XzyCEUqKwco2nQsr",
   },
   [`${changePrefix}-rain`]: {
     id: `${changePrefix}-rain`,
@@ -683,7 +684,7 @@ export const armyConditions = {
         },
       ],
     },
-    journal: "",
+    journal: "Compendium.pf1-kingdom-sheet.rules.JournalEntry.Nl50WVhCMuqqY3Ud.JournalEntryPage.qm2lJRiqWyr2LRf6",
   },
   [`${changePrefix}-sandstorm`]: {
     id: `${changePrefix}-sandstorm`,
@@ -701,7 +702,7 @@ export const armyConditions = {
         },
       ],
     },
-    journal: "",
+    journal: "Compendium.pf1-kingdom-sheet.rules.JournalEntry.Nl50WVhCMuqqY3Ud.JournalEntryPage.WhAGk6DEzmQLBK12",
   },
   [`${changePrefix}-snow`]: {
     id: `${changePrefix}-snow`,
@@ -719,7 +720,7 @@ export const armyConditions = {
         },
       ],
     },
-    journal: "",
+    journal: "Compendium.pf1-kingdom-sheet.rules.JournalEntry.Nl50WVhCMuqqY3Ud.JournalEntryPage.oViI7Sz7xSxP5rXv",
   },
   [`${changePrefix}-wind`]: {
     id: `${changePrefix}-wind`,
@@ -728,12 +729,12 @@ export const armyConditions = {
     mechanics: {
       contextNotes: [
         {
-          text: "Wind modifier penalties from @UUID[Compendium.pf-content.pf-rules.JournalEntry.GUKeQEgdxbleWA0l]{Table 13-10: Wind Effects} to Ranged phase",
+          text: "Wind modifier penalties from @UUID[Compendium.pf1-kingdom-sheet.rules.JournalEntry.Nl50WVhCMuqqY3Ud.JournalEntryPage.oh8QvomTx3B9zlSe]{Wind Effects} to Ranged phase",
           target: `${changePrefix}_om`,
         },
       ],
     },
-    journal: "",
+    journal: "Compendium.pf1-kingdom-sheet.rules.JournalEntry.Nl50WVhCMuqqY3Ud.JournalEntryPage.LGLfLNQbfGP2meKG",
   },
 };
 

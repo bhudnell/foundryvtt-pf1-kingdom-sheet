@@ -1,8 +1,3 @@
-- create compendium items
-  - Rules
-    - Optional Kingdom Rules
-    - Army Conditions
-
 - Update README
 
 # Bugs
