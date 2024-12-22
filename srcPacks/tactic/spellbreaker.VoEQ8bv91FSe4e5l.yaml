@@ -1,0 +1,18 @@
+type: pf1-kingdom-sheet.tactic
+name: Spellbreaker
+system:
+  disabled: true
+  description:
+    value: >-
+      <p>Your army has specialists who can disrupt enemy spellcasting. Increase
+      its DV by 4 against armies with the spellcasting ability.</p>
+  changes: []
+  contextNotes:
+    - text: +[[4]] vs armies with the spellcasting ability
+      target: pf1ks_dv
+  sources: []
+_id: VoEQ8bv91FSe4e5l
+img: icons/svg/target.svg
+sort: 0
+_key: '!items!VoEQ8bv91FSe4e5l'
+

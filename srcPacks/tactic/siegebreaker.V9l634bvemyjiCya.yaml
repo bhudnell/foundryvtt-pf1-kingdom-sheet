@@ -1,0 +1,22 @@
+type: pf1-kingdom-sheet.tactic
+name: Siegebreaker
+system:
+  disabled: true
+  description:
+    value: >-
+      <p>Your army targets another army’s siege engines in an attempt to destroy
+      them. If your army damages the target army, your army attempts a second
+      Offense check; if successful, destroy one of the target’s siege engines.
+      This tactic has no effect on enemy armies without siege engines.</p>
+  changes: []
+  contextNotes:
+    - text: >-
+        if damage to target, attempt a second OM check; destroy one of the
+        target’s siege engines om success
+      target: pf1ks_om
+  sources: []
+_id: V9l634bvemyjiCya
+img: icons/svg/target.svg
+sort: 0
+_key: '!items!V9l634bvemyjiCya'
+

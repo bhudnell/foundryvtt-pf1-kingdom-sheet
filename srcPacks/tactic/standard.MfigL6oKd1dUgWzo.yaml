@@ -1,0 +1,16 @@
+type: pf1-kingdom-sheet.tactic
+name: Standard
+system:
+  disabled: true
+  description:
+    value: >-
+      <p>Your army’s attacks have no additional modifiers to its OM, DV, or
+      damage.</p>
+  changes: []
+  contextNotes: []
+  sources: []
+_id: MfigL6oKd1dUgWzo
+img: icons/svg/target.svg
+sort: 0
+_key: '!items!MfigL6oKd1dUgWzo'
+
