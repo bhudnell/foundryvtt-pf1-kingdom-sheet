@@ -1,0 +1,15 @@
+type: pf1-kingdom-sheet.special
+name: Whirlwind
+system:
+  description:
+    value: >-
+      <p>Each time the army damages an enemy army, reduce the enemy army’s DV by
+      1.</p>
+  changes: []
+  contextNotes: []
+  sources: []
+_id: I7B3Ve4d4q2k2nCA
+img: icons/svg/daze.svg
+sort: 0
+_key: '!items!I7B3Ve4d4q2k2nCA'
+

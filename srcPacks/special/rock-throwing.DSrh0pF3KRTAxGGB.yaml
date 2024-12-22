@@ -1,0 +1,17 @@
+type: pf1-kingdom-sheet.special
+name: Rock Throwing
+system:
+  description:
+    value: >-
+      <p>The army can make ranged attacks. In the Ranged phase, it deals +4
+      points of damage.</p>
+  changes: []
+  contextNotes:
+    - text: +[[4]] in ranged phase
+      target: pf1ks_damage
+  sources: []
+_id: DSrh0pF3KRTAxGGB
+img: icons/svg/daze.svg
+sort: 0
+_key: '!items!DSrh0pF3KRTAxGGB'
+

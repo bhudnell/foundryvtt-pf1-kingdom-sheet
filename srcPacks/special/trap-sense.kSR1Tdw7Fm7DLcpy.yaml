@@ -1,0 +1,15 @@
+type: pf1-kingdom-sheet.special
+name: Trap Sense
+system:
+  description:
+    value: >-
+      <p>When using the siegebreaker tactic, the army adds half its ACR to the
+      Offense check to determine if a siege engine is destroyed.</p>
+  changes: []
+  contextNotes: []
+  sources: []
+_id: kSR1Tdw7Fm7DLcpy
+img: icons/svg/daze.svg
+sort: 0
+_key: '!items!kSR1Tdw7Fm7DLcpy'
+

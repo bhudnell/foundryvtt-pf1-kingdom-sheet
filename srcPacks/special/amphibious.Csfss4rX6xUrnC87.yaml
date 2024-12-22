@@ -1,0 +1,15 @@
+type: pf1-kingdom-sheet.special
+name: Amphibious
+system:
+  description:
+    value: >-
+      <p>The army can move in or across bodies of water and ignore Defense from
+      water barriers.</p>
+  changes: []
+  contextNotes: []
+  sources: []
+_id: Csfss4rX6xUrnC87
+img: icons/svg/daze.svg
+sort: 0
+_key: '!items!Csfss4rX6xUrnC87'
+

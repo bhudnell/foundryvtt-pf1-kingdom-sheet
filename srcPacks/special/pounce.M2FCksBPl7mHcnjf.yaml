@@ -1,0 +1,19 @@
+type: pf1-kingdom-sheet.special
+name: Pounce
+system:
+  description:
+    value: <p>The army increases its OM by 1.</p>
+  changes:
+    - _id: ckdxx0oW
+      formula: '1'
+      target: pf1ks_om
+      type: untyped
+      operator: add
+      priority: 0
+  contextNotes: []
+  sources: []
+_id: M2FCksBPl7mHcnjf
+img: icons/svg/daze.svg
+sort: 0
+_key: '!items!M2FCksBPl7mHcnjf'
+

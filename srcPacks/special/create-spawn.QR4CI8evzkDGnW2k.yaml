@@ -1,0 +1,16 @@
+type: pf1-kingdom-sheet.special
+name: Create Spawn
+system:
+  description:
+    value: >-
+      <p>If the army destroys a living army of equal or greater size, it may
+      immediately recover a number of hit points equal to twice its ACR or
+      create a new army of its type but two sizes smaller than itself.</p>
+  changes: []
+  contextNotes: []
+  sources: []
+_id: QR4CI8evzkDGnW2k
+img: icons/svg/daze.svg
+sort: 0
+_key: '!items!QR4CI8evzkDGnW2k'
+

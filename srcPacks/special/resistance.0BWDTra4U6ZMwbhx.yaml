@@ -1,0 +1,20 @@
+type: pf1-kingdom-sheet.special
+name: Resistance
+system:
+  description:
+    value: >-
+      <p>The army has a significant defense from resistances. Increase its DV by
+      10, but only against armies that can’t overcome those defenses. In some
+      cases, the GM might rule that an army is simply undefeatable by an enemy
+      army because of its defenses (though the GM should never pit the PCs
+      against such an army unless the PCs initiate a foolish battle).</p>
+  changes: []
+  contextNotes:
+    - text: +[[10]] vs armies that can’t overcome the resistance
+      target: pf1ks_dv
+  sources: []
+_id: 0BWDTra4U6ZMwbhx
+img: icons/svg/daze.svg
+sort: 0
+_key: '!items!0BWDTra4U6ZMwbhx'
+

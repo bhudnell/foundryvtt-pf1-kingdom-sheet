@@ -1,0 +1,17 @@
+type: pf1-kingdom-sheet.special
+name: Incorporeal
+system:
+  description:
+    value: >-
+      <p>The army takes no damage from nonmagical attacks, and only half damage
+      from magical attacks. It ignores enemy DV bonuses from armor resources. It
+      automatically succeeds at checks to withdraw. It has a mobility advantage
+      in all kinds of terrain.</p>
+  changes: []
+  contextNotes: []
+  sources: []
+_id: OC31TCfTEuZ1c1c0
+img: icons/svg/daze.svg
+sort: 0
+_key: '!items!OC31TCfTEuZ1c1c0'
+

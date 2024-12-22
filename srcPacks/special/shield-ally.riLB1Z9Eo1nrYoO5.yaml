@@ -1,0 +1,19 @@
+type: pf1-kingdom-sheet.special
+name: Shield Ally
+system:
+  description:
+    value: <p>Increase the army’s DV by 1.</p>
+  changes:
+    - _id: RtYnKKDX
+      formula: '1'
+      target: pf1ks_dv
+      type: untyped
+      operator: add
+      priority: 0
+  contextNotes: []
+  sources: []
+_id: riLB1Z9Eo1nrYoO5
+img: icons/svg/daze.svg
+sort: 0
+_key: '!items!riLB1Z9Eo1nrYoO5'
+

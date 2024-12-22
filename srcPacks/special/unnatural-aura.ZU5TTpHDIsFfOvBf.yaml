@@ -1,0 +1,18 @@
+type: pf1-kingdom-sheet.special
+name: Unnatural Aura
+system:
+  description:
+    value: >-
+      <p>If the army damages an enemy army that contains animals (including
+      animal mounts), that army must attempt a Morale check (DC = 10 + your
+      army’s ACR). Failure means the enemy army is afraid and can’t attempt an
+      Offense check to attack during the next phase. If an army fails a Morale
+      check during a phase in which it is already afraid, it routs.</p>
+  changes: []
+  contextNotes: []
+  sources: []
+_id: ZU5TTpHDIsFfOvBf
+img: icons/svg/daze.svg
+sort: 0
+_key: '!items!ZU5TTpHDIsFfOvBf'
+

@@ -1,0 +1,15 @@
+type: pf1-kingdom-sheet.special
+name: Hex (Healing)
+system:
+  description:
+    value: >-
+      <p>Once per battle, the army can heal a number of hit points equal to half
+      its ACR.</p>
+  changes: []
+  contextNotes: []
+  sources: []
+_id: k6VmI1Llfxoi0SQv
+img: icons/svg/daze.svg
+sort: 0
+_key: '!items!k6VmI1Llfxoi0SQv'
+

@@ -1,0 +1,17 @@
+type: pf1-kingdom-sheet.special
+name: Breath Weapon
+system:
+  description:
+    value: >-
+      <p>The army can make ranged attacks. In the Ranged and Melee phases, it
+      deals +1d4 points of damage.</p>
+  changes: []
+  contextNotes:
+    - text: '[[1d4]] damage (breath weapon)'
+      target: pf1ks_damage
+  sources: []
+_id: 3deeYYehO6i2kCrI
+img: icons/svg/daze.svg
+sort: 0
+_key: '!items!3deeYYehO6i2kCrI'
+

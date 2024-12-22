@@ -1,0 +1,19 @@
+type: pf1-kingdom-sheet.special
+name: Rake
+system:
+  description:
+    value: <p>The army increases the damage it deals by 1.</p>
+  changes:
+    - _id: WzqvRGxM
+      formula: '1'
+      target: pf1ks_damage
+      type: untyped
+      operator: add
+      priority: 0
+  contextNotes: []
+  sources: []
+_id: s3DDbxyGFMjyEaFl
+img: icons/svg/daze.svg
+sort: 0
+_key: '!items!s3DDbxyGFMjyEaFl'
+

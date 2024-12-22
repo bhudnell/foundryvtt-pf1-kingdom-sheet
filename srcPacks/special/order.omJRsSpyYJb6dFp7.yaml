@@ -1,0 +1,15 @@
+type: pf1-kingdom-sheet.special
+name: Order
+system:
+  description:
+    value: >-
+      <p>When using the challenge ability, increase the army’s DV by 1 against
+      the challenged army.</p>
+  changes: []
+  contextNotes: []
+  sources: []
+_id: omJRsSpyYJb6dFp7
+img: icons/svg/daze.svg
+sort: 0
+_key: '!items!omJRsSpyYJb6dFp7'
+

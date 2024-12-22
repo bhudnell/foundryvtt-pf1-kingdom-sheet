@@ -1,0 +1,18 @@
+type: pf1-kingdom-sheet.special
+name: Judgement
+system:
+  description:
+    value: >-
+      <p>Once each Ranged or Melee phase, the army may choose to increase its
+      damage by 1, increase its DV by 1, heal a number of hit points equal to
+      half its ACR, or treat its attacks as magic weapons. This ability is
+      suspended for any phase in which the army is unable to attack because of
+      fear, and ends immediately if the army routs.</p>
+  changes: []
+  contextNotes: []
+  sources: []
+_id: QXYNXPYhZxhUvB3t
+img: icons/svg/daze.svg
+sort: 0
+_key: '!items!QXYNXPYhZxhUvB3t'
+

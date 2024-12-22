@@ -1,0 +1,17 @@
+type: pf1-kingdom-sheet.special
+name: Wild Shape
+system:
+  description:
+    value: >-
+      <p>Once per battle, the army may gain the aquatic, amphibious, climb,
+      darkvision, flight, low-light vision, or scent special abilities, but
+      loses the spellcasting ability while this is in effect. The army can end
+      this ability in any later phase.</p>
+  changes: []
+  contextNotes: []
+  sources: []
+_id: hep3tHuLdW0gmVOv
+img: icons/svg/daze.svg
+sort: 0
+_key: '!items!hep3tHuLdW0gmVOv'
+

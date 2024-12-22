@@ -1,0 +1,16 @@
+type: pf1-kingdom-sheet.special
+name: Tactician
+system:
+  description:
+    value: >-
+      <p>The army automatically learns one tactic (usually the cavalry experts
+      tactic); this doesn’t count toward an army’s maximum number of known
+      tactics.</p>
+  changes: []
+  contextNotes: []
+  sources: []
+_id: 2CSqRFaLHaK1a6QZ
+img: icons/svg/daze.svg
+sort: 0
+_key: '!items!2CSqRFaLHaK1a6QZ'
+

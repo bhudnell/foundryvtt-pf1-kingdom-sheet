@@ -1,0 +1,15 @@
+type: pf1-kingdom-sheet.special
+name: Energy Drain
+system:
+  description:
+    value: >-
+      <p>If the army damages an enemy, it reduces the enemy’s OM and DV by 1 for
+      24 hours.</p>
+  changes: []
+  contextNotes: []
+  sources: []
+_id: QDirYISRC8HIowCv
+img: icons/svg/daze.svg
+sort: 0
+_key: '!items!QDirYISRC8HIowCv'
+

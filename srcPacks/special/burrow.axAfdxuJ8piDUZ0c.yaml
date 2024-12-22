@@ -1,0 +1,17 @@
+type: pf1-kingdom-sheet.special
+name: Burrow
+system:
+  description:
+    value: >-
+      <p>The army can dig under one fortification (or City Walls) by spending a
+      Ranged or Melee phase moving. In later phases, it ignores that
+      fortification’s Defense. During the phase the army uses burrow, it can
+      attack or be attacked only by armies using burrow or earth glide.</p>
+  changes: []
+  contextNotes: []
+  sources: []
+_id: axAfdxuJ8piDUZ0c
+img: icons/svg/daze.svg
+sort: 0
+_key: '!items!axAfdxuJ8piDUZ0c'
+

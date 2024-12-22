@@ -1,0 +1,15 @@
+type: pf1-kingdom-sheet.special
+name: Cannibalize
+system:
+  description:
+    value: >-
+      <p>Reduce Consumption by 1 (minimum 0) for any week in which the army wins
+      a battle and is allowed to feed on fallen corpses.</p>
+  changes: []
+  contextNotes: []
+  sources: []
+_id: Yv2WXQtRbvaZeguP
+img: icons/svg/daze.svg
+sort: 0
+_key: '!items!Yv2WXQtRbvaZeguP'
+

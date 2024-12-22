@@ -1,0 +1,16 @@
+type: pf1-kingdom-sheet.special
+name: Ferocity
+system:
+  description:
+    value: >-
+      <p>The army continues to fight even if demoralized or nearly dead. If the
+      army is defeated or routed, it may continue to act for one more Melee
+      phase, and its OM and DV are reduced by 4 for that phase.</p>
+  changes: []
+  contextNotes: []
+  sources: []
+_id: 17Oqsj9pndlR7TNF
+img: icons/svg/daze.svg
+sort: 0
+_key: '!items!17Oqsj9pndlR7TNF'
+

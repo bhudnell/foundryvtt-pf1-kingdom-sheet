@@ -1,0 +1,17 @@
+type: pf1-kingdom-sheet.special
+name: Burn
+system:
+  description:
+    value: >-
+      <p>When this army deals damage in melee, the target army takes an
+      automatic 1d6 points of damage at the start of the next phase.</p>
+  changes: []
+  contextNotes:
+    - text: '[[1d6]] burn damage next round'
+      target: pf1ks_damage
+  sources: []
+_id: jT9jOpBCd8APPBwk
+img: icons/svg/daze.svg
+sort: 0
+_key: '!items!jT9jOpBCd8APPBwk'
+

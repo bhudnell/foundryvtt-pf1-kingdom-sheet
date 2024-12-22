@@ -1,0 +1,16 @@
+type: pf1-kingdom-sheet.special
+name: Immunity
+system:
+  description:
+    value: >-
+      <p>If an army is immune to a particular special ability (such as poison),
+      an enemy army with that ability doesn’t gain those benefits against this
+      army. For an army with many immunities, also see significant defense.</p>
+  changes: []
+  contextNotes: []
+  sources: []
+_id: smGWxbSBoxs7kW8v
+img: icons/svg/daze.svg
+sort: 0
+_key: '!items!smGWxbSBoxs7kW8v'
+

@@ -1,0 +1,18 @@
+type: pf1-kingdom-sheet.special
+name: Disease
+system:
+  description:
+    value: >-
+      <p>If the army damages an enemy, the enemy becomes diseased and takes a
+      cumulative –1 penalty to its OM and DV each day after the battle. Curing
+      the disease requires a successful Stability check modified by this
+      penalty, and allows the army to reduce this penalty by 1 each day
+      thereafter until the penalty is gone.</p>
+  changes: []
+  contextNotes: []
+  sources: []
+_id: 1qX9TIQlV1AiQQCz
+img: icons/svg/daze.svg
+sort: 0
+_key: '!items!1qX9TIQlV1AiQQCz'
+

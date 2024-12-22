@@ -1,0 +1,17 @@
+type: pf1-kingdom-sheet.special
+name: Ability Damage
+system:
+  description:
+    value: >-
+      <p>When this army deals damage in melee, the target army takes an
+      automatic 1d6 points of damage at the start of the next phase.</p>
+  changes: []
+  contextNotes:
+    - text: +[[1d6]] bleed damage next phase
+      target: pf1ks_damage
+  sources: []
+_id: aGv8gjuEPy5jOxj0
+img: icons/svg/daze.svg
+sort: 0
+_key: '!items!aGv8gjuEPy5jOxj0'
+

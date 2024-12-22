@@ -1,0 +1,16 @@
+type: pf1-kingdom-sheet.special
+name: Challange
+system:
+  description:
+    value: >-
+      <p>Once per battle, the army may increase its OM by 2 against a target
+      army, but it also reduces its DV by 1 against attacks from any army that
+      is not the target army. These effects last for the rest of the battle.</p>
+  changes: []
+  contextNotes: []
+  sources: []
+_id: ZJCN4jmi5ho7fQXD
+img: icons/svg/daze.svg
+sort: 0
+_key: '!items!ZJCN4jmi5ho7fQXD'
+

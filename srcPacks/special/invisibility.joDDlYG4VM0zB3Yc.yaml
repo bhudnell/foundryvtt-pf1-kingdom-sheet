@@ -1,0 +1,17 @@
+type: pf1-kingdom-sheet.special
+name: Invisibility
+system:
+  description:
+    value: >-
+      <p>Any army attacking this army takes a –2 penalty to its OM for that
+      attack. Any army attacked by this army takes a –2 penalty to its DV
+      against its attacks. Armies that can’t see invisible creatures can’t
+      prevent this army from withdrawing.</p>
+  changes: []
+  contextNotes: []
+  sources: []
+_id: joDDlYG4VM0zB3Yc
+img: icons/svg/daze.svg
+sort: 0
+_key: '!items!joDDlYG4VM0zB3Yc'
+

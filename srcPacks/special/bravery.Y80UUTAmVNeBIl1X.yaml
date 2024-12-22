@@ -1,0 +1,17 @@
+type: pf1-kingdom-sheet.special
+name: Bravery
+system:
+  description:
+    value: >-
+      <p>Apply the unit’s bravery bonus on Morale checks against fear and
+      routs.</p>
+  changes: []
+  contextNotes:
+    - text: +[[1]] vs fear and routs
+      target: pf1ks_morale
+  sources: []
+_id: Y80UUTAmVNeBIl1X
+img: icons/svg/daze.svg
+sort: 0
+_key: '!items!Y80UUTAmVNeBIl1X'
+

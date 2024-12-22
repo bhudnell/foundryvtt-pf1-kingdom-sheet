@@ -1,0 +1,13 @@
+type: pf1-kingdom-sheet.special
+name: Divine Health
+system:
+  description:
+    value: <p>The army is immune to disease.</p>
+  changes: []
+  contextNotes: []
+  sources: []
+_id: MyDRCMjbkPrLNfIb
+img: icons/svg/daze.svg
+sort: 0
+_key: '!items!MyDRCMjbkPrLNfIb'
+

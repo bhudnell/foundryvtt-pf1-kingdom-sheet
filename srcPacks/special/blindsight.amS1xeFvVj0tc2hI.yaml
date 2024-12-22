@@ -1,0 +1,15 @@
+type: pf1-kingdom-sheet.special
+name: Blindsight
+system:
+  description:
+    value: >-
+      <p>The army takes no penalties to its OM and DV from darkness,
+      invisibility, or weather.</p>
+  changes: []
+  contextNotes: []
+  sources: []
+_id: amS1xeFvVj0tc2hI
+img: icons/svg/daze.svg
+sort: 0
+_key: '!items!amS1xeFvVj0tc2hI'
+

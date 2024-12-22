@@ -1,0 +1,21 @@
+type: pf1-kingdom-sheet.special
+name: Undead
+system:
+  description:
+    value: >-
+      <p>The army is immune to disease, fear, paralysis, and poison. Its DV
+      increases by 2.</p>
+  changes:
+    - _id: WF2EKfco
+      formula: '2'
+      target: pf1ks_dv
+      type: untyped
+      operator: add
+      priority: 0
+  contextNotes: []
+  sources: []
+_id: kqXZCibXpBMjAH6T
+img: icons/svg/daze.svg
+sort: 0
+_key: '!items!kqXZCibXpBMjAH6T'
+

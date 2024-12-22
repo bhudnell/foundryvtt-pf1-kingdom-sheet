@@ -1,0 +1,19 @@
+type: pf1-kingdom-sheet.special
+name: Animal Companion
+system:
+  description:
+    value: <p>The army’s animal companions increase the army’s OM by 1.</p>
+  changes:
+    - _id: OqFn96RL
+      formula: '1'
+      target: pf1ks_om
+      type: untyped
+      operator: add
+      priority: 0
+  contextNotes: []
+  sources: []
+_id: Kk7VU5IWw5IfVCw1
+img: icons/svg/daze.svg
+sort: 0
+_key: '!items!Kk7VU5IWw5IfVCw1'
+

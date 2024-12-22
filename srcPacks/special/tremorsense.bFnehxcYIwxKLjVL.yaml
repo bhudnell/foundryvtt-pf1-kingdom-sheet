@@ -1,0 +1,15 @@
+type: pf1-kingdom-sheet.special
+name: Tremorsense
+system:
+  description:
+    value: >-
+      <p>The army reduces its OM and DV penalties from darkness, invisibility,
+      and weather by half.</p>
+  changes: []
+  contextNotes: []
+  sources: []
+_id: bFnehxcYIwxKLjVL
+img: icons/svg/daze.svg
+sort: 0
+_key: '!items!bFnehxcYIwxKLjVL'
+

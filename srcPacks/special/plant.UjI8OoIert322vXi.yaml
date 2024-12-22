@@ -1,0 +1,13 @@
+type: pf1-kingdom-sheet.special
+name: Plant
+system:
+  description:
+    value: <p>The army is immune to fear, paralysis, and poison.</p>
+  changes: []
+  contextNotes: []
+  sources: []
+_id: UjI8OoIert322vXi
+img: icons/svg/daze.svg
+sort: 0
+_key: '!items!UjI8OoIert322vXi'
+

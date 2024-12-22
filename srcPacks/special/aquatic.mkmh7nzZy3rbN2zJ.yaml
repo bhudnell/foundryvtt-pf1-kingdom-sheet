@@ -1,0 +1,25 @@
+type: pf1-kingdom-sheet.special
+name: Aquatic
+system:
+  description:
+    value: >-
+      <p>The army increases its OM and DV by 1 against armies in the water or on
+      ships. The army decreases its OM by 2 against armies on land (unless the
+      army also has the amphibious special ability, in which case it doesn’t
+      have this OM penalty).</p>
+  changes: []
+  contextNotes:
+    - text: >-
+        +[[1]] against armies in the water or on ships; -[[2]] against armies on
+        land
+      target: pf1ks_dv
+    - text: >-
+        +[[1]] against armies in the water or on ships; -[[2]] against armies on
+        land
+      target: pf1ks_om
+  sources: []
+_id: mkmh7nzZy3rbN2zJ
+img: icons/svg/daze.svg
+sort: 0
+_key: '!items!mkmh7nzZy3rbN2zJ'
+

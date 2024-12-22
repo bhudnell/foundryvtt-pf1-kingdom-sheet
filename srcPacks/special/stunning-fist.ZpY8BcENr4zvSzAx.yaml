@@ -1,0 +1,15 @@
+type: pf1-kingdom-sheet.special
+name: Stunning Fist
+system:
+  description:
+    value: >-
+      <p>Each time the army damages an enemy army, reduce the enemy army’s DV by
+      1.</p>
+  changes: []
+  contextNotes: []
+  sources: []
+_id: ZpY8BcENr4zvSzAx
+img: icons/svg/daze.svg
+sort: 0
+_key: '!items!ZpY8BcENr4zvSzAx'
+

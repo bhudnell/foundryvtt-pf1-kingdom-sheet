@@ -1,0 +1,16 @@
+type: pf1-kingdom-sheet.special
+name: Smite Evil
+system:
+  description:
+    value: >-
+      <p>In one Melee phase per battle, the army may increase its OM by 2
+      against an evil army. If the target army is undead or evil outsiders, the
+      OM increases by 4 instead.</p>
+  changes: []
+  contextNotes: []
+  sources: []
+_id: u3PTm80fNMHutfgP
+img: icons/svg/daze.svg
+sort: 0
+_key: '!items!u3PTm80fNMHutfgP'
+

@@ -1,0 +1,18 @@
+type: pf1-kingdom-sheet.special
+name: Teleportation
+system:
+  description:
+    value: >-
+      <p>The army ignores the Defense of fortifications. It automatically
+      succeeds at checks to withdraw. Ethereal travel and similar effects also
+      grant this ability. An army with teleportation can travel to any hex on
+      the same day (its speed is irrelevant and not hampered by difficult
+      terrain).</p>
+  changes: []
+  contextNotes: []
+  sources: []
+_id: LKIDC42g0fsUTZyA
+img: icons/svg/daze.svg
+sort: 0
+_key: '!items!LKIDC42g0fsUTZyA'
+
