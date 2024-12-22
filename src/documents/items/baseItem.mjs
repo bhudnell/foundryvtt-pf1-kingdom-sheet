@@ -15,7 +15,7 @@ export class BaseItem extends pf1.documents.item.ItemPF {
   }
 
   get isActive() {
-    return !this.system.disabled && (this.system.quantity == null || this.system.quantity > 0);
+    return !this.system.disabled && !this.system.damaged && (this.system.quantity == null || this.system.quantity > 0);
   }
 
   static getDefaultArtwork(itemData) {

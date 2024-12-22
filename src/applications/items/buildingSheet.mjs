@@ -25,6 +25,13 @@ export class BuildingSheet extends ItemBaseSheet {
         value: itemData.quantity,
       },
     ];
+    context.states = [
+      {
+        field: "system.damaged",
+        value: itemData.damaged,
+        label: game.i18n.localize("PF1KS.Damaged"),
+      },
+    ];
 
     return context;
   }

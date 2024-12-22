@@ -56,7 +56,6 @@ export class ArmyActor extends BaseActor {
           total: c.value.signedString(),
         });
       }
-      console.error(tooltipParts);
 
       damageTooltip = await renderTemplate("systems/pf1/templates/dice/tooltip.hbs", { parts: tooltipParts });
       damageBonus = this.system.damageBonus;
@@ -65,6 +64,9 @@ export class ArmyActor extends BaseActor {
     // Add context notes
     const rollData = options.rollData || this.getRollData();
     const noteObjects = this.getContextNotes(`${pf1ks.config.changePrefix}_${attributeId}`);
+    if (attributeId === "om") {
+      noteObjects.push(...this.getContextNotes(`${pf1ks.config.changePrefix}_damage`));
+    }
     const notes = this.formatContextNotes(noteObjects, rollData);
     if (notes.length > 0) {
       props.push({ header: game.i18n.localize("PF1.Notes"), value: notes });

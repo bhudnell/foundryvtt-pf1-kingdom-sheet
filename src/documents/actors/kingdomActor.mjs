@@ -173,27 +173,6 @@ export class KingdomActor extends BaseActor {
           "PF1.Alignment"
         ),
 
-        // edicts
-        new DefaultChange(
-          pf1ks.config.edictEffects.holiday[system.edicts.holiday]?.[stat] ?? 0,
-          `${pf1ks.config.changePrefix}_${stat}`,
-          game.i18n.format("PF1KS.Edict.HolidayChange", { value: pf1ks.config.edicts.holiday[system.edicts.holiday] })
-        ),
-        new DefaultChange(
-          pf1ks.config.edictEffects.promotion[system.edicts.promotion]?.[stat] ?? 0,
-          `${pf1ks.config.changePrefix}_${stat}`,
-          game.i18n.format("PF1KS.Edict.PromotionChange", {
-            value: pf1ks.config.edicts.promotion[system.edicts.promotion],
-          })
-        ),
-        new DefaultChange(
-          pf1ks.config.edictEffects.taxation[system.edicts.taxation]?.[stat] ?? 0,
-          `${pf1ks.config.changePrefix}_${stat}`,
-          game.i18n.format("PF1KS.Edict.TaxationChange", {
-            value: pf1ks.config.edicts.taxation[system.edicts.taxation],
-          })
-        ),
-
         // leadership
         ...filledRoles.map(
           (leader) =>
@@ -230,22 +209,56 @@ export class KingdomActor extends BaseActor {
       }
     }
 
-    // consumption
+    // edicts
     changes.push(
-      new DefaultChange(system.size, `${pf1ks.config.changePrefix}_consumption`, "PF1.Size"),
-      new DefaultChange(system.totalDistricts, `${pf1ks.config.changePrefix}_consumption`, "PF1KS.Districts"),
+      new DefaultChange(
+        pf1ks.config.edictEffects.holiday[system.edicts.holiday]?.loyalty ?? 0,
+        `${pf1ks.config.changePrefix}_loyalty`,
+        game.i18n.format("PF1KS.Edict.HolidayChange", { value: pf1ks.config.edicts.holiday[system.edicts.holiday] })
+      ),
       new DefaultChange(
         pf1ks.config.edictEffects.holiday[system.edicts.holiday]?.consumption ?? 0,
         `${pf1ks.config.changePrefix}_consumption`,
         game.i18n.format("PF1KS.Edict.HolidayChange", { value: pf1ks.config.edicts.holiday[system.edicts.holiday] })
       ),
       new DefaultChange(
-        pf1ks.config.edictEffects.promotion[system.edicts.promotion]?.consumption ?? 0,
-        `${pf1ks.config.changePrefix}_consumption`,
+        pf1ks.config.edictEffects.promotion[system.edicts.promotion]?.stability ?? 0,
+        `${pf1ks.config.changePrefix}_stability`,
         game.i18n.format("PF1KS.Edict.PromotionChange", {
           value: pf1ks.config.edicts.promotion[system.edicts.promotion],
         })
+      ),
+      new DefaultChange(
+        pf1ks.config.edictEffects.taxation[system.edicts.taxation]?.economy ?? 0,
+        `${pf1ks.config.changePrefix}_economy`,
+        game.i18n.format("PF1KS.Edict.TaxationChange", {
+          value: pf1ks.config.edicts.taxation[system.edicts.taxation],
+        })
       )
+    );
+    const hasCathedral = this.itemTypes[pf1ks.config.buildingId].some((building) => building.type === "cathedral");
+    const promotionConsumption = pf1ks.config.edictEffects.promotion[system.edicts.promotion]?.consumption ?? 0;
+    new DefaultChange(
+      hasCathedral ? Math.floor(promotionConsumption / 2) : promotionConsumption,
+      `${pf1ks.config.changePrefix}_consumption`,
+      game.i18n.format("PF1KS.Edict.PromotionChange", {
+        value: pf1ks.config.edicts.promotion[system.edicts.promotion],
+      })
+    );
+    const hasWaterfront = this.itemTypes[pf1ks.config.buildingId].some((building) => building.type === "waterfront");
+    const taxationLoyalty = pf1ks.config.edictEffects.promotion[system.edicts.promotion]?.loyalty ?? 0;
+    new DefaultChange(
+      hasWaterfront ? Math.floor(taxationLoyalty / 2) : taxationLoyalty,
+      `${pf1ks.config.changePrefix}_loyalty`,
+      game.i18n.format("PF1KS.Edict.TaxationChange", {
+        value: pf1ks.config.edicts.taxation[system.edicts.taxation],
+      })
+    );
+
+    // consumption
+    changes.push(
+      new DefaultChange(system.size, `${pf1ks.config.changePrefix}_consumption`, "PF1.Size"),
+      new DefaultChange(system.totalDistricts, `${pf1ks.config.changePrefix}_consumption`, "PF1KS.Districts")
     );
 
     // fame/infamy

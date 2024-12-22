@@ -45,8 +45,6 @@ export class KingdomSheet extends pf1.applications.actor.ActorSheetPF {
       cssClass: isOwner ? "editable" : "locked",
     };
 
-    // TODO any unrest increases: leadership vacancies and continuous events
-
     // selectors
     data.alignmentOptions = pf1.config.alignments;
     data.governmentOptions = pf1ks.config.kingdomGovernments;

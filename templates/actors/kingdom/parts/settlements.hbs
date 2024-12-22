@@ -92,6 +92,10 @@
               <label>{{localize "PF1KS.BuildingType"}}</label>
             </div>
 
+            <div class="item-detail item-number">
+              <i class="fas fa-house-chimney-crack" data-tooltip="PF1KS.Damaged"></i>
+            </div>
+
             <div class="item-controls five-button">
               <a
                 class="item-control item-create"
@@ -122,6 +126,14 @@
             <div class="item-detail item-building-type">
               <span>{{ item.buildingType }}</span>
             </div>
+
+            <a class="item-detail item-number item-toggle-data" data-name="damaged">
+              {{#if item.system.damaged}}
+              <i class="fas fa-check"></i>
+              {{else}}
+              <i class="fas fa-times"></i>
+              {{/if}}
+            </a>
 
             {{#if @root.owner}}
             <div class="item-controls five-button">

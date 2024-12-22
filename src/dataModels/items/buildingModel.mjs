@@ -10,6 +10,7 @@ export class BuildingModel extends ItemBaseModel {
       lots: new fields.NumberField({ integer: true, min: 0, initial: 1, nullable: false }),
       type: new fields.StringField({ choices: Object.keys(pf1ks.config.buildingTypes) }),
       cost: new fields.NumberField({ integer: true, min: 0, initial: 0, nullable: false }),
+      damaged: new fields.BooleanField({ initial: false }),
     };
     this.addDefaultSchemaFields(schema);
 
