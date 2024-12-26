@@ -44,32 +44,34 @@
           <span class="value">{{ system.population }}</span>
         </div>
       </div>
-      <div class="info-box-joined">
-        <div class="info-box" data-tooltip-extended="controlDC">
-          <h5>{{localize "PF1KS.ControlDC" }}</h5>
-          <span class="value">{{ system.controlDC }}</span>
-        </div>
-        <div class="info-box">
-          <h5>
-            {{#if unrestError}}
-            <i class="fa-solid fa-triangle-exclamation" data-tooltip="{{ unrestError }}"></i>
-            {{/if}}
-            <span>{{ localize "PF1KS.Unrest" }}</span>
-          </h5>
-          <span class="value text-box direct" name="system.unrest" data-dtype="Number">{{ system.unrest }}</span>
-        </div>
-        <div class="info-box">
-          <h5>{{localize "PF1KS.Treasury" }}</h5>
-          <span class="value text-box direct" name="system.treasury" data-dtype="Number">{{ system.treasury }}</span>
-        </div>
-        <div class="info-box" data-tooltip-extended="bonusBP">
-          <h5>{{localize "PF1KS.BonusBPShort" }}</h5>
-          <span class="value">{{ numberFormat system.bonusBP.total sign=true}}</span>
-        </div>
-        <div class="info-box" data-tooltip-extended="consumption">
-          <h5>{{localize "PF1KS.Consumption" }}</h5>
-          <span class="value">{{ system.consumption.total }}</span>
-        </div>
+    </div>
+  </div>
+  <div class="attributes flexrow">
+    <div class="info-box-joined">
+      <div class="info-box" data-tooltip-extended="controlDC">
+        <h5>{{localize "PF1KS.ControlDC" }}</h5>
+        <span class="value">{{ system.controlDC }}</span>
+      </div>
+      <div class="info-box">
+        <h5>
+          {{#if unrestError}}
+          <i class="fa-solid fa-triangle-exclamation" data-tooltip="{{ unrestError }}"></i>
+          {{/if}}
+          <span>{{ localize "PF1KS.Unrest" }}</span>
+        </h5>
+        <span class="value text-box direct" name="system.unrest" data-dtype="Number">{{ system.unrest }}</span>
+      </div>
+      <div class="info-box">
+        <h5>{{localize "PF1KS.Treasury" }}</h5>
+        <span class="value text-box direct" name="system.treasury" data-dtype="Number">{{ system.treasury }}</span>
+      </div>
+      <div class="info-box" data-tooltip-extended="bonusBP">
+        <h5>{{localize "PF1KS.BonusBPShort" }}</h5>
+        <span class="value">{{ numberFormat system.bonusBP.total sign=true}}</span>
+      </div>
+      <div class="info-box" data-tooltip-extended="consumption">
+        <h5>{{localize "PF1KS.Consumption" }}</h5>
+        <span class="value">{{ system.consumption.total }}</span>
       </div>
     </div>
   </div>
