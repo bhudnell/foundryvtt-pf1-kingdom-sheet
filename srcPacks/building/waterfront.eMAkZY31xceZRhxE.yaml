@@ -34,9 +34,7 @@ system:
       type: untyped
       operator: add
       priority: 0
-  contextNotes:
-    - text: halve penalty from Taxation edict
-      target: pf1ks_loyalty
+  contextNotes: []
   sources: []
   settlementId: ''
   type: waterfront

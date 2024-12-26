@@ -27,6 +27,12 @@ system:
       type: untyped
       operator: add
       priority: 0
+    - _id: pBUlqH7U
+      formula: '-4'
+      target: pf1ks_unrest_drop
+      type: untyped
+      operator: add
+      priority: 0
     - _id: RfIMzVPj
       formula: '1'
       target: pf1ks_fame
@@ -39,9 +45,7 @@ system:
       type: untyped
       operator: add
       priority: 0
-  contextNotes:
-    - text: halve increase from Promotion edict
-      target: pf1ks_consumption
+  contextNotes: []
   sources: []
   settlementId: ''
   type: cathedral

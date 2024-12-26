@@ -57,6 +57,16 @@ export const kingdomBuffTargets = {
     label: "PF1KS.Infamy",
     filters: { item: { include: kingdomItemTypes } },
   },
+  [`${changePrefix}_unrest_drop`]: {
+    category: `${changePrefix}_misc`,
+    label: "PF1KS.UnrestOnDrop",
+    filters: { item: { include: kingdomItemTypes } },
+  },
+  [`${changePrefix}_unrest_continuous`]: {
+    category: `${changePrefix}_misc`,
+    label: "PF1KS.UnrestContinuous",
+    filters: { item: { include: kingdomItemTypes } },
+  },
 };
 
 export const buffTargets = {

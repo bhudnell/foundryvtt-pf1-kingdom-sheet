@@ -15,6 +15,12 @@ system:
       type: untyped
       operator: add
       priority: 0
+    - _id: R8dq680y
+      formula: '-1'
+      target: pf1ks_unrest_drop
+      type: untyped
+      operator: add
+      priority: 0
   contextNotes: []
   sources: []
   settlementId: ''

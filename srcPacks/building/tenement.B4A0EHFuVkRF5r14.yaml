@@ -10,7 +10,13 @@ system:
       /><p><strong>Kingdom</strong> Unrest +2</p><p><strong>Upgrade To</strong>
       House</p><p><strong>Special</strong> Counts as House for buildings that
       must be adjacent to a House</p>
-  changes: []
+  changes:
+    - _id: j5OmRx77
+      formula: '2'
+      target: pf1ks_unrest_drop
+      type: untyped
+      operator: add
+      priority: 0
   contextNotes: []
   sources: []
   settlementId: ''

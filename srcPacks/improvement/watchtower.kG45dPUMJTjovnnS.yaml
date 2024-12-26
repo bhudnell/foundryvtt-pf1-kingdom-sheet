@@ -19,6 +19,12 @@ system:
       type: untyped
       operator: add
       priority: 0
+    - _id: xuQmGrJJ
+      formula: '-1'
+      target: pf1ks_unrest_drop
+      type: untyped
+      operator: add
+      priority: 0
     - _id: hx5Xa3MF
       formula: '2'
       target: pf1ks_defense

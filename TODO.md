@@ -3,10 +3,8 @@
 # Improvements
 
 - Building images
-- Add unrest stuff
-  - add unrest (one time) and unrest (continuous) to changes
-  - add handling for both changes
+- Auto Unrest (on drop and continuous)
+  - add settings for each type
+  - add handling for each type
   - add default continuous changes for vacancies
-  - fill in data on compendium items
-- Field on kingdom sheet to show monthly unrest increases from vacancies/continuous events
 - Print control DC on economy/loyalty/stability checks

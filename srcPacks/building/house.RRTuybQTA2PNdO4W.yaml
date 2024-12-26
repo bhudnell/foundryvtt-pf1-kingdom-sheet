@@ -11,7 +11,13 @@ system:
       From</strong> Tenement</p><p><strong>Special</strong> The first House you
       build during the Improvement phase does not count against the total number
       of buildings you can build during the phase</p>
-  changes: []
+  changes:
+    - _id: 02xsdnQS
+      formula: '-1'
+      target: pf1ks_unrest_drop
+      type: untyped
+      operator: add
+      priority: 0
   contextNotes: []
   sources: []
   settlementId: ''

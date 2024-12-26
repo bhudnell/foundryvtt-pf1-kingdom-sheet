@@ -18,6 +18,8 @@
     "Unrest": "Unrest",
     "UnrestWarning": "Kingdom loses 1 hex per turn",
     "UnrestError": "Kingdom is in anarchy!",
+    "UnrestOnDrop": "Unrest (On Drop)",
+    "UnrestContinuous": "Unrest (Continuous)",
     "Consumption": "Consumption",
     "BonusBP": "Bonus Build Points",
     "BonusBPShort": "Bonus BP",

@@ -25,6 +25,12 @@ system:
       type: untyped
       operator: add
       priority: 0
+    - _id: 6wFWhphS
+      formula: '1'
+      target: pf1ks_unrest_drop
+      type: untyped
+      operator: add
+      priority: 0
     - _id: 0B2kPwAl
       formula: '2000'
       target: pf1ks_baseValue
