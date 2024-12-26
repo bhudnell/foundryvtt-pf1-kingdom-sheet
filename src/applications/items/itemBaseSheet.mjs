@@ -21,6 +21,7 @@ export class ItemBaseSheet extends pf1.applications.item.ItemSheetPF {
     context.isBoon = item.type === pf1ks.config.boonId;
     context.isSpecial = item.type === pf1ks.config.specialId;
     context.isTactic = item.type === pf1ks.config.tacticId;
+    context.showDetails = context.isBuilding || context.isEvent || context.isImprovement;
 
     return context;
   }
