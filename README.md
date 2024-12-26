@@ -20,37 +20,46 @@ The base actor for a mass combat army. Boons, Special Abilities, and Tactics are
 
 ### Building
 
-TODO
+Represents a building that can be built. All of the base buildings are preconfigured and available in the provided compendium.
 
 ### Event
 
-TODO
+Represents an event that occurred in the events phase. All of the base events are available in the provided compendium. Most events' effects are based on checks so most arent configured with changes
 
 ### Terrain Improvement
 
-TODO
+Represents an improvement (terrain improvement and special terrain) that can be built. All of the base improvements are preconfigured and available in the provided compendium.
 
 ## Army Items
 
 ### Boon
 
-TODO
+Represents a boon that an army commander can take. All of the base boons are preconfigured and available in the provided compendium.
 
 ### Special Ability
 
-TODO
+Represents an army special ability. All of the base special abilities are preconfigured and available in the provided compendium.
 
 ### Tactic
 
-TODO
+Represents a tactic that an army can learn. All of the base tactics are preconfigured and available in the provided compendium.
 
 # Roll Tables
 
-TODO
+## Event Roll Table
+
+The Kingdom Event table has been turned into a roll table available in the provided compendium.
+Event chance (then the event if it occurs) can also be rolled using the roll button found in the Kingdom Sheet Events tab.
 
 # Journal Entries
 
-TODO
+## Army Conditions
+
+The list of battlefield conditions and their rules are available in the provided compendium.
+
+## Optional Kingdom Rules
+
+The list of available optional settings and their rules are available in the provided compendium.
 
 # Credits
 

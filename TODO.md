@@ -1,5 +1,3 @@
-- Update README
-
 # Improvements
 
 - Auto Unrest (on drop and continuous)
