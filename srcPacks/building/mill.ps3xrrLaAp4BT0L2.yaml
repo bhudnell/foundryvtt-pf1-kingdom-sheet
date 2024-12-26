@@ -36,7 +36,7 @@ system:
   settlementId: ''
   type: mill
 _id: ps3xrrLaAp4BT0L2
-img: icons/svg/house.svg
+img: modules/pf1-kingdom-sheet/assets/kingdom_building/Mill.png
 sort: 0
 _key: '!items!ps3xrrLaAp4BT0L2'
 

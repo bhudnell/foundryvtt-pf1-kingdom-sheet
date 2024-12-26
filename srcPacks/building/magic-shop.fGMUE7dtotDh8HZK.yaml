@@ -30,7 +30,7 @@ system:
   settlementId: ''
   type: magic_shop
 _id: fGMUE7dtotDh8HZK
-img: icons/svg/house.svg
+img: modules/pf1-kingdom-sheet/assets/kingdom_building/Magic%20Shop.png
 sort: 0
 _key: '!items!fGMUE7dtotDh8HZK'
 

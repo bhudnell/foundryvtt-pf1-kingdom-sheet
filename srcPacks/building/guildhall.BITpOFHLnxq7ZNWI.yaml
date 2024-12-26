@@ -48,7 +48,7 @@ system:
   settlementId: ''
   type: guildhall
 _id: BITpOFHLnxq7ZNWI
-img: icons/svg/house.svg
+img: modules/pf1-kingdom-sheet/assets/kingdom_building/Guildhall.png
 sort: 0
 _key: '!items!BITpOFHLnxq7ZNWI'
 

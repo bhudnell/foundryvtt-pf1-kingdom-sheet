@@ -27,7 +27,7 @@ system:
   settlementId: ''
   type: casters_tower
 _id: vB2SqgpA3OZrPyWH
-img: icons/svg/house.svg
+img: modules/pf1-kingdom-sheet/assets/kingdom_building/Caster%27s%20Tower.png
 sort: 0
 _key: '!items!vB2SqgpA3OZrPyWH'
 

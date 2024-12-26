@@ -55,7 +55,7 @@ system:
   settlementId: ''
   type: palace
 _id: 9N44xqkZylbcVaMY
-img: icons/svg/house.svg
+img: modules/pf1-kingdom-sheet/assets/kingdom_building/Palace.png
 sort: 0
 _key: '!items!9N44xqkZylbcVaMY'
 

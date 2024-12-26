@@ -18,7 +18,7 @@ system:
   settlementId: ''
   type: waterway
 _id: BSgDfwRI0BE3FkhA
-img: icons/svg/house.svg
+img: modules/pf1-kingdom-sheet/assets/kingdom_building/Waterway_01.png
 sort: 0
 _key: '!items!BSgDfwRI0BE3FkhA'
 

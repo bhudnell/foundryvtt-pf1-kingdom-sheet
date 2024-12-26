@@ -20,7 +20,7 @@ system:
   settlementId: ''
   type: graveyard
 _id: 100W30YOUrSjNmFU
-img: icons/svg/house.svg
+img: modules/pf1-kingdom-sheet/assets/kingdom_building/Graveyard.png
 sort: 0
 _key: '!items!100W30YOUrSjNmFU'
 

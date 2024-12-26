@@ -41,7 +41,7 @@ system:
   settlementId: ''
   type: town_hall
 _id: cC8TaM3FFUu0HCZQ
-img: icons/svg/house.svg
+img: modules/pf1-kingdom-sheet/assets/kingdom_building/Town%20Hall.png
 sort: 0
 _key: '!items!cC8TaM3FFUu0HCZQ'
 

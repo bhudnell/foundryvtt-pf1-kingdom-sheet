@@ -36,7 +36,7 @@ system:
   settlementId: ''
   type: arena
 _id: npoAEJELXr9xzg2A
-img: icons/svg/house.svg
+img: modules/pf1-kingdom-sheet/assets/kingdom_building/Arena.png
 sort: 0
 _key: '!items!npoAEJELXr9xzg2A'
 

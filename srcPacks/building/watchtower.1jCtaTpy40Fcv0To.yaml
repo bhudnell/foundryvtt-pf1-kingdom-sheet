@@ -33,7 +33,7 @@ system:
   settlementId: ''
   type: watchtower
 _id: 1jCtaTpy40Fcv0To
-img: icons/svg/house.svg
+img: modules/pf1-kingdom-sheet/assets/kingdom_building/Watchtower.png
 sort: 0
 _key: '!items!1jCtaTpy40Fcv0To'
 

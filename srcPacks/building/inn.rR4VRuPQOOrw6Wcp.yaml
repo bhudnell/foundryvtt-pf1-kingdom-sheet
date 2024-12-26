@@ -40,7 +40,7 @@ system:
   settlementId: ''
   type: inn
 _id: rR4VRuPQOOrw6Wcp
-img: icons/svg/house.svg
+img: modules/pf1-kingdom-sheet/assets/kingdom_building/Inn.png
 sort: 0
 _key: '!items!rR4VRuPQOOrw6Wcp'
 

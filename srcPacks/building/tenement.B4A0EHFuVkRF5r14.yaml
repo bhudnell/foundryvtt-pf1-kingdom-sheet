@@ -22,7 +22,7 @@ system:
   settlementId: ''
   type: tenement
 _id: B4A0EHFuVkRF5r14
-img: icons/svg/house.svg
+img: modules/pf1-kingdom-sheet/assets/kingdom_building/Tenement.png
 sort: 0
 _key: '!items!B4A0EHFuVkRF5r14'
 

@@ -28,7 +28,7 @@ system:
   settlementId: ''
   type: shrine
 _id: 6g7JDa3rxLFUJWnf
-img: icons/svg/house.svg
+img: modules/pf1-kingdom-sheet/assets/kingdom_building/Shrine.png
 sort: 0
 _key: '!items!6g7JDa3rxLFUJWnf'
 

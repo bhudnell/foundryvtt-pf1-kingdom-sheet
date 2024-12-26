@@ -26,7 +26,7 @@ system:
   settlementId: ''
   type: brewery
 _id: fXtq6fzvoiiOEvlY
-img: icons/svg/house.svg
+img: modules/pf1-kingdom-sheet/assets/kingdom_building/Brewery.png
 sort: 0
 _key: '!items!fXtq6fzvoiiOEvlY'
 

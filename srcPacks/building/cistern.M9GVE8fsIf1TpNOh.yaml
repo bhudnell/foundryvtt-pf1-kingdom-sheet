@@ -23,7 +23,7 @@ system:
   settlementId: ''
   type: cistern
 _id: M9GVE8fsIf1TpNOh
-img: icons/svg/house.svg
+img: modules/pf1-kingdom-sheet/assets/kingdom_building/Cistern.png
 sort: 0
 _key: '!items!M9GVE8fsIf1TpNOh'
 

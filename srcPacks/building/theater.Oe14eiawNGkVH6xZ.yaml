@@ -28,7 +28,7 @@ system:
   settlementId: ''
   type: theater
 _id: Oe14eiawNGkVH6xZ
-img: icons/svg/house.svg
+img: modules/pf1-kingdom-sheet/assets/kingdom_building/Theater.png
 sort: 0
 _key: '!items!Oe14eiawNGkVH6xZ'
 

@@ -50,7 +50,7 @@ system:
   settlementId: ''
   type: cathedral
 _id: X1RKtvokDIR8excp
-img: icons/svg/house.svg
+img: modules/pf1-kingdom-sheet/assets/kingdom_building/Cathedral.png
 sort: 0
 _key: '!items!X1RKtvokDIR8excp'
 

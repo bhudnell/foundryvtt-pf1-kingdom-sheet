@@ -26,7 +26,7 @@ system:
   settlementId: ''
   type: orphanage
 _id: Yh8jCLTHOeCktyTn
-img: icons/svg/house.svg
+img: modules/pf1-kingdom-sheet/assets/kingdom_building/Orphanage.png
 sort: 0
 _key: '!items!Yh8jCLTHOeCktyTn'
 

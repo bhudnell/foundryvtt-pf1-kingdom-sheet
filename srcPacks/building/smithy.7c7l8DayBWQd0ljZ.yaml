@@ -27,7 +27,7 @@ system:
   settlementId: ''
   type: smithy
 _id: 7c7l8DayBWQd0ljZ
-img: icons/svg/house.svg
+img: modules/pf1-kingdom-sheet/assets/kingdom_building/Smithy.png
 sort: 0
 _key: '!items!7c7l8DayBWQd0ljZ'
 

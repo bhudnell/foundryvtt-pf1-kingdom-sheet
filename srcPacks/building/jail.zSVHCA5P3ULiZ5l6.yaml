@@ -45,7 +45,7 @@ system:
   settlementId: ''
   type: jail
 _id: zSVHCA5P3ULiZ5l6
-img: icons/svg/house.svg
+img: modules/pf1-kingdom-sheet/assets/kingdom_building/Jail.png
 sort: 0
 _key: '!items!zSVHCA5P3ULiZ5l6'
 

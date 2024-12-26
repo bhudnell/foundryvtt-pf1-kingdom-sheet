@@ -39,7 +39,7 @@ system:
   settlementId: ''
   type: waterfront
 _id: eMAkZY31xceZRhxE
-img: icons/svg/house.svg
+img: modules/pf1-kingdom-sheet/assets/kingdom_building/Waterfront_01.png
 sort: 0
 _key: '!items!eMAkZY31xceZRhxE'
 

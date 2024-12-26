@@ -42,7 +42,7 @@ system:
   settlementId: ''
   type: sewer_system
 _id: lIOoRZ1ZfVW4BU4G
-img: icons/svg/house.svg
+img: modules/pf1-kingdom-sheet/assets/kingdom_building/Sewer%20System.png
 sort: 0
 _key: '!items!lIOoRZ1ZfVW4BU4G'
 

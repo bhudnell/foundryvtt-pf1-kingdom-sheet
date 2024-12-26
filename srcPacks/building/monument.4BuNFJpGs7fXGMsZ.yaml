@@ -27,7 +27,7 @@ system:
   settlementId: ''
   type: monument
 _id: 4BuNFJpGs7fXGMsZ
-img: icons/svg/house.svg
+img: modules/pf1-kingdom-sheet/assets/kingdom_building/Monument.png
 sort: 0
 _key: '!items!4BuNFJpGs7fXGMsZ'
 

@@ -42,7 +42,7 @@ system:
   settlementId: ''
   type: trade_shop
 _id: 5PjhQTnXktLHGQgl
-img: icons/svg/house.svg
+img: modules/pf1-kingdom-sheet/assets/kingdom_building/Trade%20Shop.png
 sort: 0
 _key: '!items!5PjhQTnXktLHGQgl'
 

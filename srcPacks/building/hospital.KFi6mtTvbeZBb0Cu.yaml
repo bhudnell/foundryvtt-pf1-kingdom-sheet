@@ -42,7 +42,7 @@ system:
   settlementId: ''
   type: hospital
 _id: KFi6mtTvbeZBb0Cu
-img: icons/svg/house.svg
+img: modules/pf1-kingdom-sheet/assets/kingdom_building/Hospital.png
 sort: 0
 _key: '!items!KFi6mtTvbeZBb0Cu'
 

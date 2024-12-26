@@ -33,7 +33,7 @@ system:
   settlementId: ''
   type: monastery
 _id: hmJ8DAQjHu0Be7nA
-img: icons/svg/house.svg
+img: modules/pf1-kingdom-sheet/assets/kingdom_building/Monastery.png
 sort: 0
 _key: '!items!hmJ8DAQjHu0Be7nA'
 

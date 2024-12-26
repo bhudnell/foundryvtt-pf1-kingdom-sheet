@@ -2,7 +2,6 @@
 
 # Improvements
 
-- Building images
 - Auto Unrest (on drop and continuous)
   - add settings for each type
   - add handling for each type

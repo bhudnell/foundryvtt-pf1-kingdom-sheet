@@ -34,7 +34,7 @@ system:
   settlementId: ''
   type: tannery
 _id: Pwbn28tICOb62wxQ
-img: icons/svg/house.svg
+img: modules/pf1-kingdom-sheet/assets/kingdom_building/Tannery.png
 sort: 0
 _key: '!items!Pwbn28tICOb62wxQ'
 

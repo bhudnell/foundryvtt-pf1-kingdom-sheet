@@ -53,7 +53,7 @@ system:
   settlementId: ''
   type: university
 _id: lzLPVU0DeZqUF4On
-img: icons/svg/house.svg
+img: modules/pf1-kingdom-sheet/assets/kingdom_building/University.png
 sort: 0
 _key: '!items!lzLPVU0DeZqUF4On'
 

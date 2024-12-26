@@ -37,7 +37,7 @@ system:
   settlementId: ''
   type: market
 _id: XEyT7VkMh7hxdiOA
-img: icons/svg/house.svg
+img: modules/pf1-kingdom-sheet/assets/kingdom_building/Market.png
 sort: 0
 _key: '!items!XEyT7VkMh7hxdiOA'
 

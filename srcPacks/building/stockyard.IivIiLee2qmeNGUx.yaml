@@ -38,7 +38,7 @@ system:
   settlementId: ''
   type: stockyard
 _id: IivIiLee2qmeNGUx
-img: icons/svg/house.svg
+img: modules/pf1-kingdom-sheet/assets/kingdom_building/Stockyard.png
 sort: 0
 _key: '!items!IivIiLee2qmeNGUx'
 

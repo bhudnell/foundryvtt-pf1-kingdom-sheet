@@ -41,7 +41,7 @@ system:
   settlementId: ''
   type: tannery
 _id: OrZd6OdbLBJT2fOA
-img: icons/svg/house.svg
+img: modules/pf1-kingdom-sheet/assets/kingdom_building/Tavern.png
 sort: 0
 _key: '!items!OrZd6OdbLBJT2fOA'
 

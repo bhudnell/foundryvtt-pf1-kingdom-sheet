@@ -29,7 +29,7 @@ system:
   settlementId: ''
   type: alchemist
 _id: FHFyO4OsgUmojT3F
-img: icons/svg/house.svg
+img: modules/pf1-kingdom-sheet/assets/kingdom_building/Alchemist.png
 sort: 0
 _key: '!items!FHFyO4OsgUmojT3F'
 

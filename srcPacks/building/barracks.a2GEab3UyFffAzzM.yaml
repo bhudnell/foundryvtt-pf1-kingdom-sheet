@@ -35,7 +35,7 @@ system:
   settlementId: ''
   type: barracks
 _id: a2GEab3UyFffAzzM
-img: icons/svg/house.svg
+img: modules/pf1-kingdom-sheet/assets/kingdom_building/Barracks.png
 sort: 0
 _key: '!items!a2GEab3UyFffAzzM'
 

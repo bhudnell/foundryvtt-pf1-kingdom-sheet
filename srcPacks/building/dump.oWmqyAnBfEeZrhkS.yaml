@@ -21,7 +21,7 @@ system:
   settlementId: ''
   type: dump
 _id: oWmqyAnBfEeZrhkS
-img: icons/svg/house.svg
+img: modules/pf1-kingdom-sheet/assets/kingdom_building/Dump.png
 sort: 0
 _key: '!items!oWmqyAnBfEeZrhkS'
 

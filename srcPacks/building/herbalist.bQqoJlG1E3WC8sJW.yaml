@@ -28,7 +28,7 @@ system:
   settlementId: ''
   type: herbalist
 _id: bQqoJlG1E3WC8sJW
-img: icons/svg/house.svg
+img: modules/pf1-kingdom-sheet/assets/kingdom_building/Herbalist.png
 sort: 0
 _key: '!items!bQqoJlG1E3WC8sJW'
 

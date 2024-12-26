@@ -46,7 +46,7 @@ system:
   settlementId: ''
   type: dance_hall
 _id: m8YdKUa6Gb2aTsaJ
-img: icons/svg/house.svg
+img: modules/pf1-kingdom-sheet/assets/kingdom_building/Dance%20Hall.png
 sort: 0
 _key: '!items!m8YdKUa6Gb2aTsaJ'
 

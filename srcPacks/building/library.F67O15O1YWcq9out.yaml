@@ -33,7 +33,7 @@ system:
   settlementId: ''
   type: library
 _id: F67O15O1YWcq9out
-img: icons/svg/house.svg
+img: modules/pf1-kingdom-sheet/assets/kingdom_building/Library.png
 sort: 0
 _key: '!items!F67O15O1YWcq9out'
 

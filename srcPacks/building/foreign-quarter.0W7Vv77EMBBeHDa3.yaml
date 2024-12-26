@@ -49,7 +49,7 @@ system:
   settlementId: ''
   type: foreign_quarter
 _id: 0W7Vv77EMBBeHDa3
-img: icons/svg/house.svg
+img: modules/pf1-kingdom-sheet/assets/kingdom_building/Foreign%20Quarter.png
 sort: 0
 _key: '!items!0W7Vv77EMBBeHDa3'
 

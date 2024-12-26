@@ -34,7 +34,7 @@ system:
   settlementId: ''
   type: stable
 _id: 8NifnIo7iXpTRVUJ
-img: icons/svg/house.svg
+img: modules/pf1-kingdom-sheet/assets/kingdom_building/Stable.png
 sort: 0
 _key: '!items!8NifnIo7iXpTRVUJ'
 

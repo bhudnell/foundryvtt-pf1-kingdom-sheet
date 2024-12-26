@@ -53,7 +53,7 @@ system:
   settlementId: ''
   type: castle
 _id: SDWezGVvjfPdI6GS
-img: icons/svg/house.svg
+img: modules/pf1-kingdom-sheet/assets/kingdom_building/Castle.png
 sort: 0
 _key: '!items!SDWezGVvjfPdI6GS'
 
