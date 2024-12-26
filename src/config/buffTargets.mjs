@@ -5,6 +5,7 @@ import {
   changePrefix,
   kingdomItemTypes,
   kingdomStats,
+  magicItemTypes,
 } from "./config.mjs";
 
 export const commonBuffTargets = {
@@ -37,6 +38,10 @@ export const kingdomBuffTargets = {
     acc[`${changePrefix}_${key}`] = { category: `${changePrefix}_settlement_modifiers`, label };
     return acc;
   }, {}),
+  ...Object.entries(magicItemTypes).reduce((acc, [key, label]) => {
+    acc[`${changePrefix}_magic_item_${key}`] = { category: `${changePrefix}_magic_items`, label };
+    return acc;
+  }, {}),
   [`${changePrefix}_bonusBP`]: {
     category: `${changePrefix}_misc`,
     label: "PF1KS.BonusBP",
@@ -67,6 +72,10 @@ export const buffTargetCategories = {
   },
   [`${changePrefix}_settlement_modifiers`]: {
     label: "PF1KS.SettlementModifiers",
+    filters: { item: { include: kingdomItemTypes } },
+  },
+  [`${changePrefix}_magic_items`]: {
+    label: "PF1KS.MagicItems",
     filters: { item: { include: kingdomItemTypes } },
   },
   [`${changePrefix}_misc`]: {

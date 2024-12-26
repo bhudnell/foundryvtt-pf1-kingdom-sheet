@@ -22,11 +22,6 @@
     .info-box-joined {
       flex: 0 0 100%;
     }
-
-    .fa-triangle-exclamation {
-      color: var(--pf1-color-text-error);
-      text-shadow: 0 0 3px var(--pf1-faint);
-    }
   }
 
   .tab.terrain {
@@ -82,6 +77,46 @@
         display: flex;
         justify-content: center;
         align-items: center;
+      }
+    }
+
+    .item-groups-list {
+      overflow: unset;
+    }
+
+    .magic-item-section {
+      display: flex;
+      gap: 8px;
+
+      .magic-item-container {
+        display: flex;
+        flex-direction: column;
+        gap: 2px;
+        flex: 1;
+
+        > h3 {
+          margin: 0;
+          color: #f0f0e0;
+          text-shadow: #000000 1px 1px 0;
+          background: var(--pf1-bg-dark-2);
+          text-align: center;
+        }
+
+        .magic-item {
+          position: relative;
+
+          > input {
+            padding-right: 22px;
+          }
+
+          > .magic-item-delete {
+            width: 16px;
+            text-align: center;
+            position: absolute;
+            right: 6px;
+            top: 6px;
+          }
+        }
       }
     }
   }
@@ -145,5 +180,10 @@
     .form-group select {
       flex: 0 0 400px;
     }
+  }
+
+  .fa-triangle-exclamation {
+    color: var(--pf1-color-text-error);
+    text-shadow: 0 0 3px var(--pf1-faint);
   }
 }

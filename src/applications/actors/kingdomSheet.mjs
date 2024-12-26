@@ -1,25 +1,40 @@
 import { findLargestSmallerNumber, keepUpdateArray, renameKeys } from "../../util/utils.mjs";
 
 export class KingdomSheet extends pf1.applications.actor.ActorSheetPF {
+  constructor(actor, options) {
+    options.tabs = [
+      {
+        navSelector: "nav.tabs[data-group='primary']",
+        contentSelector: "section.primary-body",
+        initial: "summary",
+        group: "primary",
+      },
+      {
+        navSelector: "nav.tabs[data-group='settlements']",
+        contentSelector: "section.settlements-body",
+        initial: "0",
+        group: "settlements",
+      },
+    ];
+
+    for (const idx in actor.system.settlements) {
+      options.tabs.push({
+        navSelector: `nav.tabs[data-group='settlement-${idx}-details']`,
+        contentSelector: `section.settlement-${idx}-details`,
+        initial: `buildings`,
+        group: `setlement-${idx}-details`,
+      });
+    }
+
+    super(actor, options);
+  }
+
   static get defaultOptions() {
     const options = super.defaultOptions;
     return {
       ...options,
       classes: [...options.classes, "kingdom"],
-      tabs: [
-        {
-          navSelector: "nav.tabs[data-group='primary']",
-          contentSelector: "section.primary-body",
-          initial: "summary",
-          group: "primary",
-        },
-        {
-          navSelector: "nav.tabs[data-group='settlements']",
-          contentSelector: "section.settlements-body",
-          initial: "0",
-          group: "settlements",
-        },
-      ],
+      scrollY: [...options.scrollY, ".subdetails-body"],
     };
   }
 
@@ -181,6 +196,8 @@ export class KingdomSheet extends pf1.applications.actor.ActorSheetPF {
     html.find(".settlement-create").on("click", (e) => this._onSettlementCreate(e));
     html.find(".settlement-delete").on("click", (e) => this._onSettlementDelete(e));
 
+    html.find(".magic-item-delete").on("click", (e) => this._onMagicItemDelete(e));
+
     html.find(".army-create").on("click", (e) => this._onArmyCreate(e));
     html.find(".army-edit").on("click", (e) => this._onArmyEdit(e));
     html.find(".army-delete").on("click", (e) => this._onArmyDelete(e));
@@ -213,6 +230,18 @@ export class KingdomSheet extends pf1.applications.actor.ActorSheetPF {
               buildingType: pf1ks.config.buildingTypes[building.system.type],
             })),
         },
+        magicItems: Object.entries(pf1ks.config.magicItemTypes).map(([key, label]) => {
+          const items = settlement.magicItems[key];
+          const max = this.actor._getChanges(key, undefined, settlement.id);
+
+          return {
+            key,
+            label,
+            count: items.length,
+            error: items.length > max ? game.i18n.format("PF1KS.TooManyMagicItems", { max }) : undefined,
+            items,
+          };
+        }),
       };
     });
 
@@ -381,6 +410,28 @@ export class KingdomSheet extends pf1.applications.actor.ActorSheetPF {
     await this.actor.deleteEmbeddedDocuments("Item", buildingIdsToDelete);
   }
 
+  async _onMagicItemDelete(event) {
+    event.preventDefault();
+
+    const settlementId = event.currentTarget.closest(".settlement").dataset.id;
+    const itemType = event.currentTarget.closest(".magic-item-container").dataset.type;
+    const itemId = event.currentTarget.closest(".magic-item").dataset.itemId;
+
+    const settlements = foundry.utils.duplicate(this.actor.system.settlements ?? []);
+    const settlement = settlements.find((settlement) => settlement.id === settlementId);
+    const deletedItem = settlement.magicItems[itemType].splice(itemId, 1)[0];
+
+    await this._onDelete({
+      button: event.currentTarget,
+      title: game.i18n.format("PF1.DeleteItemTitle", { name: deletedItem }),
+      content: `<p>${game.i18n.localize("PF1.DeleteItemConfirmation")}</p>`,
+      onDelete: () =>
+        this._onSubmit(event, {
+          updateData: { "system.settlements": settlements },
+        }),
+    });
+  }
+
   async _onArmyCreate(event) {
     event.preventDefault();
 
@@ -517,6 +568,7 @@ export class KingdomSheet extends pf1.applications.actor.ActorSheetPF {
         keepUpdateArray(itemData, changed, path);
       }
     }
+
     return super._updateObject(event, changed);
   }
 

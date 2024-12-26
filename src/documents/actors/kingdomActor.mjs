@@ -7,10 +7,10 @@ export class KingdomActor extends BaseActor {
   prepareDerivedData() {
     super.prepareDerivedData();
 
-    // settlement modifiers
-    // this is split between here and settlementModel.mjs because of the change system.
-    // size, alignment, and government are handled in settlementModel.mjs and item changes and the totals are handled here
     for (const settlement of this.system.settlements) {
+      // settlement modifiers
+      // this is split between here and settlementModel.mjs because of the change system.
+      // size, alignment, and government are handled in settlementModel.mjs and item changes and the totals are handled here
       for (const modifier of Object.keys(pf1ks.config.allSettlementModifiers)) {
         const { size, alignment, government } = settlement.modifiers[modifier];
         const buildings = this._getChanges(modifier, pf1ks.config.buildingId, settlement.id);
@@ -38,6 +38,13 @@ export class KingdomActor extends BaseActor {
           settlementTotal,
           total: settlementTotal,
         };
+      }
+
+      // magic items
+      for (const key of Object.keys(pf1ks.config.magicItemTypes)) {
+        const count = this._getChanges(key, undefined, settlement.id);
+        const oldItems = settlement.magicItems[key];
+        settlement.magicItems[key] = oldItems.concat(Array(Math.max(count - oldItems.length, 0)).fill(null));
       }
     }
 
@@ -446,7 +453,7 @@ export class KingdomActor extends BaseActor {
 
     return this.changes
       .filter((c) => {
-        const changeTarget = c.target.split("_")[1];
+        const changeTarget = c.target.split("_").pop();
         if (changeTarget !== target) {
           return false;
         }
@@ -455,7 +462,9 @@ export class KingdomActor extends BaseActor {
         }
         if (
           settlementId &&
-          Object.keys(pf1ks.config.allSettlementModifiers).includes(changeTarget) &&
+          [...Object.keys(pf1ks.config.allSettlementModifiers), ...Object.keys(pf1ks.config.magicItemTypes)].includes(
+            changeTarget
+          ) &&
           c.parent.system.settlementId !== settlementId
         ) {
           return false;

@@ -485,6 +485,12 @@ export const buildingTypes = {
   custom: "PF1KS.Building.Custom",
 };
 
+export const magicItemTypes = {
+  minor: "PF1KS.MagicItem.Minor",
+  medium: "PF1KS.MagicItem.Medium",
+  major: "PF1KS.MagicItem.Major",
+};
+
 export const terrainTypes = {
   cavern: "PF1KS.Terrain.Cavern",
   coast: "PF1KS.Terrain.Coast",

@@ -11,27 +11,27 @@
   {{! Sheet Body }}
   <section class="primary-body">
     {{! Summary Tab }}
-    <div class="tab summary flexcol" data-group="primary" data-tab="summary">
+    <div class="tab summary" data-group="primary" data-tab="summary">
       {{~> army-sheet-summary}}
     </div>
 
     {{! Features Tab }}
-    <div class="tab features flexcol" data-group="primary" data-tab="features">
+    <div class="tab features" data-group="primary" data-tab="features">
       {{~> army-sheet-features}}
     </div>
 
     {{! Commander Tab }}
-    <div class="tab commander flexcol" data-group="primary" data-tab="commander">
+    <div class="tab commander" data-group="primary" data-tab="commander">
       {{~> army-sheet-commander}}
     </div>
 
     {{! Conditions Tab }}
-    <div class="tab conditions buffs flexcol" data-group="primary" data-tab="conditions">
+    <div class="tab conditions buffs" data-group="primary" data-tab="conditions">
       {{~> army-sheet-conditions}}
     </div>
 
     {{! Notes Tab }}
-    <div class="tab actor-notes flexcol" data-group="primary" data-tab="notes">
+    <div class="tab actor-notes" data-group="primary" data-tab="notes">
       <div class="primary-content">
         {{editor enrichedNotes target="system.notes.value" button=true editable=editable engine="prosemirror"}}
       </div>

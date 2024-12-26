@@ -224,6 +224,13 @@
       "Waterway": "Waterway",
       "Custom": "Custom"
     },
+    "MagicItems": "Magic Items",
+    "MagicItem": {
+      "Minor": "Minor",
+      "Medium": "Medium",
+      "Major": "Major"
+    },
+    "TooManyMagicItems": "Too many magic items. Max is {max}",
 
     "TerrainLabel": "Terrain",
     "HexTypes": "Hex Types",

@@ -7,6 +7,11 @@ export class SettlementModel extends foundry.abstract.DataModel {
       // img: new fields.FilePathField({ categories: ["IMAGE"] }), // TODO revisit for foundry v13 compatibility. See https://github.com/foundryvtt/foundryvtt/issues/11471
       name: new fields.StringField({ blank: true }),
       districtCount: new fields.NumberField({ integer: true, min: 0, initial: 1, nullable: false }),
+      magicItems: new fields.SchemaField({
+        minor: new fields.ArrayField(new fields.StringField()),
+        medium: new fields.ArrayField(new fields.StringField()),
+        major: new fields.ArrayField(new fields.StringField()),
+      }),
     };
   }
 

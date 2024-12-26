@@ -17,7 +17,7 @@
 
 <section class="settlements-body">
   {{#each sections.settlements as |settlement idx|}}
-  <div class="tab flexcol settlement" data-group="settlements" data-tab="{{ idx }}" data-id="{{ id }}">
+  <div class="tab settlement" data-group="settlements" data-tab="{{ idx }}" data-id="{{ id }}">
     <div class="header">
       <h1>
         <input type="text" name="system.settlements.{{ idx }}.name" value="{{ name }}" />
@@ -29,132 +29,173 @@
       </div>
     </div>
 
-    <section class="subdetails-body">
-      <div class="attributes flexrow">
-        <div class="info-box-header">
-          <h3>{{localize "PF1.Attributes"}}</h3>
-          <div class="info-box-joined">
-            <div class="info-box">
-              <h5>{{ localize "PF1KS.DistrictCount" }}</h5>
-              <span
-                class="value text-box direct"
-                name="system.settlements.{{ idx }}.districtCount"
-                data-dtype="Number"
-                >{{ districtCount }}</span
-              >
-            </div>
-            <div class="info-box">
-              <h5>{{ localize "PF1KS.Population" }}</h5>
-              <span class="value">{{ population }}</span>
-            </div>
-            <div class="info-box">
-              <h5>{{ localize "PF1.Size" }}</h5>
-              <span class="value">{{ sizeLabel }}</span>
-            </div>
-            <div class="info-box" data-tooltip-extended="settlement-danger.{{ idx }}">
-              <h5>{{ localize "PF1KS.Danger" }}</h5>
-              <span class="value">{{ numberFormat danger sign=true }}</span>
-            </div>
-            <div class="info-box" data-tooltip-extended="settlement-baseValue.{{ idx }}">
-              <h5>{{ localize "PF1KS.BaseValue" }}</h5>
-              <span class="value">{{ baseValue.total }}</span>
-            </div>
-            <div class="info-box" data-tooltip-extended="settlement-defense.{{ idx }}">
-              <h5>{{ localize "PF1.Defense" }}</h5>
-              <span class="value">{{ numberFormat defense.total sign=true }}</span>
-            </div>
+    <div class="attributes flex0">
+      <div class="info-box-header">
+        <h3>{{localize "PF1.Attributes"}}</h3>
+        <div class="info-box-joined">
+          <div class="info-box">
+            <h5>{{ localize "PF1KS.DistrictCount" }}</h5>
+            <span class="value text-box direct" name="system.settlements.{{ idx }}.districtCount" data-dtype="Number">{{
+              districtCount
+            }}</span>
+          </div>
+          <div class="info-box">
+            <h5>{{ localize "PF1KS.Population" }}</h5>
+            <span class="value">{{ population }}</span>
+          </div>
+          <div class="info-box">
+            <h5>{{ localize "PF1.Size" }}</h5>
+            <span class="value">{{ sizeLabel }}</span>
+          </div>
+          <div class="info-box" data-tooltip-extended="settlement-danger.{{ idx }}">
+            <h5>{{ localize "PF1KS.Danger" }}</h5>
+            <span class="value">{{ numberFormat danger sign=true }}</span>
+          </div>
+          <div class="info-box" data-tooltip-extended="settlement-baseValue.{{ idx }}">
+            <h5>{{ localize "PF1KS.BaseValue" }}</h5>
+            <span class="value">{{ baseValue.total }}</span>
+          </div>
+          <div class="info-box" data-tooltip-extended="settlement-defense.{{ idx }}">
+            <h5>{{ localize "PF1.Defense" }}</h5>
+            <span class="value">{{ numberFormat defense.total sign=true }}</span>
           </div>
         </div>
       </div>
+    </div>
 
-      <div class="attributes flexrow">
-        <div class="info-box-header">
-          <h3>{{localize "PF1KS.SettlementModifiers"}}</h3>
-          <div class="info-box-joined">
-            {{#each modifiers}}
-            <div class="info-box" data-tooltip-extended="settlement-{{ id }}.{{ idx }}">
-              <h5>{{ label }}</h5>
-              <span class="value">{{ numberFormat value sign=true }}</span>
+    <div class="attributes flex0">
+      <div class="info-box-header">
+        <h3>{{localize "PF1KS.SettlementModifiers"}}</h3>
+        <div class="info-box-joined">
+          {{#each modifiers}}
+          <div class="info-box" data-tooltip-extended="settlement-{{ id }}.{{ idx }}">
+            <h5>{{ label }}</h5>
+            <span class="value">{{ numberFormat value sign=true }}</span>
+          </div>
+          {{/each}}
+        </div>
+      </div>
+    </div>
+
+    {{!-- Settlement Details Navigation --}}
+    <nav class="sheet-navigation tabs" data-group="settlement-{{ idx }}-details">
+      <a
+        class="item"
+        data-tab="buildings"
+        data-group="settlement-{{ idx }}-details"
+        >{{ localize "PF1KS.Buildings" }}</a
+      >
+      <a
+        class="item"
+        data-tab="magic-items"
+        data-group="settlement-{{ idx }}-details"
+        >{{ localize "PF1KS.MagicItems" }}</a
+      >
+    </nav>
+
+    <section class="subdetails-body settlement-{{ idx }}-details">
+      <div class="tab settlement-details" data-group="settlement-{{ idx }}-details" data-tab="buildings">
+        <ol class="item-groups-list">
+          <ol class="item-list">
+            <li class="flexrow item-list-header">
+              <div class="item-name">
+                <h3>{{ buildings.label }}</h3>
+              </div>
+
+              <div class="item-detail item-building-type">
+                <label>{{localize "PF1KS.BuildingType"}}</label>
+              </div>
+
+              <div class="item-detail item-number">
+                <i class="fas fa-house-chimney-crack" data-tooltip="PF1KS.Damaged"></i>
+              </div>
+
+              <div class="item-controls five-button">
+                <a
+                  class="item-control item-create"
+                  data-tooltip="PF1.CreateItem"
+                  data-create="{{ buildings.path }}"
+                  data-settlement-id="{{ id }}"
+                >
+                  <i class="fas fa-plus"></i>
+                </a>
+                <a data-action="browse" data-category="building" data-tooltip="PF1.BrowseBuildings"
+                  ><i class="fas fa-folder-plus"></i
+                ></a>
+              </div>
+            </li>
+
+            {{#each buildings.items as |item i|}}
+            <li class="item flexrow{{#if isEmpty}} empty{{/if}}" data-item-id="{{ item.id }}">
+              <div class="item-name rollable">
+                <div
+                  class="item-image"
+                  style="background-image: url(&quot;{{ item.img }}&quot;)"
+                  data-tooltip="PF1.DisplayInChat"
+                ></div>
+                <span class="quantity">{{ item.system.quantity }}</span>
+                <h4>{{ item.name }}</h4>
+              </div>
+
+              <div class="item-detail item-building-type">
+                <span>{{ item.buildingType }}</span>
+              </div>
+
+              <a class="item-detail item-number item-toggle-data" data-name="damaged">
+                {{#if item.system.damaged}}
+                <i class="fas fa-check"></i>
+                {{else}}
+                <i class="fas fa-times"></i>
+                {{/if}}
+              </a>
+
+              {{#if @root.owner}}
+              <div class="item-controls five-button">
+                <a class="item-control item-quantity-add" data-tooltip="PF1.QuantityAdd"><i class="fas fa-plus"></i></a>
+                <a class="item-control item-quantity-subtract" data-tooltip="PF1.QuantitySub"
+                  ><i class="fas fa-minus"></i
+                ></a>
+                <a class="item-control item-edit" data-tooltip="PF1.EditItem"><i class="fas fa-edit"></i></a>
+                <a class="item-control item-duplicate" data-tooltip="PF1.DuplicateItem"><i class="fas fa-copy"></i></a>
+                <a class="item-control item-delete" data-tooltip="PF1.DeleteItem"><i class="fas fa-trash"></i></a>
+              </div>
+              {{/if}}
+            </li>
+            {{/each}}
+          </ol>
+        </ol>
+      </div>
+
+      <div class="tab settlement-details" data-group="settlement-{{ idx }}-details" data-tab="magic-items">
+        <div class="magic-item-section">
+          {{#each magicItems}}
+          <div class="magic-item-container" data-type="{{ key }}">
+            <h3>
+              {{#if error}}
+              <i class="fa-solid fa-triangle-exclamation" data-tooltip="{{ error }}"></i>
+              {{/if}}
+              <span>{{ label }}</span>
+              <span>({{ count }})</span>
+            </h3>
+            {{#each items as |item iidx|}}
+            <div class="magic-item" data-item-id="{{ iidx }}">
+              <input
+                type="text"
+                name="system.settlements.{{ idx }}.magicItems.{{../key}}.{{ iidx }}"
+                value="{{ this }}"
+              />
+              <a class="magic-item-delete" data-tooltip="PF1.DeleteItem"><i class="fas fa-trash"></i></a>
             </div>
             {{/each}}
           </div>
+          {{/each}}
         </div>
       </div>
-
-      <ol class="item-groups-list">
-        <ol class="item-list">
-          <li class="flexrow item-list-header">
-            <div class="item-name">
-              <h3>{{ buildings.label }}</h3>
-            </div>
-
-            <div class="item-detail item-building-type">
-              <label>{{localize "PF1KS.BuildingType"}}</label>
-            </div>
-
-            <div class="item-detail item-number">
-              <i class="fas fa-house-chimney-crack" data-tooltip="PF1KS.Damaged"></i>
-            </div>
-
-            <div class="item-controls five-button">
-              <a
-                class="item-control item-create"
-                data-tooltip="PF1.CreateItem"
-                data-create="{{ buildings.path }}"
-                data-settlement-id="{{ id }}"
-              >
-                <i class="fas fa-plus"></i>
-              </a>
-              <a data-action="browse" data-category="building" data-tooltip="PF1.BrowseBuildings"
-                ><i class="fas fa-folder-plus"></i
-              ></a>
-            </div>
-          </li>
-
-          {{#each buildings.items as |item i|}}
-          <li class="item flexrow{{#if isEmpty}} empty{{/if}}" data-item-id="{{ item.id }}">
-            <div class="item-name rollable">
-              <div
-                class="item-image"
-                style="background-image: url(&quot;{{ item.img }}&quot;)"
-                data-tooltip="PF1.DisplayInChat"
-              ></div>
-              <span class="quantity">{{ item.system.quantity }}</span>
-              <h4>{{ item.name }}</h4>
-            </div>
-
-            <div class="item-detail item-building-type">
-              <span>{{ item.buildingType }}</span>
-            </div>
-
-            <a class="item-detail item-number item-toggle-data" data-name="damaged">
-              {{#if item.system.damaged}}
-              <i class="fas fa-check"></i>
-              {{else}}
-              <i class="fas fa-times"></i>
-              {{/if}}
-            </a>
-
-            {{#if @root.owner}}
-            <div class="item-controls five-button">
-              <a class="item-control item-quantity-add" data-tooltip="PF1.QuantityAdd"><i class="fas fa-plus"></i></a>
-              <a class="item-control item-quantity-subtract" data-tooltip="PF1.QuantitySub"
-                ><i class="fas fa-minus"></i
-              ></a>
-              <a class="item-control item-edit" data-tooltip="PF1.EditItem"><i class="fas fa-edit"></i></a>
-              <a class="item-control item-duplicate" data-tooltip="PF1.DuplicateItem"><i class="fas fa-copy"></i></a>
-              <a class="item-control item-delete" data-tooltip="PF1.DeleteItem"><i class="fas fa-trash"></i></a>
-            </div>
-            {{/if}}
-          </li>
-          {{/each}}
-        </ol>
-      </ol>
     </section>
   </div>
   {{/each}}
 
-  <div class="tab flexcol" data-group="settlements" data-tab="orph">
+  <div class="tab" data-group="settlements" data-tab="orph">
     <ol class="item-groups-list">
       <ol class="item-list">
         <li class="flexrow item-list-header">
