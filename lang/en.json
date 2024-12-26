@@ -276,6 +276,7 @@
     "Army": {
       "ACR": "ACR",
       "ConsumptionPerWeek": "Consumption (per week)",
+      "SpeedWithUnits": "Speed (hexes)",
       "SpeedUnit": "Hexes",
       "AttributeRoll": "{check} Check",
       "Morale": "Morale",

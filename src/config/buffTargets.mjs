@@ -15,7 +15,7 @@ export const commonBuffTargets = {
 export const armyBuffTargets = {
   [`${changePrefix}_speed`]: {
     category: `${changePrefix}_misc`,
-    label: "PF1.Movement.Speed",
+    label: "PF1KS.Army.SpeedWithUnits",
     filters: { item: { include: armyItemTypes } },
   },
   [`${changePrefix}_bonus_tactic`]: {

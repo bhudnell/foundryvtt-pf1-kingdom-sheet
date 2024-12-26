@@ -40,10 +40,12 @@ export class ArmySheet extends pf1.applications.actor.ActorSheetPF {
     data.sections = this._prepareItems();
 
     // selectors
-    data.alignmentOptions = pf1.config.alignments;
     data.hdOptions = Object.fromEntries(Object.keys(pf1ks.config.armyHD).map((key) => [key, key]));
     data.sizeOptions = pf1ks.config.armySizes;
     data.strategyOptions = pf1ks.config.armyStrategy;
+
+    // summary
+    data.alignmentLabel = pf1.config.alignments[actorData.alignment];
 
     // commander
     data.commanderOptions = game.actors
@@ -153,6 +155,20 @@ export class ArmySheet extends pf1.applications.actor.ActorSheetPF {
   }
 
   // overrides
+  async _onControlAlignment(event) {
+    event.preventDefault();
+    const a = event.currentTarget;
+
+    const items = Object.entries(pf1.config.alignmentsShort).map(([value, label]) => ({ value, label }));
+    const w = new pf1.applications.Widget_ItemPicker(
+      (alignment) => {
+        this.actor.update({ "system.alignment": alignment });
+      },
+      { items, columns: 3 }
+    );
+    w.render(a);
+  }
+
   _focusTabByItem(item) {
     let tabId;
     switch (item.type) {

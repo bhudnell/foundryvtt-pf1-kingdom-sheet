@@ -21,26 +21,15 @@
     </div>
 
     <div class="character-summary flexrow">
-      <div class="full-width">
-        <input type="text" name="system.type" value="{{ system.type }}" data-tooltip="PF1.Type" placeholder="{{localize "PF1.Type"}}" />
+      <div class="large">
+        <input type="text" name="system.type" value="{{ system.type }}" data-tooltip="PF1.Type" />
       </div>
 
-      <div>
-        <select name="system.alignment" data-tooltip="PF1.Alignment">
-          {{selectOptions alignmentOptions selected=system.alignment blank=''}}
-        </select>
-      </div>
-
-      <div>
-        <select name="system.size" data-tooltip="PF1.Size">
-          {{selectOptions sizeOptions selected=system.size blank=''}}
-        </select>
-      </div>
-
-      <div>
-        <select name="system.hd" data-tooltip="PF1.HitDieShort">
-          {{selectOptions hdOptions selected=system.hd}}
-        </select>
+      <div class="controls alignment flexrow" data-tooltip="PF1.Alignment">
+        {{#if alignmentLabel}}<span>{{ alignmentLabel }}</span
+        >{{else}}<span class="placeholder">{{localize "PF1.Alignment"}}</span
+        >{{/if}}
+        <a class="control alignment"><i class="fas fa-cog"></i></a>
       </div>
     </div>
   </div>
@@ -61,14 +50,26 @@
           <h5>{{localize "PF1.Maximum" }}</h5>
           <span class="value">{{ system.hp.max }}</span>
         </div>
+        <div class="info-box">
+          <h5>{{ localize "PF1.HitDieShort" }}</h5>
+          <select name="system.hd">
+            {{selectOptions hdOptions selected=system.hd}}
+          </select>
+        </div>
       </div>
     </div>
 
     <div class="info-box-header">
       <h3>{{localize "PF1.Misc"}}</h3>
       <div class="info-box-joined">
+        <div class="info-box">
+          <h5>{{ localize "PF1.Size" }}</h5>
+          <select name="system.size">
+            {{selectOptions sizeOptions selected=system.size blank=''}}
+          </select>
+        </div>
         <div class="info-box" data-tooltip-extended="speed">
-          <h5>{{ localize "PF1.Movement.Speed" }}</h5>
+          <h5>{{ localize "PF1KS.Army.SpeedWithUnits" }}</h5>
           <span class="value text-box direct" name="system.speed.base" data-dtype="Number">{{
             system.speed.total
           }}</span>
