@@ -573,7 +573,7 @@ export const armyConditions = {
   [`${changePrefix}-advantageous-terrain`]: {
     id: `${changePrefix}-advantageous-terrain`,
     name: "PF1KS.Condition.AdvantageousTerrain",
-    texture: `modules/${moduleId}/icons/advantageousTerrain.svg`,
+    texture: `modules/${moduleId}/assets/army_conditions/advantageousTerrain.svg`,
     mechanics: {
       changes: [
         {
@@ -588,13 +588,13 @@ export const armyConditions = {
   [`${changePrefix}-ambush`]: {
     id: `${changePrefix}-ambush`,
     name: "PF1KS.Condition.Ambush",
-    texture: `modules/${moduleId}/icons/ambush.svg`,
+    texture: `modules/${moduleId}/assets/army_conditions/ambush.svg`,
     journal: "Compendium.pf1-kingdom-sheet.rules.JournalEntry.Nl50WVhCMuqqY3Ud.JournalEntryPage.1L3BEwjri4p8YYlu",
   },
   [`${changePrefix}-battlefield-advantage`]: {
     id: `${changePrefix}-battlefield-advantage`,
     name: "PF1KS.Condition.BattlefieldAdvantage",
-    texture: `modules/${moduleId}/icons/battlefieldAdvantage.svg`,
+    texture: `modules/${moduleId}/assets/army_conditions/battlefieldAdvantage.svg`,
     mechanics: {
       changes: [
         {
@@ -614,7 +614,7 @@ export const armyConditions = {
   [`${changePrefix}-darkness`]: {
     id: `${changePrefix}-darkness`,
     name: "PF1KS.Condition.Darkness",
-    texture: `modules/${moduleId}/icons/darkness.svg`,
+    texture: `modules/${moduleId}/assets/army_conditions/darkness.svg`,
     mechanics: {
       changes: [
         {
@@ -634,7 +634,7 @@ export const armyConditions = {
   [`${changePrefix}-dim-light`]: {
     id: `${changePrefix}-dim-light`,
     name: "PF1KS.Condition.DimLight",
-    texture: `modules/${moduleId}/icons/dimLight.svg`,
+    texture: `modules/${moduleId}/assets/army_conditions/dimLight.svg`,
     mechanics: {
       changes: [
         {
@@ -649,7 +649,7 @@ export const armyConditions = {
   [`${changePrefix}-fog`]: {
     id: `${changePrefix}-fog`,
     name: "PF1KS.Condition.Fog",
-    texture: `modules/${moduleId}/icons/fog.svg`,
+    texture: `modules/${moduleId}/assets/army_conditions/fog.svg`,
     mechanics: {
       contextNotes: [
         {
@@ -667,7 +667,7 @@ export const armyConditions = {
   [`${changePrefix}-fortifications`]: {
     id: `${changePrefix}-fortifications`,
     name: "PF1KS.Condition.Fortifications",
-    texture: `modules/${moduleId}/icons/fortifications.svg`,
+    texture: `modules/${moduleId}/assets/army_conditions/fortifications.svg`,
     mechanics: {
       contextNotes: [
         {
@@ -681,7 +681,7 @@ export const armyConditions = {
   [`${changePrefix}-rain`]: {
     id: `${changePrefix}-rain`,
     name: "PF1KS.Condition.Rain",
-    texture: `modules/${moduleId}/icons/rain.svg`,
+    texture: `modules/${moduleId}/assets/army_conditions/rain.svg`,
     mechanics: {
       contextNotes: [
         {
@@ -695,7 +695,7 @@ export const armyConditions = {
   [`${changePrefix}-sandstorm`]: {
     id: `${changePrefix}-sandstorm`,
     name: "PF1KS.Condition.Sandstorm",
-    texture: `modules/${moduleId}/icons/sandstorm.svg`,
+    texture: `modules/${moduleId}/assets/army_conditions/sandstorm.svg`,
     mechanics: {
       contextNotes: [
         {
@@ -713,7 +713,7 @@ export const armyConditions = {
   [`${changePrefix}-snow`]: {
     id: `${changePrefix}-snow`,
     name: "PF1KS.Condition.Snow",
-    texture: `modules/${moduleId}/icons/snow.svg`,
+    texture: `modules/${moduleId}/assets/army_conditions/snow.svg`,
     mechanics: {
       contextNotes: [
         {
@@ -731,7 +731,7 @@ export const armyConditions = {
   [`${changePrefix}-wind`]: {
     id: `${changePrefix}-wind`,
     name: "PF1KS.Condition.Wind",
-    texture: `modules/${moduleId}/icons/wind.svg`,
+    texture: `modules/${moduleId}/assets/army_conditions/wind.svg`,
     mechanics: {
       contextNotes: [
         {

@@ -59,3 +59,4 @@ TODO
     - [Fog](https://game-icons.net/1x1/delapouite/fog.html), [Hill conquest](https://game-icons.net/1x1/delapouite/hill-conquest.html), [Sandstorm](https://game-icons.net/1x1/delapouite/sandstorm.html) by [Delapouite](https://delapouite.com/) under [CC BY 3.0](https://creativecommons.org/licenses/by/3.0/)
     - [Defensive wall](https://game-icons.net/1x1/heavenly-dog/defensive-wall.html) by [HeavenlyDog](https://gnomosygoblins.blogspot.com/) under [CC BY 3.0](https://creativecommons.org/licenses/by/3.0/)
     - [Sight disabled](https://game-icons.net/1x1/skoll/sight-disabled.html) by Skoll under [CC BY 3.0](https://creativecommons.org/licenses/by/3.0/)
+    - all the kingdom building assets by [dllewell](https://www.fantasygrounds.com/forums/showthread.php?62363-Module-for-Kingdom-Building)
