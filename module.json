@@ -127,7 +127,7 @@
   ],
   "packFolders": [
     {
-      "name": "Kingmaker",
+      "name": "Kingdom Building",
       "packs": ["boon", "tactic", "special", "building", "event", "improvement", "rules", "roll-table"]
     }
   ],
