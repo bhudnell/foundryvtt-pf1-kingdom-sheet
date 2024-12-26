@@ -69,3 +69,7 @@ The list of available optional settings and their rules are available in the pro
     - [Defensive wall](https://game-icons.net/1x1/heavenly-dog/defensive-wall.html) by [HeavenlyDog](https://gnomosygoblins.blogspot.com/) under [CC BY 3.0](https://creativecommons.org/licenses/by/3.0/)
     - [Sight disabled](https://game-icons.net/1x1/skoll/sight-disabled.html) by Skoll under [CC BY 3.0](https://creativecommons.org/licenses/by/3.0/)
     - all the kingdom building assets by [dllewell](https://www.fantasygrounds.com/forums/showthread.php?62363-Module-for-Kingdom-Building)
+
+# Legal
+
+"This system uses trademarks and/or copyrights owned by Paizo Inc., which are used under Paizo's Community Use Policy. We are expressly prohibited from charging you to use or access this content. This [website, character sheet, or whatever it is] is not published, endorsed, or specifically approved by Paizo Inc. For more information about Paizo's Community Use Policy, please visit paizo.com/communityuse. For more information about Paizo Inc. and Paizo products, please visit paizo.com."
