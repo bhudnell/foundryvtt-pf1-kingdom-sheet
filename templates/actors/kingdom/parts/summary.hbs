@@ -22,16 +22,16 @@
         <div class="info-box">
           <h5>{{ localize "PF1KS.GovernmentLabel" }}</h5>
           {{#if system.settings.optionalRules.governmentForms}}
-          <select class="value" name="system.government">
+          <select name="system.government">
             {{selectOptions governmentOptions selected=system.government}}
           </select>
           {{else}}
-          <span class="value">{{ governmentLabel }}</span>
+          <span>{{ governmentLabel }}</span>
           {{/if}}
         </div>
         <div class="info-box">
           <h5>{{ localize "PF1.Alignment" }}</h5>
-          <select class="value" name="system.alignment">
+          <select name="system.alignment">
             {{selectOptions alignmentOptions selected=system.alignment blank=""}}
           </select>
         </div>
@@ -97,19 +97,19 @@
       <div class="info-box-joined">
         <div class="info-box" data-tooltip-extended="holiday">
           <h5>{{ localize "PF1KS.Edict.HolidayLabel" }}</h5>
-          <select class="value" name="system.edicts.holiday">
+          <select name="system.edicts.holiday">
             {{selectOptions holidayOptions selected=system.edicts.holiday blank=""}}
           </select>
         </div>
         <div class="info-box" data-tooltip-extended="promotion">
           <h5>{{ localize "PF1KS.Edict.PromotionLabel" }}</h5>
-          <select class="value" name="system.edicts.promotion">
+          <select name="system.edicts.promotion">
             {{selectOptions promotionOptions selected=system.edicts.promotion blank=""}}
           </select>
         </div>
         <div class="info-box" data-tooltip-extended="taxation">
           <h5>{{ localize "PF1KS.Edict.TaxationLabel" }}</h5>
-          <select class="value" name="system.edicts.taxation">
+          <select name="system.edicts.taxation">
             {{selectOptions taxationOptions selected=system.edicts.taxation blank=""}}
           </select>
         </div>

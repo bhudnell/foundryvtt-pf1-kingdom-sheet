@@ -80,6 +80,10 @@
   text-align: center;
 }
 
+.app.sheet.kingdom .info-box select {
+  text-align: -webkit-center;
+}
+
 .app.sheet.kingdom :is(span.text-box, input.text-box) {
   width: unset;
   border-radius: unset;
