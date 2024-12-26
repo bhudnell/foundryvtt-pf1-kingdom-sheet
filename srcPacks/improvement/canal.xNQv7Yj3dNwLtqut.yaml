@@ -1,0 +1,21 @@
+type: pf1-kingdom-sheet.improvement
+name: Canal
+system:
+  subType: general
+  quantity: 1
+  description:
+    value: >-
+      <p>A Canal is an artificial waterway that allows barge traffic to haul
+      heavy commodities.</p><hr /><p><strong>Terrain</strong>: Desert, hill, or
+      plain.</p><p><strong>Effect</strong>: Settlements in a hex with a Canal
+      treat the hex as if it had a river.</p><p><strong>Cost</strong>: Twice the
+      cost of a Road (see Table 4–6: Terrain and Terrain Improvements).</p>
+  changes: []
+  contextNotes: []
+  sources: []
+  settlementId: ''
+_id: xNQv7Yj3dNwLtqut
+img: icons/svg/windmill.svg
+sort: 0
+_key: '!items!xNQv7Yj3dNwLtqut'
+

@@ -1,0 +1,40 @@
+type: pf1-kingdom-sheet.building
+name: Paved Streets
+system:
+  quantity: 1
+  lots: 0
+  cost: 24
+  description:
+    value: >-
+      <p>Brick or stone pavement that speeds transportation.</p><hr
+      /><p><strong>Kingdom</strong> Economy +2, Stability
+      +1</p><p><strong>Limit</strong> 1 per
+      district</p><p><strong>Settlement</strong> Productivity +2</p>
+  changes:
+    - _id: RioRZldA
+      formula: '2'
+      target: pf1ks_economy
+      type: untyped
+      operator: add
+      priority: 0
+    - _id: KVT2qdFH
+      formula: '1'
+      target: pf1ks_stability
+      type: untyped
+      operator: add
+      priority: 0
+    - _id: Mc0JHLwY
+      formula: '2'
+      target: pf1ks_productivity
+      type: untyped
+      operator: add
+      priority: 0
+  contextNotes: []
+  sources: []
+  settlementId: ''
+  type: paved_streets
+_id: 84cF2nfmsKkxfvG2
+img: modules/pf1-kingdom-sheet/assets/kingdom_building/Paved%20Streets.png
+sort: 0
+_key: '!items!84cF2nfmsKkxfvG2'
+

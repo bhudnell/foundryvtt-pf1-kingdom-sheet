@@ -1,0 +1,16 @@
+type: pf1-kingdom-sheet.special
+name: Evasion
+system:
+  description:
+    value: >-
+      <p>An army that attacks this army halves its OM bonus from the
+      spellcasting ability and halves the extra damage from the breath weapon
+      ability.</p>
+  changes: []
+  contextNotes: []
+  sources: []
+_id: 3JsgFRYXvbX96Rj7
+img: icons/svg/daze.svg
+sort: 0
+_key: '!items!3JsgFRYXvbX96Rj7'
+

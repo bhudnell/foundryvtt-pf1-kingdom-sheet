@@ -1,0 +1,29 @@
+type: pf1-kingdom-sheet.building
+name: House
+system:
+  quantity: 1
+  lots: 1
+  cost: 3
+  description:
+    value: >-
+      <p>A number of mid-sized houses for citizens.</p><hr
+      /><p><strong>Kingdom</strong> Unrest –1</p><p><strong>Upgrade
+      From</strong> Tenement</p><p><strong>Special</strong> The first House you
+      build during the Improvement phase does not count against the total number
+      of buildings you can build during the phase</p>
+  changes:
+    - _id: 02xsdnQS
+      formula: '-1'
+      target: pf1ks_unrest_drop
+      type: untyped
+      operator: add
+      priority: 0
+  contextNotes: []
+  sources: []
+  settlementId: ''
+  type: house
+_id: RRTuybQTA2PNdO4W
+img: modules/pf1-kingdom-sheet/assets/kingdom_building/House.png
+sort: 0
+_key: '!items!RRTuybQTA2PNdO4W'
+

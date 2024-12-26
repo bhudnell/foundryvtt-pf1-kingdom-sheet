@@ -1,0 +1,37 @@
+type: pf1-kingdom-sheet.building
+name: Luxury Store
+system:
+  quantity: 1
+  lots: 1
+  cost: 28
+  description:
+    value: >-
+      <p>A shop that specializes in expensive comforts for the wealthy.</p><hr
+      /><p><strong>Kingdom</strong> Economy +1</p><p><strong>Limit</strong>
+      Adjacent to 1 House</p><p><strong>Upgrade To</strong> Magic
+      Shop</p><p><strong>Upgrade From</strong>
+      Shop</p><p><strong>Special</strong> Base value +2,000
+      gp</p><p><strong>Magic Items</strong> 2 minor rings, wands, or wondrous
+      items</p>
+  changes:
+    - _id: VZmtcxOF
+      formula: '1'
+      target: pf1ks_economy
+      type: untyped
+      operator: add
+      priority: 0
+    - _id: sKG3Vq05
+      formula: '2000'
+      target: pf1ks_baseValue
+      type: untyped
+      operator: add
+      priority: 0
+  contextNotes: []
+  sources: []
+  settlementId: ''
+  type: luxury_store
+_id: qWwgGOHSdcbHkgB7
+img: modules/pf1-kingdom-sheet/assets/kingdom_building/Luxury%20Store.png
+sort: 0
+_key: '!items!qWwgGOHSdcbHkgB7'
+

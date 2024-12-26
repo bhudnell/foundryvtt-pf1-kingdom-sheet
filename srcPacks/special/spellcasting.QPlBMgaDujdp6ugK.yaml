@@ -1,0 +1,18 @@
+type: pf1-kingdom-sheet.special
+name: Spellcasting
+system:
+  description:
+    value: >-
+      <p>If an army’s units can use magic (from either spell-like abilities or
+      actual spellcasting), increase its OM and DV by the spell level of the
+      highest-level spell the individual unit can cast. If any of the army’s
+      offensive spells has a range greater than touch, the army can make ranged
+      attacks.</p>
+  changes: []
+  contextNotes: []
+  sources: []
+_id: QPlBMgaDujdp6ugK
+img: icons/svg/daze.svg
+sort: 0
+_key: '!items!QPlBMgaDujdp6ugK'
+

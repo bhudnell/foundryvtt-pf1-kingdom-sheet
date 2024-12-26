@@ -1,0 +1,34 @@
+type: pf1-kingdom-sheet.building
+name: Shrine
+system:
+  quantity: 1
+  lots: 1
+  cost: 8
+  description:
+    value: >-
+      <p>A shrine, idol, sacred grove, or similar holy site designed for worship
+      by pious individuals.</p><hr /><p><strong>Kingdom</strong> Loyalty +1,
+      Unrest –1</p><p><strong>Upgrade To</strong> Temple</p><p><strong>Magic
+      Items</strong> 1 minor potion, scroll, or wondrous item</p>
+  changes:
+    - _id: xvUut22V
+      formula: '1'
+      target: pf1ks_loyalty
+      type: untyped
+      operator: add
+      priority: 0
+    - _id: HohMtc49
+      formula: '-1'
+      target: pf1ks_unrest_drop
+      type: untyped
+      operator: add
+      priority: 0
+  contextNotes: []
+  sources: []
+  settlementId: ''
+  type: shrine
+_id: 6g7JDa3rxLFUJWnf
+img: modules/pf1-kingdom-sheet/assets/kingdom_building/Shrine.png
+sort: 0
+_key: '!items!6g7JDa3rxLFUJWnf'
+

@@ -1,0 +1,15 @@
+type: pf1-kingdom-sheet.special
+name: Trip
+system:
+  description:
+    value: >-
+      <p>Each Melee phase, the target enemy army reduces its DV by 1 until the
+      end of the phase.</p>
+  changes: []
+  contextNotes: []
+  sources: []
+_id: gSN5Yks8z33YTFIA
+img: icons/svg/daze.svg
+sort: 0
+_key: '!items!gSN5Yks8z33YTFIA'
+

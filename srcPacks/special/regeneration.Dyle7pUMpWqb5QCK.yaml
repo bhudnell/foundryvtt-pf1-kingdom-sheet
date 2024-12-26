@@ -1,0 +1,19 @@
+type: pf1-kingdom-sheet.special
+name: Regeneration
+system:
+  description:
+    value: >-
+      <p>The army regains a number of hit points equal to half its regeneration
+      value each Ranged or Melee phase. When an army with regeneration is
+      reduced to 0 hp, it is defeated only if at least one enemy army survives
+      at the end of that phase to finish off the regenerating creatures. Outside
+      of battle, the army regains a number of hit points equal to half its
+      regeneration value each hour.</p>
+  changes: []
+  contextNotes: []
+  sources: []
+_id: Dyle7pUMpWqb5QCK
+img: icons/svg/daze.svg
+sort: 0
+_key: '!items!Dyle7pUMpWqb5QCK'
+

@@ -1,0 +1,42 @@
+type: pf1-kingdom-sheet.event
+name: Land Rush
+system:
+  subType: active
+  continuous: false
+  description:
+    value: >-
+      <p>Overeager settlers claim an unclaimed hex and construct a Farm, Mine,
+      Quarry, or Sawmill at their own expense, but are fighting over ownership.
+      This hex is not part of your kingdom, so you gain no benefits from it.
+      </p><hr /><p>Productivity, Society, and Stability decrease by 1. Attempt a
+      Loyalty check. If you succeed, Unrest increases by 1. If you fail, Unrest
+      increases by 1d4. If you construct an identical improvement in an adjacent
+      hex during your next Edict phase, remove this event’s changes to
+      Productivity, Society, and Stability.</p>
+  changes:
+    - _id: ueVHN6GH
+      formula: '-1'
+      target: pf1ks_stability
+      type: untyped
+      operator: add
+      priority: 0
+    - _id: dxcyFsNb
+      formula: '-1'
+      target: pf1ks_productivity
+      type: untyped
+      operator: add
+      priority: 0
+    - _id: BRLjgl6F
+      formula: '-1'
+      target: pf1ks_society
+      type: untyped
+      operator: add
+      priority: 0
+  contextNotes: []
+  sources: []
+  settlementId: ''
+_id: oJCOmTgNO9enGyEd
+img: icons/svg/clockwork.svg
+sort: 0
+_key: '!items!oJCOmTgNO9enGyEd'
+

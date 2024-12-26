@@ -1,0 +1,154 @@
+name: Dangerous Kingdom Events
+_id: XPvGkpdpOtHq72BM
+img: icons/svg/d20-grey.svg
+description: ''
+results:
+  - type: 2
+    documentCollection: pf1-kingdom-sheet.event
+    weight: 1
+    range:
+      - 1
+      - 5
+    drawn: false
+    text: Assassination Attempt
+    documentId: Xn3jzeBEc9MnWBwx
+    img: icons/svg/clockwork.svg
+    _id: jv1J4RiPFjcdpOBQ
+    flags: {}
+    _key: '!tables.results!XPvGkpdpOtHq72BM.jv1J4RiPFjcdpOBQ'
+  - type: 2
+    documentCollection: pf1-kingdom-sheet.event
+    weight: 1
+    range:
+      - 6
+      - 18
+    drawn: false
+    text: Bandit Activity
+    documentId: 51enAXA3tc1mhet4
+    img: icons/svg/clockwork.svg
+    _id: UP3l4rBuig7qYUHb
+    flags: {}
+    _key: '!tables.results!XPvGkpdpOtHq72BM.UP3l4rBuig7qYUHb'
+  - type: 2
+    documentCollection: pf1-kingdom-sheet.event
+    weight: 1
+    range:
+      - 19
+      - 28
+    drawn: false
+    text: Feud
+    documentId: CjKIgd0R9K8yLVBw
+    img: icons/svg/clockwork.svg
+    _id: 5HukUq6fFlZAl7KV
+    flags: {}
+    _key: '!tables.results!XPvGkpdpOtHq72BM.5HukUq6fFlZAl7KV'
+  - type: 2
+    documentCollection: pf1-kingdom-sheet.event
+    weight: 1
+    range:
+      - 29
+      - 41
+    drawn: false
+    text: Food Shortage
+    documentId: mXMrkd7eUZzyPYzM
+    img: icons/svg/clockwork.svg
+    _id: W5JDAs1hsLFZYmBX
+    flags: {}
+    _key: '!tables.results!XPvGkpdpOtHq72BM.W5JDAs1hsLFZYmBX'
+  - type: 2
+    documentCollection: pf1-kingdom-sheet.event
+    weight: 1
+    range:
+      - 42
+      - 51
+    drawn: false
+    text: Improvement Demand
+    documentId: DZFi8lW8fywWz3Pv
+    img: icons/svg/clockwork.svg
+    _id: dzkioNivkgpvi4vA
+    flags: {}
+    _key: '!tables.results!XPvGkpdpOtHq72BM.dzkioNivkgpvi4vA'
+  - type: 2
+    documentCollection: pf1-kingdom-sheet.event
+    weight: 1
+    range:
+      - 52
+      - 59
+    drawn: false
+    text: Inquisition
+    documentId: krFSld0rl0iEwjFf
+    img: icons/svg/clockwork.svg
+    _id: 3wUZidrw8UbrChqO
+    flags: {}
+    _key: '!tables.results!XPvGkpdpOtHq72BM.3wUZidrw8UbrChqO'
+  - type: 2
+    documentCollection: pf1-kingdom-sheet.event
+    weight: 1
+    range:
+      - 60
+      - 64
+    drawn: false
+    text: Large Disaster
+    documentId: WB7O1v838cYAebhl
+    img: icons/svg/clockwork.svg
+    _id: yCn2zxYnqZBeFZmi
+    flags: {}
+    _key: '!tables.results!XPvGkpdpOtHq72BM.yCn2zxYnqZBeFZmi'
+  - type: 2
+    documentCollection: pf1-kingdom-sheet.event
+    weight: 1
+    range:
+      - 65
+      - 76
+    drawn: false
+    text: Monster Attack
+    documentId: 2NNXlTO6NyAzLE1Y
+    img: icons/svg/clockwork.svg
+    _id: kJkRC1eMLdycJQS9
+    flags: {}
+    _key: '!tables.results!XPvGkpdpOtHq72BM.kJkRC1eMLdycJQS9'
+  - type: 2
+    documentCollection: pf1-kingdom-sheet.event
+    weight: 1
+    range:
+      - 77
+      - 84
+    drawn: false
+    text: Plague
+    documentId: WWOA6vdJf7Za2NPj
+    img: icons/svg/clockwork.svg
+    _id: uBNE8ogLj6oNvFIz
+    flags: {}
+    _key: '!tables.results!XPvGkpdpOtHq72BM.uBNE8ogLj6oNvFIz'
+  - type: 2
+    documentCollection: pf1-kingdom-sheet.event
+    weight: 1
+    range:
+      - 85
+      - 92
+    drawn: false
+    text: Public Scandal
+    documentId: QMP8EaQQfvaMBzgV
+    img: icons/svg/clockwork.svg
+    _id: KBu3yJeXC3KmVhDz
+    flags: {}
+    _key: '!tables.results!XPvGkpdpOtHq72BM.KBu3yJeXC3KmVhDz'
+  - type: 2
+    documentCollection: pf1-kingdom-sheet.event
+    weight: 1
+    range:
+      - 93
+      - 100
+    drawn: false
+    text: Smugglers
+    documentId: CZDnjaTRkvgL8BYL
+    img: icons/svg/clockwork.svg
+    _id: ascWhyS8chcmIEBF
+    flags: {}
+    _key: '!tables.results!XPvGkpdpOtHq72BM.ascWhyS8chcmIEBF'
+replacement: true
+displayRoll: true
+sort: 0
+formula: 1d100
+_key: '!tables!XPvGkpdpOtHq72BM'
+

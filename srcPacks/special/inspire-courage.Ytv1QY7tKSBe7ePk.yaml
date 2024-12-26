@@ -1,0 +1,24 @@
+type: pf1-kingdom-sheet.special
+name: Inspire Courage
+system:
+  description:
+    value: >-
+      <p>The army increases its OM by 1 and gains a +2 bonus on Morale checks
+      against fear and routs. Alternatively, the army may apply these bonuses to
+      an allied army in the same battle.</p>
+  changes:
+    - _id: fcYeIj7d
+      formula: '1'
+      target: pf1ks_om
+      type: untyped
+      operator: add
+      priority: 0
+  contextNotes:
+    - text: +[[2]] vs fear and routs
+      target: pf1ks_morale
+  sources: []
+_id: Ytv1QY7tKSBe7ePk
+img: icons/svg/daze.svg
+sort: 0
+_key: '!items!Ytv1QY7tKSBe7ePk'
+

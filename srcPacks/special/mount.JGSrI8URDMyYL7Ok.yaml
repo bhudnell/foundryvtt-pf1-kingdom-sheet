@@ -1,0 +1,25 @@
+type: pf1-kingdom-sheet.special
+name: Mount
+system:
+  description:
+    value: <p>The army’s mounts increase the army’s OM and DV by 1.</p>
+  changes:
+    - _id: IUDeFfWH
+      formula: '1'
+      target: pf1ks_dv
+      type: untyped
+      operator: add
+      priority: 0
+    - _id: 0Xvywbvx
+      formula: '1'
+      target: pf1ks_om
+      type: untyped
+      operator: add
+      priority: 0
+  contextNotes: []
+  sources: []
+_id: JGSrI8URDMyYL7Ok
+img: icons/svg/daze.svg
+sort: 0
+_key: '!items!JGSrI8URDMyYL7Ok'
+

@@ -1,0 +1,33 @@
+type: pf1-kingdom-sheet.improvement
+name: Mine
+system:
+  subType: general
+  quantity: 1
+  description:
+    value: >-
+      <p>A Mine extracts metal, coal, salt, or other useful materials from the
+      earth.</p><hr /><p><strong>Terrain</strong>: Cavern, desert, hill, or
+      mountain.</p><p><strong>Effect</strong>: Economy +1, earn +1 BP per turn
+      when collecting taxes during the Income
+      phase.</p><p><strong>Cost</strong>: 6 BP.</p>
+  changes:
+    - _id: flvm4VaZ
+      formula: '1'
+      target: pf1ks_economy
+      type: untyped
+      operator: add
+      priority: 0
+    - _id: SCUQxLIy
+      formula: '1'
+      target: pf1ks_bonusBP
+      type: untyped
+      operator: add
+      priority: 0
+  contextNotes: []
+  sources: []
+  settlementId: ''
+_id: cnJXb8PERuWKOFXT
+img: icons/svg/windmill.svg
+sort: 0
+_key: '!items!cnJXb8PERuWKOFXT'
+

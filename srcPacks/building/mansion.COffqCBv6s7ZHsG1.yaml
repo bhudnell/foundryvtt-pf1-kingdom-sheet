@@ -1,0 +1,40 @@
+type: pf1-kingdom-sheet.building
+name: Mansion
+system:
+  quantity: 1
+  lots: 1
+  cost: 10
+  description:
+    value: >-
+      <p>A single huge manor housing a rich family and its servants.</p><hr
+      /><p><strong>Kingdom</strong> Stability +1</p><p><strong>Upgrade
+      To</strong> Noble Villa</p><p><strong>Settlement</strong> Law +1, Society
+      +1</p>
+  changes:
+    - _id: IZvgoZrs
+      formula: '1'
+      target: pf1ks_stability
+      type: untyped
+      operator: add
+      priority: 0
+    - _id: W7OMPrBP
+      formula: '1'
+      target: pf1ks_law
+      type: untyped
+      operator: add
+      priority: 0
+    - _id: C9uR8kUk
+      formula: '1'
+      target: pf1ks_society
+      type: untyped
+      operator: add
+      priority: 0
+  contextNotes: []
+  sources: []
+  settlementId: ''
+  type: mansion
+_id: COffqCBv6s7ZHsG1
+img: modules/pf1-kingdom-sheet/assets/kingdom_building/Mansion.png
+sort: 0
+_key: '!items!COffqCBv6s7ZHsG1'
+

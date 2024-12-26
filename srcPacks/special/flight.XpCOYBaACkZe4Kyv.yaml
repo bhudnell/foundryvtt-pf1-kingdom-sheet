@@ -1,0 +1,16 @@
+type: pf1-kingdom-sheet.special
+name: Flight
+system:
+  description:
+    value: >-
+      <p>If the army doesn’t attack in the Melee phase, it can’t be attacked
+      with melee attacks except by an army with flight. The army ignores Defense
+      bonuses from City Walls, but not other fortifications.</p>
+  changes: []
+  contextNotes: []
+  sources: []
+_id: XpCOYBaACkZe4Kyv
+img: icons/svg/daze.svg
+sort: 0
+_key: '!items!XpCOYBaACkZe4Kyv'
+

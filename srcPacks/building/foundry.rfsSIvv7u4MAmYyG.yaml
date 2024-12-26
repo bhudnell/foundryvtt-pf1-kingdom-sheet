@@ -1,0 +1,53 @@
+type: pf1-kingdom-sheet.building
+name: Foundry
+system:
+  quantity: 1
+  lots: 2
+  cost: 16
+  description:
+    value: >-
+      <p>Processes ore and refines it into finished metal.</p><hr
+      /><p><strong>Kingdom</strong> Economy +1, Stability +1, Unrest
+      +1</p><p><strong>Discount</strong> Smithy</p><p><strong>Limit</strong>
+      Adjacent to water district border</p><p><strong>Special</strong> Increase
+      the Economy and BP earned per turn by 1 for 1 Mine connected to this
+      settlement by a river or Road</p><p><strong>Settlement</strong>
+      Productivity +1</p>
+  changes:
+    - _id: 1cOCD96D
+      formula: '1'
+      target: pf1ks_economy
+      type: untyped
+      operator: add
+      priority: 0
+    - _id: tCf4zfd1
+      formula: '1'
+      target: pf1ks_stability
+      type: untyped
+      operator: add
+      priority: 0
+    - _id: oWixG8v3
+      formula: '1'
+      target: pf1ks_unrest_drop
+      type: untyped
+      operator: add
+      priority: 0
+    - _id: GfdGaQTW
+      formula: '1'
+      target: pf1ks_productivity
+      type: untyped
+      operator: add
+      priority: 0
+  contextNotes:
+    - text: +[[1]] if Mine connected to settlement
+      target: pf1ks_economy
+    - text: +[[1]] if Mine connected to settlement
+      target: pf1ks_bonusBP
+  sources: []
+  settlementId: ''
+  type: foundry
+_id: rfsSIvv7u4MAmYyG
+img: modules/pf1-kingdom-sheet/assets/kingdom_building/Foundry.png
+sort: 0
+_key: '!items!rfsSIvv7u4MAmYyG'
+

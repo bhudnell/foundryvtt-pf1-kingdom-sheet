@@ -1,0 +1,47 @@
+type: pf1-kingdom-sheet.building
+name: Town Hall
+system:
+  quantity: 1
+  lots: 2
+  cost: 22
+  description:
+    value: >-
+      <p>A public venue for town meetings, repository for town records, and
+      offices for minor bureaucrats.</p><hr /><p><strong>Kingdom</strong>
+      Economy +1, Loyalty +1, Stability +1</p><p><strong>Discount</strong>
+      Barracks, Cistern, Dump, Jail,
+      Watchtower</p><p><strong>Settlement</strong> Law +1</p>
+  changes:
+    - _id: A9iyYxfU
+      formula: '1'
+      target: pf1ks_economy
+      type: untyped
+      operator: add
+      priority: 0
+    - _id: JPkrBol1
+      formula: '1'
+      target: pf1ks_loyalty
+      type: untyped
+      operator: add
+      priority: 0
+    - _id: 0kkRyReA
+      formula: '1'
+      target: pf1ks_stability
+      type: untyped
+      operator: add
+      priority: 0
+    - _id: MfBVJpxp
+      formula: '1'
+      target: pf1ks_law
+      type: untyped
+      operator: add
+      priority: 0
+  contextNotes: []
+  sources: []
+  settlementId: ''
+  type: town_hall
+_id: cC8TaM3FFUu0HCZQ
+img: modules/pf1-kingdom-sheet/assets/kingdom_building/Town%20Hall.png
+sort: 0
+_key: '!items!cC8TaM3FFUu0HCZQ'
+

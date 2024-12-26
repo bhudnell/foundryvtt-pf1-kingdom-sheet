@@ -1,0 +1,19 @@
+type: pf1-kingdom-sheet.improvement
+name: Bridge (Special Terrain)
+system:
+  subType: special
+  quantity: 1
+  description:
+    value: >-
+      <p>The hex contains an existing Bridge over a waterway. </p><hr /><p>If
+      you build a Road in this hex, you do not have to double the cost of the
+      Road.</p>
+  changes: []
+  contextNotes: []
+  sources: []
+  settlementId: ''
+_id: 255DoG6BDUEfiGrb
+img: icons/svg/windmill.svg
+sort: 0
+_key: '!items!255DoG6BDUEfiGrb'
+

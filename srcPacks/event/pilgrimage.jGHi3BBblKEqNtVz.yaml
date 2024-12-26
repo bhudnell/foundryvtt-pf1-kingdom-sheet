@@ -1,0 +1,19 @@
+type: pf1-kingdom-sheet.event
+name: Pilgrimage
+system:
+  subType: active
+  continuous: false
+  description:
+    value: >-
+      <p>Randomly select one settlement with a Cathedral, Shrine, or Temple.
+      Pious religious folk journey to your settlement, holding a religious
+      festival in that settlement at no BP cost to you.</p>
+  changes: []
+  contextNotes: []
+  sources: []
+  settlementId: ''
+_id: jGHi3BBblKEqNtVz
+img: icons/svg/clockwork.svg
+sort: 0
+_key: '!items!jGHi3BBblKEqNtVz'
+

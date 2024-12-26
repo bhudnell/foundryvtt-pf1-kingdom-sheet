@@ -1,0 +1,36 @@
+type: pf1-kingdom-sheet.building
+name: Granary
+system:
+  quantity: 1
+  lots: 1
+  cost: 12
+  description:
+    value: >-
+      <p>A place to store grain and food.</p><hr /><p><strong>Kingdom</strong>
+      Loyalty +1, Stability +1</p><p><strong>Special</strong> If Farms reduce
+      Consumption below 0, store up to 5 BP of excess production for use on a
+      later turn when Consumption exceeds the Treasury</p>
+  changes:
+    - _id: KXbHvEOQ
+      formula: '1'
+      target: pf1ks_loyalty
+      type: untyped
+      operator: add
+      priority: 0
+    - _id: 43D5HmfU
+      formula: '1'
+      target: pf1ks_stability
+      type: untyped
+      operator: add
+      priority: 0
+  contextNotes:
+    - text: store up to [[5]] BP of excess production
+      target: pf1ks_consumption
+  sources: []
+  settlementId: ''
+  type: granary
+_id: 1JAUaVNcg1sd07Ch
+img: modules/pf1-kingdom-sheet/assets/kingdom_building/Granary.png
+sort: 0
+_key: '!items!1JAUaVNcg1sd07Ch'
+

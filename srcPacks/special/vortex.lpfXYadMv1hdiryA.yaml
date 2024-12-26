@@ -1,0 +1,15 @@
+type: pf1-kingdom-sheet.special
+name: Vortex
+system:
+  description:
+    value: >-
+      <p>Each time the army damages an enemy army on or in the water, reduce the
+      enemy army’s DV by 1.</p>
+  changes: []
+  contextNotes: []
+  sources: []
+_id: lpfXYadMv1hdiryA
+img: icons/svg/daze.svg
+sort: 0
+_key: '!items!lpfXYadMv1hdiryA'
+

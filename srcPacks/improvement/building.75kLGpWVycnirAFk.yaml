@@ -1,0 +1,21 @@
+type: pf1-kingdom-sheet.improvement
+name: Building
+system:
+  subType: special
+  quantity: 1
+  description:
+    value: >-
+      <p>The hex contains an abandoned building in good repair (type determined
+      by the GM). </p><hr /><p>If you establish a settlement at the building’s
+      location in the hex, you can incorporate the building into the settlement
+      at no cost (this does not count toward your building limit for that
+      turn).</p>
+  changes: []
+  contextNotes: []
+  sources: []
+  settlementId: ''
+_id: 75kLGpWVycnirAFk
+img: icons/svg/windmill.svg
+sort: 0
+_key: '!items!75kLGpWVycnirAFk'
+

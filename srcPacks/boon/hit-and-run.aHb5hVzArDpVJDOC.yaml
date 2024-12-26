@@ -1,0 +1,22 @@
+type: pf1-kingdom-sheet.boon
+name: Hit and Run
+system:
+  description:
+    value: >-
+      <p>The commander drills the army in quick attacks followed by a fast
+      retreat. After attacks are resolved in the Ranged phase or the first Melee
+      phase, the army may use the withdraw tactic with a +2 bonus on its opposed
+      Morale checks. a commander must have Leadership 5 or higher to select this
+      boon. At Leadership 10 or higher, this bonus increases to +4.</p>
+  changes: []
+  contextNotes:
+    - text: >-
+        +[[@commander.leadership > 9 ? 4 : 2]] to withdraw after ranged or first
+        melee phase
+      target: pf1ks_morale
+  sources: []
+_id: aHb5hVzArDpVJDOC
+img: icons/svg/upgrade.svg
+sort: 0
+_key: '!items!aHb5hVzArDpVJDOC'
+

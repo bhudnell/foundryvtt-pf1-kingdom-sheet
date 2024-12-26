@@ -1,0 +1,19 @@
+type: pf1-kingdom-sheet.special
+name: Eidolon
+system:
+  description:
+    value: <p>The army’s eidolons increase the army’s OM by 1.</p>
+  changes:
+    - _id: iidniqTY
+      formula: '1'
+      target: pf1ks_om
+      type: untyped
+      operator: add
+      priority: 0
+  contextNotes: []
+  sources: []
+_id: D2sA4qYevlSYVTtS
+img: icons/svg/daze.svg
+sort: 0
+_key: '!items!D2sA4qYevlSYVTtS'
+

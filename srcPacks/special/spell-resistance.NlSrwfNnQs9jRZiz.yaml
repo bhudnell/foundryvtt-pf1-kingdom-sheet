@@ -1,0 +1,17 @@
+type: pf1-kingdom-sheet.special
+name: Spell Resistance
+system:
+  description:
+    value: >-
+      <p>The army increases its DV by 6 against armies with the spellcasting
+      ability.</p>
+  changes: []
+  contextNotes:
+    - text: +[[6]] vs armies with the spellcasting ability
+      target: pf1ks_dv
+  sources: []
+_id: NlSrwfNnQs9jRZiz
+img: icons/svg/daze.svg
+sort: 0
+_key: '!items!NlSrwfNnQs9jRZiz'
+

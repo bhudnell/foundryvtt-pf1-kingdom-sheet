@@ -1,0 +1,15 @@
+type: pf1-kingdom-sheet.special
+name: Favored Enemy
+system:
+  description:
+    value: >-
+      <p>The army increases its OM by 1 against an army of a type of creature
+      chosen from the ranger favored enemy list.</p>
+  changes: []
+  contextNotes: []
+  sources: []
+_id: XDNk1ExKoADTtJT7
+img: icons/svg/daze.svg
+sort: 0
+_key: '!items!XDNk1ExKoADTtJT7'
+

@@ -1,0 +1,47 @@
+type: pf1-kingdom-sheet.building
+name: Tavern
+system:
+  quantity: 1
+  lots: 1
+  cost: 12
+  description:
+    value: >-
+      <p>An eating or drinking establishment.</p><hr
+      /><p><strong>Kingdom</strong> Economy +1, Loyalty
+      +1</p><p><strong>Limit</strong> Adjacent to 1 House or
+      Mansion</p><p><strong>Special</strong> Base value +500
+      gp</p><p><strong>Settlement</strong> Corruption +1</p>
+  changes:
+    - _id: 9Vi84UIm
+      formula: '1'
+      target: pf1ks_economy
+      type: untyped
+      operator: add
+      priority: 0
+    - _id: 04DfhmoF
+      formula: '1'
+      target: pf1ks_loyalty
+      type: untyped
+      operator: add
+      priority: 0
+    - _id: WDpgqsCA
+      formula: '500'
+      target: pf1ks_baseValue
+      type: untyped
+      operator: add
+      priority: 0
+    - _id: 4BEJvGmD
+      formula: '1'
+      target: pf1ks_corruption
+      type: untyped
+      operator: add
+      priority: 0
+  contextNotes: []
+  sources: []
+  settlementId: ''
+  type: tannery
+_id: OrZd6OdbLBJT2fOA
+img: modules/pf1-kingdom-sheet/assets/kingdom_building/Tavern.png
+sort: 0
+_key: '!items!OrZd6OdbLBJT2fOA'
+

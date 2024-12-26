@@ -1,0 +1,28 @@
+type: pf1-kingdom-sheet.tactic
+name: Cautious Combat
+system:
+  disabled: true
+  description:
+    value: >-
+      <p>Your army fights cautiously in order to maintain morale. Decrease its
+      OM by 2, and add 2 to all its Morale checks.</p>
+  changes:
+    - _id: uwNi9Ksb
+      formula: '-2'
+      target: pf1ks_om
+      type: untyped
+      operator: add
+      priority: 0
+    - _id: 7BGBqYZl
+      formula: '2'
+      target: pf1ks_morale
+      type: untyped
+      operator: add
+      priority: 0
+  contextNotes: []
+  sources: []
+_id: wicO41f9ik0xeQeP
+img: icons/svg/target.svg
+sort: 0
+_key: '!items!wicO41f9ik0xeQeP'
+

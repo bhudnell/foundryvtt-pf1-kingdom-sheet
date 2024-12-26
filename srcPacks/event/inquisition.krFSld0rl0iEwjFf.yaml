@@ -1,0 +1,47 @@
+type: pf1-kingdom-sheet.event
+name: Inquisition
+system:
+  subType: active
+  continuous: true
+  description:
+    value: >-
+      <p>Zealots mobilize public opinion against a particular race, religion,
+      kingdom, behavior, or kingdom leader.</p><hr /><p>Attempt a Loyalty check.
+      If you fail, the zealots run rampant; Infamy and Law increase by 1 and
+      Lore, Loyalty, Productivity, and Stability decrease by 2. If you succeed,
+      the zealots are somewhat suppressed; Lore, Loyalty, Productivity, and
+      Stability decrease by 1. Two successful checks in a row end the event (if
+      a check ends the event, no penalties from it occur that turn).</p>
+  changes:
+    - _id: 3K5VMWwL
+      formula: '-1'
+      target: pf1ks_loyalty
+      type: untyped
+      operator: add
+      priority: 0
+    - _id: iXZZ7p2x
+      formula: '-1'
+      target: pf1ks_stability
+      type: untyped
+      operator: add
+      priority: 0
+    - _id: vMQJdsCe
+      formula: '-1'
+      target: pf1ks_lore
+      type: untyped
+      operator: add
+      priority: 0
+    - _id: trrXBwyd
+      formula: '-1'
+      target: pf1ks_productivity
+      type: untyped
+      operator: add
+      priority: 0
+  contextNotes: []
+  sources: []
+  settlementId: ''
+_id: krFSld0rl0iEwjFf
+img: icons/svg/clockwork.svg
+sort: 0
+_key: '!items!krFSld0rl0iEwjFf'
+

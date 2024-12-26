@@ -1,0 +1,15 @@
+type: pf1-kingdom-sheet.special
+name: Scent
+system:
+  description:
+    value: >-
+      <p>The army reduces its OM and DV penalties from darkness, invisibility,
+      and weather by half.</p>
+  changes: []
+  contextNotes: []
+  sources: []
+_id: 3JqCrkbgKVCWqLCm
+img: icons/svg/daze.svg
+sort: 0
+_key: '!items!3JqCrkbgKVCWqLCm'
+

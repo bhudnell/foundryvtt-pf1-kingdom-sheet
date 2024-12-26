@@ -1,0 +1,15 @@
+type: pf1-kingdom-sheet.special
+name: Combat Style
+system:
+  description:
+    value: >-
+      <p>Once per battle, increase the army’s OM for either ranged attacks or
+      melee attacks by 1 for the rest of the battle.</p>
+  changes: []
+  contextNotes: []
+  sources: []
+_id: ICHlWs0HtuaCB9d3
+img: icons/svg/daze.svg
+sort: 0
+_key: '!items!ICHlWs0HtuaCB9d3'
+

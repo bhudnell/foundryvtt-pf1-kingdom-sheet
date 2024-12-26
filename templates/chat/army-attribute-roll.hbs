@@ -1,0 +1,37 @@
+<span class="flavor-text">
+  {{ flavor }}
+</span>
+
+<div class="dice-roll">
+  <div class="dice-result">
+    <h4
+      data-natural="{{ natural }}"
+      data-bonus="{{ bonus }}"
+      class="dice-total{{#if isNat20}} natural-20{{/if}}{{#if isNat1}} natural-1 failure{{/if}}{{#if isCrit}} critical-threat success{{/if}}"
+    >
+      {{ total }}
+    </h4>
+    {{{tooltip}}}
+  </div>
+</div>
+
+{{#if damageBonus}}
+<span>{{localize "PF1.DamageBonus"}}</span>
+<div class="dice-roll">
+  <div class="dice-result">
+    <h4 class="dice-total">{{numberFormat damageBonus.total sign=true}}</h4>
+    {{{damageTooltip}}}
+  </div>
+</div>
+{{/if}}
+
+{{#each properties}}
+<div class="flexcol property-group gm-sensitive general-notes {{ css }}">
+  <label>{{ header }}</label>
+  <div class="flexrow tag-list">
+    {{#each value}}
+    <span class="tag">{{{this}}}</span>
+    {{/each}}
+  </div>
+</div>
+{{/each}}

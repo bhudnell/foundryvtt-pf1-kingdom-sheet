@@ -1,0 +1,15 @@
+type: pf1-kingdom-sheet.special
+name: Poison Resistance
+system:
+  description:
+    value: >-
+      <p>If the army takes poison damage, reduce the damage by half of the
+      unit’s poison resistance bonus.</p>
+  changes: []
+  contextNotes: []
+  sources: []
+_id: PkehCOjWqYLcqQfP
+img: icons/svg/daze.svg
+sort: 0
+_key: '!items!PkehCOjWqYLcqQfP'
+

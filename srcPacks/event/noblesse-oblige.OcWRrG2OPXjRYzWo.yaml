@@ -1,0 +1,19 @@
+type: pf1-kingdom-sheet.event
+name: Noblesse Oblige
+system:
+  subType: active
+  continuous: false
+  description:
+    value: >-
+      <p>A noble family offers to construct a Monument (01–50) or Park (51–100)
+      in your settlement at the family’s own expense. The nobles pay all costs
+      and Consumption for this purpose.</p>
+  changes: []
+  contextNotes: []
+  sources: []
+  settlementId: ''
+_id: OcWRrG2OPXjRYzWo
+img: icons/svg/clockwork.svg
+sort: 0
+_key: '!items!OcWRrG2OPXjRYzWo'
+

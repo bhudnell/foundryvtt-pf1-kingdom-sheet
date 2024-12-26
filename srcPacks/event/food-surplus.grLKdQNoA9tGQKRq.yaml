@@ -1,0 +1,25 @@
+type: pf1-kingdom-sheet.event
+name: Food Surplus
+system:
+  subType: active
+  continuous: false
+  description:
+    value: >-
+      <p>Farmers produce an unexpected windfall! </p><hr /><p>In the next Upkeep
+      phase, the kingdom’s Consumption is halved (but returns to normal on the
+      next turn).</p>
+  changes:
+    - _id: nYutw9sl
+      formula: floor(@consumption.total / 2)
+      target: pf1ks_consumption
+      type: untyped
+      operator: add
+      priority: -1000
+  contextNotes: []
+  sources: []
+  settlementId: ''
+_id: grLKdQNoA9tGQKRq
+img: icons/svg/clockwork.svg
+sort: 0
+_key: '!items!grLKdQNoA9tGQKRq'
+

@@ -1,0 +1,36 @@
+type: pf1-kingdom-sheet.building
+name: City Wall
+system:
+  quantity: 1
+  lots: 0
+  cost: 2
+  description:
+    value: >-
+      <p>A fortification of one side of a district with a sturdy wall. The GM
+      may allow for cliffs and other natural features to function as a City Wall
+      for one or more sides of a district. You may construct gates through your
+      own city wall at no cost.</p><hr /><p><strong>Kingdom</strong> Unrest –2
+      (once per settlement)</p><p><strong>Limit</strong> Land district
+      border</p><p><strong>Special</strong> Defense +1</p>
+  changes:
+    - _id: BNBd4hG9
+      formula: '-2'
+      target: pf1ks_unrest_drop
+      type: untyped
+      operator: add
+      priority: 0
+    - _id: u5XJBcZ0
+      formula: '1'
+      target: pf1ks_defense
+      type: untyped
+      operator: add
+      priority: 0
+  contextNotes: []
+  sources: []
+  settlementId: ''
+  type: city_wall
+_id: lKGKwGnOlMK8AyJ8
+img: modules/pf1-kingdom-sheet/assets/kingdom_building/City%20Wall.png
+sort: 0
+_key: '!items!lKGKwGnOlMK8AyJ8'
+

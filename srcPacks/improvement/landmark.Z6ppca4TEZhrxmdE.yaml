@@ -1,0 +1,28 @@
+type: pf1-kingdom-sheet.improvement
+name: Landmark
+system:
+  subType: special
+  quantity: 1
+  description:
+    value: >-
+      <p>A Landmark is a site of great pride, mystery, and wonder, such as an
+      outcropping in the shape of a human face, a smoking volcano, or a lake
+      with an unusual color or unique properties. The Landmark bolsters your
+      kingdom’s morale.</p><hr /><p>If you claim a hex with a Landmark, Loyalty
+      increases by 1. If the hex also has a Road or Highway, Loyalty increases
+      by an additional 1.</p>
+  changes:
+    - _id: U6QP8d94
+      formula: '1'
+      target: pf1ks_loyalty
+      type: untyped
+      operator: add
+      priority: 0
+  contextNotes: []
+  sources: []
+  settlementId: ''
+_id: Z6ppca4TEZhrxmdE
+img: icons/svg/windmill.svg
+sort: 0
+_key: '!items!Z6ppca4TEZhrxmdE'
+

@@ -1,0 +1,16 @@
+type: pf1-kingdom-sheet.special
+name: Mobility
+system:
+  description:
+    value: >-
+      <p>If the units have a form of mobility that gives them an advantage in
+      the battlefield’s terrain (such as boggards in a swamp), increase the
+      army’s OM by 1 for that battle against armies without such mobility.</p>
+  changes: []
+  contextNotes: []
+  sources: []
+_id: CezwCZRvkAgCc70s
+img: icons/svg/daze.svg
+sort: 0
+_key: '!items!CezwCZRvkAgCc70s'
+

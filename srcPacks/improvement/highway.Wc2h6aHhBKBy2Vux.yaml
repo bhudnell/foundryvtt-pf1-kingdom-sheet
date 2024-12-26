@@ -1,0 +1,35 @@
+type: pf1-kingdom-sheet.improvement
+name: Highway
+system:
+  subType: general
+  quantity: 1
+  description:
+    value: >-
+      <p>A highway is a paved and well-maintained version of a Road. You may
+      upgrade a Road into a Highway. You must have a kingdom of Size 26 or
+      greater to build a Highway.</p><hr /><p><strong>Terrain</strong>: Any hex
+      with a Road.</p><p><strong>Effect</strong>: Economy +1 for every 4 hexes
+      of Highway, Stability +1 for every 8 hexes of Highway; improves overland
+      travel speed.</p><p><strong>Cost</strong>: Twice the cost of a Road (see
+      Table 4–6: Terrain and Terrain Improvements).</p>
+  changes:
+    - _id: wU7PNKPc
+      formula: '.25'
+      target: pf1ks_economy
+      type: untyped
+      operator: add
+      priority: 0
+    - _id: Ghp8h4V6
+      formula: '.125'
+      target: pf1ks_stability
+      type: untyped
+      operator: add
+      priority: 0
+  contextNotes: []
+  sources: []
+  settlementId: ''
+_id: Wc2h6aHhBKBy2Vux
+img: icons/svg/windmill.svg
+sort: 0
+_key: '!items!Wc2h6aHhBKBy2Vux'
+

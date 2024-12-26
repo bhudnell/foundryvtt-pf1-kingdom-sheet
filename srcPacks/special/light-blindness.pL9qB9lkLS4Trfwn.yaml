@@ -1,0 +1,13 @@
+type: pf1-kingdom-sheet.special
+name: Light Blindness
+system:
+  description:
+    value: <p>The army decreases its OM and DV by 2 in bright light.</p>
+  changes: []
+  contextNotes: []
+  sources: []
+_id: pL9qB9lkLS4Trfwn
+img: icons/svg/daze.svg
+sort: 0
+_key: '!items!pL9qB9lkLS4Trfwn'
+

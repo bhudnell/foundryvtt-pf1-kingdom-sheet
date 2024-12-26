@@ -1,0 +1,48 @@
+type: pf1-kingdom-sheet.building
+name: Hospital
+system:
+  quantity: 1
+  lots: 2
+  cost: 30
+  description:
+    value: >-
+      <p>A building devoted to healing the sick.</p><hr
+      /><p><strong>Kingdom</strong> Loyalty +1, Stability
+      +2</p><p><strong>Special</strong> Increase Stability by 2 during plague
+      events</p><p><strong>Settlement</strong> Lore +1, Productivity +2</p>
+  changes:
+    - _id: xDaE2lrF
+      formula: '1'
+      target: pf1ks_loyalty
+      type: untyped
+      operator: add
+      priority: 0
+    - _id: TVbYkWyZ
+      formula: '2'
+      target: pf1ks_stability
+      type: untyped
+      operator: add
+      priority: 0
+    - _id: Ad7AOoTW
+      formula: '1'
+      target: pf1ks_lore
+      type: untyped
+      operator: add
+      priority: 0
+    - _id: Y1qIe3Tw
+      formula: '2'
+      target: pf1ks_productivity
+      type: untyped
+      operator: add
+      priority: 0
+  contextNotes:
+    - text: +[[2]] during plague events
+      target: pf1ks_stability
+  sources: []
+  settlementId: ''
+  type: hospital
+_id: KFi6mtTvbeZBb0Cu
+img: modules/pf1-kingdom-sheet/assets/kingdom_building/Hospital.png
+sort: 0
+_key: '!items!KFi6mtTvbeZBb0Cu'
+

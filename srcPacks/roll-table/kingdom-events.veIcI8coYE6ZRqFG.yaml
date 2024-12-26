@@ -1,0 +1,141 @@
+name: Kingdom Events
+_id: veIcI8coYE6ZRqFG
+img: icons/svg/d20-grey.svg
+description: ''
+results:
+  - type: 2
+    documentCollection: pf1-kingdom-sheet.event
+    weight: 1
+    range:
+      - 1
+      - 2
+    drawn: false
+    text: Natural Blessing + Reroll
+    documentId: cmzJeHJv7a6yVGhq
+    img: icons/svg/clockwork.svg
+    _id: 5b75bEtZDdT78xeP
+    flags: {}
+    _key: '!tables.results!veIcI8coYE6ZRqFG.5b75bEtZDdT78xeP'
+  - type: 2
+    documentCollection: pf1-kingdom-sheet.event
+    weight: 1
+    range:
+      - 3
+      - 4
+    drawn: false
+    text: Good Weather + Reroll
+    documentId: SUVFUh6kPAv2Kmz9
+    img: icons/svg/clockwork.svg
+    _id: 3bFulc6kSmdNMlLc
+    flags: {}
+    _key: '!tables.results!veIcI8coYE6ZRqFG.3bFulc6kSmdNMlLc'
+  - type: 2
+    documentCollection: pf1-kingdom-sheet.roll-table
+    weight: 1
+    range:
+      - 5
+      - 25
+    drawn: false
+    text: Beneficial Kingdom Events
+    documentId: PTcJtznGzdJ6ynH9
+    img: icons/svg/d20-grey.svg
+    _id: nCDIz03RKi4Y0QNA
+    flags: {}
+    _key: '!tables.results!veIcI8coYE6ZRqFG.nCDIz03RKi4Y0QNA'
+  - type: 2
+    documentCollection: pf1-kingdom-sheet.roll-table
+    weight: 1
+    range:
+      - 26
+      - 50
+    drawn: false
+    text: Dangerous Kingdom Events
+    documentId: XPvGkpdpOtHq72BM
+    img: icons/svg/d20-grey.svg
+    _id: h9MV7CEf2KN5KtLp
+    flags: {}
+    _key: '!tables.results!veIcI8coYE6ZRqFG.h9MV7CEf2KN5KtLp'
+  - type: 2
+    documentCollection: pf1-kingdom-sheet.roll-table
+    weight: 1
+    range:
+      - 51
+      - 75
+    drawn: false
+    text: Beneficial Settlement Events
+    documentId: WfBisOK7L1J9VH0k
+    img: icons/svg/d20-grey.svg
+    _id: IqKPJn5eBOpXhfkj
+    flags: {}
+    _key: '!tables.results!veIcI8coYE6ZRqFG.IqKPJn5eBOpXhfkj'
+  - type: 2
+    documentCollection: pf1-kingdom-sheet.roll-table
+    weight: 1
+    range:
+      - 76
+      - 96
+    drawn: false
+    text: Dangerous Settlement Events
+    documentId: 0onhtdDZJATtRWak
+    img: icons/svg/d20-grey.svg
+    _id: ASvYhhXAKVv91kwT
+    flags: {}
+    _key: '!tables.results!veIcI8coYE6ZRqFG.ASvYhhXAKVv91kwT'
+  - type: 2
+    documentCollection: pf1-kingdom-sheet.event
+    weight: 1
+    range:
+      - 97
+      - 97
+    drawn: false
+    text: Bandit Activity + Reroll
+    documentId: q3B1jH6GdrKu1c49
+    img: icons/svg/clockwork.svg
+    _id: 1SvIRa27GpXt4O4q
+    flags: {}
+    _key: '!tables.results!veIcI8coYE6ZRqFG.1SvIRa27GpXt4O4q'
+  - type: 2
+    documentCollection: pf1-kingdom-sheet.event
+    weight: 1
+    range:
+      - 98
+      - 98
+    drawn: false
+    text: Squatters + Reroll
+    documentId: kCueJpP7PhiKillE
+    img: icons/svg/clockwork.svg
+    _id: GKi0EZGONUKXGt1P
+    flags: {}
+    _key: '!tables.results!veIcI8coYE6ZRqFG.GKi0EZGONUKXGt1P'
+  - type: 2
+    documentCollection: pf1-kingdom-sheet.event
+    weight: 1
+    range:
+      - 99
+      - 99
+    drawn: false
+    text: Monster Attack + Reroll
+    documentId: caYEvfZ8cdTWXGIl
+    img: icons/svg/clockwork.svg
+    _id: 5QSVolSsoVKZpKaO
+    flags: {}
+    _key: '!tables.results!veIcI8coYE6ZRqFG.5QSVolSsoVKZpKaO'
+  - type: 2
+    documentCollection: pf1-kingdom-sheet.event
+    weight: 1
+    range:
+      - 100
+      - 100
+    drawn: false
+    text: Vandals + Reroll
+    documentId: VAtEAOjaEKoNZMKk
+    img: icons/svg/clockwork.svg
+    _id: Q44rLEe8bjLaA7Mw
+    flags: {}
+    _key: '!tables.results!veIcI8coYE6ZRqFG.Q44rLEe8bjLaA7Mw'
+replacement: true
+displayRoll: true
+sort: 0
+formula: 1d100
+_key: '!tables!veIcI8coYE6ZRqFG'
+

@@ -12,44 +12,74 @@
   ],
 
   "esmodules": ["src/main.mjs"],
-  "styles": ["styles/common.css", "styles/item.css", "styles/actor.css"],
+  "styles": ["styles/common.css", "styles/actor.css"],
 
   "documentTypes": {
     "Actor": {
       "kingdom": {
-        "htmlFields": ["notes"]
+        "htmlFields": ["notes.value"]
       },
       "army": {
-        "htmlFields": ["notes"]
+        "htmlFields": ["notes.value"]
       }
     },
     "Item": {
       "building": {
-        "htmlFields": ["description"]
+        "htmlFields": ["description.value"]
       },
       "event": {
-        "htmlFields": ["description"]
+        "htmlFields": ["description.value"]
       },
       "improvement": {
-        "htmlFields": ["description"]
+        "htmlFields": ["description.value"]
       },
       "boon": {
-        "htmlFields": ["description"]
+        "htmlFields": ["description.value"]
       },
       "special": {
-        "htmlFields": ["description"]
+        "htmlFields": ["description.value"]
       },
       "tactic": {
-        "htmlFields": ["description"]
+        "htmlFields": ["description.value"]
       }
     }
   },
 
   "packs": [
     {
-      "name": "buildings",
+      "name": "boon",
+      "label": "Boons",
+      "path": "packs/boon",
+      "type": "Item",
+      "ownership": {
+        "PLAYER": "OBSERVER"
+      },
+      "system": "pf1"
+    },
+    {
+      "name": "tactic",
+      "label": "Tactics",
+      "path": "packs/tactic",
+      "type": "Item",
+      "ownership": {
+        "PLAYER": "OBSERVER"
+      },
+      "system": "pf1"
+    },
+    {
+      "name": "special",
+      "label": "Special Abilities",
+      "path": "packs/special",
+      "type": "Item",
+      "ownership": {
+        "PLAYER": "OBSERVER"
+      },
+      "system": "pf1"
+    },
+    {
+      "name": "building",
       "label": "Buildings",
-      "path": "packs/buildings",
+      "path": "packs/building",
       "type": "Item",
       "ownership": {
         "PLAYER": "OBSERVER"
@@ -57,9 +87,9 @@
       "system": "pf1"
     },
     {
-      "name": "events",
+      "name": "event",
       "label": "Events",
-      "path": "packs/events",
+      "path": "packs/event",
       "type": "Item",
       "ownership": {
         "PLAYER": "OBSERVER"
@@ -67,9 +97,9 @@
       "system": "pf1"
     },
     {
-      "name": "improvements",
+      "name": "improvement",
       "label": "Terrain Improvements",
-      "path": "packs/improvements",
+      "path": "packs/improvement",
       "type": "Item",
       "ownership": {
         "PLAYER": "OBSERVER"
@@ -86,8 +116,9 @@
       }
     },
     {
-      "name": "roll-tables",
+      "name": "roll-table",
       "label": "Roll Tables",
+      "path": "packs/roll-table",
       "type": "RollTable",
       "ownership": {
         "PLAYER": "OBSERVER"
@@ -97,7 +128,7 @@
   "packFolders": [
     {
       "name": "Kingmaker",
-      "packs": ["buildings", "events", "improvements", "rules", "roll-tables"]
+      "packs": ["boon", "tactic", "special", "building", "event", "improvement", "rules", "roll-table"]
     }
   ],
 
@@ -115,13 +146,20 @@
     "maximum": "11"
   },
   "relationships": {
+    "requires": [
+      {
+        "id": "lib-wrapper",
+        "type": "module"
+      }
+    ],
     "systems": [
       {
         "id": "pf1",
         "type": "system",
         "compatibility": {
           "minimum": "10",
-          "verified": "10.4"
+          "verified": "10.8",
+          "maximum": "10.x"
         }
       }
     ]

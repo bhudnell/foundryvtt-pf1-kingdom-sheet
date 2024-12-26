@@ -1,0 +1,13 @@
+type: pf1-kingdom-sheet.special
+name: Construct
+system:
+  description:
+    value: <p>The army is immune to disease, fear, paralysis, and poison.</p>
+  changes: []
+  contextNotes: []
+  sources: []
+_id: Y0uImPvM3TWuhlNv
+img: icons/svg/daze.svg
+sort: 0
+_key: '!items!Y0uImPvM3TWuhlNv'
+

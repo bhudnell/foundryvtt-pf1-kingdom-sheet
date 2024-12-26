@@ -1,0 +1,15 @@
+type: pf1-kingdom-sheet.special
+name: Favored Terrain
+system:
+  description:
+    value: >-
+      <p>Reduce an enemy’s bonuses from advantageous terrain and battlefield
+      advantage by half.</p>
+  changes: []
+  contextNotes: []
+  sources: []
+_id: Cp3kiB3fLaYpCYLD
+img: icons/svg/daze.svg
+sort: 0
+_key: '!items!Cp3kiB3fLaYpCYLD'
+

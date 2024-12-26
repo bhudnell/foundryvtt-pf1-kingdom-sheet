@@ -1,0 +1,25 @@
+type: pf1-kingdom-sheet.event
+name: Large Disaster
+system:
+  subType: active
+  continuous: false
+  description:
+    value: >-
+      <p>A fire, storm, earthquake, flood, massive sabotage, or other disaster
+      strikes! </p><hr /><p>Roll 1d6; on a result of 1–5, the disaster threatens
+      only 1 improved hex. On a result of 6, the disaster is widespread and
+      threatens 1d6 additional improved hexes adjacent to the target hex.
+      Attempt a Stability check for each threatened hex; failure means the
+      disaster destroys one terrain improvement in the hex and Unrest increases
+      by 1. (This Stability check represents your kingdom’s ability to prepare
+      for or react to the disaster as well as the structure’s ability to
+      withstand damage.)</p>
+  changes: []
+  contextNotes: []
+  sources: []
+  settlementId: ''
+_id: WB7O1v838cYAebhl
+img: icons/svg/clockwork.svg
+sort: 0
+_key: '!items!WB7O1v838cYAebhl'
+

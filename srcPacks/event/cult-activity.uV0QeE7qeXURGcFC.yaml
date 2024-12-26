@@ -1,0 +1,23 @@
+type: pf1-kingdom-sheet.event
+name: Cult Activity
+system:
+  subType: active
+  continuous: true
+  description:
+    value: >-
+      <p>A religious cult of an alignment opposed to the kingdom’s alignment
+      begins kidnapping, converting, or even publicly sacrificing citizens.
+      </p><hr /><p>Attempt a Loyalty check and a Stability check. If both
+      succeed, the cult is disbanded before your kingdom takes any penalties
+      from the event. For each of these checks you fail, Unrest increases by 1
+      and Productivity, Society, and Stability decrease by 1. If both checks
+      fail, the event continues in the next Event phase.</p>
+  changes: []
+  contextNotes: []
+  sources: []
+  settlementId: ''
+_id: uV0QeE7qeXURGcFC
+img: icons/svg/clockwork.svg
+sort: 0
+_key: '!items!uV0QeE7qeXURGcFC'
+

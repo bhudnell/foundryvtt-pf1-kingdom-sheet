@@ -1,0 +1,45 @@
+type: pf1-kingdom-sheet.building
+name: Waterfront
+system:
+  quantity: 1
+  lots: 4
+  cost: 90
+  description:
+    value: >-
+      <p>A port for waterborne arrival and departure, with facilities for
+      shipping and shipbuilding.</p><hr /><p><strong>Kingdom</strong> Economy
+      +4</p><p><strong>Discount</strong> Black Market, Guildhall, Market,
+      Pier</p><p><strong>Limit</strong> Adjacent to water district border, 1 per
+      settlement</p><p><strong>Upgrade From</strong>
+      Pier</p><p><strong>Special</strong> Base value +4,000 gp; halves Loyalty
+      penalty for Taxation edicts</p><p><strong>Magic Items</strong> 2 minor
+      wondrous items, 1 medium wondrous item, 1 major wondrous
+      item</p><p><strong>Settlement</strong> Productivity +2</p>
+  changes:
+    - _id: OUFtaJVa
+      formula: '4'
+      target: pf1ks_economy
+      type: untyped
+      operator: add
+      priority: 0
+    - _id: IR22GKkU
+      formula: '4000'
+      target: pf1ks_baseValue
+      type: untyped
+      operator: add
+      priority: 0
+    - _id: WAOythp6
+      formula: '2'
+      target: pf1ks_productivity
+      type: untyped
+      operator: add
+      priority: 0
+  contextNotes: []
+  sources: []
+  settlementId: ''
+  type: waterfront
+_id: eMAkZY31xceZRhxE
+img: modules/pf1-kingdom-sheet/assets/kingdom_building/Waterfront_01.png
+sort: 0
+_key: '!items!eMAkZY31xceZRhxE'
+

@@ -1,0 +1,28 @@
+type: pf1-kingdom-sheet.tactic
+name: Defensive Wall
+system:
+  disabled: true
+  description:
+    value: >-
+      <p>Your army fights defensively, taking actions to protect fellow units as
+      needed. Decrease its OM by 2, and increase its DV by 2.</p>
+  changes:
+    - _id: PR3SMs56
+      formula: '2'
+      target: pf1ks_dv
+      type: untyped
+      operator: add
+      priority: 0
+    - _id: LBMDLV2Q
+      formula: '-2'
+      target: pf1ks_om
+      type: untyped
+      operator: add
+      priority: 0
+  contextNotes: []
+  sources: []
+_id: eh0XSgGmg0iEPnax
+img: icons/svg/target.svg
+sort: 0
+_key: '!items!eh0XSgGmg0iEPnax'
+

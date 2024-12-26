@@ -1,0 +1,51 @@
+type: pf1-kingdom-sheet.building
+name: Jail
+system:
+  quantity: 1
+  lots: 1
+  cost: 14
+  description:
+    value: >-
+      <p>A fortified structure for confining criminals or dangerous
+      monsters.</p><hr /><p><strong>Kingdom</strong> Loyalty +2, Stability +2,
+      Unrest –2</p><p><strong>Settlement</strong> Crime –1, Law +1</p>
+  changes:
+    - _id: P3sAJ4fg
+      formula: '2'
+      target: pf1ks_loyalty
+      type: untyped
+      operator: add
+      priority: 0
+    - _id: p44r9MjK
+      formula: '2'
+      target: pf1ks_stability
+      type: untyped
+      operator: add
+      priority: 0
+    - _id: MK6twTBL
+      formula: '-2'
+      target: pf1ks_unrest_drop
+      type: untyped
+      operator: add
+      priority: 0
+    - _id: KAhjvTQQ
+      formula: '-1'
+      target: pf1ks_crime
+      type: untyped
+      operator: add
+      priority: 0
+    - _id: PJiaKo4o
+      formula: '1'
+      target: pf1ks_law
+      type: untyped
+      operator: add
+      priority: 0
+  contextNotes: []
+  sources: []
+  settlementId: ''
+  type: jail
+_id: zSVHCA5P3ULiZ5l6
+img: modules/pf1-kingdom-sheet/assets/kingdom_building/Jail.png
+sort: 0
+_key: '!items!zSVHCA5P3ULiZ5l6'
+

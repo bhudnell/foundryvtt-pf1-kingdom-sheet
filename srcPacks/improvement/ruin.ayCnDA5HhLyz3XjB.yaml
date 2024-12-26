@@ -1,0 +1,22 @@
+type: pf1-kingdom-sheet.improvement
+name: Ruin
+system:
+  subType: special
+  quantity: 1
+  description:
+    value: >-
+      <p>A Ruin is a partially destroyed building. </p><hr /><p>If you claim a
+      hex containing a Ruin and build a settlement at the Ruin’s location, you
+      can use the Ruin as the basis of an appropriate type of building (as
+      determined by the GM), reducing the cost of that building by half.
+      Alternatively, you can salvage building materials from the Ruin, reducing
+      the cost of 1 building in that hex by 1d4 BP.</p>
+  changes: []
+  contextNotes: []
+  sources: []
+  settlementId: ''
+_id: ayCnDA5HhLyz3XjB
+img: icons/svg/windmill.svg
+sort: 0
+_key: '!items!ayCnDA5HhLyz3XjB'
+

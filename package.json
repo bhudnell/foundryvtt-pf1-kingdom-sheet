@@ -6,7 +6,7 @@
   "license": "MIT",
   "main": "src/main.mjs",
   "scripts": {
-    "lint": "eslint --fix .",
+    "lint": "eslint --fix **/*.{mjs,js}",
     "prettier": "prettier --write .",
     "prepare": "husky",
     "unpack": "node ./tools/extractPacks.mjs",
@@ -23,7 +23,7 @@
     "prettier": "^3.2.4"
   },
   "lint-staged": {
-    "*.{mjs,js,ts}": [
+    "*.{mjs,js}": [
       "eslint --fix --max-warnings=0",
       "prettier --write"
     ],

@@ -1,0 +1,43 @@
+type: pf1-kingdom-sheet.building
+name: Market
+system:
+  quantity: 1
+  lots: 2
+  cost: 48
+  description:
+    value: >-
+      <p>An open area for traveling merchants and bargain hunters.</p><hr
+      /><p><strong>Kingdom</strong> Economy +2, Stability
+      +2</p><p><strong>Discount</strong> Black Market, Inn,
+      Shop</p><p><strong>Limit</strong> Adjacent to 2
+      Houses</p><p><strong>Upgrade From</strong>
+      Shop</p><p><strong>Special</strong> Base value +2,000
+      gp</p><p><strong>Magic Items</strong> 2 minor wondrous items</p>
+  changes:
+    - _id: FK9z2WjP
+      formula: '2'
+      target: pf1ks_economy
+      type: untyped
+      operator: add
+      priority: 0
+    - _id: P0twQgaN
+      formula: '2'
+      target: pf1ks_stability
+      type: untyped
+      operator: add
+      priority: 0
+    - _id: ISGDu4qQ
+      formula: '2000'
+      target: pf1ks_baseValue
+      type: untyped
+      operator: add
+      priority: 0
+  contextNotes: []
+  sources: []
+  settlementId: ''
+  type: market
+_id: XEyT7VkMh7hxdiOA
+img: modules/pf1-kingdom-sheet/assets/kingdom_building/Market.png
+sort: 0
+_key: '!items!XEyT7VkMh7hxdiOA'
+

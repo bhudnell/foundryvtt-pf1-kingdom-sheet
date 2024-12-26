@@ -1,0 +1,17 @@
+type: pf1-kingdom-sheet.special
+name: Aura of Courage
+system:
+  description:
+    value: >-
+      <p>The army is immune to fear effects and automatically succeeds at Morale
+      checks to avoid a rout.</p>
+  changes: []
+  contextNotes:
+    - text: immune to fear; automatically succeeds to avoid routs
+      target: pf1ks_morale
+  sources: []
+_id: aOgUUoUJWrxEFvAF
+img: icons/svg/daze.svg
+sort: 0
+_key: '!items!aOgUUoUJWrxEFvAF'
+

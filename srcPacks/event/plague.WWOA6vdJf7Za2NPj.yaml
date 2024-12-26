@@ -1,0 +1,22 @@
+type: pf1-kingdom-sheet.event
+name: Plague
+system:
+  subType: active
+  continuous: true
+  description:
+    value: ''
+  changes:
+    - _id: u8aCJc4K
+      formula: '-2'
+      target: pf1ks_stability
+      type: untyped
+      operator: add
+      priority: 0
+  contextNotes: []
+  sources: []
+  settlementId: ''
+_id: WWOA6vdJf7Za2NPj
+img: icons/svg/clockwork.svg
+sort: 0
+_key: '!items!WWOA6vdJf7Za2NPj'
+

@@ -1,0 +1,27 @@
+type: pf1-kingdom-sheet.event
+name: Public Scandal
+system:
+  subType: active
+  continuous: false
+  description:
+    value: >-
+      <p>One of your leaders is implicated in a crime or an embarrassing
+      situation, such as an affair with another leader’s spouse. </p><hr
+      /><p>Infamy increases by 1. Attempt a Loyalty check. If you fail, Unrest
+      increases by 2 and you take a –4 penalty on all Loyalty checks until the
+      next Event phase.</p>
+  changes:
+    - _id: DDJYpLPe
+      formula: '1'
+      target: pf1ks_infamy
+      type: untyped
+      operator: add
+      priority: 0
+  contextNotes: []
+  sources: []
+  settlementId: ''
+_id: QMP8EaQQfvaMBzgV
+img: icons/svg/clockwork.svg
+sort: 0
+_key: '!items!QMP8EaQQfvaMBzgV'
+

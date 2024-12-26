@@ -1,0 +1,18 @@
+type: pf1-kingdom-sheet.tactic
+name: Dirty Fighters
+system:
+  disabled: true
+  description:
+    value: >-
+      <p>Your army uses trickery and unfair tactics to gain an advantage at the
+      start of a battle. For one Melee phase this battle, its OM increases by 6.
+      (After that Melee phase, the opposing army knows to be ready for such
+      tricks.)</p>
+  changes: []
+  contextNotes: []
+  sources: []
+_id: pS9EU63GhJgHkoxZ
+img: icons/svg/target.svg
+sort: 0
+_key: '!items!pS9EU63GhJgHkoxZ'
+

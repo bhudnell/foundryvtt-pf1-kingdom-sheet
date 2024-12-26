@@ -1,0 +1,26 @@
+type: pf1-kingdom-sheet.building
+name: Graveyard
+system:
+  quantity: 1
+  lots: 1
+  cost: 4
+  description:
+    value: >-
+      <p>A plot of land to honor and bury the dead.</p><hr
+      /><p><strong>Kingdom</strong> Loyalty +1</p>
+  changes:
+    - _id: bDRewBlL
+      formula: '1'
+      target: pf1ks_loyalty
+      type: untyped
+      operator: add
+      priority: 0
+  contextNotes: []
+  sources: []
+  settlementId: ''
+  type: graveyard
+_id: 100W30YOUrSjNmFU
+img: modules/pf1-kingdom-sheet/assets/kingdom_building/Graveyard.png
+sort: 0
+_key: '!items!100W30YOUrSjNmFU'
+

@@ -1,0 +1,18 @@
+type: pf1-kingdom-sheet.tactic
+name: Cavalry Experts
+system:
+  disabled: true
+  description:
+    value: >-
+      <p>Your army’s OM increases by 2 against armies that aren’t mounted. The
+      army must have the mount resource to use this tactic.</p>
+  changes: []
+  contextNotes:
+    - text: +[[2]] vs non-mounted armies
+      target: pf1ks_om
+  sources: []
+_id: 3BSj9M8XlWRJaM1d
+img: icons/svg/target.svg
+sort: 0
+_key: '!items!3BSj9M8XlWRJaM1d'
+

@@ -1,0 +1,34 @@
+type: pf1-kingdom-sheet.improvement
+name: Sawmill
+system:
+  subType: general
+  quantity: 1
+  description:
+    value: >-
+      <p>A sawmill centralizes the activities of loggers and turns trees into
+      lumber for use in building and crafting.</p><hr
+      /><p><strong>Terrain</strong>: Forest or
+      jungle.</p><p><strong>Effect</strong>: Stability +1, earn +1 BP per turn
+      when collecting taxes during the Income
+      phase.</p><p><strong>Cost</strong>: 3 BP.</p>
+  changes:
+    - _id: 6kURHH5n
+      formula: '1'
+      target: pf1ks_stability
+      type: untyped
+      operator: add
+      priority: 0
+    - _id: RTjKV5HL
+      formula: '1'
+      target: pf1ks_bonusBP
+      type: untyped
+      operator: add
+      priority: 0
+  contextNotes: []
+  sources: []
+  settlementId: ''
+_id: JTlt9sUeCzhivHIM
+img: icons/svg/windmill.svg
+sort: 0
+_key: '!items!JTlt9sUeCzhivHIM'
+

@@ -1,0 +1,15 @@
+type: pf1-kingdom-sheet.special
+name: Blindsense
+system:
+  description:
+    value: >-
+      <p>The army reduces its OM and DV penalties by half from darkness,
+      invisibility, and weather.</p>
+  changes: []
+  contextNotes: []
+  sources: []
+_id: OU7r84HpqZZBLHsg
+img: icons/svg/daze.svg
+sort: 0
+_key: '!items!OU7r84HpqZZBLHsg'
+

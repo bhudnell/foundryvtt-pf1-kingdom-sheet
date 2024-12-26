@@ -1,0 +1,29 @@
+type: pf1-kingdom-sheet.tactic
+name: Expert Flankers
+system:
+  disabled: true
+  description:
+    value: >-
+      <p>Your army is skilled at surrounding the foe and distracting them, at
+      the cost of spreading out too much and being more vulnerable. Increase its
+      OM by 2, and decrease its DV by 2.</p>
+  changes:
+    - _id: DmhvdjMG
+      formula: '-2'
+      target: pf1ks_dv
+      type: untyped
+      operator: add
+      priority: 0
+    - _id: gop6mzPL
+      formula: '2'
+      target: pf1ks_om
+      type: untyped
+      operator: add
+      priority: 0
+  contextNotes: []
+  sources: []
+_id: yV9tPdSvRVj9jYgG
+img: icons/svg/target.svg
+sort: 0
+_key: '!items!yV9tPdSvRVj9jYgG'
+

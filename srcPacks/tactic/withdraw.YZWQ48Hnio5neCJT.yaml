@@ -1,0 +1,36 @@
+type: pf1-kingdom-sheet.tactic
+name: Withdraw
+system:
+  disabled: true
+  description:
+    value: >-
+      <p>Your army tries to escape from all armies attacking it. The army
+      attempts an opposed Morale check against each army attacking it to
+      maintain discipline (any army may voluntarily fail this check), but
+      doesn’t need to attempt the usual Morale check to change tactics when
+      switching to withdraw. If all of these checks are successful, your army
+      may withdraw from the battlefield or treat the phase as a Ranged phase. If
+      only some are successful, you may withdraw or treat the phase as a Ranged
+      phase, but enemy armies in the battle may attack you as if you were in
+      Melee. Whether or not the checks are successful, reduce your army’s OM and
+      DV by 2 for the rest of this phase.</p>
+  changes:
+    - _id: IFuKLFEg
+      formula: '-2'
+      target: pf1ks_dv
+      type: untyped
+      operator: add
+      priority: 0
+    - _id: LE6KxLdL
+      formula: '-2'
+      target: pf1ks_om
+      type: untyped
+      operator: add
+      priority: 0
+  contextNotes: []
+  sources: []
+_id: YZWQ48Hnio5neCJT
+img: icons/svg/target.svg
+sort: 0
+_key: '!items!YZWQ48Hnio5neCJT'
+

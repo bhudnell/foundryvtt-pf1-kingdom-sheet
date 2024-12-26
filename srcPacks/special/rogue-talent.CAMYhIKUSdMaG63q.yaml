@@ -1,0 +1,13 @@
+type: pf1-kingdom-sheet.special
+name: Rogue Talent
+system:
+  description:
+    value: <p>The army gains the bleed ability.</p>
+  changes: []
+  contextNotes: []
+  sources: []
+_id: CAMYhIKUSdMaG63q
+img: icons/svg/daze.svg
+sort: 0
+_key: '!items!CAMYhIKUSdMaG63q'
+

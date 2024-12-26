@@ -1,0 +1,19 @@
+type: pf1-kingdom-sheet.special
+name: Trample
+system:
+  description:
+    value: <p>The army increases its OM by 1.</p>
+  changes:
+    - _id: 9hjOxNcc
+      formula: '1'
+      target: pf1ks_om
+      type: untyped
+      operator: add
+      priority: 0
+  contextNotes: []
+  sources: []
+_id: ZfC2LkQTeqNzIaZi
+img: icons/svg/daze.svg
+sort: 0
+_key: '!items!ZfC2LkQTeqNzIaZi'
+

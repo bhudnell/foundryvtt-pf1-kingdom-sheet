@@ -1,0 +1,54 @@
+type: pf1-kingdom-sheet.building
+name: Guildhall
+system:
+  quantity: 1
+  lots: 2
+  cost: 34
+  description:
+    value: >-
+      <p>The headquarters for a guild or similar organization.</p><hr
+      /><p><strong>Kingdom</strong> Economy +2, Loyalty
+      +2</p><p><strong>Discount</strong> Pier, Stable, Trade
+      Shop</p><p><strong>Upgrade From</strong> Trade
+      Shop</p><p><strong>Special</strong> Base value +1,000
+      gp</p><p><strong>Settlement</strong> Law +1, Productivity +2</p>
+  changes:
+    - _id: k2crVqXu
+      formula: '2'
+      target: pf1ks_economy
+      type: untyped
+      operator: add
+      priority: 0
+    - _id: WGVOvQfe
+      formula: '2'
+      target: pf1ks_loyalty
+      type: untyped
+      operator: add
+      priority: 0
+    - _id: jbVRzIaa
+      formula: '1000'
+      target: pf1ks_baseValue
+      type: untyped
+      operator: add
+      priority: 0
+    - _id: cl82haep
+      formula: '1'
+      target: pf1ks_law
+      type: untyped
+      operator: add
+      priority: 0
+    - _id: uZAsOBYV
+      formula: '2'
+      target: pf1ks_productivity
+      type: untyped
+      operator: add
+      priority: 0
+  contextNotes: []
+  sources: []
+  settlementId: ''
+  type: guildhall
+_id: BITpOFHLnxq7ZNWI
+img: modules/pf1-kingdom-sheet/assets/kingdom_building/Guildhall.png
+sort: 0
+_key: '!items!BITpOFHLnxq7ZNWI'
+

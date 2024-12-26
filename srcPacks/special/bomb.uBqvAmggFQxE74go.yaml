@@ -1,0 +1,17 @@
+type: pf1-kingdom-sheet.special
+name: Bomb
+system:
+  description:
+    value: >-
+      <p>The army can make ranged attacks. In the Ranged and Melee phases, it
+      deals +1d4 points of damage.</p>
+  changes: []
+  contextNotes:
+    - text: '[[1d4]] damage (bomb)'
+      target: pf1ks_damage
+  sources: []
+_id: uBqvAmggFQxE74go
+img: icons/svg/daze.svg
+sort: 0
+_key: '!items!uBqvAmggFQxE74go'
+

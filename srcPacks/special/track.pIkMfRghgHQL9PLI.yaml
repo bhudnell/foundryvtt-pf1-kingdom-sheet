@@ -1,0 +1,16 @@
+type: pf1-kingdom-sheet.special
+name: Track
+system:
+  description:
+    value: >-
+      <p>The army adds its ACR to Morale checks to prevent an army from using
+      the withdraw tactic and to its DV to prevent ambushes. It reduces the
+      damage it deals in fog by one quarter instead of one half.</p>
+  changes: []
+  contextNotes: []
+  sources: []
+_id: pIkMfRghgHQL9PLI
+img: icons/svg/daze.svg
+sort: 0
+_key: '!items!pIkMfRghgHQL9PLI'
+

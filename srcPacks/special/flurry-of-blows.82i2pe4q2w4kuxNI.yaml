@@ -1,0 +1,15 @@
+type: pf1-kingdom-sheet.special
+name: Flurry of Blows
+system:
+  description:
+    value: >-
+      <p>In the first Melee phase, increase the army’s OM by 1. In the second
+      and subsequent Melee phases, increase it by 2 instead.</p>
+  changes: []
+  contextNotes: []
+  sources: []
+_id: 82i2pe4q2w4kuxNI
+img: icons/svg/daze.svg
+sort: 0
+_key: '!items!82i2pe4q2w4kuxNI'
+

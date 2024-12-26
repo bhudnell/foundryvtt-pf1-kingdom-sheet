@@ -1,0 +1,19 @@
+type: pf1-kingdom-sheet.boon
+name: Triage
+system:
+  description:
+    value: >-
+      <p>Whether using magic, alchemy, herbalism, or folk knowledge, the
+      commander drills the army in using emergency methods to treat wounds. Once
+      per battle, the army may take a –4 penalty on its Offense check during the
+      Ranged or Melee phase and heal damage equal to half its ACR. If the army
+      has the healing potions resource, it also gains the healing from this boon
+      (without the Offense check penalty) when it uses healing potions.</p>
+  changes: []
+  contextNotes: []
+  sources: []
+_id: Ov7EmbPNQIUDkYBr
+img: icons/svg/upgrade.svg
+sort: 0
+_key: '!items!Ov7EmbPNQIUDkYBr'
+

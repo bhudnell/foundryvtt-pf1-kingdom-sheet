@@ -1,0 +1,41 @@
+type: pf1-kingdom-sheet.building
+name: Shop
+system:
+  quantity: 1
+  lots: 1
+  cost: 8
+  description:
+    value: >-
+      <p>A general store.</p><hr /><p><strong>Kingdom</strong> Economy
+      +1</p><p><strong>Limit</strong> Adjacent to 1 House or
+      Mansion</p><p><strong>Upgrade To</strong> Luxury Store,
+      Market</p><p><strong>Special</strong> Base value +500
+      gp</p><p><strong>Settlement</strong> Productivity +1</p>
+  changes:
+    - _id: P85VO5MC
+      formula: '1'
+      target: pf1ks_economy
+      type: untyped
+      operator: add
+      priority: 0
+    - _id: ZRNeU8hB
+      formula: '500'
+      target: pf1ks_baseValue
+      type: untyped
+      operator: add
+      priority: 0
+    - _id: 8cq7enQW
+      formula: '1'
+      target: pf1ks_productivity
+      type: untyped
+      operator: add
+      priority: 0
+  contextNotes: []
+  sources: []
+  settlementId: ''
+  type: shop
+_id: XWLHTfkb9N6nAW7I
+img: modules/pf1-kingdom-sheet/assets/kingdom_building/Shop.png
+sort: 0
+_key: '!items!XWLHTfkb9N6nAW7I'
+

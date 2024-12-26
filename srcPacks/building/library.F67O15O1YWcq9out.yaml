@@ -1,0 +1,39 @@
+type: pf1-kingdom-sheet.building
+name: Library
+system:
+  quantity: 1
+  lots: 1
+  cost: 6
+  description:
+    value: >-
+      <p>A large building containing an archive of books.</p><hr
+      /><p><strong>Kingdom</strong> Economy +1, Loyalty +1</p><p><strong>Upgrade
+      To</strong> Academy</p><p><strong>Settlement</strong> Lore +1</p>
+  changes:
+    - _id: 0s3NaCwe
+      formula: '1'
+      target: pf1ks_economy
+      type: untyped
+      operator: add
+      priority: 0
+    - _id: G9FYHqlO
+      formula: '1'
+      target: pf1ks_loyalty
+      type: untyped
+      operator: add
+      priority: 0
+    - _id: oXzoBPn9
+      formula: '1'
+      target: pf1ks_lore
+      type: untyped
+      operator: add
+      priority: 0
+  contextNotes: []
+  sources: []
+  settlementId: ''
+  type: library
+_id: F67O15O1YWcq9out
+img: modules/pf1-kingdom-sheet/assets/kingdom_building/Library.png
+sort: 0
+_key: '!items!F67O15O1YWcq9out'
+

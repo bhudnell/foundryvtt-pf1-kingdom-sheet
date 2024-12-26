@@ -1,0 +1,23 @@
+type: pf1-kingdom-sheet.boon
+name: Loyalty
+system:
+  description:
+    value: >-
+      <p>The commander inspires great loyalty in the army. The army gains a +2
+      bonus on all Morale checks. a commander must have Leadership 6 or higher
+      to select this boon. At Leadership 12 or higher, this bonus increases to
+      +4.</p>
+  changes:
+    - _id: obV0CTru
+      formula: '@commander.leadership > 11 ? 4 : 2'
+      target: pf1ks_morale
+      type: untyped
+      operator: add
+      priority: 0
+  contextNotes: []
+  sources: []
+_id: Bf9D9pNe57xz2KXs
+img: icons/svg/upgrade.svg
+sort: 0
+_key: '!items!Bf9D9pNe57xz2KXs'
+

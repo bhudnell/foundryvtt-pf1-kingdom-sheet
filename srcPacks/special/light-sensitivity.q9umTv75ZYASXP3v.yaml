@@ -1,0 +1,13 @@
+type: pf1-kingdom-sheet.special
+name: Light Sensitivity
+system:
+  description:
+    value: <p>The army decreases its OM and DV by 1 in bright light.</p>
+  changes: []
+  contextNotes: []
+  sources: []
+_id: q9umTv75ZYASXP3v
+img: icons/svg/daze.svg
+sort: 0
+_key: '!items!q9umTv75ZYASXP3v'
+

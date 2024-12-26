@@ -1,0 +1,48 @@
+type: pf1-kingdom-sheet.building
+name: Sewer System
+system:
+  quantity: 1
+  lots: 0
+  cost: 24
+  description:
+    value: >-
+      <p>An underground sanitation system that keeps the settlement clean,
+      though it may become home to criminals and monsters.</p><hr
+      /><p><strong>Kingdom</strong> Loyalty +1, Stability
+      +2</p><p><strong>Discount</strong> Cistern,
+      Dump</p><p><strong>Limit</strong> 1 per
+      district</p><p><strong>Settlement</strong> Crime +1, Productivity +1</p>
+  changes:
+    - _id: UXIveN9F
+      formula: '1'
+      target: pf1ks_loyalty
+      type: untyped
+      operator: add
+      priority: 0
+    - _id: mBt8nbyE
+      formula: '2'
+      target: pf1ks_stability
+      type: untyped
+      operator: add
+      priority: 0
+    - _id: ZBqOSdup
+      formula: '1'
+      target: pf1ks_crime
+      type: untyped
+      operator: add
+      priority: 0
+    - _id: IUBMYTCw
+      formula: '1'
+      target: pf1ks_productivity
+      type: untyped
+      operator: add
+      priority: 0
+  contextNotes: []
+  sources: []
+  settlementId: ''
+  type: sewer_system
+_id: lIOoRZ1ZfVW4BU4G
+img: modules/pf1-kingdom-sheet/assets/kingdom_building/Sewer%20System.png
+sort: 0
+_key: '!items!lIOoRZ1ZfVW4BU4G'
+

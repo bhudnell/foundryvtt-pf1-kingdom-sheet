@@ -1,0 +1,28 @@
+type: pf1-kingdom-sheet.tactic
+name: Relentless Brutality
+system:
+  disabled: true
+  description:
+    value: >-
+      <p>Your army throws caution to the wind and attacks with savage and gory
+      vigor. Increase its OM by 4, and decrease its DV by 4.</p>
+  changes:
+    - _id: TuhRwXpO
+      formula: '-4'
+      target: pf1ks_dv
+      type: untyped
+      operator: add
+      priority: 0
+    - _id: LqhRfI7D
+      formula: '4'
+      target: pf1ks_om
+      type: untyped
+      operator: add
+      priority: 0
+  contextNotes: []
+  sources: []
+_id: wkL23ICAn2PDM8m8
+img: icons/svg/target.svg
+sort: 0
+_key: '!items!wkL23ICAn2PDM8m8'
+

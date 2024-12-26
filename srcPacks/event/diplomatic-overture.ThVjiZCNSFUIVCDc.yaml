@@ -1,0 +1,22 @@
+type: pf1-kingdom-sheet.event
+name: Diplomatic Overture
+system:
+  subType: active
+  continuous: false
+  description:
+    value: >-
+      <p>A nearby kingdom sends an ambassador to you to negotiate an embassy
+      (01–60), treaty (61–90), or alliance (91–100), as if using a diplomatic
+      edict.</p><hr /><p> If the GM doesn’t have an appropriate kingdom in mind
+      when this event occurs, determine the kingdom’s alignment randomly; it may
+      be hostile or friendly. The ambassador bears 1d4 BP worth of gifts for
+      your kingdom.</p>
+  changes: []
+  contextNotes: []
+  sources: []
+  settlementId: ''
+_id: ThVjiZCNSFUIVCDc
+img: icons/svg/clockwork.svg
+sort: 0
+_key: '!items!ThVjiZCNSFUIVCDc'
+

@@ -1,0 +1,15 @@
+type: pf1-kingdom-sheet.special
+name: Armor Training
+system:
+  description:
+    value: >-
+      <p>This class feature adjusts the base speed of units in medium armor;
+      adjust the army’s speed accordingly.</p>
+  changes: []
+  contextNotes: []
+  sources: []
+_id: 6TCRBVhO0VOplsE8
+img: icons/svg/daze.svg
+sort: 0
+_key: '!items!6TCRBVhO0VOplsE8'
+

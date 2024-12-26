@@ -1,0 +1,34 @@
+type: pf1-kingdom-sheet.building
+name: Herbalist
+system:
+  quantity: 1
+  lots: 1
+  cost: 10
+  description:
+    value: >-
+      <p>The workshop and home of a gardener, healer, or poisoner.</p><hr
+      /><p><strong>Kingdom</strong> Loyalty +1, Stability
+      +1</p><p><strong>Limit</strong> Adjacent to 1 House</p><p><strong>Magic
+      Items</strong> 1 minor potion or wondrous item</p>
+  changes:
+    - _id: L7YQrFTc
+      formula: '1'
+      target: pf1ks_loyalty
+      type: untyped
+      operator: add
+      priority: 0
+    - _id: UDV2yCZe
+      formula: '1'
+      target: pf1ks_stability
+      type: untyped
+      operator: add
+      priority: 0
+  contextNotes: []
+  sources: []
+  settlementId: ''
+  type: herbalist
+_id: bQqoJlG1E3WC8sJW
+img: modules/pf1-kingdom-sheet/assets/kingdom_building/Herbalist.png
+sort: 0
+_key: '!items!bQqoJlG1E3WC8sJW'
+

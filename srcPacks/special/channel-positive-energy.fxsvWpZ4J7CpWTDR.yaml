@@ -1,0 +1,18 @@
+type: pf1-kingdom-sheet.special
+name: Channel Positive Energy
+system:
+  description:
+    value: >-
+      <p>In the Melee phase, the army deals +1d4 points of damage against an
+      undead target army. Instead of dealing extra damage to an enemy army, the
+      army can use this ability to heal itself; if it takes an OM penalty equal
+      to half its ACR for one Ranged or Melee phase, it heals a number of hit
+      points equal to its ACR.</p>
+  changes: []
+  contextNotes: []
+  sources: []
+_id: fxsvWpZ4J7CpWTDR
+img: icons/svg/daze.svg
+sort: 0
+_key: '!items!fxsvWpZ4J7CpWTDR'
+

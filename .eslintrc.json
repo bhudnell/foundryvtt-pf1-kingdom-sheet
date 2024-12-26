@@ -20,7 +20,7 @@
     "no-duplicate-imports": "warn",
     "curly": "warn",
     "dot-notation": "warn",
-    "eqeqeq": "warn",
+    "eqeqeq": ["warn", "smart"],
     "no-else-return": "warn",
     "no-unused-vars": "off",
     "import/order": [
@@ -54,6 +54,7 @@
     "ChatMessage": "readonly",
     "JournalEntryPage": "readonly",
     "pf1": "readonly",
-    "$": "readonly"
+    "pf1ks": "readonly",
+    "libWrapper": "readonly"
   }
 }

@@ -1,0 +1,13 @@
+type: pf1-kingdom-sheet.special
+name: Ki Pool
+system:
+  description:
+    value: <p>The army’s attacks count as magic weapons.</p>
+  changes: []
+  contextNotes: []
+  sources: []
+_id: ug9TOf0YhFNDdwhk
+img: icons/svg/daze.svg
+sort: 0
+_key: '!items!ug9TOf0YhFNDdwhk'
+

@@ -1,0 +1,34 @@
+type: pf1-kingdom-sheet.building
+name: Exotic Artisan
+system:
+  quantity: 1
+  lots: 1
+  cost: 10
+  description:
+    value: >-
+      <p>The shop and home of a jeweler, tinker, glassblower, or the
+      like.</p><hr /><p><strong>Kingdom</strong> Economy +1, Stability
+      +1</p><p><strong>Limit</strong> Adjacent to 1 House</p><p><strong>Magic
+      Items</strong> 1 minor ring, wand, or wondrous item</p>
+  changes:
+    - _id: ioiwshZy
+      formula: '1'
+      target: pf1ks_economy
+      type: untyped
+      operator: add
+      priority: 0
+    - _id: 57uORxuD
+      formula: '1'
+      target: pf1ks_stability
+      type: untyped
+      operator: add
+      priority: 0
+  contextNotes: []
+  sources: []
+  settlementId: ''
+  type: exotic_artisan
+_id: QNlYZ9BihtJpxAqH
+img: modules/pf1-kingdom-sheet/assets/kingdom_building/Exotic%20Artisan.png
+sort: 0
+_key: '!items!QNlYZ9BihtJpxAqH'
+

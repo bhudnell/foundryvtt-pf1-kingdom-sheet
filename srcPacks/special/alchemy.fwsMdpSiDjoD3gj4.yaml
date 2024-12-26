@@ -1,0 +1,15 @@
+type: pf1-kingdom-sheet.special
+name: Alchemy
+system:
+  description:
+    value: >-
+      <p>Once per battle, the army can heal itself as if it had the healing
+      potions resource. This doesn’t cost BP.</p>
+  changes: []
+  contextNotes: []
+  sources: []
+_id: fwsMdpSiDjoD3gj4
+img: icons/svg/daze.svg
+sort: 0
+_key: '!items!fwsMdpSiDjoD3gj4'
+

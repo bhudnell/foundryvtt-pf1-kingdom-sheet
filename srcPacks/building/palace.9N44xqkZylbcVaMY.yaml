@@ -1,0 +1,61 @@
+type: pf1-kingdom-sheet.building
+name: Palace
+system:
+  quantity: 1
+  lots: 4
+  cost: 108
+  description:
+    value: >-
+      <p>A grand edifice and walled grounds demonstrating one's wealth, power,
+      and authority to the world.</p><hr /><p><strong>Kingdom</strong> Economy
+      +2, Loyalty +6, Stability +2; Fame +1</p><p><strong>Discount</strong>
+      Mansion, Mint, Noble Villa</p><p><strong>Special</strong> Base value
+      +1,000 gp; you may make two special edicts per turn, but take a –2 penalty
+      on kingdom checks associated with each special
+      edict</p><p><strong>Settlement</strong> Law +2</p>
+  changes:
+    - _id: Xe2aa4ci
+      formula: '2'
+      target: pf1ks_economy
+      type: untyped
+      operator: add
+      priority: 0
+    - _id: 51rzebSr
+      formula: '6'
+      target: pf1ks_loyalty
+      type: untyped
+      operator: add
+      priority: 0
+    - _id: NldQdV3L
+      formula: '2'
+      target: pf1ks_stability
+      type: untyped
+      operator: add
+      priority: 0
+    - _id: uTfUEV3s
+      formula: '1'
+      target: pf1ks_fame
+      type: untyped
+      operator: add
+      priority: 0
+    - _id: c9NAfVfj
+      formula: '1000'
+      target: pf1ks_baseValue
+      type: untyped
+      operator: add
+      priority: 0
+    - _id: 89mFWRSn
+      formula: '2'
+      target: pf1ks_law
+      type: untyped
+      operator: add
+      priority: 0
+  contextNotes: []
+  sources: []
+  settlementId: ''
+  type: palace
+_id: 9N44xqkZylbcVaMY
+img: modules/pf1-kingdom-sheet/assets/kingdom_building/Palace.png
+sort: 0
+_key: '!items!9N44xqkZylbcVaMY'
+

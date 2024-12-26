@@ -1,0 +1,40 @@
+type: pf1-kingdom-sheet.building
+name: Tannery
+system:
+  quantity: 1
+  lots: 1
+  cost: 6
+  description:
+    value: >-
+      <p>A structure that prepares hides and leather.</p><hr
+      /><p><strong>Kingdom</strong> Economy +1, Stability
+      +1</p><p><strong>Limit</strong> Cannot be adjacent to House, Mansion,
+      Noble Villa, or Tenement</p><p><strong>Settlement</strong> Society –1</p>
+  changes:
+    - _id: 0xs7mK3o
+      formula: '1'
+      target: pf1ks_economy
+      type: untyped
+      operator: add
+      priority: 0
+    - _id: YwRKeiAs
+      formula: '1'
+      target: pf1ks_stability
+      type: untyped
+      operator: add
+      priority: 0
+    - _id: uF6DXbtr
+      formula: '-1'
+      target: pf1ks_society
+      type: untyped
+      operator: add
+      priority: 0
+  contextNotes: []
+  sources: []
+  settlementId: ''
+  type: tannery
+_id: Pwbn28tICOb62wxQ
+img: modules/pf1-kingdom-sheet/assets/kingdom_building/Tannery.png
+sort: 0
+_key: '!items!Pwbn28tICOb62wxQ'
+

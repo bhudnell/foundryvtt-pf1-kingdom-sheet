@@ -1,0 +1,29 @@
+type: pf1-kingdom-sheet.building
+name: Cistern
+system:
+  quantity: 1
+  lots: 0
+  cost: 6
+  description:
+    value: >-
+      <p>Contains a safe supply of fresh water for the settlement.</p><hr
+      /><p><strong>Kingdom</strong> Stability +1</p><p><strong>Limit</strong>
+      Cannot be adjacent to a Dump, Graveyard, Stable, Stockyard, or
+      Tannery</p><p><strong>Special</strong> Can share lot with another
+      building</p>
+  changes:
+    - _id: wuoguW2Z
+      formula: '1'
+      target: pf1ks_stability
+      type: untyped
+      operator: add
+      priority: 0
+  contextNotes: []
+  sources: []
+  settlementId: ''
+  type: cistern
+_id: M9GVE8fsIf1TpNOh
+img: modules/pf1-kingdom-sheet/assets/kingdom_building/Cistern.png
+sort: 0
+_key: '!items!M9GVE8fsIf1TpNOh'
+

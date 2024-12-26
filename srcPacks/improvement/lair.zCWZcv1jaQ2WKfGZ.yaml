@@ -1,0 +1,29 @@
+type: pf1-kingdom-sheet.improvement
+name: Lair
+system:
+  subType: special
+  quantity: 1
+  description:
+    value: >-
+      <p>A Lair is usually a cave or defensible shelter that can be used as a
+      defensive fallback point, a storage location, or even a guardpost or
+      prison. </p><hr /><p>If you claim a hex with a Lair, Stability increases
+      by 1. If you construct a Fort or Watchtower over a Lair, its Defense
+      increases by 1. At the GM’s option, a Lair may allow access to an
+      underground cavern hex (see Table 4–6: Terrain and Terrain
+      Improvements).</p>
+  changes:
+    - _id: Elzf16Y6
+      formula: '1'
+      target: pf1ks_stability
+      type: untyped
+      operator: add
+      priority: 0
+  contextNotes: []
+  sources: []
+  settlementId: ''
+_id: zCWZcv1jaQ2WKfGZ
+img: icons/svg/windmill.svg
+sort: 0
+_key: '!items!zCWZcv1jaQ2WKfGZ'
+

@@ -1,0 +1,19 @@
+type: pf1-kingdom-sheet.special
+name: Hunter's Bond (Animal)
+system:
+  description:
+    value: <p>The army’s animal companions increase the army’s OM by 1.</p>
+  changes:
+    - _id: V82TvQP9
+      formula: '1'
+      target: pf1ks_om
+      type: untyped
+      operator: add
+      priority: 0
+  contextNotes: []
+  sources: []
+_id: L85S205PdmUCr69v
+img: icons/svg/daze.svg
+sort: 0
+_key: '!items!L85S205PdmUCr69v'
+

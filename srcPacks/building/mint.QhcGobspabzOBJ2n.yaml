@@ -1,0 +1,45 @@
+type: pf1-kingdom-sheet.building
+name: Mint
+system:
+  quantity: 1
+  lots: 1
+  cost: 30
+  description:
+    value: >-
+      <p>A secure building where the kingdom's coinage is minted and standard
+      weights and measures are kept.</p><hr /><p><strong>Kingdom</strong>
+      Economy +3, Loyalty +3, Stability +1; Fame +1</p>
+  changes:
+    - _id: 7059cssq
+      formula: '3'
+      target: pf1ks_economy
+      type: untyped
+      operator: add
+      priority: 0
+    - _id: sArRg4K8
+      formula: '3'
+      target: pf1ks_loyalty
+      type: untyped
+      operator: add
+      priority: 0
+    - _id: AZwW2HCu
+      formula: '1'
+      target: pf1ks_stability
+      type: untyped
+      operator: add
+      priority: 0
+    - _id: Tk5c2hkF
+      formula: '1'
+      target: pf1ks_fame
+      type: untyped
+      operator: add
+      priority: 0
+  contextNotes: []
+  sources: []
+  settlementId: ''
+  type: mill
+_id: QhcGobspabzOBJ2n
+img: modules/pf1-kingdom-sheet/assets/kingdom_building/Mint.png
+sort: 0
+_key: '!items!QhcGobspabzOBJ2n'
+

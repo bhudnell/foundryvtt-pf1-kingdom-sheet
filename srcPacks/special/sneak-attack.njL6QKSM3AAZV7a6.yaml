@@ -1,0 +1,16 @@
+type: pf1-kingdom-sheet.special
+name: Sneak Attack
+system:
+  description:
+    value: >-
+      <p>The army increases its OM by 1 when making an ambush, when using the
+      expert flankers tactic, or on the phase after using the false retreat
+      tactic.</p>
+  changes: []
+  contextNotes: []
+  sources: []
+_id: njL6QKSM3AAZV7a6
+img: icons/svg/daze.svg
+sort: 0
+_key: '!items!njL6QKSM3AAZV7a6'
+

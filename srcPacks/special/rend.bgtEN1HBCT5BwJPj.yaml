@@ -1,0 +1,19 @@
+type: pf1-kingdom-sheet.special
+name: Rend
+system:
+  description:
+    value: <p>The army increases the damage it deals by 1.<br /></p>
+  changes:
+    - _id: svudCIgj
+      formula: '1'
+      target: pf1ks_damage
+      type: untyped
+      operator: add
+      priority: 0
+  contextNotes: []
+  sources: []
+_id: bgtEN1HBCT5BwJPj
+img: icons/svg/daze.svg
+sort: 0
+_key: '!items!bgtEN1HBCT5BwJPj'
+

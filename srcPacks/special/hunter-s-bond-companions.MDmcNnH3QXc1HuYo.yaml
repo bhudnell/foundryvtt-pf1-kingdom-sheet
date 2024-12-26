@@ -1,0 +1,15 @@
+type: pf1-kingdom-sheet.special
+name: Hunter's Bond (Companions)
+system:
+  description:
+    value: >-
+      <p>Once per battle, the army may increase its OM or an allied army’s OM by
+      1 for the rest of the battle</p>
+  changes: []
+  contextNotes: []
+  sources: []
+_id: MDmcNnH3QXc1HuYo
+img: icons/svg/daze.svg
+sort: 0
+_key: '!items!MDmcNnH3QXc1HuYo'
+

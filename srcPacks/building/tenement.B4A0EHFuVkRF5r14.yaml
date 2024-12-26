@@ -1,0 +1,28 @@
+type: pf1-kingdom-sheet.building
+name: Tenement
+system:
+  quantity: 1
+  lots: 1
+  cost: 1
+  description:
+    value: >-
+      <p>A staggering number of low-rent housing units.</p><hr
+      /><p><strong>Kingdom</strong> Unrest +2</p><p><strong>Upgrade To</strong>
+      House</p><p><strong>Special</strong> Counts as House for buildings that
+      must be adjacent to a House</p>
+  changes:
+    - _id: j5OmRx77
+      formula: '2'
+      target: pf1ks_unrest_drop
+      type: untyped
+      operator: add
+      priority: 0
+  contextNotes: []
+  sources: []
+  settlementId: ''
+  type: tenement
+_id: B4A0EHFuVkRF5r14
+img: modules/pf1-kingdom-sheet/assets/kingdom_building/Tenement.png
+sort: 0
+_key: '!items!B4A0EHFuVkRF5r14'
+

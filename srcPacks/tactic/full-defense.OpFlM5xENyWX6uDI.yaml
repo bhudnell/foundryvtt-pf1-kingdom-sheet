@@ -1,0 +1,28 @@
+type: pf1-kingdom-sheet.tactic
+name: Full Defense
+system:
+  disabled: true
+  description:
+    value: >-
+      <p>Your army focuses on total defense of the battlefield. Increase its DV
+      by 4, and decrease its OM by 4.</p>
+  changes:
+    - _id: KaGgnyJQ
+      formula: '4'
+      target: pf1ks_dv
+      type: untyped
+      operator: add
+      priority: 0
+    - _id: kbWorBip
+      formula: '-4'
+      target: pf1ks_om
+      type: untyped
+      operator: add
+      priority: 0
+  contextNotes: []
+  sources: []
+_id: OpFlM5xENyWX6uDI
+img: icons/svg/target.svg
+sort: 0
+_key: '!items!OpFlM5xENyWX6uDI'
+

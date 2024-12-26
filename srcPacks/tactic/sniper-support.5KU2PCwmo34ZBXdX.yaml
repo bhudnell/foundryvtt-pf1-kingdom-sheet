@@ -1,0 +1,24 @@
+type: pf1-kingdom-sheet.tactic
+name: Sniper Support
+system:
+  disabled: true
+  description:
+    value: >-
+      <p>Your army holds some ranged units in reserve to attack a target enemy
+      army during the Melee phase. If your army damages the target army in the
+      Melee phase, it deals 2 additional points of damage from these ranged
+      attacks. The army must have ranged attacks to use this tactic.</p>
+  changes:
+    - _id: 90hH5Gka
+      formula: '2'
+      target: pf1ks_damage
+      type: untyped
+      operator: add
+      priority: 0
+  contextNotes: []
+  sources: []
+_id: 5KU2PCwmo34ZBXdX
+img: icons/svg/target.svg
+sort: 0
+_key: '!items!5KU2PCwmo34ZBXdX'
+

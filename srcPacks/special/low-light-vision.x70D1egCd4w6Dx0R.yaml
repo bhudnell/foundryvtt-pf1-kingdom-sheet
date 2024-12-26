@@ -1,0 +1,13 @@
+type: pf1-kingdom-sheet.special
+name: Low-Light Vision
+system:
+  description:
+    value: <p>The army takes no penalties for dim light.</p>
+  changes: []
+  contextNotes: []
+  sources: []
+_id: x70D1egCd4w6Dx0R
+img: icons/svg/daze.svg
+sort: 0
+_key: '!items!x70D1egCd4w6Dx0R'
+

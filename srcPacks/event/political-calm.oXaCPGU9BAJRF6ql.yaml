@@ -1,0 +1,23 @@
+type: pf1-kingdom-sheet.event
+name: Political Calm
+system:
+  subType: active
+  continuous: false
+  description:
+    value: >-
+      <p>A sudden absence of political machinations coincides with an increase
+      in public approval. </p><hr /><p>Unrest decreases by 1d6. Until the next
+      Event phase, you gain a +2 bonus on checks to resolve continuous events.
+      If your kingdom has no Unrest and no continuous events, both Loyalty and
+      Stability increase by 1. If you are using Law settlement modifiers for the
+      kingdom (see Expanding Settlement Modifiers), this also increases Law by 1
+      for the entire kingdom.</p>
+  changes: []
+  contextNotes: []
+  sources: []
+  settlementId: ''
+_id: oXaCPGU9BAJRF6ql
+img: icons/svg/clockwork.svg
+sort: 0
+_key: '!items!oXaCPGU9BAJRF6ql'
+

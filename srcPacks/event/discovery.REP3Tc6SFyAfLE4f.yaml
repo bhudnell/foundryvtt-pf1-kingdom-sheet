@@ -1,0 +1,31 @@
+type: pf1-kingdom-sheet.event
+name: Discovery
+system:
+  subType: active
+  continuous: false
+  description:
+    value: >-
+      <p>Scholars unearth a bit of ancient lore or devise important new research
+      of their own.</p><hr /><p> Fame increases by 1 and Lore increases by
+      1d4.</p>
+  changes:
+    - _id: OfRveQnv
+      formula: '1'
+      target: pf1ks_fame
+      type: untyped
+      operator: add
+      priority: 0
+    - _id: fUQpG3ld
+      formula: '1'
+      target: pf1ks_lore
+      type: untyped
+      operator: add
+      priority: 0
+  contextNotes: []
+  sources: []
+  settlementId: ''
+_id: REP3Tc6SFyAfLE4f
+img: icons/svg/clockwork.svg
+sort: 0
+_key: '!items!REP3Tc6SFyAfLE4f'
+

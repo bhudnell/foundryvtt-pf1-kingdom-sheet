@@ -1,0 +1,17 @@
+type: pf1-kingdom-sheet.special
+name: Swarm
+system:
+  description:
+    value: >-
+      <p>The army takes half damage from nonmagical attacks, but 1-1/2 times as
+      much damage from magical attacks. It ignores DV bonuses from armor
+      resources. It can’t harm an army with the incorporeal or significant
+      defense ability. It automatically succeeds at checks to withdraw.</p>
+  changes: []
+  contextNotes: []
+  sources: []
+_id: 1e8npeCQbmp8GDLd
+img: icons/svg/daze.svg
+sort: 0
+_key: '!items!1e8npeCQbmp8GDLd'
+

@@ -1,0 +1,16 @@
+type: pf1-kingdom-sheet.special
+name: Hex (Cauldron)
+system:
+  description:
+    value: >-
+      <p>The army can create healing potions for itself or another army without
+      needing any of the building requirements described in the healing potion
+      resource. You must pay the BP cost for these potions as normal.</p>
+  changes: []
+  contextNotes: []
+  sources: []
+_id: IV3vXfy4H1NyUqSk
+img: icons/svg/daze.svg
+sort: 0
+_key: '!items!IV3vXfy4H1NyUqSk'
+

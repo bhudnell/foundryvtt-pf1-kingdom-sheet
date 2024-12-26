@@ -1,0 +1,34 @@
+type: pf1-kingdom-sheet.improvement
+name: Road
+system:
+  subType: general
+  quantity: 1
+  description:
+    value: >-
+      <p>A Road speeds travel through your kingdom and promotes trade. You can
+      upgrade a Road to a Highway.</p><hr /><p><strong>Terrain</strong>: Any
+      land.</p><p><strong>Effect</strong>: Economy +1 for every 4 hexes of Road,
+      Stability +1 for every 8 hexes of Road; improves overland travel
+      speed.</p><p><strong>Cost</strong>: See the Road column of Table 4–6:
+      Terrain and Terrain Improvements.</p>
+  changes:
+    - _id: 40il1jN7
+      formula: '.25'
+      target: pf1ks_economy
+      type: untyped
+      operator: add
+      priority: 0
+    - _id: SfvDdvEl
+      formula: '.125'
+      target: pf1ks_stability
+      type: untyped
+      operator: add
+      priority: 0
+  contextNotes: []
+  sources: []
+  settlementId: ''
+_id: 0K8xpTU2LCE6Hm8q
+img: icons/svg/windmill.svg
+sort: 0
+_key: '!items!0K8xpTU2LCE6Hm8q'
+

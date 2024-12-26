@@ -1,0 +1,15 @@
+type: pf1-kingdom-sheet.special
+name: Weapon Specialization
+system:
+  description:
+    value: >-
+      <p>Once per battle, increase the army’s OM for either ranged or melee
+      attacks by 2.</p>
+  changes: []
+  contextNotes: []
+  sources: []
+_id: P7pg6i4RxRZuI2tD
+img: icons/svg/daze.svg
+sort: 0
+_key: '!items!P7pg6i4RxRZuI2tD'
+

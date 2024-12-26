@@ -1,0 +1,141 @@
+name: Beneficial Settlement Events
+_id: WfBisOK7L1J9VH0k
+img: icons/svg/d20-grey.svg
+description: ''
+results:
+  - type: 2
+    documentCollection: pf1-kingdom-sheet.event
+    weight: 1
+    range:
+      - 1
+      - 14
+    drawn: false
+    text: Boomtown
+    documentId: XJdRA7tGqClcbAE4
+    img: icons/svg/clockwork.svg
+    _id: igsDc4shLhXJjkkD
+    flags: {}
+    _key: '!tables.results!WfBisOK7L1J9VH0k.igsDc4shLhXJjkkD'
+  - type: 2
+    documentCollection: pf1-kingdom-sheet.event
+    weight: 1
+    range:
+      - 15
+      - 26
+    drawn: false
+    text: Discovery
+    documentId: REP3Tc6SFyAfLE4f
+    img: icons/svg/clockwork.svg
+    _id: 1nU7NJF9xVMEOYMI
+    flags: {}
+    _key: '!tables.results!WfBisOK7L1J9VH0k.1nU7NJF9xVMEOYMI'
+  - type: 2
+    documentCollection: pf1-kingdom-sheet.event
+    weight: 1
+    range:
+      - 27
+      - 40
+    drawn: false
+    text: Justice Prevails
+    documentId: XVHUC40GMO6FHxmw
+    img: icons/svg/clockwork.svg
+    _id: obIW92Dexutd0oQg
+    flags: {}
+    _key: '!tables.results!WfBisOK7L1J9VH0k.obIW92Dexutd0oQg'
+  - type: 2
+    documentCollection: pf1-kingdom-sheet.event
+    weight: 1
+    range:
+      - 41
+      - 46
+    drawn: false
+    text: Noblesse Oblige
+    documentId: OcWRrG2OPXjRYzWo
+    img: icons/svg/clockwork.svg
+    _id: HjFQ8gFFZUXUXAs3
+    flags: {}
+    _key: '!tables.results!WfBisOK7L1J9VH0k.HjFQ8gFFZUXUXAs3'
+  - type: 2
+    documentCollection: pf1-kingdom-sheet.event
+    weight: 1
+    range:
+      - 47
+      - 58
+    drawn: false
+    text: Outstanding Success
+    documentId: kZkg3XG4qKF43tW6
+    img: icons/svg/clockwork.svg
+    _id: lnUfsMoUF2Tek5Pr
+    flags: {}
+    _key: '!tables.results!WfBisOK7L1J9VH0k.lnUfsMoUF2Tek5Pr'
+  - type: 2
+    documentCollection: pf1-kingdom-sheet.event
+    weight: 1
+    range:
+      - 59
+      - 66
+    drawn: false
+    text: Pilgrimage
+    documentId: jGHi3BBblKEqNtVz
+    img: icons/svg/clockwork.svg
+    _id: YhrrNFSUGpYuNRfC
+    flags: {}
+    _key: '!tables.results!WfBisOK7L1J9VH0k.YhrrNFSUGpYuNRfC'
+  - type: 2
+    documentCollection: pf1-kingdom-sheet.event
+    weight: 1
+    range:
+      - 67
+      - 72
+    drawn: false
+    text: Remarkable Treasure
+    documentId: Q90wHOxpSrlHjecv
+    img: icons/svg/clockwork.svg
+    _id: 0ISRGCjaBOS3yDUt
+    flags: {}
+    _key: '!tables.results!WfBisOK7L1J9VH0k.0ISRGCjaBOS3yDUt'
+  - type: 2
+    documentCollection: pf1-kingdom-sheet.event
+    weight: 1
+    range:
+      - 73
+      - 81
+    drawn: false
+    text: Unexpected Find
+    documentId: YvfpoKBeSmLLYXEU
+    img: icons/svg/clockwork.svg
+    _id: chIHPII0sbO1rBiM
+    flags: {}
+    _key: '!tables.results!WfBisOK7L1J9VH0k.chIHPII0sbO1rBiM'
+  - type: 2
+    documentCollection: pf1-kingdom-sheet.event
+    weight: 1
+    range:
+      - 82
+      - 93
+    drawn: false
+    text: Visiting Celebrity
+    documentId: 8NDFw0GBNo7Qrno1
+    img: icons/svg/clockwork.svg
+    _id: 4FzVfeJDATNT1SIZ
+    flags: {}
+    _key: '!tables.results!WfBisOK7L1J9VH0k.4FzVfeJDATNT1SIZ'
+  - type: 2
+    documentCollection: pf1-kingdom-sheet.event
+    weight: 1
+    range:
+      - 94
+      - 100
+    drawn: false
+    text: Wealthy Immigrant
+    documentId: 9XCAGn7x5kmNGaPy
+    img: icons/svg/clockwork.svg
+    _id: 6Ekr9sIFUjguN3zu
+    flags: {}
+    _key: '!tables.results!WfBisOK7L1J9VH0k.6Ekr9sIFUjguN3zu'
+replacement: true
+displayRoll: true
+sort: 0
+formula: 1d100
+_key: '!tables!WfBisOK7L1J9VH0k'
+

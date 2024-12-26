@@ -1,0 +1,40 @@
+type: pf1-kingdom-sheet.building
+name: Menagerie
+system:
+  quantity: 1
+  lots: 4
+  cost: 16
+  description:
+    value: >-
+      <p>A large park stocked with exotic creatures for public viewing.</p><hr
+      /><p><strong>Kingdom</strong> Economy +1, Loyalty (special); Fame
+      +1</p><p><strong>Special</strong> Increase Loyalty by 1/4 the CR of the
+      highest-CR creature in the Menagerie</p>
+  changes:
+    - _id: J8LNzfr8
+      formula: '1'
+      target: pf1ks_economy
+      type: untyped
+      operator: add
+      priority: 0
+    - _id: CExyCtw1
+      formula: '0'
+      target: pf1ks_loyalty
+      type: untyped
+      operator: add
+      priority: 0
+    - _id: Taj1KZgd
+      formula: '1'
+      target: pf1ks_fame
+      type: untyped
+      operator: add
+      priority: 0
+  contextNotes: []
+  sources: []
+  settlementId: ''
+  type: menagerie
+_id: QMMolJxUwQ1Idj98
+img: modules/pf1-kingdom-sheet/assets/kingdom_building/Menagerie.png
+sort: 0
+_key: '!items!QMMolJxUwQ1Idj98'
+
