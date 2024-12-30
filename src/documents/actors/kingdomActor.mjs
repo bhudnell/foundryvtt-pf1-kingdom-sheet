@@ -242,25 +242,25 @@ export class KingdomActor extends BaseActor {
           value: pf1ks.config.edicts.taxation[system.edicts.taxation],
         })
       )
-    );
+    ); 
     const hasCathedral = this.itemTypes[pf1ks.config.buildingId].some((building) => building.type === "cathedral");
     const promotionConsumption = pf1ks.config.edictEffects.promotion[system.edicts.promotion]?.consumption ?? 0;
-    new DefaultChange(
+    changes.push(new DefaultChange(
       hasCathedral ? Math.floor(promotionConsumption / 2) : promotionConsumption,
       `${pf1ks.config.changePrefix}_consumption`,
       game.i18n.format("PF1KS.Edict.PromotionChange", {
         value: pf1ks.config.edicts.promotion[system.edicts.promotion],
       })
-    );
+    ));
     const hasWaterfront = this.itemTypes[pf1ks.config.buildingId].some((building) => building.type === "waterfront");
-    const taxationLoyalty = pf1ks.config.edictEffects.promotion[system.edicts.promotion]?.loyalty ?? 0;
-    new DefaultChange(
+    const taxationLoyalty = pf1ks.config.edictEffects.taxation[system.edicts.taxation]?.loyalty ?? 0;
+    changes.push(new DefaultChange(
       hasWaterfront ? Math.floor(taxationLoyalty / 2) : taxationLoyalty,
       `${pf1ks.config.changePrefix}_loyalty`,
       game.i18n.format("PF1KS.Edict.TaxationChange", {
         value: pf1ks.config.edicts.taxation[system.edicts.taxation],
       })
-    );
+    ));
 
     // consumption
     changes.push(
