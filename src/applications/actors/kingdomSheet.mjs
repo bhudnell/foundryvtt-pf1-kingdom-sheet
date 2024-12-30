@@ -379,6 +379,17 @@ export class KingdomSheet extends pf1.applications.actor.ActorSheetPF {
       districtCount: 1,
     });
 
+    // adding building/magic item nav for new settlement
+    const tab = {
+      navSelector: `nav.tabs[data-group='settlement-${newIdx}-details']`,
+      contentSelector: `section.settlement-${newIdx}-details`,
+      initial: `buildings`,
+      group: `setlement-${newIdx}-details`,
+      callback: this._onChangeTab.bind(this)
+    }
+    this.options.tabs.push(tab);
+    this._tabs.push(new Tabs(tab))
+
     await this._onSubmit(event, {
       updateData: { "system.settlements": settlements },
     });
