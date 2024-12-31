@@ -9,7 +9,7 @@ export class ArmyModel extends foundry.abstract.TypeDataModel {
       alignment: new fields.StringField({ choices: Object.keys(pf1.config.alignments) }),
       size: new fields.StringField({ choices: Object.keys(pf1ks.config.armySizes) }),
       hd: new fields.StringField({ choices: Object.keys(pf1ks.config.armyHD) }),
-      strategy: new fields.StringField({ choices: Object.keys(pf1ks.config.armyStrategy), initial: "0" }),
+      strategy: new fields.StringField({ choices: Object.keys(pf1ks.config.armyStrategy), initial: "2" }),
 
       hp: new fields.SchemaField({
         current: new fields.NumberField({ required: true, integer: true, min: 0, initial: 0 }),
@@ -82,7 +82,7 @@ export class ArmyModel extends foundry.abstract.TypeDataModel {
     this.morale.commander = this.commander.moraleBonus;
     this.morale.total = this.morale.base + this.morale.commander;
 
-    this.tactics.current = this.parent.itemTypes[pf1ks.config.tacticId].length;
+    this.tactics.current = this.parent.itemTypes[pf1ks.config.tacticId].filter.length;
     this.tactics.max.base = Math.max(0, Math.floor(this.acr / 2));
     this.tactics.max.total = this.tactics.max.base;
 
