@@ -1,0 +1,335 @@
+name: Settlements and Districts
+_id: rryv5gGUDkRa11K6
+pages:
+  - sort: 100000
+    name: Index
+    type: text
+    _id: 0lKvPeARzGjzLpFb
+    title:
+      show: true
+      level: 1
+    image: {}
+    text:
+      format: 1
+      content: >-
+        <p>The greatest assets of your kingdom are its settlements. Most
+        settlements start as simple villages, and some grow over time into
+        bustling cities.</p><p>You can use the District Grid to create the
+        initial design for your settlement and decide where to place additional
+        buildings as it grows.</p><p>The District Grid is divided into 9 large
+        blocks separated by streets. Each block consists of 4 smaller lots
+        separated by alleys. Treat each lot as approximately 750 feet per side,
+        so overall the district takes up about 1 square mile. On each lot you
+        may construct a building, and each building affects your kingdom's
+        Economy, Loyalty, and so on. Descriptions of these buildings, as well as
+        the bonuses they provide once they're added to a settlement, are in the
+        'Building Types' section.</p><p>Most settlements only have 1 district.
+        If your District Grid is full and you want to add another district (for
+        example, if you run out of available lots in that settlement and want to
+        construct additional buildings), you can create an additional district
+        for that settlement by paying the preparation cost for the settlement's
+        terrain as listed on Terrain and Terrain Costs (see below). Remember
+        that your kingdom's Control DC is based on the number of districts in
+        your settlement.</p><p>Icons representing each of the building types are
+        included as tokens. You can attach them to your District Grid as your
+        settlement grows.</p><p>The placement of buildings in your district is
+        up to you - you can start in the center of the district and build
+        outward, or start at the edge and build toward the center. Some
+        buildings (such as the Guildhall) take up more than 1 lot on the grid.
+        You can't divide up these larger structures, though you can place them
+        so they cover a street. (Streets do not count as
+        lots.)</p><p><strong>Construction</strong>: Construction is completed in
+        the same turn you spend BP for the building, no matter what its size is.
+        A building's benefits apply to your kingdom immediately. At the GM's
+        discretion, construction magic (such as lyre of building, fabricate, or
+        wall of stone) can reduce a single building's BP cost by 2 (minimum 0).
+        This is a one-time reduction per turn, regardless of the amount of magic
+        used.</p><p><strong>Population</strong>: A settlement's population is
+        approximately equal to the number of completed lots within its districts
+        × 250. A grid that has all 36 lots filled with buildings has a
+        population of approximately 9,000.</p><p><strong>Base Value</strong>:
+        The base value of a settlement is used to determine what magic items may
+        easily be purchased there. There is a 75% chance that any item of that
+        value or lower can be found for sale in the settlement with little
+        effort. The base value of a new settlement is 0 gp. Certain buildings
+        (such as a Market or Tavern) increase a settlement's base value. A
+        settlement's base value can never increase above the values listed below
+        in Table: Settlement Size and Base Value (except under special
+        circumstances decided by the GM).</p><p><strong>Defense </strong>: A
+        settlement's Defense is used with the mass combat rules. It otherwise
+        has no effect unless the settlement is attacked. You can increase a
+        settlement's Defense by building certain structures (such as City
+        Walls).</p><p>@Compendium[pf1-kingdom-sheet.scenes.qYQrLDT1grPCWKqv]{District
+        Grid}</p><h1>Table: Settlement Size and Base
+        Value</h1><table><tbody><tr><td><p><strong>Population</strong></p></td><td><p><strong>Settlement
+        Size</strong></p></td><td><p><strong>Base
+        Value</strong></p></td></tr><tr><td><p>Fewer than
+        21</p></td><td><p>Thorp</p></td><td><p>50
+        gp</p></td></tr><tr><td><p>21-60</p></td><td><p>Hamlet</p></td><td><p>200
+        gp</p></td></tr><tr><td><p>61-200</p></td><td><p>Village</p></td><td><p>500
+        gp</p></td></tr><tr><td><p>201-2,000</p></td><td><p>Small
+        Town</p></td><td><p>1,000 gp</p></td></tr><tr><td><p>2,001 -
+        5,000</p></td><td><p>Large Town</p></td><td><p>2,000
+        gp</p></td></tr><tr><td><p>5,001 - 10,000</p></td><td><p>Small
+        City</p></td><td><p>4,000 gp</p></td></tr><tr><td><p>10,001 -
+        25,000</p></td><td><p>Large City</p></td><td><p>8,000
+        gp</p></td></tr><tr><td><p>More than
+        25,000</p></td><td><p>Metropolis</p></td><td><p>16,000
+        gp</p></td></tr></tbody></table>
+    video:
+      controls: true
+      volume: 0.5
+    src: null
+    system: {}
+    _key: '!journal.pages!rryv5gGUDkRa11K6.0lKvPeARzGjzLpFb'
+  - sort: 200000
+    name: Founding a Settlement
+    type: text
+    _id: HKumzqlwgSE4Av3x
+    title:
+      show: true
+      level: 1
+    image: {}
+    text:
+      format: 1
+      content: >-
+        <p>Before you can start your own kingdom, you first need a base of
+        operations - a fort, village, or other settlement - where you can rest
+        between adventures and where your citizens know they can find you if
+        they need help or want to pay their taxes. Once you have a kingdom,
+        you'll want to create more settlements in order for the kingdom to grow
+        and prosper. To found a settlement, you must perform the following
+        steps. (These steps assume you're building a new settlement from
+        scratch; if you're attempting to incorporate an existing settlement into
+        your kingdom, see Free City Terrain Improvement.)</p><p><strong>Step 1 -
+        Acquire funds. </strong>You'll need money and resources in the form of
+        build points.</p><p><strong>Step 2 - Explore and clear a hex </strong>.
+        You'll need to explore the hex where you want to put the settlement. See
+        the Exploration Time column on Terrain and Terrain Costs (see below) to
+        see how long this takes. Once you have explored the hex, clear it of
+        monsters and dangerous hazards. The time needed to clear it depends on
+        the nature of the threats; this step is usually handled by you
+        completing adventures there to kill or drive out
+        monsters.</p><p><strong>Step 3 - Claim the hex as yours. </strong>Once
+        you have BP and have explored and cleared the hex, you can claim it.
+        Spend 1 BP to do so; this represents setting up very basic
+        infrastructure such as clearing paths, hiring patrols, setting up a tent
+        city, and so on. This establishes the hex as part of your kingdom (or
+        the beginning of your kingdom).</p><p><strong>Step 4 - Prepare the site
+        for construction </strong>. To put a settlement on a claimed hex, you'll
+        need to prepare it. Depending on the site, this process may involve
+        clearing trees, moving boulders, digging sanitation trenches, and so on.
+        See the Preparation Cost column on Terrain and Terrain Costs (see below)
+        for the BP cost. If your settlement is in a hex containing a canal,
+        lake, ocean, river, or similar large body of water, you must decide
+        which of your settlement's borders are water (riverbanks, lakeshores, or
+        seashores) or land. Some types of buildings, such as Mills, Piers, and
+        Waterfronts, must be adjacent to water.</p><p>A new settlement consists
+        of 1 district, represented by the District Grid map. Mark the four
+        borders on the District Grid as land or water, as
+        appropriate.</p><p><strong>Step 5 - Construct your first buildings
+        </strong>. Construct 1 building in your settlement and pay its BP cost.
+        If this is your kingdom's first settlement, you should start with an
+        Inn, Shrine, Monastery, or Watchtower. In addition, you may also
+        purchase and construct 1 House, Mansion, Noble Villa, or Tenement. If
+        your first building is an Inn, you must construct a House or Tenement
+        next to it, as building an Inn requires an adjacent House or
+        Tenement.</p><p>When you complete these steps, you've founded your
+        settlement! If this is your first settlement, it's considered your
+        kingdom's capital city.</p><h1>Capital City</h1><p>A kingdom should have
+        a capital city - the seat of your power. Your first settlement is your
+        capital. If you want to designate a different settlement as the capital,
+        you may do so in Step 6 of the Edict phase. Your capital city primarily
+        comes into play if your kingdom loses hexes. If you change the capital
+        city, attempt a Stability check. Success means Unrest increases by 1;
+        failure means Unrest increases by 1d6.</p>
+    video:
+      controls: true
+      volume: 0.5
+    src: null
+    system: {}
+    _key: '!journal.pages!rryv5gGUDkRa11K6.HKumzqlwgSE4Av3x'
+  - sort: 300000
+    name: Magic Items In Settlements
+    type: text
+    _id: yj8acTf4diGgFOnf
+    title:
+      show: true
+      level: 1
+    image: {}
+    text:
+      format: 1
+      content: >-
+        <p>In addition to the commonly available items in a settlement as
+        determined by its base value, some buildings increase the likelihood of
+        having specific or unusual magic items available for
+        purchase.</p><p><strong>Gaining Item Slots: </strong>When you construct
+        one of these buildings, mark the appropriate boxes in the Magic Items
+        section of the settlement's District Grid; this indicates that the
+        settlement has gained a slot for an item of that
+        type.</p><p><strong>Filling Item Slots </strong>: In Step 3 of the
+        Upkeep phase, you roll to fill vacant magic item slots in each district.
+        Roll d% once for each district that has an open magic item slot (if the
+        district has more than one, select one randomly). There is a 50% chance
+        (51-100) that an appropriate magic item becomes available in that slot.
+        This item's price cannot exceed the base value for the settlement
+        (reroll if the item's price exceeds the settlement's base
+        value).</p><p><strong>Example: </strong><em>Jessica's settlement has a
+        base value of 200 gp. She built an Herbalist last turn, giving the
+        settlement 1 minor potion slot. In the Upkeep phase this turn, she rolls
+        d% and gets a result of 62, meaning she can roll a random minor potion
+        to fill the settlement's empty slot. She rolls on Table 15-12: Potions (
+        Core Rulebook </em>478) and gets a result of 45, indicating a potion of
+        a 1st-level spell. If she had rolled anything more valuable than the 200
+        gp base value for her settlement, she would have to reroll until she got
+        an acceptable result. Once a magic item is rolled for a settlement in
+        this way, it remains on the market until someone purchases
+        it.</p><p><em>Pathfinder RPG Ultimate Equipment </em>includes extensive
+        random magic item tables for specific slots and price increments. These
+        tables may be more convenient than using the magic item tables in the
+        Core Rulebook.</p><p><strong>Emptying Item Slots: </strong>If you are
+        unsatisfied with a magic item generated by a settlement, there are three
+        ways to purge an undesirable item and make its slot vacant.</p><p>The
+        first is to purchase it with your own gp, which makes it your personal
+        property and means you may do with it what you please (use it, sell it
+        at half price for gold, deposit it in the kingdom's Treasury during the
+        next Income phase, use it as a reward for a local general, and so
+        on).</p><p>The second method is to manipulate your kingdom's economy to
+        encourage an NPC to purchase the item (such as a random adventurer
+        passing through the settlement). During Step 3 of the Income phase, you
+        may attempt one Economy check for each filled slot you want to empty.
+        For every such check after the first one in a turn, your Economy
+        decreases by 1, since these manipulations are harmful to your kingdom's
+        economy and typically only serve to get rid of an item you consider
+        undesirable. If the check fails, nothing happens. If the check succeeds,
+        erase the item from that slot; you may attempt to fill the empty slot as
+        normal in the next Upkeep phase. You do not gain any gp or BP from this
+        sale; the money goes to the building's owner, who uses it to acquire or
+        craft the next item.</p><p>The third way is to spend BP (1 BP = 2,000
+        gp) to purchase the item. If you take the item for your own use, this
+        counts as withdrawing BP from the Treasury for your personal use (see
+        Step 1 of the Income Phase - Make Withdrawals from the Treasury). If you
+        use the item in a way that doesn't directly benefit you or the other PCs
+        (such as giving it to a hero of your army or donating it to a settlement
+        as a religious or historical artifact), then purchasing it is
+        essentially like other kingdom expenditures and does not increase Unrest
+        or decrease Loyalty</p>
+    video:
+      controls: true
+      volume: 0.5
+    src: null
+    system: {}
+    _key: '!journal.pages!rryv5gGUDkRa11K6.yj8acTf4diGgFOnf'
+  - sort: 400000
+    name: Buildings
+    type: text
+    _id: pFxlXDL6eYbHFDX8
+    title:
+      show: true
+      level: 1
+    image: {}
+    text:
+      format: 1
+      content: >-
+        <p>You improve settlements by constructing buildings, which provide
+        bonuses to the kingdom in general and the settlement in particular. Some
+        buildings also intersect with the mass combat rules, notably with
+        fortifications and reserve armies.</p><p><strong>Demolition</strong>: If
+        a lot has a building, you can clear it for new construction. Doing so
+        costs 1 BP. You may construct a building on a lot the same turn you
+        demolish the old building there. You do not regain BP for a demolished
+        building (but see Rebuilding, below).</p><p><strong>Destroyed
+        Lots</strong>: If an event or a pillaging army destroys 1 or more lots,
+        the devastation causes Unrest to increase by 1 per lot
+        destroyed.</p><p><strong>Rebuilding</strong>: If you rebuild the same
+        type of building on a destroyed lot, the cost is halved, as you can
+        reuse some of the materials for the same purpose. If you rebuild a
+        different type of building on that lot, reduce the cost of the new
+        building by 1/4 the cost of the old building (minimum 1 BP). If you
+        build smaller buildings on top of a site that held a multi-lot building,
+        split the discount evenly over the new buildings. For example, if you
+        demolish an Academy and construct a Mansion and a Luxury Store on top of
+        those lots, each building gets a 6 BP discount (1/4 of 52 BP is 13,
+        divided evenly between the two).</p>
+
+        <h1>Building Descriptions</h1> <p>Buildings are described in the
+        following format.</p><p><strong>Building Name</strong>: The type of
+        buildings contained in this lot. In most cases, each lot represents
+        numerous buildings of that type, rather than a single
+        edifice.</p><p><strong>Cost</strong>: The cost in BP to construct the
+        building.</p><p><strong>Lots</strong>: How many lots the building
+        fills.</p><p><strong>Kingdom</strong>: Building modifiers to Economy,
+        Loyalty, and Stability stack, affect your entire kingdom, and are
+        ongoing from turn to turn. Modifiers to Unrest occur once when the
+        building is completed. This category also lists any bonuses to Fame from
+        having the building.</p><p><strong>Discount</strong>: Some buildings
+        halve the cost of constructing a related type of building in the same
+        settlement. This cost reduction applies only to the first constructed
+        building of the types listed in this line. For example, an Academy
+        halves the cost of your next Library in that settlement; if you build a
+        second Library in that settlement, you pay the normal cost for it. If 2
+        buildings give the same discount, only one discount applies per new
+        building, but you may construct 2 buildings at the discounted cost. For
+        example, Market and Theater both halve the cost of an Inn; if your
+        settlement has a Market and a Theater, you may construct 2 Inns at half
+        cost (the Market discounts one, and the Theater discounts the
+        other).</p><p><strong>Limit</strong>: This lists limitations on the
+        number of buildings of this type, special requirements for adjacent
+        buildings, or prohibitions against certain buildings being
+        adjacent.</p><p>For most buildings, you can construct as many of them as
+        you want in a settlement, but some are limited in the number that can be
+        built per settlement or district. For example, you can only construct 1
+        Arena per settlement.</p><p>Some buildings require that you construct
+        them adjacent to at least 1 or 2 of a specific kind of building or
+        feature of the settlement. For example, a Shop or Tavern must be
+        adjacent to a House or Mansion. The required adjacent building can only
+        count toward 1 building that requires it. For example, if you have a
+        House and a Shop, that House can't be used to meet the requirement for
+        another Shop or a Tavern; you have to construct a new House and use it
+        to meet the requirement of the new Shop or Tavern.</p><p>Some buildings
+        cannot be adjacent to certain buildings. For example, you can't
+        construct a Tannery next to a House, Mansion, Noble Villa, or Tenement.
+        If you want to use a lot for this type of building, you must demolish
+        all prohibited adjacent structures first (see Demolition).</p><p>If you
+        get overzealous in constructing a particular type of building in a
+        settlement, the GM should feel free to add events to discourage this
+        practice. For example, a settlement with too many Dumps is prone to
+        otyugh and wererat attacks, and a settlement with too many Graveyards
+        tends to have frequent undead attacks. This should not occur, however,
+        if you build too many Houses, Parks, Tenements, or
+        Waterways.</p><p><strong>Upgrade To/From</strong>: Some buildings can be
+        converted into a more advanced form of the existing building, such as
+        converting a Shrine into a Temple. To upgrade a building, pay the BP
+        cost difference between the current building and the new building.
+        Remove the modifiers from the old building and apply the modifiers from
+        the new building. Upgrading counts as constructing a building for the
+        purpose of the maximum number of buildings you can construct on your
+        turn. You can't upgrade a building to a larger one if there isn't space
+        in the District Grid for the building's new
+        size.</p><p><strong>Special</strong>: This lists any other effect the
+        building has, such as increasing Defense, the settlement's base value,
+        or the output of a nearby Mine.</p><p><strong>Magic Items</strong>: This
+        lists any magic item slot the building creates, which may be filled in
+        the Upkeep phase (see Magic Items in Settlements). If a building lists
+        multiple options within a category (such as "1 minor potion or wondrous
+        item"), it has an equal chance for each
+        option.</p><p><strong>Settlement: </strong>This lists settlement
+        modifiers from page 205 of the Pathfinder RPG GameMastery Guide that
+        affect specific skills within the settlement. These modifiers are
+        ongoing from turn to turn, but apply only to skill checks within that
+        settlement (not other settlements in the hex or anywhere else in your
+        kingdom). Note that the GameMastery Guide also uses a settlement
+        statistic called Economy; to avoid confusion with the Economy kingdom
+        score, this book renames the Economy settlement statistic
+        "Productivity."</p><p><strong>Note: </strong>These buildings are tokens
+        within the Kingdom Building token folder. You can drop these onto a
+        district grid to represent the various grids of your city.</p>
+    video:
+      controls: true
+      volume: 0.5
+    src: null
+    system: {}
+    _key: '!journal.pages!rryv5gGUDkRa11K6.pFxlXDL6eYbHFDX8'
+sort: 0
+_key: '!journal!rryv5gGUDkRa11K6'
+

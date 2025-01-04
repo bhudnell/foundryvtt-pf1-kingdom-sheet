@@ -1,0 +1,201 @@
+name: Kingdom Building Overview
+_id: 5VRFaIjHbLJHr73i
+pages:
+  - sort: 100000
+    name: Index
+    type: text
+    _id: AKKxyQRc7e8SRQ1w
+    title:
+      show: true
+      level: 1
+    image: {}
+    text:
+      format: 1
+      content: >-
+        <p>Some heroes found kingdoms, driving out hostile monsters to make room
+        for peaceful settlers. Others lead soldiers into battle, waging great
+        and terrible wars. This chapter presents rules for building a kingdom
+        and waging war that focus on the larger tactics of city planning and
+        troop strategy rather than managing details of individual settlers and
+        soldiers.</p><p>This manuel uses “kingdom” as a universal term to
+        represent all kinds of domains, regardless of size, form of government,
+        and gender of the ruler. Most of the decisions are in the hands of the
+        players, and these rules are written with that assumption, using terms
+        like “your kingdom” and “your army.” However, the GM is still in charge
+        of the campaign, and is expected to make judgments about the
+        repercussions of player decisions. While players running a kingdom
+        should be allowed to read these rules (having them do so makes much of
+        the kingdom building easier for the GM), the players shouldn’t think
+        they can abuse these rules to exploit weird corner cases. For example,
+        players may decide to construct a city full of graveyards because of the
+        bonuses they provide to the city, but if the GM believes that is
+        unreasonable, he could decide that the city is prone to frequent undead
+        attacks. Likewise, a settlement with more magic shops than houses and
+        businesses may slowly become a ghost town as all the normal citizens
+        move elsewhere out of superstitious fear. As with a normal campaign, the
+        GM is the final arbiter of the rules, and can make adjustments to events
+        as necessary for the campaign.</p><h1>Kingdom Building</h1><p>Ruling a
+        kingdom is a complex and difficult task, one undertaken only by the very
+        ambitious. Many PCs are content to live as mercenaries or treasure
+        hunters, no interest in being responsible for the health and well-being
+        of subjects; for these characters, a kingdom is simply a place they pass
+        through on the way to the next adventure. However, characters who are
+        keen to spread their wings and forge a place of power and inf luence in
+        the world can use this chapter to create a different sort of campaign.
+        If the PCs are interested in ruling only a single town or castle and the
+        small region around it, kingdom building can focus primarily on the
+        settlement and the PCs’ personal demesne. If the PCs have larger goals,
+        such as carving out a new, independent kingdom, these rules allow them
+        to build cities and engage in trade, diplomacy, and war.</p><p>These
+        rules assume that all of the kingdom’s leaders are focused on making the
+        kingdom prosperous and stable, rather than oppressing the citizens and
+        stealing from the treasury. Likewise, the rules assume that the leaders
+        are working together, not competing with each other or working at odds.
+        If the campaign begins to step into those areas, the GM is free to
+        introduce new rules to deal with these activities.</p><p>Like the
+        exploration system, the kingdombuilding rules measure terrain in hexes.
+        Each hex is 12 miles from corner to corner, representing an area of just
+        less than 95 square miles. The hex measurement is an abstraction; the
+        hexes are easy to quantify and allow the GM to categorize a large area
+        as one terrain type without having to worry about precise borders of
+        forests and other terrain features.</p><h1>Overview</h1><p>The key parts
+        of the kingdom-building rules that you’ll be referencing are as
+        follows:</p><p>• Explanation of the kingdom terminology used throughout
+        this chapter.</p><p>• Step-by-step instructions for founding a
+        kingdom.</p><p>• The turn sequence for an established kingdom.</p><p>•
+        The game statistics for terrain improvements.</p><p>• Step-by-step
+        instructions on how to found your first settlement.</p><p>• The game
+        statistics for the types of buildings.</p><p>• The settlement District
+        Grid.</p><p>• The kingdom sheet.</p><p>Following the main rules and the
+        types of buildings are several optional rules for kingdom building, such
+        as modifying the effect of religious buildings based on alignment or
+        deity portfolio, tracking Fame and Infamy scores for your kingdom, rules
+        for different types of government, and special edicts you can declare
+        during the turn sequence.</p>
+    video:
+      controls: true
+      volume: 0.5
+    src: null
+    system: {}
+    _key: '!journal.pages!5VRFaIjHbLJHr73i.AKKxyQRc7e8SRQ1w'
+  - sort: 200000
+    name: Kingdom Terminology
+    type: text
+    _id: 4S3vAFJEkqVIwgMp
+    title:
+      show: true
+      level: 1
+    image: {}
+    text:
+      format: 1
+      content: >-
+        <p>A major part of the Kingmaker Adventure Path is the PCs' creation of
+        a kingdom and the cities within its borders. This article presents rules
+        for creating kingdoms and cities. Like characters, kingdoms use sheets
+        to track their statistics. See Notes for a kingdom sheet. Use the
+        following notes to fill in a kingdom's initial
+        values.</p><h1>Alignment</h1><p>Like a PC, your kingdom has an
+        alignment, which you decide when you form the kingdom. The kingdom's
+        alignment represents the majority outlook and behavior of the people
+        within that kingdom when they're considered as a group. (Individual
+        citizens and even some leaders may be of different
+        alignments.)</p><ul><li>When you decide on your kingdom's alignment,
+        apply the following adjustments to the kingdom's statistics: Chaotic: +2
+        Loyalty</li><li>Evil: +2 Economy</li><li>Good: +2
+        Loyalty</li><li>Lawful: +2 Economy</li><li>Neutral: Stability +2
+        <ul><li>(Apply this twice if the kingdom's alignment is simply Neutral,
+        not Chaotic Neutral or Lawful Neutral).</li></ul></li></ul><p>A
+        kingdom's alignment rarely changes, though at the GM's option, it can
+        shift through the actions of its rulers or its people.</p><h1>Capital
+        City</h1><p>A kingdom should have a capital city - the seat of your
+        power. Your first settlement is your capital. If you want to designate a
+        different settlement as the capital, you may do so in Step 6 of the
+        Edict phase. Your capital city primarily comes into play if your kingdom
+        loses hexes. If you change the capital city, attempt a Stability check.
+        Success means Unrest increases by 1; failure means Unrest increases by
+        1d6.</p><h1>Size</h1><p>This is how many hexes the kingdom claims. A new
+        kingdom's Size is 1. This affects a kingdoms consumption and its control
+        DC.</p><h1>Population</h1><p>Actual population numbers don't factor into
+        your kingdom's statistics but can be fun to track anyway. The population
+        of your kingdom is equal to the population of all your
+        settlements.</p><p>A settlement's population is approximately equal to
+        the number of completed lots within its districts × 250. A grid that has
+        all 36 lots filled with buildings has a population of approximately
+        9,000.</p><h1>Build Points</h1><p>The units of a kingdom's wealth and
+        productivity are build points (BP). Build points are an abstraction
+        representing the kingdom's expendable assets, not just gold in the
+        treasury. Build points include raw materials (such as livestock, lumber,
+        land, seed, and ore), tangible goods (such as wagons, weapons, and
+        candles), and people (artisans, laborers, and colonists). Together,
+        these assets represent the labor and productive output of your
+        citizens.</p><p>You spend BP on tasks necessary to develop and protect
+        your kingdom - planting farms, creating roads, constructing buildings,
+        raising armies, and so on. These things are made at your command, but
+        they are not yours. The cities, roads, farms, and buildings belong to
+        the citizens who build them and use them to live and work every day, and
+        those acts of living and working create more BP for the kingdom. As the
+        leaders, you use your power and influence to direct the economic and
+        constructive activity of your kingdom, deciding what gets built, when,
+        and where.</p><p>Build points don't have a precise exchange rate to gold
+        pieces because they don't represent exact amounts of specific resources.
+        For example, you can't really equate the productivity of a blacksmith
+        with that of a stable, as their goods are used for different things and
+        aren't produced at the same rate, but both of them contribute to a
+        kingdom's overall economy. In general, 1 BP is worth approximately 4,000
+        gp; use this value to get a sense of how costly various kingdom
+        expenditures are. In practice, it is not a simple matter to convert one
+        currency to the other, but there are certain ways for your PC to spend
+        gp to increase the kingdom's BP or withdraw BP and turn them into gold
+        for your character to spend.</p><h1>Consumption</h1><p>Consumption
+        indicates how many BP are required to keep the kingdom functioning each
+        month. Your kingdom's Consumption is equal to its Size, modified by
+        settlements and terrain improvements (such as Farms and Fisheries).
+        Consumption can never go below 0</p><h1>Treasury</h1><p>As your kingdom
+        earns money, favors, resources, and power, its Build Point total
+        increases. In the Kingmaker Adventure Path, you begin with 50 BP in your
+        kingdom's treasury (this amount is bestowed upon you by the swordlords
+        of Restov).</p><h1>Control DC</h1><p>Some kingdom actions require a
+        check (1d20 + modifiers) to succeed - this is known as a control check.
+        The base DC for a control check is equal to 20 + the kingdom's Size in
+        hexes + the total number of districts in all your settlements + any
+        other modifiers from special circumstances or effects. Unless otherwise
+        stated, the DC of a kingdom check is the Control DC.</p><h1>Kingdom
+        Check</h1><p>A kingdom has three attributes: Economy, Loyalty, and
+        Stability. Your kingdom's initial scores in each of these attributes is
+        0, plus modifiers for kingdom alignment, bonuses provided by the
+        leaders, and any other modifiers.</p><p>Many kingdom actions and events
+        require you to attempt a kingdom check, either using your Economy,
+        Loyalty, or Stability attribute (1d20 + the appropriate attribute +
+        other modifiers). You cannot take 10 or take 20 on a kingdom check.
+        Kingdom checks automatically fail on a natural 1 and automatically
+        succeed on a natural 20.</p><h1>Economy</h1><p>This attribute measures
+        the productivity of your kingdom's workers and the vibrancy of its
+        trade, both in terms of money and in terms of information, innovation,
+        and technology. Your kingdom's initial Economy is 0 plus your kingdom's
+        alignment and leadership modifiers.</p><h1>Loyalty</h1><p>Loyalty refers
+        to the sense of goodwill among your people, their ability to live
+        peaceably together even in times of crisis, and to fight for one another
+        when needed. Your kingdom's initial Loyalty is 0 plus your kingdom's
+        alignment and any modifiers from your kingdom's leadership
+        role.</p><h1>Stability</h1><p>Stability refers to the physical and
+        social well-being of the kingdom, from the health and security of its
+        citizenry to the vitality of its natural resources and its ability to
+        maximize their use. Your kingdom's initial Stability is 0 plus your
+        kingdom's alignment and leadership modifiers.</p><h1>Unrest</h1><p>Your
+        kingdom's Unrest indicates how rebellious your citizens are. Your
+        kingdom's initial Unrest is 0. Unrest can never fall below 0 (anything
+        that would modify it to less than 0 is wasted). Subtract your kingdom's
+        Unrest from all Economy, Loyalty, and Stability checks.</p><p>If your
+        kingdom's Unrest is 11 or higher, the kingdom begins to lose control of
+        hexes it has claimed.</p><p>If your kingdom's Unrest ever reaches 20,
+        the kingdom falls into anarchy (see Upkeep Phase).</p>
+      markdown: ''
+    video:
+      controls: true
+      volume: 0.5
+    src: null
+    system: {}
+    _key: '!journal.pages!5VRFaIjHbLJHr73i.4S3vAFJEkqVIwgMp'
+sort: 0
+_key: '!journal!5VRFaIjHbLJHr73i'
+

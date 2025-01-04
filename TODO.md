@@ -1,3 +1,5 @@
+- clean up compendium extraction (especially journals and scenes)
+
 # Improvements
 
 - Auto Unrest (on drop and continuous)

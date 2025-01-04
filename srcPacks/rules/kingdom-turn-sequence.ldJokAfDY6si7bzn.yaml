@@ -1,0 +1,487 @@
+name: Kingdom Turn Sequence
+_id: ldJokAfDY6si7bzn
+pages:
+  - sort: 100000
+    name: Index
+    type: text
+    _id: 0LnYmVJflEJKShF1
+    title:
+      show: true
+      level: 1
+    image: {}
+    text:
+      format: 1
+      content: >-
+        <p>A kingdom's growth occurs during four phases, which together make up
+        1 kingdom turn (1 month of game time).</p><p>The four phases are as
+        follows:</p><p><strong>Phase 1 - Upkeep:</strong> Check your kingdom's
+        stability, pay costs, and deal with Unrest. If your kingdom controls 0
+        hexes, skip the Upkeep phase and proceed to the Edict
+        phase.</p><p><strong>Phase 2 - Edict:</strong> Declare official
+        proclamations about taxes, diplomacy, and other kingdom-wide
+        decisions.</p><p><strong>Phase 3 - Income:</strong> Add to your Treasury
+        by collecting taxes and converting gp into BP, or withdraw BP from your
+        kingdom for your personal use.</p><p><strong>Phase 4 - Event:</strong>
+        Check whether any unusual events occur that require attention. Some are
+        beneficial, such as an economic boom, good weather, or the discovery of
+        remarkable treasure. Others are detrimental, such as foul weather, a
+        plague, or a rampaging monster.</p><p>These phases are always undertaken
+        in the above order. Many steps allow you to perform an action once per
+        kingdom turn; this means once for the entire kingdom, not once per
+        leader.</p>
+    video:
+      controls: true
+      volume: 0.5
+    src: null
+    system: {}
+    _key: '!journal.pages!ldJokAfDY6si7bzn.0LnYmVJflEJKShF1'
+  - sort: 200000
+    name: Upkeep Phase
+    type: text
+    _id: AwN9c0SVTGRlFNwU
+    title:
+      show: true
+      level: 1
+    image: {}
+    text:
+      format: 1
+      content: >-
+        <p>During the Upkeep phase, you adjust your kingdom's scores based on
+        what's happened in the past month, how happy the people are, how much
+        they've consumed and are taxed, and so on.</p><h1>Step 1 - Determine
+        Kingdom Stability</h1><p>Attempt a Stability check. If you succeed,
+        Unrest decreases by 1 (if this would reduce Unrest below 0, add 1 BP to
+        your Treasury instead). If you fail by 4 or less, Unrest increases by 1;
+        if you fail by 5 or more, Unrest increases by 1d4</p><h1>Step 2 - Pay
+        Consumption</h1><p>Subtract your kingdom's Consumption from the
+        kingdom's Treasury. If your Treasury is negative after paying
+        Consumption, Unrest increases by 2.</p><h1>Step 3 - Fill Vacant Magic
+        Item Slots</h1><p>If any of your settlement districts have buildings
+        that produce magic items (such as a Caster's Tower or Herbalist) with
+        vacant magic item slots, there is a chance of those slots filling with
+        new items.</p><h1>Step 4 - Modify Unrest</h1><p>Unrest increases by 1
+        for each kingdom attribute (Economy, Loyalty, or Stability) that is a
+        negative number.</p><p>The Royal Enforcer may attempt to reduce Unrest
+        during this step.</p><p>If the kingdom's Unrest is 11 or higher, it
+        loses 1 hex (the leaders choose which hex). See Losing Hexes for more
+        information.</p><p>If your kingdom's Unrest ever reaches 20, the kingdom
+        falls into anarchy. While in anarchy, your kingdom can take no action
+        and treats all Economy, Loyalty, and Stability check results as 0.
+        Restoring order once a kingdom falls into anarchy typically requires a
+        number of quests and lengthy adventures by you and the other would-be
+        leaders to restore the people's faith in
+        you.</p><p><strong>Example</strong>: Jessica is the Ruler of a kingdom
+        with a Size of 30 and a Control DC of 60. Based on leadership role
+        bonuses, kingdom alignment bonuses, and buildings in her settlements,
+        the kingdom's Economy is 52, its Loyalty is 45, and its Stability is 56.
+        Its Unrest is currently 5, its Consumption is 5, and the Treasury has 12
+        BP.</p><p>In Step 1 of the Upkeep phase, Adam, the Warden, attempts a
+        Stability check to determine the kingdom's stability. Adam rolls a 19,
+        adds the kingdom's Stability (56), and subtracts its Unrest (5), for a
+        total of 70; that's a success, so Unrest decreases by 1.</p><p>In Step
+        2, the kingdom pays 5 BP for Consumption.</p><p>None of the kingdom's
+        magic item slots are empty, so they skip Step 3.</p><p>In Step 4, none
+        of the attributes are negative, so Unrest doesn't increase. Mark, the
+        Royal Enforcer, doesn't want to risk reducing the kingdom's Loyalty, so
+        he doesn't use his leadership role to reduce Unrest.</p><p>At the end of
+        this phase, the kingdom has Economy 52, Loyalty 45, Stability 56, Unrest
+        4, Consumption 5, and Treasury 7 BP.</p><h1>Losing Hexes</h1><p>If you
+        lose control of a hex - whether because of Unrest, monster attacks,
+        assaults from a hostile kingdom, and so on - you lose all the benefits
+        of any terrain improvements in that hex (such as Farms and
+        Roads).</p><p>All settlements in that hex become free cities with no
+        loyalty to you or any other kingdom (see Free City). At the GM's
+        discretion, monsters may move into the abandoned hex, requiring you to
+        clear it again if you want to claim it later, and terrain improvements
+        may decay over time.</p><p>Losing a hex may break your connection to
+        other kingdom hexes. For example, losing the only hex that bridges two
+        sides of a mountain range creates two separate territories. If this
+        happens, the primary territory is the part of the kingdom with your
+        capital city, and the rest of the kingdom is the secondary
+        territory.</p><p>If none of the kingdom's leaders are in the secondary
+        territory when this split happens, you lose control of all hexes (as
+        described above) in the secondary territory.</p><p>If at least one
+        kingdom leader is in the secondary territory when the split occurs, you
+        retain control of the secondary territory, but kingdom checks regarding
+        its hexes treat Unrest as 1 higher, increasing by 1 each turn after the
+        split. This modifier goes away if you claim a hex that reconnects the
+        secondary territory to the primary territory.</p><p>If you claim a hex
+        that reestablishes a connection to a leaderless secondary territory, you
+        regain the benefits of the territory's terrain improvements. You must
+        succeed at a Stability check to reclaim each of your former settlements
+        in the secondary territory. You initially have a +5 bonus on these
+        checks because the cities want to return to your kingdom, but this bonus
+        decreases by 1 (to a minimum bonus of +0) for each subsequent turn since
+        you lost control of the secondary territory.</p><p>If your kingdom is
+        reduced to 0 hexes - whether through Unrest, a natural disaster, an
+        attack by another kingdom, or other circumstances - you are at risk of
+        losing the kingdom. On your next turn, you must claim a new hex and
+        found or claim a new settlement, or your kingdom is destroyed and you
+        must start over if you want to found a new kingdom. At the GM's
+        discretion, you may be able to keep some BP from your destroyed
+        kingdom's Treasury for a time; otherwise, those assets are lost.</p>
+    video:
+      controls: true
+      volume: 0.5
+    src: null
+    system: {}
+    _key: '!journal.pages!ldJokAfDY6si7bzn.AwN9c0SVTGRlFNwU'
+  - sort: 300000
+    name: Edict Phase
+    type: text
+    _id: oSpZ1iwNytCNsbKI
+    title:
+      show: true
+      level: 1
+    image: {}
+    text:
+      format: 1
+      content: >-
+        <p>The Edict phase is when you make proclamations on expansion,
+        improvements, taxation, holidays, and so on.</p><p>The number of
+        improvements you can make during a single phase is limited by your
+        kingdom's size; see the Improvements Edicts table (below) for these
+        limits.</p><p><strong>Table: Improvement
+        Edicts</strong></p><table><tbody><tr><td><p><strong>Kingdom
+        Size</strong></p></td><td><p><strong>New
+        Settlements</strong><sup><strong>1</strong></sup></p></td><td><p><strong>New
+        Buildings</strong><sup><strong>2</strong></sup></p></td><td><p><strong>Terrain
+        Improvement</strong></p></td><td><p><strong>Hex
+        Claims</strong></p></td></tr><tr><td><p>01 -
+        10</p></td><td><p>1</p></td><td><p>1</p></td><td><p>2</p></td><td><p>1</p></td></tr><tr><td><p>11
+        -
+        25</p></td><td><p>1</p></td><td><p>2</p></td><td><p>3</p></td><td><p>2</p></td></tr><tr><td><p>26
+        -
+        50</p></td><td><p>1</p></td><td><p>5</p></td><td><p>5</p></td><td><p>3</p></td></tr><tr><td><p>51
+        -
+        100</p></td><td><p>2</p></td><td><p>10</p></td><td><p>7</p></td><td><p>4</p></td></tr><tr><td><p>101
+        -
+        200</p></td><td><p>3</p></td><td><p>20</p></td><td><p>9</p></td><td><p>8</p></td></tr><tr><td><p>201+</p></td><td><p>4</p></td><td><p>No
+        limit</p></td><td><p>12</p></td><td><p>12</p></td></tr></tbody></table><p><sup>1</sup>
+        Instead of creating a new settlement, your kingdom may create a new army
+        unit (see Mass Combat), expand or equip an existing army unit, or bring
+        an existing army unit back to full strength.</p><p><sup>2</sup>
+        Upgrading a building (for example, from a Shrine to a Temple) or
+        destroying a building counts toward this limit. The first House,
+        Mansion, Noble Villa, or Tenement your kingdom builds each turn does not
+        count against this number.</p><h1>Capital City</h1><p>A kingdom should
+        have a capital city—the seat of your power. Your first settlement is
+        your capital. If you want to designate a different settlement as the
+        capital, you may do so in Step 6 of the Edict phase. Your capital city
+        primarily comes into play if your kingdom loses hexes. If you change the
+        capital city, attempt a Stability check. Success means Unrest increases
+        by 1; failure means Unrest increases by 1d6.</p><h1>Step 1 - Assign
+        Leadership</h1><p>Assign PCs or NPCs to any vacant leadership roles or
+        change the roles being filled by particular PCs or closely allied
+        NPCs.</p><h1>Step 2 - Claim And Abandon Hexes</h1><p>For your kingdom to
+        grow, you must claim additional hexes. You can only claim a hex that is
+        adjacent to at least 1 other hex in your kingdom. Before you can claim
+        it, the hex must first be explored, then cleared of monsters and
+        dangerous hazards. Then, to claim the hex, spend 1 BP; this establishes
+        the hex as part of your kingdom and increases your kingdom's Size by 1
+        (see Steps 2 and 3 of Founding a Settlement for more details). Table:
+        Improvement Edicts (see above) tells you the maximum number of hexes you
+        can claim per turn.</p><p>You may abandon any number of hexes to reduce
+        your kingdom's Size (which you may wish to do to manage Consumption).
+        Doing so increases Unrest by 1 for each hex abandoned (or by 4 if the
+        hex contained a settlement). This otherwise functions like losing a hex
+        due to unrest (see Step 4 of the Upkeep phase).</p><h1>Step 3 - Build
+        Terrain Improvements</h1><p>You may spend BP to build terrain
+        improvements like Farms, Forts, Roads, Mines, and Quarries (see Terrain
+        Improvements below).</p><p>You may also prepare a hex for constructing a
+        settlement. Depending on the site, this may involve clearing trees,
+        moving boulders, digging sanitation trenches, and so on. See the
+        Preparation Cost column on Table: Terrain and Terrain Improvements to
+        determine how many BP this requires.</p><p>Table: Improvement Edicts
+        (see above) tells you the maximum number of terrain improvements you can
+        make per turn</p><h1>Step 4 - Create and Improve Settlements</h1><p>You
+        may create a settlement in a claimed hex (see Founding a Settlement).
+        Table: Improvement Edicts (above) tells you the maximum number of
+        settlements you can establish per turn.</p><p>You may construct a
+        building in any settlement in your kingdom. When a building is
+        completed, apply its modifiers to your kingdom sheet. Table: Improvement
+        Edicts (above) tells you the maximum number of buildings you can
+        construct in your kingdom per turn.</p><p>The first House, Mansion,
+        Noble Villa, or Tenement your kingdom builds each turn does not count
+        against that limit.</p><h1>Step 5: Create Army Units</h1><p>You may
+        create, expand, equip, or repair army units (see <a
+        href="http://localhost:30000/%22https://aonprd.com/Rules.aspx?Name=Mass%20Combat%20Overview&amp;Category=Mass%20Combat\%22">Mass
+        Combat</a>).</p><p><strong>Note</strong>: Added here as a placeholder
+        for if it is used in a later update. Ignore for right now.</p><h1>Step
+        6: Issue Edicts</h1><p>Select or adjust your edict
+        levels.</p><p><strong>Example: </strong>Jessica's kingdom has no vacant
+        leadership roles, so nothing happens in Step 1.</p><p>The leaders don't
+        want to spend BP and increase Size right now, so in Step 2 they don't
+        claim any hexes.</p><p>In Step 3, the leaders construct a Farm in one of
+        the kingdom's prepared hexes (Consumption -2, Treasury -2 BP).</p><p>In
+        Steps 4 and 5, the leaders continue to be frugal and do not construct
+        settlement improvements or create armies.</p><p>In Step 6, the leaders
+        issue a Holiday edict of one national holiday (Loyalty +1, Consumption
+        +1) and set the Promotion edict level to "none" (Stability -1,
+        Consumption +0).</p><p>Looking ahead to the Income phase, Jessica
+        realizes that an average roll for her Economy check would be a failure
+        (10 on the 1d20 + 52 Economy - 4 Unrest = 58, less than the Control DC
+        of 60), which means there's a good chance the kingdom won't generate any
+        BP this turn. She decides to set the Taxation edict to "heavy" (Economy
+        +3, Loyalty -4). At the end of this phase, the kingdom has Economy 55,
+        Loyalty 42, Stability 55, Unrest 4, Consumption 4, and Treasury 5
+        BP</p><h1>Terrain Improvements</h1><p>Terrain improvements are changes
+        to a hex that improve the land for your kingdom's use, such as
+        cultivating fields, digging mines, and clearing forests for lumber. The
+        following list describes common improvements. An improvement marked with
+        an asterisk (*) can share the same hex as other improvements.</p><p>Some
+        terrain improvements affect a settlement's Defense, which is used in the
+        mass combat rules.</p><p><strong>Terrain</strong>: This indicates what
+        kind of hex you can build this terrain improvement
+        in.</p><p><strong>Effect</strong>: This line states the effect the
+        terrain improvement has on that hex (or in some cases, your entire
+        kingdom).</p><p>If an improvement says you can upgrade it into another
+        improvement, you can do so by paying the cost difference between the two
+        improvements. When the upgrade is complete, you lose the benefit of the
+        old improvement but gain the benefit of the new
+        improvement.</p><p><strong>Cost</strong>: This line gives the cost in BP
+        to build the terrain improvement.</p><h2>Terrain and Terrain
+        Costs</h2><table><tbody><tr><td><p><strong>Terrain</strong></p></td><td><p><strong>Exploration
+        Time</strong><sup><strong>1</strong></sup></p></td><td><p><strong>Preparation
+        Time</strong><sup><strong>2</strong></sup></p></td><td><p><strong>Preparation
+        Cost</strong><sup><strong>3</strong></sup></p></td><td><p><strong>Farm
+        Cost</strong><sup><strong>4</strong></sup></p></td><td><p><strong>Road
+        Cost</strong><sup><strong>5,6</strong></sup></p></td></tr><tr><td><p>Cavern<sup>7</sup></p></td><td><p>3
+        days</p></td><td><p>3 months</p></td><td><p>8
+        BP</p></td><td><p>-</p></td><td><p>4
+        BP</p></td></tr><tr><td><p>Coastline<sup>8</sup></p></td><td><p>Special</p></td><td><p>Special</p></td><td><p>Special</p></td><td><p>Special</p></td><td><p>Special</p></td></tr><tr><td><p>Desert</p></td><td><p>2
+        Days</p></td><td><p>1 month</p></td><td><p>4 BP</p></td><td><p>8
+        BP</p></td><td><p>4 BP</p></td></tr><tr><td><p>Forest</p></td><td><p>2
+        days</p></td><td><p>2 months</p></td><td><p>4
+        BP</p></td><td><p>-</p></td><td><p>2
+        BP</p></td></tr><tr><td><p>Hills</p></td><td><p>1 day</p></td><td><p>1
+        month</p></td><td><p>2 BP</p></td><td><p>4 BP</p></td><td><p>3
+        BP</p></td></tr><tr><td><p>Jungle</p></td><td><p>2 days</p></td><td><p>4
+        months</p></td><td><p>12 BP</p></td><td><p>-</p></td><td><p>4
+        BP</p></td></tr><tr><td><p>Marsh</p></td><td><p>3 days</p></td><td><p>3
+        months</p></td><td><p>8 BP</p></td><td><p>-</p></td><td><p>4
+        BP</p></td></tr><tr><td><p>Mountains</p></td><td><p>3
+        days</p></td><td><p>4 months</p></td><td><p>12
+        BP</p></td><td><p>-</p></td><td><p>4
+        BP</p></td></tr><tr><td><p>Plains</p></td><td><p>1
+        day</p></td><td><p>Immediate</p></td><td><p>1 BP</p></td><td><p>2
+        BP</p></td><td><p>1 BP</p></td></tr><tr><td><p>Water</p></td><td><p>2
+        days</p></td><td><p>-</p></td><td><p>-</p></td><td><p>-</p></td><td><p>-</p></td></tr></tbody></table><p>1
+        Exploration time represents how many days a typical scouting party
+        requires to explore a hex of this type. These times assume a party speed
+        of 30 feet. For parties with different speeds, see Table 3-3:
+        Exploration Time (1 Hex) on page 154. Treat Cavern as Mountain and
+        Jungle as Marsh for exploration time. Do not adjust the speed for Water
+        hexes; it's assumed that the party is already using a boat or other
+        watercraft to explore.</p><p>2 Preparation time represents the months of
+        labor (beginning with the current turn) required to prepare the hex for
+        settlement. Construction of buildings can begin in the current month for
+        settlements built on plains.</p><p>3 Preparation cost represents the BP
+        cost to clear a hex of this type in preparation for founding a
+        settlement.</p><p>4 Farm cost represents the BP cost to cultivate a hex
+        for farming. A Farm must be within or adjacent to a hex containing a
+        river, lake, swamp, or Canal, or adjacent to at least 2 hexes that
+        already contain Farms.</p><p>5 Road cost represents the BP cost to
+        establish a Road that crosses a hex and connects to all adjacent hexes.
+        The cost to build a Road doubles if the hex contains rivers. A kingdom
+        with a Size of 26 or greater can build a Highway (or upgrade a Road to a
+        Highway).</p><p>6 If the hex contains any rivers, double the listed cost
+        to reflect the need to build bridges.</p><p>7 This is a large system of
+        caves and underground passages and can be found in any terrain type
+        except Marsh. It functions as an additional hex that exists underground,
+        below the surface hex.</p><p>8 Treat this as the adjacent land terrain
+        type for all purposes.</p><h1>Edicts</h1><p>Edicts are the official
+        pronouncements by your government about how you are running the kingdom
+        that turn. For example, you may decide to have low or high taxes, to
+        have more or fewer holidays, and how much effort to put into improving
+        the kingdom's infrastructure. Edicts fall into four types: Holiday,
+        Improvement, Promotion, and Taxation.</p><p>In the Edict phase of the
+        kingdom turn, you may set the Holiday, Promotion, and Taxation edict
+        categories to whatever level you want, as well as decide how much of
+        your allowed improvement from the Improvement edict you'll use. For
+        example, you may decide that this turn holidays are quarterly,
+        promotions are aggressive, taxation is minimal, and you won't build any
+        improvements.</p><h2>Improvement Edicts</h2><p>Improvements are physical
+        improvements you can make to your kingdom: founding new settlements,
+        adding buildings to a settlement, building roads, creating facilities
+        such as mines to tap natural resources, and claiming more hexes for your
+        kingdom. Your kingdom's Size limits how many improvements you can make
+        each turn; see Table: Improvement Edicts. You can make all of the
+        improvements listed on the appropriate row of the table. For example, if
+        your kingdom's Size is 5, on each turn you can create 1 new settlement,
+        1 new building, 2 terrain improvements, and claim 1 more
+        hex.</p><p><strong>Note</strong>: Improvement Edicts are detailed in
+        greater depth in Steps 2, 3 and 4 of the Edict Phase.</p><h2>Holiday
+        Edicts</h2><p>Holidays are general celebrations or observances that take
+        place across the kingdom. The BP expenditure includes lost revenue from
+        citizens not working during the holidays, preparations and logistical
+        arrangements that occur year round, and the cost of the actual
+        celebrations (these annual costs are averaged over the year and included
+        in the listed Consumption modifier that you pay each turn).</p><p>The
+        number of holidays per year is the number you promise to uphold and the
+        number that the common folk expect to enjoy over the next months. The
+        Loyalty and Consumption modifiers change as soon as you change the
+        number of holidays per year. The listed number assumes that you are
+        fulfilling your promise - if you announce 12 holidays in the coming year
+        but don't actually hold and pay for them, the GM should increase your
+        kingdom's Unrest to reflect public disappointment and
+        outrage.</p><p><strong>Example: </strong>Logan is the Ruler of a kingdom
+        with some Loyalty issues. He issues a Holiday edict that there will be
+        24 kingdom-wide official holidays in the next year (Loyalty +4,
+        Consumption +8). In the second turn, he worries about the increased
+        Consumption's effect on the Treasury, so he issues a new Holiday edict
+        decreeing that until further notice, there will be no kingdom-wide
+        holidays. He loses the previous +4 Loyalty bonus and incurs a -1 Loyalty
+        penalty for the new Holiday edict, but no longer has to pay the 8
+        Consumption each turn for his previous edict. If he frequently changes
+        Holiday edicts from high to low levels, the GM may decide that his
+        citizens no longer believe such promises and he won't gain any benefits
+        from having a high level of Holiday edict until he becomes
+        consistent.</p><h2>Promotion Edicts</h2><p>Promotion edicts are events
+        and actions the kingdom uses to attract new citizens and increase the
+        well-being of the kingdom, such as recruitment campaigns, advertisements
+        about services and goods, and propaganda to improve the perception of
+        your kingdom at home and abroad. Promotions increase Consumption, but
+        also increase Stability.</p><h2>Taxation Edicts</h2><p>Setting the tax
+        level determines how much revenue you collect from taxes in the Income
+        phase. Higher taxes increase your kingdom's Economy (making it easier
+        for you to succeed at Economy checks to generate revenue) but make your
+        citizens unhappy (reducing Loyalty).</p><h2>Table: Holiday
+        Edicts</h2><table><tbody><tr><td><p><strong>Per
+        Year</strong></p></td><td><p><strong>Loyalty</strong></p></td><td><p><strong>Consumption</strong></p></td></tr><tr><td><p>None</p></td><td><p>-1</p></td><td><p>+0</p></td></tr><tr><td><p>1</p></td><td><p>+1</p></td><td><p>+1</p></td></tr><tr><td><p>6</p></td><td><p>+2</p></td><td><p>+2</p></td></tr><tr><td><p>12</p></td><td><p>+3</p></td><td><p>+4</p></td></tr><tr><td><p>24</p></td><td><p>+4</p></td><td><p>+8</p></td></tr></tbody></table><h2>Table:
+        Promotion Edicts</h2><table><tbody><tr><td><p><strong>Promotion
+        Level</strong></p></td><td><p><strong>Stability</strong></p></td><td><p><strong>Consumption</strong></p></td></tr><tr><td><p>None</p></td><td><p>-1</p></td><td><p>+0</p></td></tr><tr><td><p>Token</p></td><td><p>+1</p></td><td><p>+1</p></td></tr><tr><td><p>Standard</p></td><td><p>+2</p></td><td><p>+2</p></td></tr><tr><td><p>Aggressive</p></td><td><p>+3</p></td><td><p>+4</p></td></tr><tr><td><p>Expansionist</p></td><td><p>+4</p></td><td><p>+8</p></td></tr></tbody></table><h2>Table:
+        Taxation Edicts</h2><table><tbody><tr><td><p><strong>Tax
+        Level</strong></p></td><td><p><strong>Economy</strong></p></td><td><p><strong>Loyalty</strong></p></td></tr><tr><td><p>None</p></td><td><p>+0</p></td><td><p>+1</p></td></tr><tr><td><p>Light</p></td><td><p>+1</p></td><td><p>-1</p></td></tr><tr><td><p>Normal</p></td><td><p>+2</p></td><td><p>-2</p></td></tr><tr><td><p>Heavy</p></td><td><p>+3</p></td><td><p>-4</p></td></tr><tr><td><p>Overwhelming</p></td><td><p>+4</p></td><td><p>-8</p></td></tr></tbody></table>
+    video:
+      controls: true
+      volume: 0.5
+    src: null
+    system: {}
+    _key: '!journal.pages!ldJokAfDY6si7bzn.oSpZ1iwNytCNsbKI'
+  - sort: 400000
+    name: Income Phase
+    type: text
+    _id: Nbhurs5opdSeAoL8
+    title:
+      show: true
+      level: 1
+    image: {}
+    text:
+      format: 1
+      content: >-
+        <p>During the Income phase, you may add to or withdraw from the Treasury
+        as well as collect taxes.</p><h1>Step 1 - Make Withdrawals from the
+        treasury</h1><p>The kingdom-building rules allow you to expend BP on
+        things related to running the kingdom. If you want to spend some of the
+        kingdom's resources on something for your own personal benefit (such as
+        a new magic item), you may withdraw BP from the Treasury and convert it
+        into gp once per turn, but there is a penalty for doing so.</p><p>Each
+        time you withdraw BP for your personal use, Unrest increases by the
+        number of BP withdrawn. Each BP you withdraw this way converts to 2,000
+        gp of personal funds</p><h1>Step 2 - Make deposits to the
+        treasury</h1><p>You can add funds to a kingdom's Treasury by donating
+        your personal wealth to the kingdom - coins, gems, jewelry, weapons,
+        armor, magic items, and other valuables you find while adventuring, as
+        long as they are individually worth 4,000 gp or less. For every full
+        4,000 gp in value of the deposit, increase your kingdom's BP by
+        1.</p><p>If you want to donate an item that is worth more than 4,000 gp,
+        refer to Step 3 instead</p><h1>Step 3 - Sell expensive items for
+        bp</h1><p>You can attempt to sell expensive personal items (that is,
+        items worth more than 4,000 gp each) through your kingdom's markets to
+        add to your Treasury. You may sell one item per settlement district per
+        turn. You must choose the settlement where you want to sell the item,
+        and the item cannot be worth more than the base value of that
+        settlement.</p><p>To sell an item, divide its price by half (as if
+        selling it to an NPC for gp), divide the result by 4,000 (rounded down),
+        and add that many BP to your Treasury.</p><p>You cannot use this step to
+        sell magic items held or created by buildings in your settlements; those
+        items are the property of the owners of those businesses. (See Magic
+        Items in Settlements for more information on this topic.)</p><h1>Step 4
+        - Collect Taxes</h1><p>Attempt an Economy check. If you succeed, divide
+        the result by 3 (round down), and add a number of BP to your Treasury
+        equal to the result.</p><p><strong>Example: </strong>Jessica and the
+        other leaders need to keep BP in the kingdom for future plans, so they
+        skip Step 1 of the Income phase.</p><p>They are worried that they won't
+        collect enough taxes this turn, so just in case, in Step 2 they deposit
+        8,000 gp worth of coins, gems, and small magic items (Treasury +2
+        BP).</p><p>The leaders aren't selling any expensive items, so nothing
+        happens in Step 3.</p><p>In Step 4, Rob, the Treasurer, rolls the
+        Economy check to collect taxes. Rob rolls a 9 on the 1d20, adds the
+        kingdom's Economy score (55), and subtracts Unrest (4) for a total of
+        60, which means the kingdom adds 20 BP (the Economy check result of 60,
+        divided by 3) to the Treasury. At the end of this phase, the kingdom has
+        Economy 55, Loyalty 42, Stability 55, Unrest 4, Consumption 4, and
+        Treasury 27 BP.</p>
+    video:
+      controls: true
+      volume: 0.5
+    src: null
+    system: {}
+    _key: '!journal.pages!ldJokAfDY6si7bzn.Nbhurs5opdSeAoL8'
+  - sort: 500000
+    name: Event Phase
+    type: text
+    _id: xwUDBXDYL6ert3G7
+    title:
+      show: true
+      level: 1
+    image: {}
+    text:
+      format: 1
+      content: >-
+        <p>In the Event phase, a random event may affect your kingdom as a whole
+        or a single settlement or hex.</p><p>There is a 25% chance of an event
+        occurring. If no event occurred during the last turn, this chance
+        increases to 75%.</p><p>Some events can be negated, ended, or
+        compensated for with some kind of kingdom check. Others, such as a
+        rampaging monster, require you to complete an adventure or deal with a
+        problem in a way not covered by the kingdom-building
+        rules.</p><p><strong>Example</strong>: The GM rolls on one of the event
+        tables and determines that a monster is attacking one of the kingdom's
+        hexes. Instead of attempting a Stability check to deal with the monster
+        (risking increasing Unrest if it fails), Jessica and the other leaders
+        go on a quest to deal with the monster personally. They defeat the
+        monster, so the event does not generate any Unrest. At the end of this
+        phase, the kingdom's scores are unchanged: Economy 55, Loyalty 42,
+        Stability 55, Unrest 4, Consumption 4, and Treasury 27
+        BP.</p><h1>Kingdom Events</h1><p>Listed below are unusual events that
+        can happen during a kingdom's Event phase. Most events occur immediately
+        and are instantaneous or terminate at the end of the Event
+        phase.</p><p>Some events impact the whole kingdom, while others are
+        centered on a specific settlement or hex. Roll on Table: Event Type and
+        Danger Level to determine the type of event and whether it is beneficial
+        or harmful. Then roll on the appropriate beneficial or dangerous
+        settlement or kingdom event table. If this results in an invalid event
+        (such as a pilgrimage when there are no Cathedrals, Shrines, or Temples
+        in the kingdom), roll again.</p><p><strong>Continuous Events</strong>: A
+        continuous event's effects continue each turn during the Event phase
+        until you resolve the event (as explained in the event description,
+        usually by succeeding at a kingdom check).</p><p><strong>Localized
+        Events</strong>: Some events are listed as "settlement" or "hex." The
+        effect of these events are localized to a single settlement or hex.
+        Randomly select a settlement or hex for the location of that event. Some
+        events (such as a feud) could be confined to a settlement or start in
+        one settlement and spread to affect the entire kingdom, depending on
+        whether they're rolled on one of the Kingdom Events tables or one of the
+        Settlement Events tables.</p><p><strong>Settlement Modifiers</strong>:
+        Some events adjust settlement modifiers (Crime, Lore, etc.). If an event
+        is localized to 1 settlement, its settlement modifier adjustments apply
+        only to that settlement; if it's localized to a hex, it affects only
+        settlements in that hex. If the GM is using settlement modifiers for the
+        entire kingdom (see Expanding Settlement Modifiers on page 230) and the
+        event is not localized, its adjustments apply to the final modifier for
+        the entire kingdom. For example, the new subjects event increases
+        Society and Stability for the entire kingdom by
+        1.</p><p><strong>Table:</strong>
+        @Compendium[pf1-kingdom-sheet.roll-table.veIcI8coYE6ZRqFG]{Kingdom
+        Events}</p>
+    video:
+      controls: true
+      volume: 0.5
+    src: null
+    system: {}
+    _key: '!journal.pages!ldJokAfDY6si7bzn.xwUDBXDYL6ert3G7'
+sort: 0
+_key: '!journal!ldJokAfDY6si7bzn'
+
