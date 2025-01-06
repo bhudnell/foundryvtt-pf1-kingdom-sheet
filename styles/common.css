@@ -35,6 +35,11 @@
       flex: 0 0 120px;
     }
 
+    /* event stuff */
+    &.item-settlement-name {
+      flex: 0 0 120px;
+    }
+
     /* army stuff */
     &.item-army-hp {
       flex: 0 0 64px;

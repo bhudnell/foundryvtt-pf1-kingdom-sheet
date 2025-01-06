@@ -259,7 +259,10 @@ export class KingdomSheet extends pf1.applications.actor.ActorSheetPF {
       const section = eventsSections.find((section) => this._applySectionFilter(i, section));
       if (section) {
         section.items ??= [];
-        section.items.push(i);
+        section.items.push({
+          ...i,
+          settlementName: this.actor.system.settlements.find((s) => s.id === i.system.settlementId)?.name,
+        });
       }
     }
 
@@ -385,10 +388,10 @@ export class KingdomSheet extends pf1.applications.actor.ActorSheetPF {
       contentSelector: `section.settlement-${newIdx}-details`,
       initial: `buildings`,
       group: `setlement-${newIdx}-details`,
-      callback: this._onChangeTab.bind(this)
-    }
+      callback: this._onChangeTab.bind(this),
+    };
     this.options.tabs.push(tab);
-    this._tabs.push(new Tabs(tab))
+    this._tabs.push(new Tabs(tab));
 
     await this._onSubmit(event, {
       updateData: { "system.settlements": settlements },
