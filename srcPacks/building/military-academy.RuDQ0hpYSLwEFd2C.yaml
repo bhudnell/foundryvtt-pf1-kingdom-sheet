@@ -17,7 +17,7 @@ system:
       weapon</p><p><strong>Settlement</strong> Law +1, Lore +1</p>
   changes:
     - _id: 5sSYiVE8
-      formula: '1'
+      formula: '2'
       target: pf1ks_loyalty
       type: untyped
       operator: add

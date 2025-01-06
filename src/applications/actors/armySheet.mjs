@@ -78,7 +78,8 @@ export class ArmySheet extends pf1.applications.actor.ActorSheetPF {
   }
 
   _prepareItems() {
-    const [features, boons] = this.actor.items.reduce(
+    const items = this.actor.items.map((i) => i).sort((a, b) => (a.sort || 0) - (b.sort || 0));
+    const [features, boons] = items.reduce(
       (arr, item) => {
         if (item.type === pf1ks.config.boonId) {
           arr[1].push(item);

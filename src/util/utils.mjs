@@ -122,8 +122,9 @@ export function applyChange(change, actor, targets = null, { applySourceInfo = t
     }
 
     // multiply change value by the parent item quantity
-    // This line is the only difference between this function and the system ItemChange.applyChange function
+    // These two lines are the only differences between this function and the system ItemChange.applyChange function
     value *= change.parent?.system.quantity ?? 1;
+    value = Math.floor(value);
 
     change.value = value;
 
