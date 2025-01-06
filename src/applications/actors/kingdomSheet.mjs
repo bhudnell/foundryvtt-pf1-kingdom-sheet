@@ -205,6 +205,21 @@ export class KingdomSheet extends pf1.applications.actor.ActorSheetPF {
   }
 
   _prepareItems() {
+    const items = this.actor.items.map((i) => i).sort((a, b) => (a.sort || 0) - (b.sort || 0));
+    const [buildings, improvements, events] = items.reduce(
+      (arr, item) => {
+        if (item.type === pf1ks.config.buildingId) {
+          arr[0].push(item);
+        } else if (item.type === pf1ks.config.improvementId) {
+          arr[1].push(item);
+        } else if (item.type === pf1ks.config.eventId) {
+          arr[2].push(item);
+        }
+        return arr;
+      },
+      [[], [], []]
+    );
+
     const settlementSections = this.actor.system.settlements.map((settlement) => {
       const { defense, baseValue, ...modifiers } = settlement.modifiers;
 
@@ -222,7 +237,7 @@ export class KingdomSheet extends pf1.applications.actor.ActorSheetPF {
         sizeLabel: pf1ks.config.settlementSizes[settlement.size],
         buildings: {
           ...pf1.config.sheetSections.kingdomSettlement.building,
-          items: this.actor.itemTypes[pf1ks.config.buildingId]
+          items: buildings
             .filter((building) => building.system.settlementId === settlement.id)
             .map((building) => ({
               ...building,
@@ -247,7 +262,7 @@ export class KingdomSheet extends pf1.applications.actor.ActorSheetPF {
     });
 
     const terrainSections = Object.values(pf1.config.sheetSections.kingdomTerrain).map((data) => ({ ...data }));
-    for (const i of this.actor.itemTypes[pf1ks.config.improvementId]) {
+    for (const i of improvements) {
       const section = terrainSections.find((section) => this._applySectionFilter(i, section));
       if (section) {
         section.items ??= [];
@@ -256,12 +271,13 @@ export class KingdomSheet extends pf1.applications.actor.ActorSheetPF {
     }
 
     const eventsSections = Object.values(pf1.config.sheetSections.kingdomEvent).map((data) => ({ ...data }));
-    for (const i of this.actor.itemTypes[pf1ks.config.eventId]) {
+    for (const i of events) {
       const section = eventsSections.find((section) => this._applySectionFilter(i, section));
       if (section) {
         section.items ??= [];
         section.items.push({
           ...i,
+          id: i.id,
           settlementName: this.actor.system.settlements.find((s) => s.id === i.system.settlementId)?.name,
         });
       }
