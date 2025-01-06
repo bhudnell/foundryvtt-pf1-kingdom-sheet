@@ -318,6 +318,7 @@ Hooks.once("i18nInit", () => {
     "buildingTypes",
     "magicItemTypes",
     "terrainTypes",
+    "settings",
     "optionalRules",
     "armyAttributes",
     "armySizes",

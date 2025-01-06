@@ -53,7 +53,7 @@
     "Dialog": "readonly",
     "ChatMessage": "readonly",
     "JournalEntryPage": "readonly",
-    "Tabs":"readonly",
+    "Tabs": "readonly",
     "pf1": "readonly",
     "pf1ks": "readonly",
     "libWrapper": "readonly"

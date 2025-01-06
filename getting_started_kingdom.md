@@ -34,7 +34,7 @@ The delete army button (trash can icon) will only delete the link to the army. T
 
 # Notes Tab
 
-Pretty self explanatory. 
+Pretty self explanatory.
 
 # Settings Tab
 

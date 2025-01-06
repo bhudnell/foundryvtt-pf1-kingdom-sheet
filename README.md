@@ -5,6 +5,7 @@ Provides support for running a kingdom within the Pathfinder 1 game system. Incl
 ---
 
 # [Kingdom - Getting Started](./getting_started_kingdom.md)
+
 # [Army - Getting Started](./getting_started_army.md)
 
 # Actors

@@ -1,17 +1,13 @@
 <h2>{{localize "PF1.BaseSetup"}}</h2>
 <ul>
+  {{#each settings}}
   <li>
     <label class="checkbox">
-      <input
-        class="secondRuler"
-        type="checkbox"
-        name="system.settings.secondRuler"
-        {{checked
-        system.settings.secondRuler}}
-      />
-      {{localize "PF1KS.SecondRuler"}}
+      <input class="{{ name }}" type="checkbox" name="system.settings.{{ name }}" {{checked value}} />
+      {{ label }}
     </label>
   </li>
+  {{/each}}
 </ul>
 
 <h2>{{localize "PF1.OptionalAndVariantRules"}}</h2>

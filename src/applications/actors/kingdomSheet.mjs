@@ -161,6 +161,7 @@ export class KingdomSheet extends pf1.applications.actor.ActorSheetPF {
     data.armies = this._prepareArmies();
 
     // optional rules
+    data.settings = this._prepareSettings();
     data.optionalRules = this._prepareOptionalRules();
 
     // notifications
@@ -290,6 +291,16 @@ export class KingdomSheet extends pf1.applications.actor.ActorSheetPF {
       name: army.actor.name,
       system: army.actor.system,
     }));
+  }
+
+  _prepareSettings() {
+    return Object.entries(this.actor.system.settings)
+      .filter(([_, value]) => typeof value === "boolean")
+      .map(([key, value]) => ({
+        name: key,
+        value,
+        label: pf1ks.config.settings[key],
+      }));
   }
 
   _prepareOptionalRules() {

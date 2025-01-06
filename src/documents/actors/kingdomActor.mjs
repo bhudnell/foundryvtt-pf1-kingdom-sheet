@@ -80,6 +80,11 @@ export class KingdomActor extends BaseActor {
       }
     }
 
+    // fame/infamy
+    this.system.fame.total += Math.floor(this._getChanges("lore") / 10) + Math.floor(this._getChanges("society") / 10);
+    this.system.infamy.total +=
+      Math.floor(this._getChanges("corruption") / 10) + Math.floor(this._getChanges("crime") / 10);
+
     // deleting this because it only exists to get settlement modifier changes to parse
     delete this.system.someFakeData;
 
@@ -179,40 +184,78 @@ export class KingdomActor extends BaseActor {
           `${pf1ks.config.changePrefix}_${stat}`,
           "PF1.Alignment"
         ),
-
-        // leadership
-        ...filledRoles.map(
-          (leader) =>
-            new DefaultChange(
-              pf1ks.config.leadershipBonusToKingdomStats[leader.bonusType]?.includes(stat) ? leader.bonus : 0,
-              `${pf1ks.config.changePrefix}_${stat}`,
-              pf1ks.config.leadershipRoles[leader.role]
-            )
-        ),
-        ...vacantRoles.map(
-          (leader) =>
-            new DefaultChange(
-              -(pf1ks.config.leadershipPenalties[leader.role][stat] ?? 0),
-              `${pf1ks.config.changePrefix}_${stat}`,
-              game.i18n.format("PF1KS.LeaderVacant", { value: pf1ks.config.leadershipRoles[leader.role] })
-            )
-        ),
-
         // unrest
         new DefaultChange(-system.unrest, `${pf1ks.config.changePrefix}_${stat}`, "PF1KS.Unrest")
       );
 
-      if (system.settings.optionalRules.leadershipSkills) {
+      // leadership
+      if (system.settings.collapseTooltips) {
+        changes.push(
+          new DefaultChange(
+            filledRoles.reduce(
+              (acc, leader) =>
+                (acc += pf1ks.config.leadershipBonusToKingdomStats[leader.bonusType]?.includes(stat)
+                  ? leader.bonus
+                  : 0),
+              0
+            ),
+            `${pf1ks.config.changePrefix}_${stat}`,
+            game.i18n.localize("PF1KS.LeadershipLabel")
+          ),
+          new DefaultChange(
+            -vacantRoles.reduce((acc, leader) => (acc += pf1ks.config.leadershipPenalties[leader.role][stat] ?? 0), 0),
+            `${pf1ks.config.changePrefix}_${stat}`,
+            game.i18n.format("PF1KS.LeaderVacant", { value: game.i18n.localize("PF1KS.LeadershipLabel") })
+          )
+        );
+
+        if (system.settings.optionalRules.leadershipSkills) {
+          changes.push(
+            new DefaultChange(
+              filledRoles.reduce(
+                (acc, leader) =>
+                  (acc += pf1ks.config.leadershipBonusToKingdomStats[leader.bonusType]?.includes(stat)
+                    ? leader.skillBonus
+                    : 0),
+                0
+              ),
+              `${pf1ks.config.changePrefix}_${stat}`,
+              game.i18n.format("PF1KS.LeaderSkillBonus", { value: game.i18n.localize("PF1KS.LeadershipLabel") })
+            )
+          );
+        }
+      } else {
         changes.push(
           ...filledRoles.map(
             (leader) =>
               new DefaultChange(
-                pf1ks.config.leadershipBonusToKingdomStats[leader.bonusType]?.includes(stat) ? leader.skillBonus : 0,
+                pf1ks.config.leadershipBonusToKingdomStats[leader.bonusType]?.includes(stat) ? leader.bonus : 0,
                 `${pf1ks.config.changePrefix}_${stat}`,
-                game.i18n.format("PF1KS.LeaderSkillBonus", { value: pf1ks.config.leadershipRoles[leader.role] })
+                pf1ks.config.leadershipRoles[leader.role]
+              )
+          ),
+          ...vacantRoles.map(
+            (leader) =>
+              new DefaultChange(
+                -(pf1ks.config.leadershipPenalties[leader.role][stat] ?? 0),
+                `${pf1ks.config.changePrefix}_${stat}`,
+                game.i18n.format("PF1KS.LeaderVacant", { value: pf1ks.config.leadershipRoles[leader.role] })
               )
           )
         );
+
+        if (system.settings.optionalRules.leadershipSkills) {
+          changes.push(
+            ...filledRoles.map(
+              (leader) =>
+                new DefaultChange(
+                  pf1ks.config.leadershipBonusToKingdomStats[leader.bonusType]?.includes(stat) ? leader.skillBonus : 0,
+                  `${pf1ks.config.changePrefix}_${stat}`,
+                  game.i18n.format("PF1KS.LeaderSkillBonus", { value: pf1ks.config.leadershipRoles[leader.role] })
+                )
+            )
+          );
+        }
       }
     }
 
@@ -242,50 +285,34 @@ export class KingdomActor extends BaseActor {
           value: pf1ks.config.edicts.taxation[system.edicts.taxation],
         })
       )
-    ); 
+    );
     const hasCathedral = this.itemTypes[pf1ks.config.buildingId].some((building) => building.type === "cathedral");
     const promotionConsumption = pf1ks.config.edictEffects.promotion[system.edicts.promotion]?.consumption ?? 0;
-    changes.push(new DefaultChange(
-      hasCathedral ? Math.floor(promotionConsumption / 2) : promotionConsumption,
-      `${pf1ks.config.changePrefix}_consumption`,
-      game.i18n.format("PF1KS.Edict.PromotionChange", {
-        value: pf1ks.config.edicts.promotion[system.edicts.promotion],
-      })
-    ));
+    changes.push(
+      new DefaultChange(
+        hasCathedral ? Math.floor(promotionConsumption / 2) : promotionConsumption,
+        `${pf1ks.config.changePrefix}_consumption`,
+        game.i18n.format("PF1KS.Edict.PromotionChange", {
+          value: pf1ks.config.edicts.promotion[system.edicts.promotion],
+        })
+      )
+    );
     const hasWaterfront = this.itemTypes[pf1ks.config.buildingId].some((building) => building.type === "waterfront");
     const taxationLoyalty = pf1ks.config.edictEffects.taxation[system.edicts.taxation]?.loyalty ?? 0;
-    changes.push(new DefaultChange(
-      hasWaterfront ? Math.floor(taxationLoyalty / 2) : taxationLoyalty,
-      `${pf1ks.config.changePrefix}_loyalty`,
-      game.i18n.format("PF1KS.Edict.TaxationChange", {
-        value: pf1ks.config.edicts.taxation[system.edicts.taxation],
-      })
-    ));
+    changes.push(
+      new DefaultChange(
+        hasWaterfront ? Math.floor(taxationLoyalty / 2) : taxationLoyalty,
+        `${pf1ks.config.changePrefix}_loyalty`,
+        game.i18n.format("PF1KS.Edict.TaxationChange", {
+          value: pf1ks.config.edicts.taxation[system.edicts.taxation],
+        })
+      )
+    );
 
     // consumption
     changes.push(
       new DefaultChange(system.size, `${pf1ks.config.changePrefix}_consumption`, "PF1.Size"),
       new DefaultChange(system.totalDistricts, `${pf1ks.config.changePrefix}_consumption`, "PF1KS.Districts")
-    );
-
-    // fame/infamy
-    changes.push(
-      new DefaultChange(Math.floor(this._getChanges("lore") / 10), `${pf1ks.config.changePrefix}_fame`, "PF1KS.Lore"),
-      new DefaultChange(
-        Math.floor(this._getChanges("society") / 10),
-        `${pf1ks.config.changePrefix}_fame`,
-        "PF1KS.Society"
-      ),
-      new DefaultChange(
-        Math.floor(this._getChanges("corruption") / 10),
-        `${pf1ks.config.changePrefix}_infamy`,
-        "PF1KS.Corruption"
-      ),
-      new DefaultChange(
-        Math.floor(this._getChanges("crime") / 10),
-        `${pf1ks.config.changePrefix}_infamy`,
-        "PF1KS.Crime"
-      )
     );
   }
 
@@ -348,6 +375,34 @@ export class KingdomActor extends BaseActor {
           value: this.system[attributeId].base,
         });
       }
+    }
+    const lore = Math.floor(this._getChanges("lore") / 10);
+    const society = Math.floor(this._getChanges("society") / 10);
+    const corruption = Math.floor(this._getChanges("corruption") / 10);
+    const crime = Math.floor(this._getChanges("crime") / 10);
+    if (lore) {
+      sourceDetails["system.fame.total"].push({
+        name: game.i18n.localize("PF1KS.Lore"),
+        value: lore,
+      });
+    }
+    if (society) {
+      sourceDetails["system.fame.total"].push({
+        name: game.i18n.localize("PF1KS.Society"),
+        value: society,
+      });
+    }
+    if (corruption) {
+      sourceDetails["system.fame.total"].push({
+        name: game.i18n.localize("PF1KS.Corruption"),
+        value: corruption,
+      });
+    }
+    if (crime) {
+      sourceDetails["system.fame.total"].push({
+        name: game.i18n.localize("PF1KS.Crime"),
+        value: crime,
+      });
     }
 
     // settlement stuff
@@ -413,6 +468,18 @@ export class KingdomActor extends BaseActor {
     for (const [path, changeGrp] of Object.entries(this.sourceInfo)) {
       /** @type {Array<SourceInfo[]>} */
       const sourceGroups = Object.values(changeGrp);
+      const buildings = {
+        name: game.i18n.localize("PF1KS.Buildings"),
+        value: 0,
+      };
+      const improvements = {
+        name: game.i18n.localize("PF1KS.Improvements"),
+        value: 0,
+      };
+      const events = {
+        name: game.i18n.localize("PF1KS.Events"),
+        value: 0,
+      };
       for (const grp of sourceGroups) {
         sourceDetails[path] ||= [];
         for (const src of grp) {
@@ -433,13 +500,31 @@ export class KingdomActor extends BaseActor {
 
           // Add sources only if they actually add something else than zero
           if (!(src.operator === "add" && srcValue === 0) || src.ignoreNull === false) {
-            sourceDetails[path].push({
-              name: label.replace(/[[\]]/g, ""),
-              modifier: src.modifier || "",
-              value: srcValue,
-            });
+            const collapse = this.system.settings.collapseTooltips;
+            if (collapse && src.type === pf1ks.config.buildingId) {
+              buildings.value += srcValue;
+            } else if (collapse && src.type === pf1ks.config.eventId) {
+              events.value += srcValue;
+            } else if (collapse && src.type === pf1ks.config.improvementId) {
+              improvements.value += srcValue;
+            } else {
+              sourceDetails[path].push({
+                name: label.replace(/[[\]]/g, ""),
+                modifier: src.modifier || "",
+                value: srcValue,
+              });
+            }
           }
         }
+      }
+      if (buildings.value) {
+        sourceDetails[path].push(buildings);
+      }
+      if (events.value) {
+        sourceDetails[path].push(events);
+      }
+      if (improvements.value) {
+        sourceDetails[path].push(improvements);
       }
     }
 

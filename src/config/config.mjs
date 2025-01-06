@@ -504,6 +504,11 @@ export const terrainTypes = {
   water: "PF1KS.Terrain.Water",
 };
 
+export const settings = {
+  secondRuler: "PF1KS.Settings.SecondRuler",
+  collapseTooltips: "PF1KS.Settings.CollapseTooltips",
+};
+
 export const optionalRules = {
   kingdomModifiers: "PF1KS.Settings.KingdomModifiers",
   fameInfamy: "PF1KS.Settings.FameInfamy",

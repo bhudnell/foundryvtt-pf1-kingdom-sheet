@@ -107,7 +107,6 @@
         "Survival": "Survival"
       }
     },
-    "SecondRuler": "Second Ruler",
     "CreateViceroy": "Create Viceroy",
     "DeleteViceroy": "Delete Viceroy",
     "DeleteViceroyConfirmation": "Are you sure you want to delete this viceroy?",
@@ -323,6 +322,8 @@
     "DeleteArmyConfirmation": "Are you sure you want to delete this army?",
 
     "Settings": {
+      "SecondRuler": "Second Ruler",
+      "CollapseTooltips": "Collapse Tooltips",
       "KingdomModifiers": "Kingdomwide Settlement Modifiers",
       "FameInfamy": "Fame and Infamy",
       "GovernmentForms": "Forms of Government",
