@@ -308,12 +308,6 @@ export class KingdomActor extends BaseActor {
         })
       )
     );
-
-    // consumption
-    changes.push(
-      new DefaultChange(system.size, `${pf1ks.config.changePrefix}_consumption`, "PF1.Size"),
-      new DefaultChange(system.totalDistricts, `${pf1ks.config.changePrefix}_consumption`, "PF1KS.Districts")
-    );
   }
 
   _setSourceDetails() {
@@ -366,6 +360,18 @@ export class KingdomActor extends BaseActor {
         });
       }
     });
+
+    // consumption
+    sourceDetails["system.consumption.total"].push(
+      {
+        name: game.i18n.localize("PF1.Size"),
+        value: this.system.size,
+      },
+      {
+        name: game.i18n.localize("PF1KS.Districts"),
+        value: this.system.totalDistricts,
+      }
+    );
 
     // fame/infamy
     for (let attributeId of ["fame", "infamy"]) {

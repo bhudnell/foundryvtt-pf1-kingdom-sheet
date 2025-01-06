@@ -107,6 +107,8 @@ export class KingdomModel extends foundry.abstract.TypeDataModel {
     this.totalDistricts = this.settlements.reduce((acc, curr) => acc + curr.districtCount, 0);
     this.controlDC = 20 + this.size + this.totalDistricts;
 
+    this.consumption.total += this.size + this.totalDistricts;
+
     this.fame.total = this.fame.base;
     this.infamy.total = this.infamy.base;
 
