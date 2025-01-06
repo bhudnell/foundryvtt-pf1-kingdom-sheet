@@ -10,7 +10,13 @@ system:
       slot that is automatically filled in the next Upkeep phase. This slot and
       the item go away if the item is purchased or in the next Event phase,
       whichever comes first.</p>
-  changes: []
+  changes:
+    - _id: Ox1uhINh
+      formula: '1'
+      target: pf1ks_magic_item_minor
+      type: untyped
+      operator: add
+      priority: 0
   contextNotes: []
   sources: []
   settlementId: ''

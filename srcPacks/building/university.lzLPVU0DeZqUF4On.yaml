@@ -46,6 +46,18 @@ system:
       type: untyped
       operator: add
       priority: 0
+    - _id: LQLFp8Jg
+      formula: '4'
+      target: pf1ks_magic_item_minor
+      type: untyped
+      operator: add
+      priority: 0
+    - _id: PDScFtPA
+      formula: '2'
+      target: pf1ks_magic_item_medium
+      type: untyped
+      operator: add
+      priority: 0
   contextNotes:
     - text: +[[4]] for questions relating to one Knowledge or Profession skill
       target: pf1ks_lore

@@ -25,6 +25,24 @@ system:
       type: untyped
       operator: add
       priority: 0
+    - _id: CRHzPOde
+      formula: '4'
+      target: pf1ks_magic_item_minor
+      type: untyped
+      operator: add
+      priority: 0
+    - _id: DgJXBWJx
+      formula: '2'
+      target: pf1ks_magic_item_medium
+      type: untyped
+      operator: add
+      priority: 0
+    - _id: EcxI3TJn
+      formula: '1'
+      target: pf1ks_magic_item_major
+      type: untyped
+      operator: add
+      priority: 0
   contextNotes: []
   sources: []
   settlementId: ''

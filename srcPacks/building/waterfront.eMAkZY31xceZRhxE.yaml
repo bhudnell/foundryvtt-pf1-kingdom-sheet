@@ -34,6 +34,24 @@ system:
       type: untyped
       operator: add
       priority: 0
+    - _id: ioacVgXh
+      formula: '2'
+      target: pf1ks_magic_item_minor
+      type: untyped
+      operator: add
+      priority: 0
+    - _id: 7Z3Ejg4X
+      formula: '1'
+      target: pf1ks_magic_item_medium
+      type: untyped
+      operator: add
+      priority: 0
+    - _id: Wnb8HJyg
+      formula: '1'
+      target: pf1ks_magic_item_major
+      type: untyped
+      operator: add
+      priority: 0
   contextNotes: []
   sources: []
   settlementId: ''

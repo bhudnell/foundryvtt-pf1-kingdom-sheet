@@ -38,6 +38,18 @@ system:
       type: untyped
       operator: add
       priority: 0
+    - _id: GwYtyCHx
+      formula: '3'
+      target: pf1ks_magic_item_minor
+      type: untyped
+      operator: add
+      priority: 0
+    - _id: PmEfezgV
+      formula: '1'
+      target: pf1ks_magic_item_medium
+      type: untyped
+      operator: add
+      priority: 0
   contextNotes:
     - text: +[[2]] for questions relating to Knowledge (arcana)
       target: pf1ks_lore

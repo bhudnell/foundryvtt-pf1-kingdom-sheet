@@ -37,6 +37,12 @@ system:
       type: untyped
       operator: add
       priority: 0
+    - _id: lsenp5ca
+      formula: '2'
+      target: pf1ks_magic_item_minor
+      type: untyped
+      operator: add
+      priority: 0
   contextNotes: []
   sources: []
   settlementId: ''

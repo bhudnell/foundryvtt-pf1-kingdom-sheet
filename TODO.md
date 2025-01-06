@@ -1,5 +1,4 @@
 - clean up compendium extraction (especially journals and scenes)
-- Update items that grant magic items
 
 # Improvements
 

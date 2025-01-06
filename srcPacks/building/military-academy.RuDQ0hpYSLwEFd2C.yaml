@@ -46,6 +46,18 @@ system:
       type: untyped
       operator: add
       priority: 0
+    - _id: bfpVc1IG
+      formula: '1'
+      target: pf1ks_magic_item_minor
+      type: untyped
+      operator: add
+      priority: 0
+    - _id: wqgnS5yJ
+      formula: '1'
+      target: pf1ks_magic_item_medium
+      type: untyped
+      operator: add
+      priority: 0
   contextNotes: []
   sources: []
   settlementId: ''
