@@ -8,6 +8,7 @@ export class EventModel extends ItemBaseModel {
       subType: new fields.StringField({ initial: "active", choices: Object.keys(pf1ks.config.eventSubTypes) }),
       settlementId: new fields.StringField(),
       continuous: new fields.BooleanField({ initial: false }),
+      turn: new fields.NumberField({ integer: true, min: 0 }),
     };
     this.addDefaultSchemaFields(schema);
 

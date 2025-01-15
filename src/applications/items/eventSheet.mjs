@@ -24,6 +24,12 @@ export class EventSheet extends ItemBaseSheet {
         label: game.i18n.localize("PF1KS.Continuous"),
         value: itemData.continuous,
       },
+      {
+        isNumber: true,
+        name: "system.turn",
+        label: game.i18n.localize("PF1KS.Turn"),
+        value: itemData.turn,
+      },
     ];
 
     return context;

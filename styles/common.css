@@ -86,7 +86,9 @@
 }
 
 .app.sheet.kingdom .info-box select {
+  flex: 0 0 21.5px;
   text-align: -webkit-center;
+  border: unset;
 }
 
 .app.sheet.kingdom :is(span.text-box, input.text-box) {

@@ -48,6 +48,10 @@
       </div>
 
       <div class="item-detail item-number">
+        <label>{{localize "PF1KS.Turn"}}</label>
+      </div>
+
+      <div class="item-detail item-number">
         <i class="fas fa-repeat" data-tooltip="PF1KS.Continuous"></i>
       </div>
 
@@ -76,6 +80,10 @@
 
       <div class="item-detail item-settlement-name">
         <span>{{ item.settlementName }}</span>
+      </div>
+
+      <div class="item-detail item-number">
+        <span>{{ item.system.turn }}</span>
       </div>
 
       <a class="item-detail item-number item-toggle-data" data-name="continuous">
