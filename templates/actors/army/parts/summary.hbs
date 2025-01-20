@@ -22,7 +22,7 @@
 
     <div class="character-summary flexrow">
       <div class="large">
-        <input type="text" name="system.type" value="{{ system.type }}" data-tooltip="PF1.Type" placeholder="{{localize "PF1.Type"}}" />
+        <input type="text" name="system.type" value="{{ system.type }}" data-tooltip="PF1.Type" />
       </div>
 
       <div class="controls alignment flexrow" data-tooltip="PF1.Alignment">
@@ -35,96 +35,92 @@
   </div>
 </div>
 
+<div class="attributes flexrow">
+  <div class="info-box-header" data-tooltip-extended="hp">
+    <h3>{{localize "PF1.HitPoints"}}</h3>
+    <div class="info-box-joined">
+      <div class="info-box">
+        <h5>{{ localize "PF1.Current" }}</h5>
+        <span class="value text-box direct" name="system.hp.current" data-dtype="Number">{{ system.hp.current }}</span>
+      </div>
+      <div class="info-box">
+        <h5>{{localize "PF1.Maximum" }}</h5>
+        <span class="value">{{ system.hp.max }}</span>
+      </div>
+      <div class="info-box">
+        <h5>{{ localize "PF1.HitDieShort" }}</h5>
+        <select name="system.hd">
+          {{selectOptions hdOptions selected=system.hd}}
+        </select>
+      </div>
+    </div>
+  </div>
+
+  <div class="info-box-header">
+    <h3>{{localize "PF1.Misc"}}</h3>
+    <div class="info-box-joined">
+      <div class="info-box">
+        <h5>{{ localize "PF1.Size" }}</h5>
+        <select name="system.size">
+          {{selectOptions sizeOptions selected=system.size blank=''}}
+        </select>
+      </div>
+      <div class="info-box" data-tooltip-extended="speed">
+        <h5>{{ localize "PF1KS.Army.SpeedWithUnits" }}</h5>
+        <span class="value text-box direct" name="system.speed.base" data-dtype="Number">{{ system.speed.total }}</span>
+      </div>
+      <div class="info-box" data-tooltip-extended="consumption">
+        <h5>{{localize "PF1KS.Army.ConsumptionPerWeek" }}</h5>
+        <span class="value">{{ system.consumption.total }}</span>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="attributes flexrow">
+  <div class="info-box-header">
+    <h3>{{localize "PF1.Attributes"}}</h3>
+    <div class="info-box-joined">
+      <div class="info-box" data-tooltip-extended="dv">
+        <h5>{{localize "PF1KS.Army.DV" }}</h5>
+        <span class="value">{{ system.dv.total }}</span>
+      </div>
+      <div class="info-box" data-tooltip-extended="om">
+        <h5 class="attribute" data-attribute="om">
+          <a class="rollable"><i class="fa-solid fa-dice"></i></a>
+          <span>{{ localize "PF1KS.Army.OM" }}</span>
+        </h5>
+        <span class="value">{{ numberFormat system.om.total sign=true }}</span>
+      </div>
+      <div class="info-box" data-tooltip-extended="damageBonus">
+        <h5>{{ localize "PF1.DamageBonus" }}</h5>
+        <span class="value">{{ numberFormat system.damageBonus.total sign=true }}</span>
+      </div>
+      <div class="info-box" data-tooltip-extended="morale">
+        <h5 class="attribute" data-attribute="morale">
+          <a class="rollable"><i class="fa-solid fa-dice"></i></a>
+          <span>{{ localize "PF1KS.Army.Morale" }}</span>
+        </h5>
+        <span
+          class="value text-box direct"
+          name="system.morale.base"
+          data-dtype="Number"
+          >{{ numberFormat system.morale.total sign=true }}</span
+        >
+      </div>
+      <div class="info-box">
+        <h5>{{ localize "PF1KS.Army.StrategyLabel" }}</h5>
+        <select name="system.strategy">
+          {{selectOptions strategyOptions selected=system.strategy}}
+        </select>
+      </div>
+    </div>
+  </div>
+</div>
+
+<hr />
+
 <section class="subdetails-body">
-  <div class="attributes flexrow">
-    <div class="info-box-header" data-tooltip-extended="hp">
-      <h3>{{localize "PF1.HitPoints"}}</h3>
-      <div class="info-box-joined">
-        <div class="info-box">
-          <h5>{{ localize "PF1.Current" }}</h5>
-          <span class="value text-box direct" name="system.hp.current" data-dtype="Number">{{
-            system.hp.current
-          }}</span>
-        </div>
-        <div class="info-box">
-          <h5>{{localize "PF1.Maximum" }}</h5>
-          <span class="value">{{ system.hp.max }}</span>
-        </div>
-        <div class="info-box">
-          <h5>{{ localize "PF1.HitDieShort" }}</h5>
-          <select name="system.hd">
-            {{selectOptions hdOptions selected=system.hd}}
-          </select>
-        </div>
-      </div>
-    </div>
-
-    <div class="info-box-header">
-      <h3>{{localize "PF1.Misc"}}</h3>
-      <div class="info-box-joined">
-        <div class="info-box">
-          <h5>{{ localize "PF1.Size" }}</h5>
-          <select name="system.size">
-            {{selectOptions sizeOptions selected=system.size blank=''}}
-          </select>
-        </div>
-        <div class="info-box" data-tooltip-extended="speed">
-          <h5>{{ localize "PF1KS.Army.SpeedWithUnits" }}</h5>
-          <span class="value text-box direct" name="system.speed.base" data-dtype="Number">{{
-            system.speed.total
-          }}</span>
-        </div>
-        <div class="info-box" data-tooltip-extended="consumption">
-          <h5>{{localize "PF1KS.Army.ConsumptionPerWeek" }}</h5>
-          <span class="value">{{ system.consumption.total }}</span>
-        </div>
-      </div>
-    </div>
-  </div>
-
-  <div class="attributes flexrow">
-    <div class="info-box-header">
-      <h3>{{localize "PF1.Attributes"}}</h3>
-      <div class="info-box-joined">
-        <div class="info-box" data-tooltip-extended="dv">
-          <h5>{{localize "PF1KS.Army.DV" }}</h5>
-          <span class="value">{{ system.dv.total }}</span>
-        </div>
-        <div class="info-box" data-tooltip-extended="om">
-          <h5 class="attribute" data-attribute="om">
-            <a class="rollable"><i class="fa-solid fa-dice"></i></a>
-            <span>{{ localize "PF1KS.Army.OM" }}</span>
-          </h5>
-          <span class="value">{{ numberFormat system.om.total sign=true }}</span>
-        </div>
-        <div class="info-box" data-tooltip-extended="damageBonus">
-          <h5>{{ localize "PF1.DamageBonus" }}</h5>
-          <span class="value">{{ numberFormat system.damageBonus.total sign=true }}</span>
-        </div>
-        <div class="info-box" data-tooltip-extended="morale">
-          <h5 class="attribute" data-attribute="morale">
-            <a class="rollable"><i class="fa-solid fa-dice"></i></a>
-            <span>{{ localize "PF1KS.Army.Morale" }}</span>
-          </h5>
-          <span
-            class="value text-box direct"
-            name="system.morale.base"
-            data-dtype="Number"
-            >{{ numberFormat system.morale.total sign=true }}</span
-          >
-        </div>
-        <div class="info-box">
-          <h5>{{ localize "PF1KS.Army.StrategyLabel" }}</h5>
-          <select name="system.strategy">
-            {{selectOptions strategyOptions selected=system.strategy}}
-          </select>
-        </div>
-      </div>
-    </div>
-  </div>
-
-  <hr />
-
   <div>
     <h3 class="flex0">{{localize "PF1KS.Army.ResourcesLabel"}}</h3>
     <div class="resources">

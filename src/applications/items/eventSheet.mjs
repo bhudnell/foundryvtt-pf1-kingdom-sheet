@@ -19,16 +19,17 @@ export class EventSheet extends ItemBaseSheet {
     context.subType = pf1ks.config.itemSubTypes[itemData.subType];
     context.sidebarContent = [
       {
-        isBoolean: true,
-        name: "system.continuous",
-        label: game.i18n.localize("PF1KS.Continuous"),
-        value: itemData.continuous,
-      },
-      {
         isNumber: true,
         name: "system.turn",
         label: game.i18n.localize("PF1KS.Turn"),
         value: itemData.turn,
+      },
+    ];
+    context.states = [
+      {
+        field: "system.continuous",
+        value: itemData.continuous,
+        label: game.i18n.localize("PF1KS.Continuous"),
       },
     ];
 

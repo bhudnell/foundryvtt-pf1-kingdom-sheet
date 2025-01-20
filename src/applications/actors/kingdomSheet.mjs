@@ -613,13 +613,15 @@ export class KingdomSheet extends pf1.applications.actor.ActorSheetPF {
     return super._updateObject(event, changed);
   }
 
+  // this function is almost identical to the system function on actor-sheet.mjs, except it
+  // allows the settlementId of buildings to be pre-populated when dropped on settlements,
+  // and removes some of the unnecessary stuff
   async _onDropItem(event, data) {
     if (!this.actor.isOwner) {
       return void ui.notifications.warn("PF1.Error.NoActorPermission", { localize: true });
     }
 
     const sourceItem = await Item.implementation.fromDropData(data);
-    const settlementId = event.target.closest(".tab.settlement")?.dataset.id;
 
     const sameActor = sourceItem.actor === this.actor && !data.containerId;
 
@@ -637,7 +639,9 @@ export class KingdomSheet extends pf1.applications.actor.ActorSheetPF {
     // Create the owned item
     this._alterDropItemData(itemData, sourceItem);
 
+    // this is the part I had to add
     // if building dropped on a settlement, add the settlement id
+    const settlementId = event.target.closest(".tab.settlement")?.dataset.id;
     if (itemData.type === pf1ks.config.buildingId && settlementId) {
       itemData.system.settlementId = settlementId;
     }

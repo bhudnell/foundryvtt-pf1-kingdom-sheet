@@ -1,5 +1,3 @@
-import { keepUpdateArray } from "../../util/utils.mjs";
-
 export class BaseActor extends pf1.documents.actor.ActorBasePF {
   constructor(...args) {
     super(...args);

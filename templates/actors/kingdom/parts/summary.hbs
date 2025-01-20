@@ -14,168 +14,166 @@
   </div>
 </div>
 
-<section class="subdetails-body">
-  <div class="attributes flexrow">
-    <div class="info-box-header">
-      <h3>{{localize "PF1.Attributes"}}</h3>
-      <div class="info-box-joined">
-        <div class="info-box">
-          <h5>{{ localize "PF1KS.GovernmentLabel" }}</h5>
-          {{#if system.settings.optionalRules.governmentForms}}
-          <select name="system.government">
-            {{selectOptions governmentOptions selected=system.government}}
-          </select>
-          {{else}}
-          <span class="value">{{ governmentLabel }}</span>
-          {{/if}}
-        </div>
-        <div class="info-box">
-          <h5>{{ localize "PF1.Alignment" }}</h5>
-          <select name="system.alignment">
-            {{selectOptions alignmentOptions selected=system.alignment blank=""}}
-          </select>
-        </div>
-        <div class="info-box">
-          <h5>{{localize "PF1.Size" }}</h5>
-          <span class="value">{{ system.size }}</span>
-        </div>
-        <div class="info-box">
-          <h5>{{localize "PF1KS.Population" }}</h5>
-          <span class="value">{{ system.population }}</span>
-        </div>
-      </div>
-    </div>
-  </div>
-  <div class="attributes flexrow">
+<div class="attributes flexrow">
+  <div class="info-box-header">
+    <h3>{{localize "PF1.Attributes"}}</h3>
     <div class="info-box-joined">
-      <div class="info-box" data-tooltip-extended="controlDC">
-        <h5>{{localize "PF1KS.ControlDC" }}</h5>
-        <span class="value">{{ system.controlDC }}</span>
-      </div>
       <div class="info-box">
-        <h5>
-          {{#if unrestError}}
-          <i class="fa-solid fa-triangle-exclamation" data-tooltip="{{ unrestError }}"></i>
-          {{/if}}
-          <span>{{ localize "PF1KS.Unrest" }}</span>
-        </h5>
-        <span class="value text-box direct" name="system.unrest" data-dtype="Number">{{ system.unrest }}</span>
-      </div>
-      <div class="info-box">
-        <h5>{{localize "PF1KS.Treasury" }}</h5>
-        <span class="value text-box direct" name="system.treasury" data-dtype="Number">{{ system.treasury }}</span>
-      </div>
-      <div class="info-box" data-tooltip-extended="bonusBP">
-        <h5>{{localize "PF1KS.BonusBPShort" }}</h5>
-        <span class="value">{{ numberFormat system.bonusBP.total sign=true}}</span>
-      </div>
-      <div class="info-box" data-tooltip-extended="consumption">
-        <h5>{{localize "PF1KS.Consumption" }}</h5>
-        <span class="value">{{ system.consumption.total }}</span>
-      </div>
-    </div>
-  </div>
-
-  <div class="attributes flexrow">
-    <div class="info-box-header">
-      <h3>{{localize "PF1KS.KingdomStat"}}</h3>
-      <div class="info-box-joined">
-        {{#each stats}}
-        <div class="info-box" data-tooltip-extended="{{ id }}">
-          <h5 class="kingdom-stat" data-kingdom-stat="{{ id }}">
-            <a class="rollable"><i class="fa-solid fa-dice"></i></a>
-            <span>{{ label }}</span>
-          </h5>
-          <span class="value">{{ numberFormat value.total sign=true }}</span>
-        </div>
-        {{/each}}
-      </div>
-    </div>
-
-    <div class="info-box-header">
-      <h3>{{localize "PF1KS.Edicts"}}</h3>
-      <div class="info-box-joined">
-        <div class="info-box" data-tooltip-extended="holiday">
-          <h5>{{ localize "PF1KS.Edict.HolidayLabel" }}</h5>
-          <select name="system.edicts.holiday">
-            {{selectOptions holidayOptions selected=system.edicts.holiday blank=""}}
-          </select>
-        </div>
-        <div class="info-box" data-tooltip-extended="promotion">
-          <h5>{{ localize "PF1KS.Edict.PromotionLabel" }}</h5>
-          <select name="system.edicts.promotion">
-            {{selectOptions promotionOptions selected=system.edicts.promotion blank=""}}
-          </select>
-        </div>
-        <div class="info-box" data-tooltip-extended="taxation">
-          <h5>{{ localize "PF1KS.Edict.TaxationLabel" }}</h5>
-          <select name="system.edicts.taxation">
-            {{selectOptions taxationOptions selected=system.edicts.taxation blank=""}}
-          </select>
-        </div>
-      </div>
-    </div>
-  </div>
-
-  {{#if system.settings.optionalRules.kingdomModifiers}}
-  <div class="attributes flexrow">
-    <div class="info-box-header">
-      <h3>{{localize "PF1KS.KingdomModifiers"}}</h3>
-      <div class="info-box-joined">
-        {{#each modifiers}}
-        <div class="info-box" data-tooltip-extended="{{ id }}">
-          <h5>{{ label }}</h5>
-          <span class="value">{{ numberFormat value.total sign=true }}</span>
-        </div>
-        {{/each}}
-      </div>
-    </div>
-  </div>
-  {{/if}}
-
-  <div class="attributes flexrow">
-    <div class="info-box-header">
-      <h3>{{localize "PF1KS.ActionsPerTurn"}}</h3>
-      <div class="info-box-joined">
-        {{#each perTurn}}
-        <div class="info-box">
-          <h5>{{localize @key}}</h5>
-          {{#if (eq this @root.infinity)}}
-          <i class="value fa-solid fa-infinity"></i>
-          {{else}}
-          <span class="value">{{ this }}</span>
-          {{/if}}
-        </div>
-        {{/each}}
-      </div>
-    </div>
-
-    {{#if system.settings.optionalRules.fameInfamy}}
-    <div class="info-box-header">
-      <h3>
-        {{#if fameInfamyError}}
-        <i class="fa-solid fa-triangle-exclamation" data-tooltip="{{ fameInfamyError }}"></i>
+        <h5>{{ localize "PF1KS.GovernmentLabel" }}</h5>
+        {{#if system.settings.optionalRules.governmentForms}}
+        <select name="system.government">
+          {{selectOptions governmentOptions selected=system.government}}
+        </select>
+        {{else}}
+        <span class="value">{{ governmentLabel }}</span>
         {{/if}}
-        <span>{{ localize "PF1KS.Settings.FameInfamy" }}</span>
-      </h3>
-      <div class="info-box-joined">
-        <div class="info-box" data-tooltip-extended="fame">
-          <h5>{{localize "PF1KS.Fame" }}</h5>
-          <span
-            class="value text-box direct"
-            name="system.fame.base"
-            data-dtype="Number"
-            >{{ numberFormat system.fame.total sign=true }}</span
-          >
-        </div>
-        <div class="info-box" data-tooltip-extended="infamy">
-          <h5>{{localize "PF1KS.Infamy" }}</h5>
-          <span class="value text-box direct" name="system.infamy.base" data-dtype="Number">{{
-            numberFormat system.infamy.total sign=true
-          }}</span>
-        </div>
+      </div>
+      <div class="info-box">
+        <h5>{{ localize "PF1.Alignment" }}</h5>
+        <select name="system.alignment">
+          {{selectOptions alignmentOptions selected=system.alignment blank=""}}
+        </select>
+      </div>
+      <div class="info-box">
+        <h5>{{localize "PF1.Size" }}</h5>
+        <span class="value">{{ system.size }}</span>
+      </div>
+      <div class="info-box">
+        <h5>{{localize "PF1KS.Population" }}</h5>
+        <span class="value">{{ system.population }}</span>
       </div>
     </div>
   </div>
-  {{/if}}
-</section>
+</div>
+<div class="attributes flexrow">
+  <div class="info-box-joined">
+    <div class="info-box" data-tooltip-extended="controlDC">
+      <h5>{{localize "PF1KS.ControlDC" }}</h5>
+      <span class="value">{{ system.controlDC }}</span>
+    </div>
+    <div class="info-box">
+      <h5>
+        {{#if unrestError}}
+        <i class="fa-solid fa-triangle-exclamation" data-tooltip="{{ unrestError }}"></i>
+        {{/if}}
+        <span>{{ localize "PF1KS.Unrest" }}</span>
+      </h5>
+      <span class="value text-box direct" name="system.unrest" data-dtype="Number">{{ system.unrest }}</span>
+    </div>
+    <div class="info-box">
+      <h5>{{localize "PF1KS.Treasury" }}</h5>
+      <span class="value text-box direct" name="system.treasury" data-dtype="Number">{{ system.treasury }}</span>
+    </div>
+    <div class="info-box" data-tooltip-extended="bonusBP">
+      <h5>{{localize "PF1KS.BonusBPShort" }}</h5>
+      <span class="value">{{ numberFormat system.bonusBP.total sign=true}}</span>
+    </div>
+    <div class="info-box" data-tooltip-extended="consumption">
+      <h5>{{localize "PF1KS.Consumption" }}</h5>
+      <span class="value">{{ system.consumption.total }}</span>
+    </div>
+  </div>
+</div>
+
+<div class="attributes flexrow">
+  <div class="info-box-header">
+    <h3>{{localize "PF1KS.KingdomStat"}}</h3>
+    <div class="info-box-joined">
+      {{#each stats}}
+      <div class="info-box" data-tooltip-extended="{{ id }}">
+        <h5 class="kingdom-stat" data-kingdom-stat="{{ id }}">
+          <a class="rollable"><i class="fa-solid fa-dice"></i></a>
+          <span>{{ label }}</span>
+        </h5>
+        <span class="value">{{ numberFormat value.total sign=true }}</span>
+      </div>
+      {{/each}}
+    </div>
+  </div>
+
+  <div class="info-box-header">
+    <h3>{{localize "PF1KS.Edicts"}}</h3>
+    <div class="info-box-joined">
+      <div class="info-box" data-tooltip-extended="holiday">
+        <h5>{{ localize "PF1KS.Edict.HolidayLabel" }}</h5>
+        <select name="system.edicts.holiday">
+          {{selectOptions holidayOptions selected=system.edicts.holiday blank=""}}
+        </select>
+      </div>
+      <div class="info-box" data-tooltip-extended="promotion">
+        <h5>{{ localize "PF1KS.Edict.PromotionLabel" }}</h5>
+        <select name="system.edicts.promotion">
+          {{selectOptions promotionOptions selected=system.edicts.promotion blank=""}}
+        </select>
+      </div>
+      <div class="info-box" data-tooltip-extended="taxation">
+        <h5>{{ localize "PF1KS.Edict.TaxationLabel" }}</h5>
+        <select name="system.edicts.taxation">
+          {{selectOptions taxationOptions selected=system.edicts.taxation blank=""}}
+        </select>
+      </div>
+    </div>
+  </div>
+</div>
+
+{{#if system.settings.optionalRules.kingdomModifiers}}
+<div class="attributes flexrow">
+  <div class="info-box-header">
+    <h3>{{localize "PF1KS.KingdomModifiers"}}</h3>
+    <div class="info-box-joined">
+      {{#each modifiers}}
+      <div class="info-box" data-tooltip-extended="{{ id }}">
+        <h5>{{ label }}</h5>
+        <span class="value">{{ numberFormat value.total sign=true }}</span>
+      </div>
+      {{/each}}
+    </div>
+  </div>
+</div>
+{{/if}}
+
+<div class="attributes flexrow">
+  <div class="info-box-header">
+    <h3>{{localize "PF1KS.ActionsPerTurn"}}</h3>
+    <div class="info-box-joined">
+      {{#each perTurn}}
+      <div class="info-box">
+        <h5>{{localize @key}}</h5>
+        {{#if (eq this @root.infinity)}}
+        <i class="value fa-solid fa-infinity"></i>
+        {{else}}
+        <span class="value">{{ this }}</span>
+        {{/if}}
+      </div>
+      {{/each}}
+    </div>
+  </div>
+
+  {{#if system.settings.optionalRules.fameInfamy}}
+  <div class="info-box-header">
+    <h3>
+      {{#if fameInfamyError}}
+      <i class="fa-solid fa-triangle-exclamation" data-tooltip="{{ fameInfamyError }}"></i>
+      {{/if}}
+      <span>{{ localize "PF1KS.Settings.FameInfamy" }}</span>
+    </h3>
+    <div class="info-box-joined">
+      <div class="info-box" data-tooltip-extended="fame">
+        <h5>{{localize "PF1KS.Fame" }}</h5>
+        <span
+          class="value text-box direct"
+          name="system.fame.base"
+          data-dtype="Number"
+          >{{ numberFormat system.fame.total sign=true }}</span
+        >
+      </div>
+      <div class="info-box" data-tooltip-extended="infamy">
+        <h5>{{localize "PF1KS.Infamy" }}</h5>
+        <span class="value text-box direct" name="system.infamy.base" data-dtype="Number">{{
+            numberFormat system.infamy.total sign=true
+        }}</span>
+      </div>
+    </div>
+  </div>
+</div>
+{{/if}}
