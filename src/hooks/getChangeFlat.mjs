@@ -52,6 +52,9 @@ export function getChangeFlat(result, target, modifierType, value, actor) {
     case `${pf1ks.config.changePrefix}_bonusBP`:
       result.push("system.bonusBP.total");
       break;
+    case `${pf1ks.config.changePrefix}_bpStorage`:
+      result.push("system.bpStorage.max");
+      break;
     case `${pf1ks.config.changePrefix}_fame`:
       result.push("system.fame.total");
       break;

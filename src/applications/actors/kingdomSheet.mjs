@@ -748,6 +748,22 @@ export class KingdomSheet extends pf1.applications.actor.ActorSheetPF {
         });
         notes = getNotes(`${pf1ks.config.changePrefix}_${id}`);
         break;
+      case "bpStorage":
+        paths.push(
+          {
+            path: "@bpStorage.current",
+            value: actorData.bpStorage.current,
+          },
+          {
+            path: "@bpStorage.max",
+            value: actorData.bpStorage.max,
+          }
+        );
+        sources.push({
+          sources: getSource("system.bpStorage.max"),
+          untyped: true,
+        });
+        break;
       case "holiday":
         if (actorData.edicts[id]) {
           paths.push({
@@ -800,7 +816,6 @@ export class KingdomSheet extends pf1.applications.actor.ActorSheetPF {
           sources: getSource(`system.${id}.total`),
           untyped: true,
         });
-        notes = getNotes(`${pf1ks.config.changePrefix}_${id}`);
         break;
       case "corruption":
       case "crime":
@@ -828,7 +843,6 @@ export class KingdomSheet extends pf1.applications.actor.ActorSheetPF {
           sources: getSource(`system.settlements.${detail}.danger`),
           untyped: true,
         });
-        notes = getNotes(`${pf1ks.config.changePrefix}_danger`);
         break;
       }
       case "settlement-corruption":

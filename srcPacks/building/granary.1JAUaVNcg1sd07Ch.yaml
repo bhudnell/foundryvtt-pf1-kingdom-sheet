@@ -23,9 +23,13 @@ system:
       type: untyped
       operator: add
       priority: 0
-  contextNotes:
-    - text: store up to [[5]] BP of excess production
-      target: pf1ks_consumption
+    - _id: hEyTsUSW
+      formula: '5'
+      target: pf1ks_bpStorage
+      type: untyped
+      operator: add
+      priority: 0
+  contextNotes: []
   sources: []
   settlementId: ''
   type: granary

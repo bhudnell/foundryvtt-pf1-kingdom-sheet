@@ -60,6 +60,10 @@
       </h5>
       <span class="value text-box direct" name="system.unrest" data-dtype="Number">{{ system.unrest }}</span>
     </div>
+    <div class="info-box" data-tooltip-extended="consumption">
+      <h5>{{localize "PF1KS.Consumption" }}</h5>
+      <span class="value">{{ system.consumption.total }}</span>
+    </div>
     <div class="info-box">
       <h5>{{localize "PF1KS.Treasury" }}</h5>
       <span class="value text-box direct" name="system.treasury" data-dtype="Number">{{ system.treasury }}</span>
@@ -68,9 +72,15 @@
       <h5>{{localize "PF1KS.BonusBPShort" }}</h5>
       <span class="value">{{ numberFormat system.bonusBP.total sign=true}}</span>
     </div>
-    <div class="info-box" data-tooltip-extended="consumption">
-      <h5>{{localize "PF1KS.Consumption" }}</h5>
-      <span class="value">{{ system.consumption.total }}</span>
+    <div class="info-box" data-tooltip-extended="bpStorage">
+      <h5>{{localize "PF1KS.BPStorage" }}</h5>
+      <div class="value">
+        <span class="text-box direct" name="system.bpStorage.current" data-dtype="Number">{{
+          system.bpStorage.current
+        }}</span>
+        <span class="separator">/</span>
+        <span class="text-box readonly">{{ system.bpStorage.max }}</span>
+      </div>
     </div>
   </div>
 </div>

@@ -93,5 +93,4 @@
 
 .app.sheet.kingdom :is(span.text-box, input.text-box) {
   width: unset;
-  border-radius: unset;
 }

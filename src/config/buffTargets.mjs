@@ -47,6 +47,11 @@ export const kingdomBuffTargets = {
     label: "PF1KS.BonusBP",
     filters: { item: { include: kingdomItemTypes } },
   },
+  [`${changePrefix}_bpStorage`]: {
+    category: `${changePrefix}_misc`,
+    label: "PF1KS.BPStorage",
+    filters: { item: { include: kingdomItemTypes } },
+  },
   [`${changePrefix}_fame`]: {
     category: `${changePrefix}_misc`,
     label: "PF1KS.Fame",

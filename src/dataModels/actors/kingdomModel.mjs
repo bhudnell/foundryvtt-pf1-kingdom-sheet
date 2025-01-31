@@ -10,12 +10,20 @@ export class KingdomModel extends foundry.abstract.TypeDataModel {
       alignment: new fields.StringField({ blank: true, choices: Object.keys(pf1.config.alignments) }),
       turn: new fields.NumberField({ integer: true, min: 0, initial: 0, nullable: false }),
       treasury: new fields.NumberField({ integer: true, initial: 0, nullable: false }),
+      bpStorage: new fields.SchemaField({
+        current: new fields.NumberField({ integer: true, min: 0, initial: 0, nullable: false }),
+      }),
       unrest: new fields.NumberField({ integer: true, min: 0, initial: 0, nullable: false }),
       fame: new fields.SchemaField({
         base: new fields.NumberField({ integer: true, min: 0, initial: 0, nullable: false }),
       }),
       infamy: new fields.SchemaField({
         base: new fields.NumberField({ integer: true, min: 0, initial: 0, nullable: false }),
+      }),
+      edicts: new fields.SchemaField({
+        holiday: new fields.StringField({ blank: true, choices: Object.keys(pf1ks.config.edicts.holiday) }),
+        promotion: new fields.StringField({ blank: true, choices: Object.keys(pf1ks.config.edicts.promotion) }),
+        taxation: new fields.StringField({ blank: true, choices: Object.keys(pf1ks.config.edicts.taxation) }),
       }),
       leadership: new fields.SchemaField({
         ruler: new fields.EmbeddedDataField(defineLeader("ruler", "", "kno")),
@@ -32,11 +40,6 @@ export class KingdomModel extends foundry.abstract.TypeDataModel {
         treasurer: new fields.EmbeddedDataField(defineLeader("treasurer", "economy", "mer")),
         warden: new fields.EmbeddedDataField(defineLeader("warden", "loyalty", "ken")),
         viceroys: new fields.ArrayField(new fields.EmbeddedDataField(defineLeader("viceroy", "economy", "kge"))),
-      }),
-      edicts: new fields.SchemaField({
-        holiday: new fields.StringField({ blank: true, choices: Object.keys(pf1ks.config.edicts.holiday) }),
-        promotion: new fields.StringField({ blank: true, choices: Object.keys(pf1ks.config.edicts.promotion) }),
-        taxation: new fields.StringField({ blank: true, choices: Object.keys(pf1ks.config.edicts.taxation) }),
       }),
       settlements: new fields.ArrayField(new fields.EmbeddedDataField(SettlementModel)),
       terrain: new fields.SchemaField({
@@ -75,6 +78,8 @@ export class KingdomModel extends foundry.abstract.TypeDataModel {
       this[stat] ??= {};
       this[stat].total = 0;
     }
+
+    this.bpStorage.max = 0;
 
     this.modifiers = {};
     for (const modifier of Object.keys(pf1ks.config.settlementModifiers)) {
