@@ -192,7 +192,7 @@ export class ArmyActor extends BaseActor {
     const sourceDetails = {};
     // Get empty source arrays
     for (const b of Object.keys({ ...armyBuffTargets, ...commonBuffTargets })) {
-      const buffTargets = pf1.documents.actor.changes.getChangeFlat.call(this, b, null);
+      const buffTargets = pf1.documents.actor.changes.getChangeFlat(this, b, null);
       for (const bt of buffTargets) {
         if (!sourceDetails[bt]) {
           sourceDetails[bt] = [];

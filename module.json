@@ -150,9 +150,9 @@
   ],
 
   "compatibility": {
-    "minimum": "11",
-    "verified": "11.315",
-    "maximum": "11"
+    "minimum": "12",
+    "verified": "112.331",
+    "maximum": "12"
   },
   "relationships": {
     "requires": [
@@ -166,9 +166,9 @@
         "id": "pf1",
         "type": "system",
         "compatibility": {
-          "minimum": "10",
-          "verified": "10.8",
-          "maximum": "10.x"
+          "minimum": "11",
+          "verified": "11.0",
+          "maximum": "11.x"
         }
       }
     ]

@@ -314,7 +314,7 @@ export class KingdomActor extends BaseActor {
     // Get empty source arrays
     const sourceDetails = {};
     for (const b of Object.keys({ ...kingdomBuffTargets, ...commonBuffTargets })) {
-      const buffTargets = pf1.documents.actor.changes.getChangeFlat.call(this, b, null);
+      const buffTargets = pf1.documents.actor.changes.getChangeFlat(this, b, null);
       for (const bt of buffTargets) {
         if (!sourceDetails[bt]) {
           sourceDetails[bt] = [];

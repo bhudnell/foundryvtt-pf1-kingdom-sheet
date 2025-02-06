@@ -61,7 +61,7 @@ export class BaseActor extends pf1.documents.actor.ActorBasePF {
     super.prepareDerivedData();
 
     delete this._rollData;
-    pf1.documents.actor.changes.applyChanges.call(this);
+    pf1.documents.actor.changes.applyChanges(this);
 
     this._initialized = true;
     this._setSourceDetails();
@@ -197,7 +197,7 @@ export class BaseActor extends pf1.documents.actor.ActorBasePF {
 
     for (const note of result) {
       note.notes = note.notes
-        .filter((o) => o.target === context && o.parent.system.settlementId === settlementId)
+        .filter((o) => o.target === context && (!settlementId || o.parent.system.settlementId === settlementId))
         .map((o) => o.text);
     }
 
