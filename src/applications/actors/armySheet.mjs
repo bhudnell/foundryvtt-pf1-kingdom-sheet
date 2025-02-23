@@ -189,24 +189,22 @@ export class ArmySheet extends pf1.applications.actor.ActorSheetPF {
     }
   }
 
-  _getTooltipContext(fullId, context) {
+  async _getTooltipContext(fullId, context) {
     const actor = this.actor;
     const actorData = actor.system;
 
     // Lazy roll data
     const lazy = {
       get rollData() {
-        this._rollData ??= actor.getRollData();
-        return this._rollData;
+        this._cache ??= actor.getRollData();
+        return this._cache;
       },
     };
 
-    const getSource = (path) => this.actor.sourceDetails[path];
-
-    const getNotes = (context) => {
-      const noteObjs = actor.getContextNotes(context);
-      return actor.formatContextNotes(noteObjs, lazy.rollData, { roll: false });
-    };
+    const getNotes = async (context) =>
+      (await actor.getContextNotesParsed(context, undefined, { rollData: lazy.rollData, roll: false })).map(
+        (n) => n.text
+      );
 
     let header, subHeader;
     const details = [];
@@ -236,14 +234,20 @@ export class ArmySheet extends pf1.applications.actor.ActorSheetPF {
           }
         );
         break;
+      case "size":
+        paths.push({
+          path: game.i18n.localize("PF1KS.Army.ConsumptionScaleFactor"),
+          value: pf1ks.config.armyConsumptionScaling[actorData.size],
+        });
+        break;
       case "speed":
         sources.push(
           {
-            sources: getSource("system.speed.total"),
+            sources: actor.getSourceDetails("system.speed.total"),
             untyped: true,
           },
           {
-            sources: getSource("system.speed.base"),
+            sources: actor.getSourceDetails("system.speed.base"),
             untyped: true,
           }
         );
@@ -276,10 +280,10 @@ export class ArmySheet extends pf1.applications.actor.ActorSheetPF {
           }
         );
         sources.push({
-          sources: getSource("system.morale.total"),
+          sources: actor.getSourceDetails("system.morale.total"),
           untyped: true,
         });
-        notes = getNotes(`${pf1ks.config.changePrefix}_morale`);
+        notes = await getNotes(`${pf1ks.config.changePrefix}_morale`);
         break;
       case "dv":
       case "om":
@@ -295,10 +299,128 @@ export class ArmySheet extends pf1.applications.actor.ActorSheetPF {
           }
         );
         sources.push({
-          sources: getSource(`system.${id}.total`),
+          sources: actor.getSourceDetails(`system.${id}.total`),
           untyped: true,
         });
-        notes = getNotes(`${pf1ks.config.changePrefix}_${id}`);
+        notes = await getNotes(`${pf1ks.config.changePrefix}_${id}`);
+        break;
+      case "strategy":
+        paths.push(
+          {
+            path: game.i18n.localize("PF1KS.Army.DV"),
+            value: ((actorData.strategy - 2) * -2).signedString(),
+          },
+          {
+            path: game.i18n.localize("PF1KS.Army.OM"),
+            value: ((actorData.strategy - 2) * 2).signedString(),
+          },
+          {
+            path: game.i18n.localize("PF1.DamageBonus"),
+            value: ((actorData.strategy - 2) * 3).signedString(),
+          }
+        );
+        break;
+      case "impArmor":
+        if (actorData.resources.impArmor) {
+          paths.push(
+            {
+              path: game.i18n.localize("PF1KS.Army.DV"),
+              value: "+1",
+            },
+            {
+              path: game.i18n.localize("PF1KS.Consumption"),
+              value: Math.max(Math.floor(pf1ks.config.armyConsumptionScaling[actorData.size] ?? 1), 1).signedString(),
+            }
+          );
+        }
+        break;
+      case "magArmor":
+        if (actorData.resources.magArmor) {
+          paths.push(
+            {
+              path: game.i18n.localize("PF1KS.Army.DV"),
+              value: "+2",
+            },
+            {
+              path: game.i18n.localize("PF1KS.Consumption"),
+              value: Math.max(
+                Math.floor(2 * (pf1ks.config.armyConsumptionScaling[actorData.size] ?? 1)),
+                1
+              ).signedString(),
+            }
+          );
+        }
+        break;
+      case "impWeapons":
+        if (actorData.resources.impWeapons) {
+          paths.push(
+            {
+              path: game.i18n.localize("PF1KS.Army.OM"),
+              value: "+1",
+            },
+            {
+              path: game.i18n.localize("PF1KS.Consumption"),
+              value: Math.max(Math.floor(pf1ks.config.armyConsumptionScaling[actorData.size] ?? 1), 1).signedString(),
+            }
+          );
+        }
+        break;
+      case "magWeapons":
+        if (actorData.resources.magWeapons) {
+          paths.push(
+            {
+              path: game.i18n.localize("PF1KS.Army.OM"),
+              value: "+2",
+            },
+            {
+              path: game.i18n.localize("PF1KS.Consumption"),
+              value: Math.max(
+                Math.floor(2 * (pf1ks.config.armyConsumptionScaling[actorData.size] ?? 1)),
+                1
+              ).signedString(),
+            }
+          );
+        }
+        break;
+      case "ranged":
+        if (actorData.resources.impArmor) {
+          paths.push({
+            path: game.i18n.localize("PF1KS.Consumption"),
+            value: Math.max(Math.floor(pf1ks.config.armyConsumptionScaling[actorData.size] ?? 1), 1).signedString(),
+          });
+        }
+        break;
+      case "mounts":
+        if (actorData.resources.mounts) {
+          paths.push(
+            {
+              path: game.i18n.localize("PF1KS.Army.DV"),
+              value: "+2",
+            },
+            {
+              path: game.i18n.localize("PF1KS.Army.OM"),
+              value: "+2",
+            },
+            {
+              path: game.i18n.localize("PF1KS.Consumption"),
+              value: Math.max(Math.floor(pf1ks.config.armyConsumptionScaling[actorData.size] ?? 1), 1).signedString(),
+            }
+          );
+        }
+        break;
+      case "siege":
+        if (actorData.resources.seCount) {
+          paths.push(
+            {
+              path: game.i18n.localize("PF1KS.Army.OM"),
+              value: "+2",
+            },
+            {
+              path: game.i18n.localize("PF1KS.Consumption"),
+              value: (3 * actorData.resources.seCount).signedString(),
+            }
+          );
+        }
         break;
       case "damageBonus":
         paths.push({
@@ -306,14 +428,14 @@ export class ArmySheet extends pf1.applications.actor.ActorSheetPF {
           value: actorData.damageBonus.total,
         });
         sources.push({
-          sources: getSource("system.damageBonus.total"),
+          sources: actor.getSourceDetails("system.damageBonus.total"),
           untyped: true,
         });
-        notes = getNotes(`${pf1ks.config.changePrefix}_damage`);
+        notes = await getNotes(`${pf1ks.config.changePrefix}_damage`);
         break;
       case "maxTactics":
         sources.push({
-          sources: getSource("system.tactics.max.total"),
+          sources: actor.getSourceDetails("system.tactics.max.total"),
           untyped: true,
         });
         break;

@@ -4,7 +4,7 @@
     {{#each terrain}}
     <div class="info-box">
       <h5>{{ label }}</h5>
-      <span class="value text-box direct" name={{concat "system.terrain." key}} data-dtype="Number">{{ value }}</span>
+      <span class="value text-box direct" data-dtype="Number">{{ value }}</span>
     </div>
     {{/each}}
   </div>
@@ -17,7 +17,7 @@
 
   <ul class="filter-list flexrow" data-category="terrain">
     {{#each sections.terrain as |section sid|}}
-    <li class="filter-item" data-category="terrain" data-filter="{{ section.id }}">{{ section.label }}</li>
+    <li class="filter-rule" data-category="terrain" data-filter="{{ section.id }}">{{ section.label }}</li>
     {{/each}}
   </ul>
 </div>

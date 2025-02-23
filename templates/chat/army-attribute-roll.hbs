@@ -4,14 +4,15 @@
 
 <div class="dice-roll">
   <div class="dice-result">
-    <h4
-      data-natural="{{ natural }}"
-      data-bonus="{{ bonus }}"
-      class="dice-total{{#if isNat20}} natural-20{{/if}}{{#if isNat1}} natural-1 failure{{/if}}{{#if isCrit}} critical-threat success{{/if}}"
-    >
-      {{ total }}
-    </h4>
-    {{{tooltip}}}
+    <h3 class="roll-total dice-total has-details" data-natural="{{natural}}" data-bonus="{{bonus}}" data-total="{{total}}">
+      <i class="fa-solid fa-dice-d20" inert></i>
+      <span class="natural">{{d20}}</span>
+      <span class="bonus">{{numberFormat bonus sign=true}}</span>
+      <span class="equals">⇒</span>
+      <span class="total">{{total}}</span>
+    </h3>
+
+    {{{details}}}
   </div>
 </div>
 
@@ -19,19 +20,15 @@
 <span>{{localize "PF1.DamageBonus"}}</span>
 <div class="dice-roll">
   <div class="dice-result">
-    <h4 class="dice-total">{{numberFormat damageBonus.total sign=true}}</h4>
+    <h3 class="roll-total dice-total has-details">
+      <span class="total">{{numberFormat damageBonus.total sign=true}}</span>
+    </h3>
+
     {{{damageTooltip}}}
   </div>
 </div>
 {{/if}}
 
 {{#each properties}}
-<div class="flexcol property-group gm-sensitive general-notes {{ css }}">
-  <label>{{ header }}</label>
-  <div class="flexrow tag-list">
-    {{#each value}}
-    <span class="tag">{{{this}}}</span>
-    {{/each}}
-  </div>
-</div>
+{{> "systems/pf1/templates/chat/parts/item-notes.hbs" css=css cssExtra="general-notes" header=header notes=value}}
 {{/each}}

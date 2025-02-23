@@ -22,7 +22,7 @@
 
     <div class="character-summary flexrow">
       <div class="large">
-        <input type="text" name="system.type" value="{{ system.type }}" data-tooltip="PF1.Type" placeholder="{{localize "PF1.Type"}}" />
+        <input type="text" name="system.type" value="{{ system.type }}" data-tooltip="PF1.Type" />
       </div>
 
       <div class="controls alignment flexrow" data-tooltip="PF1.Alignment">
@@ -59,7 +59,7 @@
   <div class="info-box-header">
     <h3>{{localize "PF1.Misc"}}</h3>
     <div class="info-box-joined">
-      <div class="info-box">
+      <div class="info-box" data-tooltip-extended="size">
         <h5>{{ localize "PF1.Size" }}</h5>
         <select name="system.size">
           {{selectOptions sizeOptions selected=system.size blank=''}}
@@ -87,7 +87,7 @@
       </div>
       <div class="info-box" data-tooltip-extended="om">
         <h5 class="attribute" data-attribute="om">
-          <a class="rollable"><i class="fa-solid fa-dice"></i></a>
+          <a class="rollable"></a>
           <span>{{ localize "PF1KS.Army.OM" }}</span>
         </h5>
         <span class="value">{{ numberFormat system.om.total sign=true }}</span>
@@ -98,7 +98,7 @@
       </div>
       <div class="info-box" data-tooltip-extended="morale">
         <h5 class="attribute" data-attribute="morale">
-          <a class="rollable"><i class="fa-solid fa-dice"></i></a>
+          <a class="rollable"></a>
           <span>{{ localize "PF1KS.Army.Morale" }}</span>
         </h5>
         <span
@@ -108,7 +108,7 @@
           >{{ numberFormat system.morale.total sign=true }}</span
         >
       </div>
-      <div class="info-box">
+      <div class="info-box" data-tooltip-extended="strategy">
         <h5>{{ localize "PF1KS.Army.StrategyLabel" }}</h5>
         <select name="system.strategy">
           {{selectOptions strategyOptions selected=system.strategy}}
@@ -124,7 +124,7 @@
   <div>
     <h3 class="flex0">{{localize "PF1KS.Army.ResourcesLabel"}}</h3>
     <div class="resources">
-      <label>
+      <label data-tooltip-extended="impArmor">
         <input
           class="resource"
           data-pair="magArmor"
@@ -135,7 +135,7 @@
         />
         {{ localize "PF1KS.Army.Resources.ImpArmor" }}
       </label>
-      <label>
+      <label data-tooltip-extended="magArmor">
         <input
           class="resource"
           data-pair="impArmor"
@@ -146,7 +146,7 @@
         />
         {{ localize "PF1KS.Army.Resources.MagArmor" }}
       </label>
-      <label>
+      <label data-tooltip-extended="impWeapons">
         <input
           class="resource"
           data-pair="magWeapons"
@@ -157,7 +157,7 @@
         />
         {{ localize "PF1KS.Army.Resources.ImpWeapons" }}
       </label>
-      <label>
+      <label data-tooltip-extended="magWeapons">
         <input
           class="resource"
           data-pair="impWeapons"
@@ -168,7 +168,7 @@
         />
         {{ localize "PF1KS.Army.Resources.MagWeapons" }}
       </label>
-      <label>
+      <label data-tooltip-extended="ranged">
         <input type="checkbox" name="system.resources.ranged" {{checked system.resources.ranged}} />
         {{ localize "PF1KS.Army.Resources.Ranged" }}
       </label>
@@ -176,11 +176,11 @@
         <input type="checkbox" name="system.resources.potions" {{checked system.resources.potions}} />
         {{ localize "PF1KS.Army.Resources.Potions" }}
       </label>
-      <label>
+      <label data-tooltip-extended="mounts">
         <input type="checkbox" name="system.resources.mounts" {{checked system.resources.mounts}} />
         {{ localize "PF1KS.Army.Resources.Mounts" }}
       </label>
-      <div class="siege">
+      <div class="siege" data-tooltip-extended="siege">
         <span>{{ localize "PF1KS.Army.Resources.Siege" }}:</span>
         {{numberInput system.resources.seCount name="system.resources.seCount" step=1 min=0}}
       </div>

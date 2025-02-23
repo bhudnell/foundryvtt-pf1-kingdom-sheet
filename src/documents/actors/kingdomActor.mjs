@@ -87,8 +87,6 @@ export class KingdomActor extends BaseActor {
 
     // deleting this because it only exists to get settlement modifier changes to parse
     delete this.system.someFakeData;
-
-    this._setSourceDetails();
   }
 
   async rollKingdomStat(kingdomStatId, options = {}) {
@@ -108,8 +106,7 @@ export class KingdomActor extends BaseActor {
 
     // Add context notes
     const rollData = options.rollData || this.getRollData();
-    const noteObjects = this.getContextNotes(`${pf1ks.config.changePrefix}_${kingdomStatId}`);
-    const notes = this.formatContextNotes(noteObjects, rollData);
+    const notes = await this.getContextNotesParsed(`${pf1ks.config.changePrefix}_${kingdomStatId}`, null, { rollData });
     if (notes.length > 0) {
       props.push({ header: game.i18n.localize("PF1.Notes"), value: notes });
     }
@@ -148,12 +145,14 @@ export class KingdomActor extends BaseActor {
       natural: roll.total,
       bonus: 0,
       total: roll.total,
-      tooltip: await roll.getTooltip(),
+      details: await roll.getTooltip(),
       eventOccurred,
     };
 
     const messageData = {
-      type: CONST.CHAT_MESSAGE_TYPES.ROLL,
+      type: "check",
+      style: CONST.CHAT_MESSAGE_STYLES.OTHER,
+      rolls: [roll],
       sound: options.noSound ? undefined : CONFIG.sounds.dice,
       content: await renderTemplate(`modules/${pf1ks.config.moduleId}/templates/chat/event-roll.hbs`, templateData),
       speaker: ChatMessage.getSpeaker({ actor, token, alias: token?.name }),
@@ -163,7 +162,7 @@ export class KingdomActor extends BaseActor {
     await ChatMessage.create(messageData);
   }
 
-  _addDefaultChanges(changes) {
+  _prepareTypeChanges(changes) {
     const system = this.system;
 
     // kingdom stats
@@ -177,8 +176,8 @@ export class KingdomActor extends BaseActor {
       }
     }
     for (const stat of Object.keys(pf1ks.config.kingdomStats)) {
-      // alignment
       changes.push(
+        // alignment
         new DefaultChange(
           pf1ks.config.alignmentEffects[system.alignment]?.[stat] ?? 0,
           `${pf1ks.config.changePrefix}_${stat}`,
@@ -310,231 +309,182 @@ export class KingdomActor extends BaseActor {
     );
   }
 
-  _setSourceDetails() {
-    // Get empty source arrays
-    const sourceDetails = {};
-    for (const b of Object.keys({ ...kingdomBuffTargets, ...commonBuffTargets })) {
-      const buffTargets = pf1.documents.actor.changes.getChangeFlat(this, b, null);
-      for (const bt of buffTargets) {
-        if (!sourceDetails[bt]) {
-          sourceDetails[bt] = [];
-        }
-      }
-    }
+  getSourceDetails(path) {
+    const sources = super.getSourceDetails(path);
+
+    const baseLabel = game.i18n.localize("PF1.Base");
 
     // control DC
-    sourceDetails["system.controlDC"] = [
-      {
-        name: game.i18n.localize("PF1.Base"),
-        value: game.i18n.format("PF1.SetTo", { value: 20 }),
-      },
-      {
-        name: game.i18n.localize("PF1.Size"),
-        value: this.system.size,
-      },
-      {
-        name: game.i18n.localize("PF1KS.Districts"),
-        value: this.system.totalDistricts,
-      },
-    ];
+    if (path === "system.controlDC") {
+      sources.push(
+        {
+          name: baseLabel,
+          value: game.i18n.format("PF1.SetTo", { value: 20 }),
+        },
+        {
+          name: game.i18n.localize("PF1.Size"),
+          value: this.system.size,
+        },
+        {
+          name: game.i18n.localize("PF1KS.Districts"),
+          value: this.system.totalDistricts,
+        }
+      );
+    }
 
     // kingdom modifiers
-    Object.keys(pf1ks.config.settlementModifiers).forEach((mod) => {
-      sourceDetails[`system.modifiers.${mod}.total`] = [];
+    const kModRE = /^system\.modifiers\.(?<mod>\w+)\.total$/.exec(path);
+    if (kModRE) {
+      const { mod } = kModRE.groups;
+
       if (this.system.modifiers[mod].alignment) {
-        sourceDetails[`system.modifiers.${mod}.total`].push({
+        sources.push({
           name: game.i18n.localize("PF1.Alignment"),
           value: this.system.modifiers[mod].alignment,
         });
       }
       if (this.system.modifiers[mod].government) {
-        sourceDetails[`system.modifiers.${mod}.total`].push({
+        sources.push({
           name: game.i18n.localize("PF1KS.GovernmentLabel"),
           value: this.system.modifiers[mod].government,
         });
       }
       if (this.system.modifiers[mod].allSettlements) {
-        sourceDetails[`system.modifiers.${mod}.total`].push({
+        sources.push({
           name: game.i18n.localize("PF1KS.Settlements"),
           value: this.system.modifiers[mod].allSettlements,
         });
       }
-    });
+    }
 
     // consumption
-    sourceDetails["system.consumption.total"].push(
-      {
-        name: game.i18n.localize("PF1.Size"),
-        value: this.system.size,
-      },
-      {
-        name: game.i18n.localize("PF1KS.Districts"),
-        value: this.system.totalDistricts,
-      }
-    );
+    if (path === "system.consumption.total") {
+      sources.push(
+        {
+          name: game.i18n.localize("PF1.Size"),
+          value: this.system.size,
+        },
+        {
+          name: game.i18n.localize("PF1KS.Districts"),
+          value: this.system.totalDistricts,
+        }
+      );
+    }
 
     // fame/infamy
-    for (let attributeId of ["fame", "infamy"]) {
-      if (this.system[attributeId].base) {
-        sourceDetails[`system.${attributeId}.total`].push({
-          name: game.i18n.localize("PF1.Base"),
-          value: this.system[attributeId].base,
+    if (["system.fame.total", "system.infamy.total"].includes(path)) {
+      const fameInfamyRE = /^system\.(?<key>\w+)\.total$/.exec(path);
+      const { key } = fameInfamyRE.groups;
+
+      if (this.system[key].base) {
+        sources.push({
+          name: baseLabel,
+          value: this.system[key].base,
         });
       }
-    }
-    const lore = Math.floor(this._getChanges("lore") / 10);
-    const society = Math.floor(this._getChanges("society") / 10);
-    const corruption = Math.floor(this._getChanges("corruption") / 10);
-    const crime = Math.floor(this._getChanges("crime") / 10);
-    if (lore) {
-      sourceDetails["system.fame.total"].push({
-        name: game.i18n.localize("PF1KS.Lore"),
-        value: lore,
-      });
-    }
-    if (society) {
-      sourceDetails["system.fame.total"].push({
-        name: game.i18n.localize("PF1KS.Society"),
-        value: society,
-      });
-    }
-    if (corruption) {
-      sourceDetails["system.fame.total"].push({
-        name: game.i18n.localize("PF1KS.Corruption"),
-        value: corruption,
-      });
-    }
-    if (crime) {
-      sourceDetails["system.fame.total"].push({
-        name: game.i18n.localize("PF1KS.Crime"),
-        value: crime,
-      });
+
+      if (key === "fame") {
+        const lore = Math.floor(this._getChanges("lore") / 10);
+        const society = Math.floor(this._getChanges("society") / 10);
+
+        if (lore) {
+          sources.push({
+            name: game.i18n.localize("PF1KS.Lore"),
+            value: lore,
+          });
+        }
+        if (society) {
+          sources.push({
+            name: game.i18n.localize("PF1KS.Society"),
+            value: society,
+          });
+        }
+      }
+
+      if (key === "infamy") {
+        const corruption = Math.floor(this._getChanges("corruption") / 10);
+        const crime = Math.floor(this._getChanges("crime") / 10);
+
+        if (corruption) {
+          sources.push({
+            name: game.i18n.localize("PF1KS.Corruption"),
+            value: corruption,
+          });
+        }
+        if (crime) {
+          sources.push({
+            name: game.i18n.localize("PF1KS.Crime"),
+            value: crime,
+          });
+        }
+      }
     }
 
     // settlement stuff
-    this.system.settlements.forEach((s, idx) => {
+    const settlementRE = /^system\.settlements\.(?<idx>\w+)\.(?<detail>.+)$/.exec(path);
+    if (settlementRE) {
+      const { idx, detail } = settlementRE.groups;
+      const s = this.system.settlements[idx];
+
       // danger
-      sourceDetails[`system.settlements.${idx}.danger`] = [];
-      if (s.danger) {
-        sourceDetails[`system.settlements.${idx}.danger`].push({
-          name: game.i18n.localize("PF1.Base"),
+      if (detail === "danger" && s.danger) {
+        sources.push({
+          name: baseLabel,
           value: s.danger,
         });
       }
+
       // modifiers
-      Object.keys(pf1ks.config.allSettlementModifiers).forEach((mod) => {
-        sourceDetails[`system.settlements.${idx}.modifiers.${mod}.total`] = [];
+      const sModRE = /^modifiers\.(?<mod>\w+)\.total$/.exec(detail);
+      if (sModRE) {
+        const { mod } = sModRE.groups;
+
         if (s.modifiers[mod].size) {
-          sourceDetails[`system.settlements.${idx}.modifiers.${mod}.total`].push({
+          sources.push({
             name: game.i18n.localize("PF1.Size"),
             value: s.modifiers[mod].size,
           });
         }
         if (s.modifiers[mod].alignment) {
-          sourceDetails[`system.settlements.${idx}.modifiers.${mod}.total`].push({
+          sources.push({
             name: game.i18n.localize("PF1.Alignment"),
             value: s.modifiers[mod].alignment,
           });
         }
         if (s.modifiers[mod].government) {
-          sourceDetails[`system.settlements.${idx}.modifiers.${mod}.total`].push({
+          sources.push({
             name: game.i18n.localize("PF1KS.GovernmentLabel"),
             value: s.modifiers[mod].government,
           });
         }
         if (s.modifiers[mod].buildings) {
-          sourceDetails[`system.settlements.${idx}.modifiers.${mod}.total`].push({
+          sources.push({
             name: game.i18n.localize("PF1KS.Buildings"),
             value: s.modifiers[mod].buildings,
           });
         }
         if (s.modifiers[mod].improvements) {
-          sourceDetails[`system.settlements.${idx}.modifiers.${mod}.total`].push({
+          sources.push({
             name: game.i18n.localize("PF1KS.Improvements"),
             value: s.modifiers[mod].improvements,
           });
         }
         if (s.modifiers[mod].events) {
-          sourceDetails[`system.settlements.${idx}.modifiers.${mod}.total`].push({
+          sources.push({
             name: game.i18n.localize("PF1KS.Events"),
             value: s.modifiers[mod].events,
           });
         }
         if (s.modifiers[mod].total > s.modifiers[mod].settlementTotal) {
-          sourceDetails[`system.settlements.${idx}.modifiers.${mod}.total`].push({
+          sources.push({
             name: game.i18n.localize("PF1KS.KingdomModifier"),
             value: game.i18n.format("PF1.SetTo", { value: s.modifiers[mod].total }),
           });
         }
-      });
-    });
-
-    // Add extra data
-    const rollData = this.getRollData();
-    for (const [path, changeGrp] of Object.entries(this.sourceInfo)) {
-      /** @type {Array<SourceInfo[]>} */
-      const sourceGroups = Object.values(changeGrp);
-      const buildings = {
-        name: game.i18n.localize("PF1KS.Buildings"),
-        value: 0,
-      };
-      const improvements = {
-        name: game.i18n.localize("PF1KS.Improvements"),
-        value: 0,
-      };
-      const events = {
-        name: game.i18n.localize("PF1KS.Events"),
-        value: 0,
-      };
-      for (const grp of sourceGroups) {
-        sourceDetails[path] ||= [];
-        for (const src of grp) {
-          src.operator ||= "add";
-          const label = this.constructor._getSourceLabel(src);
-          let srcValue =
-            src.value ??
-            pf1.dice.RollPF.safeRollAsync(src.formula || "0", rollData, [path, src, this], {
-              suppressError: !this.isOwner,
-            }).total;
-          if (src.operator === "set") {
-            let displayValue = srcValue;
-            if (src.change?.isDistance) {
-              displayValue = pf1.utils.convertDistance(displayValue)[0];
-            }
-            srcValue = game.i18n.format("PF1.SetTo", { value: displayValue });
-          }
-
-          // Add sources only if they actually add something else than zero
-          if (!(src.operator === "add" && srcValue === 0) || src.ignoreNull === false) {
-            const collapse = this.system.settings.collapseTooltips;
-            if (collapse && src.type === pf1ks.config.buildingId) {
-              buildings.value += srcValue;
-            } else if (collapse && src.type === pf1ks.config.eventId) {
-              events.value += srcValue;
-            } else if (collapse && src.type === pf1ks.config.improvementId) {
-              improvements.value += srcValue;
-            } else {
-              sourceDetails[path].push({
-                name: label.replace(/[[\]]/g, ""),
-                modifier: src.modifier || "",
-                value: srcValue,
-              });
-            }
-          }
-        }
-      }
-      if (buildings.value) {
-        sourceDetails[path].push(buildings);
-      }
-      if (events.value) {
-        sourceDetails[path].push(events);
-      }
-      if (improvements.value) {
-        sourceDetails[path].push(improvements);
       }
     }
 
-    this.sourceDetails = sourceDetails;
+    return sources;
   }
 
   _getChanges(target, type, settlementId) {

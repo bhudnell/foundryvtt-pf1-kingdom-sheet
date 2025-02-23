@@ -63,11 +63,11 @@ export class ArmyActor extends BaseActor {
 
     // Add context notes
     const rollData = options.rollData || this.getRollData();
-    const noteObjects = this.getContextNotes(`${pf1ks.config.changePrefix}_${attributeId}`);
+
+    const notes = await this.getContextNotesParsed(`${pf1ks.config.changePrefix}_${attributeId}`, null, { rollData });
     if (attributeId === "om") {
-      noteObjects.push(...this.getContextNotes(`${pf1ks.config.changePrefix}_damage`));
+      notes.push(...(await this.getContextNotesParsed(`${pf1ks.config.changePrefix}_damage`, null, { rollData })));
     }
-    const notes = this.formatContextNotes(noteObjects, rollData);
     if (notes.length > 0) {
       props.push({ header: game.i18n.localize("PF1.Notes"), value: notes });
     }
@@ -98,13 +98,22 @@ export class ArmyActor extends BaseActor {
     const chatTemplate = `modules/${pf1ks.config.moduleId}/templates/chat/army-attribute-roll.hbs`;
     const chatTemplateData = { properties: props, damageBonus, damageTooltip };
 
+    const mData = foundry.utils.mergeObject(
+      {
+        type: "check",
+        style: CONST.CHAT_MESSAGE_STYLES.OTHER,
+        rolls: [roll],
+      },
+      messageData
+    );
+
     return roll.toMessage(
-      { ...messageData, speaker },
+      { ...mData, speaker },
       { create: chatMessage, noSound, chatTemplate, chatTemplateData, compendium, subject, rollMode }
     );
   }
 
-  _addDefaultChanges(changes) {
+  _prepareTypeChanges(changes) {
     const system = this.system;
 
     // strategy
@@ -115,11 +124,12 @@ export class ArmyActor extends BaseActor {
     );
 
     // resources
+    const consumptionFactor = pf1ks.config.armyConsumptionScaling[system.size] ?? 1;
     if (system.resources.impArmor) {
       changes.push(
         new DefaultChange(1, `${pf1ks.config.changePrefix}_dv`, "PF1KS.Army.Resources.ImpArmor"),
         new DefaultChange(
-          Math.max(Math.floor(pf1ks.config.armyConsumptionScaling[system.size] ?? 1), 1),
+          Math.max(Math.floor(consumptionFactor), 1),
           `${pf1ks.config.changePrefix}_consumption`,
           "PF1KS.Army.Resources.ImpArmor"
         )
@@ -129,7 +139,7 @@ export class ArmyActor extends BaseActor {
       changes.push(
         new DefaultChange(2, `${pf1ks.config.changePrefix}_dv`, "PF1KS.Army.Resources.MagArmor"),
         new DefaultChange(
-          Math.max(Math.floor(2 * (pf1ks.config.armyConsumptionScaling[system.size] ?? 1)), 1),
+          Math.max(Math.floor(2 * consumptionFactor), 1),
           `${pf1ks.config.changePrefix}_consumption`,
           "PF1KS.Army.Resources.MagArmor"
         )
@@ -139,7 +149,7 @@ export class ArmyActor extends BaseActor {
       changes.push(
         new DefaultChange(1, `${pf1ks.config.changePrefix}_om`, "PF1KS.Army.Resources.ImpWeapons"),
         new DefaultChange(
-          Math.max(Math.floor(pf1ks.config.armyConsumptionScaling[system.size] ?? 1), 1),
+          Math.max(Math.floor(consumptionFactor), 1),
           `${pf1ks.config.changePrefix}_consumption`,
           "PF1KS.Army.Resources.ImpWeapons"
         )
@@ -149,7 +159,7 @@ export class ArmyActor extends BaseActor {
       changes.push(
         new DefaultChange(2, `${pf1ks.config.changePrefix}_om`, "PF1KS.Army.Resources.MagWeapons"),
         new DefaultChange(
-          Math.max(Math.floor(2 * (pf1ks.config.armyConsumptionScaling[system.size] ?? 1)), 1),
+          Math.max(Math.floor(2 * consumptionFactor), 1),
           `${pf1ks.config.changePrefix}_consumption`,
           "PF1KS.Army.Resources.MagWeapons"
         )
@@ -160,7 +170,7 @@ export class ArmyActor extends BaseActor {
         new DefaultChange(2, `${pf1ks.config.changePrefix}_dv`, "PF1KS.Army.Resources.Mounts"),
         new DefaultChange(2, `${pf1ks.config.changePrefix}_om`, "PF1KS.Army.Resources.Mounts"),
         new DefaultChange(
-          Math.max(Math.floor(pf1ks.config.armyConsumptionScaling[system.size] ?? 1), 1),
+          Math.max(Math.floor(consumptionFactor), 1),
           `${pf1ks.config.changePrefix}_consumption`,
           "PF1KS.Army.Resources.Mounts"
         )
@@ -169,7 +179,7 @@ export class ArmyActor extends BaseActor {
     if (system.resources.ranged) {
       changes.push(
         new DefaultChange(
-          Math.max(Math.floor(pf1ks.config.armyConsumptionScaling[system.size] ?? 1), 1),
+          Math.max(Math.floor(consumptionFactor), 1),
           `${pf1ks.config.changePrefix}_consumption`,
           "PF1KS.Army.Resources.Ranged"
         )
@@ -188,73 +198,66 @@ export class ArmyActor extends BaseActor {
     }
   }
 
-  _setSourceDetails() {
-    const sourceDetails = {};
-    // Get empty source arrays
-    for (const b of Object.keys({ ...armyBuffTargets, ...commonBuffTargets })) {
-      const buffTargets = pf1.documents.actor.changes.getChangeFlat(this, b, null);
-      for (const bt of buffTargets) {
-        if (!sourceDetails[bt]) {
-          sourceDetails[bt] = [];
-        }
+  _prepareConditionChanges(changes) {
+    for (const [con, v] of Object.entries(this.system.conditions)) {
+      if (!v) {
+        continue;
+      }
+      const condition = pf1ks.config.armyConditions[con];
+      if (!condition) {
+        continue;
+      }
+
+      const mechanic = condition.mechanics;
+      if (!mechanic) {
+        continue;
+      }
+
+      for (const change of mechanic.changes ?? []) {
+        const changeData = { ...change, flavor: condition.name };
+        const changeObj = new pf1.components.ItemChange(changeData);
+        changes.push(changeObj);
+      }
+    }
+  }
+
+  getSourceDetails(path) {
+    const sources = super.getSourceDetails(path);
+
+    const baseLabel = game.i18n.localize("PF1.Base");
+
+    const attrRE = /^system\.(?<attr>\w+)\.total$/.exec(path);
+    if (attrRE) {
+      const { attr } = attrRE.groups;
+
+      if (["dv", "om", "consumption", "morale"].includes(attr)) {
+        sources.push({
+          name: baseLabel,
+          value: this.system[attr].base,
+        });
+      }
+      if (attr === "morale") {
+        sources.push({
+          name: game.i18n.localize("PF1KS.Army.Commander"),
+          value: this.system.morale.commander,
+        });
+      }
+      if (attr === "speed") {
+        sources.push({
+          name: baseLabel,
+          value: game.i18n.format("PF1.SetTo", { value: this.system.speed.base }),
+        });
       }
     }
 
-    for (let attributeId of ["dv", "om", "consumption", "morale"]) {
-      sourceDetails[`system.${attributeId}.total`].push({
-        name: game.i18n.localize("PF1.Base"),
-        value: this.system[attributeId].base,
+    if (path === "system.tactics.max.total") {
+      sources.push({
+        name: baseLabel,
+        value: this.system.tactics.max.base,
       });
     }
-    sourceDetails["system.morale.total"].push({
-      name: game.i18n.localize("PF1KS.Army.Commander"),
-      value: this.system.morale.commander,
-    });
-    sourceDetails["system.speed.total"].push({
-      name: game.i18n.localize("PF1.Base"),
-      value: game.i18n.format("PF1.SetTo", { value: this.system.speed.base }),
-    });
-    sourceDetails["system.tactics.max.total"].push({
-      name: game.i18n.localize("PF1.Base"),
-      value: this.system.tactics.max.base,
-    });
 
-    // Add extra data
-    const rollData = this.getRollData();
-    for (const [path, changeGrp] of Object.entries(this.sourceInfo)) {
-      /** @type {Array<SourceInfo[]>} */
-      const sourceGroups = Object.values(changeGrp);
-      for (const grp of sourceGroups) {
-        sourceDetails[path] ||= [];
-        for (const src of grp) {
-          src.operator ||= "add";
-          const label = this.constructor._getSourceLabel(src);
-          let srcValue =
-            src.value ??
-            pf1.dice.RollPF.safeRollAsync(src.formula || "0", rollData, [path, src, this], {
-              suppressError: !this.isOwner,
-            }).total;
-          if (src.operator === "set") {
-            let displayValue = srcValue;
-            if (src.change?.isDistance) {
-              displayValue = pf1.utils.convertDistance(displayValue)[0];
-            }
-            srcValue = game.i18n.format("PF1.SetTo", { value: displayValue });
-          }
-
-          // Add sources only if they actually add something else than zero
-          if (!(src.operator === "add" && srcValue === 0) || src.ignoreNull === false) {
-            sourceDetails[path].push({
-              name: label.replace(/[[\]]/g, ""),
-              modifier: src.modifier || "",
-              value: srcValue,
-            });
-          }
-        }
-      }
-    }
-
-    this.sourceDetails = sourceDetails;
+    return sources;
   }
 
   prepareConditions() {
@@ -262,14 +265,7 @@ export class ArmyActor extends BaseActor {
     const conditions = this.system.conditions;
 
     for (const condition of Object.keys(pf1ks.config.armyConditions)) {
-      conditions[condition] = false;
-    }
-
-    // Fill in actual state
-    for (const status of this.statuses) {
-      if (status in conditions) {
-        conditions[status] = true;
-      }
+      conditions[condition] = this.statuses.has(condition);
     }
   }
 }

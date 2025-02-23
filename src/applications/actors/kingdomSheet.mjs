@@ -659,7 +659,7 @@ export class KingdomSheet extends pf1.applications.actor.ActorSheetPF {
       return false;
     }
 
-    const source = actorData.getFlag("core", "sourceId").split(".")[0];
+    const source = actorData._stats.compendiumSource.split(".")[0];
 
     let army;
     if (source === "Actor") {
@@ -694,24 +694,22 @@ export class KingdomSheet extends pf1.applications.actor.ActorSheetPF {
     }
   }
 
-  _getTooltipContext(fullId, context) {
+  async _getTooltipContext(fullId, context) {
     const actor = this.actor;
     const actorData = actor.system;
 
     // Lazy roll data
     const lazy = {
       get rollData() {
-        this._rollData ??= actor.getRollData();
-        return this._rollData;
+        this._cache ??= actor.getRollData();
+        return this._cache;
       },
     };
 
-    const getSource = (path) => this.actor.sourceDetails[path];
-
-    const getNotes = (context, settlementId) => {
-      const noteObjs = actor.getContextNotes(context, settlementId);
-      return actor.formatContextNotes(noteObjs, lazy.rollData, { roll: false });
-    };
+    const getNotes = async (context, settlementId) =>
+      (await actor.getContextNotesParsed(context, settlementId, { rollData: lazy.rollData, roll: false })).map(
+        (n) => n.text
+      );
 
     let header, subHeader;
     const details = [];
@@ -729,7 +727,7 @@ export class KingdomSheet extends pf1.applications.actor.ActorSheetPF {
           value: actorData.controlDC,
         });
         sources.push({
-          sources: getSource("system.controlDC"),
+          sources: actor.getSourceDetails("system.controlDC"),
           untyped: true,
         });
         break;
@@ -743,10 +741,10 @@ export class KingdomSheet extends pf1.applications.actor.ActorSheetPF {
           value: actorData[id].total,
         });
         sources.push({
-          sources: getSource(`system.${id}.total`),
+          sources: actor.getSourceDetails(`system.${id}.total`),
           untyped: true,
         });
-        notes = getNotes(`${pf1ks.config.changePrefix}_${id}`);
+        notes = await getNotes(`${pf1ks.config.changePrefix}_${id}`);
         break;
       case "bpStorage":
         paths.push(
@@ -760,45 +758,80 @@ export class KingdomSheet extends pf1.applications.actor.ActorSheetPF {
           }
         );
         sources.push({
-          sources: getSource("system.bpStorage.max"),
+          sources: actor.getSourceDetails("system.bpStorage.max"),
           untyped: true,
         });
         break;
       case "holiday":
         if (actorData.edicts[id]) {
-          paths.push({
-            path: game.i18n.localize("PF1KS.Loyalty"),
-            value: pf1ks.config.edictEffects[id][actorData.edicts[id]].loyalty.signedString(),
-          });
-          paths.push({
-            path: game.i18n.localize("PF1KS.Consumption"),
-            value: pf1ks.config.edictEffects[id][actorData.edicts[id]].consumption.signedString(),
-          });
+          paths.push(
+            {
+              path: game.i18n.localize("PF1KS.Loyalty"),
+              value: pf1ks.config.edictEffects[id][actorData.edicts[id]].loyalty.signedString(),
+            },
+            {
+              path: game.i18n.localize("PF1KS.Consumption"),
+              value: pf1ks.config.edictEffects[id][actorData.edicts[id]].consumption.signedString(),
+            }
+          );
         }
         break;
       case "promotion":
         if (actorData.edicts[id]) {
-          paths.push({
-            path: game.i18n.localize("PF1KS.Stability"),
-            value: pf1ks.config.edictEffects[id][actorData.edicts[id]].stability.signedString(),
-          });
-          paths.push({
-            path: game.i18n.localize("PF1KS.Consumption"),
-            value: pf1ks.config.edictEffects[id][actorData.edicts[id]].consumption.signedString(),
-          });
+          paths.push(
+            {
+              path: game.i18n.localize("PF1KS.Stability"),
+              value: pf1ks.config.edictEffects[id][actorData.edicts[id]].stability.signedString(),
+            },
+            {
+              path: game.i18n.localize("PF1KS.Consumption"),
+              value: pf1ks.config.edictEffects[id][actorData.edicts[id]].consumption.signedString(),
+            }
+          );
         }
         break;
       case "taxation":
         if (actorData.edicts[id]) {
-          paths.push({
-            path: game.i18n.localize("PF1KS.Economy"),
-            value: pf1ks.config.edictEffects[id][actorData.edicts[id]].economy.signedString(),
-          });
-          paths.push({
-            path: game.i18n.localize("PF1KS.Loyalty"),
-            value: pf1ks.config.edictEffects[id][actorData.edicts[id]].loyalty.signedString(),
-          });
+          paths.push(
+            {
+              path: game.i18n.localize("PF1KS.Economy"),
+              value: pf1ks.config.edictEffects[id][actorData.edicts[id]].economy.signedString(),
+            },
+            {
+              path: game.i18n.localize("PF1KS.Loyalty"),
+              value: pf1ks.config.edictEffects[id][actorData.edicts[id]].loyalty.signedString(),
+            }
+          );
         }
+        break;
+      case "government":
+        Object.entries(pf1ks.config.settlementModifiers).forEach(([mod, label]) => {
+          if (actorData.modifiers[mod].government) {
+            paths.push({
+              path: label,
+              value: actorData.modifiers[mod].government.signedString(),
+            });
+          }
+        });
+        break;
+      case "alignment":
+        Object.entries(pf1ks.config.kingdomStats).forEach(([stat, label]) => {
+          const value = pf1ks.config.alignmentEffects[actorData.alignment]?.[stat];
+          if (value) {
+            paths.push({
+              path: label,
+              value: value.signedString(),
+            });
+          }
+        });
+        Object.entries(pf1ks.config.settlementModifiers).forEach(([mod, label]) => {
+          if (actorData.modifiers[mod].alignment) {
+            paths.push({
+              path: label,
+              value: actorData.modifiers[mod].alignment.signedString(),
+            });
+          }
+        });
         break;
       case "fame":
       case "infamy":
@@ -813,7 +846,7 @@ export class KingdomSheet extends pf1.applications.actor.ActorSheetPF {
           }
         );
         sources.push({
-          sources: getSource(`system.${id}.total`),
+          sources: actor.getSourceDetails(`system.${id}.total`),
           untyped: true,
         });
         break;
@@ -828,10 +861,10 @@ export class KingdomSheet extends pf1.applications.actor.ActorSheetPF {
           value: actorData.modifiers[id].total,
         });
         sources.push({
-          sources: getSource(`system.modifiers.${id}.total`),
+          sources: actor.getSourceDetails(`system.modifiers.${id}.total`),
           untyped: true,
         });
-        notes = getNotes(`${pf1ks.config.changePrefix}_${id}`);
+        notes = await getNotes(`${pf1ks.config.changePrefix}_${id}`);
         break;
       case "settlement-danger": {
         const settlement = actorData.settlements[detail];
@@ -840,7 +873,7 @@ export class KingdomSheet extends pf1.applications.actor.ActorSheetPF {
           value: settlement.danger,
         });
         sources.push({
-          sources: getSource(`system.settlements.${detail}.danger`),
+          sources: actor.getSourceDetails(`system.settlements.${detail}.danger`),
           untyped: true,
         });
         break;
@@ -866,10 +899,10 @@ export class KingdomSheet extends pf1.applications.actor.ActorSheetPF {
           }
         );
         sources.push({
-          sources: getSource(`system.settlements.${detail}.modifiers.${modifier}.total`),
+          sources: actor.getSourceDetails(`system.settlements.${detail}.modifiers.${modifier}.total`),
           untyped: true,
         });
-        notes = getNotes(`${pf1ks.config.changePrefix}_${modifier}`, settlement.id);
+        notes = await getNotes(`${pf1ks.config.changePrefix}_${modifier}`, settlement.id);
         break;
       }
 

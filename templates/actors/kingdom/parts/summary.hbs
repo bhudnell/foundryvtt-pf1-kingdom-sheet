@@ -18,7 +18,7 @@
   <div class="info-box-header">
     <h3>{{localize "PF1.Attributes"}}</h3>
     <div class="info-box-joined">
-      <div class="info-box">
+      <div class="info-box" data-tooltip-extended="government">
         <h5>{{ localize "PF1KS.GovernmentLabel" }}</h5>
         {{#if system.settings.optionalRules.governmentForms}}
         <select name="system.government">
@@ -28,7 +28,7 @@
         <span class="value">{{ governmentLabel }}</span>
         {{/if}}
       </div>
-      <div class="info-box">
+      <div class="info-box" data-tooltip-extended="alignment">
         <h5>{{ localize "PF1.Alignment" }}</h5>
         <select name="system.alignment">
           {{selectOptions alignmentOptions selected=system.alignment blank=""}}
@@ -92,7 +92,7 @@
       {{#each stats}}
       <div class="info-box" data-tooltip-extended="{{ id }}">
         <h5 class="kingdom-stat" data-kingdom-stat="{{ id }}">
-          <a class="rollable"><i class="fa-solid fa-dice"></i></a>
+          <a class="rollable"></a>
           <span>{{ label }}</span>
         </h5>
         <span class="value">{{ numberFormat value.total sign=true }}</span>
