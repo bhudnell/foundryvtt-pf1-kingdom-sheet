@@ -5,12 +5,9 @@
 
   <div class="dice-roll">
     <div class="dice-result">
-      <h3 class="roll-total dice-total has-details" data-natural="{{natural}}" data-bonus="{{bonus}}" data-total="{{total}}">
+      <h3 class="roll-total dice-total{{#if hasDetails}} has-details{{/if}}" data-tooltip="{{formula}}">
         <i class="fa-solid fa-dice-d20" inert></i>
-        <span class="natural">{{d20}}</span>
-        <span class="bonus">{{numberFormat bonus sign=true}}</span>
-        <span class="equals">⇒</span>
-        <span class="total">{{total}}</span>
+        {{total}}
       </h3>
 
       {{{details}}}
