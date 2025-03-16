@@ -1,6 +1,8 @@
 type: pf1-kingdom-sheet.special
 name: Judgement
 system:
+  htmlFields:
+    - description.value
   description:
     value: >-
       <p>Once each Ranged or Melee phase, the army may choose to increase its

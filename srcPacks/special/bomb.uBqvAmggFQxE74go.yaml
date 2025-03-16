@@ -1,6 +1,8 @@
 type: pf1-kingdom-sheet.special
 name: Bomb
 system:
+  htmlFields:
+    - description.value
   description:
     value: >-
       <p>The army can make ranged attacks. In the Ranged and Melee phases, it

@@ -1,6 +1,8 @@
 type: pf1-kingdom-sheet.boon
 name: Defensive Tactics
 system:
+  htmlFields:
+    - description.value
   description:
     value: >-
       <p>The commander is especially good at defensive tactics. Increase the

@@ -1,6 +1,8 @@
 type: pf1-kingdom-sheet.special
 name: Significant Defense
 system:
+  htmlFields:
+    - description.value
   description:
     value: >-
       <p>The army has a significant defense such as powerful damage reduction or

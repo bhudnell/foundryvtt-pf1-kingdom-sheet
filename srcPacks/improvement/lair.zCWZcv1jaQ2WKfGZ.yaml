@@ -1,6 +1,8 @@
 type: pf1-kingdom-sheet.improvement
 name: Lair
 system:
+  htmlFields:
+    - description.value
   subType: special
   quantity: 1
   description:

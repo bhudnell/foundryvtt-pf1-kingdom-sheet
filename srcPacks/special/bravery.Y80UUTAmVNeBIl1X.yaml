@@ -1,6 +1,8 @@
 type: pf1-kingdom-sheet.special
 name: Bravery
 system:
+  htmlFields:
+    - description.value
   description:
     value: >-
       <p>Apply the unit’s bravery bonus on Morale checks against fear and

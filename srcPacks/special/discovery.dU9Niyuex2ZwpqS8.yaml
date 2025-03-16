@@ -1,6 +1,8 @@
 type: pf1-kingdom-sheet.special
 name: Discovery
 system:
+  htmlFields:
+    - description.value
   description:
     value: >-
       <p>When this army deals damage in melee, the target army takes an

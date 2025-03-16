@@ -1,6 +1,8 @@
 type: pf1-kingdom-sheet.boon
 name: Hold the Line
 system:
+  htmlFields:
+    - description.value
   description:
     value: >-
       <p>The commander is skilled at convincing the army to maintain morale

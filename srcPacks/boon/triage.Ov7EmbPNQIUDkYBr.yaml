@@ -1,6 +1,8 @@
 type: pf1-kingdom-sheet.boon
 name: Triage
 system:
+  htmlFields:
+    - description.value
   description:
     value: >-
       <p>Whether using magic, alchemy, herbalism, or folk knowledge, the

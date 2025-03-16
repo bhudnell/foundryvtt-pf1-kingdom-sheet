@@ -1,6 +1,8 @@
 type: pf1-kingdom-sheet.special
 name: Teleportation
 system:
+  htmlFields:
+    - description.value
   description:
     value: >-
       <p>The army ignores the Defense of fortifications. It automatically

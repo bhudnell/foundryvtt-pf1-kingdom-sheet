@@ -1,6 +1,8 @@
 type: pf1-kingdom-sheet.special
 name: Favored Terrain
 system:
+  htmlFields:
+    - description.value
   description:
     value: >-
       <p>Reduce an enemy’s bonuses from advantageous terrain and battlefield

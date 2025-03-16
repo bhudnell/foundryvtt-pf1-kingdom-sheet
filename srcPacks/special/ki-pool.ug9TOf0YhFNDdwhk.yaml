@@ -1,6 +1,8 @@
 type: pf1-kingdom-sheet.special
 name: Ki Pool
 system:
+  htmlFields:
+    - description.value
   description:
     value: <p>The army’s attacks count as magic weapons.</p>
   changes: []

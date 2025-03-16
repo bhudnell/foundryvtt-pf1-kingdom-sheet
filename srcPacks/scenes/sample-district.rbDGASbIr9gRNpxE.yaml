@@ -5,19 +5,15 @@ background:
   scaleX: 1
   scaleY: 1
   src: modules/pf-content/assets/Kingdom%20Building/District%20Grid.png
-  tint: null
+  tint: '#ffffff'
+  anchorX: 0
+  anchorY: 0
+  fit: fill
+  alphaThreshold: 0
 backgroundColor: '#999999'
-darkness: 0
 drawings: []
-fogExploration: true
-fogExploredColor: null
-fogOverlay: null
-fogReset: 1627041370783
-fogUnexploredColor: null
 foreground: null
 foregroundElevation: 20
-globalLight: false
-globalLightThreshold: null
 grid:
   alpha: 0.2
   color: '#000000'
@@ -25,6 +21,8 @@ grid:
   size: 100
   type: 1
   units: ft
+  style: solidLines
+  thickness: 1
 height: 1000
 initial:
   x: null
@@ -52,28 +50,33 @@ tiles:
       offsetX: 0
       offsetY: 0
       rotation: 0
-      tint: null
+      tint: '#ffffff'
+      anchorX: 0.5
+      anchorY: 0.5
+      fit: fill
+      alphaThreshold: 0.75
     x: 500
     'y': 400
     width: 600
     height: 100
-    overhead: false
     _id: VEXP0Ac7Lg3skN1w
-    z: 100
     rotation: 0
     alpha: 1
     hidden: false
     locked: false
-    roof: false
     occlusion:
-      mode: 1
+      mode: 0
       alpha: 0
-      radius: null
     video:
       loop: true
       autoplay: true
       volume: 0
     flags: {}
+    sort: 100
+    restrictions:
+      light: false
+      weather: false
+    elevation: 0
     _key: '!scenes.tiles!rbDGASbIr9gRNpxE.VEXP0Ac7Lg3skN1w'
   - texture:
       src: modules/pf1-kingdom-sheet/assets/kingdom_building/Wall_Corner.png
@@ -82,28 +85,33 @@ tiles:
       offsetX: 0
       offsetY: 0
       rotation: 0
-      tint: null
+      tint: '#ffffff'
+      anchorX: 0.5
+      anchorY: 0.5
+      fit: fill
+      alphaThreshold: 0.75
     x: 400
     'y': 1100
     width: 100
     height: 100
-    overhead: false
     _id: mK41pT2JOWtp2YbC
-    z: 100
     rotation: 0
     alpha: 1
     hidden: false
     locked: false
-    roof: false
     occlusion:
-      mode: 1
+      mode: 0
       alpha: 0
-      radius: null
     video:
       loop: true
       autoplay: true
       volume: 0
     flags: {}
+    sort: 100
+    restrictions:
+      light: false
+      weather: false
+    elevation: 0
     _key: '!scenes.tiles!rbDGASbIr9gRNpxE.mK41pT2JOWtp2YbC'
   - texture:
       src: modules/pf1-kingdom-sheet/assets/kingdom_building/Wall_Corner.png
@@ -112,28 +120,33 @@ tiles:
       offsetX: 0
       offsetY: 0
       rotation: 0
-      tint: null
+      tint: '#ffffff'
+      anchorX: 0.5
+      anchorY: 0.5
+      fit: fill
+      alphaThreshold: 0.75
     x: 400
     'y': 400
     width: 100
     height: 100
-    overhead: false
     _id: kvx9eX3vUpt1ANfv
-    z: 100
     rotation: 90
     alpha: 1
     hidden: false
     locked: false
-    roof: false
     occlusion:
-      mode: 1
+      mode: 0
       alpha: 0
-      radius: null
     video:
       loop: true
       autoplay: true
       volume: 0
     flags: {}
+    sort: 100
+    restrictions:
+      light: false
+      weather: false
+    elevation: 0
     _key: '!scenes.tiles!rbDGASbIr9gRNpxE.kvx9eX3vUpt1ANfv'
   - texture:
       src: modules/pf1-kingdom-sheet/assets/kingdom_building/Wall_Corner.png
@@ -142,28 +155,33 @@ tiles:
       offsetX: 0
       offsetY: 0
       rotation: 0
-      tint: null
+      tint: '#ffffff'
+      anchorX: 0.5
+      anchorY: 0.5
+      fit: fill
+      alphaThreshold: 0.75
     x: 1100
     'y': 400
     width: 100
     height: 100
-    overhead: false
     _id: EKors5VjccAGrV5J
-    z: 100
     rotation: 180
     alpha: 1
     hidden: false
     locked: false
-    roof: false
     occlusion:
-      mode: 1
+      mode: 0
       alpha: 0
-      radius: null
     video:
       loop: true
       autoplay: true
       volume: 0
     flags: {}
+    sort: 100
+    restrictions:
+      light: false
+      weather: false
+    elevation: 0
     _key: '!scenes.tiles!rbDGASbIr9gRNpxE.EKors5VjccAGrV5J'
   - texture:
       src: modules/pf1-kingdom-sheet/assets/kingdom_building/Wall_Corner.png
@@ -172,28 +190,33 @@ tiles:
       offsetX: 0
       offsetY: 0
       rotation: 0
-      tint: null
+      tint: '#ffffff'
+      anchorX: 0.5
+      anchorY: 0.5
+      fit: fill
+      alphaThreshold: 0.75
     x: 1100
     'y': 1100
     width: 100
     height: 100
-    overhead: false
     _id: xhl0mqoNX47gtuba
-    z: 100
     rotation: 270
     alpha: 1
     hidden: false
     locked: false
-    roof: false
     occlusion:
-      mode: 1
+      mode: 0
       alpha: 0
-      radius: null
     video:
       loop: true
       autoplay: true
       volume: 0
     flags: {}
+    sort: 100
+    restrictions:
+      light: false
+      weather: false
+    elevation: 0
     _key: '!scenes.tiles!rbDGASbIr9gRNpxE.xhl0mqoNX47gtuba'
   - texture:
       src: modules/pf1-kingdom-sheet/assets/kingdom_building/Wall.png
@@ -202,28 +225,33 @@ tiles:
       offsetX: 0
       offsetY: 0
       rotation: 0
-      tint: null
+      tint: '#ffffff'
+      anchorX: 0.5
+      anchorY: 0.5
+      fit: fill
+      alphaThreshold: 0.75
     x: 150
     'y': 750
     width: 600
     height: 100
-    overhead: false
     _id: NxXbBraSfkmVRbA7
-    z: 100
     rotation: 90
     alpha: 1
     hidden: false
     locked: false
-    roof: false
     occlusion:
-      mode: 1
+      mode: 0
       alpha: 0
-      radius: null
     video:
       loop: true
       autoplay: true
       volume: 0
     flags: {}
+    sort: 100
+    restrictions:
+      light: false
+      weather: false
+    elevation: 0
     _key: '!scenes.tiles!rbDGASbIr9gRNpxE.NxXbBraSfkmVRbA7'
   - texture:
       src: modules/pf1-kingdom-sheet/assets/kingdom_building/Wall.png
@@ -232,28 +260,33 @@ tiles:
       offsetX: 0
       offsetY: 0
       rotation: 0
-      tint: null
+      tint: '#ffffff'
+      anchorX: 0.5
+      anchorY: 0.5
+      fit: fill
+      alphaThreshold: 0.75
     x: 500
     'y': 1100
     width: 600
     height: 100
-    overhead: false
-    z: 100
     rotation: 0
     alpha: 1
     hidden: false
     locked: false
-    roof: false
     occlusion:
-      mode: 1
+      mode: 0
       alpha: 0
-      radius: null
     video:
       loop: true
       autoplay: true
       volume: 0
     flags: {}
     _id: uJOi0dlQkebppzA5
+    sort: 100
+    restrictions:
+      light: false
+      weather: false
+    elevation: 0
     _key: '!scenes.tiles!rbDGASbIr9gRNpxE.uJOi0dlQkebppzA5'
   - texture:
       src: modules/pf1-kingdom-sheet/assets/kingdom_building/Wall.png
@@ -262,28 +295,33 @@ tiles:
       offsetX: 0
       offsetY: 0
       rotation: 0
-      tint: null
+      tint: '#ffffff'
+      anchorX: 0.5
+      anchorY: 0.5
+      fit: fill
+      alphaThreshold: 0.75
     x: 1050
     'y': 550
     width: 200
     height: 100
-    overhead: false
-    z: 100
     rotation: 90
     alpha: 1
     hidden: false
     locked: false
-    roof: false
     occlusion:
-      mode: 1
+      mode: 0
       alpha: 0
-      radius: null
     video:
       loop: true
       autoplay: true
       volume: 0
     flags: {}
     _id: 3j8YoR0tCRhAaYTE
+    sort: 100
+    restrictions:
+      light: false
+      weather: false
+    elevation: 0
     _key: '!scenes.tiles!rbDGASbIr9gRNpxE.3j8YoR0tCRhAaYTE'
   - texture:
       src: modules/pf1-kingdom-sheet/assets/kingdom_building/Cliff_03.png
@@ -292,28 +330,33 @@ tiles:
       offsetX: 0
       offsetY: 0
       rotation: 0
-      tint: null
+      tint: '#ffffff'
+      anchorX: 0.5
+      anchorY: 0.5
+      fit: fill
+      alphaThreshold: 0.75
     x: 300
     'y': 1200
     width: 100
     height: 100
-    overhead: false
     _id: KZwOhVWCD33j9glR
-    z: 100
     rotation: 270
     alpha: 1
     hidden: false
     locked: false
-    roof: false
     occlusion:
-      mode: 1
+      mode: 0
       alpha: 0
-      radius: null
     video:
       loop: true
       autoplay: true
       volume: 0
     flags: {}
+    sort: 100
+    restrictions:
+      light: false
+      weather: false
+    elevation: 0
     _key: '!scenes.tiles!rbDGASbIr9gRNpxE.KZwOhVWCD33j9glR'
   - texture:
       src: modules/pf1-kingdom-sheet/assets/kingdom_building/Cliff_03.png
@@ -322,28 +365,33 @@ tiles:
       offsetX: 0
       offsetY: 0
       rotation: 0
-      tint: null
+      tint: '#ffffff'
+      anchorX: 0.5
+      anchorY: 0.5
+      fit: fill
+      alphaThreshold: 0.75
     x: 1200
     'y': 1200
     width: 100
     height: 100
-    overhead: false
     _id: slDkuxQRBhLTxINy
-    z: 100
     rotation: 180
     alpha: 1
     hidden: false
     locked: false
-    roof: false
     occlusion:
-      mode: 1
+      mode: 0
       alpha: 0
-      radius: null
     video:
       loop: true
       autoplay: true
       volume: 0
     flags: {}
+    sort: 100
+    restrictions:
+      light: false
+      weather: false
+    elevation: 0
     _key: '!scenes.tiles!rbDGASbIr9gRNpxE.slDkuxQRBhLTxINy'
   - texture:
       src: modules/pf1-kingdom-sheet/assets/kingdom_building/Cliff_02.png
@@ -352,28 +400,33 @@ tiles:
       offsetX: 0
       offsetY: 0
       rotation: 0
-      tint: null
+      tint: '#ffffff'
+      anchorX: 0.5
+      anchorY: 0.5
+      fit: fill
+      alphaThreshold: 0.75
     x: 300
     'y': 300
     width: 1000
     height: 100
-    overhead: false
     _id: MAu98tbnAssVcAet
-    z: 100
     rotation: 0
     alpha: 1
     hidden: false
     locked: false
-    roof: false
     occlusion:
-      mode: 1
+      mode: 0
       alpha: 0
-      radius: null
     video:
       loop: true
       autoplay: true
       volume: 0
     flags: {}
+    sort: 100
+    restrictions:
+      light: false
+      weather: false
+    elevation: 0
     _key: '!scenes.tiles!rbDGASbIr9gRNpxE.MAu98tbnAssVcAet'
   - texture:
       src: modules/pf1-kingdom-sheet/assets/kingdom_building/Wall.png
@@ -382,28 +435,33 @@ tiles:
       offsetX: 0
       offsetY: 0
       rotation: 0
-      tint: null
+      tint: '#ffffff'
+      anchorX: 0.5
+      anchorY: 0.5
+      fit: fill
+      alphaThreshold: 0.75
     x: 1000
     'y': 900
     width: 300
     height: 100
-    overhead: false
-    z: 100
     rotation: 90
     alpha: 1
     hidden: false
     locked: false
-    roof: false
     occlusion:
-      mode: 1
+      mode: 0
       alpha: 0
-      radius: null
     video:
       loop: true
       autoplay: true
       volume: 0
     flags: {}
     _id: QvRlClkpkf3mXLqc
+    sort: 100
+    restrictions:
+      light: false
+      weather: false
+    elevation: 0
     _key: '!scenes.tiles!rbDGASbIr9gRNpxE.QvRlClkpkf3mXLqc'
   - texture:
       src: modules/pf1-kingdom-sheet/assets/kingdom_building/Observatory.png
@@ -412,27 +470,33 @@ tiles:
       offsetX: 0
       offsetY: 0
       rotation: 0
+      anchorX: 0.5
+      anchorY: 0.5
+      fit: fill
+      tint: '#ffffff'
+      alphaThreshold: 0.75
     x: 500
     'y': 500
     width: 102.4
     height: 102.4
-    overhead: false
     _id: YQYJjG4YJnP4M9sR
-    z: 100
     rotation: 0
     alpha: 1
     hidden: false
     locked: false
-    roof: false
     occlusion:
-      mode: 1
+      mode: 0
       alpha: 0
-      radius: null
     video:
       loop: true
       autoplay: true
       volume: 0
     flags: {}
+    sort: 100
+    restrictions:
+      light: false
+      weather: false
+    elevation: 0
     _key: '!scenes.tiles!rbDGASbIr9gRNpxE.YQYJjG4YJnP4M9sR'
   - texture:
       src: modules/pf1-kingdom-sheet/assets/kingdom_building/Temple.png
@@ -441,27 +505,33 @@ tiles:
       offsetX: 0
       offsetY: 0
       rotation: 0
+      anchorX: 0.5
+      anchorY: 0.5
+      fit: fill
+      tint: '#ffffff'
+      alphaThreshold: 0.75
     x: 700
     'y': 500
     width: 102.4
     height: 102.4
-    overhead: false
     _id: CAPmtN4PMeF9trK3
-    z: 100
     rotation: 0
     alpha: 1
     hidden: false
     locked: false
-    roof: false
     occlusion:
-      mode: 1
+      mode: 0
       alpha: 0
-      radius: null
     video:
       loop: true
       autoplay: true
       volume: 0
     flags: {}
+    sort: 100
+    restrictions:
+      light: false
+      weather: false
+    elevation: 0
     _key: '!scenes.tiles!rbDGASbIr9gRNpxE.CAPmtN4PMeF9trK3'
   - texture:
       src: modules/pf1-kingdom-sheet/assets/kingdom_building/Magic%20Shop.png
@@ -470,27 +540,33 @@ tiles:
       offsetX: 0
       offsetY: 0
       rotation: 0
+      anchorX: 0.5
+      anchorY: 0.5
+      fit: fill
+      tint: '#ffffff'
+      alphaThreshold: 0.75
     x: 1000
     'y': 500
     width: 102.4
     height: 102.4
-    overhead: false
     _id: XzSaETZqCGli9sAc
-    z: 100
     rotation: 0
     alpha: 1
     hidden: false
     locked: false
-    roof: false
     occlusion:
-      mode: 1
+      mode: 0
       alpha: 0
-      radius: null
     video:
       loop: true
       autoplay: true
       volume: 0
     flags: {}
+    sort: 100
+    restrictions:
+      light: false
+      weather: false
+    elevation: 0
     _key: '!scenes.tiles!rbDGASbIr9gRNpxE.XzSaETZqCGli9sAc'
   - texture:
       src: modules/pf1-kingdom-sheet/assets/kingdom_building/Library.png
@@ -499,27 +575,33 @@ tiles:
       offsetX: 0
       offsetY: 0
       rotation: 0
+      anchorX: 0.5
+      anchorY: 0.5
+      fit: fill
+      tint: '#ffffff'
+      alphaThreshold: 0.75
     x: 800
     'y': 600
     width: 102.4
     height: 102.4
-    overhead: false
     _id: 08eMAWb4NpEZ3QEW
-    z: 100
     rotation: 0
     alpha: 1
     hidden: false
     locked: false
-    roof: false
     occlusion:
-      mode: 1
+      mode: 0
       alpha: 0
-      radius: null
     video:
       loop: true
       autoplay: true
       volume: 0
     flags: {}
+    sort: 100
+    restrictions:
+      light: false
+      weather: false
+    elevation: 0
     _key: '!scenes.tiles!rbDGASbIr9gRNpxE.08eMAWb4NpEZ3QEW'
   - texture:
       src: modules/pf1-kingdom-sheet/assets/kingdom_building/Inn.png
@@ -528,27 +610,33 @@ tiles:
       offsetX: 0
       offsetY: 0
       rotation: 0
+      anchorX: 0.5
+      anchorY: 0.5
+      fit: fill
+      tint: '#ffffff'
+      alphaThreshold: 0.75
     x: 900
     'y': 600
     width: 102.4
     height: 102.4
-    overhead: false
     _id: KwUtRlYrPTnvJFBm
-    z: 100
     rotation: 0
     alpha: 1
     hidden: false
     locked: false
-    roof: false
     occlusion:
-      mode: 1
+      mode: 0
       alpha: 0
-      radius: null
     video:
       loop: true
       autoplay: true
       volume: 0
     flags: {}
+    sort: 100
+    restrictions:
+      light: false
+      weather: false
+    elevation: 0
     _key: '!scenes.tiles!rbDGASbIr9gRNpxE.KwUtRlYrPTnvJFBm'
   - texture:
       src: modules/pf1-kingdom-sheet/assets/kingdom_building/Smithy.png
@@ -557,27 +645,33 @@ tiles:
       offsetX: 0
       offsetY: 0
       rotation: 0
+      anchorX: 0.5
+      anchorY: 0.5
+      fit: fill
+      tint: '#ffffff'
+      alphaThreshold: 0.75
     x: 1000
     'y': 600
     width: 102.4
     height: 102.4
-    overhead: false
     _id: XTYWarF7qr9Xla8w
-    z: 100
     rotation: 0
     alpha: 1
     hidden: false
     locked: false
-    roof: false
     occlusion:
-      mode: 1
+      mode: 0
       alpha: 0
-      radius: null
     video:
       loop: true
       autoplay: true
       volume: 0
     flags: {}
+    sort: 100
+    restrictions:
+      light: false
+      weather: false
+    elevation: 0
     _key: '!scenes.tiles!rbDGASbIr9gRNpxE.XTYWarF7qr9Xla8w'
   - texture:
       src: modules/pf1-kingdom-sheet/assets/kingdom_building/Pier.png
@@ -586,27 +680,33 @@ tiles:
       offsetX: 0
       offsetY: 0
       rotation: 0
+      anchorX: 0.5
+      anchorY: 0.5
+      fit: fill
+      tint: '#ffffff'
+      alphaThreshold: 0.75
     x: 1000
     'y': 700
     width: 102.4
     height: 102.4
-    overhead: false
     _id: GFQFEUsxeXiaE4jz
-    z: 100
     rotation: 0
     alpha: 1
     hidden: false
     locked: false
-    roof: false
     occlusion:
-      mode: 1
+      mode: 0
       alpha: 0
-      radius: null
     video:
       loop: true
       autoplay: true
       volume: 0
     flags: {}
+    sort: 100
+    restrictions:
+      light: false
+      weather: false
+    elevation: 0
     _key: '!scenes.tiles!rbDGASbIr9gRNpxE.GFQFEUsxeXiaE4jz'
   - texture:
       src: modules/pf1-kingdom-sheet/assets/kingdom_building/Waterway_07.png
@@ -615,27 +715,33 @@ tiles:
       offsetX: 0
       offsetY: 0
       rotation: 0
+      anchorX: 0.5
+      anchorY: 0.5
+      fit: fill
+      tint: '#ffffff'
+      alphaThreshold: 0.75
     x: 1200
     'y': 700
     width: 102.4
     height: 102.4
-    overhead: false
     _id: D95hnF8Eaf6Bn5tm
-    z: 100
     rotation: 0
     alpha: 1
     hidden: false
     locked: false
-    roof: false
     occlusion:
-      mode: 1
+      mode: 0
       alpha: 0
-      radius: null
     video:
       loop: true
       autoplay: true
       volume: 0
     flags: {}
+    sort: 100
+    restrictions:
+      light: false
+      weather: false
+    elevation: 0
     _key: '!scenes.tiles!rbDGASbIr9gRNpxE.D95hnF8Eaf6Bn5tm'
   - texture:
       src: modules/pf1-kingdom-sheet/assets/kingdom_building/Waterway_01.png
@@ -644,28 +750,33 @@ tiles:
       offsetX: 0
       offsetY: 0
       rotation: 0
-      tint: null
+      tint: '#ffffff'
+      anchorX: 0.5
+      anchorY: 0.5
+      fit: fill
+      alphaThreshold: 0.75
     x: 1100
     'y': 700
     width: 102
     height: 102
-    overhead: false
     _id: pPKgYxpHK6s7LACq
-    z: 100
     rotation: 90
     alpha: 1
     hidden: false
     locked: false
-    roof: false
     occlusion:
-      mode: 1
+      mode: 0
       alpha: 0
-      radius: null
     video:
       loop: true
       autoplay: true
       volume: 0
     flags: {}
+    sort: 100
+    restrictions:
+      light: false
+      weather: false
+    elevation: 0
     _key: '!scenes.tiles!rbDGASbIr9gRNpxE.pPKgYxpHK6s7LACq'
   - texture:
       src: modules/pf1-kingdom-sheet/assets/kingdom_building/University.png
@@ -674,27 +785,33 @@ tiles:
       offsetX: 0
       offsetY: 0
       rotation: 0
+      anchorX: 0.5
+      anchorY: 0.5
+      fit: fill
+      tint: '#ffffff'
+      alphaThreshold: 0.75
     x: 500
     'y': 900
     width: 200
     height: 200
-    overhead: false
     _id: vGwNqC1WIKGBOKum
-    z: 100
     rotation: 0
     alpha: 1
     hidden: false
     locked: false
-    roof: false
     occlusion:
-      mode: 1
+      mode: 0
       alpha: 0
-      radius: null
     video:
       loop: true
       autoplay: true
       volume: 0
     flags: {}
+    sort: 100
+    restrictions:
+      light: false
+      weather: false
+    elevation: 0
     _key: '!scenes.tiles!rbDGASbIr9gRNpxE.vGwNqC1WIKGBOKum'
   - texture:
       src: modules/pf1-kingdom-sheet/assets/kingdom_building/Watchtower.png
@@ -703,27 +820,33 @@ tiles:
       offsetX: 0
       offsetY: 0
       rotation: 0
+      anchorX: 0.5
+      anchorY: 0.5
+      fit: fill
+      tint: '#ffffff'
+      alphaThreshold: 0.75
     x: 1000
     'y': 1000
     width: 102.4
     height: 102.4
-    overhead: false
     _id: nfiic9jjbyldCo4H
-    z: 100
     rotation: 0
     alpha: 1
     hidden: false
     locked: false
-    roof: false
     occlusion:
-      mode: 1
+      mode: 0
       alpha: 0
-      radius: null
     video:
       loop: true
       autoplay: true
       volume: 0
     flags: {}
+    sort: 100
+    restrictions:
+      light: false
+      weather: false
+    elevation: 0
     _key: '!scenes.tiles!rbDGASbIr9gRNpxE.nfiic9jjbyldCo4H'
   - texture:
       src: modules/pf1-kingdom-sheet/assets/kingdom_building/House.png
@@ -732,27 +855,33 @@ tiles:
       offsetX: 0
       offsetY: 0
       rotation: 0
+      anchorX: 0.5
+      anchorY: 0.5
+      fit: fill
+      tint: '#ffffff'
+      alphaThreshold: 0.75
     x: 800
     'y': 800
     width: 102.4
     height: 102.4
-    overhead: false
     _id: q9W8O70ZFSCf8TWV
-    z: 100
     rotation: 0
     alpha: 1
     hidden: false
     locked: false
-    roof: false
     occlusion:
-      mode: 1
+      mode: 0
       alpha: 0
-      radius: null
     video:
       loop: true
       autoplay: true
       volume: 0
     flags: {}
+    sort: 100
+    restrictions:
+      light: false
+      weather: false
+    elevation: 0
     _key: '!scenes.tiles!rbDGASbIr9gRNpxE.q9W8O70ZFSCf8TWV'
   - texture:
       src: modules/pf1-kingdom-sheet/assets/kingdom_building/Mansion.png
@@ -761,27 +890,33 @@ tiles:
       offsetX: 0
       offsetY: 0
       rotation: 0
+      anchorX: 0.5
+      anchorY: 0.5
+      fit: fill
+      tint: '#ffffff'
+      alphaThreshold: 0.75
     x: 600
     'y': 800
     width: 102.4
     height: 102.4
-    overhead: false
     _id: ink4joCVb8PvnxTd
-    z: 100
     rotation: 0
     alpha: 1
     hidden: false
     locked: false
-    roof: false
     occlusion:
-      mode: 1
+      mode: 0
       alpha: 0
-      radius: null
     video:
       loop: true
       autoplay: true
       volume: 0
     flags: {}
+    sort: 100
+    restrictions:
+      light: false
+      weather: false
+    elevation: 0
     _key: '!scenes.tiles!rbDGASbIr9gRNpxE.ink4joCVb8PvnxTd'
 tokenVision: true
 tokens: []
@@ -791,5 +926,42 @@ width: 1000
 _id: rbDGASbIr9gRNpxE
 active: false
 sort: 0
+regions: []
+environment:
+  globalLight:
+    luminosity: 0
+    enabled: false
+    darkness:
+      max: 1
+      min: 0
+    alpha: 0.5
+    bright: false
+    color: null
+    coloration: 1
+    saturation: 0
+    contrast: 0
+    shadows: 0
+  darknessLevel: 0
+  darknessLock: false
+  cycle: true
+  base:
+    hue: 0
+    intensity: 0
+    luminosity: 0
+    saturation: 0
+    shadows: 0
+  dark:
+    hue: 0.7138888888888889
+    intensity: 0
+    luminosity: -0.25
+    saturation: 0
+    shadows: 0
+fog:
+  exploration: true
+  reset: 1627041370783
+  overlay: null
+  colors:
+    explored: null
+    unexplored: null
 _key: '!scenes!rbDGASbIr9gRNpxE'
 

@@ -1,6 +1,8 @@
 type: pf1-kingdom-sheet.special
 name: Spellcasting
 system:
+  htmlFields:
+    - description.value
   description:
     value: >-
       <p>If an army’s units can use magic (from either spell-like abilities or

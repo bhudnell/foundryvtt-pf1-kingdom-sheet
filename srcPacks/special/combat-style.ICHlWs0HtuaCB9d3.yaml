@@ -1,6 +1,8 @@
 type: pf1-kingdom-sheet.special
 name: Combat Style
 system:
+  htmlFields:
+    - description.value
   description:
     value: >-
       <p>Once per battle, increase the army’s OM for either ranged attacks or

@@ -1,6 +1,8 @@
 type: pf1-kingdom-sheet.boon
 name: Sharpshooter
 system:
+  htmlFields:
+    - description.value
   description:
     value: >-
       <p>The commander drills the army in precision ranged attacks. The army

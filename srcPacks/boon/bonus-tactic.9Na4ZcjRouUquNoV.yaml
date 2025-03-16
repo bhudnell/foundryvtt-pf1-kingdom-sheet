@@ -1,6 +1,8 @@
 type: pf1-kingdom-sheet.boon
 name: Bonus Tactic
 system:
+  htmlFields:
+    - description.value
   description:
     value: >-
       <p>Choose one tactic. The commander always knows this tactic, and the

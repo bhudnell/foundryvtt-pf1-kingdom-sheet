@@ -1,6 +1,8 @@
 type: pf1-kingdom-sheet.improvement
 name: Fishery
 system:
+  htmlFields:
+    - description.value
   subType: general
   quantity: 1
   description:

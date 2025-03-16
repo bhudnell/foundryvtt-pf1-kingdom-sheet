@@ -3,7 +3,7 @@ _id: 0onhtdDZJATtRWak
 img: icons/environment/settlement/hut.webp
 description: ''
 results:
-  - type: 2
+  - type: pack
     documentCollection: pf1-kingdom-sheet.event
     weight: 1
     range:
@@ -16,7 +16,7 @@ results:
     _id: eP0r7CGTsdshu5ad
     flags: {}
     _key: '!tables.results!0onhtdDZJATtRWak.eP0r7CGTsdshu5ad'
-  - type: 2
+  - type: pack
     documentCollection: pf1-kingdom-sheet.event
     weight: 1
     range:
@@ -29,7 +29,7 @@ results:
     _id: 25fTky5N3yJUoKxX
     flags: {}
     _key: '!tables.results!0onhtdDZJATtRWak.25fTky5N3yJUoKxX'
-  - type: 2
+  - type: pack
     documentCollection: pf1-kingdom-sheet.event
     weight: 1
     range:
@@ -42,7 +42,7 @@ results:
     _id: d3byBTsgt1QHAshI
     flags: {}
     _key: '!tables.results!0onhtdDZJATtRWak.d3byBTsgt1QHAshI'
-  - type: 2
+  - type: pack
     documentCollection: pf1-kingdom-sheet.event
     weight: 1
     range:
@@ -55,7 +55,7 @@ results:
     _id: nyx8tlNsi5wFK28W
     flags: {}
     _key: '!tables.results!0onhtdDZJATtRWak.nyx8tlNsi5wFK28W'
-  - type: 2
+  - type: pack
     documentCollection: pf1-kingdom-sheet.event
     weight: 1
     range:
@@ -68,7 +68,7 @@ results:
     _id: 3Vl41nfzIpuba8FW
     flags: {}
     _key: '!tables.results!0onhtdDZJATtRWak.3Vl41nfzIpuba8FW'
-  - type: 2
+  - type: pack
     documentCollection: pf1-kingdom-sheet.event
     weight: 1
     range:
@@ -81,7 +81,7 @@ results:
     _id: 0Q2oCeMXwRHyOLk5
     flags: {}
     _key: '!tables.results!0onhtdDZJATtRWak.0Q2oCeMXwRHyOLk5'
-  - type: 2
+  - type: pack
     documentCollection: pf1-kingdom-sheet.event
     weight: 1
     range:
@@ -94,7 +94,7 @@ results:
     _id: wkrdOf4np8Tula6J
     flags: {}
     _key: '!tables.results!0onhtdDZJATtRWak.wkrdOf4np8Tula6J'
-  - type: 2
+  - type: pack
     documentCollection: pf1-kingdom-sheet.event
     weight: 1
     range:
@@ -107,7 +107,7 @@ results:
     _id: guW5zC1IWvhNZrxq
     flags: {}
     _key: '!tables.results!0onhtdDZJATtRWak.guW5zC1IWvhNZrxq'
-  - type: 2
+  - type: pack
     documentCollection: pf1-kingdom-sheet.event
     weight: 1
     range:
@@ -120,7 +120,7 @@ results:
     _id: vW2gKa2pAJPi45M5
     flags: {}
     _key: '!tables.results!0onhtdDZJATtRWak.vW2gKa2pAJPi45M5'
-  - type: 2
+  - type: pack
     documentCollection: pf1-kingdom-sheet.event
     weight: 1
     range:
@@ -133,7 +133,7 @@ results:
     _id: EUI5lF7BrFS5WPqY
     flags: {}
     _key: '!tables.results!0onhtdDZJATtRWak.EUI5lF7BrFS5WPqY'
-  - type: 2
+  - type: pack
     documentCollection: pf1-kingdom-sheet.event
     weight: 1
     range:
@@ -146,7 +146,7 @@ results:
     _id: DGPZNPhs209avfEZ
     flags: {}
     _key: '!tables.results!0onhtdDZJATtRWak.DGPZNPhs209avfEZ'
-  - type: 2
+  - type: pack
     documentCollection: pf1-kingdom-sheet.event
     weight: 1
     range:
@@ -159,7 +159,7 @@ results:
     _id: 86aUkAuVhoZJNNaY
     flags: {}
     _key: '!tables.results!0onhtdDZJATtRWak.86aUkAuVhoZJNNaY'
-  - type: 2
+  - type: pack
     documentCollection: pf1-kingdom-sheet.event
     weight: 1
     range:

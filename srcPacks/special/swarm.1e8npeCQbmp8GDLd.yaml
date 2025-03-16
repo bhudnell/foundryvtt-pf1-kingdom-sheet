@@ -1,6 +1,8 @@
 type: pf1-kingdom-sheet.special
 name: Swarm
 system:
+  htmlFields:
+    - description.value
   description:
     value: >-
       <p>The army takes half damage from nonmagical attacks, but 1-1/2 times as

@@ -1,6 +1,8 @@
 type: pf1-kingdom-sheet.special
 name: Smite Evil
 system:
+  htmlFields:
+    - description.value
   description:
     value: >-
       <p>In one Melee phase per battle, the army may increase its OM by 2

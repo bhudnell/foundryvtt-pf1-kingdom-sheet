@@ -1,6 +1,8 @@
 type: pf1-kingdom-sheet.special
 name: Hex (Cauldron)
 system:
+  htmlFields:
+    - description.value
   description:
     value: >-
       <p>The army can create healing potions for itself or another army without

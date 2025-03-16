@@ -1,6 +1,8 @@
 type: pf1-kingdom-sheet.special
 name: Pounce
 system:
+  htmlFields:
+    - description.value
   description:
     value: <p>The army increases its OM by 1.</p>
   changes:

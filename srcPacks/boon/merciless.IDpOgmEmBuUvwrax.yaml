@@ -1,6 +1,8 @@
 type: pf1-kingdom-sheet.boon
 name: Merciless
 system:
+  htmlFields:
+    - description.value
   description:
     value: >-
       <p>The commander encourages the army to be ruthless in its tactics and

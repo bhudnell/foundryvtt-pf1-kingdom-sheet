@@ -1,6 +1,8 @@
 type: pf1-kingdom-sheet.special
 name: Order
 system:
+  htmlFields:
+    - description.value
   description:
     value: >-
       <p>When using the challenge ability, increase the army’s DV by 1 against

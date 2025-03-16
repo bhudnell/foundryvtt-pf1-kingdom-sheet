@@ -1,6 +1,8 @@
 type: pf1-kingdom-sheet.boon
 name: Hit and Run
 system:
+  htmlFields:
+    - description.value
   description:
     value: >-
       <p>The commander drills the army in quick attacks followed by a fast
@@ -11,8 +13,8 @@ system:
   changes: []
   contextNotes:
     - text: >-
-        +[[@commander.leadership > 9 ? 4 : 2]] to withdraw after ranged or first
-        melee phase
+        +[[ifelse(gt(@commander.leadership, 9), 4, 2)]] to withdraw after ranged
+        or first melee phase
       target: pf1ks_morale
   sources: []
 _id: aHb5hVzArDpVJDOC

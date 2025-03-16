@@ -1,6 +1,8 @@
 type: pf1-kingdom-sheet.special
 name: Invisibility
 system:
+  htmlFields:
+    - description.value
   description:
     value: >-
       <p>Any army attacking this army takes a –2 penalty to its OM for that

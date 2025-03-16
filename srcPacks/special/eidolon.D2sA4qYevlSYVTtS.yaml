@@ -1,6 +1,8 @@
 type: pf1-kingdom-sheet.special
 name: Eidolon
 system:
+  htmlFields:
+    - description.value
   description:
     value: <p>The army’s eidolons increase the army’s OM by 1.</p>
   changes:

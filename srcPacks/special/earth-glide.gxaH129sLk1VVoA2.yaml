@@ -1,6 +1,8 @@
 type: pf1-kingdom-sheet.special
 name: Earth Glide
 system:
+  htmlFields:
+    - description.value
   description:
     value: >-
       <p>The army ignores fortifications made of earth or stone and can burrow

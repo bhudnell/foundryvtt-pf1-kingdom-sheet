@@ -1,6 +1,8 @@
 type: pf1-kingdom-sheet.special
 name: Inspire Courage
 system:
+  htmlFields:
+    - description.value
   description:
     value: >-
       <p>The army increases its OM by 1 and gains a +2 bonus on Morale checks

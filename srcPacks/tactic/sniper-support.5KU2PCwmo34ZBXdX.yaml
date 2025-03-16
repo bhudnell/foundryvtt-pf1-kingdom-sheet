@@ -1,6 +1,8 @@
 type: pf1-kingdom-sheet.tactic
 name: Sniper Support
 system:
+  htmlFields:
+    - description.value
   disabled: true
   description:
     value: >-

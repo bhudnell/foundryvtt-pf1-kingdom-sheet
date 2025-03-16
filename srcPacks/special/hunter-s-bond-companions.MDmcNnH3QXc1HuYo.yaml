@@ -1,6 +1,8 @@
 type: pf1-kingdom-sheet.special
 name: Hunter's Bond (Companions)
 system:
+  htmlFields:
+    - description.value
   description:
     value: >-
       <p>Once per battle, the army may increase its OM or an allied army’s OM by

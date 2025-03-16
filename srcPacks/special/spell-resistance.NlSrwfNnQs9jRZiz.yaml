@@ -1,6 +1,8 @@
 type: pf1-kingdom-sheet.special
 name: Spell Resistance
 system:
+  htmlFields:
+    - description.value
   description:
     value: >-
       <p>The army increases its DV by 6 against armies with the spellcasting

@@ -1,6 +1,8 @@
 type: pf1-kingdom-sheet.boon
 name: Flexible Tactics
 system:
+  htmlFields:
+    - description.value
   description:
     value: >-
       <p>The commander trains the army to be receptive to multiple orders during
@@ -9,7 +11,7 @@ system:
       this boon. At Leadership 12 or higher, this bonus increases to +10.</p>
   changes: []
   contextNotes:
-    - text: '+[[@commander.leadership > 11 ? 10 : 5]] to change tactics'
+    - text: +[[ifelse(gt(@commander.leadership, 11), 10, 5)]] to change tactics
       target: pf1ks_morale
   sources: []
 _id: 25EzIbcYCRGlGqsS

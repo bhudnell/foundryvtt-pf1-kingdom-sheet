@@ -1,6 +1,8 @@
 type: pf1-kingdom-sheet.special
 name: Trap Sense
 system:
+  htmlFields:
+    - description.value
   description:
     value: >-
       <p>When using the siegebreaker tactic, the army adds half its ACR to the

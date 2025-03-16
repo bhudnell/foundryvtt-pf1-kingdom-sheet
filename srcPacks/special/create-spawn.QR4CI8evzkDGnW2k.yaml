@@ -1,6 +1,8 @@
 type: pf1-kingdom-sheet.special
 name: Create Spawn
 system:
+  htmlFields:
+    - description.value
   description:
     value: >-
       <p>If the army destroys a living army of equal or greater size, it may

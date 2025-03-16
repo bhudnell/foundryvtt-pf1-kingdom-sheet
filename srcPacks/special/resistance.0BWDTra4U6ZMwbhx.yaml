@@ -1,6 +1,8 @@
 type: pf1-kingdom-sheet.special
 name: Resistance
 system:
+  htmlFields:
+    - description.value
   description:
     value: >-
       <p>The army has a significant defense from resistances. Increase its DV by

@@ -1,6 +1,8 @@
 type: pf1-kingdom-sheet.building
 name: Observatory
 system:
+  htmlFields:
+    - description.value
   quantity: 1
   lots: 1
   cost: 12

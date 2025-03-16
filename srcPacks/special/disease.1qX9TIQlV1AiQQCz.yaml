@@ -1,6 +1,8 @@
 type: pf1-kingdom-sheet.special
 name: Disease
 system:
+  htmlFields:
+    - description.value
   description:
     value: >-
       <p>If the army damages an enemy, the enemy becomes diseased and takes a

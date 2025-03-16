@@ -1,6 +1,8 @@
 type: pf1-kingdom-sheet.special
 name: Light Sensitivity
 system:
+  htmlFields:
+    - description.value
   description:
     value: <p>The army decreases its OM and DV by 1 in bright light.</p>
   changes: []

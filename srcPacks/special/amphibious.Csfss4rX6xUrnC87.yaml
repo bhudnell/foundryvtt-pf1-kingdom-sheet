@@ -1,6 +1,8 @@
 type: pf1-kingdom-sheet.special
 name: Amphibious
 system:
+  htmlFields:
+    - description.value
   description:
     value: >-
       <p>The army can move in or across bodies of water and ignore Defense from

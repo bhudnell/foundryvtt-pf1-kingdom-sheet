@@ -1,6 +1,8 @@
 type: pf1-kingdom-sheet.special
 name: Rock Catching
 system:
+  htmlFields:
+    - description.value
   description:
     value: >-
       <p>The army increases its DV by 1 against ranged attacks. This increases

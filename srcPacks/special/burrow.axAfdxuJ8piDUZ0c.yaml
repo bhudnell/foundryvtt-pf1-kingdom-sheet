@@ -1,6 +1,8 @@
 type: pf1-kingdom-sheet.special
 name: Burrow
 system:
+  htmlFields:
+    - description.value
   description:
     value: >-
       <p>The army can dig under one fortification (or City Walls) by spending a

@@ -3,7 +3,7 @@ _id: PTcJtznGzdJ6ynH9
 img: icons/environment/settlement/city-entrance.webp
 description: ''
 results:
-  - type: 2
+  - type: pack
     documentCollection: pf1-kingdom-sheet.event
     weight: 1
     range:
@@ -16,7 +16,7 @@ results:
     _id: 2mel2lAErZlgrYcq
     flags: {}
     _key: '!tables.results!PTcJtznGzdJ6ynH9.2mel2lAErZlgrYcq'
-  - type: 2
+  - type: pack
     documentCollection: pf1-kingdom-sheet.event
     weight: 1
     range:
@@ -29,7 +29,7 @@ results:
     _id: dAfFEmkUlfwAyAGr
     flags: {}
     _key: '!tables.results!PTcJtznGzdJ6ynH9.dAfFEmkUlfwAyAGr'
-  - type: 2
+  - type: pack
     documentCollection: pf1-kingdom-sheet.event
     weight: 1
     range:
@@ -42,7 +42,7 @@ results:
     _id: miym12hqhRNcu0xr
     flags: {}
     _key: '!tables.results!PTcJtznGzdJ6ynH9.miym12hqhRNcu0xr'
-  - type: 2
+  - type: pack
     documentCollection: pf1-kingdom-sheet.event
     weight: 1
     range:
@@ -55,7 +55,7 @@ results:
     _id: F0Jkyw0OHThsBEca
     flags: {}
     _key: '!tables.results!PTcJtznGzdJ6ynH9.F0Jkyw0OHThsBEca'
-  - type: 2
+  - type: pack
     documentCollection: pf1-kingdom-sheet.event
     weight: 1
     range:
@@ -68,7 +68,7 @@ results:
     _id: VkghYk3Kr6ddRVWf
     flags: {}
     _key: '!tables.results!PTcJtznGzdJ6ynH9.VkghYk3Kr6ddRVWf'
-  - type: 2
+  - type: pack
     documentCollection: pf1-kingdom-sheet.event
     weight: 1
     range:
@@ -81,7 +81,7 @@ results:
     _id: MTyEcCsLMbYBGeYZ
     flags: {}
     _key: '!tables.results!PTcJtznGzdJ6ynH9.MTyEcCsLMbYBGeYZ'
-  - type: 2
+  - type: pack
     documentCollection: pf1-kingdom-sheet.event
     weight: 1
     range:
@@ -94,7 +94,7 @@ results:
     _id: 4G3knGMapRMpEfaE
     flags: {}
     _key: '!tables.results!PTcJtznGzdJ6ynH9.4G3knGMapRMpEfaE'
-  - type: 2
+  - type: pack
     documentCollection: pf1-kingdom-sheet.event
     weight: 1
     range:
@@ -107,7 +107,7 @@ results:
     _id: vXvSr931Sc6nF06S
     flags: {}
     _key: '!tables.results!PTcJtznGzdJ6ynH9.vXvSr931Sc6nF06S'
-  - type: 2
+  - type: pack
     documentCollection: pf1-kingdom-sheet.event
     weight: 1
     range:
@@ -120,7 +120,7 @@ results:
     _id: Dvv3gDyfWoMeg3rY
     flags: {}
     _key: '!tables.results!PTcJtznGzdJ6ynH9.Dvv3gDyfWoMeg3rY'
-  - type: 2
+  - type: pack
     documentCollection: pf1-kingdom-sheet.event
     weight: 1
     range:
@@ -133,7 +133,7 @@ results:
     _id: BGvyniWhCzeSO60U
     flags: {}
     _key: '!tables.results!PTcJtznGzdJ6ynH9.BGvyniWhCzeSO60U'
-  - type: 2
+  - type: pack
     documentCollection: pf1-kingdom-sheet.event
     weight: 1
     range:

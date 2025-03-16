@@ -1,6 +1,8 @@
 type: pf1-kingdom-sheet.boon
 name: Live off the Land
 system:
+  htmlFields:
+    - description.value
   description:
     value: >-
       <p>The commander makes the army trap game, hunt, and fish to augment its

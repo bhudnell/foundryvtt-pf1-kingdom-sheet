@@ -1,6 +1,8 @@
 type: pf1-kingdom-sheet.special
 name: Mobility
 system:
+  htmlFields:
+    - description.value
   description:
     value: >-
       <p>If the units have a form of mobility that gives them an advantage in

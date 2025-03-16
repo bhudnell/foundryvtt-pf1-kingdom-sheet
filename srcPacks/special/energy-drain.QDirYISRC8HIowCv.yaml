@@ -1,6 +1,8 @@
 type: pf1-kingdom-sheet.special
 name: Energy Drain
 system:
+  htmlFields:
+    - description.value
   description:
     value: >-
       <p>If the army damages an enemy, it reduces the enemy’s OM and DV by 1 for

@@ -1,6 +1,8 @@
 type: pf1-kingdom-sheet.special
 name: Ferocity
 system:
+  htmlFields:
+    - description.value
   description:
     value: >-
       <p>The army continues to fight even if demoralized or nearly dead. If the

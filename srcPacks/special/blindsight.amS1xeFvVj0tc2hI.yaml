@@ -1,6 +1,8 @@
 type: pf1-kingdom-sheet.special
 name: Blindsight
 system:
+  htmlFields:
+    - description.value
   description:
     value: >-
       <p>The army takes no penalties to its OM and DV from darkness,

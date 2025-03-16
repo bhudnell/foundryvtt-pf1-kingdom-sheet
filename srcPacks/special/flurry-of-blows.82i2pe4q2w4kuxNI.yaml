@@ -1,6 +1,8 @@
 type: pf1-kingdom-sheet.special
 name: Flurry of Blows
 system:
+  htmlFields:
+    - description.value
   description:
     value: >-
       <p>In the first Melee phase, increase the army’s OM by 1. In the second

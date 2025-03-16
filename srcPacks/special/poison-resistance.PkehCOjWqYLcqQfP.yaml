@@ -1,6 +1,8 @@
 type: pf1-kingdom-sheet.special
 name: Poison Resistance
 system:
+  htmlFields:
+    - description.value
   description:
     value: >-
       <p>If the army takes poison damage, reduce the damage by half of the

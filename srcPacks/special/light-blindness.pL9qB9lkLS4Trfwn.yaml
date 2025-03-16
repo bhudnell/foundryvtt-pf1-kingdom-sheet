@@ -1,6 +1,8 @@
 type: pf1-kingdom-sheet.special
 name: Light Blindness
 system:
+  htmlFields:
+    - description.value
   description:
     value: <p>The army decreases its OM and DV by 2 in bright light.</p>
   changes: []

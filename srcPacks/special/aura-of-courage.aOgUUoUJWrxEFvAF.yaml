@@ -1,6 +1,8 @@
 type: pf1-kingdom-sheet.special
 name: Aura of Courage
 system:
+  htmlFields:
+    - description.value
   description:
     value: >-
       <p>The army is immune to fear effects and automatically succeeds at Morale

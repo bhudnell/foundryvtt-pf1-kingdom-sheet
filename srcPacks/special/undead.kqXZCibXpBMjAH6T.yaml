@@ -1,6 +1,8 @@
 type: pf1-kingdom-sheet.special
 name: Undead
 system:
+  htmlFields:
+    - description.value
   description:
     value: >-
       <p>The army is immune to disease, fear, paralysis, and poison. Its DV

@@ -1,6 +1,8 @@
 type: pf1-kingdom-sheet.special
 name: Rock Throwing
 system:
+  htmlFields:
+    - description.value
   description:
     value: >-
       <p>The army can make ranged attacks. In the Ranged phase, it deals +4

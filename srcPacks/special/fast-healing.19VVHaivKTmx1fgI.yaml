@@ -1,6 +1,8 @@
 type: pf1-kingdom-sheet.special
 name: Fast Healing
 system:
+  htmlFields:
+    - description.value
   description:
     value: >-
       <p>Each Ranged or Melee phase, this army regains a number of hit points

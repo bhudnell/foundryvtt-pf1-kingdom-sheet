@@ -1,6 +1,8 @@
 type: pf1-kingdom-sheet.special
 name: Plant
 system:
+  htmlFields:
+    - description.value
   description:
     value: <p>The army is immune to fear, paralysis, and poison.</p>
   changes: []

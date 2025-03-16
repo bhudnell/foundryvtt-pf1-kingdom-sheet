@@ -1,6 +1,8 @@
 type: pf1-kingdom-sheet.special
 name: Tactician
 system:
+  htmlFields:
+    - description.value
   description:
     value: >-
       <p>The army automatically learns one tactic (usually the cavalry experts

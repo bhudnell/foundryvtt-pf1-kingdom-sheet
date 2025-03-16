@@ -1,6 +1,8 @@
 type: pf1-kingdom-sheet.special
 name: Armor Training
 system:
+  htmlFields:
+    - description.value
   description:
     value: >-
       <p>This class feature adjusts the base speed of units in medium armor;

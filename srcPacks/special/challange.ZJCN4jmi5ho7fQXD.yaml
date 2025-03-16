@@ -1,6 +1,8 @@
 type: pf1-kingdom-sheet.special
 name: Challange
 system:
+  htmlFields:
+    - description.value
   description:
     value: >-
       <p>Once per battle, the army may increase its OM by 2 against a target

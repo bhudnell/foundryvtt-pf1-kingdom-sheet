@@ -1,6 +1,8 @@
 type: pf1-kingdom-sheet.special
 name: Evasion
 system:
+  htmlFields:
+    - description.value
   description:
     value: >-
       <p>An army that attacks this army halves its OM bonus from the

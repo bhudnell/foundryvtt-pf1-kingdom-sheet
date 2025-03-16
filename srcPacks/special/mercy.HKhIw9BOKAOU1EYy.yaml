@@ -1,6 +1,8 @@
 type: pf1-kingdom-sheet.special
 name: Mercy
 system:
+  htmlFields:
+    - description.value
   description:
     value: >-
       <p>At the end of a battle, the army can cure a disease on one allied

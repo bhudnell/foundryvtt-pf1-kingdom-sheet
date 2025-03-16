@@ -1,6 +1,8 @@
 type: pf1-kingdom-sheet.special
 name: Regeneration
 system:
+  htmlFields:
+    - description.value
   description:
     value: >-
       <p>The army regains a number of hit points equal to half its regeneration

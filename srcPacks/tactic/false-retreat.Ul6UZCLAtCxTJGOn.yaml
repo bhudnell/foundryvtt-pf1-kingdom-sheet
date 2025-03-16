@@ -1,6 +1,8 @@
 type: pf1-kingdom-sheet.tactic
 name: False Retreat
 system:
+  htmlFields:
+    - description.value
   disabled: true
   description:
     value: >-

@@ -1,6 +1,8 @@
 type: pf1-kingdom-sheet.special
 name: Mount
 system:
+  htmlFields:
+    - description.value
   description:
     value: <p>The army’s mounts increase the army’s OM and DV by 1.</p>
   changes:

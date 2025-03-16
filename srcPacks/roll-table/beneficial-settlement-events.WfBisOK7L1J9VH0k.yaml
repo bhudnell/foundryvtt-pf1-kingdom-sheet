@@ -3,7 +3,7 @@ _id: WfBisOK7L1J9VH0k
 img: icons/environment/settlement/house-farmland-small.webp
 description: ''
 results:
-  - type: 2
+  - type: pack
     documentCollection: pf1-kingdom-sheet.event
     weight: 1
     range:
@@ -16,7 +16,7 @@ results:
     _id: igsDc4shLhXJjkkD
     flags: {}
     _key: '!tables.results!WfBisOK7L1J9VH0k.igsDc4shLhXJjkkD'
-  - type: 2
+  - type: pack
     documentCollection: pf1-kingdom-sheet.event
     weight: 1
     range:
@@ -29,7 +29,7 @@ results:
     _id: 1nU7NJF9xVMEOYMI
     flags: {}
     _key: '!tables.results!WfBisOK7L1J9VH0k.1nU7NJF9xVMEOYMI'
-  - type: 2
+  - type: pack
     documentCollection: pf1-kingdom-sheet.event
     weight: 1
     range:
@@ -42,7 +42,7 @@ results:
     _id: obIW92Dexutd0oQg
     flags: {}
     _key: '!tables.results!WfBisOK7L1J9VH0k.obIW92Dexutd0oQg'
-  - type: 2
+  - type: pack
     documentCollection: pf1-kingdom-sheet.event
     weight: 1
     range:
@@ -55,7 +55,7 @@ results:
     _id: HjFQ8gFFZUXUXAs3
     flags: {}
     _key: '!tables.results!WfBisOK7L1J9VH0k.HjFQ8gFFZUXUXAs3'
-  - type: 2
+  - type: pack
     documentCollection: pf1-kingdom-sheet.event
     weight: 1
     range:
@@ -68,7 +68,7 @@ results:
     _id: lnUfsMoUF2Tek5Pr
     flags: {}
     _key: '!tables.results!WfBisOK7L1J9VH0k.lnUfsMoUF2Tek5Pr'
-  - type: 2
+  - type: pack
     documentCollection: pf1-kingdom-sheet.event
     weight: 1
     range:
@@ -81,7 +81,7 @@ results:
     _id: YhrrNFSUGpYuNRfC
     flags: {}
     _key: '!tables.results!WfBisOK7L1J9VH0k.YhrrNFSUGpYuNRfC'
-  - type: 2
+  - type: pack
     documentCollection: pf1-kingdom-sheet.event
     weight: 1
     range:
@@ -94,7 +94,7 @@ results:
     _id: 0ISRGCjaBOS3yDUt
     flags: {}
     _key: '!tables.results!WfBisOK7L1J9VH0k.0ISRGCjaBOS3yDUt'
-  - type: 2
+  - type: pack
     documentCollection: pf1-kingdom-sheet.event
     weight: 1
     range:
@@ -107,7 +107,7 @@ results:
     _id: chIHPII0sbO1rBiM
     flags: {}
     _key: '!tables.results!WfBisOK7L1J9VH0k.chIHPII0sbO1rBiM'
-  - type: 2
+  - type: pack
     documentCollection: pf1-kingdom-sheet.event
     weight: 1
     range:
@@ -120,7 +120,7 @@ results:
     _id: 4FzVfeJDATNT1SIZ
     flags: {}
     _key: '!tables.results!WfBisOK7L1J9VH0k.4FzVfeJDATNT1SIZ'
-  - type: 2
+  - type: pack
     documentCollection: pf1-kingdom-sheet.event
     weight: 1
     range:

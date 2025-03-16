@@ -1,6 +1,8 @@
 type: pf1-kingdom-sheet.special
 name: Hex (Healing)
 system:
+  htmlFields:
+    - description.value
   description:
     value: >-
       <p>Once per battle, the army can heal a number of hit points equal to half

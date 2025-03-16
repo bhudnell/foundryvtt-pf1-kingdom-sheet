@@ -1,6 +1,8 @@
 type: pf1-kingdom-sheet.building
 name: Guildhall
 system:
+  htmlFields:
+    - description.value
   quantity: 1
   lots: 2
   cost: 34

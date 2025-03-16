@@ -1,6 +1,8 @@
 type: pf1-kingdom-sheet.special
 name: Channel Positive Energy
 system:
+  htmlFields:
+    - description.value
   description:
     value: >-
       <p>In the Melee phase, the army deals +1d4 points of damage against an

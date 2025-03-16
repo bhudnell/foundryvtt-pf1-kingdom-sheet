@@ -1,6 +1,8 @@
 type: pf1-kingdom-sheet.special
 name: Rogue Talent
 system:
+  htmlFields:
+    - description.value
   description:
     value: <p>The army gains the bleed ability.</p>
   changes: []

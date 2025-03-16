@@ -1,6 +1,8 @@
 type: pf1-kingdom-sheet.event
 name: Land Rush
 system:
+  htmlFields:
+    - description.value
   subType: active
   continuous: false
   description:

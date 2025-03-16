@@ -1,6 +1,8 @@
 type: pf1-kingdom-sheet.special
 name: Damage Reduction
 system:
+  htmlFields:
+    - description.value
   description:
     value: >-
       <p>Increase its DV by 10, but only against armies that can’t overcome

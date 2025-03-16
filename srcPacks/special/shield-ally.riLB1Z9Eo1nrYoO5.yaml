@@ -1,6 +1,8 @@
 type: pf1-kingdom-sheet.special
 name: Shield Ally
 system:
+  htmlFields:
+    - description.value
   description:
     value: <p>Increase the army’s DV by 1.</p>
   changes:

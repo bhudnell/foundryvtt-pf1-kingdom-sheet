@@ -1,6 +1,8 @@
 type: pf1-kingdom-sheet.special
 name: Petrification
 system:
+  htmlFields:
+    - description.value
   description:
     value: >-
       <p>Each time the army damages an enemy army, reduce the enemy army’s DV by

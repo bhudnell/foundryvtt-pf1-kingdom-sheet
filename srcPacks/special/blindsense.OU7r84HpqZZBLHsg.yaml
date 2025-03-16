@@ -1,6 +1,8 @@
 type: pf1-kingdom-sheet.special
 name: Blindsense
 system:
+  htmlFields:
+    - description.value
   description:
     value: >-
       <p>The army reduces its OM and DV penalties by half from darkness,

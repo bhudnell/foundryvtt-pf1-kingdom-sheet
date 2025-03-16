@@ -1,6 +1,8 @@
 type: pf1-kingdom-sheet.special
 name: Unnatural Aura
 system:
+  htmlFields:
+    - description.value
   description:
     value: >-
       <p>If the army damages an enemy army that contains animals (including

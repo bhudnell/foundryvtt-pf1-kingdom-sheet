@@ -1,6 +1,8 @@
 type: pf1-kingdom-sheet.special
 name: Darkvision
 system:
+  htmlFields:
+    - description.value
   description:
     value: <p>The army takes no OM or DV penalties in dim light or darkness.</p>
   changes: []

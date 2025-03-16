@@ -1,6 +1,8 @@
 type: pf1-kingdom-sheet.special
 name: Alchemy
 system:
+  htmlFields:
+    - description.value
   description:
     value: >-
       <p>Once per battle, the army can heal itself as if it had the healing

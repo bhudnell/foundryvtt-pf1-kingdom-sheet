@@ -1,6 +1,8 @@
 type: pf1-kingdom-sheet.boon
 name: Loyalty
 system:
+  htmlFields:
+    - description.value
   description:
     value: >-
       <p>The commander inspires great loyalty in the army. The army gains a +2
@@ -9,7 +11,7 @@ system:
       +4.</p>
   changes:
     - _id: obV0CTru
-      formula: '@commander.leadership > 11 ? 4 : 2'
+      formula: ifelse(gt(@commander.leadership, 11), 4, 2)
       target: pf1ks_morale
       type: untyped
       operator: add

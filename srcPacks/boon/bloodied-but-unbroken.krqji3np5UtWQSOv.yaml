@@ -1,6 +1,8 @@
 type: pf1-kingdom-sheet.boon
 name: Bloodied but Unbroken
 system:
+  htmlFields:
+    - description.value
   description:
     value: >-
       <p>The commander inspires the army to be at its greatest in the most
@@ -11,8 +13,8 @@ system:
   changes:
     - _id: ydBN6weJ
       formula: >-
-        @hp.current <= floor(@hp.max / 2) ? @commander.leadership > 9 ? 2 : 1 :
-        0
+        if(lte(@hp.current, floor(@hp.max / 2)),
+        ifelse(gt(@commander.leadership, 9), 2, 1))
       target: pf1ks_om
       type: untyped
       operator: add

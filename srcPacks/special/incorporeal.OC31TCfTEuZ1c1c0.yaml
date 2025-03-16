@@ -1,6 +1,8 @@
 type: pf1-kingdom-sheet.special
 name: Incorporeal
 system:
+  htmlFields:
+    - description.value
   description:
     value: >-
       <p>The army takes no damage from nonmagical attacks, and only half damage

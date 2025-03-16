@@ -1,6 +1,8 @@
 type: pf1-kingdom-sheet.special
 name: Cannibalize
 system:
+  htmlFields:
+    - description.value
   description:
     value: >-
       <p>Reduce Consumption by 1 (minimum 0) for any week in which the army wins

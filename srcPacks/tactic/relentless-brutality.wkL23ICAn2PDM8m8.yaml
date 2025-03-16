@@ -1,6 +1,8 @@
 type: pf1-kingdom-sheet.tactic
 name: Relentless Brutality
 system:
+  htmlFields:
+    - description.value
   disabled: true
   description:
     value: >-

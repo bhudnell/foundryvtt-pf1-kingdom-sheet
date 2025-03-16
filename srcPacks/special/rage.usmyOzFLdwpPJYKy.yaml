@@ -1,6 +1,8 @@
 type: pf1-kingdom-sheet.special
 name: Rage
 system:
+  htmlFields:
+    - description.value
   description:
     value: >-
       <p>Once per battle, the commander may order the army to rage. Increase the
