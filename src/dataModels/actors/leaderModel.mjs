@@ -106,7 +106,7 @@ export function defineLeader(role, bonusType, skillBonusType) {
           ranks = this.actor.system.skills.klo.rank;
           break;
         case "general":
-          ranks = this.actor.system.skills.pro.subSkills?.sol?.rank;
+          ranks = this.actor.system.skills.pro.subSkills?.soldier.rank;
           break;
         case "diplomat":
           ranks = this.actor.system.skills.dip.rank;
@@ -127,7 +127,7 @@ export function defineLeader(role, bonusType, skillBonusType) {
           ranks = this.actor.system.skills.sen.rank;
           break;
         case "treasurer":
-          ranks = this.actor.system.skills.pro.subSkills?.mer?.rank;
+          ranks = this.actor.system.skills.pro.subSkills?.merchant.rank;
           break;
         case "warden":
           ranks = this.actor.system.skills.ken.rank;
