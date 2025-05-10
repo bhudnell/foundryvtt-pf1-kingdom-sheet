@@ -25,7 +25,9 @@ export class CommanderModel extends foundry.abstract.DataModel {
       return 0;
     }
 
-    return this.actor.system.skills.pro.subSkills.soldier?.rank ?? 0;
+    const { soldier, sol } = this.actor.system.skills.pro.subSkills;
+
+    return soldier?.rank ?? sol?.rank ?? 0;
   }
 
   get hd() {
