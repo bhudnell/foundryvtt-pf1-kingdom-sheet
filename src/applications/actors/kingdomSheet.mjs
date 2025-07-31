@@ -24,6 +24,13 @@ export class KingdomSheet extends pf1.applications.actor.ActorSheetPF {
         initial: `buildings`,
         group: `setlement-${idx}-details`,
       });
+
+      options.tabs.push({
+        navSelector: `nav.tabs[data-group='settlement-${idx}-districts']`,
+        contentSelector: `section.settlement-${idx}-districts`,
+        initial: 0,
+        group: `setlement-${idx}-districts`,
+      });
     }
 
     super(actor, options);
@@ -35,6 +42,10 @@ export class KingdomSheet extends pf1.applications.actor.ActorSheetPF {
       ...options,
       classes: [...options.classes, "kingdom"],
       scrollY: [...options.scrollY, ".subdetails-body"],
+      dragDrop: [
+        ...options.dragDrop,
+        { dragSelector: ".building[data-item-id]", dropSelector: ".district .grid .cell" },
+      ],
     };
   }
 
@@ -143,8 +154,9 @@ export class KingdomSheet extends pf1.applications.actor.ActorSheetPF {
 
     data.sections = this._prepareItems();
 
+    const settlementIds = this.actor.system.settlements.map((settlement) => settlement.id);
     data.noSettlementBuildings = this.actor.itemTypes[pf1ks.config.buildingId].filter(
-      (building) => !building.system.settlementId
+      (building) => !settlementIds.includes(building.system.settlementId)
     );
 
     // terrain
@@ -202,24 +214,39 @@ export class KingdomSheet extends pf1.applications.actor.ActorSheetPF {
     html.find(".army-create").on("click", (e) => this._onArmyCreate(e));
     html.find(".army-edit").on("click", (e) => this._onArmyEdit(e));
     html.find(".army-delete").on("click", (e) => this._onArmyDelete(e));
+
+    html.find(".building").on("dblclick", (e) => this._onBuildingEdit(e));
+    // TODO building context menu: delete, anything else? see _onOpenChangeMenu
+  }
+
+  _onBuildingEdit(event) {
+    event.preventDefault();
+    const buildingId = event.currentTarget.dataset.itemId;
+    const building = this.actor.items.get(buildingId);
+
+    building.sheet.render(true, { focus: true });
+  }
+
+  _onDragOver(e) {
+    if (e.currentTarget?.classList.contains("cell")) {
+      const data = e.dataTransfer.getData("application/json");
+      console.warn(e);
+      console.warn(data);
+      // clear highlights
+      const grid = e.currentTarget.closest(".grid");
+      grid.querySelectorAll(".cell").forEach((cell) => {
+        cell.style.backgroundColor = "unset";
+        cell.style.zIndex = "unset";
+      });
+
+      // highlight all hovered cells
+      e.currentTarget.style.backgroundColor = "rgba(0, 255, 0, 0.3)";
+      e.currentTarget.style.zIndex = 20;
+    }
+    super._onDragOver(e);
   }
 
   _prepareItems() {
-    const items = this.actor.items.map((i) => i).sort((a, b) => (a.sort || 0) - (b.sort || 0));
-    const [buildings, improvements, events] = items.reduce(
-      (arr, item) => {
-        if (item.type === pf1ks.config.buildingId) {
-          arr[0].push(item);
-        } else if (item.type === pf1ks.config.improvementId) {
-          arr[1].push(item);
-        } else if (item.type === pf1ks.config.eventId) {
-          arr[2].push(item);
-        }
-        return arr;
-      },
-      [[], [], []]
-    );
-
     const settlementSections = this.actor.system.settlements.map((settlement) => {
       const { defense, baseValue, ...modifiers } = settlement.modifiers;
 
@@ -235,17 +262,27 @@ export class KingdomSheet extends pf1.applications.actor.ActorSheetPF {
           };
         }),
         sizeLabel: pf1ks.config.settlementSizes[settlement.size],
-        buildings: {
-          ...pf1.config.sheetSections.kingdomSettlement.building,
-          items: buildings
-            .filter((building) => building.system.settlementId === settlement.id)
+        districts: settlement.districts.map((district) => {
+          const grid = Array.from({ length: 36 }, (_, i) => ({ x: i % 6, y: Math.floor(i / 6) }));
+          const buildings = this.actor.itemTypes[pf1ks.config.buildingId]
+            .filter(
+              (building) => building.system.settlementId === settlement.id && building.system.districtId === district
+            )
             .map((building) => ({
-              ...building,
               id: building.id,
-              isEmpty: building.system.quantity === 0,
-              buildingType: pf1ks.config.buildingTypes[building.system.type],
-            })),
-        },
+              img: building.img,
+              width: building.system.width,
+              height: building.system.height,
+              x: building.system.x,
+              y: building.system.y,
+            }));
+
+          return {
+            id: district,
+            grid,
+            buildings,
+          };
+        }),
         magicItems: Object.entries(pf1ks.config.magicItemTypes).map(([key, label]) => {
           const items = settlement.magicItems[key];
           const max = this.actor._getChanges(key, undefined, settlement.id);
@@ -262,26 +299,32 @@ export class KingdomSheet extends pf1.applications.actor.ActorSheetPF {
     });
 
     const terrainSections = Object.values(pf1.config.sheetSections.kingdomTerrain).map((data) => ({ ...data }));
-    for (const i of improvements) {
-      const section = terrainSections.find((section) => this._applySectionFilter(i, section));
-      if (section) {
-        section.items ??= [];
-        section.items.push({ ...i, id: i.id, isEmpty: i.system.quantity === 0 });
-      }
-    }
+    this.actor.itemTypes[pf1ks.config.improvementId]
+      .map((i) => i)
+      .sort((a, b) => (a.sort || 0) - (b.sort || 0))
+      .forEach((i) => {
+        const section = terrainSections.find((section) => this._applySectionFilter(i, section));
+        if (section) {
+          section.items ??= [];
+          section.items.push({ ...i, id: i.id, isEmpty: i.system.quantity === 0 });
+        }
+      });
 
     const eventsSections = Object.values(pf1.config.sheetSections.kingdomEvent).map((data) => ({ ...data }));
-    for (const i of events) {
-      const section = eventsSections.find((section) => this._applySectionFilter(i, section));
-      if (section) {
-        section.items ??= [];
-        section.items.push({
-          ...i,
-          id: i.id,
-          settlementName: this.actor.system.settlements.find((s) => s.id === i.system.settlementId)?.name,
-        });
-      }
-    }
+    this.actor.itemTypes[pf1ks.config.eventId]
+      .map((i) => i)
+      .sort((a, b) => (a.sort || 0) - (b.sort || 0))
+      .forEach((e) => {
+        const section = eventsSections.find((section) => this._applySectionFilter(e, section));
+        if (section) {
+          section.items ??= [];
+          section.items.push({
+            ...e,
+            id: e.id,
+            settlementName: this.actor.system.settlements.find((s) => s.id === e.system.settlementId)?.name,
+          });
+        }
+      });
 
     const categories = [
       { key: "terrain", sections: terrainSections },
@@ -406,7 +449,7 @@ export class KingdomSheet extends pf1.applications.actor.ActorSheetPF {
     settlements.push({
       name: game.i18n.format("PF1KS.NewSettlementLabel", { number: newIdx + 1 }),
       id: foundry.utils.randomID(),
-      districtCount: 1,
+      districts: [foundry.utils.randomID()],
     });
 
     // adding building/magic item nav for new settlement
@@ -631,6 +674,92 @@ export class KingdomSheet extends pf1.applications.actor.ActorSheetPF {
       clearSort: !sameActor,
     });
 
+    // this is the new part -> building handling
+    if (itemData.type === pf1ks.config.buildingId) {
+      const settlementId = event.target.closest(".settlement")?.dataset.id;
+      const district = event.target.closest(".district");
+      const districtId = district?.dataset.id;
+      let x = null;
+      let y = null;
+
+      // check if dropping in a valid square
+      if (district) {
+        const grid = district.querySelector(".grid");
+        const rect = grid.getBoundingClientRect();
+
+        // get cell sizes
+        const cellWidth = rect.width / getComputedStyle(grid).gridTemplateColumns.split(" ").length;
+        const cellHeight = rect.height / getComputedStyle(grid).gridTemplateRows.split(" ").length;
+
+        // determine what cell the drop is in
+        x = Math.floor((event.clientX - rect.left) / cellWidth);
+        y = Math.floor((event.clientY - rect.top) / cellHeight);
+
+        const { width, height } = sourceItem.system;
+
+        // dropped building bounding box
+        const srcLeft = x;
+        const srcRight = x + width - 1;
+        const srcTop = y;
+        const srcBottom = y + height - 1;
+
+        // whole building lands in grid (cant be placed in negative space so no need to check that)
+        let valid = srcRight < 6 && srcBottom < 6;
+
+        // no overlap with other buildings
+        if (valid) {
+          const occupiedCells = new Set();
+
+          // add each building's occupied squares to the set
+          this.actor.itemTypes[pf1ks.config.buildingId]
+            .filter((b) => b.system.districtId === districtId && b.id !== sourceItem.id)
+            .forEach((building) => {
+              for (let x = building.system.x; x < building.system.x + building.system.width; x++) {
+                for (let y = building.system.y; y < building.system.y + building.system.height; y++) {
+                  occupiedCells.add(`${x},${y}`);
+                }
+              }
+            });
+
+          // no square of the dropped building can overlap an already occupied cell
+          for (let i = x; i < x + width; i++) {
+            for (let j = y; j < y + height; j++) {
+              if (occupiedCells.has(`${i},${j}`)) {
+                valid = false;
+                break;
+              }
+            }
+            if (!valid) {
+              break;
+            }
+          }
+        }
+
+        if (!valid && sameActor) {
+          console.error("dghdlkjfgdf");
+          return;
+        }
+
+        // update existing items
+        if (sameActor) {
+          return sourceItem.update({
+            "system.x": x,
+            "system.y": y,
+          });
+        }
+      }
+
+      if (!sameActor) {
+        // create the new item
+        itemData.system.settlementId = settlementId;
+        itemData.system.districtId = districtId;
+        itemData.system.x = x;
+        itemData.system.y = y;
+        return this._onDropItemCreate(itemData);
+      }
+      return;
+    }
+
     // Handle item sorting within the same actor
     if (sameActor) {
       return this._onSortItem(event, itemData);
@@ -638,13 +767,6 @@ export class KingdomSheet extends pf1.applications.actor.ActorSheetPF {
 
     // Create the owned item
     this._alterDropItemData(itemData, sourceItem);
-
-    // this is the part I had to add
-    // if building dropped on a settlement, add the settlement id
-    const settlementId = event.target.closest(".tab.settlement")?.dataset.id;
-    if (itemData.type === pf1ks.config.buildingId && settlementId) {
-      itemData.system.settlementId = settlementId;
-    }
 
     return this._onDropItemCreate(itemData);
   }
