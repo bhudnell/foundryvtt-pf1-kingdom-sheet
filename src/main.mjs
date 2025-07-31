@@ -128,6 +128,8 @@ Hooks.once("libWrapper.Ready", () => {
     },
     libWrapper.MIXED
   );
+
+  libWrapper.ignore_conflicts(PF1KS.moduleId, "ckl-roll-bonuses", "pf1.components.ItemChange.prototype.applyChange");
 });
 
 Hooks.on("pf1GetChangeFlat", getChangeFlat);

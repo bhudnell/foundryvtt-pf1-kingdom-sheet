@@ -17,20 +17,20 @@ export class BaseActor extends pf1.documents.actor.ActorBasePF {
      * @type {object}
      */
     Object.defineProperties(this, {
-      // itemFlags: { // TODO needed?
-      //   value: { boolean: {}, dictionary: {} },
-      //   writable: false,
-      // },
+      itemFlags: {
+        value: { boolean: {}, dictionary: {} },
+        writable: false,
+      },
       _rollData: {
         value: null,
         enumerable: false,
         writable: true,
       },
-      // _visionSharingSheet: { // TODO needed?
-      //   value: null,
-      //   enumerable: false,
-      //   writable: true,
-      // },
+      _visionSharingSheet: {
+        value: null,
+        enumerable: false,
+        writable: true,
+      },
     });
   }
 
@@ -355,9 +355,9 @@ export class BaseActor extends pf1.documents.actor.ActorBasePF {
    * @param {object} [options] - Additional options
    * @returns {object}
    */
-  getRollData(options = { refresh: false, cache: true }) {
+  getRollData(options = { refresh: false }) {
     // Return cached data, if applicable
-    const skipRefresh = !options.refresh && this._rollData && options.cache;
+    const skipRefresh = !options.refresh && this._rollData;
 
     const result = { ...(skipRefresh ? this._rollData : foundry.utils.deepClone(this.system)) };
 
@@ -382,14 +382,12 @@ export class BaseActor extends pf1.documents.actor.ActorBasePF {
     /* ----------------------------- */
 
     // Add item dictionary flags
-    // result.dFlags = this.itemFlags?.dictionary ?? {}; // TODO needed?
-    // result.bFlags = Object.fromEntries(
-    //   Object.entries(this.itemFlags?.boolean ?? {}).map(([key, { sources }]) => [key, sources.length > 0 ? 1 : 0])
-    // );
+    result.dFlags = this.itemFlags?.dictionary ?? {};
+    result.bFlags = Object.fromEntries(
+      Object.entries(this.itemFlags?.boolean ?? {}).map(([key, { sources }]) => [key, sources.length > 0 ? 1 : 0])
+    );
 
-    if (options.cache) {
-      this._rollData = result;
-    }
+    this._rollData = result;
 
     return result;
   }
