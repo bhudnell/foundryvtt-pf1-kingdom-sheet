@@ -1,3 +1,5 @@
+import { DistrictModel } from "./districtModel.mjs";
+
 export class SettlementModel extends foundry.abstract.DataModel {
   static defineSchema() {
     const fields = foundry.data.fields;
@@ -6,12 +8,15 @@ export class SettlementModel extends foundry.abstract.DataModel {
       id: new fields.StringField({ required: true, nullable: false, blank: false }),
       // img: new fields.FilePathField({ categories: ["IMAGE"] }), // TODO revisit for foundry v13 compatibility. See https://github.com/foundryvtt/foundryvtt/issues/11471
       name: new fields.StringField({ blank: true }),
-      districts: new fields.ArrayField(new fields.StringField({ required: true, nullable: false, blank: false })),
+      districts: new fields.ArrayField(new fields.EmbeddedDataField(DistrictModel)),
       magicItems: new fields.SchemaField({
         minor: new fields.ArrayField(new fields.StringField()),
         medium: new fields.ArrayField(new fields.StringField()),
         major: new fields.ArrayField(new fields.StringField()),
       }),
+      // expanded settlement stuff
+      government: new fields.StringField({ initial: "aut", choices: Object.keys(pf1ks.config.settlementGovernments) }),
+      alignment: new fields.StringField({ blank: true, choices: Object.keys(pf1.config.alignments) }),
     };
   }
 
@@ -19,7 +24,10 @@ export class SettlementModel extends foundry.abstract.DataModel {
     if (data.districtCount != null) {
       data.districts ??= [];
       for (let i = 0; i < data.districtCount; i++) {
-        data.districts.push(foundry.utils.randomID());
+        data.districts.push({
+          name: game.i18n.format("PF1KS.NewDistrictLabel", { number: i + 1 }),
+          id: foundry.utils.randomID(),
+        });
       }
       delete data.districtCount;
     }
@@ -81,19 +89,50 @@ export class SettlementModel extends foundry.abstract.DataModel {
     // size, alignment, and government are handled here and item changes and the totals are handled in kingdomActor.mjs
     this.modifiers = {};
     for (const modifier of Object.keys(pf1ks.config.allSettlementModifiers)) {
-      const size = ["defense", "baseValue"].includes(modifier)
-        ? 0
-        : kingdom.settings.optionalRules.altSettlementSizes
-          ? pf1ks.config.altSettlementValues[this.size].modifiers * altSettlementMultiplier
-          : pf1ks.config.settlementValues[this.size].modifiers;
-      const alignment = pf1ks.config.alignmentEffects[kingdom.alignment]?.[modifier] ?? 0;
-      const government = pf1ks.config.governmentBonuses[kingdom.government]?.[modifier] ?? 0;
+      let size = 0;
+      // defense and baseValue dont have size params
+      if (!["defense", "baseValue"].includes(modifier)) {
+        const settlementValues = kingdom.settings.optionalRules.altSettlementSizes
+          ? pf1ks.config.altSettlementValues[this.size]
+          : pf1ks.config.settlementValues[this.size];
+        const multiplier = kingdom.settings.optionalRules.altSettlementSizes ? altSettlementMultiplier : 1;
+        if (["purchaseLimit", "spellcasting"].includes(modifier)) {
+          size = settlementValues[modifier];
+        } else {
+          size = settlementValues.modifiers * multiplier;
+        }
+      }
 
-      this.modifiers[modifier] = {
-        size,
-        alignment,
-        government,
-      };
+      const kingdomAlignment = pf1ks.config.alignmentEffects[kingdom.alignment]?.[modifier] ?? 0;
+      const kingdomGovernment = pf1ks.config.kingdomGovernmentBonuses[kingdom.government]?.[modifier] ?? 0;
+
+      const settlementAlignment = kingdom.settings.optionalRules.expandedSettlementModifiers
+        ? (pf1ks.config.alignmentEffects[this.alignment]?.[modifier] ?? 0)
+        : 0;
+      const settlementGovernment = kingdom.settings.optionalRules.expandedSettlementModifiers
+        ? (pf1ks.config.settlementGovernmentBonuses[this.government]?.[modifier] ?? 0)
+        : 0;
+
+      if (
+        !kingdom.settings.optionalRules.expandedSettlementModifiers &&
+        ["purchaseLimit", "spellcasting"].includes(modifier)
+      ) {
+        this.modifiers[modifier] = {
+          size: 0,
+          kingdomAlignment: 0,
+          kingdomGovernment: 0,
+          settlementAlignment: 0,
+          settlementGovernment: 0,
+        };
+      } else {
+        this.modifiers[modifier] = {
+          size,
+          kingdomAlignment,
+          kingdomGovernment,
+          settlementAlignment,
+          settlementGovernment,
+        };
+      }
     }
   }
 }

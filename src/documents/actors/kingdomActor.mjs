@@ -12,13 +12,24 @@ export class KingdomActor extends BaseActor {
       // this is split between here and settlementModel.mjs because of the change system.
       // size, alignment, and government are handled in settlementModel.mjs and item changes and the totals are handled here
       for (const modifier of Object.keys(pf1ks.config.allSettlementModifiers)) {
-        const { size, alignment, government } = settlement.modifiers[modifier];
+        const { size, kingdomAlignment, kingdomGovernment, settlementAlignment, settlementGovernment } =
+          settlement.modifiers[modifier];
         const buildings = this._getChanges(modifier, pf1ks.config.buildingId, settlement.id);
         const improvements = this._getChanges(modifier, pf1ks.config.improvementId, settlement.id);
         const events = this._getChanges(modifier, pf1ks.config.eventId, settlement.id);
+        // TODO settlement feature items
 
-        let settlementTotal = size + alignment + government + buildings + improvements + events;
+        let settlementTotal =
+          size +
+          kingdomAlignment +
+          kingdomGovernment +
+          settlementAlignment +
+          settlementGovernment +
+          buildings +
+          improvements +
+          events;
 
+        // TODO max base value can be modified by items, so account for that here
         if (modifier === "baseValue") {
           settlementTotal = Math.min(
             settlementTotal,
@@ -30,8 +41,10 @@ export class KingdomActor extends BaseActor {
 
         settlement.modifiers[modifier] = {
           size,
-          alignment,
-          government,
+          kingdomAlignment,
+          kingdomGovernment,
+          settlementAlignment,
+          settlementGovernment,
           buildings,
           improvements,
           events,
@@ -55,7 +68,7 @@ export class KingdomActor extends BaseActor {
           this.system.settlements.reduce((acc, curr) => acc + curr.modifiers[modifier].settlementTotal, 0) / 10
         );
         const alignment = pf1ks.config.alignmentEffects[this.system.alignment]?.[modifier] ?? 0;
-        const government = pf1ks.config.governmentBonuses[this.system.government]?.[modifier] ?? 0;
+        const government = pf1ks.config.kingdomGovernmentBonuses[this.system.government]?.[modifier] ?? 0;
 
         const total = allSettlements + alignment + government;
 
@@ -445,16 +458,28 @@ export class KingdomActor extends BaseActor {
             value: s.modifiers[mod].size,
           });
         }
-        if (s.modifiers[mod].alignment) {
+        if (s.modifiers[mod].kingdomAlignment) {
           sources.push({
-            name: game.i18n.localize("PF1.Alignment"),
-            value: s.modifiers[mod].alignment,
+            name: game.i18n.localize("PF1KS.KingdomAlignment"),
+            value: s.modifiers[mod].kingdomAlignment,
           });
         }
-        if (s.modifiers[mod].government) {
+        if (s.modifiers[mod].kingdomGovernment) {
           sources.push({
-            name: game.i18n.localize("PF1KS.GovernmentLabel"),
-            value: s.modifiers[mod].government,
+            name: game.i18n.localize("PF1KS.KingdomGovernment"),
+            value: s.modifiers[mod].kingdomGovernment,
+          });
+        }
+        if (s.modifiers[mod].settlementAlignment) {
+          sources.push({
+            name: game.i18n.localize("PF1KS.SettlementAlignment"),
+            value: s.modifiers[mod].settlementAlignment,
+          });
+        }
+        if (s.modifiers[mod].settlementGovernment) {
+          sources.push({
+            name: game.i18n.localize("PF1KS.SettlementGovernment"),
+            value: s.modifiers[mod].settlementGovernment,
           });
         }
         if (s.modifiers[mod].buildings) {

@@ -68,6 +68,7 @@ export class KingdomModel extends foundry.abstract.TypeDataModel {
           governmentForms: new fields.BooleanField({ initial: false }),
           leadershipSkills: new fields.BooleanField({ initial: false }),
           altSettlementSizes: new fields.BooleanField({ initial: false }),
+          expandedSettlementModifiers: new fields.BooleanField({ initial: false }),
         }),
       }),
     };

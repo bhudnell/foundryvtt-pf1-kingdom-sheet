@@ -22,7 +22,7 @@
         <h5>{{ localize "PF1KS.GovernmentLabel" }}</h5>
         {{#if system.settings.optionalRules.governmentForms}}
         <select name="system.government">
-          {{selectOptions governmentOptions selected=system.government}}
+          {{selectOptions kingdomGovernmentOptions selected=system.government}}
         </select>
         {{else}}
         <span class="value">{{ governmentLabel }}</span>

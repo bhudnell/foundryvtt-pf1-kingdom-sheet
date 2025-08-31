@@ -309,6 +309,7 @@ Hooks.once("i18nInit", () => {
     "kingdomStats",
     "actionsPerTurnLabels",
     "kingdomGovernments",
+    "settlementGovernments",
     "edicts",
     "leadershipRoles",
     "leadershipBonusTwoStats",

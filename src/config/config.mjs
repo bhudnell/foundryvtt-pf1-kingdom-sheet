@@ -83,7 +83,7 @@ export const kingdomGovernments = {
   the: "PF1KS.Government.Theocracy",
 };
 
-export const governmentBonuses = {
+export const kingdomGovernmentBonuses = {
   aut: { corruption: 0, crime: 0, productivity: 0, law: 0, lore: 0, society: 0 },
   mag: { corruption: 0, crime: 0, productivity: -1, law: 0, lore: 2, society: -1 },
   oli: { corruption: 1, crime: 0, productivity: 0, law: -1, lore: -1, society: 1 },
@@ -91,6 +91,22 @@ export const governmentBonuses = {
   rep: { corruption: 0, crime: -1, productivity: 1, law: -1, lore: 0, society: 1 },
   sec: { corruption: 1, crime: 1, productivity: 1, law: -3, lore: 0, society: 0 },
   the: { corruption: -1, crime: 0, productivity: 0, law: 1, lore: 1, society: -1 },
+};
+
+export const settlementGovernments = {
+  aut: "PF1KS.Government.Autocracy",
+  cou: "PF1KS.Government.Council",
+  mag: "PF1KS.Government.Magical",
+  ove: "PF1KS.Government.Overlord",
+  sec: "PF1KS.Government.SecretSyndicate",
+};
+
+export const settlementGovernmentBonuses = {
+  aut: { corruption: 0, crime: 0, productivity: 0, law: 0, lore: 0, society: 0, spellcasting: 0 },
+  cou: { corruption: 0, crime: 0, productivity: 0, law: -2, lore: -2, society: 4, spellcasting: 0 },
+  mag: { corruption: -2, crime: 0, productivity: 0, law: 0, lore: 2, society: -2, spellcasting: 1 },
+  ove: { corruption: 2, crime: -2, productivity: 0, law: 2, lore: 0, society: -2, spellcasting: 0 },
+  sec: { corruption: 2, crime: 2, productivity: 2, law: -6, lore: 0, society: 0, spellcasting: 0 },
 };
 
 export const alignmentEffects = {
@@ -378,6 +394,9 @@ export const allSettlementModifiers = {
   ...settlementModifiers,
   defense: "PF1.Defense",
   baseValue: "PF1KS.BaseValue",
+  // expanded settlement stuff
+  purchaseLimit: "PF1KS.PurchaseLimit",
+  spellcasting: "PF1KS.Spellcasting",
 };
 
 export const settlementSizes = {
@@ -392,23 +411,23 @@ export const settlementSizes = {
 };
 
 export const settlementValues = {
-  thorpe: { modifiers: -4, danger: -10, maxBaseValue: 50 },
-  hamlet: { modifiers: -2, danger: -5, maxBaseValue: 200 },
-  village: { modifiers: -1, danger: 0, maxBaseValue: 500 },
-  stown: { modifiers: 0, danger: 0, maxBaseValue: 1000 },
-  ltown: { modifiers: 0, danger: 5, maxBaseValue: 2000 },
-  scity: { modifiers: 1, danger: 5, maxBaseValue: 4000 },
-  lcity: { modifiers: 2, danger: 10, maxBaseValue: 8000 },
-  metro: { modifiers: 4, danger: 10, maxBaseValue: 16000 },
+  thorpe: { modifiers: -4, danger: -10, maxBaseValue: 50, purchaseLimit: 500, spellcasting: 1, qualities: 1 },
+  hamlet: { modifiers: -2, danger: -5, maxBaseValue: 200, purchaseLimit: 1000, spellcasting: 2, qualities: 1 },
+  village: { modifiers: -1, danger: 0, maxBaseValue: 500, purchaseLimit: 2500, spellcasting: 3, qualities: 2 },
+  stown: { modifiers: 0, danger: 0, maxBaseValue: 1000, purchaseLimit: 5000, spellcasting: 4, qualities: 2 },
+  ltown: { modifiers: 0, danger: 5, maxBaseValue: 2000, purchaseLimit: 10000, spellcasting: 5, qualities: 3 },
+  scity: { modifiers: 1, danger: 5, maxBaseValue: 4000, purchaseLimit: 25000, spellcasting: 6, qualities: 4 },
+  lcity: { modifiers: 2, danger: 10, maxBaseValue: 8000, purchaseLimit: 50000, spellcasting: 7, qualities: 5 },
+  metro: { modifiers: 4, danger: 10, maxBaseValue: 16000, purchaseLimit: 100000, spellcasting: 8, qualities: 6 },
 };
 
 export const altSettlementValues = {
-  village: { modifiers: -4, danger: -10, maxBaseValue: 500 },
-  stown: { modifiers: -2, danger: -5, maxBaseValue: 1000 },
-  ltown: { modifiers: 0, danger: 0, maxBaseValue: 2000 },
-  scity: { modifiers: 1, danger: 5, maxBaseValue: 4000 },
-  lcity: { modifiers: 1, danger: 5, maxBaseValue: 8000 },
-  metro: { modifiers: 1, danger: 5, maxBaseValue: 16000 },
+  village: { modifiers: -4, danger: -10, maxBaseValue: 500, purchaseLimit: 2500, spellcasting: 3, qualities: 2 },
+  stown: { modifiers: -2, danger: -5, maxBaseValue: 1000, purchaseLimit: 5000, spellcasting: 4, qualities: 2 },
+  ltown: { modifiers: 0, danger: 0, maxBaseValue: 2000, purchaseLimit: 10000, spellcasting: 5, qualities: 3 },
+  scity: { modifiers: 1, danger: 5, maxBaseValue: 4000, purchaseLimit: 25000, spellcasting: 6, qualities: 4 },
+  lcity: { modifiers: 1, danger: 5, maxBaseValue: 8000, purchaseLimit: 50000, spellcasting: 7, qualities: 5 },
+  metro: { modifiers: 1, danger: 5, maxBaseValue: 16000, purchaseLimit: 100000, spellcasting: 8, qualities: 6 },
 };
 
 export const buildingTypes = {
@@ -515,6 +534,7 @@ export const optionalRules = {
   governmentForms: "PF1KS.Settings.GovernmentForms",
   leadershipSkills: "PF1KS.Settings.LeadershipSkills",
   altSettlementSizes: "PF1KS.Settings.SettlementSizes",
+  expandedSettlementModifiers: "PF1KS.Settings.ExpandedSettlementModifiers",
 };
 
 export const compendiumEntries = {
@@ -526,6 +546,7 @@ export const compendiumEntries = {
     "Compendium.pf1-kingdom-sheet.rules.JournalEntry.t1XuuI6w0ZUtN6Hj.JournalEntryPage.CY9GAp1XjXgu5pmi",
   altSettlementSizes:
     "Compendium.pf1-kingdom-sheet.rules.JournalEntry.t1XuuI6w0ZUtN6Hj.JournalEntryPage.nZyEv4PWABJwIeLD",
+  expandedSettlementModifiers: "TODO",
 };
 
 export const armyAttributes = {

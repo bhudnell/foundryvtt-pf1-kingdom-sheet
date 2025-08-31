@@ -21,7 +21,7 @@ export class KingdomSheet extends pf1.applications.actor.ActorSheetPF {
       options.tabs.push({
         navSelector: `nav.tabs[data-group='settlement-${idx}-details']`,
         contentSelector: `section.settlement-${idx}-details`,
-        initial: `buildings`,
+        initial: `summary`,
         group: `setlement-${idx}-details`,
       });
 
@@ -73,7 +73,8 @@ export class KingdomSheet extends pf1.applications.actor.ActorSheetPF {
 
     // selectors
     data.alignmentOptions = pf1.config.alignments;
-    data.governmentOptions = pf1ks.config.kingdomGovernments;
+    data.kingdomGovernmentOptions = pf1ks.config.kingdomGovernments;
+    data.settlementGovernmentOptions = pf1ks.config.settlementGovernments;
     data.holidayOptions = pf1ks.config.edicts.holiday;
     data.promotionOptions = pf1ks.config.edicts.promotion;
     data.taxationOptions = pf1ks.config.edicts.taxation;
@@ -155,9 +156,21 @@ export class KingdomSheet extends pf1.applications.actor.ActorSheetPF {
     data.sections = this._prepareItems();
 
     const settlementIds = this.actor.system.settlements.map((settlement) => settlement.id);
-    data.noSettlementBuildings = this.actor.itemTypes[pf1ks.config.buildingId].filter(
-      (building) => !settlementIds.includes(building.system.settlementId)
+    const districtIds = this.actor.system.settlements.flatMap((settlement) =>
+      settlement.districts.map((district) => district.id)
     );
+    data.unassignedBuildings = this.actor.itemTypes[pf1ks.config.buildingId]
+      .filter(
+        (building) =>
+          !settlementIds.includes(building.system.settlementId) || !districtIds.includes(building.system.districtId)
+      )
+      .map((building) => ({
+        id: building.id,
+        img: building.img,
+        name: building.name,
+        settlementName: building.system.settlementId, // TODO get the names indead of ids
+        districtName: building.system.districtId, // TODO get the names indead of ids
+      }));
 
     // terrain
     data.terrain = Object.entries(actorData.terrain).map(([key, value]) => ({
@@ -248,12 +261,18 @@ export class KingdomSheet extends pf1.applications.actor.ActorSheetPF {
 
   _prepareItems() {
     const settlementSections = this.actor.system.settlements.map((settlement) => {
-      const { defense, baseValue, ...modifiers } = settlement.modifiers;
+      const { defense, baseValue, purchaseLimit, spellcasting, ...modifiers } = settlement.modifiers;
+
+      const settlementBuildings = this.actor.itemTypes[pf1ks.config.buildingId].filter(
+        (building) => building.system.settlementId === settlement.id
+      );
 
       return {
         ...settlement,
         defense,
         baseValue,
+        purchaseLimit,
+        spellcasting,
         modifiers: Object.entries(modifiers).map(([key, value]) => {
           return {
             id: key,
@@ -264,23 +283,51 @@ export class KingdomSheet extends pf1.applications.actor.ActorSheetPF {
         sizeLabel: pf1ks.config.settlementSizes[settlement.size],
         districts: settlement.districts.map((district) => {
           const grid = Array.from({ length: 36 }, (_, i) => ({ x: i % 6, y: Math.floor(i / 6) }));
-          const buildings = this.actor.itemTypes[pf1ks.config.buildingId]
-            .filter(
-              (building) => building.system.settlementId === settlement.id && building.system.districtId === district
-            )
-            .map((building) => ({
+
+          const [buildings, lotlessBuildings] = settlementBuildings.reduce(
+            (arr, building) => {
+              if (building.system.districtId !== district.id) {
+                return arr;
+              }
+              if (
+                building.system.lots &&
+                building.system.height &&
+                building.system.width &&
+                building.system.x != null &&
+                building.system.y != null
+              ) {
+                arr[0].push(building);
+              } else {
+                arr[1].push(building);
+              }
+              return arr;
+            },
+            [[], []]
+          );
+
+          return {
+            id: district.id,
+            name: district.name,
+            grid,
+            buildings: buildings.map((building) => ({
               id: building.id,
               img: building.img,
               width: building.system.width,
               height: building.system.height,
               x: building.system.x,
               y: building.system.y,
-            }));
-
-          return {
-            id: district,
-            grid,
-            buildings,
+            })),
+            lotlessBuildings: lotlessBuildings.map((building) => ({
+              id: building.id,
+              img: building.img,
+              name: building.name,
+              showError:
+                building.system.lots &&
+                (!building.system.height ||
+                  !building.system.width ||
+                  building.system.x == null ||
+                  building.system.y == null),
+            })),
           };
         }),
         magicItems: Object.entries(pf1ks.config.magicItemTypes).map(([key, label]) => {
@@ -449,7 +496,7 @@ export class KingdomSheet extends pf1.applications.actor.ActorSheetPF {
     settlements.push({
       name: game.i18n.format("PF1KS.NewSettlementLabel", { number: newIdx + 1 }),
       id: foundry.utils.randomID(),
-      districts: [foundry.utils.randomID()],
+      districts: [{ name: game.i18n.format("PF1KS.NewDistrictLabel", { number: 1 }), id: foundry.utils.randomID() }],
     });
 
     // adding building/magic item nav for new settlement
@@ -646,6 +693,10 @@ export class KingdomSheet extends pf1.applications.actor.ActorSheetPF {
 
     if (changed.system) {
       const keepPaths = ["system.settlements"];
+
+      for (const idx in changed.system.settlements) {
+        keepPaths.push(`system.settlements.${idx}.districts`);
+      }
 
       const itemData = this.actor.toObject();
       for (const path of keepPaths) {
@@ -1000,6 +1051,21 @@ export class KingdomSheet extends pf1.applications.actor.ActorSheetPF {
         });
         break;
       }
+
+      case "settlement-Alignment":
+      case "settlement-Government": {
+        const [, modifier] = id.split("-");
+        const settlement = actorData.settlements[detail];
+        Object.entries(pf1ks.config.allSettlementModifiers).forEach(([mod, label]) => {
+          if (settlement.modifiers[mod][`settlement${modifier}`]) {
+            paths.push({
+              path: label,
+              value: settlement.modifiers[mod][`settlement${modifier}`].signedString(),
+            });
+          }
+        });
+        break;
+      }
       case "settlement-corruption":
       case "settlement-crime":
       case "settlement-productivity":
@@ -1007,7 +1073,9 @@ export class KingdomSheet extends pf1.applications.actor.ActorSheetPF {
       case "settlement-lore":
       case "settlement-society":
       case "settlement-defense":
-      case "settlement-baseValue": {
+      case "settlement-baseValue":
+      case "settlement-purchaseLimit":
+      case "settlement-spellcasting": {
         const [, modifier] = id.split("-");
         const settlement = actorData.settlements[detail];
         paths.push(

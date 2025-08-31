@@ -15,8 +15,8 @@ export class BuildingModel extends ItemBaseModel {
       // placement
       x: new fields.NumberField({ integer: true, min: 0, max: 5, initial: null }),
       y: new fields.NumberField({ integer: true, min: 0, max: 5, initial: null }),
-      width: new fields.NumberField({ integer: true, min: 1, max: 6, initial: 1, nullable: false }),
-      height: new fields.NumberField({ integer: true, min: 1, max: 6, initial: 1, nullable: false }),
+      width: new fields.NumberField({ integer: true, min: 0, max: 6, initial: 1, nullable: false }),
+      height: new fields.NumberField({ integer: true, min: 0, max: 6, initial: 1, nullable: false }),
     };
     this.addDefaultSchemaFields(schema);
 

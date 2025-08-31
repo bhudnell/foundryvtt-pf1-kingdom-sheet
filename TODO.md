@@ -7,22 +7,45 @@
   - add handling for each type
   - add default continuous changes for vacancies
 - Print control DC on economy/loyalty/stability checks
-
+- other optional rules: https://aonprd.com/Rules.aspx?ID=1547
+  - abandoned buildings
+  - deities and holy sites
+  - special edicts
 
 # Settlement Rework
-- settlement governments
-- add purchase limit
-- tab for qualities/disadvantages
+- move settlement/district delete icons into tab itself (like source editior dialog)
+- flesh out features tab for qualities/disadvantages
 - new modifiers
-  - spellcasting
+  - max base value
   - purchase limit
-- districts should get a name as well
-- new setting? what should go behind it? settlement government, purchase limit, spellcasting
+    - mbv and pl should be assumed to be percentage increases/decreases. write doc to explain
+      example: change value of 50 should equate to a 50% increase, -30 should be a 30% decrease
+  - spellcasting
 
-## building logic
-- drop outside of settlement tab -> should appear in the "buildings without settlements" subtab
-- drop in settlement but not in grid -> should appear in settlement's "buildings without districts" subtab
-- drop in grid -> goes where dropped
-  - buildings with 0 area (lots/width/height === 0) -> appear in districts "lotless buildings" list below grid
-    - buildings with lots > 0 but width/height === 0 should have an indicator that they need to be placed in the grid
+# Create settlement feature item type
+- subtypes: quality, disadvantage, misc
+- settlementId
+- changes/context notes
+
+# District stuff
+- Add/delete district buttons need to be hooked up
+- terrain type for each district border
+- should streets/sewers/walls be checkboxes or leave as items?
+
+# building logic
+- lotless buildings need to include buildings where x or y are blank
 - highlighting for dragging
+  - dont show highlights for lot size/height/width = 0
+- toggle for "can overlap" so things like cistern or magical streetlamps can be shown
+  - optional list to limit to certain building types
+  - must be able to handle lotless and lotted buildings
+
+# building stuff
+- what to do when a settlement/district is deleted? remove all buildings associated with it?
+
+# for the future:
+- break settlements out into their own actor types
+  - current settlements tab will become settlement actor sheet
+  - new settlements tab will just show the settlements' contrbutions to kingdom stats,
+    maybe some other info too
+- buildings and settlement feature items should lose the settlementId data
