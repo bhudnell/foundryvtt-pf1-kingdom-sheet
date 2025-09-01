@@ -8,10 +8,39 @@ export class KingdomActor extends BaseActor {
     super.prepareDerivedData();
 
     for (const settlement of this.system.settlements) {
+      // magic items
+      for (const key of Object.keys(pf1ks.config.magicItemTypes)) {
+        const count = this._getChanges(key, undefined, settlement.id);
+        const oldItems = settlement.magicItems[key];
+        settlement.magicItems[key] = oldItems.concat(Array(Math.max(count - oldItems.length, 0)).fill(null));
+      }
+
+      // the below is split between here and settlementModel.mjs prepareDerivedData because of the change system.
+      // size, alignment, and government are handled in settlementModel.mjs and everything else is handled here
+
+      // settlement attributes (danger, baseValue, maxBaseValue, spellcasting, purchaseLimit)
+      for (const attr of Object.keys(pf1ks.config.settlementAttributes)) {
+        const { size, government } = settlement.attributes[attr];
+        const buildings = this._getChanges(attr, pf1ks.config.buildingId, settlement.id);
+        const improvements = this._getChanges(attr, pf1ks.config.improvementId, settlement.id);
+        const events = this._getChanges(attr, pf1ks.config.eventId, settlement.id);
+        // TODO settlement feature items
+
+        const total = (size ?? 0) + (government ?? 0) + buildings + improvements + events;
+
+        // TODO what to do when baseValue is greater than maxBaseValue
+
+        settlement.attributes[attr] = {
+          ...settlement.attributes[attr],
+          buildings,
+          improvements,
+          events,
+          total,
+        };
+      }
+
       // settlement modifiers
-      // this is split between here and settlementModel.mjs because of the change system.
-      // size, alignment, and government are handled in settlementModel.mjs and item changes and the totals are handled here
-      for (const modifier of Object.keys(pf1ks.config.allSettlementModifiers)) {
+      for (const modifier of Object.keys(pf1ks.config.settlementModifiers)) {
         const { size, kingdomAlignment, kingdomGovernment, settlementAlignment, settlementGovernment } =
           settlement.modifiers[modifier];
         const buildings = this._getChanges(modifier, pf1ks.config.buildingId, settlement.id);
@@ -29,35 +58,14 @@ export class KingdomActor extends BaseActor {
           improvements +
           events;
 
-        // TODO max base value can be modified by items, so account for that here
-        if (modifier === "baseValue") {
-          settlementTotal = Math.min(
-            settlementTotal,
-            this.system.settings.optionalRules.altSettlementSizes
-              ? pf1ks.config.altSettlementValues[settlement.size].maxBaseValue
-              : pf1ks.config.settlementValues[settlement.size].maxBaseValue
-          );
-        }
-
         settlement.modifiers[modifier] = {
-          size,
-          kingdomAlignment,
-          kingdomGovernment,
-          settlementAlignment,
-          settlementGovernment,
+          ...settlement.modifiers[modifier],
           buildings,
           improvements,
           events,
           settlementTotal,
           total: settlementTotal,
         };
-      }
-
-      // magic items
-      for (const key of Object.keys(pf1ks.config.magicItemTypes)) {
-        const count = this._getChanges(key, undefined, settlement.id);
-        const oldItems = settlement.magicItems[key];
-        settlement.magicItems[key] = oldItems.concat(Array(Math.max(count - oldItems.length, 0)).fill(null));
       }
     }
 
@@ -439,12 +447,41 @@ export class KingdomActor extends BaseActor {
       const { idx, detail } = settlementRE.groups;
       const s = this.system.settlements[idx];
 
-      // danger
-      if (detail === "danger" && s.danger) {
-        sources.push({
-          name: baseLabel,
-          value: s.danger,
-        });
+      // attributes
+      const sAttrRE = /^attributes\.(?<attr>\w+)\.total$/.exec(detail);
+      if (sAttrRE) {
+        const { attr } = sAttrRE.groups;
+
+        if (s.attributes[attr].size) {
+          sources.push({
+            name: game.i18n.localize("PF1.Size"),
+            value: s.attributes[attr].size,
+          });
+        }
+        if (s.attributes[attr].government) {
+          sources.push({
+            name: game.i18n.localize("PF1KS.GovernmentLabel"),
+            value: s.attributes[attr].government,
+          });
+        }
+        if (s.attributes[attr].buildings) {
+          sources.push({
+            name: game.i18n.localize("PF1KS.Buildings"),
+            value: s.attributes[attr].buildings,
+          });
+        }
+        if (s.attributes[attr].improvements) {
+          sources.push({
+            name: game.i18n.localize("PF1KS.Improvements"),
+            value: s.attributes[attr].improvements,
+          });
+        }
+        if (s.attributes[attr].events) {
+          sources.push({
+            name: game.i18n.localize("PF1KS.Events"),
+            value: s.attributes[attr].events,
+          });
+        }
       }
 
       // modifiers
@@ -528,10 +565,12 @@ export class KingdomActor extends BaseActor {
         }
         if (
           settlementId &&
-          [...Object.keys(pf1ks.config.allSettlementModifiers), ...Object.keys(pf1ks.config.magicItemTypes)].includes(
-            changeTarget
-          ) &&
-          c.parent.system.settlementId !== settlementId
+          [
+            ...Object.keys(pf1ks.config.settlementModifiers),
+            ...Object.keys(pf1ks.config.settlementAttributes),
+            ...Object.keys(pf1ks.config.magicItemTypes),
+          ].includes(changeTarget) &&
+          c.parent.system.settlementId !== settlementId // TODO it needs a district assigned as well
         ) {
           return false;
         }

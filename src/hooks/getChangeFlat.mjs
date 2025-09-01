@@ -34,9 +34,13 @@ export function getChangeFlat(result, target, modifierType, value, actor) {
     case `${pf1ks.config.changePrefix}_stability`:
       result.push("system.stability.total");
       break;
-    // settlement modifiers/magic items/continuous unrest are handled outside the normal change flow but need to be here
+    // settlement attributes/modifiers/magic items/continuous unrest are handled outside the normal change flow but need to be here
     case `${pf1ks.config.changePrefix}_defense`:
+    case `${pf1ks.config.changePrefix}_danger`:
     case `${pf1ks.config.changePrefix}_baseValue`:
+    case `${pf1ks.config.changePrefix}_maxBaseValue`:
+    case `${pf1ks.config.changePrefix}_purchaseLimit`:
+    case `${pf1ks.config.changePrefix}_spellcasting`:
     case `${pf1ks.config.changePrefix}_corruption`:
     case `${pf1ks.config.changePrefix}_crime`:
     case `${pf1ks.config.changePrefix}_productivity`:

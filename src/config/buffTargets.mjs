@@ -1,11 +1,12 @@
 import {
-  allSettlementModifiers,
+  settlementModifiers,
   armyAttributes,
   armyItemTypes,
   changePrefix,
   kingdomItemTypes,
   kingdomStats,
   magicItemTypes,
+  settlementAttributes,
 } from "./config.mjs";
 
 export const commonBuffTargets = {
@@ -34,8 +35,12 @@ export const kingdomBuffTargets = {
     acc[`${changePrefix}_${key}`] = { category: `${changePrefix}_kingdom_stats`, label };
     return acc;
   }, {}),
-  ...Object.entries(allSettlementModifiers).reduce((acc, [key, label]) => {
+  ...Object.entries(settlementModifiers).reduce((acc, [key, label]) => {
     acc[`${changePrefix}_${key}`] = { category: `${changePrefix}_settlement_modifiers`, label };
+    return acc;
+  }, {}),
+  ...Object.entries(settlementAttributes).reduce((acc, [key, label]) => {
+    acc[`${changePrefix}_${key}`] = { category: `${changePrefix}_settlement_attributes`, label };
     return acc;
   }, {}),
   ...Object.entries(magicItemTypes).reduce((acc, [key, label]) => {
@@ -87,6 +92,10 @@ export const buffTargetCategories = {
   },
   [`${changePrefix}_settlement_modifiers`]: {
     label: "PF1KS.SettlementModifiers",
+    filters: { item: { include: kingdomItemTypes } },
+  },
+  [`${changePrefix}_settlement_attributes`]: {
+    label: "PF1KS.SettlementAttributes",
     filters: { item: { include: kingdomItemTypes } },
   },
   [`${changePrefix}_magic_items`]: {

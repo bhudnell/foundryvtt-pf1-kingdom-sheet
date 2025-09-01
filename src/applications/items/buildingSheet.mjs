@@ -17,7 +17,7 @@ export class BuildingSheet extends ItemBaseSheet {
     const currentSettlement = this.item.parent?.system.settlements.find(
       (settlement) => settlement.id === itemData.settlementId
     );
-    currentSettlement.districts.forEach((district) => (districtIdOptions[district.id] = district.name));
+    currentSettlement?.districts.forEach((district) => (districtIdOptions[district.id] = district.name));
     context.districtIdOptions = districtIdOptions;
 
     // buildingType

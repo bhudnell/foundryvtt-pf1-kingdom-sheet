@@ -55,7 +55,7 @@
             <div class="info-box-joined">
               <div class="info-box">
                 <h5>{{ localize "PF1KS.Population" }}</h5>
-                <span class="value">{{ population }}</span>
+                <span class="value">{{ attributes.population }}</span>
               </div>
               <div class="info-box">
                 <h5>{{ localize "PF1.Size" }}</h5>
@@ -63,15 +63,15 @@
               </div>
               <div class="info-box" data-tooltip-extended="settlement-danger.{{ sidx }}">
                 <h5>{{ localize "PF1KS.Danger" }}</h5>
-                <span class="value">{{ numberFormat danger sign=true }}</span>
+                <span class="value">{{ numberFormat attributes.danger.total sign=true }}</span>
               </div>
               <div class="info-box" data-tooltip-extended="settlement-baseValue.{{ sidx }}">
                 <h5>{{ localize "PF1KS.BaseValue" }}</h5>
-                <span class="value">{{ baseValue.total }}</span>
+                <span class="value">{{ attributes.baseValue.total }}</span>
               </div>
               <div class="info-box" data-tooltip-extended="settlement-defense.{{ sidx }}">
                 <h5>{{ localize "PF1.Defense" }}</h5>
-                <span class="value">{{ numberFormat defense.total sign=true }}</span>
+                <span class="value">{{ numberFormat attributes.defense.total sign=true }}</span>
               </div>
             </div>
           </div>
@@ -82,23 +82,23 @@
           <div class="info-box-joined">
             <div class="info-box" data-tooltip-extended="settlement-Government.{{ sidx }}">
               <h5>{{ localize "PF1KS.Government" }}</h5>
-              <select name="system.settlements.{{ sidx }}.government">
-                {{selectOptions @root.settlementGovernmentOptions selected=government}}
+              <select name="system.settlements.{{ sidx }}.attributes.government">
+                {{selectOptions @root.settlementGovernmentOptions selected=attributes.government}}
               </select>
             </div>
             <div class="info-box" data-tooltip-extended="settlement-Alignment.{{ sidx }}">
               <h5>{{ localize "PF1.Alignment" }}</h5>
-              <select name="system.settlements.{{ sidx }}.alignment">
-                {{selectOptions @root.alignmentOptions selected=alignment}}
+              <select name="system.settlements.{{ sidx }}.attributes.alignment">
+                {{selectOptions @root.alignmentOptions selected=attributes.alignment}}
               </select>
             </div>
             <div class="info-box" data-tooltip-extended="settlement-purchaseLimit.{{ sidx }}">
               <h5>{{ localize "PF1KS.PurchaseLimit" }}</h5>
-              <span class="value">{{ purchaseLimit.total }}</span>
+              <span class="value">{{ attributes.purchaseLimit.total }}</span>
             </div>
             <div class="info-box" data-tooltip-extended="settlement-spellcasting.{{ sidx }}">
               <h5>{{ localize "PF1KS.Spellcasting" }}</h5>
-              <span class="value">{{ spellcasting.total }}</span>
+              <span class="value">{{ attributes.spellcasting.total }}</span>
             </div>
           </div>
         </div>

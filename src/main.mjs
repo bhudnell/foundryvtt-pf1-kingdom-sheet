@@ -316,7 +316,7 @@ Hooks.once("i18nInit", () => {
     "leadershipBonusOptions",
     "leadershipSkillBonuses",
     "settlementModifiers",
-    "allSettlementModifiers",
+    "settlementAttributes",
     "settlementSizes",
     "buildingTypes",
     "magicItemTypes",

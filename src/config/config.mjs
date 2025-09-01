@@ -390,10 +390,11 @@ export const settlementModifiers = {
   society: "PF1KS.Society",
 };
 
-export const allSettlementModifiers = {
-  ...settlementModifiers,
+export const settlementAttributes = {
+  danger: "PF1KS.Danger",
   defense: "PF1.Defense",
   baseValue: "PF1KS.BaseValue",
+  maxBaseValue: "PF1KS.MaxBaseValue",
   // expanded settlement stuff
   purchaseLimit: "PF1KS.PurchaseLimit",
   spellcasting: "PF1KS.Spellcasting",

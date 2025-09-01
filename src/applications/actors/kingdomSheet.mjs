@@ -261,26 +261,20 @@ export class KingdomSheet extends pf1.applications.actor.ActorSheetPF {
 
   _prepareItems() {
     const settlementSections = this.actor.system.settlements.map((settlement) => {
-      const { defense, baseValue, purchaseLimit, spellcasting, ...modifiers } = settlement.modifiers;
-
       const settlementBuildings = this.actor.itemTypes[pf1ks.config.buildingId].filter(
         (building) => building.system.settlementId === settlement.id
       );
 
       return {
         ...settlement,
-        defense,
-        baseValue,
-        purchaseLimit,
-        spellcasting,
-        modifiers: Object.entries(modifiers).map(([key, value]) => {
+        modifiers: Object.entries(settlement.modifiers).map(([key, value]) => {
           return {
             id: key,
             label: pf1ks.config.settlementModifiers[key],
             value: value.total,
           };
         }),
-        sizeLabel: pf1ks.config.settlementSizes[settlement.size],
+        sizeLabel: pf1ks.config.settlementSizes[settlement.attributes.size],
         districts: settlement.districts.map((district) => {
           const grid = Array.from({ length: 36 }, (_, i) => ({ x: i % 6, y: Math.floor(i / 6) }));
 
@@ -1039,14 +1033,19 @@ export class KingdomSheet extends pf1.applications.actor.ActorSheetPF {
         });
         notes = await getNotes(`${pf1ks.config.changePrefix}_${id}`);
         break;
-      case "settlement-danger": {
+      case "settlement-danger":
+      case "settlement-defense":
+      case "settlement-baseValue":
+      case "settlement-purchaseLimit":
+      case "settlement-spellcasting": {
+        const [, attr] = id.split("-");
         const settlement = actorData.settlements[detail];
         paths.push({
-          path: `@settlements.${detail}.danger`,
-          value: settlement.danger,
+          path: `@settlements.${detail}.attributes.${attr}.total`,
+          value: settlement.attributes[attr].total,
         });
         sources.push({
-          sources: actor.getSourceDetails(`system.settlements.${detail}.danger`),
+          sources: actor.getSourceDetails(`system.settlements.${detail}.attributes.${attr}.total`),
           untyped: true,
         });
         break;
@@ -1056,7 +1055,7 @@ export class KingdomSheet extends pf1.applications.actor.ActorSheetPF {
       case "settlement-Government": {
         const [, modifier] = id.split("-");
         const settlement = actorData.settlements[detail];
-        Object.entries(pf1ks.config.allSettlementModifiers).forEach(([mod, label]) => {
+        Object.entries(pf1ks.config.settlementModifiers).forEach(([mod, label]) => {
           if (settlement.modifiers[mod][`settlement${modifier}`]) {
             paths.push({
               path: label,
@@ -1064,6 +1063,12 @@ export class KingdomSheet extends pf1.applications.actor.ActorSheetPF {
             });
           }
         });
+        if (settlement.attributes.spellcasting[`${modifier.toLocaleLowerCase()}`]) {
+          paths.push({
+            path: pf1ks.config.settlementAttributes.spellcasting,
+            value: settlement.attributes.spellcasting[`${modifier.toLocaleLowerCase()}`].signedString(),
+          });
+        }
         break;
       }
       case "settlement-corruption":
@@ -1071,11 +1076,7 @@ export class KingdomSheet extends pf1.applications.actor.ActorSheetPF {
       case "settlement-productivity":
       case "settlement-law":
       case "settlement-lore":
-      case "settlement-society":
-      case "settlement-defense":
-      case "settlement-baseValue":
-      case "settlement-purchaseLimit":
-      case "settlement-spellcasting": {
+      case "settlement-society": {
         const [, modifier] = id.split("-");
         const settlement = actorData.settlements[detail];
         paths.push(
