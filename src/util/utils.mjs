@@ -14,6 +14,13 @@ export function renameKeys(obj, keyMap) {
   }, {});
 }
 
+export function asSignedPercent(num) {
+  if (num === 0) {
+    return "0%";
+  }
+  return (num > 0 ? "+" : "") + num.toString() + "%";
+}
+
 /**
  * Recursively transforms an ES module to a regular, writable object.
  *

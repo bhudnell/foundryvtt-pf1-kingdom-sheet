@@ -15,9 +15,6 @@
 # Settlement Rework
 - move settlement/district delete icons into tab itself (like source editior dialog)
 - flesh out features tab for qualities/disadvantages
-- max base value and purchase limit should be assumed to be percentage increases/decreases.
-  write doc to explain that the percentages are all added up before being applied
-  example: change value of 50 should equate to a 50% increase, -30 should be a 30% decrease
 
 # Create settlement feature item type
 - subtypes: quality, disadvantage, misc
@@ -46,3 +43,9 @@
   - new settlements tab will just show the settlements' contrbutions to kingdom stats,
     maybe some other info too
 - buildings and settlement feature items should lose the settlementId data
+
+# Documentation
+- explain that max base value and purchase limit should be assumed to be percentage
+  increases/decreases and the percentages are all added up before being applied
+  example: change value of 50 should equate to a 50% increase, -30 should be a 30% decrease
+           the overall effect is a 20% increase

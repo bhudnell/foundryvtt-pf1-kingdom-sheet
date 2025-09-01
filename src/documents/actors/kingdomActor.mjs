@@ -1,5 +1,5 @@
 import { kingdomBuffTargets, commonBuffTargets } from "../../config/buffTargets.mjs";
-import { DefaultChange } from "../../util/utils.mjs";
+import { DefaultChange, asSignedPercent } from "../../util/utils.mjs";
 
 import { BaseActor } from "./baseActor.mjs";
 
@@ -26,7 +26,12 @@ export class KingdomActor extends BaseActor {
         const events = this._getChanges(attr, pf1ks.config.eventId, settlement.id);
         // TODO settlement feature items
 
-        const total = (size ?? 0) + (government ?? 0) + buildings + improvements + events;
+        let total = (size ?? 0) + (government ?? 0);
+        if (["maxBaseValue", "purchaseLimit"].includes(attr)) {
+          total = Math.floor(total * (1 + (buildings + improvements + events) / 100));
+        } else {
+          total += buildings + improvements + events;
+        }
 
         // TODO what to do when baseValue is greater than maxBaseValue
 
@@ -451,6 +456,7 @@ export class KingdomActor extends BaseActor {
       const sAttrRE = /^attributes\.(?<attr>\w+)\.total$/.exec(detail);
       if (sAttrRE) {
         const { attr } = sAttrRE.groups;
+        const isPercent = ["maxBaseValue", "purchaseLimit"].includes(attr);
 
         if (s.attributes[attr].size) {
           sources.push({
@@ -467,19 +473,19 @@ export class KingdomActor extends BaseActor {
         if (s.attributes[attr].buildings) {
           sources.push({
             name: game.i18n.localize("PF1KS.Buildings"),
-            value: s.attributes[attr].buildings,
+            value: isPercent ? asSignedPercent(s.attributes[attr].buildings) : s.attributes[attr].buildings,
           });
         }
         if (s.attributes[attr].improvements) {
           sources.push({
             name: game.i18n.localize("PF1KS.Improvements"),
-            value: s.attributes[attr].improvements,
+            value: isPercent ? asSignedPercent(s.attributes[attr].improvements) : s.attributes[attr].improvements,
           });
         }
         if (s.attributes[attr].events) {
           sources.push({
             name: game.i18n.localize("PF1KS.Events"),
-            value: s.attributes[attr].events,
+            value: isPercent ? asSignedPercent(s.attributes[attr].events) : s.attributes[attr].events,
           });
         }
       }
