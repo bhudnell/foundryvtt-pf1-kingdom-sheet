@@ -7,11 +7,12 @@ export const armyId = `${moduleId}.army`;
 export const buildingId = `${moduleId}.building`;
 export const eventId = `${moduleId}.event`;
 export const improvementId = `${moduleId}.improvement`;
+export const featureId = `${moduleId}.feature`;
 export const boonId = `${moduleId}.boon`;
 export const specialId = `${moduleId}.special`;
 export const tacticId = `${moduleId}.tactic`;
 
-export const kingdomItemTypes = [buildingId, eventId, improvementId];
+export const kingdomItemTypes = [buildingId, eventId, improvementId, featureId];
 export const armyItemTypes = [boonId, specialId, tacticId];
 
 export const kingdomStats = {
@@ -781,7 +782,14 @@ export const improvementSubTypes = {
   special: "PF1KS.Improvement.SubTypes.Special",
 };
 
+export const featureSubTypes = {
+  quality: "PF1KS.Feature.SubTypes.Quality",
+  disadvantage: "PF1KS.Feature.SubTypes.Disadvantage",
+  misc: "PF1KS.Feature.SubTypes.Misc",
+};
+
 export const itemSubTypes = {
   ...eventSubTypes,
   ...improvementSubTypes,
+  ...featureSubTypes,
 };

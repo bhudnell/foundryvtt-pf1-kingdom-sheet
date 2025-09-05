@@ -1,4 +1,4 @@
-import { armyId, boonId, buildingId, eventId, improvementId, specialId, tacticId } from "./config.mjs";
+import { armyId, boonId, buildingId, eventId, featureId, improvementId, specialId, tacticId } from "./config.mjs";
 
 export const sheetSections = {
   armyFeature: {
@@ -26,15 +26,6 @@ export const sheetSections = {
       interface: {},
       label: `PF1.Subtypes.Item.${boonId}.Plural`,
       browseLabel: "PF1KS.Browse.Boons",
-    },
-  },
-  kingdomSettlement: {
-    building: {
-      create: { type: buildingId },
-      filters: [{ type: buildingId }],
-      interface: {},
-      label: `PF1.Subtypes.Item.${buildingId}.Plural`,
-      browseLabel: "PF1KS.Browse.Buildings",
     },
   },
   kingdomTerrain: {
@@ -75,6 +66,29 @@ export const sheetSections = {
       filters: [{ type: armyId }],
       interface: {},
       label: `PF1.Subtypes.Item.${armyId}.Plural`,
+    },
+  },
+  settlementFeature: {
+    quality: {
+      create: { type: featureId, system: { subType: "quality" } },
+      filters: [{ type: featureId, subTypes: ["quality"] }],
+      interface: {},
+      label: `PF1.Subtypes.Item.${featureId}.quality.Plural`,
+      browseLabel: "PF1KS.Browse.Features",
+    },
+    disadvantage: {
+      create: { type: featureId, system: { subType: "disadvantage" } },
+      filters: [{ type: featureId, subTypes: ["disadvantage"] }],
+      interface: {},
+      label: `PF1.Subtypes.Item.${featureId}.disadvantage.Plural`,
+      browseLabel: "PF1KS.Browse.Features",
+    },
+    misc: {
+      create: { type: featureId, system: { subType: "misc" } },
+      filters: [{ type: featureId, subTypes: ["misc"] }],
+      interface: {},
+      label: `PF1.Subtypes.Item.${featureId}.misc.Plural`,
+      browseLabel: "PF1KS.Browse.Features",
     },
   },
 };

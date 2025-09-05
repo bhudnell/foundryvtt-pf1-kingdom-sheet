@@ -108,7 +108,7 @@ export class KingdomModel extends foundry.abstract.TypeDataModel {
     this.population =
       250 *
       this.parent.itemTypes[pf1ks.config.buildingId]
-        .filter((building) => building.system.settlementId)
+        .filter((building) => building.isAssigned)
         .reduce((acc, curr) => acc + curr.system.lots * curr.system.quantity, 0);
     this.totalDistricts = this.settlements.reduce((acc, curr) => acc + curr.districts.length, 0);
     this.controlDC = 20 + this.size + this.totalDistricts;

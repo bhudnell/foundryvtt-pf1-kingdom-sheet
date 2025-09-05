@@ -54,13 +54,7 @@ export class BaseActor extends pf1.documents.actor.ActorBasePF {
     this._prepareConditionChanges(changes);
 
     for (const item of this.items) {
-      if (
-        item.type.startsWith(`${pf1ks.config.moduleId}.`) &&
-        (item.type !== pf1ks.config.buildingId || item.system.settlementId) && // buildings must have a settlement ID to count
-        item.isActive &&
-        item.hasChanges &&
-        item.changes.size
-      ) {
+      if (item.type.startsWith(`${pf1ks.config.moduleId}.`) && item.isActive && item.hasChanges && item.changes.size) {
         changes.push(...item.changes);
       }
     }
@@ -266,10 +260,7 @@ export class BaseActor extends pf1.documents.actor.ActorBasePF {
     const allNotes = this.items
       .filter(
         (item) =>
-          item.type.startsWith(`${pf1ks.config.moduleId}.`) &&
-          (item.type !== pf1ks.config.buildingId || item.system.settlementId) && // buildings must have a settlement ID to count
-          item.isActive &&
-          item.system.contextNotes?.length > 0
+          item.type.startsWith(`${pf1ks.config.moduleId}.`) && item.isActive && item.system.contextNotes?.length > 0
       )
       .map((item) => ({ notes: item.system.contextNotes, item }));
 

@@ -233,6 +233,15 @@
     },
     "TooManyMagicItems": "Too many magic items. Max is {max}",
 
+    "Features": "Features",
+    "Feature": {
+      "SubTypes": {
+        "Quality": "Quality",
+        "Disadvantage": "Disadvantage",
+        "Misc": "Miscellaneous"
+      }
+    },
+
     "TerrainLabel": "Terrain",
     "HexTypes": "Hex Types",
     "Terrain": {
@@ -354,6 +363,7 @@
       "Buildings": "Browse Buildings",
       "Events": "Browse Events",
       "Improvements": "Browse Terrain Improvements",
+      "Features": "Browse Settlement Features",
       "Tactics": "Browse Tactics",
       "Special": "Browse Special Abilities"
     },
@@ -364,13 +374,14 @@
       "Building": "Building",
       "Event": "Event",
       "Improvement": "Terrain Improvement",
+      "Feature": "Settlement Feature",
       "Boon": "Boon",
       "Special": "Special Ability",
       "Tactic": "Tactic"
     },
 
     "NoKingdomOrArmyItemsOnActor": "This actor cannot have Kingdom or Army items.",
-    "OnlyKingdomItemsOnActor": "Kingdom actors can only have Building, Event, and Terrain Improvement items.",
+    "OnlyKingdomItemsOnActor": "Kingdom actors can only have Building, Event, Terrain Improvement, and Settlement Feature items.",
     "OnlyArmyItemsOnActor": "Army actors can only have Boon, Special Ability, and Tactic items.",
     "LibWrapperError": "The PF1 Kingdom Sheet module requires the 'libWrapper' module. Please install and activate it."
   },
@@ -386,6 +397,7 @@
         "building": "Building",
         "event": "Event",
         "improvement": "Terrain Improvement",
+        "feature": "Settlement Feature",
         "boon": "Boon",
         "special": "Special Ability",
         "tactic": "Tactic"
@@ -414,11 +426,11 @@
           },
           "event": {
             "active": {
-              "Single": "Active Event",
+              "Single": "Active",
               "Plural": "Active"
             },
             "misc": {
-              "Single": "Miscellaneous Event",
+              "Single": "Miscellaneous",
               "Plural": "Miscellaneous"
             }
           },
@@ -430,6 +442,20 @@
             "special": {
               "Single": "Special Terrain",
               "Plural": "Special Terrain"
+            }
+          },
+          "feature": {
+            "quality": {
+              "Single": "Quality",
+              "Plural": "Qualities"
+            },
+            "disadvantage": {
+              "Single": "Disadvantage",
+              "Plural": "Disadvantages"
+            },
+            "misc": {
+              "Single": "Miscellaneous",
+              "Plural": "Miscellaneous"
             }
           }
         }

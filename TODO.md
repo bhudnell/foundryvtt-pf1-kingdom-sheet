@@ -14,12 +14,6 @@
 
 # Settlement Rework
 - move settlement/district delete icons into tab itself (like source editior dialog)
-- flesh out features tab for qualities/disadvantages
-
-# Create settlement feature item type
-- subtypes: quality, disadvantage, misc
-- settlementId
-- changes/context notes
 
 # District stuff
 - Add/delete district buttons need to be hooked up
@@ -27,12 +21,14 @@
 - should streets/sewers/walls be checkboxes or leave as items?
 
 # building logic
+- building drag/drop is scuffed and needs to be fixed
 - lotless buildings need to include buildings where x or y are blank
 - highlighting for dragging
   - dont show highlights for lot size/height/width = 0
 - toggle for "can overlap" so things like cistern or magical streetlamps can be shown
   - optional list to limit to certain building types
   - must be able to handle lotless and lotted buildings
+- follows building limits (ie must be next to X, cannot be next to Y, limit Z per settlement/district)
 
 # building stuff
 - what to do when a settlement/district is deleted? remove all buildings associated with it?

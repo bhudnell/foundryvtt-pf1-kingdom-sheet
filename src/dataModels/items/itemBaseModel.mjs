@@ -31,16 +31,16 @@ export class ItemBaseModel extends foundry.abstract.TypeDataModel {
           text: new fields.StringField({ initial: "" }),
         })
       ),
-      sources: new fields.ArrayField(
-        new fields.SchemaField({
-          title: new fields.StringField({ initial: "" }),
-          pages: new fields.StringField({ initial: "" }),
-          id: new fields.StringField({ initial: "" }),
-          errata: new fields.StringField({ initial: "" }),
-          date: new fields.StringField({ initial: "" }),
-          publisher: new fields.StringField({ initial: "" }),
-        })
-      ),
+      // sources: new fields.ArrayField(
+      //   new fields.SchemaField({
+      //     title: new fields.StringField({ initial: "" }),
+      //     pages: new fields.StringField({ initial: "" }),
+      //     id: new fields.StringField({ initial: "" }),
+      //     errata: new fields.StringField({ initial: "" }),
+      //     date: new fields.StringField({ initial: "" }),
+      //     publisher: new fields.StringField({ initial: "" }),
+      //   })
+      // ),
     });
   }
 

@@ -168,8 +168,16 @@ export class KingdomSheet extends pf1.applications.actor.ActorSheetPF {
         id: building.id,
         img: building.img,
         name: building.name,
-        settlementName: building.system.settlementId, // TODO get the names indead of ids
-        districtName: building.system.districtId, // TODO get the names indead of ids
+        settlementName: building.system.settlementId, // TODO get the names instead of ids
+        districtName: building.system.districtId, // TODO get the names instead of ids
+      }));
+    data.unassignedFeatures = this.actor.itemTypes[pf1ks.config.featureId]
+      .filter((feature) => !settlementIds.includes(feature.system.settlementId))
+      .map((feature) => ({
+        id: feature.id,
+        img: feature.img,
+        name: feature.name,
+        settlementName: feature.system.settlementId, // TODO get the names instead of ids
       }));
 
     // terrain
@@ -260,6 +268,61 @@ export class KingdomSheet extends pf1.applications.actor.ActorSheetPF {
   }
 
   _prepareItems() {
+    const featureSections = Object.values(pf1.config.sheetSections.settlementFeature).map((data) => ({ ...data }));
+    this.actor.itemTypes[pf1ks.config.featureId]
+      .map((i) => i)
+      .sort((a, b) => (a.sort || 0) - (b.sort || 0))
+      .forEach((i) => {
+        const section = featureSections.find((section) => this._applySectionFilter(i, section));
+        if (section) {
+          section.items ??= [];
+          section.items.push({ ...i, id: i.id });
+        }
+      });
+
+    const terrainSections = Object.values(pf1.config.sheetSections.kingdomTerrain).map((data) => ({ ...data }));
+    this.actor.itemTypes[pf1ks.config.improvementId]
+      .map((i) => i)
+      .sort((a, b) => (a.sort || 0) - (b.sort || 0))
+      .forEach((i) => {
+        const section = terrainSections.find((section) => this._applySectionFilter(i, section));
+        if (section) {
+          section.items ??= [];
+          section.items.push({ ...i, id: i.id, isEmpty: i.system.quantity === 0 });
+        }
+      });
+
+    const eventsSections = Object.values(pf1.config.sheetSections.kingdomEvent).map((data) => ({ ...data }));
+    this.actor.itemTypes[pf1ks.config.eventId]
+      .map((i) => i)
+      .sort((a, b) => (a.sort || 0) - (b.sort || 0))
+      .forEach((e) => {
+        const section = eventsSections.find((section) => this._applySectionFilter(e, section));
+        if (section) {
+          section.items ??= [];
+          section.items.push({
+            ...e,
+            id: e.id,
+            settlementName: this.actor.system.settlements.find((s) => s.id === e.system.settlementId)?.name,
+          });
+        }
+      });
+
+    const categories = [
+      { key: "features", sections: featureSections },
+      { key: "terrain", sections: terrainSections },
+      { key: "events", sections: eventsSections },
+    ];
+    for (const { key, sections } of categories) {
+      const set = this._filters.sections[key];
+      for (const section of sections) {
+        if (!section) {
+          continue;
+        }
+        section._hidden = set?.size > 0 && !set.has(section.id);
+      }
+    }
+
     const settlementSections = this.actor.system.settlements.map((settlement) => {
       const settlementBuildings = this.actor.itemTypes[pf1ks.config.buildingId].filter(
         (building) => building.system.settlementId === settlement.id
@@ -324,6 +387,10 @@ export class KingdomSheet extends pf1.applications.actor.ActorSheetPF {
             })),
           };
         }),
+        features: featureSections.map((section) => ({
+          ...section,
+          items: section.items.filter((item) => item.system.settlementId === settlement.id),
+        })),
         magicItems: Object.entries(pf1ks.config.magicItemTypes).map(([key, label]) => {
           const items = settlement.magicItems[key];
           const max = this.actor._getChanges(key, undefined, settlement.id);
@@ -338,48 +405,6 @@ export class KingdomSheet extends pf1.applications.actor.ActorSheetPF {
         }),
       };
     });
-
-    const terrainSections = Object.values(pf1.config.sheetSections.kingdomTerrain).map((data) => ({ ...data }));
-    this.actor.itemTypes[pf1ks.config.improvementId]
-      .map((i) => i)
-      .sort((a, b) => (a.sort || 0) - (b.sort || 0))
-      .forEach((i) => {
-        const section = terrainSections.find((section) => this._applySectionFilter(i, section));
-        if (section) {
-          section.items ??= [];
-          section.items.push({ ...i, id: i.id, isEmpty: i.system.quantity === 0 });
-        }
-      });
-
-    const eventsSections = Object.values(pf1.config.sheetSections.kingdomEvent).map((data) => ({ ...data }));
-    this.actor.itemTypes[pf1ks.config.eventId]
-      .map((i) => i)
-      .sort((a, b) => (a.sort || 0) - (b.sort || 0))
-      .forEach((e) => {
-        const section = eventsSections.find((section) => this._applySectionFilter(e, section));
-        if (section) {
-          section.items ??= [];
-          section.items.push({
-            ...e,
-            id: e.id,
-            settlementName: this.actor.system.settlements.find((s) => s.id === e.system.settlementId)?.name,
-          });
-        }
-      });
-
-    const categories = [
-      { key: "terrain", sections: terrainSections },
-      { key: "events", sections: eventsSections },
-    ];
-    for (const { key, sections } of categories) {
-      const set = this._filters.sections[key];
-      for (const section of sections) {
-        if (!section) {
-          continue;
-        }
-        section._hidden = set?.size > 0 && !set.has(section.id);
-      }
-    }
 
     return { terrain: terrainSections, events: eventsSections, settlements: settlementSections };
   }
@@ -643,9 +668,6 @@ export class KingdomSheet extends pf1.applications.actor.ActorSheetPF {
     }
     const type = createData.type || el.dataset.type;
     const subType = createData.system?.subType;
-    const typeName = game.i18n.localize(
-      subType ? `PF1.Subtypes.Item.${type}.${subType}.Single` : CONFIG.Item.typeLabels[type]
-    );
 
     // This is the part I had to add
     const settlementId = el.dataset.settlementId;
@@ -654,8 +676,8 @@ export class KingdomSheet extends pf1.applications.actor.ActorSheetPF {
       createData.system.settlementId = settlementId;
     }
 
-    const newItem = new Item.implementation({ name: game.i18n.format("PF1.NewItem", { type: typeName }), type });
-    newItem.updateSource(createData);
+    createData.name = Item.implementation.defaultName({ type, subType, parent: this.actor });
+    const newItem = new Item.implementation(createData);
 
     this._sortNewItem(newItem);
 
@@ -679,7 +701,7 @@ export class KingdomSheet extends pf1.applications.actor.ActorSheetPF {
       }
     }
 
-    return this.actor.createEmbeddedDocuments("Item", [newItem.toObject()], { renderSheet: true });
+    return Item.implementation.create(newItem.toObject(), { parent: this.actor, renderSheet: true });
   }
 
   async _updateObject(event, formData) {
@@ -711,7 +733,7 @@ export class KingdomSheet extends pf1.applications.actor.ActorSheetPF {
 
     const sourceItem = await Item.implementation.fromDropData(data);
 
-    const sameActor = sourceItem.actor === this.actor && !data.containerId;
+    const sameActor = sourceItem.actor === this.actor;
 
     const itemData = game.items.fromCompendium(sourceItem, {
       clearFolder: true,
@@ -719,9 +741,15 @@ export class KingdomSheet extends pf1.applications.actor.ActorSheetPF {
       clearSort: !sameActor,
     });
 
-    // this is the new part -> building handling
+    // this is the new stuff, settlement id and building handling
+    // settlement id handling
+    const settlementId = event.target.closest(".settlement")?.dataset.id;
+    if (settlementId && itemData.system.settlementId != null) {
+      itemData.system.settlementId = settlementId;
+    }
+
+    // building handling
     if (itemData.type === pf1ks.config.buildingId) {
-      const settlementId = event.target.closest(".settlement")?.dataset.id;
       const district = event.target.closest(".district");
       const districtId = district?.dataset.id;
       let x = null;
@@ -781,7 +809,7 @@ export class KingdomSheet extends pf1.applications.actor.ActorSheetPF {
         }
 
         if (!valid && sameActor) {
-          console.error("dghdlkjfgdf");
+          console.error("TODO what to do here");
           return;
         }
 
@@ -844,6 +872,7 @@ export class KingdomSheet extends pf1.applications.actor.ActorSheetPF {
     let tabId;
     switch (item.type) {
       case pf1ks.config.buildingId:
+      case pf1ks.config.featureId:
         tabId = "settlements";
         break;
       case pf1ks.config.improvementId:
