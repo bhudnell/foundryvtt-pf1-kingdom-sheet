@@ -22,14 +22,14 @@ export class KingdomSheet extends pf1.applications.actor.ActorSheetPF {
         navSelector: `nav.tabs[data-group='settlement-${idx}-details']`,
         contentSelector: `section.settlement-${idx}-details`,
         initial: `summary`,
-        group: `setlement-${idx}-details`,
+        group: `settlement-${idx}-details`,
       });
 
       options.tabs.push({
         navSelector: `nav.tabs[data-group='settlement-${idx}-districts']`,
         contentSelector: `section.settlement-${idx}-districts`,
         initial: 0,
-        group: `setlement-${idx}-districts`,
+        group: `settlement-${idx}-districts`,
       });
     }
 
@@ -230,6 +230,9 @@ export class KingdomSheet extends pf1.applications.actor.ActorSheetPF {
     html.find(".settlement-create").on("click", (e) => this._onSettlementCreate(e));
     html.find(".settlement-delete").on("click", (e) => this._onSettlementDelete(e));
 
+    html.find(".district-create").on("click", (e) => this._onDistrictCreate(e));
+    html.find(".district-delete").on("click", (e) => this._onDistrictDelete(e));
+
     html.find(".magic-item-delete").on("click", (e) => this._onMagicItemDelete(e));
 
     html.find(".army-create").on("click", (e) => this._onArmyCreate(e));
@@ -389,7 +392,7 @@ export class KingdomSheet extends pf1.applications.actor.ActorSheetPF {
         }),
         features: featureSections.map((section) => ({
           ...section,
-          items: section.items.filter((item) => item.system.settlementId === settlement.id),
+          items: section.items?.filter((item) => item.system.settlementId === settlement.id),
         })),
         magicItems: Object.entries(pf1ks.config.magicItemTypes).map(([key, label]) => {
           const items = settlement.magicItems[key];
@@ -518,16 +521,27 @@ export class KingdomSheet extends pf1.applications.actor.ActorSheetPF {
       districts: [{ name: game.i18n.format("PF1KS.NewDistrictLabel", { number: 1 }), id: foundry.utils.randomID() }],
     });
 
-    // adding building/magic item nav for new settlement
-    const tab = {
-      navSelector: `nav.tabs[data-group='settlement-${newIdx}-details']`,
-      contentSelector: `section.settlement-${newIdx}-details`,
-      initial: `buildings`,
-      group: `setlement-${newIdx}-details`,
-      callback: this._onChangeTab.bind(this),
-    };
-    this.options.tabs.push(tab);
-    this._tabs.push(new Tabs(tab));
+    // adding summary/districts/features/magic items nav and district nav for new settlement
+    const tabs = [
+      {
+        navSelector: `nav.tabs[data-group='settlement-${newIdx}-details']`,
+        contentSelector: `section.settlement-${newIdx}-details`,
+        initial: `summary`,
+        group: `settlement-${newIdx}-details`,
+        callback: this._onChangeTab.bind(this),
+      },
+      {
+        navSelector: `nav.tabs[data-group='settlement-${newIdx}-districts']`,
+        contentSelector: `section.settlement-${newIdx}-districts`,
+        initial: 0,
+        group: `settlement-${newIdx}-districts`,
+        callback: this._onChangeTab.bind(this),
+      },
+    ];
+    this.options.tabs.push(...tabs);
+    for (const tab of tabs) {
+      this._tabs.push(new Tabs(tab));
+    }
 
     await this._onSubmit(event, {
       updateData: { "system.settlements": settlements },
@@ -538,12 +552,13 @@ export class KingdomSheet extends pf1.applications.actor.ActorSheetPF {
 
   async _onSettlementDelete(event) {
     event.preventDefault();
+    this.form.disabled = true;
 
-    const settlementId = event.currentTarget.closest(".settlement").dataset.id;
+    const settlementId = event.currentTarget.dataset.id;
     const settlements = foundry.utils.duplicate(this.actor.system.settlements ?? []);
     const deletedSettlement = settlements.findSplice((settlement) => settlement.id === settlementId);
 
-    await this._onDelete({
+    const response = await this._onDelete({
       button: event.currentTarget,
       title: game.i18n.format("PF1KS.DeleteSettlementTitle", { name: deletedSettlement.name }),
       content: `<p>${game.i18n.localize("PF1KS.DeleteSettlementConfirmation")}</p>`,
@@ -553,11 +568,65 @@ export class KingdomSheet extends pf1.applications.actor.ActorSheetPF {
         }),
     });
 
-    const buildingIdsToDelete = this.actor.itemTypes[pf1ks.config.buildingId]
-      .filter((building) => building.system.settlementId === settlementId)
-      .map((building) => building._id);
+    if (response) {
+      const itemIdsToDelete = this.actor.items
+        .filter(
+          (item) =>
+            [pf1ks.config.buildingId, pf1ks.config.featureId].includes(item.type) &&
+            item.system.settlementId === settlementId
+        )
+        .map((item) => item._id);
 
-    await this.actor.deleteEmbeddedDocuments("Item", buildingIdsToDelete);
+      await this.actor.deleteEmbeddedDocuments("Item", itemIdsToDelete);
+    }
+  }
+
+  async _onDistrictCreate(event) {
+    event.preventDefault();
+
+    const settlementId = event.currentTarget.closest(".settlement").dataset.id;
+    const settlements = foundry.utils.duplicate(this.actor.system.settlements ?? []);
+    const settlementIdx = settlements.findIndex((settlement) => settlement.id === settlementId);
+    const newIdx = settlements[settlementIdx].districts.length;
+    settlements[settlementIdx].districts.push({
+      name: game.i18n.format("PF1KS.NewDistrictLabel", { number: newIdx + 1 }),
+      id: foundry.utils.randomID(),
+    });
+
+    await this._onSubmit(event, {
+      updateData: { "system.settlements": settlements },
+    });
+
+    this.activateTab(`${newIdx}`, { group: `settlement-${settlementIdx}-districts` });
+  }
+
+  async _onDistrictDelete(event) {
+    event.preventDefault();
+    this.form.disabled = true;
+
+    const settlementId = event.currentTarget.closest(".settlement").dataset.id;
+    const districtId = event.currentTarget.dataset.id;
+    const settlements = foundry.utils.duplicate(this.actor.system.settlements ?? []);
+    const settlement = settlements.find((settlement) => settlement.id === settlementId);
+    const deletedDistrict = settlement.districts.findSplice((district) => district.id === districtId);
+
+    const response = await this._onDelete({
+      button: event.currentTarget,
+      title: game.i18n.format("PF1KS.DeleteDistrictTitle", { name: deletedDistrict.name }),
+      content: `<p>${game.i18n.localize("PF1KS.DeleteDistrictConfirmation")}</p>`,
+      onDelete: () =>
+        this._onSubmit(event, {
+          updateData: { "system.settlements": settlements },
+        }),
+    });
+
+    if (response) {
+      const itemIdsToDelete = this.actor.itemTypes[pf1ks.config.buildingId]
+        .filter((item) => item.system.districtId === districtId)
+        .map((item) => item._id);
+
+      await this.actor.deleteEmbeddedDocuments("Item", itemIdsToDelete);
+    }
   }
 
   async _onMagicItemDelete(event) {
@@ -639,7 +708,7 @@ export class KingdomSheet extends pf1.applications.actor.ActorSheetPF {
     button.disabled = true;
 
     try {
-      await Dialog.confirm({
+      return await Dialog.confirm({
         title,
         content,
         yes: () => {

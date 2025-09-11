@@ -1,7 +1,19 @@
 {{!-- Settlements Navigation --}}
 <nav class="sheet-navigation tabs" data-group="settlements">
   {{#each sections.settlements as |settlement sidx|}}
-  <a class="item" data-tab="{{ sidx }}" data-group="settlements">{{ name }}</a>
+  <div class="item" data-tab="{{ sidx }}" data-group="settlements">
+    <span>{{ name }}</span>
+    {{#unless (eq sidx 0)}}
+    <a
+      class="settlement-delete"
+      style="pointer-events: visible"
+      data-id="{{ id }}"
+      data-tooltip="PF1KS.DeleteSettlement"
+    >
+      <i class="fa-solid fa-trash-can"></i>
+    </a>
+    {{/unless}}
+  </div>
   {{/each}}
   <a class="item icon" data-tab="orph" data-group="settlements" data-tooltip="PF1KS.UnassignedItems">
     {{#if (or unassignedBuildings.length unassignedFeatures.length)}}
@@ -42,11 +54,6 @@
           <h1>
             <input type="text" name="system.settlements.{{ sidx }}.name" value="{{ name }}" />
           </h1>
-          <div class="settlement-controls">
-            <a class="settlement-delete" data-tooltip="PF1KS.DeleteSettlement">
-              <i class="fa-solid fa-trash fa-xl"></i>
-            </a>
-          </div>
         </div>
 
         <div class="attributes flex0">
@@ -123,7 +130,19 @@
         {{!-- Settlement Districts Navigation --}}
         <nav class="sheet-navigation tabs" data-group="settlement-{{ sidx }}-districts">
           {{#each districts as |district didx|}}
-          <a class="item" data-tab="{{ didx }}" data-group="settlement-{{ sidx }}-districts">{{ name }}</a>
+          <div class="item" data-tab="{{ didx }}" data-group="settlement-{{ sidx }}-districts">
+            <span>{{ name }}</span>
+            {{#unless (eq didx 0)}}
+            <a
+              class="district-delete"
+              style="pointer-events: visible"
+              data-id="{{ id }}"
+              data-tooltip="PF1KS.DeleteDistrict"
+            >
+              <i class="fa-solid fa-trash-can"></i>
+            </a>
+            {{/unless}}
+          </div>
           {{/each}}
           <a class="item icon district-create" data-tooltip="PF1KS.CreateDistrict">
             <i class="fa-solid fa-plus"></i>
@@ -142,11 +161,6 @@
               <h1>
                 <input type="text" name="system.settlements.{{ sidx }}.districts.{{ didx }}.name" value="{{ name }}" />
               </h1>
-              <div class="settlement-controls">
-                <a class="settlement-delete" data-tooltip="PF1KS.DeleteDistrict">
-                  <i class="fa-solid fa-trash fa-xl"></i>
-                </a>
-              </div>
             </div>
 
             <div style="align-self: center; position: relative; margin: 20px">

@@ -12,11 +12,7 @@
   - deities and holy sites
   - special edicts
 
-# Settlement Rework
-- move settlement/district delete icons into tab itself (like source editior dialog)
-
 # District stuff
-- Add/delete district buttons need to be hooked up
 - terrain type for each district border
 - should streets/sewers/walls be checkboxes or leave as items?
 
@@ -30,8 +26,9 @@
   - must be able to handle lotless and lotted buildings
 - follows building limits (ie must be next to X, cannot be next to Y, limit Z per settlement/district)
 
-# building stuff
-- what to do when a settlement/district is deleted? remove all buildings associated with it?
+# general stuff
+- all missing localization strings
+- convert all html styles into css classes
 
 # for the future:
 - break settlements out into their own actor types
@@ -45,3 +42,5 @@
   increases/decreases and the percentages are all added up before being applied
   example: change value of 50 should equate to a 50% increase, -30 should be a 30% decrease
            the overall effect is a 20% increase
+- update settlement delete string to say that all associated buildings and features will be
+  deleted too
