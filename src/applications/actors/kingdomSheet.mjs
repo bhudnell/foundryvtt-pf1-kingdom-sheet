@@ -240,22 +240,76 @@ export class KingdomSheet extends pf1.applications.actor.ActorSheetPF {
     html.find(".army-delete").on("click", (e) => this._onArmyDelete(e));
 
     html.find(".building").on("dblclick", (e) => this._onBuildingEdit(e));
-    // TODO building context menu: delete, anything else? see _onOpenChangeMenu
+    html.find(".building").on("contextmenu", (e) => this._onBuildingContextMenu(e));
   }
 
-  _onBuildingEdit(event) {
+  async _onBuildingContextMenu(event) {
+    const el = event.currentTarget;
+
+    const buildingId = el.dataset.itemId;
+    if (!buildingId) {
+      return;
+    }
+
+    const content = document.createElement("div");
+    content.innerHTML = await renderTemplate(
+      `modules/${pf1ks.config.moduleId}/templates/actors/kingdom/parts/building-tooltip.hbs`,
+      {
+        buildingId,
+      }
+    );
+
+    content.querySelector(".delete").addEventListener("click", (ev) => this._onBuildingDelete(ev, true));
+    content.querySelector(".edit").addEventListener("click", (ev) => this._onBuildingEdit(ev, true));
+
+    if (!document.querySelector(`.locked-tooltip.pf1ks.building-${buildingId}`)) {
+      await game.tooltip.activate(el, {
+        content,
+        locked: true,
+        direction: TooltipManager.TOOLTIP_DIRECTIONS.CENTER,
+        cssClass: "pf1 change-menu pf1ks building-" + buildingId,
+      });
+    }
+  }
+
+  async _onBuildingDelete(event, tooltip = false) {
     event.preventDefault();
-    const buildingId = event.currentTarget.dataset.itemId;
+    const el = event.currentTarget;
+    const buildingId = el.dataset.itemId;
     const building = this.actor.items.get(buildingId);
 
-    building.sheet.render(true, { focus: true });
+    if (building) {
+      if (tooltip) {
+        game.tooltip.dismissLockedTooltip(el.closest(".locked-tooltip"));
+      }
+
+      await this._onDelete({
+        button: el,
+        title: game.i18n.format("PF1.DeleteItemTitle", { name: building.name }),
+        content: `<p>${game.i18n.localize("PF1.DeleteItemConfirmation")}</p>`,
+        onDelete: async () => await building.delete(),
+      });
+    }
+  }
+
+  _onBuildingEdit(event, tooltip = false) {
+    event.preventDefault();
+    const el = event.currentTarget;
+    const buildingId = el.dataset.itemId;
+    const building = this.actor.items.get(buildingId);
+
+    if (building) {
+      if (tooltip) {
+        game.tooltip.dismissLockedTooltip(el.closest(".locked-tooltip"));
+      }
+      building.sheet.render(true, { focus: true });
+    }
   }
 
   _onDragOver(e) {
     if (e.currentTarget?.classList.contains("cell")) {
       const data = e.dataTransfer.getData("application/json");
-      console.warn(e);
-      console.warn(data);
+
       // clear highlights
       const grid = e.currentTarget.closest(".grid");
       grid.querySelectorAll(".cell").forEach((cell) => {
@@ -793,9 +847,12 @@ export class KingdomSheet extends pf1.applications.actor.ActorSheetPF {
   }
 
   // this function is almost identical to the system function on actor-sheet.mjs, except it
-  // allows the settlementId of buildings to be pre-populated when dropped on settlements,
+  // allows the settlement/district ids of buildings to be pre-populated when dropped on settlements,
   // and removes some of the unnecessary stuff
   async _onDropItem(event, data) {
+    // Prevents double building creation when dropping new items onto the grid
+    event.stopPropagation();
+
     if (!this.actor.isOwner) {
       return void ui.notifications.warn("PF1.Error.NoActorPermission", { localize: true });
     }
@@ -816,90 +873,9 @@ export class KingdomSheet extends pf1.applications.actor.ActorSheetPF {
     if (settlementId && itemData.system.settlementId != null) {
       itemData.system.settlementId = settlementId;
     }
-
     // building handling
     if (itemData.type === pf1ks.config.buildingId) {
-      const district = event.target.closest(".district");
-      const districtId = district?.dataset.id;
-      let x = null;
-      let y = null;
-
-      // check if dropping in a valid square
-      if (district) {
-        const grid = district.querySelector(".grid");
-        const rect = grid.getBoundingClientRect();
-
-        // get cell sizes
-        const cellWidth = rect.width / getComputedStyle(grid).gridTemplateColumns.split(" ").length;
-        const cellHeight = rect.height / getComputedStyle(grid).gridTemplateRows.split(" ").length;
-
-        // determine what cell the drop is in
-        x = Math.floor((event.clientX - rect.left) / cellWidth);
-        y = Math.floor((event.clientY - rect.top) / cellHeight);
-
-        const { width, height } = sourceItem.system;
-
-        // dropped building bounding box
-        const srcLeft = x;
-        const srcRight = x + width - 1;
-        const srcTop = y;
-        const srcBottom = y + height - 1;
-
-        // whole building lands in grid (cant be placed in negative space so no need to check that)
-        let valid = srcRight < 6 && srcBottom < 6;
-
-        // no overlap with other buildings
-        if (valid) {
-          const occupiedCells = new Set();
-
-          // add each building's occupied squares to the set
-          this.actor.itemTypes[pf1ks.config.buildingId]
-            .filter((b) => b.system.districtId === districtId && b.id !== sourceItem.id)
-            .forEach((building) => {
-              for (let x = building.system.x; x < building.system.x + building.system.width; x++) {
-                for (let y = building.system.y; y < building.system.y + building.system.height; y++) {
-                  occupiedCells.add(`${x},${y}`);
-                }
-              }
-            });
-
-          // no square of the dropped building can overlap an already occupied cell
-          for (let i = x; i < x + width; i++) {
-            for (let j = y; j < y + height; j++) {
-              if (occupiedCells.has(`${i},${j}`)) {
-                valid = false;
-                break;
-              }
-            }
-            if (!valid) {
-              break;
-            }
-          }
-        }
-
-        if (!valid && sameActor) {
-          console.error("TODO what to do here");
-          return;
-        }
-
-        // update existing items
-        if (sameActor) {
-          return sourceItem.update({
-            "system.x": x,
-            "system.y": y,
-          });
-        }
-      }
-
-      if (!sameActor) {
-        // create the new item
-        itemData.system.settlementId = settlementId;
-        itemData.system.districtId = districtId;
-        itemData.system.x = x;
-        itemData.system.y = y;
-        return this._onDropItemCreate(itemData);
-      }
-      return;
+      return this._handleBuildings(event, itemData, sourceItem, sameActor);
     }
 
     // Handle item sorting within the same actor
@@ -908,7 +884,83 @@ export class KingdomSheet extends pf1.applications.actor.ActorSheetPF {
     }
 
     // Create the owned item
-    this._alterDropItemData(itemData, sourceItem);
+    return this._onDropItemCreate(itemData);
+  }
+
+  _handleBuildings(event, itemData, sourceItem, sameActor) {
+    const district = event.target.closest(".district");
+    const districtId = district?.dataset.id;
+    if (district) {
+      itemData.system.districtId = districtId;
+    }
+
+    let x = null;
+    let y = null;
+    let valid = true;
+    const grid = event.target.closest(".grid");
+    if (district && grid) {
+      // check if dropping in a valid square
+      const rect = grid.getBoundingClientRect();
+
+      // get cell sizes
+      const cellWidth = rect.width / getComputedStyle(grid).gridTemplateColumns.split(" ").length;
+      const cellHeight = rect.height / getComputedStyle(grid).gridTemplateRows.split(" ").length;
+
+      // determine what cell the drop is in
+      x = Math.floor((event.clientX - rect.left) / cellWidth);
+      y = Math.floor((event.clientY - rect.top) / cellHeight);
+
+      const { width, height } = sourceItem.system;
+
+      // dropped building bounding box
+      const srcLeft = x;
+      const srcRight = x + width - 1;
+      const srcTop = y;
+      const srcBottom = y + height - 1;
+
+      // whole building lands in grid (cant be placed in negative space so no need to check that)
+      valid = srcRight < 6 && srcBottom < 6;
+
+      // no overlap with other buildings
+      if (valid) {
+        const occupiedCells = new Set();
+
+        // add each building's occupied squares to the set
+        this.actor.itemTypes[pf1ks.config.buildingId]
+          .filter((b) => b.system.districtId === districtId && b.id !== sourceItem.id)
+          .forEach((building) => {
+            for (let x = building.system.x; x < building.system.x + building.system.width; x++) {
+              for (let y = building.system.y; y < building.system.y + building.system.height; y++) {
+                occupiedCells.add(`${x},${y}`);
+              }
+            }
+          });
+
+        // no square of the dropped building can overlap an already occupied cell
+        for (let i = x; i < x + width; i++) {
+          for (let j = y; j < y + height; j++) {
+            if (occupiedCells.has(`${i},${j}`)) {
+              valid = false;
+              break;
+            }
+          }
+          if (!valid) {
+            break;
+          }
+        }
+      }
+    }
+
+    if (valid && sameActor) {
+      return sourceItem.update({
+        "system.x": x,
+        "system.y": y,
+      });
+    }
+    if (valid && !sameActor) {
+      itemData.system.x = x;
+      itemData.system.y = y;
+    }
 
     return this._onDropItemCreate(itemData);
   }

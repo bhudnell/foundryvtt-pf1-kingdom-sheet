@@ -17,8 +17,6 @@
 - should streets/sewers/walls be checkboxes or leave as items?
 
 # building logic
-- building drag/drop is scuffed and needs to be fixed
-- lotless buildings need to include buildings where x or y are blank
 - highlighting for dragging
   - dont show highlights for lot size/height/width = 0
 - toggle for "can overlap" so things like cistern or magical streetlamps can be shown
@@ -27,6 +25,7 @@
 - follows building limits (ie must be next to X, cannot be next to Y, limit Z per settlement/district)
 
 # general stuff
+- kingdom actor min length/width changes
 - all missing localization strings
 - convert all html styles into css classes
 
@@ -44,3 +43,4 @@
            the overall effect is a 20% increase
 - update settlement delete string to say that all associated buildings and features will be
   deleted too
+- doc for right clicking buildings in grid to get context menu

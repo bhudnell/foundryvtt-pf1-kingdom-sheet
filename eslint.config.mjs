@@ -36,6 +36,7 @@ export default [
         Dialog: "readonly",
         ChatMessage: "readonly",
         Tabs: "readonly",
+        TooltipManager: "readonly",
         pf1: "readonly",
         pf1ks: "readonly",
         libWrapper: "readonly",

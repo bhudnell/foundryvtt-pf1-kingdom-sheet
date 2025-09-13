@@ -1,7 +1,7 @@
 {{!-- Settlements Navigation --}}
 <nav class="sheet-navigation tabs" data-group="settlements">
   {{#each sections.settlements as |settlement sidx|}}
-  <div class="item" data-tab="{{ sidx }}" data-group="settlements">
+  <div class="item" style="cursor: pointer" data-tab="{{ sidx }}" data-group="settlements">
     <span>{{ name }}</span>
     {{#unless (eq sidx 0)}}
     <a
@@ -130,7 +130,7 @@
         {{!-- Settlement Districts Navigation --}}
         <nav class="sheet-navigation tabs" data-group="settlement-{{ sidx }}-districts">
           {{#each districts as |district didx|}}
-          <div class="item" data-tab="{{ didx }}" data-group="settlement-{{ sidx }}-districts">
+          <div class="item" style="cursor: pointer" data-tab="{{ didx }}" data-group="settlement-{{ sidx }}-districts">
             <span>{{ name }}</span>
             {{#unless (eq didx 0)}}
             <a
