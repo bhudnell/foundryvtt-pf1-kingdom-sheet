@@ -1,0 +1,51 @@
+type: pf1-kingdom-sheet.feature
+name: Hunted
+system:
+  htmlFields:
+    - description.value
+  subType: disadvantage
+  description:
+    value: >-
+      <p>A powerful group or monster uses the city as its hunting ground.
+      Citizens live in fear and avoid going out on the streets unless
+      necessary.</p><hr /><ul><li><p>Productivity, Law, and Society
+      –4</p></li><li><p>Danger +20</p></li><li><p>Reduce base value by
+      20%</p></li></ul>
+  changes:
+    - _id: fJ7gyF41
+      formula: '-4'
+      target: pf1ks_productivity
+      type: untyped
+      operator: add
+      priority: 0
+    - _id: 8nF4s5KW
+      formula: '-4'
+      target: pf1ks_law
+      type: untyped
+      operator: add
+      priority: 0
+    - _id: LSHVUwLL
+      formula: '-4'
+      target: pf1ks_society
+      type: untyped
+      operator: add
+      priority: 0
+    - _id: KUNNoCTw
+      formula: '20'
+      target: pf1ks_danger
+      type: untyped
+      operator: add
+      priority: 0
+    - _id: 1xJm6R4M
+      formula: '-20'
+      target: pf1ks_maxBaseValue
+      type: untyped
+      operator: add
+      priority: 0
+  contextNotes: []
+  settlementId: ''
+_id: 5bZCg7YtFOeN2bGA
+img: icons/svg/coins.svg
+sort: 0
+_key: '!items!5bZCg7YtFOeN2bGA'
+

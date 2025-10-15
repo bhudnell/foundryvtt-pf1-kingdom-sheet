@@ -1,0 +1,63 @@
+type: pf1-kingdom-sheet.feature
+name: Plagued
+system:
+  htmlFields:
+    - description.value
+  subType: disadvantage
+  description:
+    value: >-
+      <p>The community is suffering from a protracted contagion or
+      malady.</p><hr /><ul><li><p>–2 to all modifiers</p></li><li><p>Reduce base
+      value by 20%</p></li><li><p>Select a communicable disease—there’s a 5%
+      chance each day that a PC is exposed to the disease and must make a
+      Fortitude save to avoid contracting the illness</p></li></ul>
+  changes:
+    - _id: vmTFCYPh
+      formula: '-2'
+      target: pf1ks_corruption
+      type: untyped
+      operator: add
+      priority: 0
+    - _id: d0bpzS8k
+      formula: '-2'
+      target: pf1ks_crime
+      type: untyped
+      operator: add
+      priority: 0
+    - _id: 1fAPcwqK
+      formula: '-2'
+      target: pf1ks_law
+      type: untyped
+      operator: add
+      priority: 0
+    - _id: U5znTdHB
+      formula: '-2'
+      target: pf1ks_lore
+      type: untyped
+      operator: add
+      priority: 0
+    - _id: LkixIceV
+      formula: '-2'
+      target: pf1ks_productivity
+      type: untyped
+      operator: add
+      priority: 0
+    - _id: 78McHl46
+      formula: '-2'
+      target: pf1ks_society
+      type: untyped
+      operator: add
+      priority: 0
+    - _id: QfEtnNES
+      formula: '-20'
+      target: pf1ks_maxBaseValue
+      type: untyped
+      operator: add
+      priority: 0
+  contextNotes: []
+  settlementId: ''
+_id: jBqaEUjCx4UABdE8
+img: icons/svg/coins.svg
+sort: 0
+_key: '!items!jBqaEUjCx4UABdE8'
+

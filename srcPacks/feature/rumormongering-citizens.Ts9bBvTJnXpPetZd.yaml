@@ -1,0 +1,31 @@
+type: pf1-kingdom-sheet.feature
+name: Rumormongering Citizens
+system:
+  htmlFields:
+    - description.value
+  subType: quality
+  description:
+    value: >-
+      <p>The settlement’s citizens are nosy and gossipy to a fault—very little
+      happens in the settlement that no one knows about.</p><hr
+      /><ul><li><p>Lore +1</p></li><li><p>Society –1</p></li></ul>
+  changes:
+    - _id: HWNgQXEC
+      formula: '1'
+      target: pf1ks_lore
+      type: untyped
+      operator: add
+      priority: 0
+    - _id: AWa0qob1
+      formula: '-1'
+      target: pf1ks_society
+      type: untyped
+      operator: add
+      priority: 0
+  contextNotes: []
+  settlementId: ''
+_id: Ts9bBvTJnXpPetZd
+img: icons/svg/coins.svg
+sort: 0
+_key: '!items!Ts9bBvTJnXpPetZd'
+

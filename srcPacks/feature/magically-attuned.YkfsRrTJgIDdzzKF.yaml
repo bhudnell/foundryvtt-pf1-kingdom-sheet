@@ -1,0 +1,39 @@
+type: pf1-kingdom-sheet.feature
+name: Magically Attuned
+system:
+  htmlFields:
+    - description.value
+  subType: quality
+  description:
+    value: >-
+      <p>The settlement is a haven for spellcasters due to its location; for
+      example, it may lie at the convergence of multiple ley lines or near a
+      well-known magical site.</p><hr /><ul><li><p>Increase base value by
+      20%</p></li><li><p>Increase purchase limit by 20%</p></li><li><p>Increase
+      spellcasting by 2 levels</p></li></ul>
+  changes:
+    - _id: SDk2zha5
+      formula: '20'
+      target: pf1ks_maxBaseValue
+      type: untyped
+      operator: add
+      priority: 0
+    - _id: CzxfSn8P
+      formula: '20'
+      target: pf1ks_purchaseLimit
+      type: untyped
+      operator: add
+      priority: 0
+    - _id: vPBkzslM
+      formula: '2'
+      target: pf1ks_spellcasting
+      type: untyped
+      operator: add
+      priority: 0
+  contextNotes: []
+  settlementId: ''
+_id: YkfsRrTJgIDdzzKF
+img: icons/svg/coins.svg
+sort: 0
+_key: '!items!YkfsRrTJgIDdzzKF'
+

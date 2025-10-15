@@ -1,0 +1,32 @@
+type: pf1-kingdom-sheet.feature
+name: Strategic Location
+system:
+  htmlFields:
+    - description.value
+  subType: quality
+  description:
+    value: >-
+      <p>The settlement sits at an important crossroads or alongside a deepwater
+      port, or it serves as a barrier to a pass or bridge.</p><hr
+      /><ul><li><p>Productivity +1</p></li><li><p>Increase base value by
+      10%</p></li></ul>
+  changes:
+    - _id: 1OWjBATQ
+      formula: '1'
+      target: pf1ks_productivity
+      type: untyped
+      operator: add
+      priority: 0
+    - _id: 8kkqM4UN
+      formula: '10'
+      target: pf1ks_maxBaseValue
+      type: untyped
+      operator: add
+      priority: 0
+  contextNotes: []
+  settlementId: ''
+_id: ceGVVTKS85D71auh
+img: icons/svg/coins.svg
+sort: 0
+_key: '!items!ceGVVTKS85D71auh'
+

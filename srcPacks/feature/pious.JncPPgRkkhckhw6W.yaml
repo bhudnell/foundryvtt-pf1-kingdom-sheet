@@ -1,0 +1,30 @@
+type: pf1-kingdom-sheet.feature
+name: Pious
+system:
+  htmlFields:
+    - description.value
+  subType: quality
+  description:
+    value: >-
+      <p>The settlement is known for its inhabitants’ good manners, friendly
+      spirit, and deep devotion to a deity (this deity must be of the same
+      alignment as the community).</p><hr /><ul><li><p>Increase spellcasting by
+      1 level</p></li><li><p>Any faith more than one alignment step different
+      than the community’s official religion is at best unwelcome and at worst
+      outlawed—obvious worshipers of an outlawed deity must pay 150% of the
+      normal price for goods and services and may face mockery, insult, or even
+      violence</p></li></ul>
+  changes:
+    - _id: poLLrkef
+      formula: '1'
+      target: pf1ks_spellcasting
+      type: untyped
+      operator: add
+      priority: 0
+  contextNotes: []
+  settlementId: ''
+_id: JncPPgRkkhckhw6W
+img: icons/svg/coins.svg
+sort: 0
+_key: '!items!JncPPgRkkhckhw6W'
+

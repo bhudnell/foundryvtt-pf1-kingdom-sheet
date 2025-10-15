@@ -13,6 +13,7 @@ export class ItemBaseModel extends foundry.abstract.TypeDataModel {
       // actions: new fields.ArrayField(new fields.JSONField({ required: true, initial: {} })),
       description: new fields.SchemaField({
         value: new fields.StringField({ required: true, initial: "" }),
+        instructions: new fields.StringField({ required: true, initial: "" }),
       }),
       changes: new fields.ArrayField(
         new fields.SchemaField({
