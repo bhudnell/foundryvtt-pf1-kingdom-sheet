@@ -871,6 +871,14 @@ export class KingdomSheet extends pf1.applications.actor.ActorSheetPF {
     // not dragging over a district grid, so no highlighting needed
     const districtGridContainer = e.target.closest(".grid-container");
     if (!districtGridContainer) {
+      const district = e.target.closest(".district");
+      if (district) {
+        const grid = district.querySelector(".grid");
+        grid.querySelectorAll(".cell").forEach((cell) => {
+          cell.style.backgroundColor = "unset";
+          cell.style.zIndex = "unset";
+        });
+      }
       return;
     }
 
@@ -975,8 +983,7 @@ export class KingdomSheet extends pf1.applications.actor.ActorSheetPF {
     let y = null;
     let valid = true;
 
-    const container = event.target.closest(".district");
-    const grid = container.querySelector(".grid");
+    const grid = event.target.closest(".grid-container");
     if (district && grid) {
       // determine what cell the drop is in
       const rect = grid.getBoundingClientRect();
