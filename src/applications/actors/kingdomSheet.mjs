@@ -1,6 +1,12 @@
 import { findLargestSmallerNumber, keepUpdateArray, renameKeys } from "../../util/utils.mjs";
 
+const GRID_COLS = 6;
+const GRID_ROWS = 6;
+
 export class KingdomSheet extends pf1.applications.actor.ActorSheetPF {
+  // data for building grid drag/drop
+  _dragDropData = null;
+
   constructor(actor, options) {
     options.tabs = [
       {
@@ -306,24 +312,6 @@ export class KingdomSheet extends pf1.applications.actor.ActorSheetPF {
     }
   }
 
-  _onDragOver(e) {
-    if (e.currentTarget?.classList.contains("cell")) {
-      const data = e.dataTransfer.getData("application/json");
-
-      // clear highlights
-      const grid = e.currentTarget.closest(".grid");
-      grid.querySelectorAll(".cell").forEach((cell) => {
-        cell.style.backgroundColor = "unset";
-        cell.style.zIndex = "unset";
-      });
-
-      // highlight all hovered cells
-      e.currentTarget.style.backgroundColor = "rgba(0, 255, 0, 0.3)";
-      e.currentTarget.style.zIndex = 20;
-    }
-    super._onDragOver(e);
-  }
-
   _prepareItems() {
     const featureSections = Object.values(pf1.config.sheetSections.settlementFeature).map((data) => ({ ...data }));
     this.actor.itemTypes[pf1ks.config.featureId]
@@ -396,7 +384,10 @@ export class KingdomSheet extends pf1.applications.actor.ActorSheetPF {
         }),
         sizeLabel: pf1ks.config.settlementSizes[settlement.attributes.size],
         districts: settlement.districts.map((district) => {
-          const grid = Array.from({ length: 36 }, (_, i) => ({ x: i % 6, y: Math.floor(i / 6) }));
+          const grid = Array.from({ length: GRID_ROWS * GRID_COLS }, (_, i) => ({
+            x: i % GRID_COLS,
+            y: Math.floor(i / GRID_ROWS),
+          }));
 
           const [buildings, lotlessBuildings] = settlementBuildings.reduce(
             (arr, building) => {
@@ -846,6 +837,92 @@ export class KingdomSheet extends pf1.applications.actor.ActorSheetPF {
     return super._updateObject(event, changed);
   }
 
+  _createDragDropData(event, building) {
+    const district = event.target.closest(".district");
+    const districtId = district.dataset.id;
+
+    return {
+      isBuilding: building.type === pf1ks.config.buildingId,
+      id: building.id,
+      width: building.system.width,
+      height: building.system.height,
+      districtId,
+      occupiedCells: this._computeOccupiedCells(districtId, building.id),
+    };
+  }
+
+  _computeOccupiedCells(districtId, excludeId) {
+    const occupied = new Set();
+    this.actor.itemTypes[pf1ks.config.buildingId]
+      .filter((b) => b.system.districtId === districtId && b.id !== excludeId)
+      .forEach((b) => {
+        for (let x = b.system.x; x < b.system.x + b.system.width; x++) {
+          for (let y = b.system.y; y < b.system.y + b.system.height; y++) {
+            occupied.add(`${x},${y}`);
+          }
+        }
+      });
+    return occupied;
+  }
+
+  async _onDragOver(e) {
+    await super._onDragOver(e);
+
+    // not dragging over a district grid, so no highlighting needed
+    const districtGridContainer = e.target.closest(".grid-container");
+    if (!districtGridContainer) {
+      return;
+    }
+
+    // drag/drop data hasnt be initialized yet or
+    // the existing dragDropData is for a different building, initialize it
+    if (!this._dragDropData || pf1ks._temp.dragDrop?.id !== this._dragDropData?.id) {
+      const building = await Item.implementation.fromDropData(pf1ks._temp.dragDrop);
+      this._dragDropData = this._createDragDropData(e, building);
+    }
+
+    // not dragging a building, so no highlighting needed
+    if (!this._dragDropData.isBuilding) {
+      return;
+    }
+
+    // clear highlights
+    const grid = districtGridContainer.querySelector(".grid");
+    grid.querySelectorAll(".cell").forEach((cell) => {
+      cell.style.backgroundColor = "unset";
+      cell.style.zIndex = "unset";
+    });
+
+    // find hovered cell coords
+    const rect = grid.getBoundingClientRect();
+    const cellWidth = rect.width / GRID_COLS;
+    const cellHeight = rect.width / GRID_ROWS;
+    const x = Math.floor((event.clientX - rect.left) / cellWidth);
+    const y = Math.floor((event.clientY - rect.top) / cellHeight);
+
+    // validate
+    const valid = this._checkPlacement(x, y, this._dragDropData);
+
+    if (!valid) {
+      // debugger;
+    }
+
+    // color by validity
+    const color = valid ? "rgba(0,255,0,0.3)" : "rgba(255,0,0,0.3)";
+
+    // highlight footprint
+    const { width, height } = this._dragDropData;
+    for (let dx = 0; dx < width; dx++) {
+      for (let dy = 0; dy < height; dy++) {
+        const cell = grid.querySelector(`.cell[data-x="${x + dx}"][data-y="${y + dy}"]`);
+        if (cell) {
+          cell.style.backgroundColor = color;
+          cell.style.zIndex = 20;
+        }
+      }
+    }
+  }
+
   // this function is almost identical to the system function on actor-sheet.mjs, except it
   // allows the settlement/district ids of buildings to be pre-populated when dropped on settlements,
   // and removes some of the unnecessary stuff
@@ -890,65 +967,36 @@ export class KingdomSheet extends pf1.applications.actor.ActorSheetPF {
   _handleBuildings(event, itemData, sourceItem, sameActor) {
     const district = event.target.closest(".district");
     const districtId = district?.dataset.id;
-    if (district) {
+    if (districtId) {
       itemData.system.districtId = districtId;
     }
 
     let x = null;
     let y = null;
     let valid = true;
-    const grid = event.target.closest(".grid");
+
+    const container = event.target.closest(".district");
+    const grid = container.querySelector(".grid");
     if (district && grid) {
-      // check if dropping in a valid square
-      const rect = grid.getBoundingClientRect();
-
-      // get cell sizes
-      const cellWidth = rect.width / getComputedStyle(grid).gridTemplateColumns.split(" ").length;
-      const cellHeight = rect.height / getComputedStyle(grid).gridTemplateRows.split(" ").length;
-
       // determine what cell the drop is in
+      const rect = grid.getBoundingClientRect();
+      const cellWidth = rect.width / GRID_COLS;
+      const cellHeight = rect.width / GRID_ROWS;
       x = Math.floor((event.clientX - rect.left) / cellWidth);
       y = Math.floor((event.clientY - rect.top) / cellHeight);
 
-      const { width, height } = sourceItem.system;
+      // validate
+      valid = this._checkPlacement(x, y, this._dragDropData);
 
-      // dropped building bounding box
-      const srcLeft = x;
-      const srcRight = x + width - 1;
-      const srcTop = y;
-      const srcBottom = y + height - 1;
+      // clear out dragData
+      this._dragDropData = null;
+      pf1ks._temp.dragDrop = null;
 
-      // whole building lands in grid (cant be placed in negative space so no need to check that)
-      valid = srcRight < 6 && srcBottom < 6;
-
-      // no overlap with other buildings
-      if (valid) {
-        const occupiedCells = new Set();
-
-        // add each building's occupied squares to the set
-        this.actor.itemTypes[pf1ks.config.buildingId]
-          .filter((b) => b.system.districtId === districtId && b.id !== sourceItem.id)
-          .forEach((building) => {
-            for (let x = building.system.x; x < building.system.x + building.system.width; x++) {
-              for (let y = building.system.y; y < building.system.y + building.system.height; y++) {
-                occupiedCells.add(`${x},${y}`);
-              }
-            }
-          });
-
-        // no square of the dropped building can overlap an already occupied cell
-        for (let i = x; i < x + width; i++) {
-          for (let j = y; j < y + height; j++) {
-            if (occupiedCells.has(`${i},${j}`)) {
-              valid = false;
-              break;
-            }
-          }
-          if (!valid) {
-            break;
-          }
-        }
-      }
+      // clear highlights
+      grid.querySelectorAll(".cell").forEach((cell) => {
+        cell.style.backgroundColor = "unset";
+        cell.style.zIndex = "unset";
+      });
     }
 
     if (valid && sameActor) {
@@ -963,6 +1011,30 @@ export class KingdomSheet extends pf1.applications.actor.ActorSheetPF {
     }
 
     return this._onDropItemCreate(itemData);
+  }
+
+  _checkPlacement(x, y, dragData) {
+    const { width, height, occupiedCells } = dragData;
+
+    // bounding box
+    const srcRight = x + width - 1;
+    const srcBottom = y + height - 1;
+
+    // must fit inside grid
+    if (srcRight >= GRID_COLS || srcBottom >= GRID_ROWS) {
+      return false;
+    }
+
+    // must not overlap any existing buildings
+    for (let i = x; i < x + width; i++) {
+      for (let j = y; j < y + height; j++) {
+        if (occupiedCells.has(`${i},${j}`)) {
+          return false;
+        }
+      }
+    }
+
+    return true;
   }
 
   // allows dropping armies onto kingdoms

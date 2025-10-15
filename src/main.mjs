@@ -141,6 +141,20 @@ Hooks.once("libWrapper.Ready", () => {
     libWrapper.MIXED
   );
 
+  libWrapper.register(
+    PF1KS.moduleId,
+    "DragDrop.prototype._handleDragStart",
+    async function (wrapper, event) {
+      const wrapped = await wrapper(event);
+      const itemData = JSON.parse(event.dataTransfer.getData("text/plain"));
+      const { documentId, itemId } = event.currentTarget.dataset;
+      itemData.id = itemId ?? documentId;
+      pf1ks._temp.dragDrop = itemData;
+      return wrapped;
+    },
+    libWrapper.MIXED
+  );
+
   libWrapper.ignore_conflicts(PF1KS.moduleId, "ckl-roll-bonuses", "pf1.components.ItemChange.prototype.applyChange");
 });
 
@@ -153,6 +167,12 @@ Hooks.on("renderChatMessage", (message, html) => {
 });
 
 Hooks.once("init", () => {
+  Object.defineProperty(pf1ks, "_temp", {
+    value: {},
+    enumerable: false,
+    writable: false,
+  });
+
   CONFIG.Actor.documentClasses[PF1KS.kingdomId] = KingdomActor;
   CONFIG.Actor.documentClasses[PF1KS.armyId] = ArmyActor;
   CONFIG.Item.documentClasses[PF1KS.buildingId] = BuildingItem;

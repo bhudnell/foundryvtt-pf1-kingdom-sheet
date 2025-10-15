@@ -25,6 +25,7 @@
 - follows building limits (ie must be next to X, cannot be next to Y, limit Z per settlement/district)
 
 # general stuff
+- refactor settlements hbs file to make it less huge
 - kingdom actor min length/width changes
 - all missing localization strings
 - convert all html styles into css classes
