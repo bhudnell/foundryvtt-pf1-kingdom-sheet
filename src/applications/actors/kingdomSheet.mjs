@@ -846,6 +846,7 @@ export class KingdomSheet extends pf1.applications.actor.ActorSheetPF {
       id: building.id,
       width: building.system.width,
       height: building.system.height,
+      lots: building.system.lots,
       districtId,
       occupiedCells: this._computeOccupiedCells(districtId, building.id),
     };
@@ -920,8 +921,8 @@ export class KingdomSheet extends pf1.applications.actor.ActorSheetPF {
 
     // highlight footprint
     const { width, height } = this._dragDropData;
-    for (let dx = 0; dx < width; dx++) {
-      for (let dy = 0; dy < height; dy++) {
+    for (let dx = 0; dx < (width || 1); dx++) {
+      for (let dy = 0; dy < (height || 1); dy++) {
         const cell = grid.querySelector(`.cell[data-x="${x + dx}"][data-y="${y + dy}"]`);
         if (cell) {
           cell.style.backgroundColor = color;
@@ -1006,22 +1007,29 @@ export class KingdomSheet extends pf1.applications.actor.ActorSheetPF {
       });
     }
 
-    if (valid && sameActor) {
+    if (!sameActor) {
+      if (valid) {
+        itemData.system.x = x;
+        itemData.system.y = y;
+      }
+      return this._onDropItemCreate(itemData);
+    }
+
+    if (valid) {
       return sourceItem.update({
         "system.x": x,
         "system.y": y,
       });
     }
-    if (valid && !sameActor) {
-      itemData.system.x = x;
-      itemData.system.y = y;
-    }
-
-    return this._onDropItemCreate(itemData);
   }
 
   _checkPlacement(x, y, dragData) {
-    const { width, height, occupiedCells } = dragData;
+    const { width, height, lots, occupiedCells } = dragData;
+
+    // must have width/height/lots
+    if (!height || !width || !lots) {
+      return false;
+    }
 
     // bounding box
     const srcRight = x + width - 1;

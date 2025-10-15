@@ -16,9 +16,7 @@
 - terrain type for each district border
 - should streets/sewers/walls be checkboxes or leave as items?
 
-# building logic
-- highlighting for dragging
-  - dont show highlights for lot size/height/width = 0
+# building logic (for later iteration)
 - toggle for "can overlap" so things like cistern or magical streetlamps can be shown
   - optional list to limit to certain building types
   - must be able to handle lotless and lotted buildings
