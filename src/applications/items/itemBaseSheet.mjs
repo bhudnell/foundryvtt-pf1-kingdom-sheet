@@ -3,7 +3,7 @@ export class ItemBaseSheet extends pf1.applications.item.ItemSheetPF {
     const options = super.defaultOptions;
     return {
       ...options,
-      classes: [...options.classes, "kingdom"],
+      classes: [...options.classes, "pf1ks"],
     };
   }
 

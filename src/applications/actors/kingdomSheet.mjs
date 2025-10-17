@@ -46,12 +46,13 @@ export class KingdomSheet extends pf1.applications.actor.ActorSheetPF {
     const options = super.defaultOptions;
     return {
       ...options,
-      classes: [...options.classes, "kingdom"],
+      classes: [...options.classes, "pf1ks", "kingdom"],
       scrollY: [...options.scrollY, ".subdetails-body"],
       dragDrop: [
         ...options.dragDrop,
         { dragSelector: ".building[data-item-id]", dropSelector: ".district .grid .cell" },
       ],
+      height: 880,
     };
   }
 

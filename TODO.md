@@ -1,15 +1,14 @@
 # For current release
 
-## Building items
-- update height and width for all buildings
-
 ## District stuff
 - terrain type for each district border
 
 ## General stuff
 - refactor settlements hbs file to make it less huge
-- kingdom actor min length/width changes
 - all missing localization strings
+- scrollbars for
+  - lotless buildings in districts
+  - unassigned items for settlements
 - convert all html styles into css classes
 
 ## Documentation
