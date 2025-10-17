@@ -35,12 +35,15 @@ import { ImprovementItem } from "./documents/items/improvementItem.mjs";
 import { SpecialItem } from "./documents/items/specialItem.mjs";
 import { TacticItem } from "./documents/items/tacticItem.mjs";
 import { getChangeFlat } from "./hooks/getChangeFlat.mjs";
+import { migrate } from "./migrations/index.mjs";
 import { applyChange, moduleToObject, rollEventTable } from "./util/utils.mjs";
 
 export { PF1KS as config };
 globalThis.pf1ks = moduleToObject({
   config: PF1KS,
 });
+
+Hooks.once("pf1PostReady", () => migrate());
 
 Hooks.on("preCreateItem", (item, data, context, user) => {
   if (!item.actor) {
