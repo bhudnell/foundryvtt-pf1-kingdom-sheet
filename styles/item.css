@@ -1,0 +1,8 @@
+.app.sheet.kingdom.item {
+  .form-group label {
+    text-align: left;
+    font-weight: bold;
+    white-space: nowrap;
+    color: var(--pf1-olive);
+  }
+}
