@@ -44,6 +44,7 @@ system:
   sources: []
   settlementId: ''
   type: market
+  width: 2
 _id: XEyT7VkMh7hxdiOA
 img: modules/pf1-kingdom-sheet/assets/kingdom_building/Market.png
 sort: 0

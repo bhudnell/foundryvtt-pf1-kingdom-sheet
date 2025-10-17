@@ -48,6 +48,7 @@ system:
   sources: []
   settlementId: ''
   type: foundry
+  width: 2
 _id: rfsSIvv7u4MAmYyG
 img: modules/pf1-kingdom-sheet/assets/kingdom_building/Foundry.png
 sort: 0

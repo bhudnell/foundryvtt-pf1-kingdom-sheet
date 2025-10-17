@@ -136,32 +136,12 @@
       "ownership": {
         "PLAYER": "OBSERVER"
       }
-    },
-    {
-      "name": "scenes",
-      "label": "Scenes",
-      "path": "packs/scenes",
-      "type": "Scene",
-      "ownership": {
-        "PLAYER": "OBSERVER"
-      }
     }
   ],
   "packFolders": [
     {
       "name": "Kingdom Building",
-      "packs": [
-        "boon",
-        "tactic",
-        "special",
-        "building",
-        "event",
-        "improvement",
-        "feature",
-        "rules",
-        "roll-table",
-        "scenes"
-      ]
+      "packs": ["boon", "tactic", "special", "building", "event", "improvement", "feature", "rules", "roll-table"]
     }
   ],
 

@@ -27,7 +27,7 @@
 # For future releases
 
 ## Misc
-- clean up compendium extraction (especially journals and scenes)
+- clean up compendium extraction (especially journals)
 - add `description.unidentified` to itemBaseModel and break description out like system items
 - Auto Unrest (on drop and continuous)
   - add settings for each type

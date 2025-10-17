@@ -50,6 +50,8 @@ system:
   sources: []
   settlementId: ''
   type: foreign_quarter
+  width: 2
+  height: 2
 _id: 0W7Vv77EMBBeHDa3
 img: modules/pf1-kingdom-sheet/assets/kingdom_building/Foreign%20Quarter.png
 sort: 0

@@ -48,6 +48,7 @@ system:
   sources: []
   settlementId: ''
   type: noble_villa
+  width: 2
 _id: bLvOBKuAj13aDqQs
 img: modules/pf1-kingdom-sheet/assets/kingdom_building/Noble%20Villa.png
 sort: 0

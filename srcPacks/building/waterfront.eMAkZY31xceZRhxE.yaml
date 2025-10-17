@@ -58,6 +58,8 @@ system:
   sources: []
   settlementId: ''
   type: waterfront
+  width: 2
+  height: 2
 _id: eMAkZY31xceZRhxE
 img: modules/pf1-kingdom-sheet/assets/kingdom_building/Waterfront_01.png
 sort: 0

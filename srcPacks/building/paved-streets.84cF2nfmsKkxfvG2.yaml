@@ -35,6 +35,8 @@ system:
   sources: []
   settlementId: ''
   type: paved_streets
+  width: 0
+  height: 0
 _id: 84cF2nfmsKkxfvG2
 img: modules/pf1-kingdom-sheet/assets/kingdom_building/Paved%20Streets.png
 sort: 0

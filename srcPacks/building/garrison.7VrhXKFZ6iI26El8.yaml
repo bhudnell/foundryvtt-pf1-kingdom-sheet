@@ -35,6 +35,7 @@ system:
   sources: []
   settlementId: ''
   type: garrison
+  width: 2
 _id: 7VrhXKFZ6iI26El8
 img: modules/pf1-kingdom-sheet/assets/kingdom_building/Garrison.png
 sort: 0

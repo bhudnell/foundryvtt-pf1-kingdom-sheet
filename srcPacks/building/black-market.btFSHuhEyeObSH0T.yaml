@@ -73,6 +73,7 @@ system:
   sources: []
   settlementId: ''
   type: black_market
+  districtId: ''
 _id: btFSHuhEyeObSH0T
 img: modules/pf1-kingdom-sheet/assets/kingdom_building/Black%20Market.png
 sort: 0

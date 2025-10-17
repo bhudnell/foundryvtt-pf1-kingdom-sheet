@@ -47,6 +47,7 @@ system:
   sources: []
   settlementId: ''
   type: bureau
+  width: 2
 _id: 9pgiGFBRwhcZ4qPW
 img: modules/pf1-kingdom-sheet/assets/kingdom_building/Bureau.png
 sort: 0

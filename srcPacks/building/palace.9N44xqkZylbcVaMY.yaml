@@ -56,6 +56,8 @@ system:
   sources: []
   settlementId: ''
   type: palace
+  width: 2
+  height: 2
 _id: 9N44xqkZylbcVaMY
 img: modules/pf1-kingdom-sheet/assets/kingdom_building/Palace.png
 sort: 0

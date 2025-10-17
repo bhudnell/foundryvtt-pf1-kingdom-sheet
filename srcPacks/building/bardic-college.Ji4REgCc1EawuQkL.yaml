@@ -49,6 +49,8 @@ system:
   sources: []
   settlementId: ''
   type: bardic_college
+  districtId: ''
+  width: 2
 _id: Ji4REgCc1EawuQkL
 img: modules/pf1-kingdom-sheet/assets/kingdom_building/Bardic%20College.png
 sort: 0

@@ -39,6 +39,8 @@ system:
   sources: []
   settlementId: ''
   type: stockyard
+  width: 2
+  height: 2
 _id: IivIiLee2qmeNGUx
 img: modules/pf1-kingdom-sheet/assets/kingdom_building/Stockyard.png
 sort: 0

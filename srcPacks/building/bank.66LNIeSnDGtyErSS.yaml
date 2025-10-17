@@ -28,6 +28,7 @@ system:
   sources: []
   settlementId: ''
   type: bank
+  districtId: ''
 _id: 66LNIeSnDGtyErSS
 img: modules/pf1-kingdom-sheet/assets/kingdom_building/Bank.png
 sort: 0

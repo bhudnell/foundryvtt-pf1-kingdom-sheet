@@ -54,6 +54,8 @@ system:
   sources: []
   settlementId: ''
   type: castle
+  width: 2
+  height: 2
 _id: SDWezGVvjfPdI6GS
 img: modules/pf1-kingdom-sheet/assets/kingdom_building/Castle.png
 sort: 0

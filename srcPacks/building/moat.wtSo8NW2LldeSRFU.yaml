@@ -32,6 +32,8 @@ system:
   sources: []
   settlementId: ''
   type: moat
+  width: 0
+  height: 0
 _id: wtSo8NW2LldeSRFU
 img: modules/pf1-kingdom-sheet/assets/kingdom_building/Moat_01.png
 sort: 0

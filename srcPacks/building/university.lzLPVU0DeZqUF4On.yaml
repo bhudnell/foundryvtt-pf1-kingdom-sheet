@@ -66,6 +66,8 @@ system:
   sources: []
   settlementId: ''
   type: university
+  width: 2
+  height: 2
 _id: lzLPVU0DeZqUF4On
 img: modules/pf1-kingdom-sheet/assets/kingdom_building/University.png
 sort: 0

@@ -19,6 +19,8 @@ system:
   sources: []
   settlementId: ''
   type: watergate
+  width: 0
+  height: 0
 _id: n0cdFfOCgo9Y3wcW
 img: modules/pf1-kingdom-sheet/assets/kingdom_building/Watergate.png
 sort: 0

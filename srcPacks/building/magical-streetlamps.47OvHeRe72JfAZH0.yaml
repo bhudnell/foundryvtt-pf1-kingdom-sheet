@@ -24,6 +24,8 @@ system:
   sources: []
   settlementId: ''
   type: magical_streetlamps
+  width: 0
+  height: 0
 _id: 47OvHeRe72JfAZH0
 img: modules/pf1-kingdom-sheet/assets/kingdom_building/Magical%20Streetlamps.png
 sort: 0

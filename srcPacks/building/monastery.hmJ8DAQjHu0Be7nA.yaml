@@ -34,6 +34,7 @@ system:
   sources: []
   settlementId: ''
   type: monastery
+  width: 2
 _id: hmJ8DAQjHu0Be7nA
 img: modules/pf1-kingdom-sheet/assets/kingdom_building/Monastery.png
 sort: 0

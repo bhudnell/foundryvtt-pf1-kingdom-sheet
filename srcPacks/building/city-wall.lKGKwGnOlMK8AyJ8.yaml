@@ -31,6 +31,8 @@ system:
   sources: []
   settlementId: ''
   type: city_wall
+  width: 0
+  height: 0
 _id: lKGKwGnOlMK8AyJ8
 img: modules/pf1-kingdom-sheet/assets/kingdom_building/City%20Wall.png
 sort: 0
