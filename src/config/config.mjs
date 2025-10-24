@@ -432,6 +432,12 @@ export const altSettlementValues = {
   metro: { modifiers: 1, danger: 5, maxBaseValue: 16000, purchaseLimit: 100000, spellcasting: 8, qualities: 6 },
 };
 
+export const districtBorders = {
+  land: "PF1KS.Border.Land",
+  water: "PF1KS.Border.Water",
+  cliff: "PF1KS.Border.Cliff",
+};
+
 export const buildingTypes = {
   academy: "PF1KS.Building.Academy",
   alchemist: "PF1KS.Building.Alchemist",

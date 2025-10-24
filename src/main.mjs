@@ -366,6 +366,7 @@ Hooks.once("i18nInit", () => {
     "settlementModifiers",
     "settlementAttributes",
     "settlementSizes",
+    "districtBorders",
     "buildingTypes",
     "magicItemTypes",
     "terrainTypes",

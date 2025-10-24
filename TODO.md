@@ -1,15 +1,20 @@
 # For current release
 
 ## District stuff
-- terrain type for each district border
+- should buildings of a set type have their cost/lot size/changes? fixed? Then we just check
+  if w*h === lotSize to determine if the building is valid
+  - buildings with lotSize === 0 or x/y === null will appear in the lotless building list
+    - error if lotSize > 0
+  - buildings with lotSize > 0 && x/y !== null will appear in the grid
+    - show error on building image if w*h !== lotSize
 
 ## General stuff
 - refactor settlements hbs file to make it less huge
-- all missing localization strings
 - scrollbars for
   - lotless buildings in districts
   - unassigned items for settlements
-- convert all html styles into css classes
+- convert all html styles into css classes (mainly district stuff)
+- expanded settlement modifiers journal
 
 ## Documentation
 - explain that max base value and purchase limit should be assumed to be percentage

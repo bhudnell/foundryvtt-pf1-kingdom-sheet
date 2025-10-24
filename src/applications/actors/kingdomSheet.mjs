@@ -52,7 +52,7 @@ export class KingdomSheet extends pf1.applications.actor.ActorSheetPF {
         ...options.dragDrop,
         { dragSelector: ".building[data-item-id]", dropSelector: ".district .grid .cell" },
       ],
-      height: 880,
+      height: 940,
     };
   }
 
@@ -82,6 +82,7 @@ export class KingdomSheet extends pf1.applications.actor.ActorSheetPF {
     data.alignmentOptions = pf1.config.alignments;
     data.kingdomGovernmentOptions = pf1ks.config.kingdomGovernments;
     data.settlementGovernmentOptions = pf1ks.config.settlementGovernments;
+    data.districtBorderOptions = pf1ks.config.districtBorders;
     data.holidayOptions = pf1ks.config.edicts.holiday;
     data.promotionOptions = pf1ks.config.edicts.promotion;
     data.taxationOptions = pf1ks.config.edicts.taxation;
@@ -414,6 +415,7 @@ export class KingdomSheet extends pf1.applications.actor.ActorSheetPF {
           return {
             id: district.id,
             name: district.name,
+            borders: district.borders,
             grid,
             buildings: buildings.map((building) => ({
               id: building.id,

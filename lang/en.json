@@ -136,10 +136,13 @@
     "DeleteSettlementTitle": "Delete Settlement: {name}",
     "DeleteSettlementConfirmation": "Are you sure you want to delete this settlement?",
     "SettlementModifiers": "Settlement Modifiers",
-    "Districts": "Districts",
     "BaseValue": "Base Value",
     "Danger": "Danger",
+    "MaxBaseValue": "Max Base Value",
+    "PurchaseLimit": "Purchase Limit",
+    "Spellcasting": "Spellcasting",
 
+    "SettlementAttributes": "Settlement Attributes",
     "Corruption": "Corruption",
     "Crime": "Crime",
     "Productivity": "Productivity",
@@ -147,11 +150,38 @@
     "Lore": "Lore",
     "Society": "Society",
 
+    "Districts": "Districts",
+    "DistrictLabel": "District",
+    "CreateDistrict": "Create District",
+    "NewDistrictLabel": "District {number}",
+    "DeleteDistrict": "Delete District",
+    "DeleteDistrictTitle": "Delete District: {name}",
+    "DeleteDistrictConfirmation": "Are you sure you want to delete this district?",
+
+    "DistrictBorders": "District Borders",
+    "Border": {
+      "Land": "Land",
+      "Water": "Water",
+      "Cliff": "Cliff"
+    },
+
+    "Direction": {
+      "North": "North",
+      "South": "South",
+      "East": "East",
+      "West": "West"
+    },
+
     "Buildings": "Buildings",
+    "LotlessBuildings": "Lotless Buildings",
     "BuildingType": "Building Type",
     "Lots": "Number of lots",
+    "UnplacedLotBuildingError": "Buildings with 1+ lots must be placed on the district grid",
+    "MismatchedSizeLotsError": "Building width x height must equal the building lot size",
     "Cost": "Cost (BP)",
     "Damaged": "Damaged",
+    "Width": "Width",
+    "Height": "Height",
     "Building": {
       "Academy": "Academy",
       "Alchemist": "Alchemist",
@@ -225,6 +255,7 @@
       "Waterway": "Waterway",
       "Custom": "Custom"
     },
+    "UnassignedItems": "Unassigned Items",
     "MagicItems": "Magic Items",
     "MagicItem": {
       "Minor": "Minor",
@@ -337,7 +368,8 @@
       "FameInfamy": "Fame and Infamy",
       "GovernmentForms": "Forms of Government",
       "LeadershipSkills": "Leadership Skills",
-      "SettlementSizes": "Alternative Settlement Size Modifiers"
+      "SettlementSizes": "Alternative Settlement Size Modifiers",
+      "ExpandedSettlementModifiers": "Expanded Settlement Modifiers"
     },
 
     "Continuous": "Continuous",

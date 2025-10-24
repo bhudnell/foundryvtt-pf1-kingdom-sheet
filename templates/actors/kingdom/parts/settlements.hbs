@@ -88,7 +88,7 @@
         <div class="attributes flex0">
           <div class="info-box-joined">
             <div class="info-box" data-tooltip-extended="settlement-Government.{{ sidx }}">
-              <h5>{{ localize "PF1KS.Government" }}</h5>
+              <h5>{{ localize "PF1KS.GovernmentLabel" }}</h5>
               <select name="system.settlements.{{ sidx }}.attributes.government">
                 {{selectOptions @root.settlementGovernmentOptions selected=attributes.government}}
               </select>
@@ -161,6 +161,36 @@
               <h1>
                 <input type="text" name="system.settlements.{{ sidx }}.districts.{{ didx }}.name" value="{{ name }}" />
               </h1>
+            </div>
+
+            <div class="info-box-header">
+              <h3>{{localize "PF1KS.DistrictBorders"}}</h3>
+              <div class="info-box-joined">
+                <div class="info-box">
+                  <h5>{{ localize "PF1KS.Direction.North" }}</h5>
+                  <select name="system.settlements.{{ sidx }}.districts.{{ didx }}.borders.north">
+                    {{selectOptions @root.districtBorderOptions selected=borders.north}}
+                  </select>
+                </div>
+                <div class="info-box">
+                  <h5>{{ localize "PF1KS.Direction.East" }}</h5>
+                  <select name="system.settlements.{{ sidx }}.districts.{{ didx }}.borders.east">
+                    {{selectOptions @root.districtBorderOptions selected=borders.east}}
+                  </select>
+                </div>
+                <div class="info-box">
+                  <h5>{{ localize "PF1KS.Direction.South" }}</h5>
+                  <select name="system.settlements.{{ sidx }}.districts.{{ didx }}.borders.south">
+                    {{selectOptions @root.districtBorderOptions selected=borders.south}}
+                  </select>
+                </div>
+                <div class="info-box">
+                  <h5>{{ localize "PF1KS.Direction.West" }}</h5>
+                  <select name="system.settlements.{{ sidx }}.districts.{{ didx }}.borders.west">
+                    {{selectOptions @root.districtBorderOptions selected=borders.west}}
+                  </select>
+                </div>
+              </div>
             </div>
 
             <div class="grid-container" style="align-self: center; position: relative; margin: 20px">
