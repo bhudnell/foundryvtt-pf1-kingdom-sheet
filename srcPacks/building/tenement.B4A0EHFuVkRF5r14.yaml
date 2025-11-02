@@ -4,8 +4,6 @@ system:
   htmlFields:
     - description.value
   quantity: 1
-  lots: 1
-  cost: 1
   description:
     value: >-
       <p>A staggering number of low-rent housing units.</p><hr
@@ -15,7 +13,7 @@ system:
   changes:
     - _id: j5OmRx77
       formula: '2'
-      target: pf1ks_unrest_drop
+      target: pf1ks_unrestDrop
       type: untyped
       operator: add
       priority: 0

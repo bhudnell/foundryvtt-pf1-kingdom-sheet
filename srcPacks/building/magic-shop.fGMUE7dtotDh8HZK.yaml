@@ -4,8 +4,6 @@ system:
   htmlFields:
     - description.value
   quantity: 1
-  lots: 1
-  cost: 68
   description:
     value: >-
       <p>A shop that specializes in magic items and spells.</p><hr

@@ -4,8 +4,6 @@ system:
   htmlFields:
     - description.value
   quantity: 1
-  lots: 1
-  cost: 6
   description:
     value: >-
       <p>A structure that prepares hides and leather.</p><hr

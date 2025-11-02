@@ -4,8 +4,6 @@ system:
   htmlFields:
     - description.value
   quantity: 1
-  lots: 1
-  cost: 10
   description:
     value: >-
       <p>A place for visitors to rest.</p><hr /><p><strong>Kingdom</strong>

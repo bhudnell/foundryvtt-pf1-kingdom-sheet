@@ -353,34 +353,6 @@ Hooks.once("ready", () => {
 });
 
 Hooks.once("i18nInit", () => {
-  const toLocalize = [
-    "kingdomStats",
-    "actionsPerTurnLabels",
-    "kingdomGovernments",
-    "settlementGovernments",
-    "edicts",
-    "leadershipRoles",
-    "leadershipBonusTwoStats",
-    "leadershipBonusOptions",
-    "leadershipSkillBonuses",
-    "settlementModifiers",
-    "settlementAttributes",
-    "settlementSizes",
-    "districtBorders",
-    "buildingTypes",
-    "magicItemTypes",
-    "terrainTypes",
-    "settings",
-    "optionalRules",
-    "armyAttributes",
-    "armySizes",
-    "armyStrategy",
-    "eventSubTypes",
-    "improvementSubTypes",
-    "featureSubTypes",
-    "itemSubTypes",
-  ];
-
   const doLocalize = (obj, cat) => {
     // Create tuples of (key, localized object/string)
     const localized = Object.entries(obj).reduce((arr, [key, value]) => {
@@ -411,9 +383,37 @@ Hooks.once("i18nInit", () => {
     }
   };
 
+  const toLocalize = [
+    "kingdomStats",
+    "actionsPerTurnLabels",
+    "kingdomGovernments",
+    "settlementGovernments",
+    "edicts",
+    "leadershipRoles",
+    "leadershipBonusTwoStats",
+    "leadershipBonusOptions",
+    "leadershipSkillBonuses",
+    "settlementModifiers",
+    "settlementAttributes",
+    "settlementSizes",
+    "districtBorders",
+    "magicItemTypes",
+    "terrainTypes",
+    "settings",
+    "optionalRules",
+    "armyAttributes",
+    "armySizes",
+    "armyStrategy",
+    "eventSubTypes",
+    "improvementSubTypes",
+    "featureSubTypes",
+    "itemSubTypes",
+  ];
+
   for (let o of toLocalize) {
     pf1ks.config[o] = doLocalize(pf1ks.config[o], o);
   }
 
   doLocalizeKeys(pf1ks.config.armyConditions, ["name"]);
+  doLocalizeKeys(pf1ks.config.buildingTypes, ["name"]);
 });

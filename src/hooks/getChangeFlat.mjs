@@ -50,7 +50,7 @@ export function getChangeFlat(result, target, modifierType, value, actor) {
     case `${pf1ks.config.changePrefix}_magic_item_minor`:
     case `${pf1ks.config.changePrefix}_magic_item_medium`:
     case `${pf1ks.config.changePrefix}_magic_item_major`:
-    case `${pf1ks.config.changePrefix}_unrest_continuous`:
+    case `${pf1ks.config.changePrefix}_unrestContinuous`:
       result.push("system.someFakeData");
       break;
     case `${pf1ks.config.changePrefix}_bonusBP`:

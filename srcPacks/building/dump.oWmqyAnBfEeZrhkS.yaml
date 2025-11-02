@@ -4,8 +4,6 @@ system:
   htmlFields:
     - description.value
   quantity: 1
-  lots: 1
-  cost: 4
   description:
     value: >-
       <p>A centralized place to dispose of refuse.</p><hr

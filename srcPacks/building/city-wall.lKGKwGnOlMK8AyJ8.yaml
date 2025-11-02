@@ -4,8 +4,6 @@ system:
   htmlFields:
     - description.value
   quantity: 1
-  lots: 0
-  cost: 2
   description:
     value: >-
       <p>A fortification of one side of a district with a sturdy wall. The GM
@@ -17,7 +15,7 @@ system:
   changes:
     - _id: BNBd4hG9
       formula: '-2'
-      target: pf1ks_unrest_drop
+      target: pf1ks_unrestDrop
       type: untyped
       operator: add
       priority: 0

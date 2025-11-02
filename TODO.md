@@ -1,8 +1,8 @@
 # For current release
 
 ## District stuff
-- should buildings of a set type have their cost/lot size/changes? fixed? Then we just check
-  if w*h === lotSize to determine if the building is valid
+*** musings: what should be source of truth for in building is in grid or not? w*h > 0 or lotSize > 0???
+- Check if w*h === lotSize to determine if the building is valid
   - buildings with lotSize === 0 or x/y === null will appear in the lotless building list
     - error if lotSize > 0
   - buildings with lotSize > 0 && x/y !== null will appear in the grid

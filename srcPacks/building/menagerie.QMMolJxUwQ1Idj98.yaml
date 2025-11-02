@@ -4,8 +4,6 @@ system:
   htmlFields:
     - description.value
   quantity: 1
-  lots: 4
-  cost: 16
   description:
     value: >-
       <p>A large park stocked with exotic creatures for public viewing.</p><hr

@@ -4,8 +4,6 @@ system:
   htmlFields:
     - description.value
   quantity: 1
-  lots: 0
-  cost: 6
   description:
     value: >-
       <p>Contains a safe supply of fresh water for the settlement.</p><hr

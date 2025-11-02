@@ -21,10 +21,13 @@ export class BuildingSheet extends ItemBaseSheet {
     context.districtIdOptions = districtIdOptions;
 
     // buildingType
-    context.buildingTypeOptions = pf1ks.config.buildingTypes;
+    context.buildingTypeOptions = Object.fromEntries(
+      Object.entries(pf1ks.config.buildingTypes).map(([key, value]) => [key, value.name])
+    );
+    context.isCustom = itemData.type === "custom";
 
     // sidebar info
-    context.subType = pf1ks.config.buildingTypes[itemData.type];
+    context.subType = pf1ks.config.buildingTypes[itemData.type].name;
     context.sidebarContent = [
       {
         isNumber: true,

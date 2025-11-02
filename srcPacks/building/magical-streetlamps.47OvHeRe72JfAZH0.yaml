@@ -4,8 +4,6 @@ system:
   htmlFields:
     - description.value
   quantity: 1
-  lots: 0
-  cost: 5
   description:
     value: >-
       <p>Continual flame lamps that illuminate the lot.</p><hr

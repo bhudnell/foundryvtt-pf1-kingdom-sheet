@@ -397,7 +397,7 @@ export class KingdomSheet extends pf1.applications.actor.ActorSheetPF {
                 return arr;
               }
               if (
-                building.system.lots &&
+                building.system.lotSize &&
                 building.system.height &&
                 building.system.width &&
                 building.system.x != null &&
@@ -430,7 +430,7 @@ export class KingdomSheet extends pf1.applications.actor.ActorSheetPF {
               img: building.img,
               name: building.name,
               showError:
-                building.system.lots &&
+                building.system.lotSize &&
                 (!building.system.height ||
                   !building.system.width ||
                   building.system.x == null ||
@@ -849,7 +849,7 @@ export class KingdomSheet extends pf1.applications.actor.ActorSheetPF {
       id: building.id,
       width: building.system.width,
       height: building.system.height,
-      lots: building.system.lots,
+      lotSize: building.system.lotSize,
       districtId,
       occupiedCells: this._computeOccupiedCells(districtId, building.id),
     };
@@ -1027,10 +1027,10 @@ export class KingdomSheet extends pf1.applications.actor.ActorSheetPF {
   }
 
   _checkPlacement(x, y, dragData) {
-    const { width, height, lots, occupiedCells } = dragData;
+    const { width, height, lotSize, occupiedCells } = dragData;
 
-    // must have width/height/lots
-    if (!height || !width || !lots) {
+    // must have width/height/lotSize
+    if (!height || !width || !lotSize) {
       return false;
     }
 

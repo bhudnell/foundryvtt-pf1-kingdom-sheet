@@ -4,8 +4,6 @@ system:
   htmlFields:
     - description.value
   quantity: 1
-  lots: 2
-  cost: 34
   description:
     value: >-
       <p>The headquarters for a guild or similar organization.</p><hr

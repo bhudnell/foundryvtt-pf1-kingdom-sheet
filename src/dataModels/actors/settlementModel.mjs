@@ -43,7 +43,7 @@ export class SettlementModel extends foundry.abstract.DataModel {
     const buildings = this.parent.parent.itemTypes[pf1ks.config.buildingId];
     const totalLots = buildings
       .filter((building) => building.system.settlementId === this.id)
-      .reduce((acc, curr) => acc + curr.system.lots * curr.system.quantity, 0);
+      .reduce((acc, curr) => acc + curr.system.lotSize * curr.system.quantity, 0);
     const altSettlementMultiplier = totalLots > 40 ? this.districts.length : 1;
 
     // population

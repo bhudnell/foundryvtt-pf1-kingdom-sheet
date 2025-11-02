@@ -4,8 +4,6 @@ system:
   htmlFields:
     - description.value
   quantity: 1
-  lots: 1
-  cost: 10
   description:
     value: >-
       <p>A shop front for a tradesperson, such as a baker, butcher, candle

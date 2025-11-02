@@ -4,8 +4,6 @@ system:
   htmlFields:
     - description.value
   quantity: 1
-  lots: 0
-  cost: 24
   description:
     value: >-
       <p>Brick or stone pavement that speeds transportation.</p><hr

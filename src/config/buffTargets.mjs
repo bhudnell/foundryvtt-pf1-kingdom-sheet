@@ -67,12 +67,12 @@ export const kingdomBuffTargets = {
     label: "PF1KS.Infamy",
     filters: { item: { include: kingdomItemTypes } },
   },
-  [`${changePrefix}_unrest_drop`]: {
+  [`${changePrefix}_unrestDrop`]: {
     category: `${changePrefix}_misc`,
     label: "PF1KS.UnrestOnDrop",
     filters: { item: { include: kingdomItemTypes } },
   },
-  [`${changePrefix}_unrest_continuous`]: {
+  [`${changePrefix}_unrestContinuous`]: {
     category: `${changePrefix}_misc`,
     label: "PF1KS.UnrestContinuous",
     filters: { item: { include: kingdomItemTypes } },

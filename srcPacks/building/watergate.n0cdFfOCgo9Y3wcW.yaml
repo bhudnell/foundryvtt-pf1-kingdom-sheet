@@ -4,8 +4,6 @@ system:
   htmlFields:
     - description.value
   quantity: 1
-  lots: 0
-  cost: 2
   description:
     value: >-
       <p>A gate in a City Wall that allows water (such as a river, Aqueduct, or

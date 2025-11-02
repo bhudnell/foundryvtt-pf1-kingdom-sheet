@@ -4,8 +4,6 @@ system:
   htmlFields:
     - description.value
   quantity: 1
-  lots: 0
-  cost: 2
   description:
     value: >-
       <p>A fortification of one side of a district with an open or water-filled
@@ -18,7 +16,7 @@ system:
   changes:
     - _id: IpgsTPq4
       formula: '-1'
-      target: pf1ks_unrest_drop
+      target: pf1ks_unrestDrop
       type: untyped
       operator: add
       priority: 0

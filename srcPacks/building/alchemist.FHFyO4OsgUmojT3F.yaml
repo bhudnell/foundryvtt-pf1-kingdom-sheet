@@ -4,8 +4,6 @@ system:
   htmlFields:
     - description.value
   quantity: 1
-  lots: 1
-  cost: 18
   description:
     value: >-
       <p>The laboratory and home of a crafter of poisons, potions, or alchemical

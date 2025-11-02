@@ -4,8 +4,6 @@ system:
   htmlFields:
     - description.value
   quantity: 1
-  lots: 2
-  cost: 24
   description:
     value: >-
       <p>A venue for entertainments such as plays, operas, and concerts.</p><hr

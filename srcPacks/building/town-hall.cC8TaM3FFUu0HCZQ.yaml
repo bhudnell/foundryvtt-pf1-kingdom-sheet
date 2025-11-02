@@ -4,8 +4,6 @@ system:
   htmlFields:
     - description.value
   quantity: 1
-  lots: 2
-  cost: 22
   description:
     value: >-
       <p>A public venue for town meetings, repository for town records, and

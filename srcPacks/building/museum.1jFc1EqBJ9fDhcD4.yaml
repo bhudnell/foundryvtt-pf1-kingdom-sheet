@@ -4,8 +4,6 @@ system:
   htmlFields:
     - description.value
   quantity: 1
-  lots: 2
-  cost: 30
   description:
     value: >-
       <p>A place to display art and artifacts both modern and historical. The GM

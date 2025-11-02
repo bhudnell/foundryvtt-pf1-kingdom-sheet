@@ -4,8 +4,6 @@ system:
   htmlFields:
     - description.value
   quantity: 1
-  lots: 4
-  cost: 78
   description:
     value: >-
       <p>An institution of higher learning, focusing mainly on mundane subjects

@@ -4,8 +4,6 @@ system:
   htmlFields:
     - description.value
   quantity: 1
-  lots: 1
-  cost: 8
   description:
     value: >-
       <p>A general store.</p><hr /><p><strong>Kingdom</strong> Economy

@@ -4,8 +4,6 @@ system:
   htmlFields:
     - description.value
   quantity: 1
-  lots: 2
-  cost: 40
   description:
     value: >-
       <p>A center for artistic learning. Education in a Bardic College also

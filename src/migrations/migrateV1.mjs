@@ -23,7 +23,7 @@ export class MigrateV1 extends BaseMigrate {
   static getItemUpdateData(item) {
     // calculate building lot sizes based on lot size
     if (item.type === pf1ks.config.buildingId) {
-      const { width, height } = getLotDimensions(item.system.lots);
+      const { width, height } = getLotDimensions(item.system.lotSize);
 
       return {
         _id: item.id,

@@ -4,8 +4,6 @@ system:
   htmlFields:
     - description.value
   quantity: 1
-  lots: 2
-  cost: 32
   description:
     value: >-
       <p>A large place of worship dedicated to a deity.</p><hr
@@ -28,7 +26,7 @@ system:
       priority: 0
     - _id: IwSdVWIm
       formula: '-2'
-      target: pf1ks_unrest_drop
+      target: pf1ks_unrestDrop
       type: untyped
       operator: add
       priority: 0

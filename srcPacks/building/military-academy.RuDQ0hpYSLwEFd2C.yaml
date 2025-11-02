@@ -4,8 +4,6 @@ system:
   htmlFields:
     - description.value
   quantity: 1
-  lots: 2
-  cost: 36
   description:
     value: >-
       <p>An institution dedicated to the study of war and the training of elite
