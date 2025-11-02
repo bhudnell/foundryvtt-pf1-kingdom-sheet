@@ -256,6 +256,8 @@
       "Custom": "Custom"
     },
     "UnassignedItems": "Unassigned Items",
+    "MissingSettlement": "Item needs to be assigned to a settlement",
+    "MissingDistrict": "Item needs to be assigned to a settlement district",
     "MagicItems": "Magic Items",
     "MagicItem": {
       "Minor": "Minor",

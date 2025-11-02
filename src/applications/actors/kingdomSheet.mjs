@@ -163,29 +163,23 @@ export class KingdomSheet extends pf1.applications.actor.ActorSheetPF {
 
     data.sections = this._prepareItems();
 
-    const settlementIds = this.actor.system.settlements.map((settlement) => settlement.id);
-    const districtIds = this.actor.system.settlements.flatMap((settlement) =>
-      settlement.districts.map((district) => district.id)
-    );
+    const settlements = this.actor.system.settlements;
+    const districts = this.actor.system.settlements.flatMap((settlement) => settlement.districts);
     data.unassignedBuildings = this.actor.itemTypes[pf1ks.config.buildingId]
-      .filter(
-        (building) =>
-          !settlementIds.includes(building.system.settlementId) || !districtIds.includes(building.system.districtId)
-      )
+      .filter((building) => !building.isAssigned)
       .map((building) => ({
         id: building.id,
         img: building.img,
         name: building.name,
-        settlementName: building.system.settlementId, // TODO get the names instead of ids
-        districtName: building.system.districtId, // TODO get the names instead of ids
+        settlementName: settlements.find((s) => s.id === building.system.settlementId)?.name,
+        districtName: districts.find((d) => d.id === building.system.districtId)?.name,
       }));
     data.unassignedFeatures = this.actor.itemTypes[pf1ks.config.featureId]
-      .filter((feature) => !settlementIds.includes(feature.system.settlementId))
+      .filter((feature) => !feature.isAssigned)
       .map((feature) => ({
         id: feature.id,
         img: feature.img,
         name: feature.name,
-        settlementName: feature.system.settlementId, // TODO get the names instead of ids
       }));
 
     // terrain
