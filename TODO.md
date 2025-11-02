@@ -7,12 +7,13 @@
     - error if lotSize > 0
   - buildings with lotSize > 0 && x/y !== null will appear in the grid
     - show error on building image if w*h !== lotSize
+- invalid buildings do not add their bonuses to things
+  - changes
+  - population due to lot size
+  - anything else?
 
 ## General stuff
 - refactor settlements hbs file to make it less huge
-- scrollbars for
-  - lotless buildings in districts
-  - unassigned items for settlements
 - convert all html styles into css classes (mainly district stuff)
 - expanded settlement modifiers journal
 

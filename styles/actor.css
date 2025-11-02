@@ -76,10 +76,6 @@
       }
     }
 
-    .item-groups-list {
-      overflow: unset;
-    }
-
     .magic-item-section {
       display: flex;
       gap: 8px;
