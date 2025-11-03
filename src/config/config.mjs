@@ -794,6 +794,11 @@ export const buildingTypes = {
   },
 };
 
+export const buildingErrors = {
+  lotSizeMismatch: "PF1KS.BuildingError.LotSizeMismatch",
+  unplacedLotBuilding: "PF1KS.BuildingError.UnplacedLotBuilding",
+};
+
 export const magicItemTypes = {
   minor: "PF1KS.MagicItem.Minor",
   medium: "PF1KS.MagicItem.Medium",

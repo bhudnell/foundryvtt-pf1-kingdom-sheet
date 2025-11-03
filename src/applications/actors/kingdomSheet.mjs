@@ -390,13 +390,7 @@ export class KingdomSheet extends pf1.applications.actor.ActorSheetPF {
               if (building.system.districtId !== district.id) {
                 return arr;
               }
-              if (
-                building.system.lotSize &&
-                building.system.height &&
-                building.system.width &&
-                building.system.x != null &&
-                building.system.y != null
-              ) {
+              if (building.inGrid) {
                 arr[0].push(building);
               } else {
                 arr[1].push(building);
@@ -423,12 +417,7 @@ export class KingdomSheet extends pf1.applications.actor.ActorSheetPF {
               id: building.id,
               img: building.img,
               name: building.name,
-              showError:
-                building.system.lotSize &&
-                (!building.system.height ||
-                  !building.system.width ||
-                  building.system.x == null ||
-                  building.system.y == null),
+              error: building.error,
             })),
           };
         }),

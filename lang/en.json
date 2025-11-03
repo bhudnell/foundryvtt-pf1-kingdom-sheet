@@ -176,8 +176,6 @@
     "LotlessBuildings": "Lotless Buildings",
     "BuildingType": "Building Type",
     "LotSize": "Number of lots",
-    "UnplacedLotBuildingError": "Buildings with 1+ lots must be placed on the district grid",
-    "MismatchedSizeLotsError": "Building width x height must equal the building lot size",
     "Cost": "Cost (BP)",
     "Damaged": "Damaged",
     "Width": "Width",
@@ -254,6 +252,10 @@
       "Watergate": "Watergate",
       "Waterway": "Waterway",
       "Custom": "Custom"
+    },
+    "BuildingError": {
+      "LotSizeMismatch": "Building width * height must equal the building lot size",
+      "UnplacedLotBuilding": "Building occupies 1 or more lots and must be placed on the district grid"
     },
     "UnassignedItems": "Unassigned Items",
     "MissingSettlement": "Item needs to be assigned to a settlement",

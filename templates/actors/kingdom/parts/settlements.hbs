@@ -239,8 +239,8 @@
                       data-tooltip="PF1.DisplayInChat"
                     ></div>
                     <h4>{{ name }}</h4>
-                    {{#if showError}}
-                    <i class="fa-solid fa-triangle-exclamation" data-tooltip="PF1KS.UnplacedLotBuildingError"></i>
+                    {{#if error}}
+                    <i class="fa-solid fa-triangle-exclamation" data-tooltip="{{ error }}"></i>
                     {{/if}}
                   </div>
 

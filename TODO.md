@@ -1,16 +1,11 @@
 # For current release
 
 ## District stuff
-*** musings: what should be source of truth for in building is in grid or not? w*h > 0 or lotSize > 0???
-- Check if w*h === lotSize to determine if the building is valid
-  - buildings with lotSize === 0 or x/y === null will appear in the lotless building list
-    - error if lotSize > 0
-  - buildings with lotSize > 0 && x/y !== null will appear in the grid
-    - show error on building image if w*h !== lotSize
+- should buildings have quantity?
+  - if not, I need to add something to the migration to spawn new items equal to current
+    quantity - 1
 - invalid buildings do not add their bonuses to things
-  - changes
   - population due to lot size
-  - anything else?
 
 ## General stuff
 - refactor settlements hbs file to make it less huge

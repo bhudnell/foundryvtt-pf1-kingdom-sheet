@@ -111,6 +111,36 @@ export class KingdomActor extends BaseActor {
     this.system.infamy.total +=
       Math.floor(this._getChanges("corruption") / 10) + Math.floor(this._getChanges("crime") / 10);
 
+    // overlapping buildings check
+    const updates = [];
+    const gridBuildings = this.itemTypes[pf1ks.config.buildingId].filter((b) => b.inGrid);
+    for (const building of gridBuildings) {
+      const districtBuildings = gridBuildings.filter(
+        (db) => db.system.districtId === building.system.districtId && db.id !== building.id
+      );
+
+      const overlaps = districtBuildings.some(
+        (other) =>
+          !(
+            building.system.x + building.system.width <= other.system.x || // is left of other
+            other.system.x + other.system.width <= building.system.x || // is right of other
+            building.system.y + building.system.height <= other.system.y || // is above other
+            other.system.y + other.system.height <= building.system.y // is below other
+          )
+      );
+
+      if (overlaps) {
+        updates.push({
+          _id: building.id,
+          system: {
+            x: null,
+            y: null,
+          },
+        });
+      }
+    }
+    this.updateEmbeddedDocuments("Item", updates);
+
     // deleting this because it only exists to get settlement modifier changes to parse
     delete this.system.someFakeData;
   }
