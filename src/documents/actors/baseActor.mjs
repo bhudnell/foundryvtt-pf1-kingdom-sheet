@@ -113,6 +113,10 @@ export class BaseActor extends pf1.documents.actor.ActorBasePF {
       name: game.i18n.localize("PF1KS.Buildings"),
       value: 0,
     };
+    const features = {
+      name: game.i18n.localize("PF1KS.Features"),
+      value: 0,
+    };
     const improvements = {
       name: game.i18n.localize("PF1KS.Improvements"),
       value: 0,
@@ -140,6 +144,8 @@ export class BaseActor extends pf1.documents.actor.ActorBasePF {
           const collapse = this.system.settings?.collapseTooltips;
           if (collapse && src.type === pf1ks.config.buildingId) {
             buildings.value += srcValue;
+          } else if (collapse && src.type === pf1ks.config.featureId) {
+            features.value += srcValue;
           } else if (collapse && src.type === pf1ks.config.eventId) {
             events.value += srcValue;
           } else if (collapse && src.type === pf1ks.config.improvementId) {
@@ -155,6 +161,9 @@ export class BaseActor extends pf1.documents.actor.ActorBasePF {
 
     if (buildings.value) {
       sources.push(buildings);
+    }
+    if (features.value) {
+      sources.push(features);
     }
     if (events.value) {
       sources.push(events);

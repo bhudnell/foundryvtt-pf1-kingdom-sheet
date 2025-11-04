@@ -22,15 +22,15 @@ export class KingdomActor extends BaseActor {
       for (const attr of Object.keys(pf1ks.config.settlementAttributes)) {
         const { size, government } = settlement.attributes[attr];
         const buildings = this._getChanges(attr, pf1ks.config.buildingId, settlement.id);
+        const features = this._getChanges(attr, pf1ks.config.featureId, settlement.id);
         const improvements = this._getChanges(attr, pf1ks.config.improvementId, settlement.id);
         const events = this._getChanges(attr, pf1ks.config.eventId, settlement.id);
-        // TODO settlement feature items
 
         let total = (size ?? 0) + (government ?? 0);
         if (["maxBaseValue", "purchaseLimit"].includes(attr)) {
-          total = Math.floor(total * (1 + (buildings + improvements + events) / 100));
+          total = Math.floor(total * (1 + (buildings + features + improvements + events) / 100));
         } else {
-          total += buildings + improvements + events;
+          total += buildings + features + improvements + events;
         }
 
         // TODO what to do when baseValue is greater than maxBaseValue
@@ -38,6 +38,7 @@ export class KingdomActor extends BaseActor {
         settlement.attributes[attr] = {
           ...settlement.attributes[attr],
           buildings,
+          features,
           improvements,
           events,
           total,
@@ -49,9 +50,9 @@ export class KingdomActor extends BaseActor {
         const { size, kingdomAlignment, kingdomGovernment, settlementAlignment, settlementGovernment } =
           settlement.modifiers[modifier];
         const buildings = this._getChanges(modifier, pf1ks.config.buildingId, settlement.id);
+        const features = this._getChanges(modifier, pf1ks.config.featureId, settlement.id);
         const improvements = this._getChanges(modifier, pf1ks.config.improvementId, settlement.id);
         const events = this._getChanges(modifier, pf1ks.config.eventId, settlement.id);
-        // TODO settlement feature items
 
         let settlementTotal =
           size +
@@ -60,12 +61,14 @@ export class KingdomActor extends BaseActor {
           settlementAlignment +
           settlementGovernment +
           buildings +
+          features +
           improvements +
           events;
 
         settlement.modifiers[modifier] = {
           ...settlement.modifiers[modifier],
           buildings,
+          features,
           improvements,
           events,
           settlementTotal,
@@ -606,7 +609,7 @@ export class KingdomActor extends BaseActor {
             ...Object.keys(pf1ks.config.settlementAttributes),
             ...Object.keys(pf1ks.config.magicItemTypes),
           ].includes(changeTarget) &&
-          c.parent.system.settlementId !== settlementId // TODO it needs a district assigned as well
+          c.parent.system.settlementId !== settlementId
         ) {
           return false;
         }
