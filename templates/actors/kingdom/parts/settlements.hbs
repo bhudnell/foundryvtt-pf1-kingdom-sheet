@@ -1,15 +1,10 @@
 {{!-- Settlements Navigation --}}
 <nav class="sheet-navigation tabs" data-group="settlements">
   {{#each sections.settlements as |settlement sidx|}}
-  <div class="item" style="cursor: pointer" data-tab="{{ sidx }}" data-group="settlements">
+  <div class="item" data-tab="{{ sidx }}" data-group="settlements">
     <span>{{ name }}</span>
     {{#unless (eq sidx 0)}}
-    <a
-      class="settlement-delete"
-      style="pointer-events: visible"
-      data-id="{{ id }}"
-      data-tooltip="PF1KS.DeleteSettlement"
-    >
+    <a class="settlement-delete" data-id="{{ id }}" data-tooltip="PF1KS.DeleteSettlement">
       <i class="fa-solid fa-trash-can"></i>
     </a>
     {{/unless}}
@@ -130,15 +125,10 @@
         {{!-- Settlement Districts Navigation --}}
         <nav class="sheet-navigation tabs" data-group="settlement-{{ sidx }}-districts">
           {{#each districts as |district didx|}}
-          <div class="item" style="cursor: pointer" data-tab="{{ didx }}" data-group="settlement-{{ sidx }}-districts">
+          <div class="item" data-tab="{{ didx }}" data-group="settlement-{{ sidx }}-districts">
             <span>{{ name }}</span>
             {{#unless (eq didx 0)}}
-            <a
-              class="district-delete"
-              style="pointer-events: visible"
-              data-id="{{ id }}"
-              data-tooltip="PF1KS.DeleteDistrict"
-            >
+            <a class="district-delete" data-id="{{ id }}" data-tooltip="PF1KS.DeleteDistrict">
               <i class="fa-solid fa-trash-can"></i>
             </a>
             {{/unless}}
@@ -149,7 +139,7 @@
           </a>
         </nav>
 
-        <section class="subdetails-body settlement-{{ sidx }}-districts" style="display: flex">
+        <section class="subdetails-body settlement-{{ sidx }}-districts">
           {{#each districts as |district didx|}}
           <div
             class="tab district"
@@ -194,31 +184,24 @@
                 </div>
               </div>
 
-              <div class="grid-container" style="position: relative; margin: 20px auto; width: fit-content">
-                <div
-                  class="grid"
-                  style="display: grid; grid-template-columns: repeat(6, 82px); grid-template-rows: repeat(6, 82px)"
-                >
+              <div class="grid-container">
+                <div class="grid">
                   {{#each grid}}
                   <div class="cell" data-x="{{ x }}" data-y="{{ y }}">
-                    <div style="height: calc(100% - 2px); margin: 1px; border: 1px solid black"></div>
+                    <div></div>
                   </div>
                   {{/each}}
                 </div>
 
                 {{#each buildings}}
                 <div
-                  style="
-              position: absolute;
-              cursor: move;
-              top: calc(82px * {{ y }} + 1px);
-              left: calc(82px * {{ x }} + 1px);
-              width: calc((80px * {{ width }}) + (2px * ({{ width }} - 1)));
-              height: calc((80px * {{ height }}) + (2px * ({{ height }} - 1)));"
-                  data-item-id="{{ id }}"
                   class="building"
+                  data-item-id="{{ id }}"
+                  style="top: calc(82px * {{ y }} + 1px);left: calc(82px * {{ x }} + 1px);width: calc((80px * {{
+                    width
+                  }}) + (2px * ({{ width }} - 1)));height: calc((80px * {{ height }}) + (2px * ({{ height }} - 1)));"
                 >
-                  <img src="{{ img }}" style="width: 100%; height: 100%; border: unset" />
+                  <img src="{{ img }}" />
                 </div>
                 {{/each}}
               </div>

@@ -9,8 +9,8 @@
 
 ## General stuff
 - refactor settlements hbs file to make it less huge
-- convert all html styles into css classes (mainly district stuff)
 - expanded settlement modifiers journal
+- All existing TODOs in code
 
 ## Documentation
 - explain that max base value and purchase limit should be assumed to be percentage
@@ -45,11 +45,10 @@
   - priority?
   - operator?
 
-## Settlement Features
+## Settlement Features (changes)
 - add magic item availability (see impoverished disadvantage)
-- add a toggle for buildings providing magic items (as currently is) or base for settlement of given size
 
-## Building logic
+## Building grid logic
 - toggle for "can overlap" so things like cistern or magical streetlamps can be shown
   - optional list to limit to certain building types
   - must be able to handle lotless and lotted buildings
@@ -61,3 +60,17 @@
   - new settlements tab will just show the settlements' contrbutions to kingdom stats,
     maybe some other info too
 - buildings and settlement feature items should lose the settlementId data
+- how to break up settings and how will that all work
+- add a toggle for buildings providing magic items (as currently is) or base for settlement of given size
+  - could be called "simple settlement"
+  - wouldnt allow the settlement to be linked to a kingdom?
+
+## Settlement and Army actors
+- should they have a "parent" field? when dragged onto a kingdom, logic:
+  - if no parent (hasnt been added to a kingdom yet)
+    - create the proxy item on the parent
+    - add the parent's id to the parent field
+  - if parent
+    - error saying this actor has already been linked to a kingdom
+  - when deleting proxy items
+    - set parent of linked actor (settlement/army) to null to complete unlinking

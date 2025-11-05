@@ -134,7 +134,7 @@
     "NewSettlementLabel": "Settlement {number}",
     "DeleteSettlement": "Delete Settlement",
     "DeleteSettlementTitle": "Delete Settlement: {name}",
-    "DeleteSettlementConfirmation": "Are you sure you want to delete this settlement?",
+    "DeleteSettlementConfirmation": "Are you sure you want to delete this settlement? This will delete all buildings and features associated with it.",
     "SettlementModifiers": "Settlement Modifiers",
     "BaseValue": "Base Value",
     "Danger": "Danger",
@@ -156,7 +156,7 @@
     "NewDistrictLabel": "District {number}",
     "DeleteDistrict": "Delete District",
     "DeleteDistrictTitle": "Delete District: {name}",
-    "DeleteDistrictConfirmation": "Are you sure you want to delete this district?",
+    "DeleteDistrictConfirmation": "Are you sure you want to delete this district? This will delete all buildings associated with it.",
 
     "DistrictBorders": "District Borders",
     "Border": {
