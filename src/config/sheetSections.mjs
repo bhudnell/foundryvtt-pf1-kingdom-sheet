@@ -28,6 +28,15 @@ export const sheetSections = {
       browseLabel: "PF1KS.Browse.Boons",
     },
   },
+  kingdomSettlement: {
+    building: {
+      create: { type: buildingId },
+      filters: [{ type: buildingId }],
+      interface: {},
+      label: `PF1.Subtypes.Item.${buildingId}.Plural`,
+      browseLabel: "PF1KS.Browse.Buildings",
+    },
+  },
   kingdomTerrain: {
     general: {
       create: { type: improvementId, system: { subType: "general" } },
@@ -66,15 +75,6 @@ export const sheetSections = {
       filters: [{ type: armyId }],
       interface: {},
       label: `PF1.Subtypes.Item.${armyId}.Plural`,
-    },
-  },
-  kingdomBuilding: {
-    building: {
-      create: { type: buildingId },
-      filters: [{ type: buildingId }],
-      interface: {},
-      label: `PF1.Subtypes.Item.${buildingId}.Plural`,
-      browseLabel: "PF1KS.Browse.Buildings",
     },
   },
   settlementFeature: {

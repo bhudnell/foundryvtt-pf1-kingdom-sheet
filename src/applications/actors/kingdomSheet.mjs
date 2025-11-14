@@ -424,7 +424,7 @@ export class KingdomSheet extends pf1.applications.actor.ActorSheetPF {
             name: district.name,
             borders: district.borders,
             grid,
-            section: { ...pf1.config.sheetSections.kingdomBuilding.building },
+            section: { ...pf1.config.sheetSections.kingdomSettlement.building },
             buildings: buildings.map((building) => ({
               id: building.id,
               img: building.img,

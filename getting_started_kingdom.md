@@ -60,24 +60,6 @@ Pretty self explanatory.
 
 Checking the second ruler checkbox will change the consort role to act as a second ruler.
 
-# Kingdom Items
-
-## Buildings
-
-sdgf
-
-## Settlement Features
-
-sdfghdfg
-
-## Events
-
-sdgfsdf
-
-## Terrain Improvements
-
-sdgfsdfg
-
 # Kingdom Changes
 
 ## Max Base Value and Purchase Limit
