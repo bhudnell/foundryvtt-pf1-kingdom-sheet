@@ -424,6 +424,7 @@ export class KingdomSheet extends pf1.applications.actor.ActorSheetPF {
             name: district.name,
             borders: district.borders,
             grid,
+            section: { ...pf1.config.sheetSections.kingdomBuilding.building },
             buildings: buildings.map((building) => ({
               id: building.id,
               img: building.img,
@@ -793,6 +794,11 @@ export class KingdomSheet extends pf1.applications.actor.ActorSheetPF {
     if (settlementId) {
       createData.system ??= {};
       createData.system.settlementId = settlementId;
+    }
+    const districtId = el.dataset.districtId;
+    if (districtId) {
+      createData.system ??= {};
+      createData.system.districtId = districtId;
     }
 
     createData.name = Item.implementation.defaultName({ type, subType, parent: this.actor });

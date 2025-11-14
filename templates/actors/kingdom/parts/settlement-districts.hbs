@@ -84,6 +84,23 @@
           <div class="item-name">
             <h3>{{ localize "PF1KS.LotlessBuildings" }}</h3>
           </div>
+
+          {{#if @root.owner}}
+          <div class="item-controls two-button">
+            <a
+              class="item-control item-create"
+              data-tooltip="PF1.CreateItem"
+              data-create="{{ section.path }}"
+              data-settlement-id="{{ ../id }}"
+              data-district-id="{{ id }}"
+            >
+              <i class="fas fa-plus"></i>
+            </a>
+            <a data-action="browse" data-category="building" data-tooltip="{{ section.browseLabel }}">
+              <i class="fas fa-folder-plus"></i>
+            </a>
+          </div>
+          {{/if}}
         </li>
 
         {{#each lotlessBuildings}}

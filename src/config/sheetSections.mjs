@@ -68,6 +68,15 @@ export const sheetSections = {
       label: `PF1.Subtypes.Item.${armyId}.Plural`,
     },
   },
+  kingdomBuilding: {
+    building: {
+      create: { type: buildingId },
+      filters: [{ type: buildingId }],
+      interface: {},
+      label: `PF1.Subtypes.Item.${buildingId}.Plural`,
+      browseLabel: "PF1KS.Browse.Buildings",
+    },
+  },
   settlementFeature: {
     quality: {
       create: { type: featureId, system: { subType: "quality" } },

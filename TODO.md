@@ -1,17 +1,3 @@
-# For current release
-
-## Documentation
-- explain that max base value and purchase limit should be assumed to be percentage
-  increases/decreases and the percentages are all added up before being applied
-  example: change value of 50 should equate to a 50% increase, -30 should be a 30% decrease
-           the overall effect is a 20% increase
-- update settlement delete string to say that all associated buildings and features will be
-  deleted too
-- doc for right clicking buildings in grid to get context menu
-
-
-
-
 # For future releases
 
 ## Misc

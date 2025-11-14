@@ -26,6 +26,10 @@ The base actor for a mass combat army. Boons, Special Abilities, and Tactics are
 
 Represents a building that can be built. All of the base buildings are preconfigured and available in the provided compendium.
 
+### Settlement Feature
+
+Represents a settlement quality/disadvantage. All of the base features are preconfigured and available in the provided compendium.
+
 ### Event
 
 Represents an event that occurred in the events phase. All of the base events are available in the provided compendium. Most events' effects are based on checks so most arent configured with changes
