@@ -16,7 +16,7 @@ Settlements can be added with the create settlement button on the secondary nav 
 
 There is also a "unassigned items" button on the secondary nav bar (house icon). This will list all the buildings and settlement features that arent assigned to a settlement or district (buildings only). Items in this list do not apply their bonuses to the kingdom until correctly assigned.
 
-## Summary Tab
+### Summary Tab
 
 Shows the basic info about the settlement.
 
