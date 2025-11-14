@@ -27,15 +27,14 @@ class Settings {
 }
 
 const migrations = [
-  // first migration v3.0 (building items height/width)
-  { label: "building w/h", migrate: () => v1.migrateWorld() },
+  { label: "building/settlement updates", migrate: () => v1.migrateWorld() }, // v3.0
 ];
 
 async function migrateWorld() {
   const currentMigrationVersion = migrations.length + 1; // should always be one more than the current number of migrations
   const worldMigrationVersion = Settings.worldMigrationVersion || 0;
 
-  if (worldMigrationVersion !== currentMigrationVersion && worldMigrationVersion !== -1) {
+  if (worldMigrationVersion !== currentMigrationVersion) {
     log("Starting world migration");
 
     for (let i = 1; i <= migrations.length; i++) {

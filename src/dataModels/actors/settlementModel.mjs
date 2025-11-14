@@ -8,6 +8,8 @@ export class SettlementModel extends foundry.abstract.DataModel {
       id: new fields.StringField({ required: true, nullable: false, blank: false }),
       // img: new fields.FilePathField({ categories: ["IMAGE"] }), // TODO revisit for foundry v13 compatibility. See https://github.com/foundryvtt/foundryvtt/issues/11471
       name: new fields.StringField({ blank: true }),
+      // TODO this is deprecated and will need to be removed eventually
+      districtCount: new fields.NumberField({ integer: true, min: 0, initial: 1, nullable: false }),
       districts: new fields.ArrayField(new fields.EmbeddedDataField(DistrictModel)),
       magicItems: new fields.SchemaField({
         minor: new fields.ArrayField(new fields.StringField()),
@@ -25,25 +27,11 @@ export class SettlementModel extends foundry.abstract.DataModel {
     };
   }
 
-  static migrateData(data) {
-    if (data.districtCount != null) {
-      data.districts ??= [];
-      for (let i = 0; i < data.districtCount; i++) {
-        data.districts.push({
-          name: game.i18n.format("PF1KS.NewDistrictLabel", { number: i + 1 }),
-          id: foundry.utils.randomID(),
-        });
-      }
-      delete data.districtCount;
-    }
-  }
-
   prepareDerivedData() {
     const kingdom = this.parent;
-    const buildings = this.parent.parent.itemTypes[pf1ks.config.buildingId];
-    const totalLots = buildings
-      .filter((building) => building.system.settlementId === this.id)
-      .reduce((acc, curr) => acc + curr.system.lotSize * curr.system.quantity, 0);
+    const totalLots = this.parent.parent.itemTypes[pf1ks.config.buildingId]
+      .filter((building) => building.system.settlementId === this.id && building.isAssigned && !building.error)
+      .reduce((acc, curr) => acc + curr.system.lotSize, 0);
     const altSettlementMultiplier = totalLots > 40 ? this.districts.length : 1;
 
     // population

@@ -28,14 +28,6 @@ export class BuildingSheet extends ItemBaseSheet {
 
     // sidebar info
     context.subType = pf1ks.config.buildingTypes[itemData.type].name;
-    context.sidebarContent = [
-      {
-        isNumber: true,
-        name: "system.quantity",
-        label: game.i18n.localize("PF1.Quantity"),
-        value: itemData.quantity,
-      },
-    ];
     context.states = [
       {
         field: "system.damaged",

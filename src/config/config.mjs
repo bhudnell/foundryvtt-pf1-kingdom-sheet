@@ -446,7 +446,7 @@ export const buildingTypes = {
   },
   alchemist: {
     name: "PF1KS.Building.Alchemist",
-    lotSize: 2,
+    lotSize: 1,
     cost: 18,
   },
   arena: {

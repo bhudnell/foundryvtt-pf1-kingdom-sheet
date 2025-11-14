@@ -7,6 +7,7 @@ export class BuildingModel extends ItemBaseModel {
     const schema = {
       settlementId: new fields.StringField(),
       districtId: new fields.StringField(),
+      // TODO this is deprecated and will need to be removed eventually
       quantity: new fields.NumberField({ integer: true, min: 0, initial: 1, nullable: false }),
       type: new fields.StringField({ choices: Object.keys(pf1ks.config.buildingTypes) }),
       customLotSize: new fields.NumberField({ integer: true, min: 0, initial: 1, nullable: false }),

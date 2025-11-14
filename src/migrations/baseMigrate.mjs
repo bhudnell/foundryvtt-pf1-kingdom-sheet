@@ -1,13 +1,30 @@
+/* eslint-disable no-await-in-loop */
 import { log } from "../util/utils.mjs";
 
 const truthiness = (x) => (typeof x === "string" ? !!x?.trim() : !!x);
 
 export class BaseMigrate {
+  static getActorUpdateData(actor) {
+    throw new Error("must be overridden");
+  }
+
   static getItemUpdateData(item) {
     throw new Error("must be overridden");
   }
 
+  static getItemCreateData(item) {
+    throw new Error("must be overridden");
+  }
+
+  static getItemDeleteData(item) {
+    throw new Error("must be overridden");
+  }
+
   static async migrateItem(item) {
+    if (![...pf1ks.config.kingdomItemTypes, ...pf1ks.config.armyItemTypes].includes(item.type)) {
+      return;
+    }
+
     log(`migrating item: '${item.name}' (${item._id})`);
 
     const data = this.getItemUpdateData(item);
@@ -19,9 +36,23 @@ export class BaseMigrate {
   }
 
   static async migrateActor(actor) {
+    if (![pf1ks.config.kingdomId, pf1ks.config.armyId].includes(actor.type)) {
+      return;
+    }
+
     log(`migrating items for actor '${actor?.name}'`);
 
+    await actor.update(this.getActorUpdateData(actor));
+
     if (actor?.items?.size) {
+      const deletes = actor.items.map(this.getItemDeleteData).filter(truthiness);
+      if (deletes.length) {
+        await actor.deleteEmbeddedDocuments("Item", deletes);
+      }
+      const creates = actor.items.map(this.getItemCreateData).filter(truthiness);
+      if (creates.length) {
+        await actor.createEmbeddedDocuments("Item", creates.flat());
+      }
       const updates = actor.items.map(this.getItemUpdateData).filter(truthiness);
       if (updates.length) {
         await actor.updateEmbeddedDocuments("Item", updates);
@@ -43,19 +74,13 @@ export class BaseMigrate {
     log("migrating unlocked packs");
 
     for (const pack of game.packs.filter((x) => x.documentName === "Item" && !x.locked)) {
-      // eslint-disable-next-line no-await-in-loop
       await pack.updateAll((item) => this.getItemUpdateData(item) || {});
     }
 
     for (const pack of game.packs.filter((x) => x.documentName === "Actor" && !x.locked)) {
-      // eslint-disable-next-line no-await-in-loop
       const actors = await pack.getDocuments();
       for (const actor of actors) {
-        const updates = actor.items.map(this.getItemUpdateData).filter(truthiness);
-        if (updates.length) {
-          // eslint-disable-next-line no-await-in-loop
-          await actor.updateEmbeddedDocuments("Item", updates);
-        }
+        await this.migrateActor(actor);
       }
     }
 
@@ -66,11 +91,7 @@ export class BaseMigrate {
     log("migrating world actors");
 
     for (const actor of game.actors) {
-      const updates = actor.items.map(this.getItemUpdateData).filter(truthiness);
-      if (updates.length) {
-        // eslint-disable-next-line no-await-in-loop
-        await actor.updateEmbeddedDocuments("Item", updates);
-      }
+      await this.migrateActor(actor);
     }
 
     log("...finished migrating world actors");
@@ -84,11 +105,7 @@ export class BaseMigrate {
     );
     for (const synthetic of synthetics) {
       if (synthetic.actor) {
-        const updates = synthetic.actor.items.map(this.getItemUpdateData).filter(truthiness);
-        if (updates.length) {
-          // eslint-disable-next-line no-await-in-loop
-          await synthetic.actor.updateEmbeddedDocuments("Item", updates);
-        }
+        await this.migrateActor(synthetic.actor);
       }
     }
 

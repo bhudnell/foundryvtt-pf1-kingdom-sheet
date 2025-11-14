@@ -164,6 +164,7 @@ Hooks.once("libWrapper.Ready", () => {
 Hooks.on("pf1GetChangeFlat", getChangeFlat);
 
 Hooks.on("renderChatMessage", (message, html) => {
+  // TODO refactor to use message.getFlag()
   if (message.flags?.[PF1KS.moduleId]?.eventChanceCard) {
     html.find("button.roll-event").on("click", (e) => rollEventTable(e, message));
   }

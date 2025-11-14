@@ -1,11 +1,7 @@
 # For current release
 
 ## District stuff
-- should buildings have quantity?
-  - if not, I need to add something to the migration to spawn new items equal to current
-    quantity - 1
-- invalid buildings do not add their bonuses to things
-  - population due to lot size
+- show name on hover
 
 ## General stuff
 - refactor settlements hbs file to make it less huge

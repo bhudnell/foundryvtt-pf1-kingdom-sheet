@@ -2,7 +2,7 @@ import { BaseItemKS } from "./baseItem.mjs";
 
 export class BuildingItem extends BaseItemKS {
   get isActive() {
-    return !this.system.damaged && this.system.quantity > 0 && this.isAssigned && !this.error;
+    return !this.system.damaged && this.isAssigned && !this.error;
   }
 
   get isAssigned() {
