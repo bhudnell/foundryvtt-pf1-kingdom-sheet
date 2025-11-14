@@ -1,8 +1,5 @@
 # For current release
 
-## District stuff
-- show name on hover
-
 ## General stuff
 - refactor settlements hbs file to make it less huge
 

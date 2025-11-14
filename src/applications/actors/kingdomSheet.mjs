@@ -243,6 +243,8 @@ export class KingdomSheet extends pf1.applications.actor.ActorSheetPF {
 
     html.find(".building").on("dblclick", (e) => this._onBuildingEdit(e));
     html.find(".building").on("contextmenu", (e) => this._onBuildingContextMenu(e));
+    html.find(".building").on("pointerenter", (e) => this._onShowBuildingTooltip(e));
+    html.find(".building").on("pointerleave", (e) => game.tooltip.deactivate());
   }
 
   async _onBuildingContextMenu(event) {
@@ -272,6 +274,23 @@ export class KingdomSheet extends pf1.applications.actor.ActorSheetPF {
         cssClass: "pf1 change-menu pf1ks building-" + buildingId,
       });
     }
+  }
+
+  async _onShowBuildingTooltip(event) {
+    const el = event.currentTarget;
+    const buildingId = el.dataset.itemId;
+
+    if (!buildingId) {
+      return;
+    }
+    const building = this.actor.items.get(buildingId);
+    const content = document.createElement("span");
+    content.textContent = `${building.name} (${pf1ks.config.buildingTypes[building.system.type].name})`;
+
+    game.tooltip.activate(el, {
+      content,
+      cssClass: "pf1",
+    });
   }
 
   async _onBuildingDelete(event, tooltip = false) {
