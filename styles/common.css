@@ -1,4 +1,4 @@
-.app.sheet.kingdom {
+.app.sheet.pf1ks {
   .sheet-navigation .item.icon {
     flex: 0 0;
     padding: 0 8px;
@@ -81,16 +81,16 @@
   }
 }
 
-.app.sheet.kingdom input[type="number"] {
+.app.sheet.pf1ks input[type="number"] {
   text-align: center;
 }
 
-.app.sheet.kingdom .info-box select {
+.app.sheet.pf1ks .info-box select {
   flex: 0 0 21.5px;
   text-align: -webkit-center;
   border: unset;
 }
 
-.app.sheet.kingdom :is(span.text-box, input.text-box) {
+.app.sheet.pf1ks :is(span.text-box, input.text-box) {
   width: unset;
 }

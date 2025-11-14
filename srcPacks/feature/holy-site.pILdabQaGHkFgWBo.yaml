@@ -1,0 +1,33 @@
+type: pf1-kingdom-sheet.feature
+name: Holy Site
+system:
+  htmlFields:
+    - description.value
+  subType: quality
+  description:
+    value: >-
+      <p>The settlement hosts a shrine, temple, or landmark with great
+      significance to one or more religions. The settlement has a higher
+      percentage of divine spellcasters in its population. </p><hr
+      /><ul><li><p>Corruption –2</p></li><li><p>Increase spellcasting by 2
+      levels</p></li></ul>
+  changes:
+    - _id: CEEfPHiS
+      formula: '-2'
+      target: pf1ks_corruption
+      type: untyped
+      operator: add
+      priority: 0
+    - _id: RbwcBYmu
+      formula: '2'
+      target: pf1ks_spellcasting
+      type: untyped
+      operator: add
+      priority: 0
+  contextNotes: []
+  settlementId: ''
+_id: pILdabQaGHkFgWBo
+img: icons/svg/coins.svg
+sort: 0
+_key: '!items!pILdabQaGHkFgWBo'
+

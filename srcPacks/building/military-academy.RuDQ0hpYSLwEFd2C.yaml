@@ -4,8 +4,6 @@ system:
   htmlFields:
     - description.value
   quantity: 1
-  lots: 2
-  cost: 36
   description:
     value: >-
       <p>An institution dedicated to the study of war and the training of elite
@@ -64,6 +62,7 @@ system:
   sources: []
   settlementId: ''
   type: military_academy
+  width: 2
 _id: RuDQ0hpYSLwEFd2C
 img: modules/pf1-kingdom-sheet/assets/kingdom_building/Military%20Academy.png
 sort: 0

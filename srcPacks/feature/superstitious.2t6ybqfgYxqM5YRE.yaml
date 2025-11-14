@@ -1,0 +1,45 @@
+type: pf1-kingdom-sheet.feature
+name: Superstitious
+system:
+  htmlFields:
+    - description.value
+  subType: quality
+  description:
+    value: >-
+      <p>The community has a deep and abiding fear of magic and the unexplained,
+      but this fear has caused its citizens to become more supportive and loyal
+      to each other and their settlement.</p><hr /><ul><li><p>Crime
+      –4</p></li><li><p>Law and Society +2</p></li><li><p>Reduce spellcasting by
+      2 levels</p></li></ul>
+  changes:
+    - _id: jx6wCkxQ
+      formula: '-4'
+      target: pf1ks_crime
+      type: untyped
+      operator: add
+      priority: 0
+    - _id: jbhKtQhz
+      formula: '2'
+      target: pf1ks_law
+      type: untyped
+      operator: add
+      priority: 0
+    - _id: NmdvJuDf
+      formula: '2'
+      target: pf1ks_society
+      type: untyped
+      operator: add
+      priority: 0
+    - _id: PLxTybcq
+      formula: '-2'
+      target: pf1ks_spellcasting
+      type: untyped
+      operator: add
+      priority: 0
+  contextNotes: []
+  settlementId: ''
+_id: 2t6ybqfgYxqM5YRE
+img: icons/svg/coins.svg
+sort: 0
+_key: '!items!2t6ybqfgYxqM5YRE'
+

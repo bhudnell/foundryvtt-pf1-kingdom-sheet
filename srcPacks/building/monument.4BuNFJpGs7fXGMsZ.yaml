@@ -4,8 +4,6 @@ system:
   htmlFields:
     - description.value
   quantity: 1
-  lots: 1
-  cost: 6
   description:
     value: >-
       <p>A local memorial such as a bell tower, a statue of a settlement
@@ -20,7 +18,7 @@ system:
       priority: 0
     - _id: QjcGXSt4
       formula: '-1'
-      target: pf1ks_unrest_drop
+      target: pf1ks_unrestDrop
       type: untyped
       operator: add
       priority: 0

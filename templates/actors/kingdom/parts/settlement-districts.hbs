@@ -1,0 +1,132 @@
+{{!-- Settlement Districts Navigation --}}
+<nav class="sheet-navigation tabs" data-group="settlement-{{ sidx }}-districts">
+  {{#each districts as |district didx|}}
+  <div class="item" data-tab="{{ didx }}" data-group="settlement-{{ ../sidx }}-districts">
+    <span>{{ name }}</span>
+    {{#unless (eq didx 0)}}
+    <a class="district-delete" data-id="{{ id }}" data-tooltip="PF1KS.DeleteDistrict">
+      <i class="fa-solid fa-trash-can"></i>
+    </a>
+    {{/unless}}
+  </div>
+  {{/each}}
+  <a class="item icon district-create" data-tooltip="PF1KS.CreateDistrict">
+    <i class="fa-solid fa-plus"></i>
+  </a>
+</nav>
+
+<section class="subdetails-body settlement-{{ sidx }}-districts">
+  {{#each districts as |district didx|}}
+  <div class="tab district" data-group="settlement-{{ ../sidx }}-districts" data-tab="{{ didx }}" data-id="{{ id }}">
+    <div class="header">
+      <h1>
+        <input type="text" name="system.settlements.{{ ../sidx }}.districts.{{ didx }}.name" value="{{ name }}" />
+      </h1>
+    </div>
+
+    <div class="item-groups-list">
+      <div class="info-box-header">
+        <h3>{{localize "PF1KS.DistrictBorders"}}</h3>
+        <div class="info-box-joined">
+          <div class="info-box">
+            <h5>{{ localize "PF1KS.Direction.North" }}</h5>
+            <select name="system.settlements.{{ ../sidx }}.districts.{{ didx }}.borders.north">
+              {{selectOptions @root.districtBorderOptions selected=borders.north}}
+            </select>
+          </div>
+          <div class="info-box">
+            <h5>{{ localize "PF1KS.Direction.East" }}</h5>
+            <select name="system.settlements.{{ ../sidx }}.districts.{{ didx }}.borders.east">
+              {{selectOptions @root.districtBorderOptions selected=borders.east}}
+            </select>
+          </div>
+          <div class="info-box">
+            <h5>{{ localize "PF1KS.Direction.South" }}</h5>
+            <select name="system.settlements.{{ ../sidx }}.districts.{{ didx }}.borders.south">
+              {{selectOptions @root.districtBorderOptions selected=borders.south}}
+            </select>
+          </div>
+          <div class="info-box">
+            <h5>{{ localize "PF1KS.Direction.West" }}</h5>
+            <select name="system.settlements.{{ ../sidx }}.districts.{{ didx }}.borders.west">
+              {{selectOptions @root.districtBorderOptions selected=borders.west}}
+            </select>
+          </div>
+        </div>
+      </div>
+
+      <div class="grid-container">
+        <div class="grid">
+          {{#each grid}}
+          <div class="cell" data-x="{{ x }}" data-y="{{ y }}">
+            <div></div>
+          </div>
+          {{/each}}
+        </div>
+
+        {{#each buildings}}
+        <div
+          class="building"
+          data-item-id="{{ id }}"
+          style="
+                    top: calc(82px * {{ y }} + 1px);
+                    left: calc(82px * {{ x }} + 1px);
+                    width: calc((80px * {{ width }}) + (2px * ({{ width }} - 1)));
+                    height: calc((80px * {{ height }}) + (2px * ({{ height }} - 1)));"
+        >
+          <img src="{{ img }}" />
+        </div>
+        {{/each}}
+      </div>
+
+      <ol class="item-list">
+        <li class="flexrow item-list-header">
+          <div class="item-name">
+            <h3>{{ localize "PF1KS.LotlessBuildings" }}</h3>
+          </div>
+
+          {{#if @root.owner}}
+          <div class="item-controls two-button">
+            <a
+              class="item-control item-create"
+              data-tooltip="PF1.CreateItem"
+              data-create="{{ section.path }}"
+              data-settlement-id="{{ ../id }}"
+              data-district-id="{{ id }}"
+            >
+              <i class="fas fa-plus"></i>
+            </a>
+            <a data-action="browse" data-category="building" data-tooltip="{{ section.browseLabel }}">
+              <i class="fas fa-folder-plus"></i>
+            </a>
+          </div>
+          {{/if}}
+        </li>
+
+        {{#each lotlessBuildings}}
+        <li class="item flexrow" data-item-id="{{ id }}">
+          <div class="item-name rollable">
+            <div
+              class="item-image"
+              style="background-image: url(&quot;{{ img }}&quot;)"
+              data-tooltip="PF1.DisplayInChat"
+            ></div>
+            <h4>{{ name }}</h4>
+            {{#if error}}
+            <i class="fa-solid fa-triangle-exclamation" data-tooltip="{{ error }}"></i>
+            {{/if}}
+          </div>
+
+          {{#if @root.owner}}
+          <div class="item-controls two-button">
+            <a class="item-control item-edit" data-tooltip="PF1.EditItem"><i class="fas fa-edit"></i></a>
+            <a class="item-control item-delete" data-tooltip="PF1.DeleteItem"><i class="fas fa-trash"></i></a>
+          </div>
+          {{/if}}
+        </li>
+        {{/each}}
+      </ol>
+    </div>
+  </div>
+  {{/each}}
+</section>

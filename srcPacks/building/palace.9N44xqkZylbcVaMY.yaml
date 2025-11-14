@@ -4,8 +4,6 @@ system:
   htmlFields:
     - description.value
   quantity: 1
-  lots: 4
-  cost: 108
   description:
     value: >-
       <p>A grand edifice and walled grounds demonstrating one's wealth, power,
@@ -56,6 +54,8 @@ system:
   sources: []
   settlementId: ''
   type: palace
+  width: 2
+  height: 2
 _id: 9N44xqkZylbcVaMY
 img: modules/pf1-kingdom-sheet/assets/kingdom_building/Palace.png
 sort: 0

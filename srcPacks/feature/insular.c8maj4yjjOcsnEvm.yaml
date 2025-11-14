@@ -1,0 +1,31 @@
+type: pf1-kingdom-sheet.feature
+name: Insular
+system:
+  htmlFields:
+    - description.value
+  subType: quality
+  description:
+    value: >-
+      <p>The settlement is isolated, perhaps physically or even spiritually. Its
+      citizens are fiercely loyal to one another. </p><hr /><ul><li><p>Law
+      +1</p></li><li><p>Crime –1</p></li></ul>
+  changes:
+    - _id: OyBwfj8s
+      formula: '1'
+      target: pf1ks_law
+      type: untyped
+      operator: add
+      priority: 0
+    - _id: hnW7NXfK
+      formula: '-1'
+      target: pf1ks_crime
+      type: untyped
+      operator: add
+      priority: 0
+  contextNotes: []
+  settlementId: ''
+_id: c8maj4yjjOcsnEvm
+img: icons/svg/coins.svg
+sort: 0
+_key: '!items!c8maj4yjjOcsnEvm'
+

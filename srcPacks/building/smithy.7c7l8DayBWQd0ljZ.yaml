@@ -4,8 +4,6 @@ system:
   htmlFields:
     - description.value
   quantity: 1
-  lots: 1
-  cost: 6
   description:
     value: >-
       <p>The workshop of an armorsmith, blacksmith, weaponsmith, or other

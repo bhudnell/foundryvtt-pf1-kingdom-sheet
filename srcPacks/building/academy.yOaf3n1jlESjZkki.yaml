@@ -4,8 +4,6 @@ system:
   htmlFields:
     - description.value
   quantity: 1
-  lots: 2
-  cost: 52
   description:
     value: >-
       <p>An institution of higher learning.</p><hr /><p><strong>Kingdom</strong>
@@ -65,6 +63,8 @@ system:
   sources: []
   settlementId: ''
   type: academy
+  width: 2
+  districtId: ''
 _id: yOaf3n1jlESjZkki
 img: modules/pf1-kingdom-sheet/assets/kingdom_building/Academy.png
 sort: 0

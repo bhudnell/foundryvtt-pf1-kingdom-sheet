@@ -1,4 +1,4 @@
-.app.sheet.kingdom.actor {
+.app.sheet.pf1ks.actor {
   .tab.summary {
     .character-summary {
       > div:nth-child(2) {
@@ -56,6 +56,14 @@
   }
 
   .tab.settlements {
+    div.item {
+      cursor: pointer;
+
+      > a {
+        pointer-events: visible;
+      }
+    }
+
     .header {
       flex: 0;
       display: flex;
@@ -74,17 +82,6 @@
           height: 100%;
         }
       }
-
-      .settlement-controls {
-        flex: 0 0 42px;
-        display: flex;
-        justify-content: center;
-        align-items: center;
-      }
-    }
-
-    .item-groups-list {
-      overflow: unset;
     }
 
     .magic-item-section {
@@ -118,6 +115,37 @@
             position: absolute;
             right: 6px;
             top: 6px;
+          }
+        }
+      }
+    }
+
+    .tab.district {
+      .grid-container {
+        position: relative;
+        margin: 20px auto;
+        width: fit-content;
+
+        .grid {
+          display: grid;
+          grid-template-columns: repeat(6, 82px);
+          grid-template-rows: repeat(6, 82px);
+
+          .cell > * {
+            height: calc(100% - 2px);
+            margin: 1px;
+            border: 1px solid black;
+          }
+        }
+
+        .building {
+          position: absolute;
+          cursor: move;
+
+          > * {
+            width: 100%;
+            height: 100%;
+            border: unset;
           }
         }
       }

@@ -3,7 +3,7 @@ export class ArmySheet extends pf1.applications.actor.ActorSheetPF {
     const options = super.defaultOptions;
     return {
       ...options,
-      classes: [...options.classes, "kingdom"],
+      classes: [...options.classes, "pf1ks", "army"],
       tabs: [
         {
           navSelector: "nav.tabs[data-group='primary']",

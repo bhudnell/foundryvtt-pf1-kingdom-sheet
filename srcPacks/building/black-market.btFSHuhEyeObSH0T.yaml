@@ -4,8 +4,6 @@ system:
   htmlFields:
     - description.value
   quantity: 1
-  lots: 1
-  cost: 50
   description:
     value: >-
       <p>A number of shops with secret and usually illegal wares.</p><hr
@@ -29,7 +27,7 @@ system:
       priority: 0
     - _id: 6wFWhphS
       formula: '1'
-      target: pf1ks_unrest_drop
+      target: pf1ks_unrestDrop
       type: untyped
       operator: add
       priority: 0
@@ -73,6 +71,7 @@ system:
   sources: []
   settlementId: ''
   type: black_market
+  districtId: ''
 _id: btFSHuhEyeObSH0T
 img: modules/pf1-kingdom-sheet/assets/kingdom_building/Black%20Market.png
 sort: 0

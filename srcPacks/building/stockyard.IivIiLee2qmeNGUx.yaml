@@ -4,8 +4,6 @@ system:
   htmlFields:
     - description.value
   quantity: 1
-  lots: 4
-  cost: 20
   description:
     value: >-
       <p>Barns and pens that store herd animals and prepare them for nearby
@@ -39,6 +37,8 @@ system:
   sources: []
   settlementId: ''
   type: stockyard
+  width: 2
+  height: 2
 _id: IivIiLee2qmeNGUx
 img: modules/pf1-kingdom-sheet/assets/kingdom_building/Stockyard.png
 sort: 0

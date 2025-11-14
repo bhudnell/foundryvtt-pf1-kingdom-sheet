@@ -4,8 +4,6 @@ system:
   htmlFields:
     - description.value
   quantity: 1
-  lots: 2
-  cost: 58
   description:
     value: >-
       <p>An institution for training students in spellcasting, magic item
@@ -58,6 +56,7 @@ system:
   sources: []
   settlementId: ''
   type: magical_academy
+  width: 2
 _id: eBLVb8f2WCP2Bzyi
 img: modules/pf1-kingdom-sheet/assets/kingdom_building/Magical%20Academy.png
 sort: 0

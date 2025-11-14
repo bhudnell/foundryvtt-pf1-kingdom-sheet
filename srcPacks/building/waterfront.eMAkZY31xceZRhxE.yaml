@@ -4,8 +4,6 @@ system:
   htmlFields:
     - description.value
   quantity: 1
-  lots: 4
-  cost: 90
   description:
     value: >-
       <p>A port for waterborne arrival and departure, with facilities for
@@ -58,6 +56,8 @@ system:
   sources: []
   settlementId: ''
   type: waterfront
+  width: 2
+  height: 2
 _id: eMAkZY31xceZRhxE
 img: modules/pf1-kingdom-sheet/assets/kingdom_building/Waterfront_01.png
 sort: 0

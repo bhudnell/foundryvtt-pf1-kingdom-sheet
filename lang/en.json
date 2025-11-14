@@ -134,13 +134,15 @@
     "NewSettlementLabel": "Settlement {number}",
     "DeleteSettlement": "Delete Settlement",
     "DeleteSettlementTitle": "Delete Settlement: {name}",
-    "DeleteSettlementConfirmation": "Are you sure you want to delete this settlement?",
+    "DeleteSettlementConfirmation": "Are you sure you want to delete this settlement? This will delete all buildings and features associated with it.",
     "SettlementModifiers": "Settlement Modifiers",
-    "DistrictCount": "District Count",
-    "Districts": "Districts",
     "BaseValue": "Base Value",
     "Danger": "Danger",
+    "MaxBaseValue": "Max Base Value",
+    "PurchaseLimit": "Purchase Limit",
+    "Spellcasting": "Spellcasting",
 
+    "SettlementAttributes": "Settlement Attributes",
     "Corruption": "Corruption",
     "Crime": "Crime",
     "Productivity": "Productivity",
@@ -148,11 +150,36 @@
     "Lore": "Lore",
     "Society": "Society",
 
+    "Districts": "Districts",
+    "DistrictLabel": "District",
+    "CreateDistrict": "Create District",
+    "NewDistrictLabel": "District {number}",
+    "DeleteDistrict": "Delete District",
+    "DeleteDistrictTitle": "Delete District: {name}",
+    "DeleteDistrictConfirmation": "Are you sure you want to delete this district? This will delete all buildings associated with it.",
+
+    "DistrictBorders": "District Borders",
+    "Border": {
+      "Land": "Land",
+      "Water": "Water",
+      "Cliff": "Cliff"
+    },
+
+    "Direction": {
+      "North": "North",
+      "South": "South",
+      "East": "East",
+      "West": "West"
+    },
+
     "Buildings": "Buildings",
+    "LotlessBuildings": "Lotless Buildings",
     "BuildingType": "Building Type",
-    "Lots": "Number of lots",
+    "LotSize": "Number of lots",
     "Cost": "Cost (BP)",
     "Damaged": "Damaged",
+    "Width": "Width",
+    "Height": "Height",
     "Building": {
       "Academy": "Academy",
       "Alchemist": "Alchemist",
@@ -226,6 +253,13 @@
       "Waterway": "Waterway",
       "Custom": "Custom"
     },
+    "BuildingError": {
+      "LotSizeMismatch": "Building width * height must equal the building lot size",
+      "UnplacedLotBuilding": "Building occupies 1 or more lots and must be placed on the district grid"
+    },
+    "UnassignedItems": "Unassigned Items",
+    "MissingSettlement": "Item needs to be assigned to a settlement",
+    "MissingDistrict": "Item needs to be assigned to a settlement district",
     "MagicItems": "Magic Items",
     "MagicItem": {
       "Minor": "Minor",
@@ -233,6 +267,15 @@
       "Major": "Major"
     },
     "TooManyMagicItems": "Too many magic items. Max is {max}",
+
+    "Features": "Features",
+    "Feature": {
+      "SubTypes": {
+        "Quality": "Quality",
+        "Disadvantage": "Disadvantage",
+        "Misc": "Miscellaneous"
+      }
+    },
 
     "TerrainLabel": "Terrain",
     "HexTypes": "Hex Types",
@@ -322,6 +365,7 @@
     "DeleteArmyTitle": "Delete Army: {name}",
     "DeleteArmyConfirmation": "Are you sure you want to delete this army?",
 
+    "OptionalRules": "Optional Rules",
     "Settings": {
       "SecondRuler": "Second Ruler",
       "CollapseTooltips": "Collapse Tooltips",
@@ -329,7 +373,8 @@
       "FameInfamy": "Fame and Infamy",
       "GovernmentForms": "Forms of Government",
       "LeadershipSkills": "Leadership Skills",
-      "SettlementSizes": "Alternative Settlement Size Modifiers"
+      "SettlementSizes": "Alternative Settlement Size Modifiers",
+      "ExpandedSettlementModifiers": "Expanded Settlement Modifiers"
     },
 
     "Continuous": "Continuous",
@@ -355,6 +400,7 @@
       "Buildings": "Browse Buildings",
       "Events": "Browse Events",
       "Improvements": "Browse Terrain Improvements",
+      "Features": "Browse Settlement Features",
       "Tactics": "Browse Tactics",
       "Special": "Browse Special Abilities"
     },
@@ -365,13 +411,14 @@
       "Building": "Building",
       "Event": "Event",
       "Improvement": "Terrain Improvement",
+      "Feature": "Settlement Feature",
       "Boon": "Boon",
       "Special": "Special Ability",
       "Tactic": "Tactic"
     },
 
     "NoKingdomOrArmyItemsOnActor": "This actor cannot have Kingdom or Army items.",
-    "OnlyKingdomItemsOnActor": "Kingdom actors can only have Building, Event, and Terrain Improvement items.",
+    "OnlyKingdomItemsOnActor": "Kingdom actors can only have Building, Event, Terrain Improvement, and Settlement Feature items.",
     "OnlyArmyItemsOnActor": "Army actors can only have Boon, Special Ability, and Tactic items.",
     "LibWrapperError": "The PF1 Kingdom Sheet module requires the 'libWrapper' module. Please install and activate it."
   },
@@ -387,6 +434,7 @@
         "building": "Building",
         "event": "Event",
         "improvement": "Terrain Improvement",
+        "feature": "Settlement Feature",
         "boon": "Boon",
         "special": "Special Ability",
         "tactic": "Tactic"
@@ -415,11 +463,11 @@
           },
           "event": {
             "active": {
-              "Single": "Active Event",
+              "Single": "Active",
               "Plural": "Active"
             },
             "misc": {
-              "Single": "Miscellaneous Event",
+              "Single": "Miscellaneous",
               "Plural": "Miscellaneous"
             }
           },
@@ -431,6 +479,20 @@
             "special": {
               "Single": "Special Terrain",
               "Plural": "Special Terrain"
+            }
+          },
+          "feature": {
+            "quality": {
+              "Single": "Quality",
+              "Plural": "Qualities"
+            },
+            "disadvantage": {
+              "Single": "Disadvantage",
+              "Plural": "Disadvantages"
+            },
+            "misc": {
+              "Single": "Miscellaneous",
+              "Plural": "Miscellaneous"
             }
           }
         }

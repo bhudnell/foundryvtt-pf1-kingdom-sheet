@@ -14,6 +14,17 @@ export function renameKeys(obj, keyMap) {
   }, {});
 }
 
+export function asSignedPercent(num) {
+  if (num === 0) {
+    return "0%";
+  }
+  return (num > 0 ? "+" : "") + num.toString() + "%";
+}
+
+export function capitalize(str) {
+  return str.charAt(0).toUpperCase() + str.slice(1);
+}
+
 /**
  * Recursively transforms an ES module to a regular, writable object.
  *
@@ -187,4 +198,26 @@ export function applyChange(change, actor, targets = null, { applySourceInfo = t
       });
     }
   }
+}
+
+export function registerSetting(
+  { config = true, defaultValue = null, key, scope = "world", settingType = String },
+  { skipReady = false } = {}
+) {
+  const doIt = () =>
+    game.settings.register(pf1ks.config.moduleId, key, {
+      name: `${pf1ks.config.moduleId}.settings.${key}.name`,
+      hint: `${pf1ks.config.moduleId}.settings.${key}.hint`,
+      default: defaultValue,
+      scope,
+      requiresReload: false,
+      config,
+      type: settingType,
+    });
+
+  game.ready || skipReady ? doIt() : Hooks.once("ready", doIt);
+}
+
+export function log(msg) {
+  console.log(`${pf1ks.config.moduleId} - ${msg}`);
 }

@@ -4,8 +4,6 @@ system:
   htmlFields:
     - description.value
   quantity: 1
-  lots: 2
-  cost: 24
   description:
     value: >-
       <p>A venue for entertainments such as plays, operas, and concerts.</p><hr
@@ -29,6 +27,7 @@ system:
   sources: []
   settlementId: ''
   type: theater
+  width: 2
 _id: Oe14eiawNGkVH6xZ
 img: modules/pf1-kingdom-sheet/assets/kingdom_building/Theater.png
 sort: 0

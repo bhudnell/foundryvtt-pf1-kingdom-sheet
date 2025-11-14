@@ -4,8 +4,6 @@ system:
   htmlFields:
     - description.value
   quantity: 1
-  lots: 4
-  cost: 78
   description:
     value: >-
       <p>An institution of higher learning, focusing mainly on mundane subjects
@@ -66,6 +64,8 @@ system:
   sources: []
   settlementId: ''
   type: university
+  width: 2
+  height: 2
 _id: lzLPVU0DeZqUF4On
 img: modules/pf1-kingdom-sheet/assets/kingdom_building/University.png
 sort: 0

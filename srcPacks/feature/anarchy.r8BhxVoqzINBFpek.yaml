@@ -1,0 +1,61 @@
+type: pf1-kingdom-sheet.feature
+name: Anarchy
+system:
+  htmlFields:
+    - description.value
+  subType: disadvantage
+  description:
+    value: >-
+      <p>The settlement has no leaders—this type of community is often
+      short-lived and dangerous.</p><hr /><ul><li><p>Replaces settlement’s
+      Government and removes Government adjustments to
+      modifiers</p></li><li><p>Corruption and Crime
+      +4</p></li><li><p>Productivity and Society –4</p></li><li><p>Law
+      –6</p></li><li><p>Danger +20</p></li></ul>
+    instructions: >-
+      <p>Change settlement government to 'Autocracy'. Has the effect of removing
+      government modifiers</p>
+  changes:
+    - _id: 9XN5LLHg
+      formula: '4'
+      target: pf1ks_corruption
+      type: untyped
+      operator: add
+      priority: 0
+    - _id: hhnp3NVI
+      formula: '4'
+      target: pf1ks_crime
+      type: untyped
+      operator: add
+      priority: 0
+    - _id: ATzGW8i5
+      formula: '-4'
+      target: pf1ks_productivity
+      type: untyped
+      operator: add
+      priority: 0
+    - _id: hoFBoH4d
+      formula: '-4'
+      target: pf1ks_society
+      type: untyped
+      operator: add
+      priority: 0
+    - _id: uE6zx5DT
+      formula: '-6'
+      target: pf1ks_law
+      type: untyped
+      operator: add
+      priority: 0
+    - _id: ed98kAIc
+      formula: '20'
+      target: pf1ks_danger
+      type: untyped
+      operator: add
+      priority: 0
+  contextNotes: []
+  settlementId: ''
+_id: r8BhxVoqzINBFpek
+img: icons/svg/coins.svg
+sort: 0
+_key: '!items!r8BhxVoqzINBFpek'
+

@@ -1,0 +1,23 @@
+<div class="magic-item-section item-groups-list">
+  {{#each magicItems}}
+  <div class="magic-item-container" data-type="{{ key }}">
+    <h3>
+      {{#if error}}
+      <i class="fa-solid fa-triangle-exclamation" data-tooltip="{{ error }}"></i>
+      {{/if}}
+      <span>{{ label }}</span>
+      <span>({{ count }})</span>
+    </h3>
+    {{#each items as |item iidx|}}
+    <div class="magic-item" data-item-id="{{ iidx }}">
+      <input
+        type="text"
+        name="system.settlements.{{ ../../sidx }}.magicItems.{{../key}}.{{ iidx }}"
+        value="{{ this }}"
+      />
+      <a class="magic-item-delete" data-tooltip="PF1.DeleteItem"><i class="fas fa-trash"></i></a>
+    </div>
+    {{/each}}
+  </div>
+  {{/each}}
+</div>

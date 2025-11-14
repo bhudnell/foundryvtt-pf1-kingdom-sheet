@@ -1,0 +1,20 @@
+type: pf1-kingdom-sheet.feature
+name: Racially Intolerant
+system:
+  htmlFields:
+    - description.value
+  subType: quality
+  description:
+    value: >-
+      <p>The community is prejudiced against one or more races, which are listed
+      in parentheses.</p><hr /><ul><li><p>Members of the unwelcome race or races
+      must pay 150% of the normal price for goods and services and may face
+      mockery, insult, or even violence</p></li></ul>
+  changes: []
+  contextNotes: []
+  settlementId: ''
+_id: uQGMiksJmx8lIiV7
+img: icons/svg/coins.svg
+sort: 0
+_key: '!items!uQGMiksJmx8lIiV7'
+

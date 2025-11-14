@@ -1,0 +1,51 @@
+type: pf1-kingdom-sheet.feature
+name: Notorious
+system:
+  htmlFields:
+    - description.value
+  subType: quality
+  description:
+    value: >-
+      <p>The settlement has a reputation (deserved or not) for being a den of
+      iniquity. Thieves, rogues, and cutthroats are much more common
+      here.</p><hr /><ul><li><p>Crime +1</p></li><li><p>Law
+      –1</p></li><li><p>Danger +10</p></li><li><p>Increase base value by
+      30%</p></li><li><p>Increase purchase limit by 50%</p></li></ul>
+  changes:
+    - _id: DPt7VRA4
+      formula: '1'
+      target: pf1ks_crime
+      type: untyped
+      operator: add
+      priority: 0
+    - _id: CWDsarHG
+      formula: '-1'
+      target: pf1ks_law
+      type: untyped
+      operator: add
+      priority: 0
+    - _id: Ef5sFaFr
+      formula: '10'
+      target: pf1ks_danger
+      type: untyped
+      operator: add
+      priority: 0
+    - _id: JKsv7zvZ
+      formula: '30'
+      target: pf1ks_maxBaseValue
+      type: untyped
+      operator: add
+      priority: 0
+    - _id: 5LZGqJgt
+      formula: '50'
+      target: pf1ks_purchaseLimit
+      type: untyped
+      operator: add
+      priority: 0
+  contextNotes: []
+  settlementId: ''
+_id: iaIHthXCcxNad3zD
+img: icons/svg/coins.svg
+sort: 0
+_key: '!items!iaIHthXCcxNad3zD'
+

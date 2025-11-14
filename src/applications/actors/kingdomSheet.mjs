@@ -1,6 +1,12 @@
 import { findLargestSmallerNumber, keepUpdateArray, renameKeys } from "../../util/utils.mjs";
 
+const GRID_COLS = 6;
+const GRID_ROWS = 6;
+
 export class KingdomSheet extends pf1.applications.actor.ActorSheetPF {
+  // data for building grid drag/drop
+  _dragDropData = null;
+
   constructor(actor, options) {
     options.tabs = [
       {
@@ -21,8 +27,15 @@ export class KingdomSheet extends pf1.applications.actor.ActorSheetPF {
       options.tabs.push({
         navSelector: `nav.tabs[data-group='settlement-${idx}-details']`,
         contentSelector: `section.settlement-${idx}-details`,
-        initial: `buildings`,
-        group: `setlement-${idx}-details`,
+        initial: `summary`,
+        group: `settlement-${idx}-details`,
+      });
+
+      options.tabs.push({
+        navSelector: `nav.tabs[data-group='settlement-${idx}-districts']`,
+        contentSelector: `section.settlement-${idx}-districts`,
+        initial: 0,
+        group: `settlement-${idx}-districts`,
       });
     }
 
@@ -33,8 +46,13 @@ export class KingdomSheet extends pf1.applications.actor.ActorSheetPF {
     const options = super.defaultOptions;
     return {
       ...options,
-      classes: [...options.classes, "kingdom"],
+      classes: [...options.classes, "pf1ks", "kingdom"],
       scrollY: [...options.scrollY, ".subdetails-body"],
+      dragDrop: [
+        ...options.dragDrop,
+        { dragSelector: ".building[data-item-id]", dropSelector: ".district .grid .cell" },
+      ],
+      height: 940,
     };
   }
 
@@ -62,7 +80,9 @@ export class KingdomSheet extends pf1.applications.actor.ActorSheetPF {
 
     // selectors
     data.alignmentOptions = pf1.config.alignments;
-    data.governmentOptions = pf1ks.config.kingdomGovernments;
+    data.kingdomGovernmentOptions = pf1ks.config.kingdomGovernments;
+    data.settlementGovernmentOptions = pf1ks.config.settlementGovernments;
+    data.districtBorderOptions = pf1ks.config.districtBorders;
     data.holidayOptions = pf1ks.config.edicts.holiday;
     data.promotionOptions = pf1ks.config.edicts.promotion;
     data.taxationOptions = pf1ks.config.edicts.taxation;
@@ -143,9 +163,24 @@ export class KingdomSheet extends pf1.applications.actor.ActorSheetPF {
 
     data.sections = this._prepareItems();
 
-    data.noSettlementBuildings = this.actor.itemTypes[pf1ks.config.buildingId].filter(
-      (building) => !building.system.settlementId
-    );
+    const settlements = this.actor.system.settlements;
+    const districts = this.actor.system.settlements.flatMap((settlement) => settlement.districts);
+    data.unassignedBuildings = this.actor.itemTypes[pf1ks.config.buildingId]
+      .filter((building) => !building.isAssigned)
+      .map((building) => ({
+        id: building.id,
+        img: building.img,
+        name: building.name,
+        settlementName: settlements.find((s) => s.id === building.system.settlementId)?.name,
+        districtName: districts.find((d) => d.id === building.system.districtId)?.name,
+      }));
+    data.unassignedFeatures = this.actor.itemTypes[pf1ks.config.featureId]
+      .filter((feature) => !feature.isAssigned)
+      .map((feature) => ({
+        id: feature.id,
+        img: feature.img,
+        name: feature.name,
+      }));
 
     // terrain
     data.terrain = Object.entries(actorData.terrain).map(([key, value]) => ({
@@ -197,55 +232,219 @@ export class KingdomSheet extends pf1.applications.actor.ActorSheetPF {
     html.find(".settlement-create").on("click", (e) => this._onSettlementCreate(e));
     html.find(".settlement-delete").on("click", (e) => this._onSettlementDelete(e));
 
+    html.find(".district-create").on("click", (e) => this._onDistrictCreate(e));
+    html.find(".district-delete").on("click", (e) => this._onDistrictDelete(e));
+
     html.find(".magic-item-delete").on("click", (e) => this._onMagicItemDelete(e));
 
     html.find(".army-create").on("click", (e) => this._onArmyCreate(e));
     html.find(".army-edit").on("click", (e) => this._onArmyEdit(e));
     html.find(".army-delete").on("click", (e) => this._onArmyDelete(e));
+
+    html.find(".building").on("dblclick", (e) => this._onBuildingEdit(e));
+    html.find(".building").on("contextmenu", (e) => this._onBuildingContextMenu(e));
+    html.find(".building").on("pointerenter", (e) => this._onShowBuildingTooltip(e));
+    html.find(".building").on("pointerleave", (e) => game.tooltip.deactivate());
+  }
+
+  async _onBuildingContextMenu(event) {
+    const el = event.currentTarget;
+
+    const buildingId = el.dataset.itemId;
+    if (!buildingId) {
+      return;
+    }
+
+    const content = document.createElement("div");
+    content.innerHTML = await renderTemplate(
+      `modules/${pf1ks.config.moduleId}/templates/actors/kingdom/parts/building-tooltip.hbs`,
+      {
+        buildingId,
+      }
+    );
+
+    content.querySelector(".delete").addEventListener("click", (ev) => this._onBuildingDelete(ev, true));
+    content.querySelector(".edit").addEventListener("click", (ev) => this._onBuildingEdit(ev, true));
+
+    if (!document.querySelector(`.locked-tooltip.pf1ks.building-${buildingId}`)) {
+      await game.tooltip.activate(el, {
+        content,
+        locked: true,
+        direction: TooltipManager.TOOLTIP_DIRECTIONS.CENTER,
+        cssClass: "pf1 change-menu pf1ks building-" + buildingId,
+      });
+    }
+  }
+
+  async _onShowBuildingTooltip(event) {
+    const el = event.currentTarget;
+    const buildingId = el.dataset.itemId;
+
+    if (!buildingId) {
+      return;
+    }
+    const building = this.actor.items.get(buildingId);
+    const content = document.createElement("span");
+    content.textContent = `${building.name} (${pf1ks.config.buildingTypes[building.system.type].name})`;
+
+    game.tooltip.activate(el, {
+      content,
+      cssClass: "pf1",
+    });
+  }
+
+  async _onBuildingDelete(event, tooltip = false) {
+    event.preventDefault();
+    const el = event.currentTarget;
+    const buildingId = el.dataset.itemId;
+    const building = this.actor.items.get(buildingId);
+
+    if (building) {
+      if (tooltip) {
+        game.tooltip.dismissLockedTooltip(el.closest(".locked-tooltip"));
+      }
+
+      await this._onDelete({
+        button: el,
+        title: game.i18n.format("PF1.DeleteItemTitle", { name: building.name }),
+        content: `<p>${game.i18n.localize("PF1.DeleteItemConfirmation")}</p>`,
+        onDelete: async () => await building.delete(),
+      });
+    }
+  }
+
+  _onBuildingEdit(event, tooltip = false) {
+    event.preventDefault();
+    const el = event.currentTarget;
+    const buildingId = el.dataset.itemId;
+    const building = this.actor.items.get(buildingId);
+
+    if (building) {
+      if (tooltip) {
+        game.tooltip.dismissLockedTooltip(el.closest(".locked-tooltip"));
+      }
+      building.sheet.render(true, { focus: true });
+    }
   }
 
   _prepareItems() {
-    const items = this.actor.items.map((i) => i).sort((a, b) => (a.sort || 0) - (b.sort || 0));
-    const [buildings, improvements, events] = items.reduce(
-      (arr, item) => {
-        if (item.type === pf1ks.config.buildingId) {
-          arr[0].push(item);
-        } else if (item.type === pf1ks.config.improvementId) {
-          arr[1].push(item);
-        } else if (item.type === pf1ks.config.eventId) {
-          arr[2].push(item);
+    const featureSections = Object.values(pf1.config.sheetSections.settlementFeature).map((data) => ({ ...data }));
+    this.actor.itemTypes[pf1ks.config.featureId]
+      .map((i) => i)
+      .sort((a, b) => (a.sort || 0) - (b.sort || 0))
+      .forEach((i) => {
+        const section = featureSections.find((section) => this._applySectionFilter(i, section));
+        if (section) {
+          section.items ??= [];
+          section.items.push({ ...i, id: i.id });
         }
-        return arr;
-      },
-      [[], [], []]
-    );
+      });
+
+    const terrainSections = Object.values(pf1.config.sheetSections.kingdomTerrain).map((data) => ({ ...data }));
+    this.actor.itemTypes[pf1ks.config.improvementId]
+      .map((i) => i)
+      .sort((a, b) => (a.sort || 0) - (b.sort || 0))
+      .forEach((i) => {
+        const section = terrainSections.find((section) => this._applySectionFilter(i, section));
+        if (section) {
+          section.items ??= [];
+          section.items.push({ ...i, id: i.id, isEmpty: i.system.quantity === 0 });
+        }
+      });
+
+    const eventsSections = Object.values(pf1.config.sheetSections.kingdomEvent).map((data) => ({ ...data }));
+    this.actor.itemTypes[pf1ks.config.eventId]
+      .map((i) => i)
+      .sort((a, b) => (a.sort || 0) - (b.sort || 0))
+      .forEach((e) => {
+        const section = eventsSections.find((section) => this._applySectionFilter(e, section));
+        if (section) {
+          section.items ??= [];
+          section.items.push({
+            ...e,
+            id: e.id,
+            settlementName: this.actor.system.settlements.find((s) => s.id === e.system.settlementId)?.name,
+          });
+        }
+      });
+
+    const categories = [
+      { key: "features", sections: featureSections },
+      { key: "terrain", sections: terrainSections },
+      { key: "events", sections: eventsSections },
+    ];
+    for (const { key, sections } of categories) {
+      const set = this._filters.sections[key];
+      for (const section of sections) {
+        if (!section) {
+          continue;
+        }
+        section._hidden = set?.size > 0 && !set.has(section.id);
+      }
+    }
 
     const settlementSections = this.actor.system.settlements.map((settlement) => {
-      const { defense, baseValue, ...modifiers } = settlement.modifiers;
+      const settlementBuildings = this.actor.itemTypes[pf1ks.config.buildingId].filter(
+        (building) => building.system.settlementId === settlement.id
+      );
 
       return {
         ...settlement,
-        defense,
-        baseValue,
-        modifiers: Object.entries(modifiers).map(([key, value]) => {
+        modifiers: Object.entries(settlement.modifiers).map(([key, value]) => {
           return {
             id: key,
             label: pf1ks.config.settlementModifiers[key],
             value: value.total,
           };
         }),
-        sizeLabel: pf1ks.config.settlementSizes[settlement.size],
-        buildings: {
-          ...pf1.config.sheetSections.kingdomSettlement.building,
-          items: buildings
-            .filter((building) => building.system.settlementId === settlement.id)
-            .map((building) => ({
-              ...building,
+        sizeLabel: pf1ks.config.settlementSizes[settlement.attributes.size],
+        districts: settlement.districts.map((district) => {
+          const grid = Array.from({ length: GRID_ROWS * GRID_COLS }, (_, i) => ({
+            x: i % GRID_COLS,
+            y: Math.floor(i / GRID_ROWS),
+          }));
+
+          const [buildings, lotlessBuildings] = settlementBuildings.reduce(
+            (arr, building) => {
+              if (building.system.districtId !== district.id) {
+                return arr;
+              }
+              if (building.inGrid) {
+                arr[0].push(building);
+              } else {
+                arr[1].push(building);
+              }
+              return arr;
+            },
+            [[], []]
+          );
+
+          return {
+            id: district.id,
+            name: district.name,
+            borders: district.borders,
+            grid,
+            section: { ...pf1.config.sheetSections.kingdomSettlement.building },
+            buildings: buildings.map((building) => ({
               id: building.id,
-              isEmpty: building.system.quantity === 0,
-              buildingType: pf1ks.config.buildingTypes[building.system.type],
+              img: building.img,
+              width: building.system.width,
+              height: building.system.height,
+              x: building.system.x,
+              y: building.system.y,
             })),
-        },
+            lotlessBuildings: lotlessBuildings.map((building) => ({
+              id: building.id,
+              img: building.img,
+              name: building.name,
+              error: building.error,
+            })),
+          };
+        }),
+        features: featureSections.map((section) => ({
+          ...section,
+          items: section.items?.filter((item) => item.system.settlementId === settlement.id),
+        })),
         magicItems: Object.entries(pf1ks.config.magicItemTypes).map(([key, label]) => {
           const items = settlement.magicItems[key];
           const max = this.actor._getChanges(key, undefined, settlement.id);
@@ -260,42 +459,6 @@ export class KingdomSheet extends pf1.applications.actor.ActorSheetPF {
         }),
       };
     });
-
-    const terrainSections = Object.values(pf1.config.sheetSections.kingdomTerrain).map((data) => ({ ...data }));
-    for (const i of improvements) {
-      const section = terrainSections.find((section) => this._applySectionFilter(i, section));
-      if (section) {
-        section.items ??= [];
-        section.items.push({ ...i, id: i.id, isEmpty: i.system.quantity === 0 });
-      }
-    }
-
-    const eventsSections = Object.values(pf1.config.sheetSections.kingdomEvent).map((data) => ({ ...data }));
-    for (const i of events) {
-      const section = eventsSections.find((section) => this._applySectionFilter(i, section));
-      if (section) {
-        section.items ??= [];
-        section.items.push({
-          ...i,
-          id: i.id,
-          settlementName: this.actor.system.settlements.find((s) => s.id === i.system.settlementId)?.name,
-        });
-      }
-    }
-
-    const categories = [
-      { key: "terrain", sections: terrainSections },
-      { key: "events", sections: eventsSections },
-    ];
-    for (const { key, sections } of categories) {
-      const set = this._filters.sections[key];
-      for (const section of sections) {
-        if (!section) {
-          continue;
-        }
-        section._hidden = set?.size > 0 && !set.has(section.id);
-      }
-    }
 
     return { terrain: terrainSections, events: eventsSections, settlements: settlementSections };
   }
@@ -406,19 +569,30 @@ export class KingdomSheet extends pf1.applications.actor.ActorSheetPF {
     settlements.push({
       name: game.i18n.format("PF1KS.NewSettlementLabel", { number: newIdx + 1 }),
       id: foundry.utils.randomID(),
-      districtCount: 1,
+      districts: [{ name: game.i18n.format("PF1KS.NewDistrictLabel", { number: 1 }), id: foundry.utils.randomID() }],
     });
 
-    // adding building/magic item nav for new settlement
-    const tab = {
-      navSelector: `nav.tabs[data-group='settlement-${newIdx}-details']`,
-      contentSelector: `section.settlement-${newIdx}-details`,
-      initial: `buildings`,
-      group: `setlement-${newIdx}-details`,
-      callback: this._onChangeTab.bind(this),
-    };
-    this.options.tabs.push(tab);
-    this._tabs.push(new Tabs(tab));
+    // adding summary/districts/features/magic items nav and district nav for new settlement
+    const tabs = [
+      {
+        navSelector: `nav.tabs[data-group='settlement-${newIdx}-details']`,
+        contentSelector: `section.settlement-${newIdx}-details`,
+        initial: `summary`,
+        group: `settlement-${newIdx}-details`,
+        callback: this._onChangeTab.bind(this),
+      },
+      {
+        navSelector: `nav.tabs[data-group='settlement-${newIdx}-districts']`,
+        contentSelector: `section.settlement-${newIdx}-districts`,
+        initial: 0,
+        group: `settlement-${newIdx}-districts`,
+        callback: this._onChangeTab.bind(this),
+      },
+    ];
+    this.options.tabs.push(...tabs);
+    for (const tab of tabs) {
+      this._tabs.push(new Tabs(tab));
+    }
 
     await this._onSubmit(event, {
       updateData: { "system.settlements": settlements },
@@ -429,12 +603,13 @@ export class KingdomSheet extends pf1.applications.actor.ActorSheetPF {
 
   async _onSettlementDelete(event) {
     event.preventDefault();
+    this.form.disabled = true;
 
-    const settlementId = event.currentTarget.closest(".settlement").dataset.id;
+    const settlementId = event.currentTarget.dataset.id;
     const settlements = foundry.utils.duplicate(this.actor.system.settlements ?? []);
     const deletedSettlement = settlements.findSplice((settlement) => settlement.id === settlementId);
 
-    await this._onDelete({
+    const response = await this._onDelete({
       button: event.currentTarget,
       title: game.i18n.format("PF1KS.DeleteSettlementTitle", { name: deletedSettlement.name }),
       content: `<p>${game.i18n.localize("PF1KS.DeleteSettlementConfirmation")}</p>`,
@@ -444,11 +619,65 @@ export class KingdomSheet extends pf1.applications.actor.ActorSheetPF {
         }),
     });
 
-    const buildingIdsToDelete = this.actor.itemTypes[pf1ks.config.buildingId]
-      .filter((building) => building.system.settlementId === settlementId)
-      .map((building) => building._id);
+    if (response) {
+      const itemIdsToDelete = this.actor.items
+        .filter(
+          (item) =>
+            [pf1ks.config.buildingId, pf1ks.config.featureId].includes(item.type) &&
+            item.system.settlementId === settlementId
+        )
+        .map((item) => item._id);
 
-    await this.actor.deleteEmbeddedDocuments("Item", buildingIdsToDelete);
+      await this.actor.deleteEmbeddedDocuments("Item", itemIdsToDelete);
+    }
+  }
+
+  async _onDistrictCreate(event) {
+    event.preventDefault();
+
+    const settlementId = event.currentTarget.closest(".settlement").dataset.id;
+    const settlements = foundry.utils.duplicate(this.actor.system.settlements ?? []);
+    const settlementIdx = settlements.findIndex((settlement) => settlement.id === settlementId);
+    const newIdx = settlements[settlementIdx].districts.length;
+    settlements[settlementIdx].districts.push({
+      name: game.i18n.format("PF1KS.NewDistrictLabel", { number: newIdx + 1 }),
+      id: foundry.utils.randomID(),
+    });
+
+    await this._onSubmit(event, {
+      updateData: { "system.settlements": settlements },
+    });
+
+    this.activateTab(`${newIdx}`, { group: `settlement-${settlementIdx}-districts` });
+  }
+
+  async _onDistrictDelete(event) {
+    event.preventDefault();
+    this.form.disabled = true;
+
+    const settlementId = event.currentTarget.closest(".settlement").dataset.id;
+    const districtId = event.currentTarget.dataset.id;
+    const settlements = foundry.utils.duplicate(this.actor.system.settlements ?? []);
+    const settlement = settlements.find((settlement) => settlement.id === settlementId);
+    const deletedDistrict = settlement.districts.findSplice((district) => district.id === districtId);
+
+    const response = await this._onDelete({
+      button: event.currentTarget,
+      title: game.i18n.format("PF1KS.DeleteDistrictTitle", { name: deletedDistrict.name }),
+      content: `<p>${game.i18n.localize("PF1KS.DeleteDistrictConfirmation")}</p>`,
+      onDelete: () =>
+        this._onSubmit(event, {
+          updateData: { "system.settlements": settlements },
+        }),
+    });
+
+    if (response) {
+      const itemIdsToDelete = this.actor.itemTypes[pf1ks.config.buildingId]
+        .filter((item) => item.system.districtId === districtId)
+        .map((item) => item._id);
+
+      await this.actor.deleteEmbeddedDocuments("Item", itemIdsToDelete);
+    }
   }
 
   async _onMagicItemDelete(event) {
@@ -530,7 +759,7 @@ export class KingdomSheet extends pf1.applications.actor.ActorSheetPF {
     button.disabled = true;
 
     try {
-      await Dialog.confirm({
+      return await Dialog.confirm({
         title,
         content,
         yes: () => {
@@ -559,9 +788,6 @@ export class KingdomSheet extends pf1.applications.actor.ActorSheetPF {
     }
     const type = createData.type || el.dataset.type;
     const subType = createData.system?.subType;
-    const typeName = game.i18n.localize(
-      subType ? `PF1.Subtypes.Item.${type}.${subType}.Single` : CONFIG.Item.typeLabels[type]
-    );
 
     // This is the part I had to add
     const settlementId = el.dataset.settlementId;
@@ -569,9 +795,14 @@ export class KingdomSheet extends pf1.applications.actor.ActorSheetPF {
       createData.system ??= {};
       createData.system.settlementId = settlementId;
     }
+    const districtId = el.dataset.districtId;
+    if (districtId) {
+      createData.system ??= {};
+      createData.system.districtId = districtId;
+    }
 
-    const newItem = new Item.implementation({ name: game.i18n.format("PF1.NewItem", { type: typeName }), type });
-    newItem.updateSource(createData);
+    createData.name = Item.implementation.defaultName({ type, subType, parent: this.actor });
+    const newItem = new Item.implementation(createData);
 
     this._sortNewItem(newItem);
 
@@ -595,7 +826,7 @@ export class KingdomSheet extends pf1.applications.actor.ActorSheetPF {
       }
     }
 
-    return this.actor.createEmbeddedDocuments("Item", [newItem.toObject()], { renderSheet: true });
+    return Item.implementation.create(newItem.toObject(), { parent: this.actor, renderSheet: true });
   }
 
   async _updateObject(event, formData) {
@@ -603,6 +834,10 @@ export class KingdomSheet extends pf1.applications.actor.ActorSheetPF {
 
     if (changed.system) {
       const keepPaths = ["system.settlements"];
+
+      for (const idx in changed.system.settlements) {
+        keepPaths.push(`system.settlements.${idx}.districts`);
+      }
 
       const itemData = this.actor.toObject();
       for (const path of keepPaths) {
@@ -613,17 +848,115 @@ export class KingdomSheet extends pf1.applications.actor.ActorSheetPF {
     return super._updateObject(event, changed);
   }
 
+  _createDragDropData(event, building) {
+    const district = event.target.closest(".district");
+    const districtId = district.dataset.id;
+
+    return {
+      isBuilding: building.type === pf1ks.config.buildingId,
+      id: building.id,
+      width: building.system.width,
+      height: building.system.height,
+      lotSize: building.system.lotSize,
+      districtId,
+      occupiedCells: this._computeOccupiedCells(districtId, building.id),
+    };
+  }
+
+  _computeOccupiedCells(districtId, excludeId) {
+    const occupied = new Set();
+    this.actor.itemTypes[pf1ks.config.buildingId]
+      .filter((b) => b.system.districtId === districtId && b.id !== excludeId)
+      .forEach((b) => {
+        for (let x = b.system.x; x < b.system.x + b.system.width; x++) {
+          for (let y = b.system.y; y < b.system.y + b.system.height; y++) {
+            occupied.add(`${x},${y}`);
+          }
+        }
+      });
+    return occupied;
+  }
+
+  async _onDragOver(e) {
+    await super._onDragOver(e);
+
+    // not dragging over a district grid, so no highlighting needed
+    const districtGridContainer = e.target.closest(".grid-container");
+    if (!districtGridContainer) {
+      const district = e.target.closest(".district");
+      if (district) {
+        const grid = district.querySelector(".grid");
+        grid.querySelectorAll(".cell").forEach((cell) => {
+          cell.style.backgroundColor = "unset";
+          cell.style.zIndex = "unset";
+        });
+      }
+      return;
+    }
+
+    // drag/drop data hasnt be initialized yet or
+    // the existing dragDropData is for a different building, initialize it
+    if (!this._dragDropData || pf1ks._temp.dragDrop?.id !== this._dragDropData?.id) {
+      const building = await Item.implementation.fromDropData(pf1ks._temp.dragDrop);
+      this._dragDropData = this._createDragDropData(e, building);
+    }
+
+    // not dragging a building, so no highlighting needed
+    if (!this._dragDropData.isBuilding) {
+      return;
+    }
+
+    // clear highlights
+    const grid = districtGridContainer.querySelector(".grid");
+    grid.querySelectorAll(".cell").forEach((cell) => {
+      cell.style.backgroundColor = "unset";
+      cell.style.zIndex = "unset";
+    });
+
+    // find hovered cell coords
+    const rect = grid.getBoundingClientRect();
+    const cellWidth = rect.width / GRID_COLS;
+    const cellHeight = rect.width / GRID_ROWS;
+    const x = Math.floor((event.clientX - rect.left) / cellWidth);
+    const y = Math.floor((event.clientY - rect.top) / cellHeight);
+
+    // validate
+    const valid = this._checkPlacement(x, y, this._dragDropData);
+
+    if (!valid) {
+      // debugger;
+    }
+
+    // color by validity
+    const color = valid ? "rgba(0,255,0,0.3)" : "rgba(255,0,0,0.3)";
+
+    // highlight footprint
+    const { width, height } = this._dragDropData;
+    for (let dx = 0; dx < (width || 1); dx++) {
+      for (let dy = 0; dy < (height || 1); dy++) {
+        const cell = grid.querySelector(`.cell[data-x="${x + dx}"][data-y="${y + dy}"]`);
+        if (cell) {
+          cell.style.backgroundColor = color;
+          cell.style.zIndex = 20;
+        }
+      }
+    }
+  }
+
   // this function is almost identical to the system function on actor-sheet.mjs, except it
-  // allows the settlementId of buildings to be pre-populated when dropped on settlements,
+  // allows the settlement/district ids of buildings to be pre-populated when dropped on settlements,
   // and removes some of the unnecessary stuff
   async _onDropItem(event, data) {
+    // Prevents double building creation when dropping new items onto the grid
+    event.stopPropagation();
+
     if (!this.actor.isOwner) {
       return void ui.notifications.warn("PF1.Error.NoActorPermission", { localize: true });
     }
 
     const sourceItem = await Item.implementation.fromDropData(data);
 
-    const sameActor = sourceItem.actor === this.actor && !data.containerId;
+    const sameActor = sourceItem.actor === this.actor;
 
     const itemData = game.items.fromCompendium(sourceItem, {
       clearFolder: true,
@@ -631,22 +964,103 @@ export class KingdomSheet extends pf1.applications.actor.ActorSheetPF {
       clearSort: !sameActor,
     });
 
+    // this is the new stuff, settlement id and building handling
+    // settlement id handling
+    const settlementId = event.target.closest(".settlement")?.dataset.id;
+    if (settlementId && itemData.system.settlementId != null) {
+      itemData.system.settlementId = settlementId;
+    }
+    // building handling
+    if (itemData.type === pf1ks.config.buildingId) {
+      return this._handleBuildings(event, itemData, sourceItem, sameActor);
+    }
+
     // Handle item sorting within the same actor
     if (sameActor) {
       return this._onSortItem(event, itemData);
     }
 
     // Create the owned item
-    this._alterDropItemData(itemData, sourceItem);
+    return this._onDropItemCreate(itemData);
+  }
 
-    // this is the part I had to add
-    // if building dropped on a settlement, add the settlement id
-    const settlementId = event.target.closest(".tab.settlement")?.dataset.id;
-    if (itemData.type === pf1ks.config.buildingId && settlementId) {
-      itemData.system.settlementId = settlementId;
+  _handleBuildings(event, itemData, sourceItem, sameActor) {
+    const district = event.target.closest(".district");
+    const districtId = district?.dataset.id;
+    if (districtId) {
+      itemData.system.districtId = districtId;
     }
 
-    return this._onDropItemCreate(itemData);
+    let x = null;
+    let y = null;
+    let valid = true;
+
+    const grid = event.target.closest(".grid-container");
+    if (district && grid) {
+      // determine what cell the drop is in
+      const rect = grid.getBoundingClientRect();
+      const cellWidth = rect.width / GRID_COLS;
+      const cellHeight = rect.width / GRID_ROWS;
+      x = Math.floor((event.clientX - rect.left) / cellWidth);
+      y = Math.floor((event.clientY - rect.top) / cellHeight);
+
+      // validate
+      valid = this._checkPlacement(x, y, this._dragDropData);
+
+      // clear out dragData
+      this._dragDropData = null;
+      pf1ks._temp.dragDrop = null;
+
+      // clear highlights
+      grid.querySelectorAll(".cell").forEach((cell) => {
+        cell.style.backgroundColor = "unset";
+        cell.style.zIndex = "unset";
+      });
+    }
+
+    if (!sameActor) {
+      if (valid) {
+        itemData.system.x = x;
+        itemData.system.y = y;
+      }
+      return this._onDropItemCreate(itemData);
+    }
+
+    if (valid) {
+      return sourceItem.update({
+        "system.x": x,
+        "system.y": y,
+      });
+    }
+  }
+
+  _checkPlacement(x, y, dragData) {
+    const { width, height, lotSize, occupiedCells } = dragData;
+
+    // must have width/height/lotSize
+    if (!height || !width || !lotSize) {
+      return false;
+    }
+
+    // bounding box
+    const srcRight = x + width - 1;
+    const srcBottom = y + height - 1;
+
+    // must fit inside grid
+    if (srcRight >= GRID_COLS || srcBottom >= GRID_ROWS) {
+      return false;
+    }
+
+    // must not overlap any existing buildings
+    for (let i = x; i < x + width; i++) {
+      for (let j = y; j < y + height; j++) {
+        if (occupiedCells.has(`${i},${j}`)) {
+          return false;
+        }
+      }
+    }
+
+    return true;
   }
 
   // allows dropping armies onto kingdoms
@@ -677,6 +1091,7 @@ export class KingdomSheet extends pf1.applications.actor.ActorSheetPF {
     let tabId;
     switch (item.type) {
       case pf1ks.config.buildingId:
+      case pf1ks.config.featureId:
         tabId = "settlements";
         break;
       case pf1ks.config.improvementId:
@@ -866,16 +1281,43 @@ export class KingdomSheet extends pf1.applications.actor.ActorSheetPF {
         });
         notes = await getNotes(`${pf1ks.config.changePrefix}_${id}`);
         break;
-      case "settlement-danger": {
+      case "settlement-danger":
+      case "settlement-defense":
+      case "settlement-baseValue":
+      case "settlement-purchaseLimit":
+      case "settlement-spellcasting":
+      case "settlement-maxBaseValue": {
+        const [, attr] = id.split("-");
         const settlement = actorData.settlements[detail];
         paths.push({
-          path: `@settlements.${detail}.danger`,
-          value: settlement.danger,
+          path: `@settlements.${detail}.attributes.${attr}.total`,
+          value: settlement.attributes[attr].total,
         });
         sources.push({
-          sources: actor.getSourceDetails(`system.settlements.${detail}.danger`),
+          sources: actor.getSourceDetails(`system.settlements.${detail}.attributes.${attr}.total`),
           untyped: true,
         });
+        break;
+      }
+
+      case "settlement-Alignment":
+      case "settlement-Government": {
+        const [, modifier] = id.split("-");
+        const settlement = actorData.settlements[detail];
+        Object.entries(pf1ks.config.settlementModifiers).forEach(([mod, label]) => {
+          if (settlement.modifiers[mod][`settlement${modifier}`]) {
+            paths.push({
+              path: label,
+              value: settlement.modifiers[mod][`settlement${modifier}`].signedString(),
+            });
+          }
+        });
+        if (settlement.attributes.spellcasting[`${modifier.toLocaleLowerCase()}`]) {
+          paths.push({
+            path: pf1ks.config.settlementAttributes.spellcasting,
+            value: settlement.attributes.spellcasting[`${modifier.toLocaleLowerCase()}`].signedString(),
+          });
+        }
         break;
       }
       case "settlement-corruption":
@@ -883,9 +1325,7 @@ export class KingdomSheet extends pf1.applications.actor.ActorSheetPF {
       case "settlement-productivity":
       case "settlement-law":
       case "settlement-lore":
-      case "settlement-society":
-      case "settlement-defense":
-      case "settlement-baseValue": {
+      case "settlement-society": {
         const [, modifier] = id.split("-");
         const settlement = actorData.settlements[detail];
         paths.push(

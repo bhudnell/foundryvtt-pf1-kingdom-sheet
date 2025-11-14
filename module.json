@@ -12,7 +12,7 @@
   ],
 
   "esmodules": ["src/main.mjs"],
-  "styles": ["styles/common.css", "styles/actor.css"],
+  "styles": ["styles/common.css", "styles/actor.css", "styles/item.css"],
 
   "documentTypes": {
     "Actor": {
@@ -31,6 +31,9 @@
         "htmlFields": ["description.value"]
       },
       "improvement": {
+        "htmlFields": ["description.value"]
+      },
+      "feature": {
         "htmlFields": ["description.value"]
       },
       "boon": {
@@ -107,6 +110,16 @@
       "system": "pf1"
     },
     {
+      "name": "feature",
+      "label": "Settlement Features",
+      "path": "packs/feature",
+      "type": "Item",
+      "ownership": {
+        "PLAYER": "OBSERVER"
+      },
+      "system": "pf1"
+    },
+    {
       "name": "rules",
       "label": "Rules",
       "path": "packs/rules",
@@ -123,21 +136,12 @@
       "ownership": {
         "PLAYER": "OBSERVER"
       }
-    },
-    {
-      "name": "scenes",
-      "label": "Scenes",
-      "path": "packs/scenes",
-      "type": "Scene",
-      "ownership": {
-        "PLAYER": "OBSERVER"
-      }
     }
   ],
   "packFolders": [
     {
       "name": "Kingdom Building",
-      "packs": ["boon", "tactic", "special", "building", "event", "improvement", "rules", "roll-table", "scenes"]
+      "packs": ["boon", "tactic", "special", "building", "event", "improvement", "feature", "rules", "roll-table"]
     }
   ],
 

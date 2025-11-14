@@ -7,11 +7,12 @@ export const armyId = `${moduleId}.army`;
 export const buildingId = `${moduleId}.building`;
 export const eventId = `${moduleId}.event`;
 export const improvementId = `${moduleId}.improvement`;
+export const featureId = `${moduleId}.feature`;
 export const boonId = `${moduleId}.boon`;
 export const specialId = `${moduleId}.special`;
 export const tacticId = `${moduleId}.tactic`;
 
-export const kingdomItemTypes = [buildingId, eventId, improvementId];
+export const kingdomItemTypes = [buildingId, eventId, improvementId, featureId];
 export const armyItemTypes = [boonId, specialId, tacticId];
 
 export const kingdomStats = {
@@ -83,7 +84,7 @@ export const kingdomGovernments = {
   the: "PF1KS.Government.Theocracy",
 };
 
-export const governmentBonuses = {
+export const kingdomGovernmentBonuses = {
   aut: { corruption: 0, crime: 0, productivity: 0, law: 0, lore: 0, society: 0 },
   mag: { corruption: 0, crime: 0, productivity: -1, law: 0, lore: 2, society: -1 },
   oli: { corruption: 1, crime: 0, productivity: 0, law: -1, lore: -1, society: 1 },
@@ -91,6 +92,22 @@ export const governmentBonuses = {
   rep: { corruption: 0, crime: -1, productivity: 1, law: -1, lore: 0, society: 1 },
   sec: { corruption: 1, crime: 1, productivity: 1, law: -3, lore: 0, society: 0 },
   the: { corruption: -1, crime: 0, productivity: 0, law: 1, lore: 1, society: -1 },
+};
+
+export const settlementGovernments = {
+  aut: "PF1KS.Government.Autocracy",
+  cou: "PF1KS.Government.Council",
+  mag: "PF1KS.Government.Magical",
+  ove: "PF1KS.Government.Overlord",
+  sec: "PF1KS.Government.SecretSyndicate",
+};
+
+export const settlementGovernmentBonuses = {
+  aut: { corruption: 0, crime: 0, productivity: 0, law: 0, lore: 0, society: 0, spellcasting: 0 },
+  cou: { corruption: 0, crime: 0, productivity: 0, law: -2, lore: -2, society: 4, spellcasting: 0 },
+  mag: { corruption: -2, crime: 0, productivity: 0, law: 0, lore: 2, society: -2, spellcasting: 1 },
+  ove: { corruption: 2, crime: -2, productivity: 0, law: 2, lore: 0, society: -2, spellcasting: 0 },
+  sec: { corruption: 2, crime: 2, productivity: 2, law: -6, lore: 0, society: 0, spellcasting: 0 },
 };
 
 export const alignmentEffects = {
@@ -374,10 +391,14 @@ export const settlementModifiers = {
   society: "PF1KS.Society",
 };
 
-export const allSettlementModifiers = {
-  ...settlementModifiers,
+export const settlementAttributes = {
+  danger: "PF1KS.Danger",
   defense: "PF1.Defense",
   baseValue: "PF1KS.BaseValue",
+  maxBaseValue: "PF1KS.MaxBaseValue",
+  // expanded settlement stuff
+  purchaseLimit: "PF1KS.PurchaseLimit",
+  spellcasting: "PF1KS.Spellcasting",
 };
 
 export const settlementSizes = {
@@ -392,97 +413,390 @@ export const settlementSizes = {
 };
 
 export const settlementValues = {
-  thorpe: { modifiers: -4, danger: -10, maxBaseValue: 50 },
-  hamlet: { modifiers: -2, danger: -5, maxBaseValue: 200 },
-  village: { modifiers: -1, danger: 0, maxBaseValue: 500 },
-  stown: { modifiers: 0, danger: 0, maxBaseValue: 1000 },
-  ltown: { modifiers: 0, danger: 5, maxBaseValue: 2000 },
-  scity: { modifiers: 1, danger: 5, maxBaseValue: 4000 },
-  lcity: { modifiers: 2, danger: 10, maxBaseValue: 8000 },
-  metro: { modifiers: 4, danger: 10, maxBaseValue: 16000 },
+  thorpe: { modifiers: -4, danger: -10, maxBaseValue: 50, purchaseLimit: 500, spellcasting: 1, qualities: 1 },
+  hamlet: { modifiers: -2, danger: -5, maxBaseValue: 200, purchaseLimit: 1000, spellcasting: 2, qualities: 1 },
+  village: { modifiers: -1, danger: 0, maxBaseValue: 500, purchaseLimit: 2500, spellcasting: 3, qualities: 2 },
+  stown: { modifiers: 0, danger: 0, maxBaseValue: 1000, purchaseLimit: 5000, spellcasting: 4, qualities: 2 },
+  ltown: { modifiers: 0, danger: 5, maxBaseValue: 2000, purchaseLimit: 10000, spellcasting: 5, qualities: 3 },
+  scity: { modifiers: 1, danger: 5, maxBaseValue: 4000, purchaseLimit: 25000, spellcasting: 6, qualities: 4 },
+  lcity: { modifiers: 2, danger: 10, maxBaseValue: 8000, purchaseLimit: 50000, spellcasting: 7, qualities: 5 },
+  metro: { modifiers: 4, danger: 10, maxBaseValue: 16000, purchaseLimit: 100000, spellcasting: 8, qualities: 6 },
 };
 
 export const altSettlementValues = {
-  village: { modifiers: -4, danger: -10, maxBaseValue: 500 },
-  stown: { modifiers: -2, danger: -5, maxBaseValue: 1000 },
-  ltown: { modifiers: 0, danger: 0, maxBaseValue: 2000 },
-  scity: { modifiers: 1, danger: 5, maxBaseValue: 4000 },
-  lcity: { modifiers: 1, danger: 5, maxBaseValue: 8000 },
-  metro: { modifiers: 1, danger: 5, maxBaseValue: 16000 },
+  village: { modifiers: -4, danger: -10, maxBaseValue: 500, purchaseLimit: 2500, spellcasting: 3, qualities: 2 },
+  stown: { modifiers: -2, danger: -5, maxBaseValue: 1000, purchaseLimit: 5000, spellcasting: 4, qualities: 2 },
+  ltown: { modifiers: 0, danger: 0, maxBaseValue: 2000, purchaseLimit: 10000, spellcasting: 5, qualities: 3 },
+  scity: { modifiers: 1, danger: 5, maxBaseValue: 4000, purchaseLimit: 25000, spellcasting: 6, qualities: 4 },
+  lcity: { modifiers: 1, danger: 5, maxBaseValue: 8000, purchaseLimit: 50000, spellcasting: 7, qualities: 5 },
+  metro: { modifiers: 1, danger: 5, maxBaseValue: 16000, purchaseLimit: 100000, spellcasting: 8, qualities: 6 },
+};
+
+export const districtBorders = {
+  land: "PF1KS.Border.Land",
+  water: "PF1KS.Border.Water",
+  cliff: "PF1KS.Border.Cliff",
 };
 
 export const buildingTypes = {
-  academy: "PF1KS.Building.Academy",
-  alchemist: "PF1KS.Building.Alchemist",
-  arena: "PF1KS.Building.Arena",
-  bank: "PF1KS.Building.Bank",
-  bardic_college: "PF1KS.Building.BardicCollege",
-  barracks: "PF1KS.Building.Barracks",
-  black_market: "PF1KS.Building.BlackMarket",
-  brewery: "PF1KS.Building.Brewery",
-  bridge: "PF1KS.Building.Bridge",
-  bureau: "PF1KS.Building.Bureau",
-  casters_tower: "PF1KS.Building.CastersTower",
-  castle: "PF1KS.Building.Castle",
-  cathedral: "PF1KS.Building.Cathedral",
-  cistern: "PF1KS.Building.Cistern",
-  city_wall: "PF1KS.Building.CityWall",
-  dance_hall: "PF1KS.Building.DanceHall",
-  dump: "PF1KS.Building.Dump",
-  everflowing_spring: "PF1KS.Building.EverflowingSpring",
-  exotic_artisan: "PF1KS.Building.ExoticArtisan",
-  foreign_quarter: "PF1KS.Building.ForeignQuarter",
-  foundry: "PF1KS.Building.Foundry",
-  garrison: "PF1KS.Building.Garrison",
-  granary: "PF1KS.Building.Granary",
-  graveyard: "PF1KS.Building.Graveyard",
-  guildhall: "PF1KS.Building.Guildhall",
-  herbalist: "PF1KS.Building.Herbalist",
-  hospital: "PF1KS.Building.Hospital",
-  house: "PF1KS.Building.House",
-  inn: "PF1KS.Building.Inn",
-  jail: "PF1KS.Building.Jail",
-  library: "PF1KS.Building.Library",
-  luxury_store: "PF1KS.Building.LuxuryStore",
-  magic_shop: "PF1KS.Building.MagicShop",
-  magical_academy: "PF1KS.Building.MagicalAcademy",
-  magical_streetlamps: "PF1KS.Building.MagicalStreetlamps",
-  mansion: "PF1KS.Building.Mansion",
-  market: "PF1KS.Building.Market",
-  menagerie: "PF1KS.Building.Menagerie",
-  military_academy: "PF1KS.Building.MilitaryAcademy",
-  mill: "PF1KS.Building.Mill",
-  mint: "PF1KS.Building.Mint",
-  moat: "PF1KS.Building.Moat",
-  monastery: "PF1KS.Building.Monastery",
-  monument: "PF1KS.Building.Monument",
-  museum: "PF1KS.Building.Museum",
-  noble_villa: "PF1KS.Building.NobleVilla",
-  observatory: "PF1KS.Building.Observatory",
-  orphanage: "PF1KS.Building.Orphanage",
-  palace: "PF1KS.Building.Palace",
-  park: "PF1KS.Building.Park",
-  paved_streets: "PF1KS.Building.PavedStreets",
-  pier: "PF1KS.Building.Pier",
-  sewer_system: "PF1KS.Building.SewerSystem",
-  shop: "PF1KS.Building.Shop",
-  shrine: "PF1KS.Building.Shrine",
-  smithy: "PF1KS.Building.Smithy",
-  stable: "PF1KS.Building.Stable",
-  stockyard: "PF1KS.Building.Stockyard",
-  tannery: "PF1KS.Building.Tannery",
-  tavern: "PF1KS.Building.Tavern",
-  temple: "PF1KS.Building.Temple",
-  tenement: "PF1KS.Building.Tenement",
-  theater: "PF1KS.Building.Theater",
-  town_hall: "PF1KS.Building.TownHall",
-  trade_shop: "PF1KS.Building.TradeShop",
-  university: "PF1KS.Building.University",
-  watchtower: "PF1KS.Building.Watchtower",
-  waterfront: "PF1KS.Building.Waterfront",
-  watergate: "PF1KS.Building.Watergate",
-  waterway: "PF1KS.Building.Waterway",
-  custom: "PF1KS.Building.Custom",
+  academy: {
+    name: "PF1KS.Building.Academy",
+    lotSize: 2,
+    cost: 52,
+  },
+  alchemist: {
+    name: "PF1KS.Building.Alchemist",
+    lotSize: 1,
+    cost: 18,
+  },
+  arena: {
+    name: "PF1KS.Building.Arena",
+    lotSize: 4,
+    cost: 40,
+  },
+  bank: {
+    name: "PF1KS.Building.Bank",
+    lotSize: 1,
+    cost: 28,
+  },
+  bardic_college: {
+    name: "PF1KS.Building.BardicCollege",
+    lotSize: 2,
+    cost: 40,
+  },
+  barracks: {
+    name: "PF1KS.Building.Barracks",
+    lotSize: 1,
+    cost: 6,
+  },
+  black_market: {
+    name: "PF1KS.Building.BlackMarket",
+    lotSize: 1,
+    cost: 50,
+  },
+  brewery: {
+    name: "PF1KS.Building.Brewery",
+    lotSize: 1,
+    cost: 6,
+  },
+  bridge: {
+    name: "PF1KS.Building.Bridge",
+    lotSize: 1,
+    cost: 6,
+  },
+  bureau: {
+    name: "PF1KS.Building.Bureau",
+    lotSize: 2,
+    cost: 10,
+  },
+  casters_tower: {
+    name: "PF1KS.Building.CastersTower",
+    lotSize: 1,
+    cost: 30,
+  },
+  castle: {
+    name: "PF1KS.Building.Castle",
+    lotSize: 4,
+    cost: 54,
+  },
+  cathedral: {
+    name: "PF1KS.Building.Cathedral",
+    lotSize: 4,
+    cost: 58,
+  },
+  cistern: {
+    name: "PF1KS.Building.Cistern",
+    lotSize: 1,
+    cost: 6,
+  },
+  city_wall: {
+    name: "PF1KS.Building.CityWall",
+    lotSize: 0,
+    cost: 2,
+  },
+  dance_hall: {
+    name: "PF1KS.Building.DanceHall",
+    lotSize: 1,
+    cost: 4,
+  },
+  dump: {
+    name: "PF1KS.Building.Dump",
+    lotSize: 1,
+    cost: 4,
+  },
+  everflowing_spring: {
+    name: "PF1KS.Building.EverflowingSpring",
+    lotSize: 0,
+    cost: 5,
+  },
+  exotic_artisan: {
+    name: "PF1KS.Building.ExoticArtisan",
+    lotSize: 1,
+    cost: 10,
+  },
+  foreign_quarter: {
+    name: "PF1KS.Building.ForeignQuarter",
+    lotSize: 4,
+    cost: 30,
+  },
+  foundry: {
+    name: "PF1KS.Building.Foundry",
+    lotSize: 2,
+    cost: 16,
+  },
+  garrison: {
+    name: "PF1KS.Building.Garrison",
+    lotSize: 2,
+    cost: 28,
+  },
+  granary: {
+    name: "PF1KS.Building.Granary",
+    lotSize: 1,
+    cost: 12,
+  },
+  graveyard: {
+    name: "PF1KS.Building.Graveyard",
+    lotSize: 1,
+    cost: 4,
+  },
+  guildhall: {
+    name: "PF1KS.Building.Guildhall",
+    lotSize: 2,
+    cost: 34,
+  },
+  herbalist: {
+    name: "PF1KS.Building.Herbalist",
+    lotSize: 1,
+    cost: 40,
+  },
+  hospital: {
+    name: "PF1KS.Building.Hospital",
+    lotSize: 2,
+    cost: 30,
+  },
+  house: {
+    name: "PF1KS.Building.House",
+    lotSize: 1,
+    cost: 3,
+  },
+  inn: {
+    name: "PF1KS.Building.Inn",
+    lotSize: 1,
+    cost: 10,
+  },
+  jail: {
+    name: "PF1KS.Building.Jail",
+    lotSize: 1,
+    cost: 14,
+  },
+  library: {
+    name: "PF1KS.Building.Library",
+    lotSize: 1,
+    cost: 6,
+  },
+  luxury_store: {
+    name: "PF1KS.Building.LuxuryStore",
+    lotSize: 1,
+    cost: 28,
+  },
+  magic_shop: {
+    name: "PF1KS.Building.MagicShop",
+    lotSize: 1,
+    cost: 68,
+  },
+  magical_academy: {
+    name: "PF1KS.Building.MagicalAcademy",
+    lotSize: 2,
+    cost: 58,
+  },
+  magical_streetlamps: {
+    name: "PF1KS.Building.MagicalStreetlamps",
+    lotSize: 0,
+    cost: 5,
+  },
+  mansion: {
+    name: "PF1KS.Building.Mansion",
+    lotSize: 1,
+    cost: 10,
+  },
+  market: {
+    name: "PF1KS.Building.Market",
+    lotSize: 2,
+    cost: 48,
+  },
+  menagerie: {
+    name: "PF1KS.Building.Menagerie",
+    lotSize: 4,
+    cost: 16,
+  },
+  military_academy: {
+    name: "PF1KS.Building.MilitaryAcademy",
+    lotSize: 2,
+    cost: 36,
+  },
+  mill: {
+    name: "PF1KS.Building.Mill",
+    lotSize: 1,
+    cost: 6,
+  },
+  mint: {
+    name: "PF1KS.Building.Mint",
+    lotSize: 1,
+    cost: 30,
+  },
+  moat: {
+    name: "PF1KS.Building.Moat",
+    lotSize: 0,
+    cost: 2,
+  },
+  monastery: {
+    name: "PF1KS.Building.Monastery",
+    lotSize: 2,
+    cost: 16,
+  },
+  monument: {
+    name: "PF1KS.Building.Monument",
+    lotSize: 1,
+    cost: 6,
+  },
+  museum: {
+    name: "PF1KS.Building.Museum",
+    lotSize: 2,
+    cost: 30,
+  },
+  noble_villa: {
+    name: "PF1KS.Building.NobleVilla",
+    lotSize: 2,
+    cost: 24,
+  },
+  observatory: {
+    name: "PF1KS.Building.Observatory",
+    lotSize: 1,
+    cost: 12,
+  },
+  orphanage: {
+    name: "PF1KS.Building.Orphanage",
+    lotSize: 1,
+    cost: 6,
+  },
+  palace: {
+    name: "PF1KS.Building.Palace",
+    lotSize: 4,
+    cost: 108,
+  },
+  park: {
+    name: "PF1KS.Building.Park",
+    lotSize: 1,
+    cost: 4,
+  },
+  paved_streets: {
+    name: "PF1KS.Building.PavedStreets",
+    lotSize: 0,
+    cost: 24,
+  },
+  pier: {
+    name: "PF1KS.Building.Pier",
+    lotSize: 1,
+    cost: 16,
+  },
+  sewer_system: {
+    name: "PF1KS.Building.SewerSystem",
+    lotSize: 0,
+    cost: 24,
+  },
+  shop: {
+    name: "PF1KS.Building.Shop",
+    lotSize: 1,
+    cost: 8,
+  },
+  shrine: {
+    name: "PF1KS.Building.Shrine",
+    lotSize: 1,
+    cost: 8,
+  },
+  smithy: {
+    name: "PF1KS.Building.Smithy",
+    lotSize: 1,
+    cost: 6,
+  },
+  stable: {
+    name: "PF1KS.Building.Stable",
+    lotSize: 1,
+    cost: 10,
+  },
+  stockyard: {
+    name: "PF1KS.Building.Stockyard",
+    lotSize: 4,
+    cost: 20,
+  },
+  tannery: {
+    name: "PF1KS.Building.Tannery",
+    lotSize: 1,
+    cost: 6,
+  },
+  tavern: {
+    name: "PF1KS.Building.Tavern",
+    lotSize: 1,
+    cost: 12,
+  },
+  temple: {
+    name: "PF1KS.Building.Temple",
+    lotSize: 2,
+    cost: 32,
+  },
+  tenement: {
+    name: "PF1KS.Building.Tenement",
+    lotSize: 1,
+    cost: 1,
+  },
+  theater: {
+    name: "PF1KS.Building.Theater",
+    lotSize: 2,
+    cost: 24,
+  },
+  town_hall: {
+    name: "PF1KS.Building.TownHall",
+    lotSize: 2,
+    cost: 22,
+  },
+  trade_shop: {
+    name: "PF1KS.Building.TradeShop",
+    lotSize: 1,
+    cost: 10,
+  },
+  university: {
+    name: "PF1KS.Building.University",
+    lotSize: 4,
+    cost: 78,
+  },
+  watchtower: {
+    name: "PF1KS.Building.Watchtower",
+    lotSize: 1,
+    cost: 12,
+  },
+  waterfront: {
+    name: "PF1KS.Building.Waterfront",
+    lotSize: 4,
+    cost: 90,
+  },
+  watergate: {
+    name: "PF1KS.Building.Watergate",
+    lotSize: 0,
+    cost: 2,
+  },
+  waterway: {
+    name: "PF1KS.Building.Waterway",
+    lotSize: 1,
+    cost: 3,
+  },
+  custom: {
+    name: "PF1KS.Building.Custom",
+  },
+};
+
+export const buildingErrors = {
+  lotSizeMismatch: "PF1KS.BuildingError.LotSizeMismatch",
+  unplacedLotBuilding: "PF1KS.BuildingError.UnplacedLotBuilding",
 };
 
 export const magicItemTypes = {
@@ -515,6 +829,7 @@ export const optionalRules = {
   governmentForms: "PF1KS.Settings.GovernmentForms",
   leadershipSkills: "PF1KS.Settings.LeadershipSkills",
   altSettlementSizes: "PF1KS.Settings.SettlementSizes",
+  expandedSettlementModifiers: "PF1KS.Settings.ExpandedSettlementModifiers",
 };
 
 export const compendiumEntries = {
@@ -526,6 +841,8 @@ export const compendiumEntries = {
     "Compendium.pf1-kingdom-sheet.rules.JournalEntry.t1XuuI6w0ZUtN6Hj.JournalEntryPage.CY9GAp1XjXgu5pmi",
   altSettlementSizes:
     "Compendium.pf1-kingdom-sheet.rules.JournalEntry.t1XuuI6w0ZUtN6Hj.JournalEntryPage.nZyEv4PWABJwIeLD",
+  expandedSettlementModifiers:
+    "Compendium.pf1-kingdom-sheet.rules.JournalEntry.t1XuuI6w0ZUtN6Hj.JournalEntryPage.6GfTeS0jM4WmlJk4",
 };
 
 export const armyAttributes = {
@@ -759,7 +1076,14 @@ export const improvementSubTypes = {
   special: "PF1KS.Improvement.SubTypes.Special",
 };
 
+export const featureSubTypes = {
+  quality: "PF1KS.Feature.SubTypes.Quality",
+  disadvantage: "PF1KS.Feature.SubTypes.Disadvantage",
+  misc: "PF1KS.Feature.SubTypes.Misc",
+};
+
 export const itemSubTypes = {
   ...eventSubTypes,
   ...improvementSubTypes,
+  ...featureSubTypes,
 };

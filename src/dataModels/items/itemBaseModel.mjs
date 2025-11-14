@@ -13,6 +13,7 @@ export class ItemBaseModel extends foundry.abstract.TypeDataModel {
       // actions: new fields.ArrayField(new fields.JSONField({ required: true, initial: {} })),
       description: new fields.SchemaField({
         value: new fields.StringField({ required: true, initial: "" }),
+        instructions: new fields.StringField({ required: true, initial: "" }),
       }),
       changes: new fields.ArrayField(
         new fields.SchemaField({
@@ -31,16 +32,16 @@ export class ItemBaseModel extends foundry.abstract.TypeDataModel {
           text: new fields.StringField({ initial: "" }),
         })
       ),
-      sources: new fields.ArrayField(
-        new fields.SchemaField({
-          title: new fields.StringField({ initial: "" }),
-          pages: new fields.StringField({ initial: "" }),
-          id: new fields.StringField({ initial: "" }),
-          errata: new fields.StringField({ initial: "" }),
-          date: new fields.StringField({ initial: "" }),
-          publisher: new fields.StringField({ initial: "" }),
-        })
-      ),
+      // sources: new fields.ArrayField(
+      //   new fields.SchemaField({
+      //     title: new fields.StringField({ initial: "" }),
+      //     pages: new fields.StringField({ initial: "" }),
+      //     id: new fields.StringField({ initial: "" }),
+      //     errata: new fields.StringField({ initial: "" }),
+      //     date: new fields.StringField({ initial: "" }),
+      //     publisher: new fields.StringField({ initial: "" }),
+      //   })
+      // ),
     });
   }
 

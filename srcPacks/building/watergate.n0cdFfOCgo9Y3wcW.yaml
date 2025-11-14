@@ -4,8 +4,6 @@ system:
   htmlFields:
     - description.value
   quantity: 1
-  lots: 0
-  cost: 2
   description:
     value: >-
       <p>A gate in a City Wall that allows water (such as a river, Aqueduct, or
@@ -19,6 +17,8 @@ system:
   sources: []
   settlementId: ''
   type: watergate
+  width: 0
+  height: 0
 _id: n0cdFfOCgo9Y3wcW
 img: modules/pf1-kingdom-sheet/assets/kingdom_building/Watergate.png
 sort: 0

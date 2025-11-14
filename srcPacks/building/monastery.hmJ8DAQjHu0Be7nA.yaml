@@ -4,8 +4,6 @@ system:
   htmlFields:
     - description.value
   quantity: 1
-  lots: 2
-  cost: 16
   description:
     value: >-
       <p>A cloister for meditation, study, and the pursuit of various other
@@ -34,6 +32,7 @@ system:
   sources: []
   settlementId: ''
   type: monastery
+  width: 2
 _id: hmJ8DAQjHu0Be7nA
 img: modules/pf1-kingdom-sheet/assets/kingdom_building/Monastery.png
 sort: 0

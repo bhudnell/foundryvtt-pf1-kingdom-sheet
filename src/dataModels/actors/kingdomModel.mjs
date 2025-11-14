@@ -68,6 +68,7 @@ export class KingdomModel extends foundry.abstract.TypeDataModel {
           governmentForms: new fields.BooleanField({ initial: false }),
           leadershipSkills: new fields.BooleanField({ initial: false }),
           altSettlementSizes: new fields.BooleanField({ initial: false }),
+          expandedSettlementModifiers: new fields.BooleanField({ initial: false }),
         }),
       }),
     };
@@ -104,12 +105,8 @@ export class KingdomModel extends foundry.abstract.TypeDataModel {
 
     // summary
     this.size = Object.values(this.terrain).reduce((acc, curr) => acc + curr, 0);
-    this.population =
-      250 *
-      this.parent.itemTypes[pf1ks.config.buildingId]
-        .filter((building) => building.system.settlementId)
-        .reduce((acc, curr) => acc + curr.system.lots * curr.system.quantity, 0);
-    this.totalDistricts = this.settlements.reduce((acc, curr) => acc + curr.districtCount, 0);
+    this.population = this.settlements.reduce((acc, curr) => acc + curr.attributes.population, 0);
+    this.totalDistricts = this.settlements.reduce((acc, curr) => acc + curr.districts.length, 0);
     this.controlDC = 20 + this.size + this.totalDistricts;
 
     this.consumption.total += this.size + this.totalDistricts;

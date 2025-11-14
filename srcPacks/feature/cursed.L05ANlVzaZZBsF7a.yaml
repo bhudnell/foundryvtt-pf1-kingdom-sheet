@@ -1,0 +1,27 @@
+type: pf1-kingdom-sheet.feature
+name: Cursed
+system:
+  htmlFields:
+    - description.value
+  subType: disadvantage
+  description:
+    value: >-
+      <p>Some form of curse afflicts the city. Its citizens might be prone to
+      violence or suffer ill luck, or they could be plagued by an infestation of
+      pests.</p><hr /><ul><li><p>Choose one modifier and reduce its value by
+      4</p></li></ul>
+    instructions: <p>Choose a settlement modifier for the change in the changes tab</p>
+  changes:
+    - _id: 0Kf5wWB3
+      formula: '-4'
+      target: ''
+      type: untyped
+      operator: add
+      priority: 0
+  contextNotes: []
+  settlementId: ''
+_id: L05ANlVzaZZBsF7a
+img: icons/svg/coins.svg
+sort: 0
+_key: '!items!L05ANlVzaZZBsF7a'
+

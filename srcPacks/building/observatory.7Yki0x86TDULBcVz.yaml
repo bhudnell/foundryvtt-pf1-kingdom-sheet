@@ -4,8 +4,6 @@ system:
   htmlFields:
     - description.value
   quantity: 1
-  lots: 1
-  cost: 12
   description:
     value: >-
       <p>A dome or tower with optical devices for viewing the heavens.</p><hr

@@ -54,13 +54,7 @@ export class BaseActor extends pf1.documents.actor.ActorBasePF {
     this._prepareConditionChanges(changes);
 
     for (const item of this.items) {
-      if (
-        item.type.startsWith(`${pf1ks.config.moduleId}.`) &&
-        (item.type !== pf1ks.config.buildingId || item.system.settlementId) && // buildings must have a settlement ID to count
-        item.isActive &&
-        item.hasChanges &&
-        item.changes.size
-      ) {
+      if (item.type.startsWith(`${pf1ks.config.moduleId}.`) && item.isActive && item.hasChanges && item.changes.size) {
         changes.push(...item.changes);
       }
     }
@@ -119,6 +113,10 @@ export class BaseActor extends pf1.documents.actor.ActorBasePF {
       name: game.i18n.localize("PF1KS.Buildings"),
       value: 0,
     };
+    const features = {
+      name: game.i18n.localize("PF1KS.Features"),
+      value: 0,
+    };
     const improvements = {
       name: game.i18n.localize("PF1KS.Improvements"),
       value: 0,
@@ -146,6 +144,8 @@ export class BaseActor extends pf1.documents.actor.ActorBasePF {
           const collapse = this.system.settings?.collapseTooltips;
           if (collapse && src.type === pf1ks.config.buildingId) {
             buildings.value += srcValue;
+          } else if (collapse && src.type === pf1ks.config.featureId) {
+            features.value += srcValue;
           } else if (collapse && src.type === pf1ks.config.eventId) {
             events.value += srcValue;
           } else if (collapse && src.type === pf1ks.config.improvementId) {
@@ -161,6 +161,9 @@ export class BaseActor extends pf1.documents.actor.ActorBasePF {
 
     if (buildings.value) {
       sources.push(buildings);
+    }
+    if (features.value) {
+      sources.push(features);
     }
     if (events.value) {
       sources.push(events);
@@ -266,10 +269,7 @@ export class BaseActor extends pf1.documents.actor.ActorBasePF {
     const allNotes = this.items
       .filter(
         (item) =>
-          item.type.startsWith(`${pf1ks.config.moduleId}.`) &&
-          (item.type !== pf1ks.config.buildingId || item.system.settlementId) && // buildings must have a settlement ID to count
-          item.isActive &&
-          item.system.contextNotes?.length > 0
+          item.type.startsWith(`${pf1ks.config.moduleId}.`) && item.isActive && item.system.contextNotes?.length > 0
       )
       .map((item) => ({ notes: item.system.contextNotes, item }));
 

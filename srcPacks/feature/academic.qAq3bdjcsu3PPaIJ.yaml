@@ -1,0 +1,31 @@
+type: pf1-kingdom-sheet.feature
+name: Academic
+system:
+  htmlFields:
+    - description.value
+  subType: quality
+  description:
+    value: >-
+      <p>The settlement possesses a school, training facility, or university of
+      great renown. </p><hr /><ul><li><p>Lore +1</p></li><li><p>Increase
+      spellcasting by 1 level</p></li></ul>
+  changes:
+    - _id: 7mCBlOEU
+      formula: '1'
+      target: pf1ks_lore
+      type: untyped
+      operator: add
+      priority: 0
+    - _id: RGGKywjE
+      formula: '1'
+      target: pf1ks_spellcasting
+      type: untyped
+      operator: add
+      priority: 0
+  contextNotes: []
+  settlementId: ''
+_id: qAq3bdjcsu3PPaIJ
+img: icons/svg/coins.svg
+sort: 0
+_key: '!items!qAq3bdjcsu3PPaIJ'
+

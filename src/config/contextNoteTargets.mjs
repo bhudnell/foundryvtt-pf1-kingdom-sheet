@@ -4,6 +4,7 @@ import {
   changePrefix,
   kingdomItemTypes,
   kingdomStats,
+  settlementAttributes,
   settlementModifiers,
 } from "./config.mjs";
 
@@ -16,6 +17,10 @@ export const contextNoteTargets = {
   },
   ...Object.entries(kingdomStats).reduce((acc, [key, label]) => {
     acc[`${changePrefix}_${key}`] = { category: `${changePrefix}_kingdom_stats`, label };
+    return acc;
+  }, {}),
+  ...Object.entries(settlementAttributes).reduce((acc, [key, label]) => {
+    acc[`${changePrefix}_${key}`] = { category: `${changePrefix}_settlement_attributes`, label };
     return acc;
   }, {}),
   ...Object.entries(settlementModifiers).reduce((acc, [key, label]) => {
@@ -31,6 +36,10 @@ export const contextNoteTargets = {
 export const contextNoteCategories = {
   [`${changePrefix}_kingdom_stats`]: {
     label: "PF1KS.KingdomStat",
+    filters: { item: { include: kingdomItemTypes } },
+  },
+  [`${changePrefix}_settlement_attributes`]: {
+    label: "PF1KS.SettlementAttributes",
     filters: { item: { include: kingdomItemTypes } },
   },
   [`${changePrefix}_settlement_modifiers`]: {

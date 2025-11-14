@@ -1,0 +1,38 @@
+type: pf1-kingdom-sheet.feature
+name: Prosperous
+system:
+  htmlFields:
+    - description.value
+  subType: quality
+  description:
+    value: >-
+      <p>The settlement is a popular hub for trade. Merchants are wealthy and
+      the citizens live well.</p><hr /><ul><li><p>Productivity
+      +1</p></li><li><p>Increase base value by 30%</p></li><li><p>Increase
+      purchase limit by 50%</p></li></ul>
+  changes:
+    - _id: 3gbbbWpg
+      formula: '1'
+      target: pf1ks_productivity
+      type: untyped
+      operator: add
+      priority: 0
+    - _id: ho42cxrO
+      formula: '30'
+      target: pf1ks_maxBaseValue
+      type: untyped
+      operator: add
+      priority: 0
+    - _id: nGZ3jdCM
+      formula: '50'
+      target: pf1ks_purchaseLimit
+      type: untyped
+      operator: add
+      priority: 0
+  contextNotes: []
+  settlementId: ''
+_id: dCVYavw3JXB8JFYv
+img: icons/svg/coins.svg
+sort: 0
+_key: '!items!dCVYavw3JXB8JFYv'
+
