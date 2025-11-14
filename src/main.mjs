@@ -308,6 +308,11 @@ Hooks.once("ready", () => {
     "kingdom-sheet-events": `modules/${PF1KS.moduleId}/templates/actors/kingdom/parts/events.hbs`,
     "kingdom-sheet-leadership": `modules/${PF1KS.moduleId}/templates/actors/kingdom/parts/leadership.hbs`,
     "kingdom-sheet-settlements": `modules/${PF1KS.moduleId}/templates/actors/kingdom/parts/settlements.hbs`,
+    "kingdom-sheet-settlement-summary": `modules/${PF1KS.moduleId}/templates/actors/kingdom/parts/settlement-summary.hbs`,
+    "kingdom-sheet-settlement-districts": `modules/${PF1KS.moduleId}/templates/actors/kingdom/parts/settlement-districts.hbs`,
+    "kingdom-sheet-settlement-features": `modules/${PF1KS.moduleId}/templates/actors/kingdom/parts/settlement-features.hbs`,
+    "kingdom-sheet-settlement-magic-items": `modules/${PF1KS.moduleId}/templates/actors/kingdom/parts/settlement-magic-items.hbs`,
+    "kingdom-sheet-settlement-unassigned-items": `modules/${PF1KS.moduleId}/templates/actors/kingdom/parts/settlement-unassigned-items.hbs`,
     "kingdom-sheet-summary": `modules/${PF1KS.moduleId}/templates/actors/kingdom/parts/summary.hbs`,
     "kingdom-sheet-terrain": `modules/${PF1KS.moduleId}/templates/actors/kingdom/parts/terrain.hbs`,
 

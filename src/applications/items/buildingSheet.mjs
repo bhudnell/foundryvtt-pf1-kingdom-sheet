@@ -27,7 +27,7 @@ export class BuildingSheet extends ItemBaseSheet {
     context.isCustom = itemData.type === "custom";
 
     // sidebar info
-    context.subType = pf1ks.config.buildingTypes[itemData.type].name;
+    context.subType = pf1ks.config.buildingTypes[itemData.type]?.name ?? "";
     context.states = [
       {
         field: "system.damaged",

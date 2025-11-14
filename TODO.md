@@ -1,8 +1,5 @@
 # For current release
 
-## General stuff
-- refactor settlements hbs file to make it less huge
-
 ## Documentation
 - explain that max base value and purchase limit should be assumed to be percentage
   increases/decreases and the percentages are all added up before being applied

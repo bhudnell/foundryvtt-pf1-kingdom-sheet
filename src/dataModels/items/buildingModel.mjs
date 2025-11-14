@@ -28,14 +28,14 @@ export class BuildingModel extends ItemBaseModel {
     if (this.type === "custom") {
       return this.customLotSize;
     }
-    return pf1ks.config.buildingTypes[this.type].lotSize;
+    return pf1ks.config.buildingTypes[this.type]?.lotSize ?? 0;
   }
 
   get cost() {
     if (this.type === "custom") {
       return this.customCost;
     }
-    return pf1ks.config.buildingTypes[this.type].cost;
+    return pf1ks.config.buildingTypes[this.type]?.cost ?? 0;
   }
 
   prepareDerivedData() {}

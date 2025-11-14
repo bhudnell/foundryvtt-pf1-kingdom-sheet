@@ -19,9 +19,9 @@ system:
   contextNotes: []
   sources: []
   settlementId: ''
-  type: academy
-  width: 0
-  height: 0
+  type: bridge
+  width: 1
+  height: 1
 _id: qvtuWG3GWoO6aZ5J
 img: modules/pf1-kingdom-sheet/assets/kingdom_building/Bridge.png
 sort: 0

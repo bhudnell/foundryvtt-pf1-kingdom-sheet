@@ -22,8 +22,8 @@ system:
   sources: []
   settlementId: ''
   type: cistern
-  width: 0
-  height: 0
+  width: 1
+  height: 1
 _id: M9GVE8fsIf1TpNOh
 img: modules/pf1-kingdom-sheet/assets/kingdom_building/Cistern.png
 sort: 0
