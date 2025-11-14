@@ -1,5 +1,5 @@
 import { kingdomBuffTargets, commonBuffTargets } from "../../config/buffTargets.mjs";
-import { DefaultChange, asSignedPercent } from "../../util/utils.mjs";
+import { DefaultChange, asSignedPercent, capitalize } from "../../util/utils.mjs";
 
 import { BaseActor } from "./baseActor.mjs";
 
@@ -33,8 +33,6 @@ export class KingdomActor extends BaseActor {
           total += buildings + features + improvements + events;
         }
 
-        // TODO what to do when baseValue is greater than maxBaseValue
-
         settlement.attributes[attr] = {
           ...settlement.attributes[attr],
           buildings,
@@ -43,6 +41,12 @@ export class KingdomActor extends BaseActor {
           events,
           total,
         };
+      }
+
+      // base value adjustment
+      if (settlement.attributes.baseValue.total > settlement.attributes.maxBaseValue.total) {
+        settlement.attributes.baseValue.total = settlement.attributes.maxBaseValue.total;
+        settlement.attributes.baseValue.overridden = true;
       }
 
       // settlement modifiers
@@ -519,6 +523,14 @@ export class KingdomActor extends BaseActor {
           sources.push({
             name: game.i18n.localize("PF1KS.Events"),
             value: isPercent ? asSignedPercent(s.attributes[attr].events) : s.attributes[attr].events,
+          });
+        }
+
+        // override handling for any field that has a max value (currently just baseValue)
+        if (s.attributes[attr].overridden) {
+          sources.push({
+            name: game.i18n.localize(`PF1KS.Max${capitalize(attr)}`),
+            value: game.i18n.format("PF1.SetTo", { value: s.attributes[attr].total }),
           });
         }
       }

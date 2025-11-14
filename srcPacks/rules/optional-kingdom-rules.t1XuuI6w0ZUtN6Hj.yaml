@@ -336,7 +336,54 @@ pages:
     src: null
     system: {}
     _key: '!journal.pages!t1XuuI6w0ZUtN6Hj.R5HhjqVn0s0xqEMI'
+  - sort: 1000000
+    name: Expanded Settlement Statistics
+    type: text
+    _id: 6GfTeS0jM4WmlJk4
+    system: {}
+    title:
+      show: true
+      level: 1
+    image: {}
+    text:
+      format: 1
+      content: >-
+        <p><strong>Government:</strong> This entry lists how the settlement is
+        governed and ruled. The type of government a settlement follows affects
+        its statistics.</p><p><strong>Alignment:</strong> A settlement’s
+        alignment is the general alignment of its citizens and government—
+        individuals who dwell therein can still be of any alignment, but the
+        majority of its citizens should be within one step of the settlement’s
+        overall alignment. Alignment influences a city’s
+        modifiers.</p><p><strong>Qualities:</strong> All settlements have a
+        certain number of qualities that further adjust their statistics—think
+        of qualities as feats for settlements. A settlement’s type determines
+        how many qualities it can have.</p><p><strong>Disadvantages:</strong>
+        Any disadvantages a settlement might be suffering from are listed on
+        this line. A settlement can have any number of disadvantages you wish to
+        inflict on it, although most settlements have no
+        disadvantages.</p><p><strong>Max Base Value:</strong> This section lists
+        the community’s maximum base value for available magic items in gp. The
+        total bonus provided by certain buildings can never increase past this
+        value.</p><p><strong>Purchase Limit: </strong>A settlement’s purchase
+        limit is the most money a shop in the settlement can spend to purchase
+        any single item from the PCs. If the PCs wish to sell an item worth more
+        than a settlement’s purchase limit, they’ll either need to settle for a
+        lower price, travel to a larger city, or (with the GM’s permission)
+        search for a specific buyer in the city with deeper
+        pockets.</p><p><strong>Spellcasting:</strong> Unlike magic items,
+        spellcasting for hire is listed separately from the town’s base value,
+        since spellcasting is limited by the level of the available spellcasters
+        in town. This line lists the highest-level spell available for purchase
+        from spellcasters in town. Prices for spellcasting appear on page 159 of
+        the Core Rulebook. A town’s base spellcasting level depends on its
+        type.</p>
+    video:
+      controls: true
+      volume: 0.5
+    src: null
+    _key: '!journal.pages!t1XuuI6w0ZUtN6Hj.6GfTeS0jM4WmlJk4'
 sort: 0
-categories: []
 _key: '!journal!t1XuuI6w0ZUtN6Hj'
+categories: []
 

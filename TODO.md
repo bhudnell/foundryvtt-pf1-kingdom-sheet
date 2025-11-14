@@ -5,8 +5,6 @@
 
 ## General stuff
 - refactor settlements hbs file to make it less huge
-- expanded settlement modifiers journal
-- All existing TODOs in code
 
 ## Documentation
 - explain that max base value and purchase limit should be assumed to be percentage

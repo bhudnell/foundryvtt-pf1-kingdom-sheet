@@ -1260,7 +1260,8 @@ export class KingdomSheet extends pf1.applications.actor.ActorSheetPF {
       case "settlement-defense":
       case "settlement-baseValue":
       case "settlement-purchaseLimit":
-      case "settlement-spellcasting": {
+      case "settlement-spellcasting":
+      case "settlement-maxBaseValue": {
         const [, attr] = id.split("-");
         const settlement = actorData.settlements[detail];
         paths.push({

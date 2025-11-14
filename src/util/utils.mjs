@@ -21,6 +21,10 @@ export function asSignedPercent(num) {
   return (num > 0 ? "+" : "") + num.toString() + "%";
 }
 
+export function capitalize(str) {
+  return str.charAt(0).toUpperCase() + str.slice(1);
+}
+
 /**
  * Recursively transforms an ES module to a regular, writable object.
  *

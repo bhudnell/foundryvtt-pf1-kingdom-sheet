@@ -841,7 +841,8 @@ export const compendiumEntries = {
     "Compendium.pf1-kingdom-sheet.rules.JournalEntry.t1XuuI6w0ZUtN6Hj.JournalEntryPage.CY9GAp1XjXgu5pmi",
   altSettlementSizes:
     "Compendium.pf1-kingdom-sheet.rules.JournalEntry.t1XuuI6w0ZUtN6Hj.JournalEntryPage.nZyEv4PWABJwIeLD",
-  expandedSettlementModifiers: "TODO",
+  expandedSettlementModifiers:
+    "Compendium.pf1-kingdom-sheet.rules.JournalEntry.t1XuuI6w0ZUtN6Hj.JournalEntryPage.6GfTeS0jM4WmlJk4",
 };
 
 export const armyAttributes = {
