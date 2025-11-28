@@ -33,7 +33,6 @@ export default [
         Item: "readonly",
         ItemSheet: "readonly",
         TextEditor: "readonly",
-        Dialog: "readonly",
         ChatMessage: "readonly",
         Tabs: "readonly",
         TooltipManager: "readonly",
