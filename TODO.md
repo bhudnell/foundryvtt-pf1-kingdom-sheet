@@ -40,11 +40,22 @@
   - wouldnt allow the settlement to be linked to a kingdom?
 
 ## Settlement and Army actors
-- should they have a "parent" field? when dragged onto a kingdom, logic:
-  - if no parent (hasnt been added to a kingdom yet)
-    - create the proxy item on the parent
-    - add the parent's id to the parent field
-  - if parent
+- add a "kingdom id" field
+- when any actor is deleted, ensure any existing links are removed
+- when dragged onto a kingdom
+  - if linked
     - error saying this actor has already been linked to a kingdom
-  - when deleting proxy items
-    - set parent of linked actor (settlement/army) to null to complete unlinking
+  - if no link (hasnt been added to a kingdom yet)
+    - create the proxy item on the parent
+    - add the parent's id to the "kingdom id" field
+- on settlement/army sheet add a button
+  - if linked
+    - button opens a dialog with all owned kingdoms to select the kingdom to link
+      - if only 1 owned kingdom, auto link when clicked
+  - if unlinked
+    - button unlinks from the kingdom (see below)
+- unlinking logic
+  - on kingdom
+    - delete the proxy item
+  - on settlement/army
+    - unset the "kingdom id" field

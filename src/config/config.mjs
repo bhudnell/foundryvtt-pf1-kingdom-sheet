@@ -2,6 +2,7 @@ export const moduleId = "pf1-kingdom-sheet";
 export const changePrefix = "pf1ks";
 
 export const kingdomId = `${moduleId}.kingdom`;
+export const settlementId = `${moduleId}.settlement`;
 export const armyId = `${moduleId}.army`;
 
 export const buildingId = `${moduleId}.building`;
@@ -12,7 +13,8 @@ export const boonId = `${moduleId}.boon`;
 export const specialId = `${moduleId}.special`;
 export const tacticId = `${moduleId}.tactic`;
 
-export const kingdomItemTypes = [buildingId, eventId, improvementId, featureId];
+export const kingdomItemTypes = [eventId, improvementId];
+export const settlementItemTypes = [buildingId, featureId];
 export const armyItemTypes = [boonId, specialId, tacticId];
 
 export const kingdomStats = {

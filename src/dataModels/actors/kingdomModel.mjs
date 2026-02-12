@@ -1,6 +1,6 @@
-import { ArmyProxyModel } from "./armyProxyModel.mjs";
+import { ActorProxyModel } from "./actorProxyModel.mjs";
 import { defineLeader } from "./leaderModel.mjs";
-import { SettlementModel } from "./settlementModel.mjs";
+import { SettlementModelDeprecated } from "./settlementModelDeprecated.mjs";
 
 export class KingdomModel extends foundry.abstract.TypeDataModel {
   static defineSchema() {
@@ -41,7 +41,7 @@ export class KingdomModel extends foundry.abstract.TypeDataModel {
         warden: new fields.EmbeddedDataField(defineLeader("warden", "loyalty", "ken")),
         viceroys: new fields.ArrayField(new fields.EmbeddedDataField(defineLeader("viceroy", "economy", "kge"))),
       }),
-      settlements: new fields.ArrayField(new fields.EmbeddedDataField(SettlementModel)),
+      settlementProxies: new fields.ArrayField(new fields.EmbeddedDataField(ActorProxyModel)),
       terrain: new fields.SchemaField({
         cavern: new fields.NumberField({ integer: true, initial: 0, nullable: false }),
         coast: new fields.NumberField({ integer: true, initial: 0, nullable: false }),
@@ -55,7 +55,7 @@ export class KingdomModel extends foundry.abstract.TypeDataModel {
         water: new fields.NumberField({ integer: true, initial: 0, nullable: false }),
       }),
       eventLastTurn: new fields.BooleanField(),
-      armies: new fields.ArrayField(new fields.EmbeddedDataField(ArmyProxyModel)),
+      armies: new fields.ArrayField(new fields.EmbeddedDataField(ActorProxyModel)),
       notes: new fields.SchemaField({
         value: new fields.HTMLField({ required: false, blank: true }),
       }),
@@ -71,6 +71,9 @@ export class KingdomModel extends foundry.abstract.TypeDataModel {
           expandedSettlementModifiers: new fields.BooleanField({ initial: false }),
         }),
       }),
+
+      // TODO deprecated for v4, remove eventually
+      settlements: new fields.ArrayField(new fields.EmbeddedDataField(SettlementModelDeprecated)),
     };
   }
 

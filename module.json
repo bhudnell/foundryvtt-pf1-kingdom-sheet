@@ -19,6 +19,9 @@
       "kingdom": {
         "htmlFields": ["notes.value"]
       },
+      "settlement": {
+        "htmlFields": ["notes.value"]
+      },
       "army": {
         "htmlFields": ["notes.value"]
       }

@@ -1,5 +1,6 @@
 import { ArmySheet } from "./applications/actors/armySheet.mjs";
 import { KingdomSheet } from "./applications/actors/kingdomSheet.mjs";
+import { SettlementSheet } from "./applications/actors/settlementSheet.mjs";
 import { BoonSheet } from "./applications/items/boonSheet.mjs";
 import { BuildingSheet } from "./applications/items/buildingSheet.mjs";
 import { EventSheet } from "./applications/items/eventSheet.mjs";
@@ -18,6 +19,7 @@ import { TacticBrowser } from "./config/compendiumBrowser/tacticBrowser.mjs";
 import * as PF1KS from "./config/config.mjs";
 import { ArmyModel } from "./dataModels/actors/armyModel.mjs";
 import { KingdomModel } from "./dataModels/actors/kingdomModel.mjs";
+import { SettlementModel } from "./dataModels/actors/settlementModel.mjs";
 import { BoonModel } from "./dataModels/items/boonModel.mjs";
 import { BuildingModel } from "./dataModels/items/buildingModel.mjs";
 import { EventModel } from "./dataModels/items/eventModel.mjs";
@@ -27,6 +29,7 @@ import { SpecialModel } from "./dataModels/items/specialModel.mjs";
 import { TacticModel } from "./dataModels/items/tacticModel.mjs";
 import { ArmyActor } from "./documents/actors/armyActor.mjs";
 import { KingdomActor } from "./documents/actors/kingdomActor.mjs";
+import { SettlementActor } from "./documents/actors/settlementActor.mjs";
 import { BoonItem } from "./documents/items/boonItem.mjs";
 import { BuildingItem } from "./documents/items/buildingItem.mjs";
 import { EventItem } from "./documents/items/eventItem.mjs";
@@ -65,6 +68,12 @@ Hooks.on("preCreateItem", (item, data, context, user) => {
     return false;
   }
 
+  // settlement actors
+  if (item.actor.type === PF1KS.settlementId && !PF1KS.settlementItemTypes.includes(item.type)) {
+    ui.notifications.error("PF1KS.OnlySettlementItemsOnActor", { localize: true });
+    return false;
+  }
+
   // army actors
   if (item.actor.type === PF1KS.armyId && !PF1KS.armyItemTypes.includes(item.type)) {
     ui.notifications.error("PF1KS.OnlyArmyItemsOnActor", { localize: true });
@@ -92,6 +101,9 @@ Hooks.once("libWrapper.Ready", () => {
       });
 
       if (this.object.actor.type === PF1KS.kingdomId) {
+        return {};
+      }
+      if (this.object.actor.type === PF1KS.settlementId) {
         return {};
       }
       if (this.object.actor.type === PF1KS.armyId) {
@@ -177,6 +189,7 @@ Hooks.once("init", () => {
   });
 
   CONFIG.Actor.documentClasses[PF1KS.kingdomId] = KingdomActor;
+  CONFIG.Actor.documentClasses[PF1KS.settlementId] = SettlementActor;
   CONFIG.Actor.documentClasses[PF1KS.armyId] = ArmyActor;
   CONFIG.Item.documentClasses[PF1KS.buildingId] = BuildingItem;
   CONFIG.Item.documentClasses[PF1KS.eventId] = EventItem;
@@ -187,6 +200,7 @@ Hooks.once("init", () => {
   CONFIG.Item.documentClasses[PF1KS.tacticId] = TacticItem;
 
   pf1.documents.actor.KingdomActor = KingdomActor;
+  pf1.documents.actor.SettlementActor = SettlementActor;
   pf1.documents.actor.ArmyActor = ArmyActor;
   pf1.documents.item.BuildingItem = BuildingItem;
   pf1.documents.item.EventItem = EventItem;
@@ -197,6 +211,7 @@ Hooks.once("init", () => {
   pf1.documents.item.TacticItem = TacticItem;
 
   CONFIG.Actor.dataModels[PF1KS.kingdomId] = KingdomModel;
+  CONFIG.Actor.dataModels[PF1KS.settlementId] = SettlementModel;
   CONFIG.Actor.dataModels[PF1KS.armyId] = ArmyModel;
   CONFIG.Item.dataModels[PF1KS.buildingId] = BuildingModel;
   CONFIG.Item.dataModels[PF1KS.eventId] = EventModel;
@@ -207,6 +222,7 @@ Hooks.once("init", () => {
   CONFIG.Item.dataModels[PF1KS.tacticId] = TacticModel;
 
   pf1.applications.actor.KingdomSheet = KingdomSheet;
+  pf1.applications.actor.SettlementSheet = SettlementSheet;
   pf1.applications.actor.ArmySheet = ArmySheet;
   pf1.applications.item.BuildingSheet = BuildingSheet;
   pf1.applications.item.EventSheet = EventSheet;
@@ -219,6 +235,11 @@ Hooks.once("init", () => {
   Actors.registerSheet(PF1KS.moduleId, KingdomSheet, {
     label: game.i18n.localize("PF1KS.Sheet.Kingdom"),
     types: [PF1KS.kingdomId],
+    makeDefault: true,
+  });
+  Actors.registerSheet(PF1KS.moduleId, SettlementSheet, {
+    label: game.i18n.localize("PF1KS.Sheet.Settlement"),
+    types: [PF1KS.settlementId],
     makeDefault: true,
   });
   Actors.registerSheet(PF1KS.moduleId, ArmySheet, {
@@ -269,7 +290,11 @@ Hooks.once("init", () => {
       category.filters ??= {};
       category.filters.item ??= {};
       category.filters.item.exclude ??= [];
-      category.filters.item.exclude.push(...PF1KS.kingdomItemTypes, ...PF1KS.armyItemTypes);
+      category.filters.item.exclude.push(
+        ...PF1KS.kingdomItemTypes,
+        ...PF1KS.settlementItemTypes,
+        ...PF1KS.armyItemTypes
+      );
       pf1.config[prop][categoryKey] = category;
     }
   }
@@ -293,7 +318,7 @@ Hooks.once("init", () => {
 Hooks.once("setup", () => {
   // re-prepare kingdoms and armies once all their dependencies are prepared
   game.actors
-    .filter((a) => [pf1ks.config.kingdomId, pf1ks.config.armyId].includes(a.type))
+    .filter((a) => [pf1ks.config.kingdomId, pf1ks.config.settlementId, pf1ks.config.armyId].includes(a.type))
     .forEach((a) => a.prepareData());
 });
 

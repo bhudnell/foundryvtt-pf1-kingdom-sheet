@@ -1,4 +1,4 @@
-export class ArmyProxyModel extends foundry.abstract.DataModel {
+export class ActorProxyModel extends foundry.abstract.DataModel {
   static defineSchema() {
     const fields = foundry.data.fields;
 

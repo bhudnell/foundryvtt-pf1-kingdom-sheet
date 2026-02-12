@@ -1,6 +1,7 @@
 import { log, registerSetting } from "../util/utils.mjs";
 
 import { MigrateV1 as v1 } from "./migrateV1.mjs";
+import { MigrateV2 as v2 } from "./migrateV2.mjs";
 
 class Settings {
   static get #migrationVersionKey() {
@@ -28,6 +29,7 @@ class Settings {
 
 const migrations = [
   { label: "building/settlement updates", migrate: () => v1.migrateWorld() }, // v3.0
+  { label: "settlement actor breakout", migrate: () => v2.migrateWorld() }, // v4.0
 ];
 
 async function migrateWorld() {

@@ -1,10 +1,14 @@
 import { DistrictModel } from "./districtModel.mjs";
 
-export class SettlementModel extends foundry.abstract.TypeDataModel {
+// TODO model deprecated for v4, remove eventually
+export class SettlementModelDeprecated extends foundry.abstract.DataModel {
   static defineSchema() {
     const fields = foundry.data.fields;
 
     return {
+      id: new fields.StringField({ required: true, nullable: false, blank: false }),
+      name: new fields.StringField({ blank: true }),
+      districtCount: new fields.NumberField({ integer: true, min: 0, initial: 1, nullable: false }),
       districts: new fields.ArrayField(new fields.EmbeddedDataField(DistrictModel)),
       magicItems: new fields.SchemaField({
         minor: new fields.ArrayField(new fields.StringField()),

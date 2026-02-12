@@ -1,0 +1,58 @@
+<form class="{{ cssClass }}" data-tooltip-class="pf1" autocomplete="off">
+  {{! Sheet Navigation }}
+  <nav class="sheet-navigation tabs" data-group="primary">
+    <a class="item" data-tab="summary" data-group="primary">{{localize "PF1.Summary"}}</a>
+    <a class="item" data-tab="leadership" data-group="primary">{{localize "PF1KS.LeadershipLabel"}}</a>
+    <a class="item" data-tab="settlements" data-group="primary">{{localize "PF1KS.Settlements"}}</a>
+    <a class="item" data-tab="terrain" data-group="primary">{{localize "PF1KS.TerrainLabel"}}</a>
+    <a class="item" data-tab="events" data-group="primary">{{localize "PF1KS.Events"}}</a>
+    <a class="item" data-tab="armies" data-group="primary">{{localize "PF1KS.Armies"}}</a>
+    <a class="item" data-tab="notes" data-group="primary">{{localize "PF1.Notes"}}</a>
+    <a class="item" data-tab="settings" data-group="primary">{{localize "PF1.Settings"}}</a>
+  </nav>
+
+  {{! Sheet Body }}
+  <section class="primary-body">
+    {{! Summary Tab }}
+    <div class="tab summary" data-group="primary" data-tab="summary">
+      {{~> kingdom-sheet-summary}}
+    </div>
+
+    {{! Leadership Tab }}
+    <div class="tab leadership" data-group="primary" data-tab="leadership">
+      {{~> kingdom-sheet-leadership}}
+    </div>
+
+    {{! Settlements Tab }}
+    <div class="tab settlements" data-group="primary" data-tab="settlements">
+      {{~> kingdom-sheet-settlements}}
+    </div>
+
+    {{! Terrain Tab }}
+    <div class="tab terrain" data-group="primary" data-tab="terrain">
+      {{~> kingdom-sheet-terrain}}
+    </div>
+
+    {{! Events Tab }}
+    <div class="tab events" data-group="primary" data-tab="events">
+      {{~> kingdom-sheet-events}}
+    </div>
+
+    {{! Armies Tab }}
+    <div class="tab armies" data-group="primary" data-tab="armies">
+      {{~> kingdom-sheet-armies}}
+    </div>
+
+    {{! Notes Tab }}
+    <div class="tab actor-notes" data-group="primary" data-tab="notes">
+      <div class="primary-content">
+        {{editor enrichedNotes target="system.notes.value" button=true editable=editable engine="prosemirror"}}
+      </div>
+    </div>
+
+    {{! Settings Tab }}
+    <div class="tab settings" data-group="primary" data-tab="settings">
+      {{~> kingdom-sheet-settings}}
+    </div>
+  </section>
+</form>

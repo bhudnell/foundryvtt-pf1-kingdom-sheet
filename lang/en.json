@@ -407,6 +407,7 @@
 
     "Sheet": {
       "Kingdom": "Kingdom Sheet",
+      "Settlement": "Settlement Sheet",
       "Army": "Army Sheet",
       "Building": "Building",
       "Event": "Event",
@@ -417,8 +418,9 @@
       "Tactic": "Tactic"
     },
 
-    "NoKingdomOrArmyItemsOnActor": "This actor cannot have Kingdom or Army items.",
-    "OnlyKingdomItemsOnActor": "Kingdom actors can only have Building, Event, Terrain Improvement, and Settlement Feature items.",
+    "NoKingdomOrArmyItemsOnActor": "This actor cannot have Kingdom, Settlement, or Army items.",
+    "OnlyKingdomItemsOnActor": "Kingdom actors can only have Event and Terrain Improvement items.",
+    "OnlySettlementItemsOnActor": "Settlement actors can only have Building and Settlement Feature items.",
     "OnlyArmyItemsOnActor": "Army actors can only have Boon, Special Ability, and Tactic items.",
     "LibWrapperError": "The PF1 Kingdom Sheet module requires the 'libWrapper' module. Please install and activate it."
   },
@@ -426,6 +428,7 @@
     "Actor": {
       "pf1-kingdom-sheet": {
         "kingdom": "Kingdom Sheet",
+        "settlement": "Settlement Sheet",
         "army": "Army Sheet"
       }
     },
