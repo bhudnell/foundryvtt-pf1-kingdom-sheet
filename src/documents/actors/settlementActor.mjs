@@ -3,127 +3,127 @@ import { DefaultChange, asSignedPercent, capitalize } from "../../util/utils.mjs
 import { BaseActor } from "./baseActor.mjs";
 
 export class SettlementActor extends BaseActor {
-  // TODO
-  // prepareDerivedData() {
-  //   super.prepareDerivedData();
+  prepareDerivedData() {
+    super.prepareDerivedData();
 
-  //   // magic items
-  //   for (const key of Object.keys(pf1ks.config.magicItemTypes)) {
-  //     const count = this._getChanges(key, undefined, settlement.id);
-  //     const oldItems = settlement.magicItems[key];
-  //     settlement.magicItems[key] = oldItems.concat(Array(Math.max(count - oldItems.length, 0)).fill(null));
-  //   }
+    // TODO
+    //   // magic items
+    //   for (const key of Object.keys(pf1ks.config.magicItemTypes)) {
+    //     const count = this._getChanges(key, undefined, settlement.id);
+    //     const oldItems = settlement.magicItems[key];
+    //     settlement.magicItems[key] = oldItems.concat(Array(Math.max(count - oldItems.length, 0)).fill(null));
+    //   }
 
-  //   // the below is split between here and settlementModel.mjs prepareDerivedData because of the change system.
-  //   // size, alignment, and government are handled in settlementModel.mjs and everything else is handled here
+    //   // the below is split between here and settlementModel.mjs prepareDerivedData because of the change system.
+    //   // size, alignment, and government are handled in settlementModel.mjs and everything else is handled here
 
-  //   // settlement attributes (danger, baseValue, maxBaseValue, spellcasting, purchaseLimit)
-  //   for (const attr of Object.keys(pf1ks.config.settlementAttributes)) {
-  //     const { size, government } = settlement.attributes[attr];
-  //     const buildings = this._getChanges(attr, pf1ks.config.buildingId, settlement.id);
-  //     const features = this._getChanges(attr, pf1ks.config.featureId, settlement.id);
-  //     const improvements = this._getChanges(attr, pf1ks.config.improvementId, settlement.id);
-  //     const events = this._getChanges(attr, pf1ks.config.eventId, settlement.id);
+    //   // settlement attributes (danger, baseValue, maxBaseValue, spellcasting, purchaseLimit)
+    //   for (const attr of Object.keys(pf1ks.config.settlementAttributes)) {
+    //     const { size, government } = settlement.attributes[attr];
+    //     const buildings = this._getChanges(attr, pf1ks.config.buildingId, settlement.id);
+    //     const features = this._getChanges(attr, pf1ks.config.featureId, settlement.id);
+    //     const improvements = this._getChanges(attr, pf1ks.config.improvementId, settlement.id);
+    //     const events = this._getChanges(attr, pf1ks.config.eventId, settlement.id);
 
-  //     let total = (size ?? 0) + (government ?? 0);
-  //     if (["maxBaseValue", "purchaseLimit"].includes(attr)) {
-  //       total = Math.floor(total * (1 + (buildings + features + improvements + events) / 100));
-  //     } else {
-  //       total += buildings + features + improvements + events;
-  //     }
+    //     let total = (size ?? 0) + (government ?? 0);
+    //     if (["maxBaseValue", "purchaseLimit"].includes(attr)) {
+    //       total = Math.floor(total * (1 + (buildings + features + improvements + events) / 100));
+    //     } else {
+    //       total += buildings + features + improvements + events;
+    //     }
 
-  //     settlement.attributes[attr] = {
-  //       ...settlement.attributes[attr],
-  //       buildings,
-  //       features,
-  //       improvements,
-  //       events,
-  //       total,
-  //     };
-  //   }
+    //     settlement.attributes[attr] = {
+    //       ...settlement.attributes[attr],
+    //       buildings,
+    //       features,
+    //       improvements,
+    //       events,
+    //       total,
+    //     };
+    //   }
 
-  //   // base value adjustment
-  //   if (settlement.attributes.baseValue.total > settlement.attributes.maxBaseValue.total) {
-  //     settlement.attributes.baseValue.total = settlement.attributes.maxBaseValue.total;
-  //     settlement.attributes.baseValue.overridden = true;
-  //   }
+    //   // base value adjustment
+    //   if (settlement.attributes.baseValue.total > settlement.attributes.maxBaseValue.total) {
+    //     settlement.attributes.baseValue.total = settlement.attributes.maxBaseValue.total;
+    //     settlement.attributes.baseValue.overridden = true;
+    //   }
 
-  //   // settlement modifiers
-  //   for (const modifier of Object.keys(pf1ks.config.settlementModifiers)) {
-  //     const { size, kingdomAlignment, kingdomGovernment, settlementAlignment, settlementGovernment } =
-  //       settlement.modifiers[modifier];
-  //     const buildings = this._getChanges(modifier, pf1ks.config.buildingId, settlement.id);
-  //     const features = this._getChanges(modifier, pf1ks.config.featureId, settlement.id);
-  //     const improvements = this._getChanges(modifier, pf1ks.config.improvementId, settlement.id);
-  //     const events = this._getChanges(modifier, pf1ks.config.eventId, settlement.id);
+    //   // settlement modifiers
+    //   for (const modifier of Object.keys(pf1ks.config.settlementModifiers)) {
+    //     const { size, kingdomAlignment, kingdomGovernment, settlementAlignment, settlementGovernment } =
+    //       settlement.modifiers[modifier];
+    //     const buildings = this._getChanges(modifier, pf1ks.config.buildingId, settlement.id);
+    //     const features = this._getChanges(modifier, pf1ks.config.featureId, settlement.id);
+    //     const improvements = this._getChanges(modifier, pf1ks.config.improvementId, settlement.id);
+    //     const events = this._getChanges(modifier, pf1ks.config.eventId, settlement.id);
 
-  //     let settlementTotal =
-  //       size +
-  //       kingdomAlignment +
-  //       kingdomGovernment +
-  //       settlementAlignment +
-  //       settlementGovernment +
-  //       buildings +
-  //       features +
-  //       improvements +
-  //       events;
+    //     let settlementTotal =
+    //       size +
+    //       kingdomAlignment +
+    //       kingdomGovernment +
+    //       settlementAlignment +
+    //       settlementGovernment +
+    //       buildings +
+    //       features +
+    //       improvements +
+    //       events;
 
-  //     settlement.modifiers[modifier] = {
-  //       ...settlement.modifiers[modifier],
-  //       buildings,
-  //       features,
-  //       improvements,
-  //       events,
-  //       settlementTotal,
-  //       total: settlementTotal,
-  //     };
-  //   }
+    //     settlement.modifiers[modifier] = {
+    //       ...settlement.modifiers[modifier],
+    //       buildings,
+    //       features,
+    //       improvements,
+    //       events,
+    //       settlementTotal,
+    //       total: settlementTotal,
+    //     };
+    //   }
 
-  //   // take higher of settlement modifiers and kingdom modifiers
-  //   if (this.system.settings.optionalRules.kingdomModifiers) {
-  //     for (const settlement of this.system.settlements) {
-  //       for (const modifier of Object.keys(pf1ks.config.settlementModifiers)) {
-  //         settlement.modifiers[modifier].total = Math.max(
-  //           settlement.modifiers[modifier].total,
-  //           this.system.modifiers[modifier].total
-  //         );
-  //       }
-  //     }
-  //   }
+    //   // take higher of settlement modifiers and kingdom modifiers
+    //   if (this.system.settings.optionalRules.kingdomModifiers) {
+    //     for (const settlement of this.system.settlements) {
+    //       for (const modifier of Object.keys(pf1ks.config.settlementModifiers)) {
+    //         settlement.modifiers[modifier].total = Math.max(
+    //           settlement.modifiers[modifier].total,
+    //           this.system.modifiers[modifier].total
+    //         );
+    //       }
+    //     }
+    //   }
 
-  //   // overlapping buildings check
-  //   const updates = [];
-  //   const gridBuildings = this.itemTypes[pf1ks.config.buildingId].filter((b) => b.inGrid);
-  //   for (const building of gridBuildings) {
-  //     const districtBuildings = gridBuildings.filter(
-  //       (db) => db.system.districtId === building.system.districtId && db.id !== building.id
-  //     );
+    // overlapping buildings check
+    const updates = [];
+    const gridBuildings = this.itemTypes[pf1ks.config.buildingId].filter((b) => b.inGrid);
+    for (const building of gridBuildings) {
+      const districtBuildings = gridBuildings.filter(
+        (db) => db.system.districtId === building.system.districtId && db.id !== building.id
+      );
 
-  //     const overlaps = districtBuildings.some(
-  //       (other) =>
-  //         !(
-  //           building.system.x + building.system.width <= other.system.x || // is left of other
-  //           other.system.x + other.system.width <= building.system.x || // is right of other
-  //           building.system.y + building.system.height <= other.system.y || // is above other
-  //           other.system.y + other.system.height <= building.system.y // is below other
-  //         )
-  //     );
+      const overlaps = districtBuildings.some(
+        (other) =>
+          !(
+            building.system.x + building.system.width <= other.system.x || // is left of other
+            other.system.x + other.system.width <= building.system.x || // is right of other
+            building.system.y + building.system.height <= other.system.y || // is above other
+            other.system.y + other.system.height <= building.system.y // is below other
+          )
+      );
 
-  //     if (overlaps) {
-  //       updates.push({
-  //         _id: building.id,
-  //         system: {
-  //           x: null,
-  //           y: null,
-  //         },
-  //       });
-  //     }
-  //   }
-  //   this.updateEmbeddedDocuments("Item", updates);
+      if (overlaps) {
+        updates.push({
+          _id: building.id,
+          system: {
+            x: null,
+            y: null,
+          },
+        });
+      }
+    }
+    this.updateEmbeddedDocuments("Item", updates);
 
-  //   // deleting this because it only exists to get settlement modifier changes to parse
-  //   delete this.system.someFakeData;
-  // }
+    //   // deleting this because it only exists to get settlement modifier changes to parse
+    //   delete this.system.someFakeData;
+  }
 
   // _prepareTypeChanges(changes) {
   //   const system = this.system;

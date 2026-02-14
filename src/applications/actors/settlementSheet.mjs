@@ -63,33 +63,92 @@ export class SettlementSheet extends pf1.applications.actor.ActorSheetPF {
     };
 
     // selectors
+    data.alignmentOptions = pf1.config.alignments;
     data.governmentOptions = pf1ks.config.settlementGovernments;
     data.districtBorderOptions = pf1ks.config.districtBorders;
 
+    // summary
+    data.sizeLabel = pf1ks.config.settlementSizes[actorData.attributes.size];
+    data.modifiers = [];
+    for (const [mod, label] of Object.entries(pf1ks.config.settlementModifiers)) {
+      data.modifiers.push({ id: mod, label, value: actorData.modifiers[mod] });
+    }
+
+    // districts
+    data.districts = actorData.districts.map((district) => {
+      const grid = Array.from({ length: GRID_ROWS * GRID_COLS }, (_, i) => ({
+        x: i % GRID_COLS,
+        y: Math.floor(i / GRID_ROWS),
+      }));
+
+      const [buildings, lotlessBuildings] = this.actor.itemTypes[pf1ks.config.buildingId].reduce(
+        (arr, building) => {
+          if (building.system.districtId !== district.id) {
+            return arr;
+          }
+          if (building.inGrid) {
+            arr[0].push(building);
+          } else {
+            arr[1].push(building);
+          }
+          return arr;
+        },
+        [[], []]
+      );
+
+      return {
+        id: district.id,
+        name: district.name,
+        borders: district.borders,
+        grid,
+        section: { ...pf1.config.sheetSections.kingdomSettlement.building },
+        buildings: buildings.map((building) => ({
+          id: building.id,
+          img: building.img,
+          width: building.system.width,
+          height: building.system.height,
+          x: building.system.x,
+          y: building.system.y,
+        })),
+        lotlessBuildings: lotlessBuildings.map((building) => ({
+          id: building.id,
+          img: building.img,
+          name: building.name,
+          error: building.error,
+        })),
+      };
+    });
+
+    // features
     data.sections = this._prepareItems();
 
-    const settlements = this.actor.system.settlements;
-    const districts = this.actor.system.settlements.flatMap((settlement) => settlement.districts);
+    // magic items
+    data.magicItems = Object.entries(pf1ks.config.magicItemTypes).map(([key, label]) => {
+      const items = actorData.magicItems[key];
+      const max = this.actor._getChanges(key, undefined, actorData.id); // TODO
+
+      return {
+        key,
+        label,
+        count: items.length,
+        error: items.length > max ? game.i18n.format("PF1KS.TooManyMagicItems", { max }) : undefined,
+        items,
+      };
+    });
+
+    // optional rules
+    data.settings = this._prepareSettings();
+    data.optionalRules = this._prepareOptionalRules();
+
+    // unassigned buildings
+    const districts = this.actor.system.districts;
     data.unassignedBuildings = this.actor.itemTypes[pf1ks.config.buildingId]
       .filter((building) => !building.isAssigned)
       .map((building) => ({
         id: building.id,
         img: building.img,
         name: building.name,
-        settlementName: settlements.find((s) => s.id === building.system.settlementId)?.name,
-        districtName: districts.find((d) => d.id === building.system.districtId)?.name,
       }));
-    data.unassignedFeatures = this.actor.itemTypes[pf1ks.config.featureId]
-      .filter((feature) => !feature.isAssigned)
-      .map((feature) => ({
-        id: feature.id,
-        img: feature.img,
-        name: feature.name,
-      }));
-
-    // optional rules
-    data.settings = this._prepareSettings();
-    data.optionalRules = this._prepareOptionalRules();
 
     return data;
   }
@@ -214,103 +273,28 @@ export class SettlementSheet extends pf1.applications.actor.ActorSheetPF {
       }
     }
 
-    const settlementSections = this.actor.system.settlements.map((settlement) => {
-      const settlementBuildings = this.actor.itemTypes[pf1ks.config.buildingId].filter(
-        (building) => building.system.settlementId === settlement.id
-      );
-
-      return {
-        ...settlement,
-        modifiers: Object.entries(settlement.modifiers).map(([key, value]) => {
-          return {
-            id: key,
-            label: pf1ks.config.settlementModifiers[key],
-            value: value.total,
-          };
-        }),
-        sizeLabel: pf1ks.config.settlementSizes[settlement.attributes.size],
-        districts: settlement.districts.map((district) => {
-          const grid = Array.from({ length: GRID_ROWS * GRID_COLS }, (_, i) => ({
-            x: i % GRID_COLS,
-            y: Math.floor(i / GRID_ROWS),
-          }));
-
-          const [buildings, lotlessBuildings] = settlementBuildings.reduce(
-            (arr, building) => {
-              if (building.system.districtId !== district.id) {
-                return arr;
-              }
-              if (building.inGrid) {
-                arr[0].push(building);
-              } else {
-                arr[1].push(building);
-              }
-              return arr;
-            },
-            [[], []]
-          );
-
-          return {
-            id: district.id,
-            name: district.name,
-            borders: district.borders,
-            grid,
-            section: { ...pf1.config.sheetSections.kingdomSettlement.building },
-            buildings: buildings.map((building) => ({
-              id: building.id,
-              img: building.img,
-              width: building.system.width,
-              height: building.system.height,
-              x: building.system.x,
-              y: building.system.y,
-            })),
-            lotlessBuildings: lotlessBuildings.map((building) => ({
-              id: building.id,
-              img: building.img,
-              name: building.name,
-              error: building.error,
-            })),
-          };
-        }),
-        features: featureSections.map((section) => ({
-          ...section,
-          items: section.items?.filter((item) => item.system.settlementId === settlement.id),
-        })),
-        magicItems: Object.entries(pf1ks.config.magicItemTypes).map(([key, label]) => {
-          const items = settlement.magicItems[key];
-          const max = this.actor._getChanges(key, undefined, settlement.id);
-
-          return {
-            key,
-            label,
-            count: items.length,
-            error: items.length > max ? game.i18n.format("PF1KS.TooManyMagicItems", { max }) : undefined,
-            items,
-          };
-        }),
-      };
-    });
-
-    return { settlements: settlementSections };
+    return { features: featureSections };
   }
 
   _prepareSettings() {
-    return Object.entries(this.actor.system.settings)
-      .filter(([_, value]) => typeof value === "boolean")
-      .map(([key, value]) => ({
-        name: key,
-        value,
-        label: pf1ks.config.settings[key],
-      }));
+    return [];
+    // return Object.entries(this.actor.system.settings)
+    //   .filter(([_, value]) => typeof value === "boolean")
+    //   .map(([key, value]) => ({
+    //     name: key,
+    //     value,
+    //     label: pf1ks.config.settings[key],
+    //   }));
   }
 
   _prepareOptionalRules() {
-    return Object.entries(this.actor.system.settings.optionalRules).map(([key, value]) => ({
-      name: key,
-      value,
-      label: pf1ks.config.optionalRules[key],
-      compendiumEntry: pf1ks.config.compendiumEntries[key],
-    }));
+    return [];
+    // return Object.entries(this.actor.system.settings.optionalRules).map(([key, value]) => ({
+    //   name: key,
+    //   value,
+    //   label: pf1ks.config.optionalRules[key],
+    //   compendiumEntry: pf1ks.config.compendiumEntries[key],
+    // }));
   }
 
   async _itemToggleData(event) {

@@ -14,6 +14,8 @@ export class MigrateV2 extends BaseMigrate {
     const settlements = actor.system.settlements;
 
     // TODO add link to the kingdom
+    // TODO make sure they are created as linked actors
+    // TODO make sure districts move over
     log(`creating ${settlements.length} new settlement actors`);
     const settlementActors = await Actor.implementation.createDocuments(
       settlements.map((s) => {
