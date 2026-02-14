@@ -7,10 +7,15 @@ import {
   kingdomStats,
   magicItemTypes,
   settlementAttributes,
+  settlementItemTypes,
 } from "./config.mjs";
 
-export const commonBuffTargets = {
-  [`${changePrefix}_consumption`]: { category: `${changePrefix}_misc`, label: "PF1KS.Consumption" },
+export const kingdomOrArmyBuffTargets = {
+  [`${changePrefix}_consumption`]: {
+    category: `${changePrefix}_misc`,
+    label: "PF1KS.Consumption",
+    filters: { item: { include: [...kingdomItemTypes, ...armyItemTypes] } },
+  },
 };
 
 export const armyBuffTargets = {
@@ -30,46 +35,12 @@ export const armyBuffTargets = {
   }, {}),
 };
 
+const { defense, ...settlementOnlyAttributes } = settlementAttributes;
+
 export const kingdomBuffTargets = {
-  ...Object.entries(kingdomStats).reduce((acc, [key, label]) => {
-    acc[`${changePrefix}_${key}`] = { category: `${changePrefix}_kingdom_stats`, label };
-    return acc;
-  }, {}),
-  ...Object.entries(settlementModifiers).reduce((acc, [key, label]) => {
-    acc[`${changePrefix}_${key}`] = { category: `${changePrefix}_settlement_modifiers`, label };
-    return acc;
-  }, {}),
-  ...Object.entries(settlementAttributes).reduce((acc, [key, label]) => {
-    acc[`${changePrefix}_${key}`] = { category: `${changePrefix}_settlement_attributes`, label };
-    return acc;
-  }, {}),
-  ...Object.entries(magicItemTypes).reduce((acc, [key, label]) => {
-    acc[`${changePrefix}_magic_item_${key}`] = { category: `${changePrefix}_magic_items`, label };
-    return acc;
-  }, {}),
   [`${changePrefix}_bonusBP`]: {
     category: `${changePrefix}_misc`,
     label: "PF1KS.BonusBP",
-    filters: { item: { include: kingdomItemTypes } },
-  },
-  [`${changePrefix}_bpStorage`]: {
-    category: `${changePrefix}_misc`,
-    label: "PF1KS.BPStorage",
-    filters: { item: { include: kingdomItemTypes } },
-  },
-  [`${changePrefix}_fame`]: {
-    category: `${changePrefix}_misc`,
-    label: "PF1KS.Fame",
-    filters: { item: { include: kingdomItemTypes } },
-  },
-  [`${changePrefix}_infamy`]: {
-    category: `${changePrefix}_misc`,
-    label: "PF1KS.Infamy",
-    filters: { item: { include: kingdomItemTypes } },
-  },
-  [`${changePrefix}_unrestDrop`]: {
-    category: `${changePrefix}_misc`,
-    label: "PF1KS.UnrestOnDrop",
     filters: { item: { include: kingdomItemTypes } },
   },
   [`${changePrefix}_unrestContinuous`]: {
@@ -79,32 +50,81 @@ export const kingdomBuffTargets = {
   },
 };
 
+export const settlementBuffTargets = {
+  [`${changePrefix}_bpStorage`]: {
+    category: `${changePrefix}_misc`,
+    label: "PF1KS.BPStorage",
+    filters: { item: { include: settlementItemTypes } },
+  },
+  ...Object.entries(settlementOnlyAttributes).reduce((acc, [key, label]) => {
+    acc[`${changePrefix}_${key}`] = { category: `${changePrefix}_settlement_attributes`, label };
+    return acc;
+  }, {}),
+};
+
+export const kingdomOrSettlementBuffTargets = {
+  ...Object.entries(kingdomStats).reduce((acc, [key, label]) => {
+    acc[`${changePrefix}_${key}`] = { category: `${changePrefix}_kingdom_stats`, label };
+    return acc;
+  }, {}),
+  ...Object.entries(magicItemTypes).reduce((acc, [key, label]) => {
+    acc[`${changePrefix}_magic_item_${key}`] = { category: `${changePrefix}_magic_items`, label };
+    return acc;
+  }, {}),
+  [`${changePrefix}_fame`]: {
+    category: `${changePrefix}_misc`,
+    label: "PF1KS.Fame",
+    filters: { item: { include: [...kingdomItemTypes, ...settlementItemTypes] } },
+  },
+  [`${changePrefix}_infamy`]: {
+    category: `${changePrefix}_misc`,
+    label: "PF1KS.Infamy",
+    filters: { item: { include: [...kingdomItemTypes, ...settlementItemTypes] } },
+  },
+  [`${changePrefix}_unrestDrop`]: {
+    category: `${changePrefix}_misc`,
+    label: "PF1KS.UnrestOnDrop",
+    filters: { item: { include: [...kingdomItemTypes, ...settlementItemTypes] } },
+  },
+  ...Object.entries(settlementModifiers).reduce((acc, [key, label]) => {
+    acc[`${changePrefix}_${key}`] = { category: `${changePrefix}_settlement_modifiers`, label };
+    return acc;
+  }, {}),
+  [`${changePrefix}_defense`]: {
+    category: `${changePrefix}_settlement_attributes`,
+    label: defense,
+    filters: { item: { include: kingdomItemTypes } },
+  },
+};
+
 export const buffTargets = {
   ...kingdomBuffTargets,
+  ...settlementBuffTargets,
+  ...kingdomOrSettlementBuffTargets,
   ...armyBuffTargets,
-  ...commonBuffTargets,
+  ...kingdomOrArmyBuffTargets,
 };
 
 export const buffTargetCategories = {
   [`${changePrefix}_kingdom_stats`]: {
     label: "PF1KS.KingdomStat",
-    filters: { item: { include: kingdomItemTypes } },
+    filters: { item: { include: [...kingdomItemTypes, ...settlementItemTypes] } },
   },
   [`${changePrefix}_settlement_modifiers`]: {
     label: "PF1KS.SettlementModifiers",
-    filters: { item: { include: kingdomItemTypes } },
+    filters: { item: { include: [...kingdomItemTypes, ...settlementItemTypes] } },
   },
   [`${changePrefix}_settlement_attributes`]: {
     label: "PF1KS.SettlementAttributes",
-    filters: { item: { include: kingdomItemTypes } },
+    filters: { item: { include: settlementItemTypes } }, // TODO what to do with defense (should be both kingdom and settlement)
   },
   [`${changePrefix}_magic_items`]: {
     label: "PF1KS.MagicItems",
-    filters: { item: { include: kingdomItemTypes } },
+    filters: { item: { include: [...kingdomItemTypes, ...settlementItemTypes] } },
   },
   [`${changePrefix}_misc`]: {
     label: "PF1.Misc",
-    filters: { item: { include: [...kingdomItemTypes, ...armyItemTypes] } },
+    filters: { item: { include: [...kingdomItemTypes, ...settlementItemTypes, ...armyItemTypes] } },
   },
   [`${changePrefix}_army_attributes`]: {
     label: "PF1KS.ArmyAttributes",

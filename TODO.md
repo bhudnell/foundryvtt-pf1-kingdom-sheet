@@ -59,3 +59,9 @@
     - delete the proxy item
   - on settlement/army
     - unset the "kingdom id" field
+
+
+
+what to do with defense?
+settlement attributes           -> settlement         -> settlement attributes
+settlement attributes (defense) -> kingdom/settlement -> settlement attributes
