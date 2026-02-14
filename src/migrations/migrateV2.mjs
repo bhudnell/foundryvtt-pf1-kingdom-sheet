@@ -14,13 +14,11 @@ export class MigrateV2 extends BaseMigrate {
     const settlements = actor.system.settlements;
 
     // TODO add link to the kingdom
-    // TODO make sure they are created as linked actors
-    // TODO make sure districts move over
     log(`creating ${settlements.length} new settlement actors`);
     const settlementActors = await Actor.implementation.createDocuments(
       settlements.map((s) => {
         const { name, id, districtCount, ...system } = s.toObject();
-        return { name, type: pf1ks.config.settlementId, system };
+        return { name, type: pf1ks.config.settlementId, "prototypeToken.actorLink": true, system };
       })
     );
     log(`...finished creating ${settlementActors.length} new settlement actors`);

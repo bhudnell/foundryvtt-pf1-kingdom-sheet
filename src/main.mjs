@@ -332,6 +332,7 @@ Hooks.once("ready", () => {
     "kingdom-sheet-settings": `modules/${PF1KS.moduleId}/templates/actors/kingdom/parts/settings.hbs`,
     "kingdom-sheet-events": `modules/${PF1KS.moduleId}/templates/actors/kingdom/parts/events.hbs`,
     "kingdom-sheet-leadership": `modules/${PF1KS.moduleId}/templates/actors/kingdom/parts/leadership.hbs`,
+    "kingdom-sheet-settlements": `modules/${PF1KS.moduleId}/templates/actors/kingdom/parts/settlements.hbs`,
     "kingdom-sheet-summary": `modules/${PF1KS.moduleId}/templates/actors/kingdom/parts/summary.hbs`,
     "kingdom-sheet-terrain": `modules/${PF1KS.moduleId}/templates/actors/kingdom/parts/terrain.hbs`,
 

@@ -348,6 +348,7 @@ export class KingdomSheet extends pf1.applications.actor.ActorSheetPF {
     const newArmy = await Actor.create({
       name: game.i18n.localize("PF1KS.NewArmy"),
       type: pf1ks.config.armyId,
+      "prototypeToken.actorLink": true,
     });
 
     return this._createArmy(newArmy._id);
