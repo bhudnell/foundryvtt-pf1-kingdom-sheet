@@ -7,7 +7,7 @@ export class ImprovementModel extends ItemBaseModel {
     const schema = {
       subType: new fields.StringField({ initial: "general", choices: Object.keys(pf1ks.config.improvementSubTypes) }),
       quantity: new fields.NumberField({ integer: true, min: 0, initial: 1, nullable: false }),
-      settlementId: new fields.StringField(),
+      settlementId: new fields.StringField(), // TODO what to do with this?
     };
     this.addDefaultSchemaFields(schema);
 

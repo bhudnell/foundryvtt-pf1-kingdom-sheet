@@ -10,9 +10,13 @@ export class FeatureItem extends BaseItemKS {
     return this.isAssigned;
   }
 
+  // TODO remove this when removing all v4 deprecated stuff
   get isAssigned() {
-    const settlementIds = this.parent?.system.settlements.map((settlement) => settlement.id) ?? [];
+    if (this.parent?.type === pf1ks.config.kingdomId) {
+      const settlementIds = this.parent?.system.settlements.map((settlement) => settlement.id) ?? [];
 
-    return settlementIds.includes(this.system.settlementId);
+      return settlementIds.includes(this.system.settlementId);
+    }
+    return true;
   }
 }
