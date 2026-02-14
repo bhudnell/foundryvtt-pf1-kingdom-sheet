@@ -1,4 +1,3 @@
-import { kingdomBuffTargets, commonBuffTargets } from "../../config/buffTargets.mjs";
 import { DefaultChange, asSignedPercent, capitalize } from "../../util/utils.mjs";
 
 import { BaseActor } from "./baseActor.mjs";

@@ -12,7 +12,7 @@ import {
 
 export const defaultIcons = {
   actors: {
-    [kingdomId]: "icons/svg/city.svg",
+    [kingdomId]: "icons/svg/city.svg", // TODO settlementId
     [armyId]: "icons/svg/combat.svg",
   },
   items: {

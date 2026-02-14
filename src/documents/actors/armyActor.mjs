@@ -1,4 +1,3 @@
-import { armyBuffTargets, commonBuffTargets } from "../../config/buffTargets.mjs";
 import { DefaultChange } from "../../util/utils.mjs";
 
 import { BaseActor } from "./baseActor.mjs";

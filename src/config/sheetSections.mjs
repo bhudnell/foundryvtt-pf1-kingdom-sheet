@@ -28,6 +28,7 @@ export const sheetSections = {
       browseLabel: "PF1KS.Browse.Boons",
     },
   },
+  // TODO rename this for settlements instead of kingdoms
   kingdomSettlement: {
     building: {
       create: { type: buildingId },

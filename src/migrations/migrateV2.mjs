@@ -13,6 +13,7 @@ export class MigrateV2 extends BaseMigrate {
     // create settlement actors
     const settlements = actor.system.settlements;
 
+    // TODO add link to the kingdom
     log(`creating ${settlements.length} new settlement actors`);
     const settlementActors = await Actor.implementation.createDocuments(
       settlements.map((s) => {
@@ -66,6 +67,8 @@ export class MigrateV2 extends BaseMigrate {
       await actor.deleteEmbeddedDocuments("Item", deletes);
       log(`...finished deleting items from actor '${actor?.name}'`);
     }
+
+    // TODO migrate army actors to add a link to the kingdom
 
     log("...finished migrating actor");
   }

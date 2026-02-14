@@ -16,28 +16,12 @@ export class SettlementSheet extends pf1.applications.actor.ActorSheetPF {
         group: "primary",
       },
       {
-        navSelector: "nav.tabs[data-group='settlements']",
-        contentSelector: "section.settlements-body",
+        navSelector: "nav.tabs[data-group='districts']",
+        contentSelector: "section.districts-body",
         initial: "0",
-        group: "settlements",
+        group: "districts",
       },
     ];
-
-    for (const idx in actor.system.settlements) {
-      options.tabs.push({
-        navSelector: `nav.tabs[data-group='settlement-${idx}-details']`,
-        contentSelector: `section.settlement-${idx}-details`,
-        initial: `summary`,
-        group: `settlement-${idx}-details`,
-      });
-
-      options.tabs.push({
-        navSelector: `nav.tabs[data-group='settlement-${idx}-districts']`,
-        contentSelector: `section.settlement-${idx}-districts`,
-        initial: 0,
-        group: `settlement-${idx}-districts`,
-      });
-    }
 
     super(actor, options);
   }
@@ -46,18 +30,18 @@ export class SettlementSheet extends pf1.applications.actor.ActorSheetPF {
     const options = super.defaultOptions;
     return {
       ...options,
-      classes: [...options.classes, "pf1ks", "kingdom"],
+      classes: [...options.classes, "pf1ks", "settlement"],
       scrollY: [...options.scrollY, ".subdetails-body"],
       dragDrop: [
         ...options.dragDrop,
         { dragSelector: ".building[data-item-id]", dropSelector: ".district .grid .cell" },
       ],
-      height: 940,
+      height: 940, // TODO this needed?
     };
   }
 
   get template() {
-    return `modules/${pf1ks.config.moduleId}/templates/actors/kingdom/${this.isEditable ? "edit" : "view"}.hbs`;
+    return `modules/${pf1ks.config.moduleId}/templates/actors/settlement/${this.isEditable ? "edit" : "view"}.hbs`;
   }
 
   async getData() {
@@ -79,87 +63,8 @@ export class SettlementSheet extends pf1.applications.actor.ActorSheetPF {
     };
 
     // selectors
-    data.alignmentOptions = pf1.config.alignments;
-    data.kingdomGovernmentOptions = pf1ks.config.kingdomGovernments;
-    data.settlementGovernmentOptions = pf1ks.config.settlementGovernments;
+    data.governmentOptions = pf1ks.config.settlementGovernments;
     data.districtBorderOptions = pf1ks.config.districtBorders;
-    data.holidayOptions = pf1ks.config.edicts.holiday;
-    data.promotionOptions = pf1ks.config.edicts.promotion;
-    data.taxationOptions = pf1ks.config.edicts.taxation;
-
-    // summary
-    data.governmentLabel = pf1ks.config.kingdomGovernments[actorData.government];
-
-    // kingdom stats
-    data.stats = [];
-    for (const [stat, label] of Object.entries(pf1ks.config.kingdomStats)) {
-      data.stats.push({ id: stat, label, value: actorData[stat] });
-    }
-
-    // kingdom modifiers
-    data.modifiers = Object.entries(pf1ks.config.settlementModifiers).map(([key, label]) => ({
-      id: key,
-      value: actorData.modifiers[key],
-      label,
-    }));
-
-    // actions per turn
-    const sizeBonus = findLargestSmallerNumber(
-      Object.keys(pf1ks.config.actionsPerTurn).map((k) => Number(k)),
-      actorData.size || 1
-    );
-    const { fame, ...perTurnRaw } = pf1ks.config.actionsPerTurn[sizeBonus];
-    const perTurn = renameKeys(perTurnRaw, pf1ks.config.actionsPerTurnLabels);
-    data.perTurn = perTurn;
-    data.infinity = Infinity;
-
-    // non-viceroy leadership
-    data.leaders = Object.entries(actorData.leadership).reduce((acc, [key, leader]) => {
-      if (key === "viceroys") {
-        return acc;
-      }
-
-      const data = {
-        roleLabel: pf1ks.config.leadershipRoles[leader.role],
-        key,
-        actorId: leader.actorId,
-        skillBonus: leader.skillBonus,
-        skillBonusLabel: pf1ks.config.leadershipSkillBonuses[leader.skillBonusType],
-        bonus: leader.bonus,
-        showSelector: false,
-        bonusType: leader.bonusType,
-        bonusTypeLabel: pf1ks.config.leadershipBonusOptions[leader.bonusType],
-      };
-      if (leader.role === "ruler") {
-        data.showSelector = actorData.size < 101;
-        data.bonusOptions = actorData.size < 26 ? pf1ks.config.kingdomStats : pf1ks.config.leadershipBonusTwoStats;
-      } else if (leader.role === "spymaster") {
-        data.showSelector = true;
-        data.bonusOptions = pf1ks.config.kingdomStats;
-      }
-
-      acc.push(data);
-      return acc;
-    }, []);
-
-    // viceroys
-    data.viceroys = actorData.leadership.viceroys.map((viceroy) => {
-      return {
-        id: viceroy.id,
-        roleLabel: pf1ks.config.leadershipRoles[viceroy.role],
-        actorId: viceroy.actorId,
-        skillBonus: viceroy.skillBonus,
-        skillBonusLabel: pf1ks.config.leadershipSkillBonuses[viceroy.skillBonusType],
-        bonus: viceroy.bonus,
-        bonusTypeLabel: pf1ks.config.leadershipBonusOptions[viceroy.bonusType],
-      };
-    });
-
-    const leadershipOptions = { "": "" };
-    game.actors
-      .filter((actor) => actor.permission > 0 && (actor.type === "character" || actor.type === "npc"))
-      .forEach((actor) => (leadershipOptions[actor.id] = actor.name));
-    data.validLeadershipOptions = leadershipOptions;
 
     data.sections = this._prepareItems();
 
@@ -182,36 +87,9 @@ export class SettlementSheet extends pf1.applications.actor.ActorSheetPF {
         name: feature.name,
       }));
 
-    // terrain
-    data.terrain = Object.entries(actorData.terrain).map(([key, value]) => ({
-      key,
-      value,
-      label: pf1ks.config.terrainTypes[key],
-    }));
-
-    // events
-    data.eventChance = actorData.eventLastTurn ? 25 : 75;
-
-    // armies
-    data.armies = this._prepareArmies();
-
     // optional rules
     data.settings = this._prepareSettings();
     data.optionalRules = this._prepareOptionalRules();
-
-    // notifications
-    if (actorData.unrest > 10 && actorData.unrest < 20) {
-      data.unrestError = game.i18n.localize("PF1KS.UnrestWarning");
-    }
-    if (actorData.unrest > 19) {
-      data.unrestError = game.i18n.localize("PF1KS.UnrestError");
-    }
-    if (actorData.fame.base + actorData.infamy.base > fame) {
-      data.fameInfamyError = game.i18n.localize("PF1KS.FamyInfamyError");
-    }
-    if (actorData.fame.base + actorData.infamy.base < fame) {
-      data.fameInfamyError = game.i18n.localize("PF1KS.MissingFamyInfamyError");
-    }
 
     return data;
   }
@@ -219,27 +97,12 @@ export class SettlementSheet extends pf1.applications.actor.ActorSheetPF {
   activateListeners(html) {
     super.activateListeners(html);
 
-    html.find(".governmentForms").on("change", (e) => this._onGovernmentToggle(e));
-    html.find(".secondRuler").on("change", (e) => this._onSecondRulerToggle(e));
     html.find(".item-toggle-data").on("click", (e) => this._itemToggleData(e));
-
-    html.find(".kingdom-stat .rollable").on("click", (e) => this._onRollKingdomStat(e));
-    html.find(".event-chance .rollable").on("click", (e) => this._onRollEventChance(e));
-
-    html.find(".viceroy-create").on("click", (e) => this._onViceroyCreate(e));
-    html.find(".viceroy-delete").on("click", (e) => this._onViceroyDelete(e));
-
-    html.find(".settlement-create").on("click", (e) => this._onSettlementCreate(e));
-    html.find(".settlement-delete").on("click", (e) => this._onSettlementDelete(e));
 
     html.find(".district-create").on("click", (e) => this._onDistrictCreate(e));
     html.find(".district-delete").on("click", (e) => this._onDistrictDelete(e));
 
     html.find(".magic-item-delete").on("click", (e) => this._onMagicItemDelete(e));
-
-    html.find(".army-create").on("click", (e) => this._onArmyCreate(e));
-    html.find(".army-edit").on("click", (e) => this._onArmyEdit(e));
-    html.find(".army-delete").on("click", (e) => this._onArmyDelete(e));
 
     html.find(".building").on("dblclick", (e) => this._onBuildingEdit(e));
     html.find(".building").on("contextmenu", (e) => this._onBuildingContextMenu(e));
@@ -340,39 +203,7 @@ export class SettlementSheet extends pf1.applications.actor.ActorSheetPF {
         }
       });
 
-    const terrainSections = Object.values(pf1.config.sheetSections.kingdomTerrain).map((data) => ({ ...data }));
-    this.actor.itemTypes[pf1ks.config.improvementId]
-      .map((i) => i)
-      .sort((a, b) => (a.sort || 0) - (b.sort || 0))
-      .forEach((i) => {
-        const section = terrainSections.find((section) => this._applySectionFilter(i, section));
-        if (section) {
-          section.items ??= [];
-          section.items.push({ ...i, id: i.id, isEmpty: i.system.quantity === 0 });
-        }
-      });
-
-    const eventsSections = Object.values(pf1.config.sheetSections.kingdomEvent).map((data) => ({ ...data }));
-    this.actor.itemTypes[pf1ks.config.eventId]
-      .map((i) => i)
-      .sort((a, b) => (a.sort || 0) - (b.sort || 0))
-      .forEach((e) => {
-        const section = eventsSections.find((section) => this._applySectionFilter(e, section));
-        if (section) {
-          section.items ??= [];
-          section.items.push({
-            ...e,
-            id: e.id,
-            settlementName: this.actor.system.settlements.find((s) => s.id === e.system.settlementId)?.name,
-          });
-        }
-      });
-
-    const categories = [
-      { key: "features", sections: featureSections },
-      { key: "terrain", sections: terrainSections },
-      { key: "events", sections: eventsSections },
-    ];
+    const categories = [{ key: "features", sections: featureSections }];
     for (const { key, sections } of categories) {
       const set = this._filters.sections[key];
       for (const section of sections) {
@@ -460,16 +291,7 @@ export class SettlementSheet extends pf1.applications.actor.ActorSheetPF {
       };
     });
 
-    return { terrain: terrainSections, events: eventsSections, settlements: settlementSections };
-  }
-
-  _prepareArmies() {
-    return this.actor.system.armies.map((army) => ({
-      id: army.id,
-      img: army.actor.img,
-      name: army.actor.name,
-      system: army.actor.system,
-    }));
+    return { settlements: settlementSections };
   }
 
   _prepareSettings() {
@@ -491,20 +313,6 @@ export class SettlementSheet extends pf1.applications.actor.ActorSheetPF {
     }));
   }
 
-  _onGovernmentToggle(event) {
-    if (!event.target.checked) {
-      this.actor.update({ "system.government": "aut" });
-    }
-  }
-
-  _onSecondRulerToggle(event) {
-    if (event.target.checked) {
-      this.actor.update({ "system.leadership.consort": { bonusType: "", role: "ruler" } });
-    } else {
-      this.actor.update({ "system.leadership.consort": { bonusType: "loyalty", role: "consort" } });
-    }
-  }
-
   async _itemToggleData(event) {
     event.preventDefault();
     const el = event.currentTarget;
@@ -517,119 +325,6 @@ export class SettlementSheet extends pf1.applications.actor.ActorSheetPF {
     foundry.utils.setProperty(updateData.system, property, !foundry.utils.getProperty(item.system, property));
 
     item.update(updateData);
-  }
-
-  async _onRollKingdomStat(event) {
-    event.preventDefault();
-    const kingdomStat = event.currentTarget.closest(".kingdom-stat").dataset.kingdomStat;
-    this.actor.rollKingdomStat(kingdomStat, { actor: this.actor });
-  }
-
-  async _onRollEventChance(event) {
-    event.preventDefault();
-    this.actor.rollEvent({ actor: this.actor });
-  }
-
-  async _onViceroyCreate(event) {
-    event.preventDefault();
-
-    const viceroys = foundry.utils.duplicate(this.actor.system.leadership.viceroys ?? []);
-    viceroys.push({
-      role: "viceroy",
-    });
-
-    await this._onSubmit(event, {
-      updateData: { "system.leadership.viceroys": viceroys },
-    });
-  }
-
-  async _onViceroyDelete(event) {
-    event.preventDefault();
-
-    const viceroyId = event.currentTarget.closest(".item").dataset.itemId;
-    const viceroys = foundry.utils.duplicate(this.actor.system.leadership.viceroys ?? []);
-    viceroys.findSplice((viceroy) => viceroy.id === viceroyId);
-
-    await this._onDelete({
-      button: event.currentTarget,
-      title: game.i18n.localize("PF1KS.DeleteViceroy"),
-      content: `<p>${game.i18n.localize("PF1KS.DeleteViceroyConfirmation")}</p>`,
-      onDelete: () =>
-        this._onSubmit(event, {
-          updateData: { "system.leadership.viceroys": viceroys },
-        }),
-    });
-  }
-
-  async _onSettlementCreate(event) {
-    event.preventDefault();
-
-    const newIdx = this.actor.system.settlements.length;
-    const settlements = foundry.utils.duplicate(this.actor.system.settlements ?? []);
-    settlements.push({
-      name: game.i18n.format("PF1KS.NewSettlementLabel", { number: newIdx + 1 }),
-      id: foundry.utils.randomID(),
-      districts: [{ name: game.i18n.format("PF1KS.NewDistrictLabel", { number: 1 }), id: foundry.utils.randomID() }],
-    });
-
-    // adding summary/districts/features/magic items nav and district nav for new settlement
-    const tabs = [
-      {
-        navSelector: `nav.tabs[data-group='settlement-${newIdx}-details']`,
-        contentSelector: `section.settlement-${newIdx}-details`,
-        initial: `summary`,
-        group: `settlement-${newIdx}-details`,
-        callback: this._onChangeTab.bind(this),
-      },
-      {
-        navSelector: `nav.tabs[data-group='settlement-${newIdx}-districts']`,
-        contentSelector: `section.settlement-${newIdx}-districts`,
-        initial: 0,
-        group: `settlement-${newIdx}-districts`,
-        callback: this._onChangeTab.bind(this),
-      },
-    ];
-    this.options.tabs.push(...tabs);
-    for (const tab of tabs) {
-      this._tabs.push(new Tabs(tab));
-    }
-
-    await this._onSubmit(event, {
-      updateData: { "system.settlements": settlements },
-    });
-
-    this.activateTab(`${newIdx}`, { group: "settlements" });
-  }
-
-  async _onSettlementDelete(event) {
-    event.preventDefault();
-    this.form.disabled = true;
-
-    const settlementId = event.currentTarget.dataset.id;
-    const settlements = foundry.utils.duplicate(this.actor.system.settlements ?? []);
-    const deletedSettlement = settlements.findSplice((settlement) => settlement.id === settlementId);
-
-    const response = await this._onDelete({
-      button: event.currentTarget,
-      title: game.i18n.format("PF1KS.DeleteSettlementTitle", { name: deletedSettlement.name }),
-      content: `<p>${game.i18n.localize("PF1KS.DeleteSettlementConfirmation")}</p>`,
-      onDelete: () =>
-        this._onSubmit(event, {
-          updateData: { "system.settlements": settlements },
-        }),
-    });
-
-    if (response) {
-      const itemIdsToDelete = this.actor.items
-        .filter(
-          (item) =>
-            [pf1ks.config.buildingId, pf1ks.config.featureId].includes(item.type) &&
-            item.system.settlementId === settlementId
-        )
-        .map((item) => item._id);
-
-      await this.actor.deleteEmbeddedDocuments("Item", itemIdsToDelete);
-    }
   }
 
   async _onDistrictCreate(event) {
@@ -702,56 +397,6 @@ export class SettlementSheet extends pf1.applications.actor.ActorSheetPF {
     });
   }
 
-  async _onArmyCreate(event) {
-    event.preventDefault();
-
-    const newArmy = await Actor.create({
-      name: game.i18n.localize("PF1KS.NewArmy"),
-      type: pf1ks.config.armyId,
-    });
-
-    return this._createArmy(newArmy._id);
-  }
-
-  async _createArmy(actorId) {
-    const armies = foundry.utils.duplicate(this.actor.system.armies ?? []);
-    armies.push({
-      id: foundry.utils.randomID(),
-      actor: actorId,
-    });
-
-    await this._onSubmit(event, {
-      updateData: { "system.armies": armies },
-    });
-  }
-
-  async _onArmyEdit(event) {
-    event.preventDefault();
-    const armyId = event.currentTarget.closest(".item").dataset.id;
-    const army = this.actor.system.armies.find((army) => army.id === armyId);
-
-    army.actor.sheet.render(true, { focus: true });
-  }
-
-  async _onArmyDelete(event) {
-    event.preventDefault();
-
-    const armyId = event.currentTarget.closest(".item").dataset.id;
-    const armies = foundry.utils.duplicate(this.actor.system.armies ?? []);
-    const deletedArmy = armies.findSplice((army) => army.id === armyId);
-    const deletedArmyActor = this.actor.system.armies.find((army) => army.id === deletedArmy.id).actor;
-
-    await this._onDelete({
-      button: event.currentTarget,
-      title: game.i18n.format("PF1KS.DeleteArmyTitle", { name: deletedArmyActor?.name }),
-      content: `<p>${game.i18n.localize("PF1KS.DeleteArmyConfirmation")}</p>`,
-      onDelete: async () =>
-        await this._onSubmit(event, {
-          updateData: { "system.armies": armies },
-        }),
-    });
-  }
-
   async _onDelete({ button, title, content, onDelete }) {
     if (button.disabled) {
       return;
@@ -775,7 +420,7 @@ export class SettlementSheet extends pf1.applications.actor.ActorSheetPF {
 
   // overrides
   // this function is almost identical to the system function on actor-sheet.mjs, except it allows
-  // the settlementId of buildings to be pre-populated
+  // the districtId of buildings to be pre-populated
   _onItemCreate(event) {
     event.preventDefault();
     const el = event.currentTarget;
@@ -789,16 +434,12 @@ export class SettlementSheet extends pf1.applications.actor.ActorSheetPF {
     const subType = createData.system?.subType;
 
     // This is the part I had to add
-    const settlementId = el.dataset.settlementId;
-    if (settlementId) {
-      createData.system ??= {};
-      createData.system.settlementId = settlementId;
-    }
     const districtId = el.dataset.districtId;
     if (districtId) {
       createData.system ??= {};
       createData.system.districtId = districtId;
     }
+    // End of added stuff
 
     createData.name = Item.implementation.defaultName({ type, subType, parent: this.actor });
     const newItem = new Item.implementation(createData);
@@ -832,11 +473,7 @@ export class SettlementSheet extends pf1.applications.actor.ActorSheetPF {
     const changed = foundry.utils.expandObject(formData);
 
     if (changed.system) {
-      const keepPaths = ["system.settlements"];
-
-      for (const idx in changed.system.settlements) {
-        keepPaths.push(`system.settlements.${idx}.districts`);
-      }
+      const keepPaths = ["system.districts"];
 
       const itemData = this.actor.toObject();
       for (const path of keepPaths) {
@@ -943,8 +580,7 @@ export class SettlementSheet extends pf1.applications.actor.ActorSheetPF {
   }
 
   // this function is almost identical to the system function on actor-sheet.mjs, except it
-  // allows the settlement/district ids of buildings to be pre-populated when dropped on settlements,
-  // and removes some of the unnecessary stuff
+  // handling of buildings when dropped, and removes some of the unnecessary stuff
   async _onDropItem(event, data) {
     // Prevents double building creation when dropping new items onto the grid
     event.stopPropagation();
@@ -963,16 +599,12 @@ export class SettlementSheet extends pf1.applications.actor.ActorSheetPF {
       clearSort: !sameActor,
     });
 
-    // this is the new stuff, settlement id and building handling
-    // settlement id handling
-    const settlementId = event.target.closest(".settlement")?.dataset.id;
-    if (settlementId && itemData.system.settlementId != null) {
-      itemData.system.settlementId = settlementId;
-    }
+    // this is the new stuff
     // building handling
     if (itemData.type === pf1ks.config.buildingId) {
       return this._handleBuildings(event, itemData, sourceItem, sameActor);
     }
+    // end of new stuff
 
     // Handle item sorting within the same actor
     if (sameActor) {
@@ -1062,42 +694,14 @@ export class SettlementSheet extends pf1.applications.actor.ActorSheetPF {
     return true;
   }
 
-  // allows dropping armies onto kingdoms
-  async _onDropActor(event, data) {
-    event.preventDefault();
-
-    const actorData = await Actor.fromDropData(data);
-
-    if (actorData.type !== pf1ks.config.armyId) {
-      return false;
-    }
-
-    const source = actorData._stats.compendiumSource.split(".")[0];
-
-    let army;
-    if (source === "Actor") {
-      army = await fromUuid(data.uuid);
-    } else {
-      army = await Actor.create(actorData.toObject());
-    }
-
-    const created = await this._createArmy(army._id);
-    this.activateTab("armies", "primary");
-    return created;
-  }
-
   _focusTabByItem(item) {
     let tabId;
     switch (item.type) {
       case pf1ks.config.buildingId:
+        tabId = "districts";
+        break;
       case pf1ks.config.featureId:
-        tabId = "settlements";
-        break;
-      case pf1ks.config.improvementId:
-        tabId = "terrain";
-        break;
-      case pf1ks.config.eventId:
-        tabId = "events";
+        tabId = "features";
         break;
       default:
         tabId = "summary";
@@ -1135,21 +739,9 @@ export class SettlementSheet extends pf1.applications.actor.ActorSheetPF {
     const { id, detail } = re?.groups ?? {};
 
     switch (id) {
-      case "controlDC":
-        paths.push({
-          path: "@controlDC",
-          value: actorData.controlDC,
-        });
-        sources.push({
-          sources: actor.getSourceDetails("system.controlDC"),
-          untyped: true,
-        });
-        break;
       case "economy":
       case "loyalty":
       case "stability":
-      case "bonusBP":
-      case "consumption":
         paths.push({
           path: `@${id}.total`,
           value: actorData[id].total,
@@ -1175,110 +767,6 @@ export class SettlementSheet extends pf1.applications.actor.ActorSheetPF {
           sources: actor.getSourceDetails("system.bpStorage.max"),
           untyped: true,
         });
-        break;
-      case "holiday":
-        if (actorData.edicts[id]) {
-          paths.push(
-            {
-              path: game.i18n.localize("PF1KS.Loyalty"),
-              value: pf1ks.config.edictEffects[id][actorData.edicts[id]].loyalty.signedString(),
-            },
-            {
-              path: game.i18n.localize("PF1KS.Consumption"),
-              value: pf1ks.config.edictEffects[id][actorData.edicts[id]].consumption.signedString(),
-            }
-          );
-        }
-        break;
-      case "promotion":
-        if (actorData.edicts[id]) {
-          paths.push(
-            {
-              path: game.i18n.localize("PF1KS.Stability"),
-              value: pf1ks.config.edictEffects[id][actorData.edicts[id]].stability.signedString(),
-            },
-            {
-              path: game.i18n.localize("PF1KS.Consumption"),
-              value: pf1ks.config.edictEffects[id][actorData.edicts[id]].consumption.signedString(),
-            }
-          );
-        }
-        break;
-      case "taxation":
-        if (actorData.edicts[id]) {
-          paths.push(
-            {
-              path: game.i18n.localize("PF1KS.Economy"),
-              value: pf1ks.config.edictEffects[id][actorData.edicts[id]].economy.signedString(),
-            },
-            {
-              path: game.i18n.localize("PF1KS.Loyalty"),
-              value: pf1ks.config.edictEffects[id][actorData.edicts[id]].loyalty.signedString(),
-            }
-          );
-        }
-        break;
-      case "government":
-        Object.entries(pf1ks.config.settlementModifiers).forEach(([mod, label]) => {
-          if (actorData.modifiers[mod].government) {
-            paths.push({
-              path: label,
-              value: actorData.modifiers[mod].government.signedString(),
-            });
-          }
-        });
-        break;
-      case "alignment":
-        Object.entries(pf1ks.config.kingdomStats).forEach(([stat, label]) => {
-          const value = pf1ks.config.alignmentEffects[actorData.alignment]?.[stat];
-          if (value) {
-            paths.push({
-              path: label,
-              value: value.signedString(),
-            });
-          }
-        });
-        Object.entries(pf1ks.config.settlementModifiers).forEach(([mod, label]) => {
-          if (actorData.modifiers[mod].alignment) {
-            paths.push({
-              path: label,
-              value: actorData.modifiers[mod].alignment.signedString(),
-            });
-          }
-        });
-        break;
-      case "fame":
-      case "infamy":
-        paths.push(
-          {
-            path: `@${id}.base`,
-            value: actorData[id].base,
-          },
-          {
-            path: `@${id}.total`,
-            value: actorData[id].total,
-          }
-        );
-        sources.push({
-          sources: actor.getSourceDetails(`system.${id}.total`),
-          untyped: true,
-        });
-        break;
-      case "corruption":
-      case "crime":
-      case "productivity":
-      case "law":
-      case "lore":
-      case "society":
-        paths.push({
-          path: `@modifiers.${id}.total`,
-          value: actorData.modifiers[id].total,
-        });
-        sources.push({
-          sources: actor.getSourceDetails(`system.modifiers.${id}.total`),
-          untyped: true,
-        });
-        notes = await getNotes(`${pf1ks.config.changePrefix}_${id}`);
         break;
       case "settlement-danger":
       case "settlement-defense":
