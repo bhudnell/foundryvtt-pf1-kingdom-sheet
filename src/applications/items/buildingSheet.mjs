@@ -5,19 +5,9 @@ export class BuildingSheet extends ItemBaseSheet {
     const itemData = this.item.system;
     const context = await super.getData(options);
 
-    // settlementId
-    const settlementIdOptions = { "": "" };
-    this.item.parent?.system.settlements.forEach(
-      (settlement) => (settlementIdOptions[settlement.id] = settlement.name)
-    );
-    context.settlementIdOptions = settlementIdOptions;
-
     // districtId
     const districtIdOptions = { "": "" };
-    const currentSettlement = this.item.parent?.system.settlements.find(
-      (settlement) => settlement.id === itemData.settlementId
-    );
-    currentSettlement?.districts.forEach((district) => (districtIdOptions[district.id] = district.name));
+    this.item.parent?.system.districts.forEach((district) => (districtIdOptions[district.id] = district.name));
     context.districtIdOptions = districtIdOptions;
 
     // buildingType

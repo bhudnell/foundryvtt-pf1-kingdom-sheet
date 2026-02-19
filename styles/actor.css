@@ -55,7 +55,43 @@
     }
   }
 
-  .tab.settlements {
+  .magic-item-section {
+    display: flex;
+    gap: 8px;
+
+    .magic-item-container {
+      display: flex;
+      flex-direction: column;
+      gap: 2px;
+      flex: 1;
+
+      > h3 {
+        margin: 0;
+        color: #f0f0e0;
+        text-shadow: #000000 1px 1px 0;
+        background: var(--pf1-bg-dark-2);
+        text-align: center;
+      }
+
+      .magic-item {
+        position: relative;
+
+        > input {
+          padding-right: 22px;
+        }
+
+        > .magic-item-delete {
+          width: 16px;
+          text-align: center;
+          position: absolute;
+          right: 6px;
+          top: 6px;
+        }
+      }
+    }
+  }
+
+  .tab.districts {
     div.item {
       cursor: pointer;
 
@@ -64,89 +100,31 @@
       }
     }
 
-    .header {
-      flex: 0;
-      display: flex;
+    .grid-container {
+      position: relative;
+      margin: 20px auto;
+      width: fit-content;
 
-      /* > img {
-        height: 100%;
-        flex: 0 0 42px;
-      } */
+      .grid {
+        display: grid;
+        grid-template-columns: repeat(6, 82px);
+        grid-template-rows: repeat(6, 82px);
 
-      > h1 {
-        flex: 1;
-        margin: 0;
-        line-height: 1.5em;
+        .cell > * {
+          height: calc(100% - 2px);
+          margin: 1px;
+          border: 1px solid black;
+        }
+      }
 
-        > input {
+      .building {
+        position: absolute;
+        cursor: move;
+
+        > * {
+          width: 100%;
           height: 100%;
-        }
-      }
-    }
-
-    .magic-item-section {
-      display: flex;
-      gap: 8px;
-
-      .magic-item-container {
-        display: flex;
-        flex-direction: column;
-        gap: 2px;
-        flex: 1;
-
-        > h3 {
-          margin: 0;
-          color: #f0f0e0;
-          text-shadow: #000000 1px 1px 0;
-          background: var(--pf1-bg-dark-2);
-          text-align: center;
-        }
-
-        .magic-item {
-          position: relative;
-
-          > input {
-            padding-right: 22px;
-          }
-
-          > .magic-item-delete {
-            width: 16px;
-            text-align: center;
-            position: absolute;
-            right: 6px;
-            top: 6px;
-          }
-        }
-      }
-    }
-
-    .tab.district {
-      .grid-container {
-        position: relative;
-        margin: 20px auto;
-        width: fit-content;
-
-        .grid {
-          display: grid;
-          grid-template-columns: repeat(6, 82px);
-          grid-template-rows: repeat(6, 82px);
-
-          .cell > * {
-            height: calc(100% - 2px);
-            margin: 1px;
-            border: 1px solid black;
-          }
-        }
-
-        .building {
-          position: absolute;
-          cursor: move;
-
-          > * {
-            width: 100%;
-            height: 100%;
-            border: unset;
-          }
+          border: unset;
         }
       }
     }

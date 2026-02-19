@@ -124,8 +124,7 @@ export class SettlementSheet extends pf1.applications.actor.ActorSheetPF {
 
     // magic items
     data.magicItems = Object.entries(pf1ks.config.magicItemTypes).map(([key, label]) => {
-      const items = actorData.magicItems[key];
-      const max = this.actor._getChanges(key, undefined, actorData.id); // TODO
+      const { items, max } = actorData.magicItems[key];
 
       return {
         key,
@@ -314,31 +313,27 @@ export class SettlementSheet extends pf1.applications.actor.ActorSheetPF {
   async _onDistrictCreate(event) {
     event.preventDefault();
 
-    const settlementId = event.currentTarget.closest(".settlement").dataset.id;
-    const settlements = foundry.utils.duplicate(this.actor.system.settlements ?? []);
-    const settlementIdx = settlements.findIndex((settlement) => settlement.id === settlementId);
-    const newIdx = settlements[settlementIdx].districts.length;
-    settlements[settlementIdx].districts.push({
+    const districts = foundry.utils.duplicate(this.actor.system.districts ?? []);
+    const newIdx = districts.length;
+    districts.push({
       name: game.i18n.format("PF1KS.NewDistrictLabel", { number: newIdx + 1 }),
       id: foundry.utils.randomID(),
     });
 
     await this._onSubmit(event, {
-      updateData: { "system.settlements": settlements },
+      updateData: { "system.districts": districts },
     });
 
-    this.activateTab(`${newIdx}`, { group: `settlement-${settlementIdx}-districts` });
+    this.activateTab(`${newIdx}`, { group: "districts" });
   }
 
   async _onDistrictDelete(event) {
     event.preventDefault();
     this.form.disabled = true;
 
-    const settlementId = event.currentTarget.closest(".settlement").dataset.id;
     const districtId = event.currentTarget.dataset.id;
-    const settlements = foundry.utils.duplicate(this.actor.system.settlements ?? []);
-    const settlement = settlements.find((settlement) => settlement.id === settlementId);
-    const deletedDistrict = settlement.districts.findSplice((district) => district.id === districtId);
+    const districts = foundry.utils.duplicate(this.actor.system.districts ?? []);
+    const deletedDistrict = districts.findSplice((district) => district.id === districtId);
 
     const response = await this._onDelete({
       button: event.currentTarget,
@@ -346,7 +341,7 @@ export class SettlementSheet extends pf1.applications.actor.ActorSheetPF {
       content: `<p>${game.i18n.localize("PF1KS.DeleteDistrictConfirmation")}</p>`,
       onDelete: () =>
         this._onSubmit(event, {
-          updateData: { "system.settlements": settlements },
+          updateData: { "system.districts": districts },
         }),
     });
 
@@ -362,13 +357,11 @@ export class SettlementSheet extends pf1.applications.actor.ActorSheetPF {
   async _onMagicItemDelete(event) {
     event.preventDefault();
 
-    const settlementId = event.currentTarget.closest(".settlement").dataset.id;
     const itemType = event.currentTarget.closest(".magic-item-container").dataset.type;
     const itemId = event.currentTarget.closest(".magic-item").dataset.itemId;
 
-    const settlements = foundry.utils.duplicate(this.actor.system.settlements ?? []);
-    const settlement = settlements.find((settlement) => settlement.id === settlementId);
-    const deletedItem = settlement.magicItems[itemType].splice(itemId, 1)[0];
+    const magicItems = this.actor.system.magicItems[itemType].items;
+    const deletedItem = magicItems.splice(itemId, 1)[0];
 
     await this._onDelete({
       button: event.currentTarget,
@@ -376,7 +369,7 @@ export class SettlementSheet extends pf1.applications.actor.ActorSheetPF {
       content: `<p>${game.i18n.localize("PF1.DeleteItemConfirmation")}</p>`,
       onDelete: () =>
         this._onSubmit(event, {
-          updateData: { "system.settlements": settlements },
+          updateData: { [`system.magicItems.${itemType}.items`]: magicItems },
         }),
     });
   }
@@ -400,6 +393,7 @@ export class SettlementSheet extends pf1.applications.actor.ActorSheetPF {
     }
 
     button.disabled = false;
+    return confirm;
   }
 
   // overrides
@@ -681,9 +675,14 @@ export class SettlementSheet extends pf1.applications.actor.ActorSheetPF {
   _focusTabByItem(item) {
     let tabId;
     switch (item.type) {
-      case pf1ks.config.buildingId:
-        tabId = "districts";
+      case pf1ks.config.buildingId: {
+        if (item.system.districtId) {
+          tabId = "districts";
+        } else {
+          tabId = "unassigned";
+        }
         break;
+      }
       case pf1ks.config.featureId:
         tabId = "features";
         break;
@@ -708,10 +707,8 @@ export class SettlementSheet extends pf1.applications.actor.ActorSheetPF {
       },
     };
 
-    const getNotes = async (context, settlementId) =>
-      (await actor.getContextNotesParsed(context, settlementId, { rollData: lazy.rollData, roll: false })).map(
-        (n) => n.text
-      );
+    const getNotes = async (context) =>
+      (await actor.getContextNotesParsed(context, null, { rollData: lazy.rollData, roll: false })).map((n) => n.text);
 
     let header, subHeader;
     const details = [];
@@ -752,68 +749,65 @@ export class SettlementSheet extends pf1.applications.actor.ActorSheetPF {
           untyped: true,
         });
         break;
-      case "settlement-danger":
-      case "settlement-defense":
-      case "settlement-baseValue":
-      case "settlement-purchaseLimit":
-      case "settlement-spellcasting":
-      case "settlement-maxBaseValue": {
+      case "danger":
+      case "defense":
+      case "baseValue":
+      case "purchaseLimit":
+      case "spellcasting":
+      case "maxBaseValue": {
         const [, attr] = id.split("-");
-        const settlement = actorData.settlements[detail];
         paths.push({
-          path: `@settlements.${detail}.attributes.${attr}.total`,
-          value: settlement.attributes[attr].total,
+          path: `@attributes.${attr}.total`,
+          value: actorData.attributes[attr].total,
         });
         sources.push({
-          sources: actor.getSourceDetails(`system.settlements.${detail}.attributes.${attr}.total`),
+          sources: actor.getSourceDetails(`system.attributes.${attr}.total`),
           untyped: true,
         });
         break;
       }
 
-      case "settlement-Alignment":
-      case "settlement-Government": {
+      case "alignment":
+      case "government": {
         const [, modifier] = id.split("-");
-        const settlement = actorData.settlements[detail];
         Object.entries(pf1ks.config.settlementModifiers).forEach(([mod, label]) => {
-          if (settlement.modifiers[mod][`settlement${modifier}`]) {
+          if (actorData.modifiers[mod][`settlement${modifier}`]) {
             paths.push({
               path: label,
-              value: settlement.modifiers[mod][`settlement${modifier}`].signedString(),
+              value: actorData.modifiers[mod][`settlement${modifier}`].signedString(),
             });
           }
         });
-        if (settlement.attributes.spellcasting[`${modifier.toLocaleLowerCase()}`]) {
+        if (actorData.attributes.spellcasting[`${modifier.toLocaleLowerCase()}`]) {
           paths.push({
             path: pf1ks.config.settlementAttributes.spellcasting,
-            value: settlement.attributes.spellcasting[`${modifier.toLocaleLowerCase()}`].signedString(),
+            value: actorData.attributes.spellcasting[`${modifier.toLocaleLowerCase()}`].signedString(),
           });
         }
         break;
       }
-      case "settlement-corruption":
-      case "settlement-crime":
-      case "settlement-productivity":
-      case "settlement-law":
-      case "settlement-lore":
-      case "settlement-society": {
+      case "corruption":
+      case "crime":
+      case "productivity":
+      case "law":
+      case "lore":
+      case "society": {
         const [, modifier] = id.split("-");
-        const settlement = actorData.settlements[detail];
         paths.push(
           {
-            path: `@settlements.${detail}.modifiers.${modifier}.settlementTotal`,
-            value: settlement.modifiers[modifier].settlementTotal,
+            path: `@modifiers.${modifier}.settlementTotal`,
+            value: actorData.modifiers[modifier].settlementTotal,
           },
           {
-            path: `@settlements.${detail}.modifiers.${modifier}.total`,
-            value: settlement.modifiers[modifier].total,
+            path: `@modifiers.${modifier}.total`,
+            value: actorData.modifiers[modifier].total,
           }
         );
         sources.push({
-          sources: actor.getSourceDetails(`system.settlements.${detail}.modifiers.${modifier}.total`),
+          sources: actor.getSourceDetails(`system.modifiers.${modifier}.total`),
           untyped: true,
         });
-        notes = await getNotes(`${pf1ks.config.changePrefix}_${modifier}`, settlement.id);
+        notes = await getNotes(`${pf1ks.config.changePrefix}_${modifier}`);
         break;
       }
 

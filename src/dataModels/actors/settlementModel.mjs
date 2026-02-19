@@ -1,3 +1,4 @@
+import { ActorProxyModel } from "./actorProxyModel.mjs";
 import { DistrictModel } from "./districtModel.mjs";
 
 export class SettlementModel extends foundry.abstract.TypeDataModel {
@@ -7,9 +8,15 @@ export class SettlementModel extends foundry.abstract.TypeDataModel {
     return {
       districts: new fields.ArrayField(new fields.EmbeddedDataField(DistrictModel)),
       magicItems: new fields.SchemaField({
-        minor: new fields.ArrayField(new fields.StringField()),
-        medium: new fields.ArrayField(new fields.StringField()),
-        major: new fields.ArrayField(new fields.StringField()),
+        minor: new fields.SchemaField({
+          items: new fields.ArrayField(new fields.StringField()),
+        }),
+        medium: new fields.SchemaField({
+          items: new fields.ArrayField(new fields.StringField()),
+        }),
+        major: new fields.SchemaField({
+          items: new fields.ArrayField(new fields.StringField()),
+        }),
       }),
       attributes: new fields.SchemaField({
         // expanded settlement stuff
@@ -19,6 +26,8 @@ export class SettlementModel extends foundry.abstract.TypeDataModel {
         }),
         alignment: new fields.StringField({ blank: true, choices: Object.keys(pf1.config.alignments) }),
       }),
+
+      kingdom: new fields.EmbeddedDataField(ActorProxyModel, { nullable: true }),
 
       notes: new fields.SchemaField({
         value: new fields.HTMLField({ required: false, blank: true }),
@@ -56,10 +65,14 @@ export class SettlementModel extends foundry.abstract.TypeDataModel {
         total: 0,
       };
     }
+
+    // magic items
+    this.magicItems.minor.max = 0;
+    this.magicItems.medium.max = 0;
+    this.magicItems.major.max = 0;
   }
 
   prepareDerivedData() {
-    // const kingdom = this.parent;
     const totalLots = this.parent.itemTypes[pf1ks.config.buildingId]
       .filter((building) => building.isAssigned && !building.error)
       .reduce((acc, curr) => acc + curr.system.lotSize, 0);

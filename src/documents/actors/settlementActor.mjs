@@ -6,14 +6,14 @@ export class SettlementActor extends BaseActor {
   prepareDerivedData() {
     super.prepareDerivedData();
 
-    // TODO
-    //   // magic items
-    //   for (const key of Object.keys(pf1ks.config.magicItemTypes)) {
-    //     const count = this._getChanges(key, undefined, settlement.id);
-    //     const oldItems = settlement.magicItems[key];
-    //     settlement.magicItems[key] = oldItems.concat(Array(Math.max(count - oldItems.length, 0)).fill(null));
-    //   }
+    // magic items
+    for (const key of Object.keys(pf1ks.config.magicItemTypes)) {
+      const max = this.system.magicItems[key].max;
+      const oldItems = this.system.magicItems[key].items;
+      this.system.magicItems[key].items = oldItems.concat(Array(Math.max(max - oldItems.length, 0)).fill(null));
+    }
 
+    // TODO
     //   // the below is split between here and settlementModel.mjs prepareDerivedData because of the change system.
     //   // size, alignment, and government are handled in settlementModel.mjs and everything else is handled here
 
@@ -22,22 +22,18 @@ export class SettlementActor extends BaseActor {
     //     const { size, government } = settlement.attributes[attr];
     //     const buildings = this._getChanges(attr, pf1ks.config.buildingId, settlement.id);
     //     const features = this._getChanges(attr, pf1ks.config.featureId, settlement.id);
-    //     const improvements = this._getChanges(attr, pf1ks.config.improvementId, settlement.id);
-    //     const events = this._getChanges(attr, pf1ks.config.eventId, settlement.id);
 
     //     let total = (size ?? 0) + (government ?? 0);
     //     if (["maxBaseValue", "purchaseLimit"].includes(attr)) {
-    //       total = Math.floor(total * (1 + (buildings + features + improvements + events) / 100));
+    //       total = Math.floor(total * (1 + (buildings + features) / 100));
     //     } else {
-    //       total += buildings + features + improvements + events;
+    //       total += buildings + features;
     //     }
 
     //     settlement.attributes[attr] = {
     //       ...settlement.attributes[attr],
     //       buildings,
     //       features,
-    //       improvements,
-    //       events,
     //       total,
     //     };
     //   }
@@ -54,8 +50,6 @@ export class SettlementActor extends BaseActor {
     //       settlement.modifiers[modifier];
     //     const buildings = this._getChanges(modifier, pf1ks.config.buildingId, settlement.id);
     //     const features = this._getChanges(modifier, pf1ks.config.featureId, settlement.id);
-    //     const improvements = this._getChanges(modifier, pf1ks.config.improvementId, settlement.id);
-    //     const events = this._getChanges(modifier, pf1ks.config.eventId, settlement.id);
 
     //     let settlementTotal =
     //       size +
@@ -64,16 +58,12 @@ export class SettlementActor extends BaseActor {
     //       settlementAlignment +
     //       settlementGovernment +
     //       buildings +
-    //       features +
-    //       improvements +
-    //       events;
+    //       features;
 
     //     settlement.modifiers[modifier] = {
     //       ...settlement.modifiers[modifier],
     //       buildings,
     //       features,
-    //       improvements,
-    //       events,
     //       settlementTotal,
     //       total: settlementTotal,
     //     };
@@ -251,7 +241,7 @@ export class SettlementActor extends BaseActor {
   //   return sources;
   // }
 
-  _getChanges(target, type, settlementId) {
+  _getChanges(target, type) {
     if (!this.changes) {
       return 0;
     }
@@ -263,17 +253,6 @@ export class SettlementActor extends BaseActor {
           return false;
         }
         if (type && c.parent.type !== type) {
-          return false;
-        }
-        if (
-          settlementId &&
-          [
-            ...Object.keys(pf1ks.config.settlementModifiers),
-            ...Object.keys(pf1ks.config.settlementAttributes),
-            ...Object.keys(pf1ks.config.magicItemTypes),
-          ].includes(changeTarget) &&
-          c.parent.system.settlementId !== settlementId
-        ) {
           return false;
         }
         return true;
