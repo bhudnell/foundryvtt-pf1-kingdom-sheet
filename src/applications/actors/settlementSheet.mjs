@@ -719,7 +719,9 @@ export class SettlementSheet extends pf1.applications.actor.ActorSheetPF {
     const re = /^(?<id>[\w-]+)(?:\.(?<detail>.*))?$/.exec(fullId);
     const { id, detail } = re?.groups ?? {};
 
+    // TODO magic items
     switch (id) {
+      // TODO need to show?
       case "economy":
       case "loyalty":
       case "stability":
@@ -733,6 +735,7 @@ export class SettlementSheet extends pf1.applications.actor.ActorSheetPF {
         });
         notes = await getNotes(`${pf1ks.config.changePrefix}_${id}`);
         break;
+      // TODO need to show?
       case "bpStorage":
         paths.push(
           {
@@ -754,62 +757,55 @@ export class SettlementSheet extends pf1.applications.actor.ActorSheetPF {
       case "baseValue":
       case "purchaseLimit":
       case "spellcasting":
-      case "maxBaseValue": {
-        const [, attr] = id.split("-");
+      case "maxBaseValue":
         paths.push({
-          path: `@attributes.${attr}.total`,
-          value: actorData.attributes[attr].total,
+          path: `@attributes.${id}.total`,
+          value: actorData.attributes[id].total,
         });
         sources.push({
-          sources: actor.getSourceDetails(`system.attributes.${attr}.total`),
+          sources: actor.getSourceDetails(`system.attributes.${id}.total`),
           untyped: true,
         });
         break;
-      }
-
       case "alignment":
-      case "government": {
-        const [, modifier] = id.split("-");
+      case "government":
         Object.entries(pf1ks.config.settlementModifiers).forEach(([mod, label]) => {
-          if (actorData.modifiers[mod][`settlement${modifier}`]) {
+          if (actorData.modifiers[mod][id]) {
             paths.push({
               path: label,
-              value: actorData.modifiers[mod][`settlement${modifier}`].signedString(),
+              value: actorData.modifiers[mod][id].signedString(),
             });
           }
         });
-        if (actorData.attributes.spellcasting[`${modifier.toLocaleLowerCase()}`]) {
+        if (actorData.attributes.spellcasting[id]) {
           paths.push({
             path: pf1ks.config.settlementAttributes.spellcasting,
-            value: actorData.attributes.spellcasting[`${modifier.toLocaleLowerCase()}`].signedString(),
+            value: actorData.attributes.spellcasting[id].signedString(),
           });
         }
         break;
-      }
       case "corruption":
       case "crime":
       case "productivity":
       case "law":
       case "lore":
-      case "society": {
-        const [, modifier] = id.split("-");
+      case "society":
         paths.push(
           {
-            path: `@modifiers.${modifier}.settlementTotal`,
-            value: actorData.modifiers[modifier].settlementTotal,
+            path: `@modifiers.${id}.settlementTotal`,
+            value: actorData.modifiers[id].settlementTotal,
           },
           {
-            path: `@modifiers.${modifier}.total`,
-            value: actorData.modifiers[modifier].total,
+            path: `@modifiers.${id}.total`,
+            value: actorData.modifiers[id].total,
           }
         );
         sources.push({
-          sources: actor.getSourceDetails(`system.modifiers.${modifier}.total`),
+          sources: actor.getSourceDetails(`system.modifiers.${id}.total`),
           untyped: true,
         });
-        notes = await getNotes(`${pf1ks.config.changePrefix}_${modifier}`);
+        notes = await getNotes(`${pf1ks.config.changePrefix}_${id}`);
         break;
-      }
 
       default:
         throw new Error(`Invalid extended tooltip identifier "${fullId}"`);

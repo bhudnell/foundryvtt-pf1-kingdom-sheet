@@ -62,10 +62,10 @@ export class SettlementModel extends foundry.abstract.TypeDataModel {
     for (const modifier of Object.keys(pf1ks.config.settlementModifiers)) {
       this.modifiers[modifier] = {
         size: 0,
+        alignment: 0,
+        government: 0,
         kingdomAlignment: 0,
         kingdomGovernment: 0,
-        settlementAlignment: 0,
-        settlementGovernment: 0,
         settlementTotal: 0,
         total: 0,
       };
@@ -160,21 +160,21 @@ export class SettlementModel extends foundry.abstract.TypeDataModel {
       const kingdomGovernment =
         pf1ks.config.kingdomGovernmentBonuses[this.kingdom.actor?.system.government]?.[modifier] ?? 0;
 
-      const settlementAlignment = optionalRules.expandedSettlementModifiers
+      const alignment = optionalRules.expandedSettlementModifiers
         ? (pf1ks.config.alignmentEffects[this.attributes.alignment]?.[modifier] ?? 0)
         : 0;
-      const settlementGovernment = optionalRules.expandedSettlementModifiers
+      const government = optionalRules.expandedSettlementModifiers
         ? (pf1ks.config.settlementGovernmentBonuses[this.attributes.government]?.[modifier] ?? 0)
         : 0;
 
-      const settlementTotal = size + kingdomAlignment + kingdomGovernment + settlementAlignment + settlementGovernment;
+      const settlementTotal = size + alignment + government + kingdomAlignment + kingdomGovernment;
 
       this.modifiers[modifier] = {
         size,
+        alignment,
+        government,
         kingdomAlignment,
         kingdomGovernment,
-        settlementAlignment,
-        settlementGovernment,
         settlementTotal,
         total: settlementTotal,
       };
