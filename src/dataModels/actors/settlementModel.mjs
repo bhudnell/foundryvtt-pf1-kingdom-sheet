@@ -48,6 +48,10 @@ export class SettlementModel extends foundry.abstract.TypeDataModel {
         this.attributes[attr].size = 0;
       }
 
+      if (["maxBaseValue", "purchaseLimit"].includes(attr)) {
+        this.attributes[attr].increase = 0;
+      }
+
       if (attr === "spellcasting") {
         this.attributes[attr].government = 0;
       }
@@ -62,6 +66,7 @@ export class SettlementModel extends foundry.abstract.TypeDataModel {
         kingdomGovernment: 0,
         settlementAlignment: 0,
         settlementGovernment: 0,
+        settlementTotal: 0,
         total: 0,
       };
     }
@@ -70,6 +75,9 @@ export class SettlementModel extends foundry.abstract.TypeDataModel {
     this.magicItems.minor.max = 0;
     this.magicItems.medium.max = 0;
     this.magicItems.major.max = 0;
+
+    // data that needs to be held for kingdoms, but not really used by the settlement
+    this.kingdom = { bpStorage: 0, economy: 0, loyalty: 0, stability: 0, fame: 0, infamy: 0 };
   }
 
   prepareDerivedData() {
@@ -81,83 +89,95 @@ export class SettlementModel extends foundry.abstract.TypeDataModel {
     // population
     this.attributes.population = totalLots * 250;
 
+    const optionalRules = this.kingdom.actor?.system.settings.optionalRules ?? {};
+
     // size
-    // if (kingdom.settings.optionalRules.altSettlementSizes) {
-    //   if (totalLots > 100) {
-    //     this.attributes.size = "metro";
-    //   } else if (totalLots > 40) {
-    //     this.attributes.size = "lcity";
-    //   } else if (totalLots > 20) {
-    //     this.attributes.size = "scity";
-    //   } else if (totalLots > 8) {
-    //     this.attributes.size = "ltown";
-    //   } else if (totalLots > 1) {
-    //     this.attributes.size = "stown";
-    //   } else {
-    //     this.attributes.size = "village";
-    //   }
-    // } else {
-    if (this.attributes.population > 25000) {
-      this.attributes.size = "metro";
-    } else if (this.attributes.population > 10000) {
-      this.attributes.size = "lcity";
-    } else if (this.attributes.population > 5000) {
-      this.attributes.size = "scity";
-    } else if (this.attributes.population > 2000) {
-      this.attributes.size = "ltown";
-    } else if (this.attributes.population > 200) {
-      this.attributes.size = "stown";
-    } else if (this.attributes.population > 60) {
-      this.attributes.size = "village";
-    } else if (this.attributes.population > 20) {
-      this.attributes.size = "hamlet";
+    if (optionalRules.altSettlementSizes) {
+      if (totalLots > 100) {
+        this.attributes.size = "metro";
+      } else if (totalLots > 40) {
+        this.attributes.size = "lcity";
+      } else if (totalLots > 20) {
+        this.attributes.size = "scity";
+      } else if (totalLots > 8) {
+        this.attributes.size = "ltown";
+      } else if (totalLots > 1) {
+        this.attributes.size = "stown";
+      } else {
+        this.attributes.size = "village";
+      }
     } else {
-      this.attributes.size = "thorpe";
+      if (this.attributes.population > 25000) {
+        this.attributes.size = "metro";
+      } else if (this.attributes.population > 10000) {
+        this.attributes.size = "lcity";
+      } else if (this.attributes.population > 5000) {
+        this.attributes.size = "scity";
+      } else if (this.attributes.population > 2000) {
+        this.attributes.size = "ltown";
+      } else if (this.attributes.population > 200) {
+        this.attributes.size = "stown";
+      } else if (this.attributes.population > 60) {
+        this.attributes.size = "village";
+      } else if (this.attributes.population > 20) {
+        this.attributes.size = "hamlet";
+      } else {
+        this.attributes.size = "thorpe";
+      }
     }
-    // }
 
-    // the below is split between here and kingdomActor.mjs prepareDerivedData because of the change system.
-    // size, alignment, and government are handled here and item changes and the totals are handled in kingdomActor.mjs
-
-    // attribute size mod
-    for (const attr of ["danger", "maxBaseValue", "purchaseLimit", "spellcasting"]) {
-      this.attributes[attr].size =
-        /*kingdom.settings.optionalRules.altSettlementSizes
+    // settlement attributes
+    for (const attr of Object.keys(pf1ks.config.settlementAttributes)) {
+      // attribute size mod
+      if (["danger", "maxBaseValue", "purchaseLimit", "spellcasting"].includes(attr)) {
+        this.attributes[attr].size = optionalRules.altSettlementSizes
           ? pf1ks.config.altSettlementValues[this.attributes.size][attr] * altSettlementMultiplier
-          : */ pf1ks.config.settlementValues[this.attributes.size][attr];
-    }
+          : pf1ks.config.settlementValues[this.attributes.size][attr];
+      }
 
-    // spellcasting government
-    this.attributes.spellcasting.government = /*kingdom.settings.optionalRules.expandedSettlementModifiers
-      ? (pf1ks.config.settlementGovernmentBonuses[this.attributes.government]?.spellcasting ?? 0)
-      : */ 0;
+      // spellcasting government
+      if (attr === "spellcasting") {
+        this.attributes.spellcasting.government = optionalRules.expandedSettlementModifiers
+          ? (pf1ks.config.settlementGovernmentBonuses[this.attributes.government]?.spellcasting ?? 0)
+          : 0;
+      }
+
+      // total
+      this.attributes[attr].total = Object.entries(this.attributes[attr])
+        .filter(([k, v]) => k !== "total" && typeof v === "number")
+        .reduce((acc, [, v]) => acc + v, 0);
+    }
 
     // settlement modifiers
     for (const modifier of Object.keys(pf1ks.config.settlementModifiers)) {
-      const settlementValues =
-        /*kingdom.settings.optionalRules.altSettlementSizes
+      const settlementValues = optionalRules.altSettlementSizes
         ? pf1ks.config.altSettlementValues[this.attributes.size]
-        : */ pf1ks.config.settlementValues[this.attributes.size];
-      const multiplier = /*kingdom.settings.optionalRules.altSettlementSizes ? altSettlementMultiplier : */ 1;
+        : pf1ks.config.settlementValues[this.attributes.size];
+      const multiplier = optionalRules.altSettlementSizes ? altSettlementMultiplier : 1;
       const size = settlementValues.modifiers * multiplier;
 
-      const kingdomAlignment = /*pf1ks.config.alignmentEffects[kingdom.alignment]?.[modifier] ??*/ 0;
-      const kingdomGovernment = /*pf1ks.config.kingdomGovernmentBonuses[kingdom.government]?.[modifier] ??*/ 0;
+      const kingdomAlignment = pf1ks.config.alignmentEffects[this.kingdom.actor?.system.alignment]?.[modifier] ?? 0;
+      const kingdomGovernment =
+        pf1ks.config.kingdomGovernmentBonuses[this.kingdom.actor?.system.government]?.[modifier] ?? 0;
 
-      const settlementAlignment = /*kingdom.settings.optionalRules.expandedSettlementModifiers
+      const settlementAlignment = optionalRules.expandedSettlementModifiers
         ? (pf1ks.config.alignmentEffects[this.attributes.alignment]?.[modifier] ?? 0)
-        : */ 0;
-      const settlementGovernment = /*kingdom.settings.optionalRules.expandedSettlementModifiers
+        : 0;
+      const settlementGovernment = optionalRules.expandedSettlementModifiers
         ? (pf1ks.config.settlementGovernmentBonuses[this.attributes.government]?.[modifier] ?? 0)
-        : */ 0;
+        : 0;
 
-      // this.modifiers[modifier] = {
-      //   size,
-      //   kingdomAlignment,
-      //   kingdomGovernment,
-      //   settlementAlignment,
-      //   settlementGovernment,
-      // };
+      const settlementTotal = size + kingdomAlignment + kingdomGovernment + settlementAlignment + settlementGovernment;
+
+      this.modifiers[modifier] = {
+        size,
+        kingdomAlignment,
+        kingdomGovernment,
+        settlementAlignment,
+        settlementGovernment,
+        settlementTotal,
+        total: settlementTotal,
+      };
     }
   }
 }

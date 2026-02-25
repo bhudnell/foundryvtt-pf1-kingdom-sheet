@@ -6,6 +6,8 @@ export class SettlementActor extends BaseActor {
   prepareDerivedData() {
     super.prepareDerivedData();
 
+    // this all has to be done here since it all relies on changes being applied already
+
     // magic items
     for (const key of Object.keys(pf1ks.config.magicItemTypes)) {
       const max = this.system.magicItems[key].max;
@@ -13,73 +15,32 @@ export class SettlementActor extends BaseActor {
       this.system.magicItems[key].items = oldItems.concat(Array(Math.max(max - oldItems.length, 0)).fill(null));
     }
 
-    // TODO
-    //   // the below is split between here and settlementModel.mjs prepareDerivedData because of the change system.
-    //   // size, alignment, and government are handled in settlementModel.mjs and everything else is handled here
+    // maxBaseValue and purchaseLimit total update based in increase
+    for (const attr of ["maxBaseValue", "purchaseLimit"]) {
+      const { total, increase } = this.system.attributes[attr];
 
-    //   // settlement attributes (danger, baseValue, maxBaseValue, spellcasting, purchaseLimit)
-    //   for (const attr of Object.keys(pf1ks.config.settlementAttributes)) {
-    //     const { size, government } = settlement.attributes[attr];
-    //     const buildings = this._getChanges(attr, pf1ks.config.buildingId, settlement.id);
-    //     const features = this._getChanges(attr, pf1ks.config.featureId, settlement.id);
+      this.system.attributes[attr].total = Math.floor(total * (1 + increase / 100));
+    }
 
-    //     let total = (size ?? 0) + (government ?? 0);
-    //     if (["maxBaseValue", "purchaseLimit"].includes(attr)) {
-    //       total = Math.floor(total * (1 + (buildings + features) / 100));
-    //     } else {
-    //       total += buildings + features;
-    //     }
+    // base value adjustment
+    if (this.system.attributes.baseValue.total > this.system.attributes.maxBaseValue.total) {
+      this.system.attributes.baseValue.total = this.system.attributes.maxBaseValue.total;
+      this.system.attributes.baseValue.overridden = true;
+    }
 
-    //     settlement.attributes[attr] = {
-    //       ...settlement.attributes[attr],
-    //       buildings,
-    //       features,
-    //       total,
-    //     };
-    //   }
+    for (const modifier of Object.keys(pf1ks.config.settlementModifiers)) {
+      // set settlement modifiers total to settlementTotal
+      this.system.modifiers[modifier].total = this.system.modifiers[modifier].settlementTotal;
 
-    //   // base value adjustment
-    //   if (settlement.attributes.baseValue.total > settlement.attributes.maxBaseValue.total) {
-    //     settlement.attributes.baseValue.total = settlement.attributes.maxBaseValue.total;
-    //     settlement.attributes.baseValue.overridden = true;
-    //   }
-
-    //   // settlement modifiers
-    //   for (const modifier of Object.keys(pf1ks.config.settlementModifiers)) {
-    //     const { size, kingdomAlignment, kingdomGovernment, settlementAlignment, settlementGovernment } =
-    //       settlement.modifiers[modifier];
-    //     const buildings = this._getChanges(modifier, pf1ks.config.buildingId, settlement.id);
-    //     const features = this._getChanges(modifier, pf1ks.config.featureId, settlement.id);
-
-    //     let settlementTotal =
-    //       size +
-    //       kingdomAlignment +
-    //       kingdomGovernment +
-    //       settlementAlignment +
-    //       settlementGovernment +
-    //       buildings +
-    //       features;
-
-    //     settlement.modifiers[modifier] = {
-    //       ...settlement.modifiers[modifier],
-    //       buildings,
-    //       features,
-    //       settlementTotal,
-    //       total: settlementTotal,
-    //     };
-    //   }
-
-    //   // take higher of settlement modifiers and kingdom modifiers
-    //   if (this.system.settings.optionalRules.kingdomModifiers) {
-    //     for (const settlement of this.system.settlements) {
-    //       for (const modifier of Object.keys(pf1ks.config.settlementModifiers)) {
-    //         settlement.modifiers[modifier].total = Math.max(
-    //           settlement.modifiers[modifier].total,
-    //           this.system.modifiers[modifier].total
-    //         );
-    //       }
-    //     }
-    //   }
+      // take higher of settlement modifiers and kingdom modifiers
+      const kingdom = this.system.kingdom?.actor?.system;
+      if (kingdom?.settings.optionalRules.kingdomModifiers) {
+        this.system.modifiers[modifier].total = Math.max(
+          this.system.modifiers[modifier].total,
+          kingdom.modifiers[modifier].total
+        );
+      }
+    }
 
     // overlapping buildings check
     const updates = [];
@@ -110,9 +71,6 @@ export class SettlementActor extends BaseActor {
       }
     }
     this.updateEmbeddedDocuments("Item", updates);
-
-    //   // deleting this because it only exists to get settlement modifier changes to parse
-    //   delete this.system.someFakeData;
   }
 
   // _prepareTypeChanges(changes) {
@@ -240,25 +198,6 @@ export class SettlementActor extends BaseActor {
 
   //   return sources;
   // }
-
-  _getChanges(target, type) {
-    if (!this.changes) {
-      return 0;
-    }
-
-    return this.changes
-      .filter((c) => {
-        const changeTarget = c.target.split("_").pop();
-        if (changeTarget !== target) {
-          return false;
-        }
-        if (type && c.parent.type !== type) {
-          return false;
-        }
-        return true;
-      })
-      .reduce((total, c) => total + c.value, 0);
-  }
 
   prepareConditions() {
     this.system.conditions = {};
