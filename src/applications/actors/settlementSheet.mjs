@@ -480,7 +480,7 @@ export class SettlementSheet extends pf1.applications.actor.ActorSheetPF {
   _computeOccupiedCells(districtId, excludeId) {
     const occupied = new Set();
     this.actor.itemTypes[pf1ks.config.buildingId]
-      .filter((b) => b.system.districtId === districtId && b.id !== excludeId)
+      .filter((b) => b.system.districtId === districtId && b.id !== excludeId && b.inGrid)
       .forEach((b) => {
         for (let x = b.system.x; x < b.system.x + b.system.width; x++) {
           for (let y = b.system.y; y < b.system.y + b.system.height; y++) {
