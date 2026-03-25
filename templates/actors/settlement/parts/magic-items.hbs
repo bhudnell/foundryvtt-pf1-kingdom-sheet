@@ -1,7 +1,7 @@
 <div class="magic-item-section item-groups-list">
   {{#each magicItems}}
   <div class="magic-item-container" data-type="{{ key }}">
-    <h3>
+    <h3 data-tooltip-extended="magic-items.{{ key }}">
       {{#if error}}
       <i class="fa-solid fa-triangle-exclamation" data-tooltip="{{ error }}"></i>
       {{/if}}

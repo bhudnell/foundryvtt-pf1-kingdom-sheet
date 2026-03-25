@@ -257,9 +257,8 @@
       "LotSizeMismatch": "Building width * height must equal the building lot size",
       "UnplacedLotBuilding": "Building occupies 1 or more lots and must be placed on the district grid"
     },
-    "UnassignedItems": "Unassigned Items",
-    "MissingSettlement": "Item needs to be assigned to a settlement",
-    "MissingDistrict": "Item needs to be assigned to a settlement district",
+    "UnassignedBuildings": "Unassigned Buildings",
+    "MissingDistrict": "Building needs to be assigned to a district",
     "MagicItems": "Magic Items",
     "MagicItem": {
       "Minor": "Minor",

@@ -806,6 +806,17 @@ export class SettlementSheet extends pf1.applications.actor.ActorSheetPF {
         });
         notes = await getNotes(`${pf1ks.config.changePrefix}_${id}`);
         break;
+      case "magic-items":
+        paths.push({
+          path: `@magicItems.${detail}.max`,
+          value: actorData.magicItems[detail].max,
+        });
+        sources.push({
+          sources: actor.getSourceDetails(`system.magicItems.${detail}.max`),
+          untyped: true,
+        });
+        notes = await getNotes(`${pf1ks.config.changePrefix}_magic_item_${detail}`);
+        break;
 
       default:
         throw new Error(`Invalid extended tooltip identifier "${fullId}"`);

@@ -10,6 +10,13 @@
     {{/unless}}
   </div>
   {{/each}}
+  <a class="item icon" data-tab="unassigned" data-group="districts" data-tooltip="PF1KS.UnassignedBuildings">
+    {{#if unassignedBuildings.length}}
+    <i class="fa-solid fa-house-circle-exclamation"></i>
+    {{else}}
+    <i class="fa-solid fa-house"></i>
+    {{/if}}
+  </a>
   <a class="item icon district-create" data-tooltip="PF1KS.CreateDistrict">
     <i class="fa-solid fa-plus"></i>
   </a>
@@ -128,4 +135,9 @@
     </div>
   </div>
   {{/each}}
+
+  {{! Unassigned Buildings Tab }}
+  <div class="tab unassigned" data-group="districts" data-tab="unassigned">
+    {{~> settlement-sheet-unassigned-buildings}}
+  </div>
 </section>

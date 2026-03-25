@@ -7,13 +7,6 @@
     <a class="item" data-tab="magic-items" data-group="primary">{{ localize "PF1KS.MagicItems" }}</a>
     <a class="item" data-tab="notes" data-group="primary">{{localize "PF1.Notes"}}</a>
     <a class="item" data-tab="settings" data-group="primary">{{localize "PF1.Settings"}}</a>
-    <a class="item icon" data-tab="unassigned" data-group="primary" data-tooltip="PF1KS.UnassignedBuildings">
-      {{#if unassignedBuildings.length}}
-      <i class="fa-solid fa-house-circle-exclamation"></i>
-      {{else}}
-      <i class="fa-solid fa-house"></i>
-      {{/if}}
-    </a>
   </nav>
 
   {{! Sheet Body }}
@@ -48,11 +41,6 @@
     {{! Settings Tab }}
     <div class="tab settings" data-group="primary" data-tab="settings">
       {{~> kingdom-sheet-settings}}
-    </div>
-
-    {{! Unassigned Buildings Tab }}
-    <div class="tab unassigned" data-group="primary" data-tab="unassigned">
-      {{~> settlement-sheet-unassigned-buildings}}
     </div>
   </section>
 </form>
