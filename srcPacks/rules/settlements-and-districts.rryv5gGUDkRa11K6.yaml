@@ -81,6 +81,7 @@ pages:
       volume: 0.5
     src: null
     system: {}
+    category: null
     _key: '!journal.pages!rryv5gGUDkRa11K6.0lKvPeARzGjzLpFb'
   - sort: 200000
     name: Founding a Settlement
@@ -148,6 +149,7 @@ pages:
       volume: 0.5
     src: null
     system: {}
+    category: null
     _key: '!journal.pages!rryv5gGUDkRa11K6.HKumzqlwgSE4Av3x'
   - sort: 300000
     name: Magic Items In Settlements
@@ -219,6 +221,7 @@ pages:
       volume: 0.5
     src: null
     system: {}
+    category: null
     _key: '!journal.pages!rryv5gGUDkRa11K6.yj8acTf4diGgFOnf'
   - sort: 400000
     name: Buildings
@@ -329,8 +332,9 @@ pages:
       volume: 0.5
     src: null
     system: {}
+    category: null
     _key: '!journal.pages!rryv5gGUDkRa11K6.pFxlXDL6eYbHFDX8'
 sort: 0
-_key: '!journal!rryv5gGUDkRa11K6'
 categories: []
+_key: '!journal!rryv5gGUDkRa11K6'
 

@@ -3,174 +3,161 @@ _id: 0onhtdDZJATtRWak
 img: icons/environment/settlement/hut.webp
 description: ''
 results:
-  - type: pack
-    documentCollection: pf1-kingdom-sheet.event
+  - type: document
     weight: 1
     range:
       - 1
       - 10
     drawn: false
-    text: Building Demand
-    documentId: LByiDFC9XSaOZzJl
     img: icons/svg/clockwork.svg
     _id: eP0r7CGTsdshu5ad
-    flags: {}
+    name: Building Demand
+    documentUuid: Compendium.pf1-kingdom-sheet.event.Item.LByiDFC9XSaOZzJl
+    description: ''
     _key: '!tables.results!0onhtdDZJATtRWak.eP0r7CGTsdshu5ad'
-  - type: pack
-    documentCollection: pf1-kingdom-sheet.event
+  - type: document
     weight: 1
     range:
       - 11
       - 17
     drawn: false
-    text: Crop Failure
-    documentId: gpazuxUMT8ZnIrVl
     img: icons/svg/clockwork.svg
     _id: 25fTky5N3yJUoKxX
-    flags: {}
+    name: Crop Failure
+    documentUuid: Compendium.pf1-kingdom-sheet.event.Item.gpazuxUMT8ZnIrVl
+    description: ''
     _key: '!tables.results!0onhtdDZJATtRWak.25fTky5N3yJUoKxX'
-  - type: pack
-    documentCollection: pf1-kingdom-sheet.event
+  - type: document
     weight: 1
     range:
       - 18
       - 25
     drawn: false
-    text: Cult Activity
-    documentId: uV0QeE7qeXURGcFC
     img: icons/svg/clockwork.svg
     _id: d3byBTsgt1QHAshI
-    flags: {}
+    name: Cult Activity
+    documentUuid: Compendium.pf1-kingdom-sheet.event.Item.uV0QeE7qeXURGcFC
+    description: ''
     _key: '!tables.results!0onhtdDZJATtRWak.d3byBTsgt1QHAshI'
-  - type: pack
-    documentCollection: pf1-kingdom-sheet.event
+  - type: document
     weight: 1
     range:
       - 26
       - 33
     drawn: false
-    text: Drug Den
-    documentId: vSPriYN2CTA9HUgd
     img: icons/svg/clockwork.svg
     _id: nyx8tlNsi5wFK28W
-    flags: {}
+    name: Drug Den
+    documentUuid: Compendium.pf1-kingdom-sheet.event.Item.vSPriYN2CTA9HUgd
+    description: ''
     _key: '!tables.results!0onhtdDZJATtRWak.nyx8tlNsi5wFK28W'
-  - type: pack
-    documentCollection: pf1-kingdom-sheet.event
+  - type: document
     weight: 1
     range:
       - 34
       - 41
     drawn: false
-    text: Feud
-    documentId: CjKIgd0R9K8yLVBw
     img: icons/svg/clockwork.svg
     _id: 3Vl41nfzIpuba8FW
-    flags: {}
+    name: Feud
+    documentUuid: Compendium.pf1-kingdom-sheet.event.Item.CjKIgd0R9K8yLVBw
+    description: ''
     _key: '!tables.results!0onhtdDZJATtRWak.3Vl41nfzIpuba8FW'
-  - type: pack
-    documentCollection: pf1-kingdom-sheet.event
+  - type: document
     weight: 1
     range:
       - 42
       - 49
     drawn: false
-    text: Inquisition
-    documentId: krFSld0rl0iEwjFf
     img: icons/svg/clockwork.svg
     _id: 0Q2oCeMXwRHyOLk5
-    flags: {}
+    name: Inquisition
+    documentUuid: Compendium.pf1-kingdom-sheet.event.Item.krFSld0rl0iEwjFf
+    description: ''
     _key: '!tables.results!0onhtdDZJATtRWak.0Q2oCeMXwRHyOLk5'
-  - type: pack
-    documentCollection: pf1-kingdom-sheet.event
+  - type: document
     weight: 1
     range:
       - 50
       - 54
     drawn: false
-    text: Localized Disaster
-    documentId: JUeYzrXgZDJWQzW7
     img: icons/svg/clockwork.svg
     _id: wkrdOf4np8Tula6J
-    flags: {}
+    name: Localized Disaster
+    documentUuid: Compendium.pf1-kingdom-sheet.event.Item.JUeYzrXgZDJWQzW7
+    description: ''
     _key: '!tables.results!0onhtdDZJATtRWak.wkrdOf4np8Tula6J'
-  - type: pack
-    documentCollection: pf1-kingdom-sheet.event
+  - type: document
     weight: 1
     range:
       - 55
       - 61
     drawn: false
-    text: Monster Attack
-    documentId: 2NNXlTO6NyAzLE1Y
     img: icons/svg/clockwork.svg
     _id: guW5zC1IWvhNZrxq
-    flags: {}
+    name: Monster Attack
+    documentUuid: Compendium.pf1-kingdom-sheet.event.Item.2NNXlTO6NyAzLE1Y
+    description: ''
     _key: '!tables.results!0onhtdDZJATtRWak.guW5zC1IWvhNZrxq'
-  - type: pack
-    documentCollection: pf1-kingdom-sheet.event
+  - type: document
     weight: 1
     range:
       - 62
       - 66
     drawn: false
-    text: Plague
-    documentId: WWOA6vdJf7Za2NPj
     img: icons/svg/clockwork.svg
     _id: vW2gKa2pAJPi45M5
-    flags: {}
+    name: Plague
+    documentUuid: Compendium.pf1-kingdom-sheet.event.Item.WWOA6vdJf7Za2NPj
+    description: ''
     _key: '!tables.results!0onhtdDZJATtRWak.vW2gKa2pAJPi45M5'
-  - type: pack
-    documentCollection: pf1-kingdom-sheet.event
+  - type: document
     weight: 1
     range:
       - 67
       - 74
     drawn: false
-    text: Sensational Crime
-    documentId: sU6vSSO3VFJQssuB
     img: icons/svg/clockwork.svg
     _id: EUI5lF7BrFS5WPqY
-    flags: {}
+    name: Sensational Crime
+    documentUuid: Compendium.pf1-kingdom-sheet.event.Item.sU6vSSO3VFJQssuB
+    description: ''
     _key: '!tables.results!0onhtdDZJATtRWak.EUI5lF7BrFS5WPqY'
-  - type: pack
-    documentCollection: pf1-kingdom-sheet.event
+  - type: document
     weight: 1
     range:
       - 75
       - 80
     drawn: false
-    text: Slavers
-    documentId: MzznEbmGORwKCbmE
     img: icons/svg/clockwork.svg
     _id: DGPZNPhs209avfEZ
-    flags: {}
+    name: Slavers
+    documentUuid: Compendium.pf1-kingdom-sheet.event.Item.MzznEbmGORwKCbmE
+    description: ''
     _key: '!tables.results!0onhtdDZJATtRWak.DGPZNPhs209avfEZ'
-  - type: pack
-    documentCollection: pf1-kingdom-sheet.event
+  - type: document
     weight: 1
     range:
       - 81
       - 90
     drawn: false
-    text: Squatters
-    documentId: 0gefLHp0cMTxEXf0
     img: icons/svg/clockwork.svg
     _id: 86aUkAuVhoZJNNaY
-    flags: {}
+    name: Squatters
+    documentUuid: Compendium.pf1-kingdom-sheet.event.Item.0gefLHp0cMTxEXf0
+    description: ''
     _key: '!tables.results!0onhtdDZJATtRWak.86aUkAuVhoZJNNaY'
-  - type: pack
-    documentCollection: pf1-kingdom-sheet.event
+  - type: document
     weight: 1
     range:
       - 91
       - 100
     drawn: false
-    text: Vandals
-    documentId: iyYlSeb26a2w0WPi
     img: icons/svg/clockwork.svg
     _id: AbP7ceDB3954idxw
-    flags: {}
+    name: Vandals
+    documentUuid: Compendium.pf1-kingdom-sheet.event.Item.iyYlSeb26a2w0WPi
+    description: ''
     _key: '!tables.results!0onhtdDZJATtRWak.AbP7ceDB3954idxw'
 replacement: true
 displayRoll: true

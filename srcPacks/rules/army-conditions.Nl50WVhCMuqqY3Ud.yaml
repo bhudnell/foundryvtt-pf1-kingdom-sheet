@@ -20,6 +20,7 @@ pages:
       volume: 0.5
     src: null
     system: {}
+    category: null
     _key: '!journal.pages!Nl50WVhCMuqqY3Ud.QlOueCvJDAky3jEM'
   - sort: 200000
     name: Ambush
@@ -42,6 +43,7 @@ pages:
       volume: 0.5
     src: null
     system: {}
+    category: null
     _key: '!journal.pages!Nl50WVhCMuqqY3Ud.1L3BEwjri4p8YYlu'
   - sort: 300000
     name: Battlefield Advantage
@@ -61,6 +63,7 @@ pages:
       volume: 0.5
     src: null
     system: {}
+    category: null
     _key: '!journal.pages!Nl50WVhCMuqqY3Ud.gH8jLvKjrm9ZTD4v'
   - sort: 400000
     name: Darkness
@@ -78,6 +81,7 @@ pages:
       volume: 0.5
     src: null
     system: {}
+    category: null
     _key: '!journal.pages!Nl50WVhCMuqqY3Ud.8asxsFmrYySzf6E6'
   - sort: 500000
     name: Dim Light
@@ -95,6 +99,7 @@ pages:
       volume: 0.5
     src: null
     system: {}
+    category: null
     _key: '!journal.pages!Nl50WVhCMuqqY3Ud.cCDikJWec80mnG6n'
   - sort: 600000
     name: Fog
@@ -114,6 +119,7 @@ pages:
       volume: 0.5
     src: null
     system: {}
+    category: null
     _key: '!journal.pages!Nl50WVhCMuqqY3Ud.c0jSYSCCExA9az4e'
   - sort: 700000
     name: Fortifications
@@ -136,6 +142,7 @@ pages:
       volume: 0.5
     src: null
     system: {}
+    category: null
     _key: '!journal.pages!Nl50WVhCMuqqY3Ud.XzyCEUqKwco2nQsr'
   - sort: 800000
     name: Rain
@@ -156,6 +163,7 @@ pages:
       volume: 0.5
     src: null
     system: {}
+    category: null
     _key: '!journal.pages!Nl50WVhCMuqqY3Ud.qm2lJRiqWyr2LRf6'
   - sort: 800000
     name: Sandstorm
@@ -175,6 +183,7 @@ pages:
       volume: 0.5
     src: null
     system: {}
+    category: null
     _key: '!journal.pages!Nl50WVhCMuqqY3Ud.WhAGk6DEzmQLBK12'
   - sort: 800000
     name: Snow
@@ -194,6 +203,7 @@ pages:
       volume: 0.5
     src: null
     system: {}
+    category: null
     _key: '!journal.pages!Nl50WVhCMuqqY3Ud.oViI7Sz7xSxP5rXv'
   - sort: 900000
     name: Wind
@@ -213,6 +223,7 @@ pages:
       volume: 0.5
     src: null
     system: {}
+    category: null
     _key: '!journal.pages!Nl50WVhCMuqqY3Ud.LGLfLNQbfGP2meKG'
   - sort: 1000000
     name: Wind Effects
@@ -295,8 +306,9 @@ pages:
       volume: 0.5
     src: null
     system: {}
+    category: null
     _key: '!journal.pages!Nl50WVhCMuqqY3Ud.oh8QvomTx3B9zlSe'
 sort: 0
-_key: '!journal!Nl50WVhCMuqqY3Ud'
 categories: []
+_key: '!journal!Nl50WVhCMuqqY3Ud'
 
