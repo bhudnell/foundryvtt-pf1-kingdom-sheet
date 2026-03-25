@@ -27,6 +27,15 @@ export class SettlementModel extends foundry.abstract.TypeDataModel {
         alignment: new fields.StringField({ blank: true, choices: Object.keys(pf1.config.alignments) }),
       }),
 
+      settings: new fields.SchemaField({
+        simpleSettlement: new fields.BooleanField({ initial: false }),
+        collapseTooltips: new fields.BooleanField({ initial: false }),
+        optionalRules: new fields.SchemaField({
+          altSettlementSizes: new fields.BooleanField({ initial: false }),
+          expandedSettlementModifiers: new fields.BooleanField({ initial: false }),
+        }),
+      }),
+
       kingdom: new fields.EmbeddedDataField(ActorProxyModel, { nullable: true }),
 
       notes: new fields.SchemaField({
@@ -89,10 +98,8 @@ export class SettlementModel extends foundry.abstract.TypeDataModel {
     // population
     this.attributes.population = totalLots * 250;
 
-    const optionalRules = this.kingdom.actor?.system.settings.optionalRules ?? {};
-
     // size
-    if (optionalRules.altSettlementSizes) {
+    if (this.settings.optionalRules.altSettlementSizes) {
       if (totalLots > 100) {
         this.attributes.size = "metro";
       } else if (totalLots > 40) {
@@ -107,13 +114,13 @@ export class SettlementModel extends foundry.abstract.TypeDataModel {
         this.attributes.size = "village";
       }
     } else {
-      if (this.attributes.population > 25000) {
+      if (this.attributes.population > 25_000) {
         this.attributes.size = "metro";
-      } else if (this.attributes.population > 10000) {
+      } else if (this.attributes.population > 10_000) {
         this.attributes.size = "lcity";
-      } else if (this.attributes.population > 5000) {
+      } else if (this.attributes.population > 5_000) {
         this.attributes.size = "scity";
-      } else if (this.attributes.population > 2000) {
+      } else if (this.attributes.population > 2_000) {
         this.attributes.size = "ltown";
       } else if (this.attributes.population > 200) {
         this.attributes.size = "stown";
@@ -130,14 +137,14 @@ export class SettlementModel extends foundry.abstract.TypeDataModel {
     for (const attr of Object.keys(pf1ks.config.settlementAttributes)) {
       // attribute size mod
       if (["danger", "maxBaseValue", "purchaseLimit", "spellcasting"].includes(attr)) {
-        this.attributes[attr].size = optionalRules.altSettlementSizes
+        this.attributes[attr].size = this.settings.optionalRules.altSettlementSizes
           ? pf1ks.config.altSettlementValues[this.attributes.size][attr] * altSettlementMultiplier
           : pf1ks.config.settlementValues[this.attributes.size][attr];
       }
 
       // spellcasting government
       if (attr === "spellcasting") {
-        this.attributes.spellcasting.government = optionalRules.expandedSettlementModifiers
+        this.attributes.spellcasting.government = this.settings.optionalRules.expandedSettlementModifiers
           ? (pf1ks.config.settlementGovernmentBonuses[this.attributes.government]?.spellcasting ?? 0)
           : 0;
       }
@@ -150,20 +157,20 @@ export class SettlementModel extends foundry.abstract.TypeDataModel {
 
     // settlement modifiers
     for (const modifier of Object.keys(pf1ks.config.settlementModifiers)) {
-      const settlementValues = optionalRules.altSettlementSizes
+      const settlementValues = this.settings.optionalRules.altSettlementSizes
         ? pf1ks.config.altSettlementValues[this.attributes.size]
         : pf1ks.config.settlementValues[this.attributes.size];
-      const multiplier = optionalRules.altSettlementSizes ? altSettlementMultiplier : 1;
+      const multiplier = this.settings.optionalRules.altSettlementSizes ? altSettlementMultiplier : 1;
       const size = settlementValues.modifiers * multiplier;
 
       const kingdomAlignment = pf1ks.config.alignmentEffects[this.kingdom.actor?.system.alignment]?.[modifier] ?? 0;
       const kingdomGovernment =
         pf1ks.config.kingdomGovernmentBonuses[this.kingdom.actor?.system.government]?.[modifier] ?? 0;
 
-      const alignment = optionalRules.expandedSettlementModifiers
+      const alignment = this.settings.optionalRules.expandedSettlementModifiers
         ? (pf1ks.config.alignmentEffects[this.attributes.alignment]?.[modifier] ?? 0)
         : 0;
-      const government = optionalRules.expandedSettlementModifiers
+      const government = this.settings.optionalRules.expandedSettlementModifiers
         ? (pf1ks.config.settlementGovernmentBonuses[this.attributes.government]?.[modifier] ?? 0)
         : 0;
 

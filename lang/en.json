@@ -32,6 +32,8 @@
     "GovernmentLabel": "Government",
     "Government": {
       "Autocracy": "Autocracy",
+      "Council": "Council",
+      "Magical": "Magical",
       "Magocracy": "Magocracy",
       "Oligarchy": "Oligarchy",
       "Overlord": "Overlord",
@@ -373,7 +375,8 @@
       "GovernmentForms": "Forms of Government",
       "LeadershipSkills": "Leadership Skills",
       "SettlementSizes": "Alternative Settlement Size Modifiers",
-      "ExpandedSettlementModifiers": "Expanded Settlement Modifiers"
+      "ExpandedSettlementModifiers": "Expanded Settlement Modifiers",
+      "SimpleSettlement": "Simple Settlement"
     },
 
     "Continuous": "Continuous",

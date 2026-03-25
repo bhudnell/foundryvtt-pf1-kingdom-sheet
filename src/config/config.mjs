@@ -823,6 +823,7 @@ export const terrainTypes = {
 export const settings = {
   secondRuler: "PF1KS.Settings.SecondRuler",
   collapseTooltips: "PF1KS.Settings.CollapseTooltips",
+  simpleSettlement: "PF1KS.Settings.SimpleSettlement",
 };
 
 export const optionalRules = {

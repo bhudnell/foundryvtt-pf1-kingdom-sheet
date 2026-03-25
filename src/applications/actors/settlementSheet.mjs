@@ -276,24 +276,22 @@ export class SettlementSheet extends pf1.applications.actor.ActorSheetPF {
   }
 
   _prepareSettings() {
-    return [];
-    // return Object.entries(this.actor.system.settings)
-    //   .filter(([_, value]) => typeof value === "boolean")
-    //   .map(([key, value]) => ({
-    //     name: key,
-    //     value,
-    //     label: pf1ks.config.settings[key],
-    //   }));
+    return Object.entries(this.actor.system.settings)
+      .filter(([_, value]) => typeof value === "boolean")
+      .map(([key, value]) => ({
+        name: key,
+        value,
+        label: pf1ks.config.settings[key],
+      }));
   }
 
   _prepareOptionalRules() {
-    return [];
-    // return Object.entries(this.actor.system.settings.optionalRules).map(([key, value]) => ({
-    //   name: key,
-    //   value,
-    //   label: pf1ks.config.optionalRules[key],
-    //   compendiumEntry: pf1ks.config.compendiumEntries[key],
-    // }));
+    return Object.entries(this.actor.system.settings.optionalRules).map(([key, value]) => ({
+      name: key,
+      value,
+      label: pf1ks.config.optionalRules[key],
+      compendiumEntry: pf1ks.config.compendiumEntries[key],
+    }));
   }
 
   async _itemToggleData(event) {
