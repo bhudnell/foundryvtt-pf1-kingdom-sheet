@@ -29,10 +29,8 @@ export class SettlementActor extends BaseActor {
     }
 
     for (const modifier of Object.keys(pf1ks.config.settlementModifiers)) {
-      // set settlement modifiers total to settlementTotal
-      this.system.modifiers[modifier].total = this.system.modifiers[modifier].settlementTotal;
-
       // take higher of settlement modifiers and kingdom modifiers
+      // TODO for this should we just have a SET change to set total to kingdom total if higher?
       const kingdom = this.system.kingdom?.actor?.system;
       if (kingdom?.settings.optionalRules.kingdomModifiers) {
         this.system.modifiers[modifier].total = Math.max(
@@ -77,127 +75,102 @@ export class SettlementActor extends BaseActor {
   //   const system = this.system;
   // }
 
-  // getSourceDetails(path) {
-  //   const sources = super.getSourceDetails(path);
+  getSourceDetails(path) {
+    const sources = super.getSourceDetails(path);
+    const data = this.system;
 
-  //   const baseLabel = game.i18n.localize("PF1.Base");
+    // attributes
+    const sAttrRE = /^system\.attributes\.(?<attr>\w+)\.total$/.exec(path);
+    if (sAttrRE) {
+      const { attr } = sAttrRE.groups;
+      const isPercent = ["maxBaseValue", "purchaseLimit"].includes(attr);
 
-  //   // settlement stuff
-  //   const settlementRE = /^system\.settlements\.(?<idx>\w+)\.(?<detail>.+)$/.exec(path);
-  //   if (settlementRE) {
-  //     const { idx, detail } = settlementRE.groups;
-  //     const s = this.system.settlements[idx];
+      if (data.attributes[attr].government) {
+        sources.unshift({
+          name: game.i18n.localize("PF1KS.GovernmentLabel"),
+          value: data.attributes[attr].government,
+        });
+      }
+      if (data.attributes[attr].size) {
+        sources.unshift({
+          name: game.i18n.localize("PF1.Size"),
+          value: data.attributes[attr].size,
+        });
+      }
+      if (data.attributes[attr].increase) {
+        const changeGrp = this.sourceInfo[`system.attributes.${attr}.increase`] ?? {};
+        sources.push(
+          ...Object.values(changeGrp)
+            .flat()
+            .filter((src) => src.operator !== "add" || src.value !== 0)
+            .map((src) => ({
+              name: this.constructor._getSourceLabel(src).replace(/[[\]]/g, ""),
+              value: asSignedPercent(src.value),
+            }))
+        );
+        sources.push({
+          name: game.i18n.localize(data.attributes[attr].increase > 0 ? "PF1KS.Increase" : "PF1KS.Decrease"),
+          value: game.i18n.format("PF1KS.IncreaseTotal", {
+            increase: asSignedPercent(data.attributes[attr].increase),
+            total: data.attributes[attr].total,
+          }),
+        });
+      }
+      // override handling for any field that has a max value (currently just baseValue)
+      if (data.attributes[attr].overridden) {
+        sources.push({
+          name: game.i18n.localize(`PF1KS.Max${capitalize(attr)}`),
+          value: game.i18n.format("PF1.SetTo", { value: data.attributes[attr].total }),
+        });
+      }
+    }
 
-  //     // attributes
-  //     const sAttrRE = /^attributes\.(?<attr>\w+)\.total$/.exec(detail);
-  //     if (sAttrRE) {
-  //       const { attr } = sAttrRE.groups;
-  //       const isPercent = ["maxBaseValue", "purchaseLimit"].includes(attr);
+    // modifiers
+    const sModRE = /^system\.modifiers\.(?<mod>\w+)\.total$/.exec(path);
+    if (sModRE) {
+      const { mod } = sModRE.groups;
 
-  //       if (s.attributes[attr].size) {
-  //         sources.push({
-  //           name: game.i18n.localize("PF1.Size"),
-  //           value: s.attributes[attr].size,
-  //         });
-  //       }
-  //       if (s.attributes[attr].government) {
-  //         sources.push({
-  //           name: game.i18n.localize("PF1KS.GovernmentLabel"),
-  //           value: s.attributes[attr].government,
-  //         });
-  //       }
-  //       if (s.attributes[attr].buildings) {
-  //         sources.push({
-  //           name: game.i18n.localize("PF1KS.Buildings"),
-  //           value: isPercent ? asSignedPercent(s.attributes[attr].buildings) : s.attributes[attr].buildings,
-  //         });
-  //       }
-  //       if (s.attributes[attr].improvements) {
-  //         sources.push({
-  //           name: game.i18n.localize("PF1KS.Improvements"),
-  //           value: isPercent ? asSignedPercent(s.attributes[attr].improvements) : s.attributes[attr].improvements,
-  //         });
-  //       }
-  //       if (s.attributes[attr].events) {
-  //         sources.push({
-  //           name: game.i18n.localize("PF1KS.Events"),
-  //           value: isPercent ? asSignedPercent(s.attributes[attr].events) : s.attributes[attr].events,
-  //         });
-  //       }
+      if (data.modifiers[mod].kingdomAlignment) {
+        sources.unshift({
+          name: game.i18n.localize("PF1KS.KingdomAlignment"),
+          value: data.modifiers[mod].kingdomAlignment,
+        });
+      }
+      if (data.modifiers[mod].kingdomGovernment) {
+        sources.unshift({
+          name: game.i18n.localize("PF1KS.KingdomGovernment"),
+          value: data.modifiers[mod].kingdomGovernment,
+        });
+      }
+      if (data.modifiers[mod].alignment) {
+        sources.unshift({
+          name: game.i18n.localize("PF1.Alignment"),
+          value: data.modifiers[mod].alignment,
+        });
+      }
+      if (data.modifiers[mod].government) {
+        sources.unshift({
+          name: game.i18n.localize("PF1KS.GovernmentLabel"),
+          value: data.modifiers[mod].government,
+        });
+      }
+      if (data.modifiers[mod].size) {
+        sources.unshift({
+          name: game.i18n.localize("PF1.Size"),
+          value: data.modifiers[mod].size,
+        });
+      }
+      //TODO this needed?
+      if (data.modifiers[mod].total > data.modifiers[mod].settlementTotal) {
+        sources.push({
+          name: game.i18n.localize("PF1KS.KingdomModifier"),
+          value: game.i18n.format("PF1.SetTo", { value: data.modifiers[mod].total }),
+        });
+      }
+    }
 
-  //       // override handling for any field that has a max value (currently just baseValue)
-  //       if (s.attributes[attr].overridden) {
-  //         sources.push({
-  //           name: game.i18n.localize(`PF1KS.Max${capitalize(attr)}`),
-  //           value: game.i18n.format("PF1.SetTo", { value: s.attributes[attr].total }),
-  //         });
-  //       }
-  //     }
-
-  //     // modifiers
-  //     const sModRE = /^modifiers\.(?<mod>\w+)\.total$/.exec(detail);
-  //     if (sModRE) {
-  //       const { mod } = sModRE.groups;
-
-  //       if (s.modifiers[mod].size) {
-  //         sources.push({
-  //           name: game.i18n.localize("PF1.Size"),
-  //           value: s.modifiers[mod].size,
-  //         });
-  //       }
-  //       if (s.modifiers[mod].kingdomAlignment) {
-  //         sources.push({
-  //           name: game.i18n.localize("PF1KS.KingdomAlignment"),
-  //           value: s.modifiers[mod].kingdomAlignment,
-  //         });
-  //       }
-  //       if (s.modifiers[mod].kingdomGovernment) {
-  //         sources.push({
-  //           name: game.i18n.localize("PF1KS.KingdomGovernment"),
-  //           value: s.modifiers[mod].kingdomGovernment,
-  //         });
-  //       }
-  //       if (s.modifiers[mod].settlementAlignment) {
-  //         sources.push({
-  //           name: game.i18n.localize("PF1KS.SettlementAlignment"),
-  //           value: s.modifiers[mod].settlementAlignment,
-  //         });
-  //       }
-  //       if (s.modifiers[mod].settlementGovernment) {
-  //         sources.push({
-  //           name: game.i18n.localize("PF1KS.SettlementGovernment"),
-  //           value: s.modifiers[mod].settlementGovernment,
-  //         });
-  //       }
-  //       if (s.modifiers[mod].buildings) {
-  //         sources.push({
-  //           name: game.i18n.localize("PF1KS.Buildings"),
-  //           value: s.modifiers[mod].buildings,
-  //         });
-  //       }
-  //       if (s.modifiers[mod].improvements) {
-  //         sources.push({
-  //           name: game.i18n.localize("PF1KS.Improvements"),
-  //           value: s.modifiers[mod].improvements,
-  //         });
-  //       }
-  //       if (s.modifiers[mod].events) {
-  //         sources.push({
-  //           name: game.i18n.localize("PF1KS.Events"),
-  //           value: s.modifiers[mod].events,
-  //         });
-  //       }
-  //       if (s.modifiers[mod].total > s.modifiers[mod].settlementTotal) {
-  //         sources.push({
-  //           name: game.i18n.localize("PF1KS.KingdomModifier"),
-  //           value: game.i18n.format("PF1.SetTo", { value: s.modifiers[mod].total }),
-  //         });
-  //       }
-  //     }
-  //   }
-
-  //   return sources;
-  // }
+    return sources;
+  }
 
   prepareConditions() {
     this.system.conditions = {};

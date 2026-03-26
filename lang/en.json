@@ -381,6 +381,10 @@
 
     "Continuous": "Continuous",
 
+    "Increase": "Increase",
+    "Decrease": "Decrease",
+    "IncreaseTotal": "Set to {total} ({increase})",
+
     "ArmyAttributes": "Army Attributes",
 
     "Condition": {
