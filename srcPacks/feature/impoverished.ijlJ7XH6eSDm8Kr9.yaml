@@ -35,6 +35,24 @@ system:
       type: untyped
       operator: add
       priority: 0
+    - _id: rFHzkGbJ
+      formula: '-ceil(@magicItems.minor.max / 2)'
+      target: pf1ks_magic_item_minor
+      type: untyped
+      operator: add
+      priority: 0
+    - _id: RcA8yGAN
+      formula: '-ceil(@magicItems.medium.max / 2)'
+      target: pf1ks_magic_item_medium
+      type: untyped
+      operator: add
+      priority: 0
+    - _id: cwbUw2dd
+      formula: '-ceil(@magicItems.major.max / 2)'
+      target: pf1ks_magic_item_major
+      type: untyped
+      operator: add
+      priority: 0
   contextNotes: []
   settlementId: ''
 _id: ijlJ7XH6eSDm8Kr9
