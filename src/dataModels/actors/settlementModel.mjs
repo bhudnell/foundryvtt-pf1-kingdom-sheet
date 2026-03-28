@@ -28,7 +28,6 @@ export class SettlementModel extends foundry.abstract.TypeDataModel {
       }),
 
       settings: new fields.SchemaField({
-        simpleSettlement: new fields.BooleanField({ initial: false }),
         collapseTooltips: new fields.BooleanField({ initial: false }),
         optionalRules: new fields.SchemaField({
           altSettlementSizes: new fields.BooleanField({ initial: false }),

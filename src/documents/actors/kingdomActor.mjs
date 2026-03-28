@@ -10,7 +10,10 @@ export class KingdomActor extends BaseActor {
     if (this.system.settings.optionalRules.kingdomModifiers) {
       for (const modifier of Object.keys(pf1ks.config.settlementModifiers)) {
         const settlements = Math.floor(
-          this.system.settlementProxies.reduce((acc, curr) => acc + curr.actor.system.modifiers[modifier].total, 0) / 10
+          this.system.settlementProxies.reduce(
+            (acc, curr) => acc + (curr.actor?.system?.modifiers?.[modifier].total ?? 0),
+            0
+          ) / 10
         );
         const alignment = pf1ks.config.alignmentEffects[this.system.alignment]?.[modifier] ?? 0;
         const government = pf1ks.config.kingdomGovernmentBonuses[this.system.government]?.[modifier] ?? 0;

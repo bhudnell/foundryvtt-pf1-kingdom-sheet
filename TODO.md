@@ -19,9 +19,6 @@
   - priority?
   - operator?
 
-## Settlement Features (changes)
-- add magic item availability (see impoverished disadvantage)
-
 ## Building grid logic
 - toggle for "can overlap" so things like cistern or magical streetlamps can be shown
   - optional list to limit to certain building types
@@ -29,18 +26,12 @@
 - follows building limits (ie must be next to X, cannot be next to Y, limit Z per settlement/district)
 
 ## Settlement actor
-- break settlements out into their own actor types
-  - current settlements tab will become settlement actor sheet
-  - new settlements tab will just show the settlements' contrbutions to kingdom stats,
-    maybe some other info too
-- buildings and settlement feature items should lose the settlementId data
-- how to break up settings and how will that all work
-- add a toggle for buildings providing magic items (as currently is) or base for settlement of given size
-  - could be called "simple settlement"
-  - wouldnt allow the settlement to be linked to a kingdom?
+- create a simple settlement sheet
+  - cant be linked to kingdoms
+    - only link if settlementActor.getFlag('core', 'sheetClass') !== moduleId.settlementLiteSheet
+  - wont use buildings for data
 
 ## Settlement and Army actors
-- add a "kingdom id" field
 - when any actor is deleted, ensure any existing links are removed
 - when dragged onto a kingdom
   - if linked

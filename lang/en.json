@@ -133,6 +133,7 @@
     },
     "NoSettlementBuildings": "Buildings Without Settlements",
     "CreateSettlement": "Create Settlement",
+    "EditSettlement": "Edit Settlement",
     "NewSettlementLabel": "Settlement {number}",
     "DeleteSettlement": "Delete Settlement",
     "DeleteSettlementTitle": "Delete Settlement: {name}",

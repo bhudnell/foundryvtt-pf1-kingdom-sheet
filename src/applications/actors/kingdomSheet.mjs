@@ -51,9 +51,7 @@ export class KingdomSheet extends pf1.applications.actor.ActorSheetPF {
 
     // selectors
     data.alignmentOptions = pf1.config.alignments;
-    data.kingdomGovernmentOptions = pf1ks.config.kingdomGovernments;
-    data.settlementGovernmentOptions = pf1ks.config.settlementGovernments;
-    data.districtBorderOptions = pf1ks.config.districtBorders;
+    data.governmentOptions = pf1ks.config.kingdomGovernments;
     data.holidayOptions = pf1ks.config.edicts.holiday;
     data.promotionOptions = pf1ks.config.edicts.promotion;
     data.taxationOptions = pf1ks.config.edicts.taxation;
@@ -184,7 +182,11 @@ export class KingdomSheet extends pf1.applications.actor.ActorSheetPF {
     html.find(".viceroy-create").on("click", (e) => this._onViceroyCreate(e));
     html.find(".viceroy-delete").on("click", (e) => this._onViceroyDelete(e));
 
-    html.find(".army-create").on("click", (e) => this._onArmyCreate(e)); // TODO add these for settlements
+    html.find(".settlement-create").on("click", (e) => this._onSettlementCreate(e));
+    html.find(".settlement-edit").on("click", (e) => this._onSettlementEdit(e));
+    html.find(".settlement-delete").on("click", (e) => this._onSettlementDelete(e));
+
+    html.find(".army-create").on("click", (e) => this._onArmyCreate(e));
     html.find(".army-edit").on("click", (e) => this._onArmyEdit(e));
     html.find(".army-delete").on("click", (e) => this._onArmyDelete(e));
   }
@@ -245,11 +247,17 @@ export class KingdomSheet extends pf1.applications.actor.ActorSheetPF {
   }
 
   _prepareSettlements() {
-    return this.actor.system.settlementProxies.map((settlement) => ({
-      id: settlement.id,
-      img: settlement.actor.img,
-      name: settlement.actor.name,
-      system: settlement.actor.system,
+    return this.actor.system.settlementProxies.map(({ id, actor }) => ({
+      id,
+      img: actor.img,
+      name: actor.name,
+      system: {
+        ...actor.system,
+        attributes: {
+          ...actor.system.attributes,
+          size: pf1ks.config.settlementSizes[actor.system.attributes.size],
+        },
+      },
     }));
   }
 
@@ -342,6 +350,59 @@ export class KingdomSheet extends pf1.applications.actor.ActorSheetPF {
     });
   }
 
+  async _onSettlementCreate(event) {
+    event.preventDefault();
+
+    const newSettlement = await Actor.create({
+      name: game.i18n.localize("PF1KS.NewSettlement"),
+      type: pf1ks.config.settlementId,
+      "prototypeToken.actorLink": true,
+    });
+
+    return this._createSettlement(newSettlement._id);
+  }
+
+  async _createSettlement(actorId) {
+    const settlements = foundry.utils.duplicate(this.actor.system.settlementProxies ?? []);
+    settlements.push({
+      id: foundry.utils.randomID(),
+      actor: actorId,
+    });
+
+    await this._onSubmit(event, {
+      updateData: { "system.settlementProxies": settlements },
+    });
+  }
+
+  async _onSettlementEdit(event) {
+    event.preventDefault();
+    const settlementId = event.currentTarget.closest(".item").dataset.id;
+    const settlement = this.actor.system.settlementProxies.find((settlement) => settlement.id === settlementId);
+
+    settlement.actor.sheet.render(true, { focus: true });
+  }
+
+  async _onSettlementDelete(event) {
+    event.preventDefault();
+
+    const settlementId = event.currentTarget.closest(".item").dataset.id;
+    const settlements = foundry.utils.duplicate(this.actor.system.settlementProxies ?? []);
+    const deletedSettlement = settlements.findSplice((settlement) => settlement.id === settlementId);
+    const deletedSettlementActor = this.actor.system.settlementProxies.find(
+      (settlement) => settlement.id === deletedSettlement.id
+    ).actor;
+
+    await this._onDelete({
+      button: event.currentTarget,
+      title: game.i18n.format("PF1KS.DeleteSettlementTitle", { name: deletedSettlementActor?.name }),
+      content: `<p>${game.i18n.localize("PF1KS.DeleteSettlementConfirmation")}</p>`,
+      onDelete: async () =>
+        await this._onSubmit(event, {
+          updateData: { "system.settlementProxies": settlements },
+        }),
+    });
+  }
+
   async _onArmyCreate(event) {
     event.preventDefault();
 
@@ -415,28 +476,33 @@ export class KingdomSheet extends pf1.applications.actor.ActorSheetPF {
   }
 
   // overrides
-  // allows dropping armies onto kingdoms
+  // allows dropping settlements and armies onto kingdoms
   async _onDropActor(event, data) {
     event.preventDefault();
 
     const actorData = await Actor.fromDropData(data);
 
-    // TODO add settlements here
-    if (actorData.type !== pf1ks.config.armyId) {
+    if (actorData.type !== pf1ks.config.settlementId && actorData.type !== pf1ks.config.armyId) {
       return false;
     }
 
     const source = actorData._stats.compendiumSource.split(".")[0];
 
-    let army;
+    let actor;
     if (source === "Actor") {
-      army = await fromUuid(data.uuid);
+      actor = await fromUuid(data.uuid);
     } else {
-      army = await Actor.create(actorData.toObject());
+      actor = await Actor.create(actorData.toObject());
     }
 
-    const created = await this._createArmy(army._id);
-    this.activateTab("armies", "primary");
+    let created;
+    if (actor.type === pf1ks.config.settlementId) {
+      created = await this._createSettlement(actor._id);
+      this.activateTab("settlements", "primary");
+    } else {
+      created = await this._createArmy(actor._id);
+      this.activateTab("armies", "primary");
+    }
     return created;
   }
 
