@@ -13,12 +13,16 @@ export class MigrateV2 extends BaseMigrate {
     // create settlement actors
     const settlements = actor.system.settlements;
 
-    // TODO add link to the kingdom
     log(`creating ${settlements.length} new settlement actors`);
     const settlementActors = await Actor.implementation.createDocuments(
       settlements.map((s) => {
         const { name, id, districtCount, ...system } = s.toObject();
-        return { name, type: pf1ks.config.settlementId, "prototypeToken.actorLink": true, system };
+        return {
+          name,
+          type: pf1ks.config.settlementId,
+          "prototypeToken.actorLink": true,
+          system: { ...system, kingdom: { id: foundry.utils.randomID(), actor: actor.id } }, // TODO magicItems.minor -> magicItems.minor.items
+        };
       })
     );
     log(`...finished creating ${settlementActors.length} new settlement actors`);
@@ -68,7 +72,14 @@ export class MigrateV2 extends BaseMigrate {
       log(`...finished deleting items from actor '${actor?.name}'`);
     }
 
-    // TODO migrate army actors to add a link to the kingdom
+    // migrate army actors to add a link to the kingdom
+    const armyUpdatePromises = actor.system.armies.map((army) => {
+      const armyActor = game.actors.get(army.actor.id);
+      return armyActor.update({ "system.kingdom": { id: foundry.utils.randomID(), actor: actor.id } });
+    });
+    log(`linking armies from actor '${actor?.name}'`);
+    await Promise.all(armyUpdatePromises);
+    log(`...finished linking armies from actor '${actor?.name}'`);
 
     log("...finished migrating actor");
   }

@@ -1,3 +1,4 @@
+import { ActorProxyModel } from "./actorProxyModel.mjs";
 import { CommanderModel } from "./commanderModel.mjs";
 
 export class ArmyModel extends foundry.abstract.TypeDataModel {
@@ -33,6 +34,8 @@ export class ArmyModel extends foundry.abstract.TypeDataModel {
       }),
 
       commander: new fields.EmbeddedDataField(CommanderModel),
+
+      kingdom: new fields.EmbeddedDataField(ActorProxyModel, { nullable: true }),
 
       notes: new fields.SchemaField({
         value: new fields.HTMLField({ required: false, blank: true }),

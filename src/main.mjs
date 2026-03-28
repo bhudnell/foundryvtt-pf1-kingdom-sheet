@@ -450,3 +450,36 @@ Hooks.once("i18nInit", () => {
   doLocalizeKeys(pf1ks.config.armyConditions, ["name"]);
   doLocalizeKeys(pf1ks.config.buildingTypes, ["name"]);
 });
+
+Hooks.on("deleteActor", async (actor, options, userId) => {
+  if (userId !== game.users.activeGM?.id) {
+    return;
+  }
+
+  // if deleting a settlement or army, delete the linked kingdom's proxy if it exists
+  if ([pf1ks.config.armyId, pf1ks.config.settlementId].includes(actor.type) && actor.system.kingdom) {
+    const kingdomActor = game.actors.get(actor.system.kingdom.actor.id);
+    const proxyPath = actor.type === pf1ks.config.armyId ? "armies" : "settlementProxies";
+
+    const proxies = foundry.utils.duplicate(kingdomActor.system[proxyPath] ?? []);
+    proxies.findSplice((proxy) => proxy.actor.id === kingdomActor.id);
+
+    await kingdomActor.update({ [`system.${proxyPath}`]: proxies });
+  }
+
+  // if deleting a kingdom, unset the kingdom fields in all linked settlements and armies
+  if (actor.type === pf1ks.config.kingdomId && (actor.system.armies.length || actor.system.settlementProxies.length)) {
+    const updates = [];
+    for (const army of actor.system.armies) {
+      updates.push({ _id: army.actor._id, "system.-=kingdom": null });
+    }
+    for (const settlement of actor.system.settlementProxies) {
+      updates.push({ _id: settlement.actor._id, "system.-=kingdom": null });
+    }
+
+    const updated = await Actor.implementation.updateDocuments(updates);
+  }
+});
+
+// TODO how to prevent a settlement being linked to multiple kingdoms?
+// Think things like duplicating kingdoms

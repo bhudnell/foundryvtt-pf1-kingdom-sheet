@@ -369,6 +369,15 @@ export class KingdomSheet extends pf1.applications.actor.ActorSheetPF {
       actor: actorId,
     });
 
+    // add the kingdom link to the settlement
+    const settlement = await fromUuid(actorId);
+    await settlement.update({
+      "system.kingdom": {
+        id: foundry.utils.randomID(),
+        actor: this.actor._id,
+      },
+    });
+
     await this._onSubmit(event, {
       updateData: { "system.settlementProxies": settlements },
     });
@@ -396,10 +405,15 @@ export class KingdomSheet extends pf1.applications.actor.ActorSheetPF {
       button: event.currentTarget,
       title: game.i18n.format("PF1KS.DeleteSettlementTitle", { name: deletedSettlementActor?.name }),
       content: `<p>${game.i18n.localize("PF1KS.DeleteSettlementConfirmation")}</p>`,
-      onDelete: async () =>
+      onDelete: async () => {
         await this._onSubmit(event, {
           updateData: { "system.settlementProxies": settlements },
-        }),
+        });
+
+        await deletedSettlementActor.update({
+          "system.-=kingdom": null,
+        });
+      },
     });
   }
 
@@ -420,6 +434,15 @@ export class KingdomSheet extends pf1.applications.actor.ActorSheetPF {
     armies.push({
       id: foundry.utils.randomID(),
       actor: actorId,
+    });
+
+    // add the kingdom link to the army
+    const army = await fromUuid(actorId);
+    await army.update({
+      "system.kingdom": {
+        id: foundry.utils.randomID(),
+        actor: this.actor._id,
+      },
     });
 
     await this._onSubmit(event, {
@@ -447,10 +470,15 @@ export class KingdomSheet extends pf1.applications.actor.ActorSheetPF {
       button: event.currentTarget,
       title: game.i18n.format("PF1KS.DeleteArmyTitle", { name: deletedArmyActor?.name }),
       content: `<p>${game.i18n.localize("PF1KS.DeleteArmyConfirmation")}</p>`,
-      onDelete: async () =>
+      onDelete: async () => {
         await this._onSubmit(event, {
           updateData: { "system.armies": armies },
-        }),
+        });
+
+        await deletedArmyActor.update({
+          "system.-=kingdom": null,
+        });
+      },
     });
   }
 
@@ -483,6 +511,12 @@ export class KingdomSheet extends pf1.applications.actor.ActorSheetPF {
     const actorData = await Actor.fromDropData(data);
 
     if (actorData.type !== pf1ks.config.settlementId && actorData.type !== pf1ks.config.armyId) {
+      return false;
+    }
+
+    // settlement/army is already linked
+    if (actorData.kingdom) {
+      ui.notifications.warn("PF1KS.SettlementArmyAlreadyLinked", { localize: true });
       return false;
     }
 
