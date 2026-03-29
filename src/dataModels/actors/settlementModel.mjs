@@ -35,7 +35,7 @@ export class SettlementModel extends foundry.abstract.TypeDataModel {
         }),
       }),
 
-      kingdom: new fields.EmbeddedDataField(ActorProxyModel, { nullable: true }),
+      kingdom: new fields.EmbeddedDataField(ActorProxyModel, { nullable: true, required: false }),
 
       notes: new fields.SchemaField({
         value: new fields.HTMLField({ required: false, blank: true }),
@@ -85,7 +85,7 @@ export class SettlementModel extends foundry.abstract.TypeDataModel {
     this.magicItems.major.max = 0;
 
     // data that needs to be held for kingdoms, but not really used by the settlement
-    this.kingdom = { bpStorage: 0, economy: 0, loyalty: 0, stability: 0, fame: 0, infamy: 0 };
+    this.kingdomStats = { bpStorage: 0, economy: 0, loyalty: 0, stability: 0, fame: 0, infamy: 0 };
   }
 
   prepareDerivedData() {
@@ -162,9 +162,9 @@ export class SettlementModel extends foundry.abstract.TypeDataModel {
       const multiplier = this.settings.optionalRules.altSettlementSizes ? altSettlementMultiplier : 1;
       const size = settlementValues.modifiers * multiplier;
 
-      const kingdomAlignment = pf1ks.config.alignmentEffects[this.kingdom.actor?.system.alignment]?.[modifier] ?? 0;
+      const kingdomAlignment = pf1ks.config.alignmentEffects[this.kingdom?.actor?.system.alignment]?.[modifier] ?? 0;
       const kingdomGovernment =
-        pf1ks.config.kingdomGovernmentBonuses[this.kingdom.actor?.system.government]?.[modifier] ?? 0;
+        pf1ks.config.kingdomGovernmentBonuses[this.kingdom?.actor?.system.government]?.[modifier] ?? 0;
 
       const alignment = this.settings.optionalRules.expandedSettlementModifiers
         ? (pf1ks.config.alignmentEffects[this.attributes.alignment]?.[modifier] ?? 0)

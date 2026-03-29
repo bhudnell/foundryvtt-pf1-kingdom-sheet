@@ -13,15 +13,15 @@ const SHARED = {
   // kingdom/settlement
   [`${changePrefix}_economy`]: {
     [kingdomId]: "system.economy.total",
-    [settlementId]: "system.kingdom.economy",
+    [settlementId]: "system.kingdomStats.economy",
   },
   [`${changePrefix}_loyalty`]: {
     [kingdomId]: "system.loyalty.total",
-    [settlementId]: "system.kingdom.loyalty",
+    [settlementId]: "system.kingdomStats.loyalty",
   },
   [`${changePrefix}_stability`]: {
     [kingdomId]: "system.stability.total",
-    [settlementId]: "system.kingdom.stability",
+    [settlementId]: "system.kingdomStats.stability",
   },
   [`${changePrefix}_magic_item_minor`]: {
     [kingdomId]: "system.magicItems.minor.max",
@@ -65,11 +65,11 @@ const SHARED = {
   },
   [`${changePrefix}_fame`]: {
     [kingdomId]: "system.fame.total",
-    [settlementId]: "system.kingdom.fame",
+    [settlementId]: "system.kingdomStats.fame",
   },
   [`${changePrefix}_infamy`]: {
     [kingdomId]: "system.infamy.total",
-    [settlementId]: "system.kingdom.infamy",
+    [settlementId]: "system.kingdomStats.infamy",
   },
 };
 
@@ -91,7 +91,7 @@ const TARGETS = {
   },
 
   [settlementId]: {
-    [`${changePrefix}_bpStorage`]: "system.kingdom.bpStorage",
+    [`${changePrefix}_bpStorage`]: "system.kingdomStats.bpStorage",
     [`${changePrefix}_danger`]: "system.attributes.danger.total",
     [`${changePrefix}_baseValue`]: "system.attributes.baseValue.total",
     [`${changePrefix}_maxBaseValue`]: "system.attributes.maxBaseValue.increase",

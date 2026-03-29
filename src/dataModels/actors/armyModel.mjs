@@ -35,7 +35,7 @@ export class ArmyModel extends foundry.abstract.TypeDataModel {
 
       commander: new fields.EmbeddedDataField(CommanderModel),
 
-      kingdom: new fields.EmbeddedDataField(ActorProxyModel, { nullable: true }),
+      kingdom: new fields.EmbeddedDataField(ActorProxyModel, { nullable: true, required: false }),
 
       notes: new fields.SchemaField({
         value: new fields.HTMLField({ required: false, blank: true }),

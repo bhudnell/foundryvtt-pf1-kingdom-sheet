@@ -370,7 +370,7 @@ export class KingdomSheet extends pf1.applications.actor.ActorSheetPF {
     });
 
     // add the kingdom link to the settlement
-    const settlement = await fromUuid(actorId);
+    const settlement = await fromUuid(`Actor.${actorId}`);
     await settlement.update({
       "system.kingdom": {
         id: foundry.utils.randomID(),
@@ -437,7 +437,7 @@ export class KingdomSheet extends pf1.applications.actor.ActorSheetPF {
     });
 
     // add the kingdom link to the army
-    const army = await fromUuid(actorId);
+    const army = await fromUuid(`Actor.${actorId}`);
     await army.update({
       "system.kingdom": {
         id: foundry.utils.randomID(),

@@ -462,7 +462,7 @@ Hooks.on("deleteActor", async (actor, options, userId) => {
     const proxyPath = actor.type === pf1ks.config.armyId ? "armies" : "settlementProxies";
 
     const proxies = foundry.utils.duplicate(kingdomActor.system[proxyPath] ?? []);
-    proxies.findSplice((proxy) => proxy.actor.id === kingdomActor.id);
+    proxies.findSplice((proxy) => proxy.actor === actor.id);
 
     await kingdomActor.update({ [`system.${proxyPath}`]: proxies });
   }
