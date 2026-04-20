@@ -706,7 +706,7 @@ export class SettlementSheet extends pf1.applications.actor.ActorSheetPF {
     };
 
     const getNotes = async (context) =>
-      (await actor.getContextNotesParsed(context, null, { rollData: lazy.rollData, roll: false })).map((n) => n.text);
+      (await actor.getContextNotesParsed(context, { rollData: lazy.rollData, roll: false })).map((n) => n.text);
 
     let header, subHeader;
     const details = [];

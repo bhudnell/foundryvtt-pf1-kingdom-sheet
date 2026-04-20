@@ -204,7 +204,7 @@ export class KingdomSheet extends pf1.applications.actor.ActorSheetPF {
         }
       });
 
-    const eventsSections = Object.values(pf1.config.sheetSections.kingdomEvent).map((data) => ({ ...data }));
+    const eventsSections = Object.values(pf1.config.sheetSections.kingdomEvent).map((data) => ({ ...data })); // TODO settlement events
     this.actor.itemTypes[pf1ks.config.eventId]
       .map((i) => i)
       .sort((a, b) => (a.sort || 0) - (b.sort || 0))
@@ -570,10 +570,8 @@ export class KingdomSheet extends pf1.applications.actor.ActorSheetPF {
       },
     };
 
-    const getNotes = async (context, settlementId) =>
-      (await actor.getContextNotesParsed(context, settlementId, { rollData: lazy.rollData, roll: false })).map(
-        (n) => n.text
-      );
+    const getNotes = async (context) =>
+      (await actor.getContextNotesParsed(context, { rollData: lazy.rollData, roll: false })).map((n) => n.text);
 
     let header, subHeader;
     const details = [];

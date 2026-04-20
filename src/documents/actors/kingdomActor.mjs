@@ -34,7 +34,7 @@ export class KingdomActor extends BaseActor {
     this.system.infamy.total +=
       Math.floor(this._getChanges("corruption") / 10) + Math.floor(this._getChanges("crime") / 10);
 
-    // deleting this because it only exists to get settlement modifier changes to parse
+    // deleting this because it only exists to get settlement only changes to parse
     delete this.system.someFakeData;
   }
 
@@ -55,7 +55,7 @@ export class KingdomActor extends BaseActor {
 
     // Add context notes
     const rollData = options.rollData || this.getRollData();
-    const notes = await this.getContextNotesParsed(`${pf1ks.config.changePrefix}_${kingdomStatId}`, null, { rollData });
+    const notes = await this.getContextNotesParsed(`${pf1ks.config.changePrefix}_${kingdomStatId}`, { rollData });
     if (notes.length > 0) {
       props.push({ header: game.i18n.localize("PF1.Notes"), value: notes });
     }

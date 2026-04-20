@@ -298,22 +298,20 @@ export class BaseActor extends pf1.documents.actor.ActorBasePF {
     return allNotes;
   }
 
-  getContextNotes(context, settlementId, all = true) {
+  getContextNotes(context, all = true) {
     const result = this.allNotes;
 
     for (const note of result) {
-      note.notes = note.notes
-        .filter((o) => o.target === context && (!settlementId || o.parent.system.settlementId === settlementId))
-        .map((o) => o.text);
+      note.notes = note.notes.filter((o) => o.target === context).map((o) => o.text);
     }
 
     return result.filter((n) => n.notes.length);
   }
 
-  async getContextNotesParsed(context, settlementId, { all, roll = true, rollData } = {}) {
+  async getContextNotesParsed(context, { all, roll = true, rollData } = {}) {
     rollData ??= this.getRollData();
 
-    const noteObjects = this.getContextNotes(context, settlementId, all);
+    const noteObjects = this.getContextNotes(context, all);
     await this.enrichContextNotes(noteObjects, rollData, { roll });
 
     return noteObjects.reduce((all, o) => {
