@@ -205,7 +205,7 @@ export class KingdomSheet extends pf1.applications.actor.ActorSheetPF {
       });
 
     const eventsSections = Object.values(pf1.config.sheetSections.kingdomEvent).map((data) => ({ ...data })); // TODO settlement events
-    this.actor.itemTypes[pf1ks.config.eventId]
+    this.actor.itemTypes[pf1ks.config.kingdomEventId]
       .map((i) => i)
       .sort((a, b) => (a.sort || 0) - (b.sort || 0))
       .forEach((e) => {
@@ -546,7 +546,7 @@ export class KingdomSheet extends pf1.applications.actor.ActorSheetPF {
       case pf1ks.config.improvementId:
         tabId = "terrain";
         break;
-      case pf1ks.config.eventId:
+      case pf1ks.config.kingdomEventId:
         tabId = "events";
         break;
       default:

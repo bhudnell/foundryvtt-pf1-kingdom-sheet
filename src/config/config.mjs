@@ -6,15 +6,16 @@ export const settlementId = `${moduleId}.settlement`;
 export const armyId = `${moduleId}.army`;
 
 export const buildingId = `${moduleId}.building`;
-export const eventId = `${moduleId}.event`;
+export const kingdomEventId = `${moduleId}.event`;
+export const settlementEventId = `${moduleId}.settlementEvent`;
 export const improvementId = `${moduleId}.improvement`;
 export const featureId = `${moduleId}.feature`;
 export const boonId = `${moduleId}.boon`;
 export const specialId = `${moduleId}.special`;
 export const tacticId = `${moduleId}.tactic`;
 
-export const kingdomItemTypes = [eventId, improvementId];
-export const settlementItemTypes = [buildingId, featureId];
+export const kingdomItemTypes = [kingdomEventId, improvementId];
+export const settlementItemTypes = [buildingId, featureId, settlementEventId];
 export const armyItemTypes = [boonId, specialId, tacticId];
 
 export const kingdomStats = {

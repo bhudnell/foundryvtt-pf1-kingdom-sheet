@@ -12,6 +12,7 @@
   - abandoned buildings
   - deities and holy sites
   - special edicts
+- read through items and see if any rolls can be automated (ie economic boom)
 
 ## Change editor dialog
 - maybe I can clean this up to hide unused fields
@@ -30,29 +31,3 @@
   - cant be linked to kingdoms
     - only link if settlementActor.getFlag('core', 'sheetClass') !== moduleId.settlementLiteSheet
   - wont use buildings for data
-
-## Settlement and Army actors
-- when any actor is deleted, ensure any existing links are removed
-- when dragged onto a kingdom
-  - if linked
-    - error saying this actor has already been linked to a kingdom
-  - if no link (hasnt been added to a kingdom yet)
-    - create the proxy item on the parent
-    - add the parent's id to the "kingdom id" field
-- on settlement/army sheet add a button
-  - if linked
-    - button opens a dialog with all owned kingdoms to select the kingdom to link
-      - if only 1 owned kingdom, auto link when clicked
-  - if unlinked
-    - button unlinks from the kingdom (see below)
-- unlinking logic
-  - on kingdom
-    - delete the proxy item
-  - on settlement/army
-    - unset the "kingdom id" field
-
-
-
-what to do with defense?
-settlement attributes           -> settlement         -> settlement attributes
-settlement attributes (defense) -> kingdom/settlement -> settlement attributes

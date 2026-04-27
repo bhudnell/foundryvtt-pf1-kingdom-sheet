@@ -146,7 +146,7 @@ export class BaseActor extends pf1.documents.actor.ActorBasePF {
             buildings.value += srcValue;
           } else if (collapse && src.type === pf1ks.config.featureId) {
             features.value += srcValue;
-          } else if (collapse && src.type === pf1ks.config.eventId) {
+          } else if (collapse && [pf1ks.config.kingdomEventId, pf1ks.config.settlementEventId].includes(src.type)) {
             events.value += srcValue;
           } else if (collapse && src.type === pf1ks.config.improvementId) {
             improvements.value += srcValue;

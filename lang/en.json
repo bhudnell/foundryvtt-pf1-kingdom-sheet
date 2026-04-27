@@ -442,7 +442,8 @@
     "Item": {
       "pf1-kingdom-sheet": {
         "building": "Building",
-        "event": "Event",
+        "event": "Kingdom Event",
+        "settlementEvent": "Settlement Event",
         "improvement": "Terrain Improvement",
         "feature": "Settlement Feature",
         "boon": "Boon",
@@ -473,11 +474,21 @@
           },
           "event": {
             "active": {
-              "Single": "Active",
+              "Single": "Active Kingdom Event",
               "Plural": "Active"
             },
             "misc": {
-              "Single": "Miscellaneous",
+              "Single": "Miscellaneous Kingdom Event",
+              "Plural": "Miscellaneous"
+            }
+          },
+          "settlementEvent": {
+            "active": {
+              "Single": "Active Settlement Event",
+              "Plural": "Active"
+            },
+            "misc": {
+              "Single": "Miscellaneous Settlement Event",
               "Plural": "Miscellaneous"
             }
           },
@@ -501,7 +512,7 @@
               "Plural": "Disadvantages"
             },
             "misc": {
-              "Single": "Miscellaneous",
+              "Single": "Miscellaneous Feature",
               "Plural": "Miscellaneous"
             }
           }

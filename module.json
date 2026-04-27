@@ -33,6 +33,9 @@
       "event": {
         "htmlFields": ["description.value"]
       },
+      "settlementEvent": {
+        "htmlFields": ["description.value"]
+      },
       "improvement": {
         "htmlFields": ["description.value"]
       },

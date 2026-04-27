@@ -11,9 +11,10 @@ import { TacticSheet } from "./applications/items/tacticSheet.mjs";
 import * as Config from "./config/_module.mjs";
 import { BoonBrowser } from "./config/compendiumBrowser/boonBrowser.mjs";
 import { BuildingBrowser } from "./config/compendiumBrowser/buildingBrowser.mjs";
-import { EventBrowser } from "./config/compendiumBrowser/eventBrowser.mjs";
 import { FeatureBrowser } from "./config/compendiumBrowser/featureBrowser.mjs";
 import { ImprovementBrowser } from "./config/compendiumBrowser/improvementBrowser.mjs";
+import { KingdomEventBrowser } from "./config/compendiumBrowser/kingdomEventBrowser.mjs";
+import { SettlementEventBrowser } from "./config/compendiumBrowser/settlementEventBrowser.mjs";
 import { SpecialBrowser } from "./config/compendiumBrowser/specialBrowser.mjs";
 import { TacticBrowser } from "./config/compendiumBrowser/tacticBrowser.mjs";
 import * as PF1KS from "./config/config.mjs";
@@ -126,7 +127,8 @@ Hooks.once("libWrapper.Ready", () => {
         case PF1KS.tacticId:
           return null;
 
-        case PF1KS.eventId:
+        case PF1KS.kingdomEventId:
+        case PF1KS.settlementEventId:
           return PF1KS.eventSubTypes;
 
         case PF1KS.improvementId:
@@ -181,7 +183,7 @@ Hooks.on("renderChatMessage", (message, html) => {
   }
 });
 
-Hooks.once("init", () => {
+Hooks.once("pf1PostInit", () => {
   Object.defineProperty(pf1ks, "_temp", {
     value: {},
     enumerable: false,
@@ -192,7 +194,8 @@ Hooks.once("init", () => {
   CONFIG.Actor.documentClasses[PF1KS.settlementId] = SettlementActor;
   CONFIG.Actor.documentClasses[PF1KS.armyId] = ArmyActor;
   CONFIG.Item.documentClasses[PF1KS.buildingId] = BuildingItem;
-  CONFIG.Item.documentClasses[PF1KS.eventId] = EventItem;
+  CONFIG.Item.documentClasses[PF1KS.kingdomEventId] = EventItem;
+  CONFIG.Item.documentClasses[PF1KS.settlementEventId] = EventItem;
   CONFIG.Item.documentClasses[PF1KS.improvementId] = ImprovementItem;
   CONFIG.Item.documentClasses[PF1KS.featureId] = FeatureItem;
   CONFIG.Item.documentClasses[PF1KS.boonId] = BoonItem;
@@ -214,7 +217,8 @@ Hooks.once("init", () => {
   CONFIG.Actor.dataModels[PF1KS.settlementId] = SettlementModel;
   CONFIG.Actor.dataModels[PF1KS.armyId] = ArmyModel;
   CONFIG.Item.dataModels[PF1KS.buildingId] = BuildingModel;
-  CONFIG.Item.dataModels[PF1KS.eventId] = EventModel;
+  CONFIG.Item.dataModels[PF1KS.kingdomEventId] = EventModel;
+  CONFIG.Item.dataModels[PF1KS.settlementEventId] = EventModel;
   CONFIG.Item.dataModels[PF1KS.improvementId] = ImprovementModel;
   CONFIG.Item.dataModels[PF1KS.featureId] = FeatureModel;
   CONFIG.Item.dataModels[PF1KS.boonId] = BoonModel;
@@ -254,7 +258,7 @@ Hooks.once("init", () => {
   });
   Items.registerSheet(PF1KS.moduleId, EventSheet, {
     label: game.i18n.localize("PF1KS.Sheet.Event"),
-    types: [PF1KS.eventId],
+    types: [PF1KS.kingdomEventId, PF1KS.settlementEventId],
     makeDefault: true,
   });
   Items.registerSheet(PF1KS.moduleId, ImprovementSheet, {
@@ -315,14 +319,14 @@ Hooks.once("init", () => {
   );
 });
 
-Hooks.once("setup", () => {
+Hooks.once("pf1PostSetup", () => {
   // re-prepare kingdoms and armies once all their dependencies are prepared
   game.actors
     .filter((a) => [pf1ks.config.kingdomId, pf1ks.config.settlementId, pf1ks.config.armyId].includes(a.type))
     .forEach((a) => a.prepareData());
 });
 
-Hooks.once("ready", () => {
+Hooks.once("pf1PostReady", () => {
   if (!game.modules.get("lib-wrapper")?.active && game.user.isGM) {
     ui.notifications.error("PF1KS.LibWrapperError");
   }
@@ -359,25 +363,28 @@ Hooks.once("ready", () => {
     "item-sheet-changes": `modules/${PF1KS.moduleId}/templates/items/parts/changes.hbs`,
   });
 
-  pf1.applications.compendiums.boon = new BoonBrowser();
-  pf1.applications.compendiums.building = new BuildingBrowser();
-  pf1.applications.compendiums.event = new EventBrowser();
-  pf1.applications.compendiums.improvement = new ImprovementBrowser();
-  pf1.applications.compendiums.feature = new FeatureBrowser();
-  pf1.applications.compendiums.tactic = new TacticBrowser();
+  pf1.applications.compendiums.boons = new BoonBrowser();
+  pf1.applications.compendiums.buildings = new BuildingBrowser();
+  pf1.applications.compendiums.kingdomEvents = new KingdomEventBrowser();
+  pf1.applications.compendiums.settlementEvents = new SettlementEventBrowser();
+  pf1.applications.compendiums.improvements = new ImprovementBrowser();
+  pf1.applications.compendiums.features = new FeatureBrowser();
+  pf1.applications.compendiums.tactics = new TacticBrowser();
   pf1.applications.compendiums.special = new SpecialBrowser();
 
-  pf1.applications.compendiumBrowser.boon = BoonBrowser;
-  pf1.applications.compendiumBrowser.building = BuildingBrowser;
-  pf1.applications.compendiumBrowser.event = EventBrowser;
-  pf1.applications.compendiumBrowser.improvement = ImprovementBrowser;
-  pf1.applications.compendiumBrowser.feature = FeatureBrowser;
-  pf1.applications.compendiumBrowser.tactic = TacticBrowser;
+  pf1.applications.compendiumBrowser.boons = BoonBrowser;
+  pf1.applications.compendiumBrowser.buildings = BuildingBrowser;
+  pf1.applications.compendiumBrowser.kingdomEvents = KingdomEventBrowser;
+  pf1.applications.compendiumBrowser.settlementEvents = SettlementEventBrowser;
+  pf1.applications.compendiumBrowser.improvements = ImprovementBrowser;
+  pf1.applications.compendiumBrowser.features = FeatureBrowser;
+  pf1.applications.compendiumBrowser.tactics = TacticBrowser;
   pf1.applications.compendiumBrowser.special = SpecialBrowser;
 
   game.model.Item[PF1KS.boonId] = {};
   game.model.Item[PF1KS.buildingId] = {};
-  game.model.Item[PF1KS.eventId] = {};
+  game.model.Item[PF1KS.kingdomEventId] = {};
+  game.model.Item[PF1KS.settlementEventId] = {};
   game.model.Item[PF1KS.improvementId] = {};
   game.model.Item[PF1KS.featureId] = {};
   game.model.Item[PF1KS.tacticId] = {};
