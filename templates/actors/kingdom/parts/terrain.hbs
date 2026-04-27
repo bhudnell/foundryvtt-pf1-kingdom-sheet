@@ -4,9 +4,7 @@
     {{#each terrain}}
     <div class="info-box">
       <h5>{{ label }}</h5>
-      <span class="value text-box direct" name="{{concat &quot;system.terrain.&quot; key}}" data-dtype="Number">{{
-        value
-      }}</span>
+      <span class="value text-box direct" name="system.terrain.{{ key }}" data-dtype="Number">{{ value }}</span>
     </div>
     {{/each}}
   </div>
