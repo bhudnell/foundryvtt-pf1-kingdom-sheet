@@ -101,7 +101,7 @@ export class SettlementSheet extends pf1.applications.actor.ActorSheetPF {
         name: district.name,
         borders: district.borders,
         grid,
-        section: { ...pf1.config.sheetSections.kingdomSettlement.building },
+        section: { ...pf1.config.sheetSections.settlementBuilding.building },
         buildings: buildings.map((building) => ({
           id: building.id,
           img: building.img,

@@ -8,7 +8,6 @@ class TacticFilter extends pf1.applications.compendiumBrowser.filters.BaseFilter
 }
 
 export class TacticBrowser extends pf1.applications.compendiumBrowser.CompendiumBrowser {
-  static documentName = "Item";
   static typeName = "PF1KS.Army.Tactics";
-  static filterClasses = [commonFilters.PackFilter, commonFilters.TagFilter, TacticFilter];
+  static filterClasses = [commonFilters.PackFilter, TacticFilter, commonFilters.TagFilter];
 }

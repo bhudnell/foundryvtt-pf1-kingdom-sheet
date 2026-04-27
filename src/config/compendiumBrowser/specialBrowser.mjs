@@ -8,7 +8,6 @@ class SpecialFilter extends pf1.applications.compendiumBrowser.filters.BaseFilte
 }
 
 export class SpecialBrowser extends pf1.applications.compendiumBrowser.CompendiumBrowser {
-  static documentName = "Item";
   static typeName = "PF1KS.Army.Special";
-  static filterClasses = [commonFilters.PackFilter, commonFilters.TagFilter, SpecialFilter];
+  static filterClasses = [commonFilters.PackFilter, SpecialFilter, commonFilters.TagFilter];
 }
