@@ -35,8 +35,6 @@ export const armyBuffTargets = {
   }, {}),
 };
 
-const { defense, ...settlementOnlyAttributes } = settlementAttributes;
-
 export const kingdomBuffTargets = {
   [`${changePrefix}_bonusBP`]: {
     category: `${changePrefix}_misc`,
@@ -56,8 +54,12 @@ export const settlementBuffTargets = {
     label: "PF1KS.BPStorage",
     filters: { item: { include: settlementItemTypes } },
   },
-  ...Object.entries(settlementOnlyAttributes).reduce((acc, [key, label]) => {
-    acc[`${changePrefix}_${key}`] = { category: `${changePrefix}_settlement_attributes`, label };
+  ...Object.entries(settlementAttributes).reduce((acc, [key, label]) => {
+    acc[`${changePrefix}_${key}`] = {
+      category: `${changePrefix}_settlement_attributes`,
+      label,
+      filters: { item: { include: settlementItemTypes } },
+    };
     return acc;
   }, {}),
 };
@@ -90,11 +92,6 @@ export const kingdomOrSettlementBuffTargets = {
     acc[`${changePrefix}_${key}`] = { category: `${changePrefix}_settlement_modifiers`, label };
     return acc;
   }, {}),
-  [`${changePrefix}_defense`]: {
-    category: `${changePrefix}_settlement_attributes`,
-    label: defense,
-    filters: { item: { include: kingdomItemTypes } },
-  },
 };
 
 export const buffTargets = {
@@ -116,11 +113,11 @@ export const buffTargetCategories = {
   },
   [`${changePrefix}_settlement_attributes`]: {
     label: "PF1KS.SettlementAttributes",
-    filters: { item: { include: settlementItemTypes } }, // TODO what to do with defense (should be both kingdom and settlement)
+    filters: { item: { include: settlementItemTypes } },
   },
   [`${changePrefix}_magic_items`]: {
     label: "PF1KS.MagicItems",
-    filters: { item: { include: [...kingdomItemTypes, ...settlementItemTypes] } },
+    filters: { item: { include: settlementItemTypes } },
   },
   [`${changePrefix}_misc`]: {
     label: "PF1.Misc",

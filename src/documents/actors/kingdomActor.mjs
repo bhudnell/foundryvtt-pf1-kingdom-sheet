@@ -33,9 +33,6 @@ export class KingdomActor extends BaseActor {
     this.system.fame.total += Math.floor(this._getChanges("lore") / 10) + Math.floor(this._getChanges("society") / 10);
     this.system.infamy.total +=
       Math.floor(this._getChanges("corruption") / 10) + Math.floor(this._getChanges("crime") / 10);
-
-    // deleting this because it only exists to get settlement only changes to parse
-    delete this.system.someFakeData;
   }
 
   async rollKingdomStat(kingdomStatId, options = {}) {
