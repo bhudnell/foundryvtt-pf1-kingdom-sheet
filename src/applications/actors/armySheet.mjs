@@ -180,12 +180,10 @@ export class ArmySheet extends pf1.applications.actor.ActorSheetPF {
       case pf1ks.config.tacticId:
         tabId = "features";
         break;
-      default:
-        tabId = "summary";
     }
 
     if (tabId) {
-      this.activateTab(tabId, "primary");
+      this.activateTab(tabId, { group: "primary" });
     }
   }
 

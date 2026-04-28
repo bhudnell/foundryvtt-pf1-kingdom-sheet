@@ -532,10 +532,10 @@ export class KingdomSheet extends pf1.applications.actor.ActorSheetPF {
     let created;
     if (actor.type === pf1ks.config.settlementId) {
       created = await this._createSettlement(actor._id);
-      this.activateTab("settlements", "primary");
+      this.activateTab("settlements", { group: "primary" });
     } else {
       created = await this._createArmy(actor._id);
-      this.activateTab("armies", "primary");
+      this.activateTab("armies", { group: "primary" });
     }
     return created;
   }
@@ -549,12 +549,10 @@ export class KingdomSheet extends pf1.applications.actor.ActorSheetPF {
       case pf1ks.config.kingdomEventId:
         tabId = "events";
         break;
-      default:
-        tabId = "summary";
     }
 
     if (tabId) {
-      this.activateTab(tabId, "primary");
+      this.activateTab(tabId, { group: "primary" });
     }
   }
 

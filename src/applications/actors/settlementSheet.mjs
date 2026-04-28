@@ -261,7 +261,22 @@ export class SettlementSheet extends pf1.applications.actor.ActorSheetPF {
         }
       });
 
-    const categories = [{ key: "features", sections: featureSections }];
+    const eventSections = Object.values(pf1.config.sheetSections.settlementEvent).map((data) => ({ ...data }));
+    this.actor.itemTypes[pf1ks.config.settlementEventId]
+      .map((i) => i)
+      .sort((a, b) => (a.sort || 0) - (b.sort || 0))
+      .forEach((i) => {
+        const section = eventSections.find((section) => this._applySectionFilter(i, section));
+        if (section) {
+          section.items ??= [];
+          section.items.push({ ...i, id: i.id });
+        }
+      });
+
+    const categories = [
+      { key: "features", sections: featureSections },
+      { key: "events", sections: eventSections },
+    ];
     for (const { key, sections } of categories) {
       const set = this._filters.sections[key];
       for (const section of sections) {
@@ -272,7 +287,7 @@ export class SettlementSheet extends pf1.applications.actor.ActorSheetPF {
       }
     }
 
-    return { features: featureSections };
+    return { features: featureSections, events: eventSections };
   }
 
   _prepareSettings() {
@@ -672,24 +687,27 @@ export class SettlementSheet extends pf1.applications.actor.ActorSheetPF {
 
   _focusTabByItem(item) {
     let tabId;
+    let districtTabId;
     switch (item.type) {
-      case pf1ks.config.buildingId: {
-        if (item.system.districtId) {
-          tabId = "districts";
-        } else {
-          tabId = "unassigned";
+      case pf1ks.config.buildingId:
+        tabId = "districts";
+        if (!item.system.districtId) {
+          districtTabId = "unassigned";
         }
         break;
-      }
       case pf1ks.config.featureId:
         tabId = "features";
         break;
-      default:
-        tabId = "summary";
+      case pf1ks.config.settlementEventId:
+        tabId = "events";
+        break;
     }
 
     if (tabId) {
-      this.activateTab(tabId, "primary");
+      this.activateTab(tabId, { group: "primary" });
+    }
+    if (districtTabId) {
+      this.activateTab(districtTabId, { group: "districts" });
     }
   }
 
@@ -717,7 +735,6 @@ export class SettlementSheet extends pf1.applications.actor.ActorSheetPF {
     const re = /^(?<id>[\w-]+)(?:\.(?<detail>.*))?$/.exec(fullId);
     const { id, detail } = re?.groups ?? {};
 
-    // TODO magic items
     switch (id) {
       // TODO need to show?
       case "economy":

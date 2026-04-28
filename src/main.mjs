@@ -344,6 +344,7 @@ Hooks.once("pf1PostReady", () => {
     "settlement-sheet-districts": `modules/${PF1KS.moduleId}/templates/actors/settlement/parts/districts.hbs`,
     "settlement-sheet-features": `modules/${PF1KS.moduleId}/templates/actors/settlement/parts/features.hbs`,
     "settlement-sheet-magic-items": `modules/${PF1KS.moduleId}/templates/actors/settlement/parts/magic-items.hbs`,
+    "settlement-sheet-events": `modules/${PF1KS.moduleId}/templates/actors/settlement/parts/events.hbs`,
     "settlement-sheet-unassigned-buildings": `modules/${PF1KS.moduleId}/templates/actors/settlement/parts/unassigned-buildings.hbs`,
     "settlement-sheet-settings": `modules/${PF1KS.moduleId}/templates/actors/settlement/parts/settings.hbs`,
 

@@ -1,20 +1,28 @@
 <div class="inventory-filters flexrow">
-  {{~> "systems/pf1/templates/internal/item-search.hbs" category="features"}}
+  {{~> "systems/pf1/templates/internal/item-search.hbs" category="events"}}
 
-  <ul class="filter-list flexrow" data-category="features">
-    {{#each sections.features as |section sid|}}
-    <li class="filter-rule" data-category="features" data-filter="{{ section.id }}">{{ section.label }}</li>
+  <ul class="filter-list flexrow" data-category="events">
+    {{#each sections.events as |section sid|}}
+    <li class="filter-rule" data-category="events" data-filter="{{ section.id }}">{{ section.label }}</li>
     {{/each}}
   </ul>
 </div>
 
 <ol class="item-groups-list">
-  {{#each sections.features as |section sid|}}
+  {{#each sections.events as |section sid|}}
   {{#unless section._hidden}}
   <ol class="item-list">
     <li class="item-list-header flexrow">
       <div class="item-name">
         <h3>{{ section.label }}</h3>
+      </div>
+
+      <div class="item-detail item-number">
+        <label>{{localize "PF1KS.Turn"}}</label>
+      </div>
+
+      <div class="item-detail item-number">
+        <i class="fas fa-repeat" data-tooltip="PF1KS.Continuous"></i>
       </div>
 
       {{#if @root.owner}}
@@ -39,6 +47,18 @@
         ></div>
         <h4>{{ item.name }}</h4>
       </div>
+
+      <div class="item-detail item-number">
+        <span>{{ item.system.turn }}</span>
+      </div>
+
+      <a class="item-detail item-number item-toggle-data" data-name="continuous">
+        {{#if item.system.continuous}}
+        <i class="fas fa-check"></i>
+        {{else}}
+        <i class="fas fa-times"></i>
+        {{/if}}
+      </a>
 
       {{#if @root.owner}}
       <div class="item-controls">
