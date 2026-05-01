@@ -204,8 +204,19 @@ export class KingdomSheet extends pf1.applications.actor.ActorSheetPF {
         }
       });
 
-    const eventsSections = Object.values(pf1.config.sheetSections.kingdomEvent).map((data) => ({ ...data })); // TODO settlement events
+    const eventsSections = Object.values(pf1.config.sheetSections.kingdomEvent).map((data) => ({ ...data }));
     this.actor.itemTypes[pf1ks.config.kingdomEventId]
+      .map((i) => i)
+      .sort((a, b) => (a.sort || 0) - (b.sort || 0))
+      .forEach((e) => {
+        const section = eventsSections.find((section) => this._applySectionFilter(e, section));
+        if (section) {
+          section.items ??= [];
+          section.items.push({ ...e, id: e.id });
+        }
+      });
+    this.actor.system.settlementProxies
+      .flatMap((proxy) => proxy.actor.itemTypes[pf1ks.config.settlementEventId])
       .map((i) => i)
       .sort((a, b) => (a.sort || 0) - (b.sort || 0))
       .forEach((e) => {
@@ -215,7 +226,7 @@ export class KingdomSheet extends pf1.applications.actor.ActorSheetPF {
           section.items.push({
             ...e,
             id: e.id,
-            settlementName: this.actor.system.settlements.find((s) => s.id === e.system.settlementId)?.name,
+            settlementName: e.parent.name,
           });
         }
       });

@@ -76,6 +76,11 @@ export const sheetSections = {
       create: { type: kingdomEventId, system: { subType: "misc" } },
       browseLabel: "PF1KS.Browse.Events",
     },
+    settlement: {
+      label: `PF1KS.Event.SubTypes.Settlement`,
+      filters: [{ type: settlementEventId }],
+      interface: { settlement: true },
+    },
   },
   kingdomArmy: {
     army: {

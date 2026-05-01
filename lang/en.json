@@ -307,7 +307,8 @@
     "Event": {
       "SubTypes": {
         "Active": "Active",
-        "Misc": "Miscellaneous"
+        "Misc": "Miscellaneous",
+        "Settlement": "Settlement"
       }
     },
     "EventLastTurn": "Event last turn?",
