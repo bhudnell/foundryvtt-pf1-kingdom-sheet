@@ -10,7 +10,7 @@ import {
   settlementItemTypes,
 } from "./config.mjs";
 
-export const kingdomOrArmyBuffTargets = {
+const kingdomOrArmyBuffTargets = {
   [`${changePrefix}_consumption`]: {
     category: `${changePrefix}_misc`,
     label: "PF1KS.Consumption",
@@ -18,7 +18,7 @@ export const kingdomOrArmyBuffTargets = {
   },
 };
 
-export const armyBuffTargets = {
+const armyBuffTargets = {
   [`${changePrefix}_speed`]: {
     category: `${changePrefix}_misc`,
     label: "PF1KS.Army.SpeedWithUnits",
@@ -35,7 +35,7 @@ export const armyBuffTargets = {
   }, {}),
 };
 
-export const kingdomBuffTargets = {
+const kingdomBuffTargets = {
   [`${changePrefix}_bonusBP`]: {
     category: `${changePrefix}_misc`,
     label: "PF1KS.BonusBP",
@@ -48,7 +48,7 @@ export const kingdomBuffTargets = {
   },
 };
 
-export const settlementBuffTargets = {
+const settlementBuffTargets = {
   [`${changePrefix}_bpStorage`]: {
     category: `${changePrefix}_misc`,
     label: "PF1KS.BPStorage",
@@ -64,7 +64,7 @@ export const settlementBuffTargets = {
   }, {}),
 };
 
-export const kingdomOrSettlementBuffTargets = {
+const kingdomOrSettlementBuffTargets = {
   ...Object.entries(kingdomStats).reduce((acc, [key, label]) => {
     acc[`${changePrefix}_${key}`] = { category: `${changePrefix}_kingdom_stats`, label };
     return acc;
