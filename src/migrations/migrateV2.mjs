@@ -21,7 +21,15 @@ export class MigrateV2 extends BaseMigrate {
           name,
           type: pf1ks.config.settlementId,
           "prototypeToken.actorLink": true,
-          system: { ...system, kingdom: { id: foundry.utils.randomID(), actor: actor.id } }, // TODO magicItems.minor -> magicItems.minor.items
+          system: {
+            ...system,
+            kingdom: { id: foundry.utils.randomID(), actor: actor.id },
+            magicItems: {
+              minor: { items: system.magicItems.minor },
+              medium: { items: system.magicItems.medium },
+              major: { items: system.magicItems.major },
+            },
+          },
         };
       })
     );
@@ -42,17 +50,20 @@ export class MigrateV2 extends BaseMigrate {
     await actor.update({ "system.settlements": [], "system.settlementProxies": settlementProxies });
     log(`...finished updating actor '${actor?.name}'`);
 
-    // get list of building and feature items that belong to each settlement
+    // get list of building, feature, and event items that belong to each settlement
     // and add those items to each settlement actor
     const itemCreatePromises = settlementActors.map(async (sa) => {
       const creates = actor.items
         .filter(
           (i) =>
-            pf1ks.config.settlementItemTypes.includes(i.type) &&
+            [...pf1ks.config.settlementItemTypes, pf1ks.config.kingdomEventId].includes(i.type) &&
             i.system.settlementId === kingdomSettlementIdByName.get(sa.name)
         )
         .map((e) => {
           const data = game.items.fromCompendium(e);
+          if (data.type === pf1ks.config.kingdomEventId) {
+            data.type = pf1ks.config.settlementEventId;
+          }
           delete data.system.settlementId;
           return data;
         });
@@ -64,8 +75,18 @@ export class MigrateV2 extends BaseMigrate {
     await Promise.all(itemCreatePromises);
     log(`...finished adding items to settlement actors`);
 
-    // delete building and feature items from kingdom
-    const deletes = actor.items.filter((i) => pf1ks.config.settlementItemTypes.includes(i.type)).map((e) => e.id);
+    // delete building, feature, and settlement event items from kingdom
+    const deletes = actor.items
+      .filter((i) => {
+        if (pf1ks.config.settlementItemTypes.includes(i.type)) {
+          return true;
+        }
+        if (i.type === pf1ks.config.kingdomEventId && i.system.settlementId) {
+          return true;
+        }
+        return false;
+      })
+      .map((e) => e.id);
     if (deletes.length) {
       log(`deleting items from actor '${actor?.name}'`);
       await actor.deleteEmbeddedDocuments("Item", deletes);
@@ -84,5 +105,5 @@ export class MigrateV2 extends BaseMigrate {
     log("...finished migrating actor");
   }
 
-  static getItemUpdateData(item) {} // TODO maybe remove settlementId from events and improvements
+  static getItemUpdateData(item) {}
 }
