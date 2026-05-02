@@ -253,6 +253,13 @@ export class KingdomActor extends BaseActor {
         })
       )
     );
+
+    // settlements
+    for (const settlementProxy of system.settlementProxies) {
+      for (const [key, value] of Object.entries(settlementProxy.actor.system.kingdomStats)) {
+        changes.push(new DefaultChange(value, `${pf1ks.config.changePrefix}_${key}`, settlementProxy.actor.name));
+      }
+    }
   }
 
   getSourceDetails(path) {

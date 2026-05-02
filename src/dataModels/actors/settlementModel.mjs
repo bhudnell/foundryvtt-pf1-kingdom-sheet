@@ -85,7 +85,7 @@ export class SettlementModel extends foundry.abstract.TypeDataModel {
     this.magicItems.major.max = 0;
 
     // data that needs to be held for kingdoms, but not really used by the settlement
-    this.kingdomStats = { bpStorage: 0, economy: 0, loyalty: 0, stability: 0, fame: 0, infamy: 0 };
+    this.kingdomStats = { bpStorage: 0, economy: 0, loyalty: 0, stability: 0, fame: 0, infamy: 0, consumption: 0 };
   }
 
   prepareDerivedData() {

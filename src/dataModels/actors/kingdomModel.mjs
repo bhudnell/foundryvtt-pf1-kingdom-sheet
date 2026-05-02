@@ -98,16 +98,16 @@ export class KingdomModel extends foundry.abstract.TypeDataModel {
   }
 
   prepareDerivedData() {
-    // delete armies whose actor has been deleted
+    // delete armies whose actor has been deleted TODO is this needed still? if so do it for settlements too
     this.armies = this.armies.filter((army) => army.actor);
 
-    // call settlements prepareDerivedData
+    // call settlements prepareDerivedData TODO is this still needed? thinking for migration maybe?
     this.settlements.forEach((s) => s.prepareDerivedData());
 
     // summary
     this.size = Object.values(this.terrain).reduce((acc, curr) => acc + curr, 0);
-    this.population = this.settlements.reduce((acc, curr) => acc + curr.attributes.population, 0);
-    this.totalDistricts = this.settlements.reduce((acc, curr) => acc + curr.districts.length, 0);
+    this.population = this.settlementProxies.reduce((acc, proxy) => acc + proxy.actor.system.attributes.population, 0);
+    this.totalDistricts = this.settlementProxies.reduce((acc, proxy) => acc + proxy.actor.system.districts.length, 0);
     this.controlDC = 20 + this.size + this.totalDistricts;
 
     this.consumption.total += this.size + this.totalDistricts;

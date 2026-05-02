@@ -10,11 +10,11 @@ import {
   settlementItemTypes,
 } from "./config.mjs";
 
-const kingdomOrArmyBuffTargets = {
+const commonBuffTargets = {
   [`${changePrefix}_consumption`]: {
     category: `${changePrefix}_misc`,
     label: "PF1KS.Consumption",
-    filters: { item: { include: [...kingdomItemTypes, ...armyItemTypes] } },
+    filters: { item: { include: [...kingdomItemTypes, ...armyItemTypes, ...settlementItemTypes] } },
   },
 };
 
@@ -99,7 +99,7 @@ export const buffTargets = {
   ...settlementBuffTargets,
   ...kingdomOrSettlementBuffTargets,
   ...armyBuffTargets,
-  ...kingdomOrArmyBuffTargets,
+  ...commonBuffTargets,
 };
 
 export const buffTargetCategories = {

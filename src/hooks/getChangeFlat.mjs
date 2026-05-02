@@ -4,10 +4,11 @@ import { armyId, changePrefix, kingdomId, settlementId } from "../config/config.
  * Shared targets (army/kingdom/settlement as noted)
  */
 const SHARED = {
-  // army/kingdom
+  // army/kingdom/settlement
   [`${changePrefix}_consumption`]: {
     [armyId]: "system.consumption.total",
     [kingdomId]: "system.consumption.total",
+    [settlementId]: "system.kingdomStats.consumption",
   },
 
   // kingdom/settlement
@@ -55,6 +56,10 @@ const SHARED = {
     [kingdomId]: "system.infamy.total",
     [settlementId]: "system.kingdomStats.infamy",
   },
+  [`${changePrefix}_bpStorage`]: {
+    [kingdomId]: "system.bpStorage.max",
+    [settlementId]: "system.kingdomStats.bpStorage",
+  },
 };
 
 /**
@@ -75,7 +80,6 @@ const TARGETS = {
   },
 
   [settlementId]: {
-    [`${changePrefix}_bpStorage`]: "system.kingdomStats.bpStorage",
     [`${changePrefix}_danger`]: "system.attributes.danger.total",
     [`${changePrefix}_defense`]: "system.attributes.defense.total",
     [`${changePrefix}_baseValue`]: "system.attributes.baseValue.total",
