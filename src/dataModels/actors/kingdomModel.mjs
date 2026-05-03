@@ -86,12 +86,6 @@ export class KingdomModel extends foundry.abstract.TypeDataModel {
     this.modifiers = {};
     for (const modifier of Object.keys(pf1ks.config.settlementModifiers)) {
       this.modifiers[modifier] = {
-        settlementSize: 0,
-        alignment: 0,
-        government: 0,
-        buildings: 0,
-        improvements: 0,
-        events: 0,
         total: 0,
       };
     }
@@ -100,9 +94,6 @@ export class KingdomModel extends foundry.abstract.TypeDataModel {
   prepareDerivedData() {
     // delete armies whose actor has been deleted TODO is this needed still? if so do it for settlements too
     this.armies = this.armies.filter((army) => army.actor);
-
-    // call settlements prepareDerivedData TODO is this still needed? thinking for migration maybe?
-    this.settlements.forEach((s) => s.prepareDerivedData());
 
     // summary
     this.size = Object.values(this.terrain).reduce((acc, curr) => acc + curr, 0);

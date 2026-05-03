@@ -35,7 +35,7 @@ export class SettlementActor extends BaseActor {
       if (kingdom?.settings.optionalRules.kingdomModifiers) {
         this.system.modifiers[modifier].total = Math.max(
           this.system.modifiers[modifier].total,
-          kingdom.modifiers[modifier].total
+          kingdom?.modifiers?.[modifier].total ?? 0
         );
       }
     }

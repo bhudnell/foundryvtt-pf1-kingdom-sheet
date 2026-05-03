@@ -31,7 +31,7 @@ export class SettlementModel extends foundry.abstract.TypeDataModel {
         collapseTooltips: new fields.BooleanField({ initial: false }),
         optionalRules: new fields.SchemaField({
           altSettlementSizes: new fields.BooleanField({ initial: false }),
-          expandedSettlementModifiers: new fields.BooleanField({ initial: false }),
+          expandedSettlementStats: new fields.BooleanField({ initial: false }),
         }),
       }),
 
@@ -85,7 +85,10 @@ export class SettlementModel extends foundry.abstract.TypeDataModel {
     this.magicItems.major.max = 0;
 
     // data that needs to be held for kingdoms, but not really used by the settlement
-    this.kingdomStats = { bpStorage: 0, economy: 0, loyalty: 0, stability: 0, fame: 0, infamy: 0, consumption: 0 };
+    this.kingdomStats = {};
+    for (const stat of Object.keys(pf1ks.config.settlementKingdomStats)) {
+      this.kingdomStats[stat] = 0;
+    }
   }
 
   prepareDerivedData() {
@@ -143,7 +146,7 @@ export class SettlementModel extends foundry.abstract.TypeDataModel {
 
       // spellcasting government
       if (attr === "spellcasting") {
-        this.attributes.spellcasting.government = this.settings.optionalRules.expandedSettlementModifiers
+        this.attributes.spellcasting.government = this.settings.optionalRules.expandedSettlementStats
           ? (pf1ks.config.settlementGovernmentBonuses[this.attributes.government]?.spellcasting ?? 0)
           : 0;
       }
@@ -166,10 +169,10 @@ export class SettlementModel extends foundry.abstract.TypeDataModel {
       const kingdomGovernment =
         pf1ks.config.kingdomGovernmentBonuses[this.kingdom?.actor?.system.government]?.[modifier] ?? 0;
 
-      const alignment = this.settings.optionalRules.expandedSettlementModifiers
+      const alignment = this.settings.optionalRules.expandedSettlementStats
         ? (pf1ks.config.alignmentEffects[this.attributes.alignment]?.[modifier] ?? 0)
         : 0;
-      const government = this.settings.optionalRules.expandedSettlementModifiers
+      const government = this.settings.optionalRules.expandedSettlementStats
         ? (pf1ks.config.settlementGovernmentBonuses[this.attributes.government]?.[modifier] ?? 0)
         : 0;
 

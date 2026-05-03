@@ -435,6 +435,14 @@ export const altSettlementValues = {
   metro: { modifiers: 1, danger: 5, maxBaseValue: 16000, purchaseLimit: 100000, spellcasting: 8, qualities: 6 },
 };
 
+export const settlementKingdomStats = {
+  ...kingdomStats,
+  bpStorage: "PF1KS.BPStorage",
+  fame: "PF1KS.Fame",
+  infamy: "PF1KS.Infamy",
+  consumption: "PF1KS.Consumption",
+};
+
 export const districtBorders = {
   land: "PF1KS.Border.Land",
   water: "PF1KS.Border.Water",
@@ -832,7 +840,7 @@ export const optionalRules = {
   governmentForms: "PF1KS.Settings.GovernmentForms",
   leadershipSkills: "PF1KS.Settings.LeadershipSkills",
   altSettlementSizes: "PF1KS.Settings.SettlementSizes",
-  expandedSettlementModifiers: "PF1KS.Settings.ExpandedSettlementModifiers",
+  expandedSettlementStats: "PF1KS.Settings.ExpandedSettlementStats",
 };
 
 export const compendiumEntries = {
@@ -844,7 +852,7 @@ export const compendiumEntries = {
     "Compendium.pf1-kingdom-sheet.rules.JournalEntry.t1XuuI6w0ZUtN6Hj.JournalEntryPage.CY9GAp1XjXgu5pmi",
   altSettlementSizes:
     "Compendium.pf1-kingdom-sheet.rules.JournalEntry.t1XuuI6w0ZUtN6Hj.JournalEntryPage.nZyEv4PWABJwIeLD",
-  expandedSettlementModifiers:
+  expandedSettlementStats:
     "Compendium.pf1-kingdom-sheet.rules.JournalEntry.t1XuuI6w0ZUtN6Hj.JournalEntryPage.6GfTeS0jM4WmlJk4",
 };
 

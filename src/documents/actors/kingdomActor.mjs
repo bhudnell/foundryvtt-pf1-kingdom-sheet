@@ -3,38 +3,6 @@ import { DefaultChange, asSignedPercent, capitalize } from "../../util/utils.mjs
 import { BaseActor } from "./baseActor.mjs";
 
 export class KingdomActor extends BaseActor {
-  prepareDerivedData() {
-    super.prepareDerivedData();
-
-    // kingdom modifiers
-    if (this.system.settings.optionalRules.kingdomModifiers) {
-      for (const modifier of Object.keys(pf1ks.config.settlementModifiers)) {
-        const settlements = Math.floor(
-          this.system.settlementProxies.reduce(
-            (acc, curr) => acc + (curr.actor?.system?.modifiers?.[modifier].total ?? 0),
-            0
-          ) / 10
-        );
-        const alignment = pf1ks.config.alignmentEffects[this.system.alignment]?.[modifier] ?? 0;
-        const government = pf1ks.config.kingdomGovernmentBonuses[this.system.government]?.[modifier] ?? 0;
-
-        const total = settlements + alignment + government;
-
-        this.system.modifiers[modifier] = {
-          settlements,
-          alignment,
-          government,
-          total,
-        };
-      }
-    }
-
-    // fame/infamy
-    this.system.fame.total += Math.floor(this._getChanges("lore") / 10) + Math.floor(this._getChanges("society") / 10);
-    this.system.infamy.total +=
-      Math.floor(this._getChanges("corruption") / 10) + Math.floor(this._getChanges("crime") / 10);
-  }
-
   async rollKingdomStat(kingdomStatId, options = {}) {
     const parts = [];
     const props = [];
@@ -254,16 +222,107 @@ export class KingdomActor extends BaseActor {
       )
     );
 
+    // kingdom modifiers
+    if (this.system.settings.optionalRules.kingdomModifiers) {
+      for (const modifier of Object.keys(pf1ks.config.settlementModifiers)) {
+        const alignment = pf1ks.config.alignmentEffects[this.system.alignment]?.[modifier] ?? 0;
+        if (alignment) {
+          changes.push(
+            new DefaultChange(
+              alignment,
+              `${pf1ks.config.changePrefix}_${modifier}`,
+              game.i18n.localize("PF1.Alignment")
+            )
+          );
+        }
+
+        const government = pf1ks.config.kingdomGovernmentBonuses[this.system.government]?.[modifier] ?? 0;
+        if (government) {
+          changes.push(
+            new DefaultChange(
+              government,
+              `${pf1ks.config.changePrefix}_${modifier}`,
+              game.i18n.localize("PF1KS.GovernmentLabel")
+            )
+          );
+        }
+
+        const settlements = Math.floor(
+          this.system.settlementProxies.reduce(
+            (acc, curr) => acc + (curr.actor?.system?.modifiers?.[modifier].total ?? 0),
+            0
+          ) / 10
+        );
+        if (settlements) {
+          changes.push(
+            new DefaultChange(
+              settlements,
+              `${pf1ks.config.changePrefix}_${modifier}`,
+              game.i18n.localize("PF1KS.Settlements")
+            )
+          );
+        }
+      }
+    }
+
+    // fame/infamy
+    const { fameBonus, infamyBonus } = system.settlementProxies.reduce(
+      (acc, proxy) => {
+        acc.fameBonus +=
+          (proxy.actor.system.modifiers?.lore.settlementTotal ?? 0) +
+          (proxy.actor.system.modifiers?.society.settlementTotal ?? 0);
+        acc.infamyBonus +=
+          (proxy.actor.system.modifiers?.corruption.settlementTotal ?? 0) +
+          (proxy.actor.system.modifiers?.crime.settlementTotal ?? 0);
+        return acc;
+      },
+      { fameBonus: 0, infamyBonus: 0 }
+    );
+    if (fameBonus) {
+      changes.push(
+        new DefaultChange(
+          Math.floor(fameBonus / 10),
+          `${pf1ks.config.changePrefix}_fame`,
+          game.i18n.localize("PF1KS.SettlementModifiers")
+        )
+      );
+    }
+    if (infamyBonus) {
+      changes.push(
+        new DefaultChange(
+          Math.floor(infamyBonus / 10),
+          `${pf1ks.config.changePrefix}_infamy`,
+          game.i18n.localize("PF1KS.SettlementModifiers")
+        )
+      );
+    }
+
     // settlements
-    for (const settlementProxy of system.settlementProxies) {
-      for (const [key, value] of Object.entries(settlementProxy.actor.system.kingdomStats)) {
-        changes.push(new DefaultChange(value, `${pf1ks.config.changePrefix}_${key}`, settlementProxy.actor.name));
+    if (system.settings.collapseTooltips) {
+      for (const stat of Object.keys(pf1ks.config.settlementKingdomStats)) {
+        const value = system.settlementProxies.reduce(
+          (acc, proxy) => acc + (proxy.actor.system.kingdomStats?.[stat] ?? 0),
+          0
+        );
+        if (value) {
+          changes.push(
+            new DefaultChange(value, `${pf1ks.config.changePrefix}_${stat}`, game.i18n.localize("PF1KS.Settlements"))
+          );
+        }
+      }
+    } else {
+      for (const settlementProxy of system.settlementProxies) {
+        for (const [key, value] of Object.entries(settlementProxy.actor.system.kingdomStats ?? {})) {
+          if (value) {
+            changes.push(new DefaultChange(value, `${pf1ks.config.changePrefix}_${key}`, settlementProxy.actor.name));
+          }
+        }
       }
     }
   }
 
   getSourceDetails(path) {
-    const sources = super.getSourceDetails(path);
+    const sources = [];
 
     const baseLabel = game.i18n.localize("PF1.Base");
 
@@ -283,31 +342,6 @@ export class KingdomActor extends BaseActor {
           value: this.system.totalDistricts,
         }
       );
-    }
-
-    // kingdom modifiers
-    const kModRE = /^system\.modifiers\.(?<mod>\w+)\.total$/.exec(path);
-    if (kModRE) {
-      const { mod } = kModRE.groups;
-
-      if (this.system.modifiers[mod].alignment) {
-        sources.push({
-          name: game.i18n.localize("PF1.Alignment"),
-          value: this.system.modifiers[mod].alignment,
-        });
-      }
-      if (this.system.modifiers[mod].government) {
-        sources.push({
-          name: game.i18n.localize("PF1KS.GovernmentLabel"),
-          value: this.system.modifiers[mod].government,
-        });
-      }
-      if (this.system.modifiers[mod].settlements) {
-        sources.push({
-          name: game.i18n.localize("PF1KS.Settlements"),
-          value: this.system.modifiers[mod].settlements,
-        });
-      }
     }
 
     // consumption
@@ -335,189 +369,11 @@ export class KingdomActor extends BaseActor {
           value: this.system[key].base,
         });
       }
-
-      if (key === "fame") {
-        const lore = Math.floor(this._getChanges("lore") / 10);
-        const society = Math.floor(this._getChanges("society") / 10);
-
-        if (lore) {
-          sources.push({
-            name: game.i18n.localize("PF1KS.Lore"),
-            value: lore,
-          });
-        }
-        if (society) {
-          sources.push({
-            name: game.i18n.localize("PF1KS.Society"),
-            value: society,
-          });
-        }
-      }
-
-      if (key === "infamy") {
-        const corruption = Math.floor(this._getChanges("corruption") / 10);
-        const crime = Math.floor(this._getChanges("crime") / 10);
-
-        if (corruption) {
-          sources.push({
-            name: game.i18n.localize("PF1KS.Corruption"),
-            value: corruption,
-          });
-        }
-        if (crime) {
-          sources.push({
-            name: game.i18n.localize("PF1KS.Crime"),
-            value: crime,
-          });
-        }
-      }
     }
 
-    // settlement stuff
-    // const settlementRE = /^system\.settlements\.(?<idx>\w+)\.(?<detail>.+)$/.exec(path);
-    // if (settlementRE) {
-    //   const { idx, detail } = settlementRE.groups;
-    //   const s = this.system.settlements[idx];
-
-    //   // attributes
-    //   const sAttrRE = /^attributes\.(?<attr>\w+)\.total$/.exec(detail);
-    //   if (sAttrRE) {
-    //     const { attr } = sAttrRE.groups;
-    //     const isPercent = ["maxBaseValue", "purchaseLimit"].includes(attr);
-
-    //     if (s.attributes[attr].size) {
-    //       sources.push({
-    //         name: game.i18n.localize("PF1.Size"),
-    //         value: s.attributes[attr].size,
-    //       });
-    //     }
-    //     if (s.attributes[attr].government) {
-    //       sources.push({
-    //         name: game.i18n.localize("PF1KS.GovernmentLabel"),
-    //         value: s.attributes[attr].government,
-    //       });
-    //     }
-    //     if (s.attributes[attr].buildings) {
-    //       sources.push({
-    //         name: game.i18n.localize("PF1KS.Buildings"),
-    //         value: isPercent ? asSignedPercent(s.attributes[attr].buildings) : s.attributes[attr].buildings,
-    //       });
-    //     }
-    //     if (s.attributes[attr].improvements) {
-    //       sources.push({
-    //         name: game.i18n.localize("PF1KS.Improvements"),
-    //         value: isPercent ? asSignedPercent(s.attributes[attr].improvements) : s.attributes[attr].improvements,
-    //       });
-    //     }
-    //     if (s.attributes[attr].events) {
-    //       sources.push({
-    //         name: game.i18n.localize("PF1KS.Events"),
-    //         value: isPercent ? asSignedPercent(s.attributes[attr].events) : s.attributes[attr].events,
-    //       });
-    //     }
-
-    //     // override handling for any field that has a max value (currently just baseValue)
-    //     if (s.attributes[attr].overridden) {
-    //       sources.push({
-    //         name: game.i18n.localize(`PF1KS.Max${capitalize(attr)}`),
-    //         value: game.i18n.format("PF1.SetTo", { value: s.attributes[attr].total }),
-    //       });
-    //     }
-    //   }
-
-    //   // modifiers
-    //   const sModRE = /^modifiers\.(?<mod>\w+)\.total$/.exec(detail);
-    //   if (sModRE) {
-    //     const { mod } = sModRE.groups;
-
-    //     if (s.modifiers[mod].size) {
-    //       sources.push({
-    //         name: game.i18n.localize("PF1.Size"),
-    //         value: s.modifiers[mod].size,
-    //       });
-    //     }
-    //     if (s.modifiers[mod].kingdomAlignment) {
-    //       sources.push({
-    //         name: game.i18n.localize("PF1KS.KingdomAlignment"),
-    //         value: s.modifiers[mod].kingdomAlignment,
-    //       });
-    //     }
-    //     if (s.modifiers[mod].kingdomGovernment) {
-    //       sources.push({
-    //         name: game.i18n.localize("PF1KS.KingdomGovernment"),
-    //         value: s.modifiers[mod].kingdomGovernment,
-    //       });
-    //     }
-    //     if (s.modifiers[mod].settlementAlignment) {
-    //       sources.push({
-    //         name: game.i18n.localize("PF1KS.SettlementAlignment"),
-    //         value: s.modifiers[mod].settlementAlignment,
-    //       });
-    //     }
-    //     if (s.modifiers[mod].settlementGovernment) {
-    //       sources.push({
-    //         name: game.i18n.localize("PF1KS.SettlementGovernment"),
-    //         value: s.modifiers[mod].settlementGovernment,
-    //       });
-    //     }
-    //     if (s.modifiers[mod].buildings) {
-    //       sources.push({
-    //         name: game.i18n.localize("PF1KS.Buildings"),
-    //         value: s.modifiers[mod].buildings,
-    //       });
-    //     }
-    //     if (s.modifiers[mod].improvements) {
-    //       sources.push({
-    //         name: game.i18n.localize("PF1KS.Improvements"),
-    //         value: s.modifiers[mod].improvements,
-    //       });
-    //     }
-    //     if (s.modifiers[mod].events) {
-    //       sources.push({
-    //         name: game.i18n.localize("PF1KS.Events"),
-    //         value: s.modifiers[mod].events,
-    //       });
-    //     }
-    //     if (s.modifiers[mod].total > s.modifiers[mod].settlementTotal) {
-    //       sources.push({
-    //         name: game.i18n.localize("PF1KS.KingdomModifier"),
-    //         value: game.i18n.format("PF1.SetTo", { value: s.modifiers[mod].total }),
-    //       });
-    //     }
-    //   }
-    // }
+    sources.push(...super.getSourceDetails(path));
 
     return sources;
-  }
-
-  _getChanges(target, type, settlementId) {
-    if (!this.changes) {
-      return 0;
-    }
-
-    return this.changes
-      .filter((c) => {
-        const changeTarget = c.target.split("_").pop();
-        if (changeTarget !== target) {
-          return false;
-        }
-        if (type && c.parent.type !== type) {
-          return false;
-        }
-        if (
-          settlementId &&
-          [
-            ...Object.keys(pf1ks.config.settlementModifiers),
-            ...Object.keys(pf1ks.config.settlementAttributes),
-            ...Object.keys(pf1ks.config.magicItemTypes),
-          ].includes(changeTarget) &&
-          c.parent.system.settlementId !== settlementId
-        ) {
-          return false;
-        }
-        return true;
-      })
-      .reduce((total, c) => total + c.value, 0);
   }
 
   prepareConditions() {
