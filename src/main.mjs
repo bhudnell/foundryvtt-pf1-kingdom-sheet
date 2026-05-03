@@ -320,7 +320,7 @@ Hooks.once("pf1PostInit", () => {
 });
 
 Hooks.once("pf1PostSetup", () => {
-  // re-prepare kingdoms and armies once all their dependencies are prepared
+  // re-prepare kingdoms, settlements, and armies once all their dependencies are prepared
   game.actors
     .filter((a) => [pf1ks.config.kingdomId, pf1ks.config.settlementId, pf1ks.config.armyId].includes(a.type))
     .forEach((a) => a.prepareData());

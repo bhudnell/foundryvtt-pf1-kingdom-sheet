@@ -736,37 +736,6 @@ export class SettlementSheet extends pf1.applications.actor.ActorSheetPF {
     const { id, detail } = re?.groups ?? {};
 
     switch (id) {
-      // TODO need to show?
-      case "economy":
-      case "loyalty":
-      case "stability":
-        paths.push({
-          path: `@${id}.total`,
-          value: actorData[id].total,
-        });
-        sources.push({
-          sources: actor.getSourceDetails(`system.${id}.total`),
-          untyped: true,
-        });
-        notes = await getNotes(`${pf1ks.config.changePrefix}_${id}`);
-        break;
-      // TODO need to show?
-      case "bpStorage":
-        paths.push(
-          {
-            path: "@bpStorage.current",
-            value: actorData.bpStorage.current,
-          },
-          {
-            path: "@bpStorage.max",
-            value: actorData.bpStorage.max,
-          }
-        );
-        sources.push({
-          sources: actor.getSourceDetails("system.bpStorage.max"),
-          untyped: true,
-        });
-        break;
       case "danger":
       case "defense":
       case "baseValue":

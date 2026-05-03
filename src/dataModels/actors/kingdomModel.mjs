@@ -7,7 +7,7 @@ export class KingdomModel extends foundry.abstract.TypeDataModel {
     const fields = foundry.data.fields;
     return {
       government: new fields.StringField({ initial: "aut", choices: Object.keys(pf1ks.config.kingdomGovernments) }),
-      alignment: new fields.StringField({ blank: true, choices: Object.keys(pf1.config.alignments) }),
+      alignment: new fields.StringField({ initial: "tn", choices: Object.keys(pf1.config.alignments) }),
       turn: new fields.NumberField({ integer: true, min: 0, initial: 0, nullable: false }),
       treasury: new fields.NumberField({ integer: true, initial: 0, nullable: false }),
       bpStorage: new fields.SchemaField({

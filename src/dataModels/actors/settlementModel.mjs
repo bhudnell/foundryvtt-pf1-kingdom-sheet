@@ -24,7 +24,7 @@ export class SettlementModel extends foundry.abstract.TypeDataModel {
           initial: "aut",
           choices: Object.keys(pf1ks.config.settlementGovernments),
         }),
-        alignment: new fields.StringField({ blank: true, choices: Object.keys(pf1.config.alignments) }),
+        alignment: new fields.StringField({ initial: "tn", choices: Object.keys(pf1.config.alignments) }),
       }),
 
       settings: new fields.SchemaField({
