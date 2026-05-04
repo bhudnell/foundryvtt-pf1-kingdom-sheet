@@ -92,9 +92,6 @@ export class KingdomModel extends foundry.abstract.TypeDataModel {
   }
 
   prepareDerivedData() {
-    // delete armies whose actor has been deleted TODO is this needed still? if so do it for settlements too
-    this.armies = this.armies.filter((army) => army.actor);
-
     // summary
     this.size = Object.values(this.terrain).reduce((acc, curr) => acc + curr, 0);
     this.population = this.settlementProxies.reduce((acc, proxy) => acc + proxy.actor.system.attributes.population, 0);

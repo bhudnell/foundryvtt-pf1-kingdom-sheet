@@ -20,7 +20,7 @@ export class MigrateV2 extends BaseMigrate {
         return {
           name,
           type: pf1ks.config.settlementId,
-          "prototypeToken.actorLink": true,
+          ownership: actor.ownership,
           system: {
             ...system,
             kingdom: { id: foundry.utils.randomID(), actor: actor.id },

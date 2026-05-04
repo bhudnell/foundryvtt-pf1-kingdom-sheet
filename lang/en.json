@@ -427,7 +427,7 @@
       "Tactic": "Tactic"
     },
 
-    "NoKingdomOrArmyItemsOnActor": "This actor cannot have Kingdom, Settlement, or Army items.",
+    "NoModuleItemsOnActor": "This actor cannot have Kingdom, Settlement, or Army items.",
     "OnlyKingdomItemsOnActor": "Kingdom actors can only have Event and Terrain Improvement items.",
     "OnlySettlementItemsOnActor": "Settlement actors can only have Building and Settlement Feature items.",
     "OnlyArmyItemsOnActor": "Army actors can only have Boon, Special Ability, and Tactic items.",

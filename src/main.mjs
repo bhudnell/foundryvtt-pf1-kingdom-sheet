@@ -56,10 +56,10 @@ Hooks.on("preCreateItem", (item, data, context, user) => {
 
   // non module actors
   if (
-    ![PF1KS.kingdomId, PF1KS.armyId].includes(item.actor.type) &&
-    [...PF1KS.kingdomItemTypes, ...PF1KS.armyItemTypes].includes(item.type)
+    ![PF1KS.kingdomId, PF1KS.settlementId, PF1KS.armyId].includes(item.actor.type) &&
+    [...PF1KS.kingdomItemTypes, ...PF1KS.settlementItemTypes, ...PF1KS.armyItemTypes].includes(item.type)
   ) {
-    ui.notifications.error("PF1KS.NoKingdomOrArmyItemsOnActor", { localize: true });
+    ui.notifications.error("PF1KS.NoModuleItemsOnActor", { localize: true });
     return false;
   }
 
@@ -324,10 +324,8 @@ Hooks.once("pf1PostSetup", async () => {
   const kingdomPromises = game.actors.filter((a) => a.type === pf1ks.config.kingdomId).map((a) => a.reset());
   await Promise.all(kingdomPromises);
 
-  // re-prepare settlements and armies since they rely on kingdom changes for some things TODO need to do armies?
-  const settlementArmyPromises = game.actors
-    .filter((a) => [pf1ks.config.settlementId, pf1ks.config.armyId].includes(a.type))
-    .map((a) => a.reset());
+  // re-prepare settlements since they rely on kingdom changes for some things
+  const settlementArmyPromises = game.actors.filter((a) => a.type === pf1ks.config.settlementId).map((a) => a.reset());
   await Promise.all(settlementArmyPromises);
 });
 
