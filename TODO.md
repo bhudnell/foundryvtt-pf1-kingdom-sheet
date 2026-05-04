@@ -13,12 +13,11 @@
   - deities and holy sites
   - special edicts
 - read through items and see if any rolls can be automated (ie economic boom)
+- when event added, auto fill in turn with current kingdom turn
 
 ## Change editor dialog
 - maybe I can clean this up to hide unused fields
   - type
-  - priority?
-  - operator?
 
 ## Building grid logic
 - toggle for "can overlap" so things like cistern or magical streetlamps can be shown

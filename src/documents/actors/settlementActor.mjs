@@ -30,7 +30,6 @@ export class SettlementActor extends BaseActor {
 
     for (const modifier of Object.keys(pf1ks.config.settlementModifiers)) {
       // take higher of settlement modifiers and kingdom modifiers
-      // TODO for this should we just have a SET change to set total to kingdom total if higher?
       const kingdom = this.system.kingdom?.actor?.system;
       if (kingdom?.settings.optionalRules.kingdomModifiers) {
         this.system.modifiers[modifier].total = Math.max(
@@ -71,9 +70,9 @@ export class SettlementActor extends BaseActor {
     this.updateEmbeddedDocuments("Item", updates);
   }
 
-  _prepareTypeChanges(changes) {
-    const system = this.system;
-  }
+  // _prepareTypeChanges(changes) {
+  //   const system = this.system;
+  // }
 
   getSourceDetails(path) {
     const sources = super.getSourceDetails(path);
@@ -160,7 +159,7 @@ export class SettlementActor extends BaseActor {
           value: data.modifiers[mod].size,
         });
       }
-      //TODO this needed?
+      // remove if moving kingdom modifier override into prepareTypeChanges
       if (data.modifiers[mod].total > data.modifiers[mod].settlementTotal) {
         sources.push({
           name: game.i18n.localize("PF1KS.KingdomModifier"),

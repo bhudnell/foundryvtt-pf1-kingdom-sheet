@@ -113,7 +113,7 @@ export class KingdomActor extends BaseActor {
               0
             ),
             `${pf1ks.config.changePrefix}_${stat}`,
-            game.i18n.localize("PF1KS.LeadershipLabel")
+            "PF1KS.LeadershipLabel"
           ),
           new DefaultChange(
             -vacantRoles.reduce((acc, leader) => (acc += pf1ks.config.leadershipPenalties[leader.role][stat] ?? 0), 0),
@@ -227,23 +227,13 @@ export class KingdomActor extends BaseActor {
       for (const modifier of Object.keys(pf1ks.config.settlementModifiers)) {
         const alignment = pf1ks.config.alignmentEffects[this.system.alignment]?.[modifier] ?? 0;
         if (alignment) {
-          changes.push(
-            new DefaultChange(
-              alignment,
-              `${pf1ks.config.changePrefix}_${modifier}`,
-              game.i18n.localize("PF1.Alignment")
-            )
-          );
+          changes.push(new DefaultChange(alignment, `${pf1ks.config.changePrefix}_${modifier}`, "PF1.Alignment"));
         }
 
         const government = pf1ks.config.kingdomGovernmentBonuses[this.system.government]?.[modifier] ?? 0;
         if (government) {
           changes.push(
-            new DefaultChange(
-              government,
-              `${pf1ks.config.changePrefix}_${modifier}`,
-              game.i18n.localize("PF1KS.GovernmentLabel")
-            )
+            new DefaultChange(government, `${pf1ks.config.changePrefix}_${modifier}`, "PF1KS.GovernmentLabel")
           );
         }
 
@@ -254,13 +244,7 @@ export class KingdomActor extends BaseActor {
           ) / 10
         );
         if (settlements) {
-          changes.push(
-            new DefaultChange(
-              settlements,
-              `${pf1ks.config.changePrefix}_${modifier}`,
-              game.i18n.localize("PF1KS.Settlements")
-            )
-          );
+          changes.push(new DefaultChange(settlements, `${pf1ks.config.changePrefix}_${modifier}`, "PF1KS.Settlements"));
         }
       }
     }
@@ -280,11 +264,7 @@ export class KingdomActor extends BaseActor {
     );
     if (fameBonus) {
       changes.push(
-        new DefaultChange(
-          Math.floor(fameBonus / 10),
-          `${pf1ks.config.changePrefix}_fame`,
-          game.i18n.localize("PF1KS.SettlementModifiers")
-        )
+        new DefaultChange(Math.floor(fameBonus / 10), `${pf1ks.config.changePrefix}_fame`, "PF1KS.SettlementModifiers")
       );
     }
     if (infamyBonus) {
@@ -292,7 +272,7 @@ export class KingdomActor extends BaseActor {
         new DefaultChange(
           Math.floor(infamyBonus / 10),
           `${pf1ks.config.changePrefix}_infamy`,
-          game.i18n.localize("PF1KS.SettlementModifiers")
+          "PF1KS.SettlementModifiers"
         )
       );
     }
@@ -305,9 +285,7 @@ export class KingdomActor extends BaseActor {
           0
         );
         if (value) {
-          changes.push(
-            new DefaultChange(value, `${pf1ks.config.changePrefix}_${stat}`, game.i18n.localize("PF1KS.Settlements"))
-          );
+          changes.push(new DefaultChange(value, `${pf1ks.config.changePrefix}_${stat}`, "PF1KS.Settlements"));
         }
       }
     } else {

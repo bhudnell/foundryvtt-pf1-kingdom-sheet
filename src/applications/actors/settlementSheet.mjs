@@ -36,7 +36,8 @@ export class SettlementSheet extends pf1.applications.actor.ActorSheetPF {
         ...options.dragDrop,
         { dragSelector: ".building[data-item-id]", dropSelector: ".district .grid .cell" },
       ],
-      height: 940, // TODO this needed?
+      height: 900,
+      width: 680,
     };
   }
 

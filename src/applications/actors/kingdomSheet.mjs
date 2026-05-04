@@ -23,7 +23,8 @@ export class KingdomSheet extends pf1.applications.actor.ActorSheetPF {
       ...options,
       classes: [...options.classes, "pf1ks", "kingdom"],
       scrollY: [...options.scrollY, ".subdetails-body"],
-      height: 940, // TODO this needed?
+      height: 740,
+      width: 680,
     };
   }
 
