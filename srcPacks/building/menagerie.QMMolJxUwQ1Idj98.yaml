@@ -35,6 +35,7 @@ system:
   type: menagerie
   width: 2
   height: 2
+  districtId: ''
 _id: QMMolJxUwQ1Idj98
 img: modules/pf1-kingdom-sheet/assets/kingdom_building/Menagerie.png
 sort: 0

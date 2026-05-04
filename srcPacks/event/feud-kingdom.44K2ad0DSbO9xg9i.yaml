@@ -1,5 +1,5 @@
 type: pf1-kingdom-sheet.event
-name: Feud
+name: Feud (Kingdom)
 system:
   htmlFields:
     - description.value
@@ -15,8 +15,9 @@ system:
   contextNotes: []
   sources: []
   settlementId: ''
-_id: CjKIgd0R9K8yLVBw
+  turn: null
+_id: 44K2ad0DSbO9xg9i
 img: icons/svg/clockwork.svg
 sort: 0
-_key: '!items!CjKIgd0R9K8yLVBw'
+_key: '!items!44K2ad0DSbO9xg9i'
 

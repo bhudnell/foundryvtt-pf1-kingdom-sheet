@@ -95,8 +95,8 @@ results:
     drawn: false
     img: icons/svg/clockwork.svg
     _id: guW5zC1IWvhNZrxq
-    name: Monster Attack
-    documentUuid: Compendium.pf1-kingdom-sheet.event.Item.2NNXlTO6NyAzLE1Y
+    name: Monster Attack (Settlement)
+    documentUuid: Compendium.pf1-kingdom-sheet.event.Item.diGBw4veRDa94IW7
     description: ''
     _key: '!tables.results!0onhtdDZJATtRWak.guW5zC1IWvhNZrxq'
   - type: document
@@ -107,8 +107,8 @@ results:
     drawn: false
     img: icons/svg/clockwork.svg
     _id: vW2gKa2pAJPi45M5
-    name: Plague
-    documentUuid: Compendium.pf1-kingdom-sheet.event.Item.WWOA6vdJf7Za2NPj
+    name: Plague (Settlement)
+    documentUuid: Compendium.pf1-kingdom-sheet.event.Item.rKqCYJu5aDIkGf5x
     description: ''
     _key: '!tables.results!0onhtdDZJATtRWak.vW2gKa2pAJPi45M5'
   - type: document

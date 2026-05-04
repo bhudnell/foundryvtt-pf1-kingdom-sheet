@@ -1,4 +1,4 @@
-type: pf1-kingdom-sheet.event
+type: pf1-kingdom-sheet.settlementEvent
 name: Noblesse Oblige
 system:
   htmlFields:
@@ -14,6 +14,7 @@ system:
   contextNotes: []
   sources: []
   settlementId: ''
+  turn: null
 _id: OcWRrG2OPXjRYzWo
 img: icons/svg/clockwork.svg
 sort: 0

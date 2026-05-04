@@ -1,4 +1,4 @@
-type: pf1-kingdom-sheet.event
+type: pf1-kingdom-sheet.settlementEvent
 name: Unexpected Find
 system:
   htmlFields:
@@ -22,6 +22,7 @@ system:
   contextNotes: []
   sources: []
   settlementId: ''
+  turn: null
 _id: YvfpoKBeSmLLYXEU
 img: icons/svg/clockwork.svg
 sort: 0

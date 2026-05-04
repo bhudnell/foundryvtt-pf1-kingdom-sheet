@@ -35,8 +35,8 @@ results:
     drawn: false
     img: icons/svg/clockwork.svg
     _id: miym12hqhRNcu0xr
-    name: Discovery
-    documentUuid: Compendium.pf1-kingdom-sheet.event.Item.REP3Tc6SFyAfLE4f
+    name: Discovery (Kingdom)
+    documentUuid: Compendium.pf1-kingdom-sheet.event.Item.vCWwu2SlF6zeZfAq
     description: ''
     _key: '!tables.results!PTcJtznGzdJ6ynH9.miym12hqhRNcu0xr'
   - type: document

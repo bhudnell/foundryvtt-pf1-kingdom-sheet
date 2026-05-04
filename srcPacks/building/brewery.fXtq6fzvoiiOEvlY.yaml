@@ -25,6 +25,7 @@ system:
   sources: []
   settlementId: ''
   type: brewery
+  districtId: ''
 _id: fXtq6fzvoiiOEvlY
 img: modules/pf1-kingdom-sheet/assets/kingdom_building/Brewery.png
 sort: 0

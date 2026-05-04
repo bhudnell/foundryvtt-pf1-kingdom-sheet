@@ -6,8 +6,8 @@ system:
   disabled: true
   description:
     value: >-
-      <p>Your army focuses on total defense of the battlefield. Increase its DV
-      by 4, and decrease its OM by 4.</p>
+      <p>Your army focuses on total defense of the battlefield.</p><hr
+      /><p>Increase its DV by 4, and decrease its OM by 4.</p>
   changes:
     - _id: KaGgnyJQ
       formula: '4'

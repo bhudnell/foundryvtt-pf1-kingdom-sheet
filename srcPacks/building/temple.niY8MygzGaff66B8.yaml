@@ -41,6 +41,7 @@ system:
   settlementId: ''
   type: temple
   width: 2
+  districtId: ''
 _id: niY8MygzGaff66B8
 img: modules/pf1-kingdom-sheet/assets/kingdom_building/Temple.png
 sort: 0

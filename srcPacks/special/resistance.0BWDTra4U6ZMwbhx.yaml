@@ -5,11 +5,12 @@ system:
     - description.value
   description:
     value: >-
-      <p>The army has a significant defense from resistances. Increase its DV by
-      10, but only against armies that can’t overcome those defenses. In some
-      cases, the GM might rule that an army is simply undefeatable by an enemy
-      army because of its defenses (though the GM should never pit the PCs
-      against such an army unless the PCs initiate a foolish battle).</p>
+      <p>The army has a significant defense from resistances.</p><hr
+      /><p>Increase its DV by 10, but only against armies that can’t overcome
+      those defenses. In some cases, the GM might rule that an army is simply
+      undefeatable by an enemy army because of its defenses (though the GM
+      should never pit the PCs against such an army unless the PCs initiate a
+      foolish battle).</p>
   changes: []
   contextNotes:
     - text: +[[10]] vs armies that can’t overcome the resistance

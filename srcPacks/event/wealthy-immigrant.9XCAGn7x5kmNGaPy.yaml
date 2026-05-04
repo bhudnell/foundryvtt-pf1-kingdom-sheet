@@ -1,4 +1,4 @@
-type: pf1-kingdom-sheet.event
+type: pf1-kingdom-sheet.settlementEvent
 name: Wealthy Immigrant
 system:
   htmlFields:
@@ -15,6 +15,7 @@ system:
   contextNotes: []
   sources: []
   settlementId: ''
+  turn: null
 _id: 9XCAGn7x5kmNGaPy
 img: icons/svg/clockwork.svg
 sort: 0

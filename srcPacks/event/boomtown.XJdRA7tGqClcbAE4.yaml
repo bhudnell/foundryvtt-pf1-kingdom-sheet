@@ -1,4 +1,4 @@
-type: pf1-kingdom-sheet.event
+type: pf1-kingdom-sheet.settlementEvent
 name: Boomtown
 system:
   htmlFields:

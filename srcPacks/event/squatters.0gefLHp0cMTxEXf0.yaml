@@ -1,4 +1,4 @@
-type: pf1-kingdom-sheet.event
+type: pf1-kingdom-sheet.settlementEvent
 name: Squatters
 system:
   htmlFields:
@@ -39,6 +39,7 @@ system:
   contextNotes: []
   sources: []
   settlementId: ''
+  turn: null
 _id: 0gefLHp0cMTxEXf0
 img: icons/svg/clockwork.svg
 sort: 0

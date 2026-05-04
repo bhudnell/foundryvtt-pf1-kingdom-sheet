@@ -38,6 +38,7 @@ system:
   sources: []
   settlementId: ''
   type: mill
+  districtId: ''
 _id: QhcGobspabzOBJ2n
 img: modules/pf1-kingdom-sheet/assets/kingdom_building/Mint.png
 sort: 0

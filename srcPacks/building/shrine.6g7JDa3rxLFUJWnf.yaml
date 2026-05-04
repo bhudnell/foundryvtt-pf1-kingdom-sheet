@@ -33,6 +33,7 @@ system:
   sources: []
   settlementId: ''
   type: shrine
+  districtId: ''
 _id: 6g7JDa3rxLFUJWnf
 img: modules/pf1-kingdom-sheet/assets/kingdom_building/Shrine.png
 sort: 0

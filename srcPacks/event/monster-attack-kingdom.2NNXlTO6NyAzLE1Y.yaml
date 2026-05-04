@@ -1,5 +1,5 @@
 type: pf1-kingdom-sheet.event
-name: Monster Attack
+name: Monster Attack (Kingdom)
 system:
   htmlFields:
     - description.value
@@ -21,6 +21,7 @@ system:
   contextNotes: []
   sources: []
   settlementId: ''
+  turn: null
 _id: 2NNXlTO6NyAzLE1Y
 img: icons/svg/clockwork.svg
 sort: 0

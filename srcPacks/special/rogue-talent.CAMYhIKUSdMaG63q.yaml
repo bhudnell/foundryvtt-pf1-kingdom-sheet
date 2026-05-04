@@ -4,7 +4,10 @@ system:
   htmlFields:
     - description.value
   description:
-    value: <p>The army gains the bleed ability.</p>
+    value: >-
+      <p>The army gains the
+      @UUID[Compendium.pf1-kingdom-sheet.special.Item.ttYrVELikZfVYmeV]{Bleed}
+      ability.</p>
   changes: []
   contextNotes: []
   sources: []

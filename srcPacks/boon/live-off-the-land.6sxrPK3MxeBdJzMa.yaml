@@ -6,10 +6,11 @@ system:
   description:
     value: >-
       <p>The commander makes the army trap game, hunt, and fish to augment its
-      food supplies. Reduce the army’s Consumption and speed by half for any
-      week this boon is used. The GM may rule that Huge and larger armies
-      deplete the available resources from a hex over 1d3 weeks, requiring the
-      army to move if it wants to maintain the reduced Consumption level.</p>
+      food supplies.</p><hr /><p>Reduce the army’s Consumption and speed by half
+      for any week this boon is used. The GM may rule that Huge and larger
+      armies deplete the available resources from a hex over 1d3 weeks,
+      requiring the army to move if it wants to maintain the reduced Consumption
+      level.</p>
   changes:
     - _id: 4Q43jFlc
       formula: max(1, floor(@consumption.total / 2))

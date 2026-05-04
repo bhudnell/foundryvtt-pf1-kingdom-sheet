@@ -6,8 +6,8 @@ system:
   disabled: true
   description:
     value: >-
-      <p>Your army fights cautiously in order to maintain morale. Decrease its
-      OM by 2, and add 2 to all its Morale checks.</p>
+      <p>Your army fights cautiously in order to maintain morale.</p><hr
+      /><p>Decrease its OM by 2, and add 2 to all its Morale checks.</p>
   changes:
     - _id: uwNi9Ksb
       formula: '-2'

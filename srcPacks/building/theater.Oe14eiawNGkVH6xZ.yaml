@@ -28,6 +28,7 @@ system:
   settlementId: ''
   type: theater
   width: 2
+  districtId: ''
 _id: Oe14eiawNGkVH6xZ
 img: modules/pf1-kingdom-sheet/assets/kingdom_building/Theater.png
 sort: 0

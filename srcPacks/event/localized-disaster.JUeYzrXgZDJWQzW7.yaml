@@ -1,4 +1,4 @@
-type: pf1-kingdom-sheet.event
+type: pf1-kingdom-sheet.settlementEvent
 name: Localized Disaster
 system:
   htmlFields:
@@ -20,6 +20,7 @@ system:
   contextNotes: []
   sources: []
   settlementId: ''
+  turn: null
 _id: JUeYzrXgZDJWQzW7
 img: icons/svg/clockwork.svg
 sort: 0

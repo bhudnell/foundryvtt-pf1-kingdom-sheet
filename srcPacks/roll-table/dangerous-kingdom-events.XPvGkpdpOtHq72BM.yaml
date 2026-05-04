@@ -35,8 +35,8 @@ results:
     drawn: false
     img: icons/svg/clockwork.svg
     _id: 5HukUq6fFlZAl7KV
-    name: Feud
-    documentUuid: Compendium.pf1-kingdom-sheet.event.Item.CjKIgd0R9K8yLVBw
+    name: Feud (Kingdom)
+    documentUuid: Compendium.pf1-kingdom-sheet.event.Item.44K2ad0DSbO9xg9i
     description: ''
     _key: '!tables.results!XPvGkpdpOtHq72BM.5HukUq6fFlZAl7KV'
   - type: document
@@ -71,8 +71,8 @@ results:
     drawn: false
     img: icons/svg/clockwork.svg
     _id: 3wUZidrw8UbrChqO
-    name: Inquisition
-    documentUuid: Compendium.pf1-kingdom-sheet.event.Item.krFSld0rl0iEwjFf
+    name: Inquisition (Kingdom)
+    documentUuid: Compendium.pf1-kingdom-sheet.event.Item.JNLTVkfjsAlIki9Z
     description: ''
     _key: '!tables.results!XPvGkpdpOtHq72BM.3wUZidrw8UbrChqO'
   - type: document
