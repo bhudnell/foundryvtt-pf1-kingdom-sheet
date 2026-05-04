@@ -249,7 +249,7 @@ export class KingdomActor extends BaseActor {
 
         const settlements = Math.floor(
           this.system.settlementProxies.reduce(
-            (acc, curr) => acc + (curr.actor?.system?.modifiers?.[modifier].total ?? 0),
+            (acc, curr) => acc + (curr.actor?.system?.modifiers?.[modifier].settlementTotal ?? 0),
             0
           ) / 10
         );

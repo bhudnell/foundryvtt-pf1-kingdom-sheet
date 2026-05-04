@@ -34,7 +34,7 @@ export class SettlementActor extends BaseActor {
       const kingdom = this.system.kingdom?.actor?.system;
       if (kingdom?.settings.optionalRules.kingdomModifiers) {
         this.system.modifiers[modifier].total = Math.max(
-          this.system.modifiers[modifier].total,
+          this.system.modifiers[modifier].settlementTotal,
           kingdom?.modifiers?.[modifier].total ?? 0
         );
       }
@@ -71,9 +71,9 @@ export class SettlementActor extends BaseActor {
     this.updateEmbeddedDocuments("Item", updates);
   }
 
-  // _prepareTypeChanges(changes) {
-  //   const system = this.system;
-  // }
+  _prepareTypeChanges(changes) {
+    const system = this.system;
+  }
 
   getSourceDetails(path) {
     const sources = super.getSourceDetails(path);

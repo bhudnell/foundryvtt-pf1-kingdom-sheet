@@ -319,11 +319,16 @@ Hooks.once("pf1PostInit", () => {
   );
 });
 
-Hooks.once("pf1PostSetup", () => {
-  // re-prepare kingdoms, settlements, and armies once all their dependencies are prepared
-  game.actors
-    .filter((a) => [pf1ks.config.kingdomId, pf1ks.config.settlementId, pf1ks.config.armyId].includes(a.type))
-    .forEach((a) => a.prepareData());
+Hooks.once("pf1PostSetup", async () => {
+  // re-prepare kingdoms since they rely on settlement changes for some things
+  const kingdomPromises = game.actors.filter((a) => a.type === pf1ks.config.kingdomId).map((a) => a.reset());
+  await Promise.all(kingdomPromises);
+
+  // re-prepare settlements and armies since they rely on kingdom changes for some things TODO need to do armies?
+  const settlementArmyPromises = game.actors
+    .filter((a) => [pf1ks.config.settlementId, pf1ks.config.armyId].includes(a.type))
+    .map((a) => a.reset());
+  await Promise.all(settlementArmyPromises);
 });
 
 Hooks.once("pf1PostReady", () => {
