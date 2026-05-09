@@ -10,7 +10,7 @@ export class FeatureItem extends BaseItemKS {
     return this.isAssigned;
   }
 
-  // TODO remove this when removing all v4 deprecated stuff
+  // TODO deprecated remove this when removing all v4 deprecated stuff
   get isAssigned() {
     if (this.parent?.type === pf1ks.config.kingdomId) {
       const settlementIds = this.parent?.system.settlements.map((settlement) => settlement.id) ?? [];

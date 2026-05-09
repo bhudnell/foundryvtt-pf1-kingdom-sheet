@@ -62,7 +62,7 @@
     .magic-item-container {
       display: flex;
       flex-direction: column;
-      gap: 2px;
+      gap: 4px;
       flex: 1;
 
       > h3 {

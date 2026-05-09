@@ -22,6 +22,9 @@
       "settlement": {
         "htmlFields": ["notes.value"]
       },
+      "settlementLite": {
+        "htmlFields": ["notes.value"]
+      },
       "army": {
         "htmlFields": ["notes.value"]
       }

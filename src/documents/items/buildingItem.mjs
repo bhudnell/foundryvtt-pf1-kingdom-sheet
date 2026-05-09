@@ -5,7 +5,7 @@ export class BuildingItem extends BaseItemKS {
     return !this.system.damaged && this.isAssigned && !this.error;
   }
 
-  // TODO clean this up when removing all v4 deprecated stuff
+  // TODO deprecated clean this up when removing all v4 deprecated stuff
   get isAssigned() {
     const settlementAssigned =
       this.parent?.type === pf1ks.config.kingdomId

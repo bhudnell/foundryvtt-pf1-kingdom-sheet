@@ -122,7 +122,7 @@
     "Settlement": {
       "Sizes": {
         "Thorpe": "Thorpe",
-        "Hamlet": "Hanlet",
+        "Hamlet": "Hamlet",
         "Village": "Village",
         "SmallTown": "Small Town",
         "LargeTown": "Large Town",
@@ -378,8 +378,7 @@
       "GovernmentForms": "Forms of Government",
       "LeadershipSkills": "Leadership Skills",
       "SettlementSizes": "Alternative Settlement Size Modifiers",
-      "ExpandedSettlementStats": "Expanded Settlement Statistics",
-      "SimpleSettlement": "Simple Settlement"
+      "ExpandedSettlementStats": "Expanded Settlement Statistics"
     },
 
     "Continuous": "Continuous",
@@ -417,6 +416,7 @@
     "Sheet": {
       "Kingdom": "Kingdom Sheet",
       "Settlement": "Settlement Sheet",
+      "SettlementLite": "Basic Settlement Sheet",
       "Army": "Army Sheet",
       "Building": "Building",
       "Event": "Event",
@@ -428,8 +428,9 @@
     },
 
     "NoModuleItemsOnActor": "This actor cannot have Kingdom, Settlement, or Army items.",
-    "OnlyKingdomItemsOnActor": "Kingdom actors can only have Event and Terrain Improvement items.",
-    "OnlySettlementItemsOnActor": "Settlement actors can only have Building and Settlement Feature items.",
+    "OnlyKingdomItemsOnActor": "Kingdom actors can only have Kingdom Event and Terrain Improvement items.",
+    "OnlySettlementItemsOnActor": "Settlement actors can only have Building, Settlement Feature, and Settlement Event items.",
+    "OnlySettlementLiteItemsOnActor": "Basic Settlement actors can only have Settlement Feature items.",
     "OnlyArmyItemsOnActor": "Army actors can only have Boon, Special Ability, and Tactic items.",
     "LibWrapperError": "The PF1 Kingdom Sheet module requires the 'libWrapper' module. Please install and activate it."
   },
@@ -438,6 +439,7 @@
       "pf1-kingdom-sheet": {
         "kingdom": "Kingdom Sheet",
         "settlement": "Settlement Sheet",
+        "settlementLite": "Basic Settlement Sheet",
         "army": "Army Sheet"
       }
     },

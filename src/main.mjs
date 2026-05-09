@@ -1,5 +1,6 @@
 import { ArmySheet } from "./applications/actors/armySheet.mjs";
 import { KingdomSheet } from "./applications/actors/kingdomSheet.mjs";
+import { SettlementLiteSheet } from "./applications/actors/settlementLiteSheet.mjs";
 import { SettlementSheet } from "./applications/actors/settlementSheet.mjs";
 import { BoonSheet } from "./applications/items/boonSheet.mjs";
 import { BuildingSheet } from "./applications/items/buildingSheet.mjs";
@@ -20,6 +21,7 @@ import { TacticBrowser } from "./config/compendiumBrowser/tacticBrowser.mjs";
 import * as PF1KS from "./config/config.mjs";
 import { ArmyModel } from "./dataModels/actors/armyModel.mjs";
 import { KingdomModel } from "./dataModels/actors/kingdomModel.mjs";
+import { SettlementLiteModel } from "./dataModels/actors/settlementLiteModel.mjs";
 import { SettlementModel } from "./dataModels/actors/settlementModel.mjs";
 import { BoonModel } from "./dataModels/items/boonModel.mjs";
 import { BuildingModel } from "./dataModels/items/buildingModel.mjs";
@@ -31,6 +33,7 @@ import { TacticModel } from "./dataModels/items/tacticModel.mjs";
 import { ArmyActor } from "./documents/actors/armyActor.mjs";
 import { KingdomActor } from "./documents/actors/kingdomActor.mjs";
 import { SettlementActor } from "./documents/actors/settlementActor.mjs";
+import { SettlementLiteActor } from "./documents/actors/settlementLiteActor.mjs";
 import { BoonItem } from "./documents/items/boonItem.mjs";
 import { BuildingItem } from "./documents/items/buildingItem.mjs";
 import { EventItem } from "./documents/items/eventItem.mjs";
@@ -56,8 +59,13 @@ Hooks.on("preCreateItem", (item, data, context, user) => {
 
   // non module actors
   if (
-    ![PF1KS.kingdomId, PF1KS.settlementId, PF1KS.armyId].includes(item.actor.type) &&
-    [...PF1KS.kingdomItemTypes, ...PF1KS.settlementItemTypes, ...PF1KS.armyItemTypes].includes(item.type)
+    ![PF1KS.kingdomId, PF1KS.settlementId, PF1KS.settlementLiteId, PF1KS.armyId].includes(item.actor.type) &&
+    [
+      ...PF1KS.kingdomItemTypes,
+      ...PF1KS.settlementItemTypes,
+      ...PF1KS.settlementLiteItemTypes,
+      ...PF1KS.armyItemTypes,
+    ].includes(item.type)
   ) {
     ui.notifications.error("PF1KS.NoModuleItemsOnActor", { localize: true });
     return false;
@@ -72,6 +80,12 @@ Hooks.on("preCreateItem", (item, data, context, user) => {
   // settlement actors
   if (item.actor.type === PF1KS.settlementId && !PF1KS.settlementItemTypes.includes(item.type)) {
     ui.notifications.error("PF1KS.OnlySettlementItemsOnActor", { localize: true });
+    return false;
+  }
+
+  // settlement lite actors
+  if (item.actor.type === PF1KS.settlementLiteId && !PF1KS.settlementLiteItemTypes.includes(item.type)) {
+    ui.notifications.error("PF1KS.OnlySettlementLiteItemsOnActor", { localize: true });
     return false;
   }
 
@@ -101,10 +115,7 @@ Hooks.once("libWrapper.Ready", () => {
         }
       });
 
-      if (this.object.actor.type === PF1KS.kingdomId) {
-        return {};
-      }
-      if (this.object.actor.type === PF1KS.settlementId) {
+      if ([PF1KS.kingdomId, PF1KS.settlementId, PF1KS.settlementLiteId].includes(this.object.actor.type)) {
         return {};
       }
       if (this.object.actor.type === PF1KS.armyId) {
@@ -192,6 +203,7 @@ Hooks.once("pf1PostInit", () => {
 
   CONFIG.Actor.documentClasses[PF1KS.kingdomId] = KingdomActor;
   CONFIG.Actor.documentClasses[PF1KS.settlementId] = SettlementActor;
+  CONFIG.Actor.documentClasses[PF1KS.settlementLiteId] = SettlementLiteActor;
   CONFIG.Actor.documentClasses[PF1KS.armyId] = ArmyActor;
   CONFIG.Item.documentClasses[PF1KS.buildingId] = BuildingItem;
   CONFIG.Item.documentClasses[PF1KS.kingdomEventId] = EventItem;
@@ -204,6 +216,7 @@ Hooks.once("pf1PostInit", () => {
 
   pf1.documents.actor.KingdomActor = KingdomActor;
   pf1.documents.actor.SettlementActor = SettlementActor;
+  pf1.documents.actor.SettlementLiteActor = SettlementLiteActor;
   pf1.documents.actor.ArmyActor = ArmyActor;
   pf1.documents.item.BuildingItem = BuildingItem;
   pf1.documents.item.EventItem = EventItem;
@@ -215,6 +228,7 @@ Hooks.once("pf1PostInit", () => {
 
   CONFIG.Actor.dataModels[PF1KS.kingdomId] = KingdomModel;
   CONFIG.Actor.dataModels[PF1KS.settlementId] = SettlementModel;
+  CONFIG.Actor.dataModels[PF1KS.settlementLiteId] = SettlementLiteModel;
   CONFIG.Actor.dataModels[PF1KS.armyId] = ArmyModel;
   CONFIG.Item.dataModels[PF1KS.buildingId] = BuildingModel;
   CONFIG.Item.dataModels[PF1KS.kingdomEventId] = EventModel;
@@ -227,6 +241,7 @@ Hooks.once("pf1PostInit", () => {
 
   pf1.applications.actor.KingdomSheet = KingdomSheet;
   pf1.applications.actor.SettlementSheet = SettlementSheet;
+  pf1.applications.actor.SettlementLiteSheet = SettlementLiteSheet;
   pf1.applications.actor.ArmySheet = ArmySheet;
   pf1.applications.item.BuildingSheet = BuildingSheet;
   pf1.applications.item.EventSheet = EventSheet;
@@ -244,6 +259,11 @@ Hooks.once("pf1PostInit", () => {
   Actors.registerSheet(PF1KS.moduleId, SettlementSheet, {
     label: game.i18n.localize("PF1KS.Sheet.Settlement"),
     types: [PF1KS.settlementId],
+    makeDefault: true,
+  });
+  Actors.registerSheet(PF1KS.moduleId, SettlementLiteSheet, {
+    label: game.i18n.localize("PF1KS.Sheet.SettlementLite"),
+    types: [PF1KS.settlementLiteId],
     makeDefault: true,
   });
   Actors.registerSheet(PF1KS.moduleId, ArmySheet, {
@@ -297,6 +317,7 @@ Hooks.once("pf1PostInit", () => {
       category.filters.item.exclude.push(
         ...PF1KS.kingdomItemTypes,
         ...PF1KS.settlementItemTypes,
+        ...PF1KS.settlementLiteItemTypes,
         ...PF1KS.armyItemTypes
       );
       pf1.config[prop][categoryKey] = category;
@@ -350,6 +371,10 @@ Hooks.once("pf1PostReady", () => {
     "settlement-sheet-events": `modules/${PF1KS.moduleId}/templates/actors/settlement/parts/events.hbs`,
     "settlement-sheet-unassigned-buildings": `modules/${PF1KS.moduleId}/templates/actors/settlement/parts/unassigned-buildings.hbs`,
     "settlement-sheet-settings": `modules/${PF1KS.moduleId}/templates/actors/settlement/parts/settings.hbs`,
+
+    "settlement-lite-sheet-summary": `modules/${PF1KS.moduleId}/templates/actors/settlementLite/parts/summary.hbs`,
+    "settlement-lite-sheet-features": `modules/${PF1KS.moduleId}/templates/actors/settlementLite/parts/features.hbs`,
+    "settlement-lite-sheet-magic-items": `modules/${PF1KS.moduleId}/templates/actors/settlementLite/parts/magic-items.hbs`,
 
     "army-sheet-summary": `modules/${PF1KS.moduleId}/templates/actors/army/parts/summary.hbs`,
     "army-sheet-features": `modules/${PF1KS.moduleId}/templates/actors/army/parts/features.hbs`,

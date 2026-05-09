@@ -1,0 +1,78 @@
+<div class="summary-header">
+  <img class="profile" src="{{ img }}" data-edit="img" />
+
+  <div class="flexcol basic-info">
+    <div class="flexrow name-xp">
+      <h1 class="char-name">
+        <input type="text" name="name" value="{{ name }}" />
+      </h1>
+    </div>
+  </div>
+</div>
+
+<div class="attributes flexrow">
+  <div class="info-box-header">
+    <h3>{{localize "PF1.Attributes"}}</h3>
+    <div class="info-box-joined">
+      <div class="info-box" data-tooltip-extended="government">
+        <h5>{{ localize "PF1KS.GovernmentLabel" }}</h5>
+        <select name="system.attributes.government">
+          {{selectOptions @root.governmentOptions selected=system.attributes.government}}
+        </select>
+      </div>
+      <div class="info-box" data-tooltip-extended="alignment">
+        <h5>{{ localize "PF1.Alignment" }}</h5>
+        <select name="system.attributes.alignment">
+          {{selectOptions @root.alignmentOptions selected=system.attributes.alignment}}
+        </select>
+      </div>
+      <div class="info-box">
+        <h5>{{ localize "PF1KS.Population" }}</h5>
+        <span class="value text-box direct" name="system.attributes.population.value" data-dtype="Number">
+          {{ system.attributes.population.value }}
+        </span>
+      </div>
+      <div class="info-box">
+        <h5>{{ localize "PF1.Size" }}</h5>
+        <select name="system.attributes.size">
+          {{selectOptions @root.sizeOptions selected=system.attributes.size}}
+        </select>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="attributes flexrow">
+  <div class="info-box-joined">
+    <div class="info-box" data-tooltip-extended="danger">
+      <h5>{{ localize "PF1KS.Danger" }}</h5>
+      <span class="value">{{ system.attributes.danger.total }}</span>
+    </div>
+    <div class="info-box" data-tooltip-extended="maxBaseValue">
+      <h5>{{ localize "PF1KS.BaseValue" }}</h5>
+      <span class="value">{{ system.attributes.maxBaseValue.total }}</span>
+    </div>
+    <div class="info-box" data-tooltip-extended="purchaseLimit">
+      <h5>{{ localize "PF1KS.PurchaseLimit" }}</h5>
+      <span class="value">{{ system.attributes.purchaseLimit.total }}</span>
+    </div>
+    <div class="info-box" data-tooltip-extended="spellcasting">
+      <h5>{{ localize "PF1KS.Spellcasting" }}</h5>
+      <span class="value">{{ system.attributes.spellcasting.total }}</span>
+    </div>
+  </div>
+</div>
+
+<div class="attributes flexrow">
+  <div class="info-box-header">
+    <h3>{{localize "PF1KS.SettlementModifiers"}}</h3>
+    <div class="info-box-joined">
+      {{#each modifiers}}
+      <div class="info-box" data-tooltip-extended="{{ id }}">
+        <h5>{{ label }}</h5>
+        <span class="value">{{ numberFormat value.total sign=true }}</span>
+      </div>
+      {{/each}}
+    </div>
+  </div>
+</div>

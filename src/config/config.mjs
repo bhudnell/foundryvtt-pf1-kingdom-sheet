@@ -3,6 +3,7 @@ export const changePrefix = "pf1ks";
 
 export const kingdomId = `${moduleId}.kingdom`;
 export const settlementId = `${moduleId}.settlement`;
+export const settlementLiteId = `${moduleId}.settlementLite`;
 export const armyId = `${moduleId}.army`;
 
 export const buildingId = `${moduleId}.building`;
@@ -16,6 +17,7 @@ export const tacticId = `${moduleId}.tactic`;
 
 export const kingdomItemTypes = [kingdomEventId, improvementId];
 export const settlementItemTypes = [buildingId, featureId, settlementEventId];
+export const settlementLiteItemTypes = [featureId];
 export const armyItemTypes = [boonId, specialId, tacticId];
 
 export const kingdomStats = {
@@ -394,14 +396,17 @@ export const settlementModifiers = {
   society: "PF1KS.Society",
 };
 
-export const settlementAttributes = {
+export const settlementLiteAttributes = {
   danger: "PF1KS.Danger",
-  defense: "PF1.Defense",
-  baseValue: "PF1KS.BaseValue",
   maxBaseValue: "PF1KS.MaxBaseValue",
-  // expanded settlement stuff
   purchaseLimit: "PF1KS.PurchaseLimit",
   spellcasting: "PF1KS.Spellcasting",
+};
+
+export const settlementAttributes = {
+  ...settlementLiteAttributes,
+  defense: "PF1.Defense",
+  baseValue: "PF1KS.BaseValue",
 };
 
 export const settlementSizes = {

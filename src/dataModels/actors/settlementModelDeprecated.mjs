@@ -1,6 +1,6 @@
 import { DistrictModel } from "./districtModel.mjs";
 
-// TODO model deprecated for v4, remove eventually
+// TODO deprecated for v4, remove eventually
 export class SettlementModelDeprecated extends foundry.abstract.DataModel {
   static defineSchema() {
     const fields = foundry.data.fields;

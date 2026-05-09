@@ -24,9 +24,3 @@
   - optional list to limit to certain building types
   - must be able to handle lotless and lotted buildings
 - follows building limits (ie must be next to X, cannot be next to Y, limit Z per settlement/district)
-
-## Settlement actor
-- create a simple settlement sheet
-  - cant be linked to kingdoms
-    - only link if settlementActor.getFlag('core', 'sheetClass') !== moduleId.settlementLiteSheet
-  - wont use buildings for data
