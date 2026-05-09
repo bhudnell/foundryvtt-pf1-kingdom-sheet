@@ -517,5 +517,53 @@ Hooks.on("deleteActor", async (actor, options, userId) => {
   }
 });
 
-// TODO how to prevent a settlement being linked to multiple kingdoms?
-// Think things like duplicating kingdoms
+Hooks.on("preCreateActor", async (actor, data, options, userId) => {
+  // if kingdom, clear army and settlement proxies and warn that it happened
+  if (actor.type === PF1KS.kingdomId) {
+    if (actor.system.settlementProxies.length || actor.system.armies.length) {
+      actor.updateSource({
+        "system.settlementProxies": [],
+        "system.armies": [],
+      });
+      ui.notifications.warn("PF1KS.ClearedArmySettlementLinks", { localize: true });
+    }
+  }
+});
+
+Hooks.on("createActor", async (actor, options, userId) => {
+  // if army or settlement, add proxy to kingdom
+  const proxyMap = {
+    [PF1KS.settlementId]: "settlementProxies",
+    [PF1KS.armyId]: "armies",
+  };
+
+  const proxyPath = proxyMap[actor.type];
+  if (!proxyPath) {
+    return;
+  }
+
+  const linkedKingdom = await fromUuid(actor.system.kingdom?.actor.uuid);
+  if (!linkedKingdom) {
+    return;
+  }
+
+  const confirm = await foundry.applications.api.DialogV2.confirm({
+    window: { title: "PF1KS.MaintainKingdomLink", icon: "fa-solid fa-link" },
+    classes: ["pf1-v2", "pf1ks"],
+    content: `<p>${game.i18n.localize("PF1KS.MaintainKingdomLinkConfirmation")}</p>`,
+    rejectClose: false,
+    modal: true, // Require dialog to be resolved
+  });
+
+  if (confirm) {
+    const proxies = foundry.utils.duplicate(linkedKingdom.system[proxyPath] ?? []);
+    proxies.push({
+      id: foundry.utils.randomID(),
+      actor: actor.id,
+    });
+
+    await linkedKingdom.update({ [`system.${proxyPath}`]: proxies });
+  } else {
+    await actor.update({ "system.-=kingdom": null });
+  }
+});

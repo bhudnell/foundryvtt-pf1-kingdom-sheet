@@ -433,7 +433,11 @@
     "OnlySettlementItemsOnActor": "Settlement actors can only have Building, Settlement Feature, and Settlement Event items.",
     "OnlySettlementLiteItemsOnActor": "Basic Settlement actors can only have Settlement Feature items.",
     "OnlyArmyItemsOnActor": "Army actors can only have Boon, Special Ability, and Tactic items.",
-    "LibWrapperError": "The PF1 Kingdom Sheet module requires the 'libWrapper' module. Please install and activate it."
+    "LibWrapperError": "The PF1 Kingdom Sheet module requires the 'libWrapper' module. Please install and activate it.",
+
+    "ClearedArmySettlementLinks": "Duplicated kingdoms dont maintain army and settlement links and have been cleared.",
+    "MaintainKingdomLink": "Maintain Kingdom Link?",
+    "MaintainKingdomLinkConfirmation": "This actor is currently linked to a kingdom. Would you like to keep that link?"
   },
   "TYPES": {
     "Actor": {
