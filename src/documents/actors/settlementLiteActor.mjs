@@ -9,14 +9,13 @@ export class SettlementLiteActor extends BaseActor {
     // this all has to be done here since it all relies on changes being applied already
 
     // magic items
-    for (const key of Object.keys(pf1ks.config.magicItemTypes)) {
-      this.system.magicItems[key].max.total = Math.floor(
-        this.system.magicItems[key].max.total * (1 + this.system.magicItems[key].max.increase / 100)
-      );
+    for (const magicItem of Object.values(this.system.magicItems)) {
+      magicItem.max.total = Math.floor(magicItem.max.total * (1 + magicItem.max.increase / 100));
 
-      const max = this.system.magicItems[key].max.total;
-      const oldItems = this.system.magicItems[key].items;
-      this.system.magicItems[key].items = oldItems.concat(Array(Math.max(max - oldItems.length, 0)).fill(null));
+      const missing = magicItem.max.total - magicItem.items.length;
+      if (missing > 0) {
+        magicItem.items.push(...Array(missing).fill(null));
+      }
     }
 
     // maxBaseValue and purchaseLimit total update based in increase

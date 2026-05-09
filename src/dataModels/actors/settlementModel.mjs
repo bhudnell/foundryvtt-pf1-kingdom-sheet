@@ -81,8 +81,11 @@ export class SettlementModel extends foundry.abstract.TypeDataModel {
 
     // magic items
     this.magicItems.minor.max = 0;
+    this.magicItems.minor.increase = 0;
     this.magicItems.medium.max = 0;
+    this.magicItems.medium.increase = 0;
     this.magicItems.major.max = 0;
+    this.magicItems.major.increase = 0;
 
     // data that needs to be held for kingdoms, but not really used by the settlement
     this.kingdomStats = {};

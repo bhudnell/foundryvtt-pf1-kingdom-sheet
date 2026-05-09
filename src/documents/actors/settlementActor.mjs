@@ -9,10 +9,13 @@ export class SettlementActor extends BaseActor {
     // this all has to be done here since it all relies on changes being applied already
 
     // magic items
-    for (const key of Object.keys(pf1ks.config.magicItemTypes)) {
-      const max = this.system.magicItems[key].max;
-      const oldItems = this.system.magicItems[key].items;
-      this.system.magicItems[key].items = oldItems.concat(Array(Math.max(max - oldItems.length, 0)).fill(null));
+    for (const magicItem of Object.values(this.system.magicItems)) {
+      magicItem.max = Math.floor(magicItem.max * (1 + magicItem.increase / 100));
+
+      const missing = magicItem.max - magicItem.items.length;
+      if (missing > 0) {
+        magicItem.items.push(...Array(missing).fill(null));
+      }
     }
 
     // maxBaseValue and purchaseLimit total update based in increase
@@ -77,6 +80,32 @@ export class SettlementActor extends BaseActor {
   getSourceDetails(path) {
     const sources = super.getSourceDetails(path);
     const data = this.system;
+
+    // magic items
+    const miRE = /^system\.magicItems\.(?<mi>\w+)\.max$/.exec(path);
+    if (miRE) {
+      const { mi } = miRE.groups;
+
+      if (data.magicItems[mi].increase) {
+        const changeGrp = this.sourceInfo[`system.magicItems.${mi}.increase`] ?? {};
+        sources.push(
+          ...Object.values(changeGrp)
+            .flat()
+            .filter((src) => src.operator !== "add" || src.value !== 0)
+            .map((src) => ({
+              name: this.constructor._getSourceLabel(src).replace(/[[\]]/g, ""),
+              value: asSignedPercent(src.value),
+            }))
+        );
+        sources.push({
+          name: game.i18n.localize(data.magicItems[mi].increase > 0 ? "PF1KS.Increase" : "PF1KS.Decrease"),
+          value: game.i18n.format("PF1KS.IncreaseTotal", {
+            increase: asSignedPercent(data.magicItems[mi].increase),
+            total: data.magicItems[mi].max,
+          }),
+        });
+      }
+    }
 
     // attributes
     const sAttrRE = /^system\.attributes\.(?<attr>\w+)\.total$/.exec(path);
