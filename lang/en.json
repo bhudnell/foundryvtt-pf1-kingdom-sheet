@@ -267,7 +267,8 @@
     "MagicItem": {
       "Minor": "Minor",
       "Medium": "Medium",
-      "Major": "Major"
+      "Major": "Major",
+      "Availability": "Availability"
     },
     "TooManyMagicItems": "Too many magic items. Max is {max}",
 

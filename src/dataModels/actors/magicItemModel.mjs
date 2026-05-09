@@ -4,7 +4,9 @@ export class MagicItemModel extends foundry.abstract.DataModel {
 
     return {
       items: new fields.ArrayField(new fields.StringField()),
-      max: new fields.NumberField({ integer: true, initial: 0, nullable: false }),
+      max: new fields.SchemaField({
+        base: new fields.NumberField({ integer: true, initial: 0, nullable: false }),
+      }),
     };
   }
 

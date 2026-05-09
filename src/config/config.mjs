@@ -396,17 +396,21 @@ export const settlementModifiers = {
   society: "PF1KS.Society",
 };
 
-export const settlementLiteAttributes = {
+export const sharedSettlementAttributes = {
   danger: "PF1KS.Danger",
   maxBaseValue: "PF1KS.MaxBaseValue",
   purchaseLimit: "PF1KS.PurchaseLimit",
   spellcasting: "PF1KS.Spellcasting",
 };
 
-export const settlementAttributes = {
-  ...settlementLiteAttributes,
+export const settlementOnlyAttributes = {
   defense: "PF1.Defense",
   baseValue: "PF1KS.BaseValue",
+};
+
+export const settlementAttributes = {
+  ...sharedSettlementAttributes,
+  ...settlementOnlyAttributes,
 };
 
 export const settlementSizes = {

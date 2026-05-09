@@ -72,8 +72,8 @@ export class SettlementLiteSheet extends pf1.applications.actor.ActorSheetPF {
         label,
         current: itemType.current,
         error:
-          itemType.current > itemType.max
-            ? game.i18n.format("PF1KS.TooManyMagicItems", { max: itemType.max })
+          itemType.current > itemType.max.total
+            ? game.i18n.format("PF1KS.TooManyMagicItems", { max: itemType.max.total })
             : undefined,
       };
     });
@@ -244,16 +244,20 @@ export class SettlementLiteSheet extends pf1.applications.actor.ActorSheetPF {
       case "magic-items":
         paths.push(
           {
-            path: `@magicItems.${detail}.max`,
-            value: actorData.magicItems[detail].max,
-          },
-          {
             path: `@magicItems.${detail}.current`,
             value: actorData.magicItems[detail].current,
+          },
+          {
+            path: `@magicItems.${detail}.max.base`,
+            value: actorData.magicItems[detail].max.base,
+          },
+          {
+            path: `@magicItems.${detail}.max.total`,
+            value: actorData.magicItems[detail].max.total,
           }
         );
         sources.push({
-          sources: actor.getSourceDetails(`system.magicItems.${detail}.max`),
+          sources: actor.getSourceDetails(`system.magicItems.${detail}.max.total`),
           untyped: true,
         });
         notes = await getNotes(`${pf1ks.config.changePrefix}_magic_item_${detail}`);

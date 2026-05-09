@@ -30,7 +30,12 @@ export class SettlementLiteModel extends foundry.abstract.TypeDataModel {
   }
 
   prepareBaseData() {
-    for (const attr of Object.keys(pf1ks.config.settlementLiteAttributes)) {
+    for (const mi of Object.keys(pf1ks.config.magicItemTypes)) {
+      this.magicItems[mi].max.increase = 0;
+      this.magicItems[mi].max.total = 0;
+    }
+
+    for (const attr of Object.keys(pf1ks.config.sharedSettlementAttributes)) {
       this.attributes[attr] = {
         size: 0,
         total: 0,
@@ -58,8 +63,13 @@ export class SettlementLiteModel extends foundry.abstract.TypeDataModel {
   }
 
   prepareDerivedData() {
+    // magic items
+    for (const mi of Object.keys(pf1ks.config.magicItemTypes)) {
+      this.magicItems[mi].max.total = this.magicItems[mi].max.base;
+    }
+
     // settlement attributes
-    for (const attr of Object.keys(pf1ks.config.settlementLiteAttributes)) {
+    for (const attr of Object.keys(pf1ks.config.sharedSettlementAttributes)) {
       // attribute size mod
       this.attributes[attr].size = pf1ks.config.settlementValues[this.attributes.size][attr];
 

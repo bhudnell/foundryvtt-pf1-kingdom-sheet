@@ -86,6 +86,18 @@ const SHARED = {
     [settlementId]: "system.attributes.spellcasting.total",
     [settlementLiteId]: "system.attributes.spellcasting.total",
   },
+  [`${changePrefix}_magic_item_availability`]: {
+    [settlementId]: [
+      "system.magicItems.minor.increase",
+      "system.magicItems.medium.increase",
+      "system.magicItems.major.increase",
+    ],
+    [settlementLiteId]: [
+      "system.magicItems.minor.max.increase",
+      "system.magicItems.medium.max.increase",
+      "system.magicItems.major.max.increase",
+    ],
+  },
 };
 
 /**

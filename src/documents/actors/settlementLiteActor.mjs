@@ -10,7 +10,11 @@ export class SettlementLiteActor extends BaseActor {
 
     // magic items
     for (const key of Object.keys(pf1ks.config.magicItemTypes)) {
-      const max = this.system.magicItems[key].max;
+      this.system.magicItems[key].max.total = Math.floor(
+        this.system.magicItems[key].max.total * (1 + this.system.magicItems[key].max.increase / 100)
+      );
+
+      const max = this.system.magicItems[key].max.total;
       const oldItems = this.system.magicItems[key].items;
       this.system.magicItems[key].items = oldItems.concat(Array(Math.max(max - oldItems.length, 0)).fill(null));
     }
@@ -31,11 +35,36 @@ export class SettlementLiteActor extends BaseActor {
     const sources = super.getSourceDetails(path);
     const data = this.system;
 
+    // magic items
+    const miRE = /^system\.magicItems\.(?<mi>\w+)\.max\.total$/.exec(path);
+    if (miRE) {
+      const { mi } = miRE.groups;
+
+      if (data.magicItems[mi].max.increase) {
+        const changeGrp = this.sourceInfo[`system.magicItems.${mi}.max.increase`] ?? {};
+        sources.push(
+          ...Object.values(changeGrp)
+            .flat()
+            .filter((src) => src.operator !== "add" || src.value !== 0)
+            .map((src) => ({
+              name: this.constructor._getSourceLabel(src).replace(/[[\]]/g, ""),
+              value: asSignedPercent(src.value),
+            }))
+        );
+        sources.push({
+          name: game.i18n.localize(data.magicItems[mi].max.increase > 0 ? "PF1KS.Increase" : "PF1KS.Decrease"),
+          value: game.i18n.format("PF1KS.IncreaseTotal", {
+            increase: asSignedPercent(data.magicItems[mi].max.increase),
+            total: data.magicItems[mi].max.total,
+          }),
+        });
+      }
+    }
+
     // attributes
     const sAttrRE = /^system\.attributes\.(?<attr>\w+)\.total$/.exec(path);
     if (sAttrRE) {
       const { attr } = sAttrRE.groups;
-      const isPercent = ["maxBaseValue", "purchaseLimit"].includes(attr);
 
       if (data.attributes[attr].government) {
         sources.unshift({
