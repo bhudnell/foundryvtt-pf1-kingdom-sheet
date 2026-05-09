@@ -531,6 +531,11 @@ Hooks.on("preCreateActor", async (actor, data, options, userId) => {
 });
 
 Hooks.on("createActor", async (actor, options, userId) => {
+  // only for cloning
+  if (!actor._stats.duplicateSource) {
+    return;
+  }
+
   // if army or settlement, add proxy to kingdom
   const proxyMap = {
     [PF1KS.settlementId]: "settlementProxies",
