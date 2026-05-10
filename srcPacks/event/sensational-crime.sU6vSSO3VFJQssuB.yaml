@@ -1,4 +1,4 @@
-type: pf1-kingdom-sheet.event
+type: pf1-kingdom-sheet.settlementEvent
 name: Sensational Crime
 system:
   htmlFields:
@@ -19,6 +19,7 @@ system:
   contextNotes: []
   sources: []
   settlementId: ''
+  turn: null
 _id: sU6vSSO3VFJQssuB
 img: icons/svg/clockwork.svg
 sort: 0

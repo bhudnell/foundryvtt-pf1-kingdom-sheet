@@ -1,4 +1,4 @@
-type: pf1-kingdom-sheet.event
+type: pf1-kingdom-sheet.settlementEvent
 name: Visiting Celebrity
 system:
   htmlFields:
@@ -21,6 +21,7 @@ system:
   contextNotes: []
   sources: []
   settlementId: ''
+  turn: null
 _id: 8NDFw0GBNo7Qrno1
 img: icons/svg/clockwork.svg
 sort: 0

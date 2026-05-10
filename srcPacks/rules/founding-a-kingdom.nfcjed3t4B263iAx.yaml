@@ -45,6 +45,7 @@ pages:
       volume: 0.5
     src: null
     system: {}
+    category: null
     _key: '!journal.pages!nfcjed3t4B263iAx.swyoPkuPlmQljoIX'
   - sort: 200000
     name: Leadership Roles
@@ -319,6 +320,7 @@ pages:
       volume: 0.5
     src: null
     system: {}
+    category: null
     _key: '!journal.pages!nfcjed3t4B263iAx.IrtnUkZkBzaufN64'
   - sort: 300000
     name: Build Points
@@ -438,8 +440,9 @@ pages:
       volume: 0.5
     src: null
     system: {}
+    category: null
     _key: '!journal.pages!nfcjed3t4B263iAx.K8hShvVh3W5AVptq'
 sort: 0
-_key: '!journal!nfcjed3t4B263iAx'
 categories: []
+_key: '!journal!nfcjed3t4B263iAx'
 

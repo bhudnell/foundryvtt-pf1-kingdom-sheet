@@ -1,69 +1,46 @@
-{{!-- Settlements Navigation --}}
-<nav class="sheet-navigation tabs" data-group="settlements">
-  {{#each sections.settlements as |settlement sidx|}}
-  <div class="item" data-tab="{{ sidx }}" data-group="settlements">
-    <span>{{ name }}</span>
-    {{#unless (eq sidx 0)}}
-    <a class="settlement-delete" data-id="{{ id }}" data-tooltip="PF1KS.DeleteSettlement">
-      <i class="fa-solid fa-trash-can"></i>
-    </a>
-    {{/unless}}
-  </div>
-  {{/each}}
-  <a class="item icon" data-tab="orph" data-group="settlements" data-tooltip="PF1KS.UnassignedItems">
-    {{#if (or unassignedBuildings.length unassignedFeatures.length)}}
-    <i class="fa-solid fa-house-circle-exclamation"></i>
-    {{else}}
-    <i class="fa-solid fa-house"></i>
-    {{/if}}
-  </a>
-  <a class="item icon settlement-create" data-tooltip="PF1KS.CreateSettlement">
-    <i class="fa-solid fa-plus"></i>
-  </a>
-</nav>
-
-<section class="settlements-body">
-  {{#each sections.settlements as |settlement sidx|}}
-  <div class="tab settlement" data-group="settlements" data-tab="{{ sidx }}" data-id="{{ id }}">
-    {{!-- Settlement Details Navigation --}}
-    <nav class="sheet-navigation tabs" data-group="settlement-{{ sidx }}-details">
-      <a class="item" data-tab="summary" data-group="settlement-{{ sidx }}-details">{{ localize "PF1.Summary" }}</a>
-      <a
-        class="item"
-        data-tab="districts"
-        data-group="settlement-{{ sidx }}-details"
-        >{{ localize "PF1KS.Districts" }}</a
-      >
-      <a class="item" data-tab="features" data-group="settlement-{{ sidx }}-details">{{ localize "PF1KS.Features" }}</a>
-      <a
-        class="item"
-        data-tab="magic-items"
-        data-group="settlement-{{ sidx }}-details"
-        >{{ localize "PF1KS.MagicItems" }}</a
-      >
-    </nav>
-
-    <section class="subdetails-body settlement-{{ sidx }}-details">
-      <div class="tab settlement-details" data-group="settlement-{{ sidx }}-details" data-tab="summary">
-        {{~> kingdom-sheet-settlement-summary settlement sidx=sidx}}
+<ol class="item-groups-list">
+  <ol class="item-list">
+    <li class="flexrow item-list-header">
+      <div class="item-name">
+        <h3>{{ localize "PF1KS.Settlements" }}</h3>
       </div>
-
-      <div class="tab settlement-details" data-group="settlement-{{ sidx }}-details" data-tab="districts">
-        {{~> kingdom-sheet-settlement-districts districts=settlement.districts sidx=sidx}}
+      <div class="item-detail item-size">
+        <label>{{localize "PF1.Size"}}</label>
       </div>
-
-      <div class="tab settlement-details" data-group="settlement-{{ sidx }}-details" data-tab="features">
-        {{~> kingdom-sheet-settlement-features settlement sidx=sidx}}
+      <div class="item-detail item-population">
+        <label>{{localize "PF1KS.Population"}}</label>
       </div>
-
-      <div class="tab settlement-details" data-group="settlement-{{ sidx }}-details" data-tab="magic-items">
-        {{~> kingdom-sheet-settlement-magic-items settlement sidx=sidx}}
+      <div class="item-detail item-number" data-tooltip="PF1KS.Economy"><i class="fa-solid fa-coins"></i></div>
+      <div class="item-detail item-number" data-tooltip="PF1KS.Loyalty"><i class="ra ra-queen-crown"></i></div>
+      <div class="item-detail item-number" data-tooltip="PF1KS.Stability">
+        <i class="fa-solid fa-scale-balanced"></i>
       </div>
-    </section>
-  </div>
-  {{/each}}
-
-  <div class="tab" data-group="settlements" data-tab="orph">
-    {{~> kingdom-sheet-settlement-unassigned-items}}
-  </div>
-</section>
+      <div class="item-detail item-controls two-button">
+        <a class="item-control settlement-create" data-tooltip="PF1KS.CreateSettlement">
+          <i class="fa-solid fa-plus"></i>
+        </a>
+      </div>
+    </li>
+    {{#each settlements}}
+    <li class="flexrow item" data-id="{{ id }}">
+      <div class="item-name expand-summary">
+        <div class="item-image" style="background-image: url('{{ img }}')"></div>
+        <span>{{ name }}</span>
+      </div>
+      <span class="item-detail item-size">{{ system.attributes.size }}</span>
+      <span class="item-detail item-population">{{ system.attributes.population }}</span>
+      <span class="item-detail item-number">{{ system.kingdomStats.economy }}</span>
+      <span class="item-detail item-number">{{ system.kingdomStats.loyalty }}</span>
+      <span class="item-detail item-number">{{ system.kingdomStats.stability }}</span>
+      <div class="flexrow item-detail item-controls two-button">
+        <a class="item-control settlement-edit" data-tooltip="PF1KS.EditSettlement">
+          <i class="fa-solid fa-pen-to-square"></i>
+        </a>
+        <a class="item-control settlement-delete" data-tooltip="PF1KS.DeleteSettlement">
+          <i class="fa-solid fa-trash"></i>
+        </a>
+      </div>
+    </li>
+    {{/each}}
+  </ol>
+</ol>

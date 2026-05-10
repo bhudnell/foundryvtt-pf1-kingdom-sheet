@@ -16,7 +16,10 @@ system:
   contextNotes: []
   sources: []
   settlementId: ''
-  type: waterway
+  type: academy
+  districtId: ''
+  width: 0
+  height: 0
 _id: BSgDfwRI0BE3FkhA
 img: modules/pf1-kingdom-sheet/assets/kingdom_building/Waterway_01.png
 sort: 0

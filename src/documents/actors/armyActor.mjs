@@ -1,4 +1,3 @@
-import { armyBuffTargets, commonBuffTargets } from "../../config/buffTargets.mjs";
 import { DefaultChange } from "../../util/utils.mjs";
 
 import { BaseActor } from "./baseActor.mjs";
@@ -64,9 +63,9 @@ export class ArmyActor extends BaseActor {
     // Add context notes
     const rollData = options.rollData || this.getRollData();
 
-    const notes = await this.getContextNotesParsed(`${pf1ks.config.changePrefix}_${attributeId}`, null, { rollData });
+    const notes = await this.getContextNotesParsed(`${pf1ks.config.changePrefix}_${attributeId}`, { rollData });
     if (attributeId === "om") {
-      notes.push(...(await this.getContextNotesParsed(`${pf1ks.config.changePrefix}_damage`, null, { rollData })));
+      notes.push(...(await this.getContextNotesParsed(`${pf1ks.config.changePrefix}_damage`, { rollData })));
     }
     if (notes.length > 0) {
       props.push({ header: game.i18n.localize("PF1.Notes"), value: notes });

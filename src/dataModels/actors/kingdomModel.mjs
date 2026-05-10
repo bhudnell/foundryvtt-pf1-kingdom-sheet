@@ -1,13 +1,13 @@
-import { ArmyProxyModel } from "./armyProxyModel.mjs";
+import { ActorProxyModel } from "./actorProxyModel.mjs";
 import { defineLeader } from "./leaderModel.mjs";
-import { SettlementModel } from "./settlementModel.mjs";
+import { SettlementModelDeprecated } from "./settlementModelDeprecated.mjs";
 
 export class KingdomModel extends foundry.abstract.TypeDataModel {
   static defineSchema() {
     const fields = foundry.data.fields;
     return {
       government: new fields.StringField({ initial: "aut", choices: Object.keys(pf1ks.config.kingdomGovernments) }),
-      alignment: new fields.StringField({ blank: true, choices: Object.keys(pf1.config.alignments) }),
+      alignment: new fields.StringField({ initial: "tn", choices: Object.keys(pf1.config.alignments) }),
       turn: new fields.NumberField({ integer: true, min: 0, initial: 0, nullable: false }),
       treasury: new fields.NumberField({ integer: true, initial: 0, nullable: false }),
       bpStorage: new fields.SchemaField({
@@ -41,7 +41,7 @@ export class KingdomModel extends foundry.abstract.TypeDataModel {
         warden: new fields.EmbeddedDataField(defineLeader("warden", "loyalty", "ken")),
         viceroys: new fields.ArrayField(new fields.EmbeddedDataField(defineLeader("viceroy", "economy", "kge"))),
       }),
-      settlements: new fields.ArrayField(new fields.EmbeddedDataField(SettlementModel)),
+      settlementProxies: new fields.ArrayField(new fields.EmbeddedDataField(ActorProxyModel)),
       terrain: new fields.SchemaField({
         cavern: new fields.NumberField({ integer: true, initial: 0, nullable: false }),
         coast: new fields.NumberField({ integer: true, initial: 0, nullable: false }),
@@ -55,7 +55,7 @@ export class KingdomModel extends foundry.abstract.TypeDataModel {
         water: new fields.NumberField({ integer: true, initial: 0, nullable: false }),
       }),
       eventLastTurn: new fields.BooleanField(),
-      armies: new fields.ArrayField(new fields.EmbeddedDataField(ArmyProxyModel)),
+      armies: new fields.ArrayField(new fields.EmbeddedDataField(ActorProxyModel)),
       notes: new fields.SchemaField({
         value: new fields.HTMLField({ required: false, blank: true }),
       }),
@@ -67,10 +67,15 @@ export class KingdomModel extends foundry.abstract.TypeDataModel {
           fameInfamy: new fields.BooleanField({ initial: false }),
           governmentForms: new fields.BooleanField({ initial: false }),
           leadershipSkills: new fields.BooleanField({ initial: false }),
+
+          // TODO deprecated for v4, remove eventually
           altSettlementSizes: new fields.BooleanField({ initial: false }),
           expandedSettlementModifiers: new fields.BooleanField({ initial: false }),
         }),
       }),
+
+      // TODO deprecated for v4, remove eventually
+      settlements: new fields.ArrayField(new fields.EmbeddedDataField(SettlementModelDeprecated)),
     };
   }
 
@@ -85,28 +90,16 @@ export class KingdomModel extends foundry.abstract.TypeDataModel {
     this.modifiers = {};
     for (const modifier of Object.keys(pf1ks.config.settlementModifiers)) {
       this.modifiers[modifier] = {
-        settlementSize: 0,
-        alignment: 0,
-        government: 0,
-        buildings: 0,
-        improvements: 0,
-        events: 0,
         total: 0,
       };
     }
   }
 
   prepareDerivedData() {
-    // delete armies whose actor has been deleted
-    this.armies = this.armies.filter((army) => army.actor);
-
-    // call settlements prepareDerivedData
-    this.settlements.forEach((s) => s.prepareDerivedData());
-
     // summary
     this.size = Object.values(this.terrain).reduce((acc, curr) => acc + curr, 0);
-    this.population = this.settlements.reduce((acc, curr) => acc + curr.attributes.population, 0);
-    this.totalDistricts = this.settlements.reduce((acc, curr) => acc + curr.districts.length, 0);
+    this.population = this.settlementProxies.reduce((acc, proxy) => acc + proxy.actor.system.attributes.population, 0);
+    this.totalDistricts = this.settlementProxies.reduce((acc, proxy) => acc + proxy.actor.system.districts.length, 0);
     this.controlDC = 20 + this.size + this.totalDistricts;
 
     this.consumption.total += this.size + this.totalDistricts;

@@ -48,6 +48,7 @@ system:
   settlementId: ''
   type: guildhall
   width: 2
+  districtId: ''
 _id: BITpOFHLnxq7ZNWI
 img: modules/pf1-kingdom-sheet/assets/kingdom_building/Guildhall.png
 sort: 0

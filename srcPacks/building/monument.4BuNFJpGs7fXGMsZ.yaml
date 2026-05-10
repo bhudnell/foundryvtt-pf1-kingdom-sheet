@@ -26,6 +26,7 @@ system:
   sources: []
   settlementId: ''
   type: monument
+  districtId: ''
 _id: 4BuNFJpGs7fXGMsZ
 img: modules/pf1-kingdom-sheet/assets/kingdom_building/Monument.png
 sort: 0

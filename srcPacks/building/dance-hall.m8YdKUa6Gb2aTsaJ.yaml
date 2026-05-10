@@ -45,6 +45,7 @@ system:
   sources: []
   settlementId: ''
   type: dance_hall
+  districtId: ''
 _id: m8YdKUa6Gb2aTsaJ
 img: modules/pf1-kingdom-sheet/assets/kingdom_building/Dance%20Hall.png
 sort: 0

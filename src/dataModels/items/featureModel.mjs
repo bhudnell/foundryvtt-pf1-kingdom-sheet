@@ -6,6 +6,8 @@ export class FeatureModel extends ItemBaseModel {
 
     const schema = {
       subType: new fields.StringField({ initial: "quality", choices: Object.keys(pf1ks.config.featureSubTypes) }),
+
+      // TODO deprecated for v4, remove eventually
       settlementId: new fields.StringField(),
     };
     this.addDefaultSchemaFields(schema);

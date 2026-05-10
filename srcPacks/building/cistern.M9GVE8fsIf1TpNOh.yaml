@@ -24,6 +24,7 @@ system:
   type: cistern
   width: 1
   height: 1
+  districtId: ''
 _id: M9GVE8fsIf1TpNOh
 img: modules/pf1-kingdom-sheet/assets/kingdom_building/Cistern.png
 sort: 0

@@ -146,7 +146,7 @@ export class BaseActor extends pf1.documents.actor.ActorBasePF {
             buildings.value += srcValue;
           } else if (collapse && src.type === pf1ks.config.featureId) {
             features.value += srcValue;
-          } else if (collapse && src.type === pf1ks.config.eventId) {
+          } else if (collapse && [pf1ks.config.kingdomEventId, pf1ks.config.settlementEventId].includes(src.type)) {
             events.value += srcValue;
           } else if (collapse && src.type === pf1ks.config.improvementId) {
             improvements.value += srcValue;
@@ -298,22 +298,20 @@ export class BaseActor extends pf1.documents.actor.ActorBasePF {
     return allNotes;
   }
 
-  getContextNotes(context, settlementId, all = true) {
+  getContextNotes(context, all = true) {
     const result = this.allNotes;
 
     for (const note of result) {
-      note.notes = note.notes
-        .filter((o) => o.target === context && (!settlementId || o.parent.system.settlementId === settlementId))
-        .map((o) => o.text);
+      note.notes = note.notes.filter((o) => o.target === context).map((o) => o.text);
     }
 
     return result.filter((n) => n.notes.length);
   }
 
-  async getContextNotesParsed(context, settlementId, { all, roll = true, rollData } = {}) {
+  async getContextNotesParsed(context, { all, roll = true, rollData } = {}) {
     rollData ??= this.getRollData();
 
-    const noteObjects = this.getContextNotes(context, settlementId, all);
+    const noteObjects = this.getContextNotes(context, all);
     await this.enrichContextNotes(noteObjects, rollData, { roll });
 
     return noteObjects.reduce((all, o) => {
@@ -390,5 +388,20 @@ export class BaseActor extends pf1.documents.actor.ActorBasePF {
     this._rollData = result;
 
     return result;
+  }
+
+  async _preCreate(data, context, user) {
+    await super._preCreate(data, context, user);
+
+    const tokenUpdate = {};
+
+    // Link token data by default
+    if (data.prototypeToken?.actorLink === undefined) {
+      tokenUpdate.actorLink = true;
+    }
+
+    if (!foundry.utils.isEmpty(tokenUpdate)) {
+      this.prototypeToken.updateSource(tokenUpdate);
+    }
   }
 }

@@ -1,5 +1,5 @@
 type: pf1-kingdom-sheet.event
-name: Inquisition
+name: Inquisition (Kingdom)
 system:
   htmlFields:
     - description.value
@@ -42,8 +42,9 @@ system:
   contextNotes: []
   sources: []
   settlementId: ''
-_id: krFSld0rl0iEwjFf
+  turn: null
+_id: JNLTVkfjsAlIki9Z
 img: icons/svg/clockwork.svg
 sort: 0
-_key: '!items!krFSld0rl0iEwjFf'
+_key: '!items!JNLTVkfjsAlIki9Z'
 

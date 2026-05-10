@@ -5,9 +5,9 @@ system:
     - description.value
   description:
     value: >-
-      <p>The army continues to fight even if demoralized or nearly dead. If the
-      army is defeated or routed, it may continue to act for one more Melee
-      phase, and its OM and DV are reduced by 4 for that phase.</p>
+      <p>The army continues to fight even if demoralized or nearly dead.</p><hr
+      /><p>If the army is defeated or routed, it may continue to act for one
+      more Melee phase, and its OM and DV are reduced by 4 for that phase.</p>
   changes: []
   contextNotes: []
   sources: []

@@ -6,8 +6,8 @@ system:
   description:
     value: >-
       <p>The army’s units latch onto their opponents, making it difficult to
-      escape. The target army takes a –2 penalty on Morale checks to resist a
-      rout or use the withdraw tactic.</p>
+      escape.</p><hr /><p>The target army takes a –2 penalty on Morale checks to
+      resist a rout or use the withdraw tactic.</p>
   changes: []
   contextNotes: []
   sources: []

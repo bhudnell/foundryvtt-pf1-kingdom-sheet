@@ -34,6 +34,7 @@ system:
   sources: []
   settlementId: ''
   type: barracks
+  districtId: ''
 _id: a2GEab3UyFffAzzM
 img: modules/pf1-kingdom-sheet/assets/kingdom_building/Barracks.png
 sort: 0

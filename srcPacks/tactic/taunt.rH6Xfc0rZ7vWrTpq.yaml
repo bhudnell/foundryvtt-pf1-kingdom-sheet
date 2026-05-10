@@ -7,11 +7,12 @@ system:
   description:
     value: >-
       <p>Your army is skilled at taunting its opponents, provoking stupid
-      mistakes and overconfidence in battle. The target army must attempt a
-      Morale check (DC = 10 + your army’s ACR) at the start of each Melee or
-      Ranged phase; failure means it reduces its OM and DV against your army by
-      2 for that phase. If the target army succeeds at two of these Morale
-      checks, it’s immune to this tactic for the remainder of the battle.</p>
+      mistakes and overconfidence in battle.</p><hr /><p>The target army must
+      attempt a Morale check (DC = 10 + your army’s ACR) at the start of each
+      Melee or Ranged phase; failure means it reduces its OM and DV against your
+      army by 2 for that phase. If the target army succeeds at two of these
+      Morale checks, it’s immune to this tactic for the remainder of the
+      battle.</p>
   changes: []
   contextNotes: []
   sources: []

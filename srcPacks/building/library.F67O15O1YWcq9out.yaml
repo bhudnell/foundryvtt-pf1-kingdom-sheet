@@ -32,6 +32,7 @@ system:
   sources: []
   settlementId: ''
   type: library
+  districtId: ''
 _id: F67O15O1YWcq9out
 img: modules/pf1-kingdom-sheet/assets/kingdom_building/Library.png
 sort: 0

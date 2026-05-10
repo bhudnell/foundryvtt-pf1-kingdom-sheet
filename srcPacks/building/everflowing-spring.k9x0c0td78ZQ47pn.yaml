@@ -18,6 +18,7 @@ system:
   type: everflowing_spring
   width: 0
   height: 0
+  districtId: ''
 _id: k9x0c0td78ZQ47pn
 img: modules/pf1-kingdom-sheet/assets/kingdom_building/Everflowing%20Spring.png
 sort: 0

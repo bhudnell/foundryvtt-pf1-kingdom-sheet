@@ -20,6 +20,7 @@ system:
   sources: []
   settlementId: ''
   type: dump
+  districtId: ''
 _id: oWmqyAnBfEeZrhkS
 img: modules/pf1-kingdom-sheet/assets/kingdom_building/Dump.png
 sort: 0

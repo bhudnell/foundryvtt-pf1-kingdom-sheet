@@ -6,8 +6,9 @@ system:
   disabled: true
   description:
     value: >-
-      <p>Your army has specialists who can disrupt enemy spellcasting. Increase
-      its DV by 4 against armies with the spellcasting ability.</p>
+      <p>Your army has specialists who can disrupt enemy spellcasting.</p><hr
+      /><p>Increase its DV by 4 against armies with the spellcasting
+      ability.</p>
   changes: []
   contextNotes:
     - text: +[[4]] vs armies with the spellcasting ability

@@ -32,6 +32,8 @@
     "GovernmentLabel": "Government",
     "Government": {
       "Autocracy": "Autocracy",
+      "Council": "Council",
+      "Magical": "Magical",
       "Magocracy": "Magocracy",
       "Oligarchy": "Oligarchy",
       "Overlord": "Overlord",
@@ -120,7 +122,7 @@
     "Settlement": {
       "Sizes": {
         "Thorpe": "Thorpe",
-        "Hamlet": "Hanlet",
+        "Hamlet": "Hamlet",
         "Village": "Village",
         "SmallTown": "Small Town",
         "LargeTown": "Large Town",
@@ -131,16 +133,18 @@
     },
     "NoSettlementBuildings": "Buildings Without Settlements",
     "CreateSettlement": "Create Settlement",
-    "NewSettlementLabel": "Settlement {number}",
+    "EditSettlement": "Edit Settlement",
+    "NewSettlement": "New Settlement",
     "DeleteSettlement": "Delete Settlement",
     "DeleteSettlementTitle": "Delete Settlement: {name}",
-    "DeleteSettlementConfirmation": "Are you sure you want to delete this settlement? This will delete all buildings and features associated with it.",
+    "DeleteSettlementConfirmation": "Are you sure you want to delete this settlement?",
     "SettlementModifiers": "Settlement Modifiers",
     "BaseValue": "Base Value",
     "Danger": "Danger",
     "MaxBaseValue": "Max Base Value",
     "PurchaseLimit": "Purchase Limit",
     "Spellcasting": "Spellcasting",
+    "KingdomAlignment": "Kingdom Alignment",
 
     "SettlementAttributes": "Settlement Attributes",
     "Corruption": "Corruption",
@@ -257,14 +261,14 @@
       "LotSizeMismatch": "Building width * height must equal the building lot size",
       "UnplacedLotBuilding": "Building occupies 1 or more lots and must be placed on the district grid"
     },
-    "UnassignedItems": "Unassigned Items",
-    "MissingSettlement": "Item needs to be assigned to a settlement",
-    "MissingDistrict": "Item needs to be assigned to a settlement district",
+    "UnassignedBuildings": "Unassigned Buildings",
+    "MissingDistrict": "Building needs to be assigned to a district",
     "MagicItems": "Magic Items",
     "MagicItem": {
       "Minor": "Minor",
       "Medium": "Medium",
-      "Major": "Major"
+      "Major": "Major",
+      "Availability": "Availability"
     },
     "TooManyMagicItems": "Too many magic items. Max is {max}",
 
@@ -305,7 +309,8 @@
     "Event": {
       "SubTypes": {
         "Active": "Active",
-        "Misc": "Miscellaneous"
+        "Misc": "Miscellaneous",
+        "Settlement": "Settlement"
       }
     },
     "EventLastTurn": "Event last turn?",
@@ -374,10 +379,14 @@
       "GovernmentForms": "Forms of Government",
       "LeadershipSkills": "Leadership Skills",
       "SettlementSizes": "Alternative Settlement Size Modifiers",
-      "ExpandedSettlementModifiers": "Expanded Settlement Modifiers"
+      "ExpandedSettlementStats": "Expanded Settlement Statistics"
     },
 
     "Continuous": "Continuous",
+
+    "Increase": "Increase",
+    "Decrease": "Decrease",
+    "IncreaseTotal": "Set to {total} ({increase})",
 
     "ArmyAttributes": "Army Attributes",
 
@@ -407,6 +416,8 @@
 
     "Sheet": {
       "Kingdom": "Kingdom Sheet",
+      "Settlement": "Settlement Sheet",
+      "SettlementLite": "Basic Settlement Sheet",
       "Army": "Army Sheet",
       "Building": "Building",
       "Event": "Event",
@@ -417,22 +428,31 @@
       "Tactic": "Tactic"
     },
 
-    "NoKingdomOrArmyItemsOnActor": "This actor cannot have Kingdom or Army items.",
-    "OnlyKingdomItemsOnActor": "Kingdom actors can only have Building, Event, Terrain Improvement, and Settlement Feature items.",
+    "NoModuleItemsOnActor": "This actor cannot have Kingdom, Settlement, or Army items.",
+    "OnlyKingdomItemsOnActor": "Kingdom actors can only have Kingdom Event and Terrain Improvement items.",
+    "OnlySettlementItemsOnActor": "Settlement actors can only have Building, Settlement Feature, and Settlement Event items.",
+    "OnlySettlementLiteItemsOnActor": "Basic Settlement actors can only have Settlement Feature items.",
     "OnlyArmyItemsOnActor": "Army actors can only have Boon, Special Ability, and Tactic items.",
-    "LibWrapperError": "The PF1 Kingdom Sheet module requires the 'libWrapper' module. Please install and activate it."
+    "LibWrapperError": "The PF1 Kingdom Sheet module requires the 'libWrapper' module. Please install and activate it.",
+
+    "ClearedArmySettlementLinks": "Duplicated kingdoms dont maintain army and settlement links and have been cleared.",
+    "MaintainKingdomLink": "Maintain Kingdom Link?",
+    "MaintainKingdomLinkConfirmation": "This actor is currently linked to a kingdom. Would you like to keep that link?"
   },
   "TYPES": {
     "Actor": {
       "pf1-kingdom-sheet": {
         "kingdom": "Kingdom Sheet",
+        "settlement": "Settlement Sheet",
+        "settlementLite": "Basic Settlement Sheet",
         "army": "Army Sheet"
       }
     },
     "Item": {
       "pf1-kingdom-sheet": {
         "building": "Building",
-        "event": "Event",
+        "event": "Kingdom Event",
+        "settlementEvent": "Settlement Event",
         "improvement": "Terrain Improvement",
         "feature": "Settlement Feature",
         "boon": "Boon",
@@ -463,11 +483,21 @@
           },
           "event": {
             "active": {
-              "Single": "Active",
+              "Single": "Active Kingdom Event",
               "Plural": "Active"
             },
             "misc": {
-              "Single": "Miscellaneous",
+              "Single": "Miscellaneous Kingdom Event",
+              "Plural": "Miscellaneous"
+            }
+          },
+          "settlementEvent": {
+            "active": {
+              "Single": "Active Settlement Event",
+              "Plural": "Active"
+            },
+            "misc": {
+              "Single": "Miscellaneous Settlement Event",
               "Plural": "Miscellaneous"
             }
           },
@@ -491,7 +521,7 @@
               "Plural": "Disadvantages"
             },
             "misc": {
-              "Single": "Miscellaneous",
+              "Single": "Miscellaneous Feature",
               "Plural": "Miscellaneous"
             }
           }

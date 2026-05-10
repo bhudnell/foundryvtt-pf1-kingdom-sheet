@@ -33,6 +33,7 @@ system:
   sources: []
   settlementId: ''
   type: exotic_artisan
+  districtId: ''
 _id: QNlYZ9BihtJpxAqH
 img: modules/pf1-kingdom-sheet/assets/kingdom_building/Exotic%20Artisan.png
 sort: 0

@@ -20,23 +20,12 @@ export class BaseMigrate {
     throw new Error("must be overridden");
   }
 
-  static async migrateItem(item) {
-    if (![...pf1ks.config.kingdomItemTypes, ...pf1ks.config.armyItemTypes].includes(item.type)) {
-      return;
-    }
-
-    log(`migrating item: '${item.name}' (${item._id})`);
-
-    const data = this.getItemUpdateData(item);
-    if (data) {
-      await item.update(data);
-    }
-
-    log("...finished migrating item");
-  }
-
   static async migrateActor(actor) {
-    if (![pf1ks.config.kingdomId, pf1ks.config.armyId].includes(actor.type)) {
+    if (
+      ![pf1ks.config.kingdomId, pf1ks.config.settlementId, pf1ks.config.settlementLiteId, pf1ks.config.armyId].includes(
+        actor.type
+      )
+    ) {
       return;
     }
 

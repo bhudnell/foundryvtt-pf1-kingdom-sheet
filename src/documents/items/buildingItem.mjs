@@ -5,13 +5,19 @@ export class BuildingItem extends BaseItemKS {
     return !this.system.damaged && this.isAssigned && !this.error;
   }
 
+  // TODO deprecated clean this up when removing all v4 deprecated stuff
   get isAssigned() {
-    const settlementIds = this.parent?.system.settlements.map((settlement) => settlement.id) ?? [];
-    const districtIds =
-      this.parent?.system.settlements.flatMap((settlement) => settlement.districts.map((district) => district.id)) ??
-      [];
+    const settlementAssigned =
+      this.parent?.type === pf1ks.config.kingdomId
+        ? (this.parent?.system.settlements.map((settlement) => settlement.id) ?? []).includes(this.system.settlementId)
+        : true;
 
-    return settlementIds.includes(this.system.settlementId) && districtIds.includes(this.system.districtId);
+    const districtIds =
+      (this.parent?.type === pf1ks.config.kingdomId
+        ? this.parent?.system.settlements.flatMap((settlement) => settlement.districts.map((district) => district.id))
+        : this.parent?.system.districts.map((district) => district.id)) ?? [];
+
+    return settlementAssigned && districtIds.includes(this.system.districtId);
   }
 
   get inGrid() {

@@ -38,6 +38,7 @@ system:
   sources: []
   settlementId: ''
   type: casters_tower
+  districtId: ''
 _id: vB2SqgpA3OZrPyWH
 img: modules/pf1-kingdom-sheet/assets/kingdom_building/Caster%27s%20Tower.png
 sort: 0

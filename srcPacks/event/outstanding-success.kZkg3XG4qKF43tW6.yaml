@@ -1,4 +1,4 @@
-type: pf1-kingdom-sheet.event
+type: pf1-kingdom-sheet.settlementEvent
 name: Outstanding Success
 system:
   htmlFields:
@@ -34,6 +34,7 @@ system:
   contextNotes: []
   sources: []
   settlementId: ''
+  turn: null
 _id: kZkg3XG4qKF43tW6
 img: icons/svg/clockwork.svg
 sort: 0

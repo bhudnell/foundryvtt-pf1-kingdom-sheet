@@ -4,7 +4,7 @@
     {{#each terrain}}
     <div class="info-box">
       <h5>{{ label }}</h5>
-      <span class="value text-box direct" name={{concat "system.terrain." key}} data-dtype="Number">{{ value }}</span>
+      <span class="value text-box direct" name="system.terrain.{{ key }}" data-dtype="Number">{{ value }}</span>
     </div>
     {{/each}}
   </div>
@@ -36,7 +36,7 @@
         <a class="item-control item-create" data-tooltip="PF1.CreateItem" data-create="{{ section.path }}">
           <i class="fas fa-plus"></i>
         </a>
-        <a data-action="browse" data-category="improvement" data-tooltip="{{ section.browseLabel }}">
+        <a data-action="browse" data-source="{{ path }}" data-tooltip="{{ section.browseLabel }}">
           <i class="fas fa-folder-plus"></i>
         </a>
       </div>

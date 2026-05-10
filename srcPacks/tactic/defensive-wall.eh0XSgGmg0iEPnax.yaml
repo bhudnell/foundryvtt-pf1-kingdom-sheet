@@ -7,7 +7,7 @@ system:
   description:
     value: >-
       <p>Your army fights defensively, taking actions to protect fellow units as
-      needed. Decrease its OM by 2, and increase its DV by 2.</p>
+      needed.</p><hr /><p>Decrease its OM by 2, and increase its DV by 2.</p>
   changes:
     - _id: PR3SMs56
       formula: '2'

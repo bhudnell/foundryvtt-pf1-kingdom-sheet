@@ -5,13 +5,6 @@ export class EventSheet extends ItemBaseSheet {
     const itemData = this.item.system;
     const context = await super.getData(options);
 
-    // settlementId
-    const settlementIdOptions = { "": "" };
-    this.item.parent?.system.settlements.forEach(
-      (settlement) => (settlementIdOptions[settlement.id] = settlement.name)
-    );
-    context.settlementIdOptions = settlementIdOptions;
-
     // subType
     context.subTypeOptions = pf1ks.config.eventSubTypes;
 

@@ -6,9 +6,9 @@ system:
   description:
     value: >-
       <p>The commander is skilled at convincing the army to maintain morale
-      against dangerous opponents. If the army fails a Morale check to avoid a
-      rout, it may reroll that check. It must accept the results of the second
-      check, even if it is worse.</p>
+      against dangerous opponents.</p><hr /><p>If the army fails a Morale check
+      to avoid a rout, it may reroll that check. It must accept the results of
+      the second check, even if it is worse.</p>
   changes: []
   contextNotes:
     - text: on failure, can reroll to avoid rout

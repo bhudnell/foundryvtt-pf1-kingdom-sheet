@@ -6,9 +6,11 @@ export class EventModel extends ItemBaseModel {
 
     const schema = {
       subType: new fields.StringField({ initial: "active", choices: Object.keys(pf1ks.config.eventSubTypes) }),
-      settlementId: new fields.StringField(),
       continuous: new fields.BooleanField({ initial: false }),
       turn: new fields.NumberField({ integer: true, min: 0 }),
+
+      // TODO deprecated for v4, remove eventually
+      settlementId: new fields.StringField(),
     };
     this.addDefaultSchemaFields(schema);
 

@@ -1,7 +1,7 @@
-{{!-- Settlement Districts Navigation --}}
-<nav class="sheet-navigation tabs" data-group="settlement-{{ sidx }}-districts">
+{{!-- Districts Navigation --}}
+<nav class="sheet-navigation tabs" data-group="districts">
   {{#each districts as |district didx|}}
-  <div class="item" data-tab="{{ didx }}" data-group="settlement-{{ ../sidx }}-districts">
+  <div class="item" data-tab="{{ didx }}" data-group="districts">
     <span>{{ name }}</span>
     {{#unless (eq didx 0)}}
     <a class="district-delete" data-id="{{ id }}" data-tooltip="PF1KS.DeleteDistrict">
@@ -10,17 +10,24 @@
     {{/unless}}
   </div>
   {{/each}}
+  <a class="item icon" data-tab="unassigned" data-group="districts" data-tooltip="PF1KS.UnassignedBuildings">
+    {{#if unassignedBuildings.length}}
+    <i class="fa-solid fa-house-circle-exclamation"></i>
+    {{else}}
+    <i class="fa-solid fa-house"></i>
+    {{/if}}
+  </a>
   <a class="item icon district-create" data-tooltip="PF1KS.CreateDistrict">
     <i class="fa-solid fa-plus"></i>
   </a>
 </nav>
 
-<section class="subdetails-body settlement-{{ sidx }}-districts">
+<section class="districts-body">
   {{#each districts as |district didx|}}
-  <div class="tab district" data-group="settlement-{{ ../sidx }}-districts" data-tab="{{ didx }}" data-id="{{ id }}">
+  <div class="tab district" data-group="districts" data-tab="{{ didx }}" data-id="{{ id }}">
     <div class="header">
       <h1>
-        <input type="text" name="system.settlements.{{ ../sidx }}.districts.{{ didx }}.name" value="{{ name }}" />
+        <input type="text" name="system.districts.{{ didx }}.name" value="{{ name }}" />
       </h1>
     </div>
 
@@ -30,25 +37,25 @@
         <div class="info-box-joined">
           <div class="info-box">
             <h5>{{ localize "PF1KS.Direction.North" }}</h5>
-            <select name="system.settlements.{{ ../sidx }}.districts.{{ didx }}.borders.north">
+            <select name="system.districts.{{ didx }}.borders.north">
               {{selectOptions @root.districtBorderOptions selected=borders.north}}
             </select>
           </div>
           <div class="info-box">
             <h5>{{ localize "PF1KS.Direction.East" }}</h5>
-            <select name="system.settlements.{{ ../sidx }}.districts.{{ didx }}.borders.east">
+            <select name="system.districts.{{ didx }}.borders.east">
               {{selectOptions @root.districtBorderOptions selected=borders.east}}
             </select>
           </div>
           <div class="info-box">
             <h5>{{ localize "PF1KS.Direction.South" }}</h5>
-            <select name="system.settlements.{{ ../sidx }}.districts.{{ didx }}.borders.south">
+            <select name="system.districts.{{ didx }}.borders.south">
               {{selectOptions @root.districtBorderOptions selected=borders.south}}
             </select>
           </div>
           <div class="info-box">
             <h5>{{ localize "PF1KS.Direction.West" }}</h5>
-            <select name="system.settlements.{{ ../sidx }}.districts.{{ didx }}.borders.west">
+            <select name="system.districts.{{ didx }}.borders.west">
               {{selectOptions @root.districtBorderOptions selected=borders.west}}
             </select>
           </div>
@@ -91,12 +98,11 @@
               class="item-control item-create"
               data-tooltip="PF1.CreateItem"
               data-create="{{ section.path }}"
-              data-settlement-id="{{ ../id }}"
               data-district-id="{{ id }}"
             >
               <i class="fas fa-plus"></i>
             </a>
-            <a data-action="browse" data-category="building" data-tooltip="{{ section.browseLabel }}">
+            <a data-action="browse" data-source="{{ section.path }}" data-tooltip="{{ section.browseLabel }}">
               <i class="fas fa-folder-plus"></i>
             </a>
           </div>
@@ -129,4 +135,9 @@
     </div>
   </div>
   {{/each}}
+
+  {{! Unassigned Buildings Tab }}
+  <div class="tab unassigned" data-group="districts" data-tab="unassigned">
+    {{~> settlement-sheet-unassigned-buildings}}
+  </div>
 </section>

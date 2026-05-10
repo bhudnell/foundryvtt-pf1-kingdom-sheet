@@ -7,7 +7,7 @@ system:
   description:
     value: >-
       <p>Your army throws caution to the wind and attacks with savage and gory
-      vigor. Increase its OM by 4, and decrease its DV by 4.</p>
+      vigor.</p><hr /><p>Increase its OM by 4, and decrease its DV by 4.</p>
   changes:
     - _id: TuhRwXpO
       formula: '-4'

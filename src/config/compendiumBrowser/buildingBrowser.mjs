@@ -8,7 +8,6 @@ class BuildingFilter extends pf1.applications.compendiumBrowser.filters.BaseFilt
 }
 
 export class BuildingBrowser extends pf1.applications.compendiumBrowser.CompendiumBrowser {
-  static documentName = "Item";
   static typeName = "PF1KS.Buildings";
-  static filterClasses = [commonFilters.PackFilter, commonFilters.TagFilter, BuildingFilter];
+  static filterClasses = [commonFilters.PackFilter, BuildingFilter, commonFilters.TagFilter];
 }

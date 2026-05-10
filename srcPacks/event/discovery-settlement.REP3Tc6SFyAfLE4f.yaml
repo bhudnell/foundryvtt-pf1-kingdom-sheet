@@ -1,5 +1,5 @@
-type: pf1-kingdom-sheet.event
-name: Discovery
+type: pf1-kingdom-sheet.settlementEvent
+name: Discovery (Settlement)
 system:
   htmlFields:
     - description.value
@@ -26,6 +26,7 @@ system:
   contextNotes: []
   sources: []
   settlementId: ''
+  turn: null
 _id: REP3Tc6SFyAfLE4f
 img: icons/svg/clockwork.svg
 sort: 0

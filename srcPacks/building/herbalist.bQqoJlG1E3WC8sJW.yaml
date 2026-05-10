@@ -33,6 +33,7 @@ system:
   sources: []
   settlementId: ''
   type: herbalist
+  districtId: ''
 _id: bQqoJlG1E3WC8sJW
 img: modules/pf1-kingdom-sheet/assets/kingdom_building/Herbalist.png
 sort: 0

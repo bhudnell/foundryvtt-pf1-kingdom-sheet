@@ -7,9 +7,9 @@ system:
   description:
     value: >-
       <p>Your army uses trickery and unfair tactics to gain an advantage at the
-      start of a battle. For one Melee phase this battle, its OM increases by 6.
-      (After that Melee phase, the opposing army knows to be ready for such
-      tricks.)</p>
+      start of a battle.</p><hr /><p>For one Melee phase this battle, its OM
+      increases by 6. (After that Melee phase, the opposing army knows to be
+      ready for such tricks.)</p>
   changes: []
   contextNotes: []
   sources: []

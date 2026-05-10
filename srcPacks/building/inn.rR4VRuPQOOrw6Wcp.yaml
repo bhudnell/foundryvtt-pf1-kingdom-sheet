@@ -39,6 +39,7 @@ system:
   sources: []
   settlementId: ''
   type: inn
+  districtId: ''
 _id: rR4VRuPQOOrw6Wcp
 img: modules/pf1-kingdom-sheet/assets/kingdom_building/Inn.png
 sort: 0

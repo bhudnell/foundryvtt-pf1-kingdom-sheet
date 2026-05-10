@@ -35,6 +35,12 @@ system:
       type: untyped
       operator: add
       priority: 0
+    - _id: rFHzkGbJ
+      formula: '-50'
+      target: pf1ks_magic_item_availability
+      type: untyped
+      operator: add
+      priority: 0
   contextNotes: []
   settlementId: ''
 _id: ijlJ7XH6eSDm8Kr9

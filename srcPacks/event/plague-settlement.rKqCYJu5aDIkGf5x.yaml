@@ -1,0 +1,37 @@
+type: pf1-kingdom-sheet.settlementEvent
+name: Plague (Settlement)
+system:
+  htmlFields:
+    - description.value
+  subType: active
+  continuous: true
+  description:
+    value: >-
+      <p>A deadly sickness strikes the target hex or settlement.</p><hr /><p>You
+      cannot construct terrain improvements or buildings there while plague
+      persists. Attempt two Stability checks, each with a penalty equal to the
+      number of Brothels, Foreign Quarters, Highways, Inns, Piers, Roads,
+      Stables, Stockyards, Tenements, and Waterfronts in the hex, and a bonus
+      equal to the number of Alchemists, Cathedrals, Herbalists, Hospitals, and
+      Temples in the hex. If you succeed at both checks, the event ends, but
+      Stability decreases by 2 and Treasury by 1d3 BP. If you fail at one check,
+      Stability decreases by 4, Treasury decreases by 1d6 BP, and Unrest
+      increases by 1d3. If you fail at both, Stability decreases by 4, Treasury
+      decreases by 1d6 BP, Unrest increases by 1d6, and in the next Event phase
+      the plague spreads to an adjacent hex.</p>
+  changes:
+    - _id: u8aCJc4K
+      formula: '-2'
+      target: pf1ks_stability
+      type: untyped
+      operator: add
+      priority: 0
+  contextNotes: []
+  sources: []
+  settlementId: ''
+  turn: null
+_id: rKqCYJu5aDIkGf5x
+img: icons/svg/clockwork.svg
+sort: 0
+_key: '!items!rKqCYJu5aDIkGf5x'
+

@@ -33,6 +33,7 @@ system:
   sources: []
   settlementId: ''
   type: stable
+  districtId: ''
 _id: 8NifnIo7iXpTRVUJ
 img: modules/pf1-kingdom-sheet/assets/kingdom_building/Stable.png
 sort: 0

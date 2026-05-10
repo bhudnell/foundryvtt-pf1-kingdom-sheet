@@ -3,148 +3,137 @@ _id: PTcJtznGzdJ6ynH9
 img: icons/environment/settlement/city-entrance.webp
 description: ''
 results:
-  - type: pack
-    documentCollection: pf1-kingdom-sheet.event
+  - type: document
     weight: 1
     range:
       - 1
       - 7
     drawn: false
-    text: Archaeological Find
-    documentId: G7ecOdRsnJBtVdLJ
     img: icons/svg/clockwork.svg
     _id: 2mel2lAErZlgrYcq
-    flags: {}
+    name: Archaeological Find
+    documentUuid: Compendium.pf1-kingdom-sheet.event.Item.G7ecOdRsnJBtVdLJ
+    description: ''
     _key: '!tables.results!PTcJtznGzdJ6ynH9.2mel2lAErZlgrYcq'
-  - type: pack
-    documentCollection: pf1-kingdom-sheet.event
+  - type: document
     weight: 1
     range:
       - 8
       - 12
     drawn: false
-    text: Diplomatic Overture
-    documentId: ThVjiZCNSFUIVCDc
     img: icons/svg/clockwork.svg
     _id: dAfFEmkUlfwAyAGr
-    flags: {}
+    name: Diplomatic Overture
+    documentUuid: Compendium.pf1-kingdom-sheet.event.Item.ThVjiZCNSFUIVCDc
+    description: ''
     _key: '!tables.results!PTcJtznGzdJ6ynH9.dAfFEmkUlfwAyAGr'
-  - type: pack
-    documentCollection: pf1-kingdom-sheet.event
+  - type: document
     weight: 1
     range:
       - 13
       - 20
     drawn: false
-    text: Discovery
-    documentId: REP3Tc6SFyAfLE4f
     img: icons/svg/clockwork.svg
     _id: miym12hqhRNcu0xr
-    flags: {}
+    name: Discovery (Kingdom)
+    documentUuid: Compendium.pf1-kingdom-sheet.event.Item.vCWwu2SlF6zeZfAq
+    description: ''
     _key: '!tables.results!PTcJtznGzdJ6ynH9.miym12hqhRNcu0xr'
-  - type: pack
-    documentCollection: pf1-kingdom-sheet.event
+  - type: document
     weight: 1
     range:
       - 21
       - 31
     drawn: false
-    text: Economic Boom
-    documentId: sdNxf64OPZYporB7
     img: icons/svg/clockwork.svg
     _id: F0Jkyw0OHThsBEca
-    flags: {}
+    name: Economic Boom
+    documentUuid: Compendium.pf1-kingdom-sheet.event.Item.sdNxf64OPZYporB7
+    description: ''
     _key: '!tables.results!PTcJtznGzdJ6ynH9.F0Jkyw0OHThsBEca'
-  - type: pack
-    documentCollection: pf1-kingdom-sheet.event
+  - type: document
     weight: 1
     range:
       - 32
       - 39
     drawn: false
-    text: Festive Invitation
-    documentId: YakYlLDdEnRf0BPx
     img: icons/svg/clockwork.svg
     _id: VkghYk3Kr6ddRVWf
-    flags: {}
+    name: Festive Invitation
+    documentUuid: Compendium.pf1-kingdom-sheet.event.Item.YakYlLDdEnRf0BPx
+    description: ''
     _key: '!tables.results!PTcJtznGzdJ6ynH9.VkghYk3Kr6ddRVWf'
-  - type: pack
-    documentCollection: pf1-kingdom-sheet.event
+  - type: document
     weight: 1
     range:
       - 40
       - 53
     drawn: false
-    text: Food Surplus
-    documentId: grLKdQNoA9tGQKRq
     img: icons/svg/clockwork.svg
     _id: MTyEcCsLMbYBGeYZ
-    flags: {}
+    name: Food Surplus
+    documentUuid: Compendium.pf1-kingdom-sheet.event.Item.grLKdQNoA9tGQKRq
+    description: ''
     _key: '!tables.results!PTcJtznGzdJ6ynH9.MTyEcCsLMbYBGeYZ'
-  - type: pack
-    documentCollection: pf1-kingdom-sheet.event
+  - type: document
     weight: 1
     range:
       - 54
       - 66
     drawn: false
-    text: Good Weather
-    documentId: wHV83yKL5vfRRQqU
     img: icons/svg/clockwork.svg
     _id: 4G3knGMapRMpEfaE
-    flags: {}
+    name: Good Weather
+    documentUuid: Compendium.pf1-kingdom-sheet.event.Item.wHV83yKL5vfRRQqU
+    description: ''
     _key: '!tables.results!PTcJtznGzdJ6ynH9.4G3knGMapRMpEfaE'
-  - type: pack
-    documentCollection: pf1-kingdom-sheet.event
+  - type: document
     weight: 1
     range:
       - 67
       - 75
     drawn: false
-    text: Land Rush
-    documentId: oJCOmTgNO9enGyEd
     img: icons/svg/clockwork.svg
     _id: vXvSr931Sc6nF06S
-    flags: {}
+    name: Land Rush
+    documentUuid: Compendium.pf1-kingdom-sheet.event.Item.oJCOmTgNO9enGyEd
+    description: ''
     _key: '!tables.results!PTcJtznGzdJ6ynH9.vXvSr931Sc6nF06S'
-  - type: pack
-    documentCollection: pf1-kingdom-sheet.event
+  - type: document
     weight: 1
     range:
       - 76
       - 85
     drawn: false
-    text: Natural Blessing
-    documentId: YTibVZ6FTJwlHQX8
     img: icons/svg/clockwork.svg
     _id: Dvv3gDyfWoMeg3rY
-    flags: {}
+    name: Natural Blessing
+    documentUuid: Compendium.pf1-kingdom-sheet.event.Item.YTibVZ6FTJwlHQX8
+    description: ''
     _key: '!tables.results!PTcJtznGzdJ6ynH9.Dvv3gDyfWoMeg3rY'
-  - type: pack
-    documentCollection: pf1-kingdom-sheet.event
+  - type: document
     weight: 1
     range:
       - 86
       - 90
     drawn: false
-    text: New Subjects
-    documentId: GVM34YZzR7T9VymC
     img: icons/svg/clockwork.svg
     _id: BGvyniWhCzeSO60U
-    flags: {}
+    name: New Subjects
+    documentUuid: Compendium.pf1-kingdom-sheet.event.Item.GVM34YZzR7T9VymC
+    description: ''
     _key: '!tables.results!PTcJtznGzdJ6ynH9.BGvyniWhCzeSO60U'
-  - type: pack
-    documentCollection: pf1-kingdom-sheet.event
+  - type: document
     weight: 1
     range:
       - 91
       - 100
     drawn: false
-    text: Political Calm
-    documentId: oXaCPGU9BAJRF6ql
     img: icons/svg/clockwork.svg
     _id: g9guYTJRc6m78lDs
-    flags: {}
+    name: Political Calm
+    documentUuid: Compendium.pf1-kingdom-sheet.event.Item.oXaCPGU9BAJRF6ql
+    description: ''
     _key: '!tables.results!PTcJtznGzdJ6ynH9.g9guYTJRc6m78lDs'
 replacement: true
 displayRoll: true

@@ -33,6 +33,7 @@ system:
   sources: []
   settlementId: ''
   type: mansion
+  districtId: ''
 _id: COffqCBv6s7ZHsG1
 img: modules/pf1-kingdom-sheet/assets/kingdom_building/Mansion.png
 sort: 0

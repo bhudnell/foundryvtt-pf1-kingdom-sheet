@@ -37,6 +37,7 @@ system:
   contextNotes: []
   sources: []
   settlementId: ''
+  turn: null
 _id: oJCOmTgNO9enGyEd
 img: icons/svg/clockwork.svg
 sort: 0

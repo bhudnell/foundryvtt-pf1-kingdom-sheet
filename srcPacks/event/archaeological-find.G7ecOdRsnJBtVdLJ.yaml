@@ -6,7 +6,12 @@ system:
   subType: active
   continuous: false
   description:
-    value: ''
+    value: >-
+      <p>A well-preserved ruin is found in your kingdom, with historical
+      artifacts connected to the people who lived in your land long ago. </p><hr
+      /><p>Lore +1. If you have a Museum, the discoverers donate 10,000 gp worth
+      of historical artifacts to its collection (if you have multiple Museums,
+      choose one as the recipient).</p>
   changes:
     - _id: CLbMAWzv
       formula: '1'
@@ -17,6 +22,7 @@ system:
   contextNotes: []
   sources: []
   settlementId: ''
+  turn: null
 _id: G7ecOdRsnJBtVdLJ
 img: icons/svg/clockwork.svg
 sort: 0

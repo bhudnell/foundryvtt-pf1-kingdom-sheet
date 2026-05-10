@@ -25,6 +25,7 @@ system:
   sources: []
   settlementId: ''
   type: orphanage
+  districtId: ''
 _id: Yh8jCLTHOeCktyTn
 img: modules/pf1-kingdom-sheet/assets/kingdom_building/Orphanage.png
 sort: 0

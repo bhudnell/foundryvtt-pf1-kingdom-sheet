@@ -37,6 +37,7 @@ system:
   type: arena
   width: 2
   height: 2
+  districtId: ''
 _id: npoAEJELXr9xzg2A
 img: modules/pf1-kingdom-sheet/assets/kingdom_building/Arena.png
 sort: 0

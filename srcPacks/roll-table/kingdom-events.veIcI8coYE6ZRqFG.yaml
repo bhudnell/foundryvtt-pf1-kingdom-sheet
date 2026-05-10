@@ -3,161 +3,149 @@ _id: veIcI8coYE6ZRqFG
 img: icons/environment/settlement/city-gate.webp
 description: ''
 results:
-  - type: pack
-    documentCollection: pf1-kingdom-sheet.roll-table
+  - type: document
     weight: 1
     range:
       - 1
       - 4
     drawn: false
-    text: Kingdom Events
-    documentId: veIcI8coYE6ZRqFG
     img: icons/svg/d20-grey.svg
     _id: yXiydXKjHZ7VVZGV
-    flags: {}
+    name: Kingdom Events
+    documentUuid: Compendium.pf1-kingdom-sheet.roll-table.RollTable.veIcI8coYE6ZRqFG
+    description: ''
     _key: '!tables.results!veIcI8coYE6ZRqFG.yXiydXKjHZ7VVZGV'
-  - type: pack
-    documentCollection: pf1-kingdom-sheet.event
+  - type: document
     weight: 1
     range:
       - 1
       - 2
     drawn: false
-    text: Natural Blessing
-    documentId: YTibVZ6FTJwlHQX8
     img: icons/svg/clockwork.svg
     _id: DKyGySuLMGiW9ilX
-    flags: {}
+    name: Natural Blessing
+    documentUuid: Compendium.pf1-kingdom-sheet.event.Item.YTibVZ6FTJwlHQX8
+    description: ''
     _key: '!tables.results!veIcI8coYE6ZRqFG.DKyGySuLMGiW9ilX'
-  - type: pack
-    documentCollection: pf1-kingdom-sheet.event
+  - type: document
     weight: 1
     range:
       - 3
       - 4
     drawn: false
-    text: Good Weather
-    documentId: wHV83yKL5vfRRQqU
     img: icons/svg/clockwork.svg
     _id: 7wGpYUEDvfeQNXyw
-    flags: {}
+    name: Good Weather
+    documentUuid: Compendium.pf1-kingdom-sheet.event.Item.wHV83yKL5vfRRQqU
+    description: ''
     _key: '!tables.results!veIcI8coYE6ZRqFG.7wGpYUEDvfeQNXyw'
-  - type: pack
-    documentCollection: pf1-kingdom-sheet.roll-table
+  - type: document
     weight: 1
     range:
       - 5
       - 25
     drawn: false
-    text: Beneficial Kingdom Events
-    documentId: PTcJtznGzdJ6ynH9
     img: icons/svg/d20-grey.svg
     _id: nCDIz03RKi4Y0QNA
-    flags: {}
+    name: Beneficial Kingdom Events
+    documentUuid: Compendium.pf1-kingdom-sheet.roll-table.RollTable.PTcJtznGzdJ6ynH9
+    description: ''
     _key: '!tables.results!veIcI8coYE6ZRqFG.nCDIz03RKi4Y0QNA'
-  - type: pack
-    documentCollection: pf1-kingdom-sheet.roll-table
+  - type: document
     weight: 1
     range:
       - 26
       - 50
     drawn: false
-    text: Dangerous Kingdom Events
-    documentId: XPvGkpdpOtHq72BM
     img: icons/svg/d20-grey.svg
     _id: h9MV7CEf2KN5KtLp
-    flags: {}
+    name: Dangerous Kingdom Events
+    documentUuid: Compendium.pf1-kingdom-sheet.roll-table.RollTable.XPvGkpdpOtHq72BM
+    description: ''
     _key: '!tables.results!veIcI8coYE6ZRqFG.h9MV7CEf2KN5KtLp'
-  - type: pack
-    documentCollection: pf1-kingdom-sheet.roll-table
+  - type: document
     weight: 1
     range:
       - 51
       - 75
     drawn: false
-    text: Beneficial Settlement Events
-    documentId: WfBisOK7L1J9VH0k
     img: icons/svg/d20-grey.svg
     _id: IqKPJn5eBOpXhfkj
-    flags: {}
+    name: Beneficial Settlement Events
+    documentUuid: Compendium.pf1-kingdom-sheet.roll-table.RollTable.WfBisOK7L1J9VH0k
+    description: ''
     _key: '!tables.results!veIcI8coYE6ZRqFG.IqKPJn5eBOpXhfkj'
-  - type: pack
-    documentCollection: pf1-kingdom-sheet.roll-table
+  - type: document
     weight: 1
     range:
       - 76
       - 96
     drawn: false
-    text: Dangerous Settlement Events
-    documentId: 0onhtdDZJATtRWak
     img: icons/svg/d20-grey.svg
     _id: ASvYhhXAKVv91kwT
-    flags: {}
+    name: Dangerous Settlement Events
+    documentUuid: Compendium.pf1-kingdom-sheet.roll-table.RollTable.0onhtdDZJATtRWak
+    description: ''
     _key: '!tables.results!veIcI8coYE6ZRqFG.ASvYhhXAKVv91kwT'
-  - type: pack
-    documentCollection: pf1-kingdom-sheet.roll-table
+  - type: document
     weight: 1
     range:
       - 97
       - 100
     drawn: false
-    text: Kingdom Events
-    documentId: veIcI8coYE6ZRqFG
     img: icons/svg/d20-grey.svg
     _id: rOkfeyK1D6XG28Ha
-    flags: {}
+    name: Kingdom Events
+    documentUuid: Compendium.pf1-kingdom-sheet.roll-table.RollTable.veIcI8coYE6ZRqFG
+    description: ''
     _key: '!tables.results!veIcI8coYE6ZRqFG.rOkfeyK1D6XG28Ha'
-  - type: pack
-    documentCollection: pf1-kingdom-sheet.event
+  - type: document
     weight: 1
     range:
       - 97
       - 97
     drawn: false
-    text: Bandit Activity
-    documentId: 51enAXA3tc1mhet4
     img: icons/svg/clockwork.svg
     _id: nsUgcWReUXZC9IvO
-    flags: {}
+    name: Bandit Activity
+    documentUuid: Compendium.pf1-kingdom-sheet.event.Item.51enAXA3tc1mhet4
+    description: ''
     _key: '!tables.results!veIcI8coYE6ZRqFG.nsUgcWReUXZC9IvO'
-  - type: pack
-    documentCollection: pf1-kingdom-sheet.event
+  - type: document
     weight: 1
     range:
       - 98
       - 98
     drawn: false
-    text: Squatters
-    documentId: 0gefLHp0cMTxEXf0
     img: icons/svg/clockwork.svg
     _id: qJEnUVSLKLBXFS83
-    flags: {}
+    name: Squatters
+    documentUuid: Compendium.pf1-kingdom-sheet.event.Item.0gefLHp0cMTxEXf0
+    description: ''
     _key: '!tables.results!veIcI8coYE6ZRqFG.qJEnUVSLKLBXFS83'
-  - type: pack
-    documentCollection: pf1-kingdom-sheet.event
+  - type: document
     weight: 1
     range:
       - 99
       - 99
     drawn: false
-    text: Vandals
-    documentId: iyYlSeb26a2w0WPi
     img: icons/svg/clockwork.svg
     _id: IDLgnuQfpPc3gexi
-    flags: {}
+    name: Vandals
+    documentUuid: Compendium.pf1-kingdom-sheet.event.Item.iyYlSeb26a2w0WPi
+    description: ''
     _key: '!tables.results!veIcI8coYE6ZRqFG.IDLgnuQfpPc3gexi'
-  - type: pack
-    documentCollection: pf1-kingdom-sheet.event
+  - type: document
     weight: 1
     range:
       - 100
       - 100
     drawn: false
-    text: Monster Attack
-    documentId: 2NNXlTO6NyAzLE1Y
     img: icons/svg/clockwork.svg
     _id: oTBJfIfuA3MGmVXL
-    flags: {}
+    name: Monster Attack
+    documentUuid: Compendium.pf1-kingdom-sheet.event.Item.2NNXlTO6NyAzLE1Y
+    description: ''
     _key: '!tables.results!veIcI8coYE6ZRqFG.oTBJfIfuA3MGmVXL'
 replacement: true
 displayRoll: true

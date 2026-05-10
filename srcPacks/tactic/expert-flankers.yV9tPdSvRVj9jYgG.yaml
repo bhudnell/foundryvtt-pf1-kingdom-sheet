@@ -7,8 +7,8 @@ system:
   description:
     value: >-
       <p>Your army is skilled at surrounding the foe and distracting them, at
-      the cost of spreading out too much and being more vulnerable. Increase its
-      OM by 2, and decrease its DV by 2.</p>
+      the cost of spreading out too much and being more vulnerable.</p><hr
+      /><p>Increase its OM by 2, and decrease its DV by 2.</p>
   changes:
     - _id: DmhvdjMG
       formula: '-2'

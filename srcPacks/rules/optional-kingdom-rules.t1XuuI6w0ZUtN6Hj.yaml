@@ -27,6 +27,7 @@ pages:
       volume: 0.5
     src: null
     system: {}
+    category: null
     _key: '!journal.pages!t1XuuI6w0ZUtN6Hj.ilF5Pu9OQGvyGYPJ'
   - sort: 200000
     name: Deitites and Holy Sites
@@ -66,6 +67,7 @@ pages:
       volume: 0.5
     src: null
     system: {}
+    category: null
     _key: '!journal.pages!t1XuuI6w0ZUtN6Hj.YMZjFUDGKETkEllY'
   - sort: 300000
     name: Expanding Settlement Modifiers
@@ -98,6 +100,7 @@ pages:
       volume: 0.5
     src: null
     system: {}
+    category: null
     _key: '!journal.pages!t1XuuI6w0ZUtN6Hj.rcTSKRBGdY4SI2R6'
   - sort: 400000
     name: Fame and Infamy
@@ -147,6 +150,7 @@ pages:
       volume: 0.5
     src: null
     system: {}
+    category: null
     _key: '!journal.pages!t1XuuI6w0ZUtN6Hj.2GNT3yLzFoYTILTL'
   - sort: 500000
     name: Forms of Government
@@ -199,6 +203,7 @@ pages:
       volume: 0.5
     src: null
     system: {}
+    category: null
     _key: '!journal.pages!t1XuuI6w0ZUtN6Hj.v08HsMlBmn66rMUk'
   - sort: 600000
     name: Independence and Unification
@@ -218,6 +223,7 @@ pages:
       volume: 0.5
     src: null
     system: {}
+    category: null
     _key: '!journal.pages!t1XuuI6w0ZUtN6Hj.qzvd7EBSlyQuom5h'
   - sort: 700000
     name: Leadership Role Skills
@@ -257,6 +263,7 @@ pages:
       volume: 0.5
     src: null
     system: {}
+    category: null
     _key: '!journal.pages!t1XuuI6w0ZUtN6Hj.CY9GAp1XjXgu5pmi'
   - sort: 800000
     name: Settlement Sizes
@@ -288,6 +295,7 @@ pages:
       volume: 0.5
     src: null
     system: {}
+    category: null
     _key: '!journal.pages!t1XuuI6w0ZUtN6Hj.nZyEv4PWABJwIeLD'
   - sort: 900000
     name: Special Edicts
@@ -309,6 +317,7 @@ pages:
       volume: 0.5
     src: null
     system: {}
+    category: null
     _key: '!journal.pages!t1XuuI6w0ZUtN6Hj.qJWfDq8uGNKUmtbn'
   - sort: 0
     name: Index
@@ -335,6 +344,7 @@ pages:
       volume: 0.5
     src: null
     system: {}
+    category: null
     _key: '!journal.pages!t1XuuI6w0ZUtN6Hj.R5HhjqVn0s0xqEMI'
   - sort: 1000000
     name: Expanded Settlement Statistics
@@ -382,8 +392,9 @@ pages:
       controls: true
       volume: 0.5
     src: null
+    category: null
     _key: '!journal.pages!t1XuuI6w0ZUtN6Hj.6GfTeS0jM4WmlJk4'
 sort: 0
-_key: '!journal!t1XuuI6w0ZUtN6Hj'
 categories: []
+_key: '!journal!t1XuuI6w0ZUtN6Hj'
 

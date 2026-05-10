@@ -7,9 +7,10 @@ system:
   description:
     value: >-
       <p>Your army targets another army’s siege engines in an attempt to destroy
-      them. If your army damages the target army, your army attempts a second
-      Offense check; if successful, destroy one of the target’s siege engines.
-      This tactic has no effect on enemy armies without siege engines.</p>
+      them.</p><hr /><p>If your army damages the target army, your army attempts
+      a second Offense check; if successful, destroy one of the target’s siege
+      engines. This tactic has no effect on enemy armies without siege
+      engines.</p>
   changes: []
   contextNotes:
     - text: >-

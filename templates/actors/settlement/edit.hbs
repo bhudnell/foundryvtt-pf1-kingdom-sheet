@@ -1,0 +1,52 @@
+<form class="{{ cssClass }}" data-tooltip-class="pf1" autocomplete="off">
+  {{! Sheet Navigation }}
+  <nav class="sheet-navigation tabs" data-group="primary">
+    <a class="item" data-tab="summary" data-group="primary">{{localize "PF1.Summary"}}</a>
+    <a class="item" data-tab="districts" data-group="primary">{{ localize "PF1KS.Districts" }}</a>
+    <a class="item" data-tab="features" data-group="primary">{{ localize "PF1KS.Features" }}</a>
+    <a class="item" data-tab="magic-items" data-group="primary">{{ localize "PF1KS.MagicItems" }}</a>
+    <a class="item" data-tab="events" data-group="primary">{{localize "PF1KS.Events"}}</a>
+    <a class="item" data-tab="notes" data-group="primary">{{localize "PF1.Notes"}}</a>
+    <a class="item" data-tab="settings" data-group="primary">{{localize "PF1.Settings"}}</a>
+  </nav>
+
+  {{! Sheet Body }}
+  <section class="primary-body">
+    {{! Summary Tab }}
+    <div class="tab summary" data-group="primary" data-tab="summary">
+      {{~> settlement-sheet-summary}}
+    </div>
+
+    {{! Districts Tab }}
+    <div class="tab districts" data-group="primary" data-tab="districts">
+      {{~> settlement-sheet-districts}}
+    </div>
+
+    {{! Features Tab }}
+    <div class="tab features" data-group="primary" data-tab="features">
+      {{~> settlement-sheet-features}}
+    </div>
+
+    {{! Magic Items Tab }}
+    <div class="tab magic-item" data-group="primary" data-tab="magic-items">
+      {{~> settlement-sheet-magic-items}}
+    </div>
+
+    {{! Events Tab }}
+    <div class="tab events" data-group="primary" data-tab="events">
+      {{~> settlement-sheet-events}}
+    </div>
+
+    {{! Notes Tab }}
+    <div class="tab actor-notes" data-group="primary" data-tab="notes">
+      <div class="primary-content">
+        {{editor enrichedNotes target="system.notes.value" button=true editable=editable engine="prosemirror"}}
+      </div>
+    </div>
+
+    {{! Settings Tab }}
+    <div class="tab settings" data-group="primary" data-tab="settings">
+      {{~> settlement-sheet-settings}}
+    </div>
+  </section>
+</form>

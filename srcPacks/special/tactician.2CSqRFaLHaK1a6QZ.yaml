@@ -8,7 +8,13 @@ system:
       <p>The army automatically learns one tactic (usually the cavalry experts
       tactic); this doesn’t count toward an army’s maximum number of known
       tactics.</p>
-  changes: []
+  changes:
+    - _id: pGCYoJkI
+      formula: '1'
+      target: pf1ks_bonus_tactic
+      type: untyped
+      operator: add
+      priority: 0
   contextNotes: []
   sources: []
 _id: 2CSqRFaLHaK1a6QZ
