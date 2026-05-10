@@ -518,6 +518,11 @@ Hooks.on("deleteActor", async (actor, options, userId) => {
 });
 
 Hooks.on("preCreateActor", async (actor, data, options, userId) => {
+  // only for cloning
+  if (!actor._stats.duplicateSource) {
+    return;
+  }
+
   // if kingdom, clear army and settlement proxies and warn that it happened
   if (actor.type === PF1KS.kingdomId) {
     if (actor.system.settlementProxies.length || actor.system.armies.length) {
