@@ -29,6 +29,13 @@ export class MigrateV2 extends BaseMigrate {
               medium: { items: system.magicItems.medium },
               major: { items: system.magicItems.major },
             },
+            settings: {
+              ...actor.system.settings,
+              optionalRules: {
+                ...actor.system.settings.optionalRules,
+                expandedSettlementStats: actor.system.settings.optionalRules.expandedSettlementModifiers,
+              },
+            },
           },
         };
       })

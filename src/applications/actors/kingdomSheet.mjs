@@ -284,12 +284,14 @@ export class KingdomSheet extends pf1.applications.actor.ActorSheetPF {
   }
 
   _prepareOptionalRules() {
-    return Object.entries(this.actor.system.settings.optionalRules).map(([key, value]) => ({
-      name: key,
-      value,
-      label: pf1ks.config.optionalRules[key],
-      compendiumEntry: pf1ks.config.compendiumEntries[key],
-    }));
+    return Object.entries(this.actor.system.settings.optionalRules)
+      .filter(([key, value]) => !["altSettlementSizes", "expandedSettlementModifiers"].includes(key))
+      .map(([key, value]) => ({
+        name: key,
+        value,
+        label: pf1ks.config.optionalRules[key],
+        compendiumEntry: pf1ks.config.compendiumEntries[key],
+      }));
   }
 
   _onGovernmentToggle(event) {
