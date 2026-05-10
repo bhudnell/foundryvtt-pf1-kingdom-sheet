@@ -59,13 +59,13 @@ export const buffTargets = {
   [`${changePrefix}_magic_item_availability`]: {
     category: `${changePrefix}_magic_items`,
     label: "PF1KS.MagicItem.Availability",
-    filters: { item: { include: [...kingdomItemTypes, ...settlementItemTypes] } },
+    filters: { item: { include: [...settlementItemTypes, ...settlementLiteItemTypes] } },
   },
   ...Object.entries(sharedSettlementAttributes).reduce((acc, [key, label]) => {
     acc[`${changePrefix}_${key}`] = {
       category: `${changePrefix}_settlement_attributes`,
       label,
-      filters: { item: { include: settlementItemTypes } },
+      filters: { item: { include: [...settlementItemTypes, ...settlementLiteItemTypes] } },
     };
     return acc;
   }, {}),
@@ -131,11 +131,11 @@ export const buffTargetCategories = {
   },
   [`${changePrefix}_settlement_attributes`]: {
     label: "PF1KS.SettlementAttributes",
-    filters: { item: { include: settlementItemTypes, ...settlementLiteItemTypes } },
+    filters: { item: { include: [...settlementItemTypes, ...settlementLiteItemTypes] } },
   },
   [`${changePrefix}_magic_items`]: {
     label: "PF1KS.MagicItems",
-    filters: { item: { include: settlementItemTypes, ...settlementLiteItemTypes } },
+    filters: { item: { include: [...settlementItemTypes, ...settlementLiteItemTypes] } },
   },
   [`${changePrefix}_misc`]: {
     label: "PF1.Misc",
