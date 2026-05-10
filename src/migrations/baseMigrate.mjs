@@ -21,7 +21,11 @@ export class BaseMigrate {
   }
 
   static async migrateActor(actor) {
-    if (![pf1ks.config.kingdomId, pf1ks.config.settlementId, pf1ks.config.armyId].includes(actor.type)) {
+    if (
+      ![pf1ks.config.kingdomId, pf1ks.config.settlementId, pf1ks.config.settlementLiteId, pf1ks.config.armyId].includes(
+        actor.type
+      )
+    ) {
       return;
     }
 
