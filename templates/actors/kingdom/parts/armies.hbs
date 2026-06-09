@@ -35,7 +35,9 @@
       <span class="item-detail item-number">{{ system.speed.total }}</span>
       <span class="item-detail item-number">{{ system.morale.total }}</span>
       <span class="item-detail item-number">{{ system.consumption.total }}</span>
-      <span class="item-detail item-commander">{{ system.commander.name }}</span>
+      <span class="item-detail item-commander">
+        <span class="commander-name">{{ system.commander.name }}</span>
+      </span>
       <div class="flexrow item-detail item-controls two-button">
         <a class="item-control army-edit" data-tooltip="PF1KS.EditArmy">
           <i class="fa-solid fa-pen-to-square"></i>

@@ -173,6 +173,14 @@
   }
 
   .tab.commander {
+    .commander-picker {
+      min-width: 0;
+
+      > select {
+        width: 100%;
+      }
+    }
+
     .header {
       flex: 0;
       display: flex;

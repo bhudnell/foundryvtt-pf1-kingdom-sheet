@@ -127,7 +127,11 @@ export class KingdomSheet extends pf1.applications.actor.ActorSheetPF {
 
     const leadershipOptions = { "": "" };
     game.actors
-      .filter((actor) => actor.permission > 0 && (actor.type === "character" || actor.type === "npc"))
+      .filter(
+        (actor) =>
+          actor.permission > CONST.DOCUMENT_OWNERSHIP_LEVELS.NONE &&
+          (actor.type === "character" || actor.type === "npc")
+      )
       .forEach((actor) => (leadershipOptions[actor.id] = actor.name));
     data.validLeadershipOptions = leadershipOptions;
 

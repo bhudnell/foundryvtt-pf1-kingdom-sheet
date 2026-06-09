@@ -24,6 +24,7 @@
     > select {
       border-style: none;
       padding: 0;
+      width: 100%;
     }
 
     &.item-number {
@@ -46,7 +47,13 @@
     }
 
     &.item-commander {
-      flex: 0 0 160px;
+      flex: 0.75;
+
+      .commander-name {
+        overflow: hidden;
+        text-overflow: ellipsis;
+        padding: 0 4px;
+      }
     }
 
     /* leadership stuff */
@@ -56,6 +63,7 @@
 
     &.item-actor {
       flex: 1;
+      min-width: 0;
     }
 
     &.item-leader-skill-bonus {

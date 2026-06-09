@@ -49,7 +49,11 @@ export class ArmySheet extends pf1.applications.actor.ActorSheetPF {
 
     // commander
     data.commanderOptions = game.actors
-      .filter((actor) => actor.permission > 0 && (actor.type === "character" || actor.type === "npc"))
+      .filter(
+        (actor) =>
+          actor.permission > CONST.DOCUMENT_OWNERSHIP_LEVELS.NONE &&
+          (actor.type === "character" || actor.type === "npc")
+      )
       .reduce((acc, actor) => {
         acc[actor.id] = actor.name;
         return acc;
