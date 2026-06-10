@@ -92,7 +92,7 @@ export function defineLeader(role, bonusType, skillBonusType) {
 
       let ranks = 0;
 
-      const { soldier, sol, merchant, mer } = this.actor.system.skills.pro.subSkills;
+      const { soldier, sol, merchant, mer } = this.actor.system.skills.pro.subSkills ?? {};
 
       switch (this.role) {
         case "ruler":
