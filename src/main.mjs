@@ -9,6 +9,7 @@ import { FeatureSheet } from "./applications/items/featureSheet.mjs";
 import { ImprovementSheet } from "./applications/items/improvementSheet.mjs";
 import { SpecialSheet } from "./applications/items/specialSheet.mjs";
 import { TacticSheet } from "./applications/items/tacticSheet.mjs";
+import { KingdomLayer } from "./canvas/kingdomLayer.mjs";
 import * as Config from "./config/_module.mjs";
 import { BoonBrowser } from "./config/compendiumBrowser/boonBrowser.mjs";
 import { BuildingBrowser } from "./config/compendiumBrowser/buildingBrowser.mjs";
@@ -199,6 +200,7 @@ Hooks.once("pf1PostInit", () => {
     value: {},
     enumerable: false,
     writable: false,
+    configurable: false,
   });
 
   CONFIG.Actor.documentClasses[PF1KS.kingdomId] = KingdomActor;
@@ -338,6 +340,34 @@ Hooks.once("pf1PostInit", () => {
       },
     }))
   );
+
+  CONFIG.Canvas.layers.kingdom = {
+    layerClass: KingdomLayer,
+    group: "interface",
+  };
+
+  game.settings.register(PF1KS.moduleId, PF1KS.viewInOtherLayersSetting, {
+    scope: "user",
+    config: false,
+    type: new foundry.data.fields.BooleanField({ initial: false }),
+    onChange: (active) => {
+      // Rerender scene controls button
+      if (!ui.controls) {
+        return;
+      }
+      const tools = ui.controls.controls.kingdom.tools;
+      if (!tools.viewInOtherLayers) {
+        return;
+      }
+      if (tools.viewInOtherLayers.active === active) {
+        return;
+      }
+      tools.viewInOtherLayers.active = active;
+      ui.controls.render();
+      // redraw kingdom layer
+      canvas.kingdom?.draw();
+    },
+  });
 });
 
 Hooks.once("pf1PostSetup", async () => {
@@ -418,6 +448,49 @@ Hooks.once("pf1PostReady", () => {
   game.model.Item[PF1KS.featureId] = {};
   game.model.Item[PF1KS.tacticId] = {};
   game.model.Item[PF1KS.specialId] = {};
+
+  // canvas hex tooltip
+  const tooltip = document.createElement("div");
+
+  tooltip.id = "kingmaker-tooltip";
+
+  tooltip.style.position = "fixed";
+  tooltip.style.pointerEvents = "none";
+  tooltip.style.display = "none";
+
+  tooltip.style.background = "rgba(0,0,0,0.9)";
+  tooltip.style.border = "1px solid #999";
+  tooltip.style.borderRadius = "6px";
+
+  tooltip.style.padding = "8px";
+
+  tooltip.style.color = "white";
+
+  tooltip.style.zIndex = "10000";
+
+  document.body.appendChild(tooltip);
+
+  Object.defineProperties(pf1ks, {
+    tooltip: {
+      value: tooltip,
+      writable: false,
+      configurable: false,
+      enumerable: false,
+    },
+    mouse: {
+      value: null,
+      writable: true,
+      configurable: false,
+      enumerable: false,
+    },
+  });
+
+  document.addEventListener("mousemove", (event) => {
+    pf1ks.mouse = {
+      x: event.clientX,
+      y: event.clientY,
+    };
+  });
 });
 
 Hooks.once("i18nInit", () => {
@@ -477,6 +550,8 @@ Hooks.once("i18nInit", () => {
     "improvementSubTypes",
     "featureSubTypes",
     "itemSubTypes",
+    "terrainImprovements",
+    "specialTerrain",
   ];
 
   for (let o of toLocalize) {

@@ -20,6 +20,8 @@ export default [
         foundry: "readonly",
         ui: "readonly",
         game: "readonly",
+        canvas: "readonly",
+        PIXI: "readonly",
         CONFIG: "readonly",
         CONST: "readonly",
         Collection: "readonly",

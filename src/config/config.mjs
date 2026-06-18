@@ -825,22 +825,10 @@ export const magicItemTypes = {
   major: "PF1KS.MagicItem.Major",
 };
 
-export const terrainTypes = {
-  cavern: "PF1KS.Terrain.Cavern",
-  coast: "PF1KS.Terrain.Coast",
-  desert: "PF1KS.Terrain.Desert",
-  forest: "PF1KS.Terrain.Forest",
-  hills: "PF1KS.Terrain.Hills",
-  jungle: "PF1KS.Terrain.Jungle",
-  marsh: "PF1KS.Terrain.Marsh",
-  mountains: "PF1KS.Terrain.Mountains",
-  plains: "PF1KS.Terrain.Plains",
-  water: "PF1KS.Terrain.Water",
-};
-
 export const settings = {
   secondRuler: "PF1KS.Settings.SecondRuler",
   collapseTooltips: "PF1KS.Settings.CollapseTooltips",
+  color: "PF1KS.Settings.Color",
 };
 
 export const optionalRules = {
@@ -1106,4 +1094,45 @@ export const itemSubTypes = {
   ...eventSubTypes,
   ...improvementSubTypes,
   ...featureSubTypes,
+};
+
+export const viewInOtherLayersSetting = "viewInOtherLayers";
+
+export const terrainTypes = {
+  cavern: "PF1KS.Terrain.Cavern",
+  coast: "PF1KS.Terrain.Coast",
+  desert: "PF1KS.Terrain.Desert",
+  forest: "PF1KS.Terrain.Forest",
+  hills: "PF1KS.Terrain.Hills",
+  jungle: "PF1KS.Terrain.Jungle",
+  marsh: "PF1KS.Terrain.Marsh",
+  mountains: "PF1KS.Terrain.Mountains",
+  plains: "PF1KS.Terrain.Plains",
+  water: "PF1KS.Terrain.Water",
+};
+
+export const terrainImprovements = {
+  aqueduct: "PF1KS.Improvement.Aqueduct",
+  bridge: "PF1KS.Improvement.Bridge",
+  canal: "PF1KS.Improvement.Canal",
+  farm: "PF1KS.Improvement.Farm",
+  fishery: "PF1KS.Improvement.Fishery",
+  fort: "PF1KS.Improvement.Fort",
+  highway: "PF1KS.Improvement.Highway",
+  mine: "PF1KS.Improvement.Mine",
+  quarry: "PF1KS.Improvement.Quarry",
+  road: "PF1KS.Improvement.Road",
+  sawmill: "PF1KS.Improvement.Sawmill",
+  watchtower: "PF1KS.Improvement.Watchtower",
+};
+
+export const specialTerrain = {
+  bridge: "PF1KS.Improvement.Bridge",
+  building: "PF1KS.Improvement.Building",
+  freeCity: "PF1KS.Improvement.FreeCity",
+  lair: "PF1KS.Improvement.Lair",
+  landmark: "PF1KS.Improvement.Landmark",
+  resource: "PF1KS.Improvement.Resource",
+  river: "PF1KS.Improvement.River",
+  ruin: "PF1KS.Improvement.Ruin",
 };

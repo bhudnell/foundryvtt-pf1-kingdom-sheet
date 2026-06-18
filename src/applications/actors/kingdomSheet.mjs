@@ -153,9 +153,13 @@ export class KingdomSheet extends pf1.applications.actor.ActorSheetPF {
     // armies
     data.armies = this._prepareArmies();
 
-    // optional rules
+    // settings
     data.settings = this._prepareSettings();
     data.optionalRules = this._prepareOptionalRules();
+    data.hexColor = {
+      label: pf1ks.config.settings.color,
+      value: actorData.settings.color,
+    };
 
     // notifications
     if (actorData.unrest > 10 && actorData.unrest < 20) {
