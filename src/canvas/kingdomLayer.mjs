@@ -1,3 +1,5 @@
+import { validateImprovement } from "../util/utils.mjs";
+
 import { HexRenderer } from "./hexRenderer.mjs";
 import { HexStore } from "./hexStore.mjs";
 
@@ -158,6 +160,24 @@ export class KingdomLayer extends foundry.canvas.layers.InteractionLayer {
     tooltip.style.top = `${screenY - rect.height - 12}px`;
   }
 
+  _prepareTerrainImprovements(hex) {
+    const kingdom = game.actors.get(hex.kingdomId);
+
+    return Object.keys(pf1ks.config.terrainImprovements).map((id) => {
+      const improvement = pf1ks.config.terrainImprovements[id];
+
+      const result = validateImprovement(improvement, { hex, kingdom });
+
+      return {
+        id,
+        label: improvement.name,
+        checked: hex.improvements.includes(id),
+        disabled: !result.valid,
+        errors: result.failures,
+      };
+    });
+  }
+
   async _onClickLeft(event) {
     if (game.activeTool !== "editHexes") {
       return;
@@ -178,8 +198,11 @@ export class KingdomLayer extends foundry.canvas.layers.InteractionLayer {
       hex,
       kingdomOptions,
       terrainOptions: pf1ks.config.terrainTypes,
-      improvementOptions: pf1ks.config.terrainImprovements,
-      specialTerrainOptions: pf1ks.config.specialTerrain,
+      improvementOptions: this._prepareTerrainImprovements(hex),
+      specialTerrainOptions: Object.entries(pf1ks.config.specialTerrain).reduce((acc, [key, obj]) => {
+        acc[key] = obj.name;
+        return acc;
+      }, {}),
     };
 
     const content = await renderTemplate(

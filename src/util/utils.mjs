@@ -221,3 +221,176 @@ export function registerSetting(
 export function log(msg) {
   console.log(`${pf1ks.config.moduleId} - ${msg}`);
 }
+
+export function validateImprovement(improvement, context) {
+  const failures = [];
+
+  for (const requirement of improvement.requirements ?? []) {
+    const result = validateRequirement(requirement, context);
+
+    if (!result.valid) {
+      failures.push(...result.failures);
+    }
+  }
+
+  return {
+    valid: failures.length === 0,
+    failures,
+  };
+}
+
+function validateRequirement(requirement, context) {
+  switch (requirement.type) {
+    case "terrain":
+      return {
+        valid: requirement.allowed.includes(context.hex.terrain),
+        failures: requirement.allowed.includes(context.hex.terrain) ? [] : ["Invalid terrain"],
+      };
+
+    case "feature":
+      return {
+        valid: context.hex.features?.includes(requirement.feature),
+        failures: context.hex.features?.includes(requirement.feature) ? [] : [`Requires ${requirement.feature}`],
+      };
+
+    case "improvement":
+      return {
+        valid: context.hex.improvements?.includes(requirement.improvement),
+        failures: context.hex.improvements?.includes(requirement.improvement)
+          ? []
+          : [`Requires ${requirement.improvement}`],
+      };
+
+    case "kingdomSize":
+      return {
+        valid: (context.kingdom?.system.size ?? 0) >= requirement.min,
+        failures:
+          (context.kingdom?.system.size ?? 0) >= requirement.min ? [] : [`Kingdom size must be ${requirement.min}+`],
+      };
+
+    case "exclusiveGroup": {
+      const group = pf1ks.config.improvementGroups[requirement.group] ?? [];
+
+      const conflict = context.hex.improvements?.find((i) => group.includes(i));
+
+      return {
+        valid: !conflict,
+        failures: conflict ? [`Cannot coexist with ${conflict}`] : [],
+      };
+    }
+
+    case "ifTerrain": {
+      if (!requirement.terrain.includes(context.hex.terrain)) {
+        return {
+          valid: true,
+          failures: [],
+        };
+      }
+
+      return validateRequirement(requirement.then, context);
+    }
+
+    case "not": {
+      const result = validateRequirement(requirement.requirement, context);
+
+      return {
+        valid: !result.valid,
+        failures: !result.valid ? [] : ["Placement requirement not met"],
+      };
+    }
+
+    case "allOf": {
+      const failures = [];
+
+      for (const req of requirement.requirements) {
+        const result = validateRequirement(req, context);
+        failures.push(...result.failures);
+      }
+
+      return {
+        valid: failures.length === 0,
+        failures,
+      };
+    }
+
+    case "oneOf": {
+      const results = requirement.requirements.map((req) => validateRequirement(req, context));
+
+      const valid = results.some((r) => r.valid);
+
+      if (valid) {
+        return {
+          valid: true,
+          failures: [],
+        };
+      }
+
+      return {
+        valid: false,
+        failures: results.flatMap((r) => r.failures),
+      };
+    }
+
+    case "networkSourceTerrain":
+      // TODO Placeholder for aqueduct path validation.
+      return {
+        valid: true,
+        failures: [],
+      };
+
+    default:
+      console.warn(`Unknown requirement type: ${requirement.type}`);
+
+      return {
+        valid: false,
+        failures: ["Unknown requirement"],
+      };
+  }
+}
+
+export function applySpecialTerrainEffects(hex, context) {
+  const results = [];
+
+  for (const feature of hex.features ?? []) {
+    const terrain = pf1ks.config.specialTerrain[feature];
+    if (!terrain?.interactions) {
+      continue;
+    }
+
+    for (const interaction of terrain.interactions) {
+      switch (interaction.type) {
+        case "improvementMap": {
+          const map = interaction.map;
+
+          for (const imp of hex.improvements ?? []) {
+            const effects = map[imp];
+            if (effects) {
+              results.push(...effects);
+            }
+          }
+          break;
+        }
+
+        case "affectsImprovements": {
+          const set = new Set(interaction.improvements);
+
+          if ((hex.improvements ?? []).some((i) => set.has(i))) {
+            results.push(...interaction.apply);
+          }
+          break;
+        }
+
+        case "requiresImprovementPresence": {
+          const set = new Set(interaction.improvements);
+
+          if ((hex.improvements ?? []).some((i) => set.has(i))) {
+            results.push(...interaction.apply);
+          }
+          break;
+        }
+      }
+    }
+  }
+
+  return results;
+}

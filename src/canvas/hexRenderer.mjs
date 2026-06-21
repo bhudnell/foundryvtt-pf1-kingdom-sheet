@@ -21,11 +21,10 @@ export class HexRenderer {
 
     const kingdom = game.actors.get(hex.kingdomId);
 
-    const fillColor = kingdom?.system.settings.color ?? 0x00ff00;
-
-    g.beginFill(fillColor, 0.25);
-
-    g.lineStyle(1, 0x000000, 0.3);
+    if (kingdom) {
+      const fillColor = kingdom.system.settings.color ?? 0x00ff00;
+      g.beginFill(fillColor, 0.25);
+    }
 
     g.moveTo(polygon[0].x, polygon[0].y);
 

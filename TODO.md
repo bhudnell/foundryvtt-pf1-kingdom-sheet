@@ -24,3 +24,47 @@
   - optional list to limit to certain building types
   - must be able to handle lotless and lotted buildings
 - follows building limits (ie must be next to X, cannot be next to Y, limit Z per settlement/district)
+
+## Hex map
+- remove all improvement item things
+  - compendium
+  - kingdom logic
+  - rules
+  - will need to leave the item type/changes/context notes around so the migration can run
+    remove item type in a later version
+
+- new terrain logic for kingdom sheet
+  - for all scenes, get the hexes flag and create changes based on that
+  - I think we can keep the same UI, it'll just be read only and be populated from hex data
+
+- better edit dialog -> turn into a sheet like system ChangeEditor
+- better tooltip
+- make hex editing a setting
+- create a log of the number of each terrain type and all improvements
+- migration
+- localize all strings
+
+## for terrain changes
+- get improvement changes
+  - function applyBaseMechanics(improvementId, context) {
+  const improvement = terrainImprovements[improvementId];
+
+  return improvement.mechanics?.changes ?? [];
+}
+- get terrain changes
+  - applySpecialTerrainEffects()
+- merge all together
+  - export function computeHexEffects(hex, context) {
+  const results = [];
+
+  // 1. base improvement effects
+  for (const imp of hex.improvements ?? []) {
+    results.push(...applyBaseMechanics(imp, context));
+  }
+
+  // 2. terrain-based modifiers
+  results.push(...applyTerrainInteractions(hex, context));
+
+  return results;
+}
+- merge all changes of same target together when collapseTooltips is checked

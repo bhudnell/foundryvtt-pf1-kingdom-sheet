@@ -550,8 +550,6 @@ Hooks.once("i18nInit", () => {
     "improvementSubTypes",
     "featureSubTypes",
     "itemSubTypes",
-    "terrainImprovements",
-    "specialTerrain",
   ];
 
   for (let o of toLocalize) {
@@ -560,6 +558,8 @@ Hooks.once("i18nInit", () => {
 
   doLocalizeKeys(pf1ks.config.armyConditions, ["name"]);
   doLocalizeKeys(pf1ks.config.buildingTypes, ["name"]);
+  doLocalizeKeys(pf1ks.config.terrainImprovements, ["name"]);
+  doLocalizeKeys(pf1ks.config.specialTerrain, ["name"]);
 });
 
 Hooks.on("deleteActor", async (actor, options, userId) => {
