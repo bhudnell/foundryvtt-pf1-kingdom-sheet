@@ -297,6 +297,12 @@ export class KingdomActor extends BaseActor {
         }
       }
     }
+
+    // armies
+    const armyConsumption = this.system.armies.reduce((acc, proxy) => acc + proxy.actor.system.consumption.total, 0);
+    if (armyConsumption) {
+      changes.push(new DefaultChange(armyConsumption, `${pf1ks.config.changePrefix}_consumption`, "PF1KS.Armies"));
+    }
   }
 
   getSourceDetails(path) {
