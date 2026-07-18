@@ -1,4 +1,4 @@
-import { validateImprovement } from "../util/utils.mjs";
+import { HexEditor } from "../applications/hex-editor.mjs";
 
 import { HexRenderer } from "./hexRenderer.mjs";
 import { HexStore } from "./hexStore.mjs";
@@ -160,24 +160,6 @@ export class KingdomLayer extends foundry.canvas.layers.InteractionLayer {
     tooltip.style.top = `${screenY - rect.height - 12}px`;
   }
 
-  _prepareTerrainImprovements(hex) {
-    const kingdom = game.actors.get(hex.kingdomId);
-
-    return Object.keys(pf1ks.config.terrainImprovements).map((id) => {
-      const improvement = pf1ks.config.terrainImprovements[id];
-
-      const result = validateImprovement(improvement, { hex, kingdom });
-
-      return {
-        id,
-        label: improvement.name,
-        checked: hex.improvements.includes(id),
-        disabled: !result.valid,
-        errors: result.failures,
-      };
-    });
-  }
-
   async _onClickLeft(event) {
     if (game.activeTool !== "editHexes") {
       return;
@@ -187,57 +169,9 @@ export class KingdomLayer extends foundry.canvas.layers.InteractionLayer {
     const coords = canvas.grid.getOffset(pos);
     const hex = HexStore.get(coords.i, coords.j);
 
-    const kingdomOptions = { "": "" };
-    game.actors
-      .filter(
-        (actor) => actor.permission > CONST.DOCUMENT_OWNERSHIP_LEVELS.NONE && actor.type === pf1ks.config.kingdomId
-      )
-      .forEach((actor) => (kingdomOptions[actor.id] = actor.name));
-
-    const templateData = {
-      hex,
-      kingdomOptions,
-      terrainOptions: pf1ks.config.terrainTypes,
-      improvementOptions: this._prepareTerrainImprovements(hex),
-      specialTerrainOptions: Object.entries(pf1ks.config.specialTerrain).reduce((acc, [key, obj]) => {
-        acc[key] = obj.name;
-        return acc;
-      }, {}),
-    };
-
-    const content = await renderTemplate(
-      `modules/${pf1ks.config.moduleId}/templates/canvas/hex-edit.hbs`,
-      templateData
-    );
-
-    new foundry.applications.api.DialogV2({
-      window: { title: `Hex ${coords.i},${coords.j}` },
-      content,
-      buttons: [
-        {
-          action: "save",
-          label: "Save",
-          default: true,
-          callback: (event, button, dialog) => button.form.elements,
-        },
-
-        {
-          action: "delete",
-          label: "Reset",
-        },
-      ],
-      submit: async (result) => {
-        if (result === "delete") {
-          await HexStore.delete(coords.i, coords.j);
-        } else {
-          hex.terrain = result.terrain.value;
-          hex.kingdomId = result.kingdomId.value || null;
-          hex.improvements = []; // TODO
-          hex.specialTerrain = []; // TODO
-          await HexStore.set(coords.i, coords.j, hex);
-        }
-      },
-    }).render({ force: true });
+    if (hex) {
+      HexEditor.wait({ hex, scene: canvas.scene });
+    }
   }
 
   static prepareSceneControls() {
@@ -254,20 +188,20 @@ export class KingdomLayer extends foundry.canvas.layers.InteractionLayer {
         viewHexes: {
           name: "viewHexes",
           order: 1,
-          title: "View Hexes",
+          title: "PF1KS.ViewHexes",
           icon: "fa-solid fa-eye",
         },
         editHexes: {
           name: "editHexes",
           order: 2,
-          title: "Edit Hexes",
+          title: "PF1KS.EditHexes",
           icon: "fa-solid fa-draw-polygon",
           visible: game.user.isGM, // TODO maybe this is a setting?
         },
         viewInOtherLayers: {
           name: "viewInOtherLayers",
           order: 3,
-          title: "Show in Other Layers",
+          title: "PF1KS.ShowInOtherLayers",
           icon: "fa-solid fa-layer-group",
           toggle: true,
           active: game.settings.get(pf1ks.config.moduleId, pf1ks.config.viewInOtherLayersSetting),

@@ -1,5 +1,6 @@
 {
   "PF1KS": {
+    "Kingdom": "Kingdom",
     "Turn": "Turn",
     "Population": "Population",
     "Treasury": "Treasury",
@@ -297,12 +298,48 @@
     },
 
     "Improvements": "Terrain Improvements",
+    "SpecialTerrain": "Special Terrain",
     "Improvement": {
       "SubTypes": {
         "General": "General",
         "Special": "Special"
+      },
+
+      "Aqueduct": "Aqueduct",
+      "Bridge": "Bridge",
+      "Canal": "Canal",
+      "Farm": "Farm",
+      "Fishery": "Fishery",
+      "Fort": "Fort",
+      "Highway": "Highway",
+      "Mine": "Mine",
+      "Quarry": "Quarry",
+      "Road": "Road",
+      "Sawmill": "Sawmill",
+      "Watchtower": "Watchtower",
+
+      "Building": "Building",
+      "FreeCity": "Free City",
+      "Lair": "Lair",
+      "Landmark": "Landmark",
+      "Resource": "Resource",
+      "River": "River",
+      "Ruin": "Ruin",
+
+      "Error": {
+        "InvalidTerrain": "Invalid Terrain",
+        "Requires": "Requires {requirement}",
+        "KingdomSize": "Kingdom size must be {min}+",
+        "Conflict": "Cannot coexist with {conflict}",
+        "Not": "Placement requirement not met",
+        "UnknownRequirement": "Unknown requirement"
       }
     },
+
+    "ViewHexes": "View Hexes",
+    "EditHexes": "Edit Hexes",
+    "ShowInOtherLayers": "Show in Other Layers",
+    "UpdateHex": "Update Hex",
 
     "Events": "Events",
     "EventLabel": "Event",
@@ -426,6 +463,12 @@
       "Boon": "Boon",
       "Special": "Special Ability",
       "Tactic": "Tactic"
+    },
+
+    "Application": {
+      "HexEditor": {
+        "Label": "Hex Editor"
+      }
     },
 
     "NoModuleItemsOnActor": "This actor cannot have Kingdom, Settlement, or Army items.",

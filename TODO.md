@@ -27,9 +27,8 @@
 
 ## Hex map
 - remove all improvement item things
-  - compendium
+  - compendium -> turn into rules since items are going bye bye
   - kingdom logic
-  - rules
   - will need to leave the item type/changes/context notes around so the migration can run
     remove item type in a later version
 
@@ -37,14 +36,15 @@
   - for all scenes, get the hexes flag and create changes based on that
   - I think we can keep the same UI, it'll just be read only and be populated from hex data
 
-- better edit dialog -> turn into a sheet like system ChangeEditor
 - better tooltip
 - make hex editing a setting
+- each terrain type should have a color associated with it to color the hex. Hex border should be kingdom's color
+- highlight all hexes in kingdom when hovering over?
 - create a log of the number of each terrain type and all improvements
 - migration
 - localize all strings
 
-## for terrain changes
+## for kingdom improvement changes
 - get improvement changes
   - function applyBaseMechanics(improvementId, context) {
   const improvement = terrainImprovements[improvementId];

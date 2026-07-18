@@ -226,7 +226,7 @@ export function validateImprovement(improvement, context) {
   const failures = [];
 
   for (const requirement of improvement.requirements ?? []) {
-    const result = validateRequirement(requirement, context);
+    const result = validateRequirement(requirement, { ...context, improvementId: improvement.id });
 
     if (!result.valid) {
       failures.push(...result.failures);
@@ -243,44 +243,50 @@ function validateRequirement(requirement, context) {
   switch (requirement.type) {
     case "terrain":
       return {
-        valid: requirement.allowed.includes(context.hex.terrain),
-        failures: requirement.allowed.includes(context.hex.terrain) ? [] : ["Invalid terrain"],
+        valid: requirement.allowed.includes(context.terrain),
+        failures: requirement.allowed.includes(context.terrain)
+          ? []
+          : [game.i18n.localize("PF1KS.Improvement.Error.InvalidTerrain")],
       };
 
     case "feature":
       return {
-        valid: context.hex.features?.includes(requirement.feature),
-        failures: context.hex.features?.includes(requirement.feature) ? [] : [`Requires ${requirement.feature}`],
+        valid: context.features?.includes(requirement.feature),
+        failures: context.features?.includes(requirement.feature)
+          ? []
+          : [game.i18n.format("PF1KS.Improvement.Error.Requires", { requirement: requirement.feature })],
       };
 
     case "improvement":
       return {
-        valid: context.hex.improvements?.includes(requirement.improvement),
-        failures: context.hex.improvements?.includes(requirement.improvement)
+        valid: context.improvements?.includes(requirement.improvement),
+        failures: context.improvements?.includes(requirement.improvement)
           ? []
-          : [`Requires ${requirement.improvement}`],
+          : [game.i18n.format("PF1KS.Improvement.Error.Requires", { requirement: requirement.improvement })],
       };
 
     case "kingdomSize":
       return {
         valid: (context.kingdom?.system.size ?? 0) >= requirement.min,
         failures:
-          (context.kingdom?.system.size ?? 0) >= requirement.min ? [] : [`Kingdom size must be ${requirement.min}+`],
+          (context.kingdom?.system.size ?? 0) >= requirement.min
+            ? []
+            : [game.i18n.format("PF1KS.Improvement.Error.KingdomSize", { min: requirement.min })],
       };
 
     case "exclusiveGroup": {
       const group = pf1ks.config.improvementGroups[requirement.group] ?? [];
 
-      const conflict = context.hex.improvements?.find((i) => group.includes(i));
+      const conflict = context.improvements?.find((i) => i !== context.improvementId && group.includes(i));
 
       return {
         valid: !conflict,
-        failures: conflict ? [`Cannot coexist with ${conflict}`] : [],
+        failures: conflict ? [game.i18n.format("PF1KS.Improvement.Error.Conflict", { conflict })] : [],
       };
     }
 
     case "ifTerrain": {
-      if (!requirement.terrain.includes(context.hex.terrain)) {
+      if (!requirement.terrain.includes(context.terrain)) {
         return {
           valid: true,
           failures: [],
@@ -295,7 +301,7 @@ function validateRequirement(requirement, context) {
 
       return {
         valid: !result.valid,
-        failures: !result.valid ? [] : ["Placement requirement not met"],
+        failures: !result.valid ? [] : [game.i18n.localize("PF1KS.Improvement.Error.Not")],
       };
     }
 
@@ -343,7 +349,7 @@ function validateRequirement(requirement, context) {
 
       return {
         valid: false,
-        failures: ["Unknown requirement"],
+        failures: [game.i18n.localize("PF1KS.Improvement.Error.UnknownRequirement")],
       };
   }
 }

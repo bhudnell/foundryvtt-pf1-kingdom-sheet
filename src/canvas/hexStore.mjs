@@ -11,7 +11,7 @@ export class HexStore {
       terrain: "plains",
       kingdomId: null,
       improvements: [],
-      specialTerrain: [],
+      specialTerrain: [], // TODO hex status (unexplored, explored, cleared, claimed)
     };
   }
 

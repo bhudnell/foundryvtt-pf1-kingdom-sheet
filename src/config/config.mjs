@@ -1126,6 +1126,7 @@ const NOT_WATER = {
 
 export const terrainImprovements = {
   aqueduct: {
+    id: "aqueduct",
     name: "PF1KS.Improvement.Aqueduct",
     requirements: [
       {
@@ -1150,6 +1151,7 @@ export const terrainImprovements = {
   },
 
   bridge: {
+    id: "bridge",
     name: "PF1KS.Improvement.Bridge",
     requirements: [
       {
@@ -1167,6 +1169,7 @@ export const terrainImprovements = {
   },
 
   canal: {
+    id: "canal",
     name: "PF1KS.Improvement.Canal",
     requirements: [
       {
@@ -1177,6 +1180,7 @@ export const terrainImprovements = {
   },
 
   farm: {
+    id: "farm",
     name: "PF1KS.Improvement.Farm",
     requirements: [
       {
@@ -1208,6 +1212,7 @@ export const terrainImprovements = {
   },
 
   fishery: {
+    id: "fishery",
     name: "PF1KS.Improvement.Fishery",
     requirements: [
       {
@@ -1215,6 +1220,7 @@ export const terrainImprovements = {
         requirements: [
           { type: "terrain", allowed: ["coast", "water", "marsh"] },
           { type: "feature", feature: "river" },
+          { type: "improvement", improvement: "canal" },
         ],
       },
     ],
@@ -1230,6 +1236,7 @@ export const terrainImprovements = {
   },
 
   fort: {
+    id: "fort",
     name: "PF1KS.Improvement.Fort",
     requirements: [
       NOT_WATER,
@@ -1265,6 +1272,7 @@ export const terrainImprovements = {
   },
 
   highway: {
+    id: "highway",
     name: "PF1KS.Improvement.Highway",
     requirements: [
       NOT_WATER,
@@ -1294,6 +1302,7 @@ export const terrainImprovements = {
   },
 
   mine: {
+    id: "mine",
     name: "PF1KS.Improvement.Mine",
     requirements: [
       {
@@ -1322,6 +1331,7 @@ export const terrainImprovements = {
   },
 
   quarry: {
+    id: "quarry",
     name: "PF1KS.Improvement.Quarry",
     requirements: [
       {
@@ -1350,6 +1360,7 @@ export const terrainImprovements = {
   },
 
   road: {
+    id: "road",
     name: "PF1KS.Improvement.Road",
     requirements: [NOT_WATER],
     mechanics: {
@@ -1369,6 +1380,7 @@ export const terrainImprovements = {
   },
 
   sawmill: {
+    id: "sawmill",
     name: "PF1KS.Improvement.Sawmill",
     requirements: [
       {
@@ -1397,6 +1409,7 @@ export const terrainImprovements = {
   },
 
   watchtower: {
+    id: "watchtower",
     name: "PF1KS.Improvement.Watchtower",
     requirements: [
       NOT_WATER,

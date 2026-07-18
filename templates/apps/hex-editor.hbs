@@ -1,0 +1,57 @@
+<section class="form-body {{ cssClass }}" data-tooltip-class="pf1-v2">
+  <div class="form-group">
+    <label>{{localize "PF1KS.Kingdom"}}</label>
+    <div class="form-fields">
+      <select name="kingdomId">
+        {{selectOptions kingdomOptions selected=hex.kingdomId}}
+      </select>
+    </div>
+  </div>
+
+  <div class="form-group">
+    <label>{{localize "PF1KS.TerrainLabel"}}</label>
+    <div class="form-fields">
+      <select name="terrain">
+        {{selectOptions terrainOptions selected=hex.terrain}}
+      </select>
+    </div>
+  </div>
+
+  <div class="form-group">
+    <label>{{localize "PF1KS.Improvements"}}</label>
+    <div class="form-fields">
+      <ul class="tag-list">
+        {{#each hex.improvements}}
+        <li class="tag">{{ this }}</li>
+        {{/each}}
+      </ul>
+      <a
+        class="button improvement-selector"
+        data-title="PF1KS.ActionSelector"
+        data-options="terrainImprovements"
+        data-for="{{ improvementPath }}"
+      >
+        <i class="fas fa-pen-to-square"></i>
+      </a>
+    </div>
+  </div>
+
+  <div class="form-group">
+    <label>{{localize "PF1KS.SpecialTerrain"}}</label>
+    <div class="form-fields">
+      <ul class="tag-list">
+        {{#each hex.specialTerrain}}
+        <li class="tag">{{ this }}</li>
+        {{/each}}
+      </ul>
+      <a
+        class="button improvement-selector"
+        data-title="PF1KS.ActionSelector"
+        data-options="specialTerrain"
+        data-for="{{ specialTerrainPath }}"
+      >
+        <i class="fas fa-pen-to-square"></i>
+      </a>
+    </div>
+  </div>
+</section>
