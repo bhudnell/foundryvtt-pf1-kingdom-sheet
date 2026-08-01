@@ -40,7 +40,7 @@ export class KingdomSheet extends pf1.applications.actor.ActorSheetPF {
     const data = {
       ...this.actor,
       owner: isOwner,
-      enrichedNotes: await TextEditor.enrichHTML(actorData.notes.value ?? "", {
+      enrichedNotes: await foundry.applications.ux.TextEditor.implementation.enrichHTML(actorData.notes.value ?? "", {
         rolldata: actor.getRollData(),
         async: true,
         secrets: this.object.isOwner,

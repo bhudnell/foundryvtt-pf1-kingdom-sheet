@@ -189,9 +189,11 @@ Hooks.once("libWrapper.Ready", () => {
 
 Hooks.on("pf1GetChangeFlat", getChangeFlat);
 
-Hooks.on("renderChatMessage", (message, html) => {
+Hooks.on("renderChatMessageHTML", (message, html) => {
   if (message.getFlag(PF1KS.moduleId, "eventChanceCard")) {
-    html.find("button.roll-event").on("click", (e) => rollEventTable(e, message));
+    html.querySelectorAll("button.roll-event").forEach((button) => {
+      button.addEventListener("click", (e) => rollEventTable(e, message));
+    });
   }
 });
 
@@ -253,57 +255,57 @@ Hooks.once("pf1PostInit", () => {
   pf1.applications.item.SpecialSheet = SpecialSheet;
   pf1.applications.item.TacticSheet = TacticSheet;
 
-  Actors.registerSheet(PF1KS.moduleId, KingdomSheet, {
+  foundry.documents.collections.Actors.registerSheet(PF1KS.moduleId, KingdomSheet, {
     label: game.i18n.localize("PF1KS.Sheet.Kingdom"),
     types: [PF1KS.kingdomId],
     makeDefault: true,
   });
-  Actors.registerSheet(PF1KS.moduleId, SettlementSheet, {
+  foundry.documents.collections.Actors.registerSheet(PF1KS.moduleId, SettlementSheet, {
     label: game.i18n.localize("PF1KS.Sheet.Settlement"),
     types: [PF1KS.settlementId],
     makeDefault: true,
   });
-  Actors.registerSheet(PF1KS.moduleId, SettlementLiteSheet, {
+  foundry.documents.collections.Actors.registerSheet(PF1KS.moduleId, SettlementLiteSheet, {
     label: game.i18n.localize("PF1KS.Sheet.SettlementLite"),
     types: [PF1KS.settlementLiteId],
     makeDefault: true,
   });
-  Actors.registerSheet(PF1KS.moduleId, ArmySheet, {
+  foundry.documents.collections.Actors.registerSheet(PF1KS.moduleId, ArmySheet, {
     label: game.i18n.localize("PF1KS.Sheet.Army"),
     types: [PF1KS.armyId],
     makeDefault: true,
   });
-  Items.registerSheet(PF1KS.moduleId, BuildingSheet, {
+  foundry.documents.collections.Items.registerSheet(PF1KS.moduleId, BuildingSheet, {
     label: game.i18n.localize("PF1KS.Sheet.Building"),
     types: [PF1KS.buildingId],
     makeDefault: true,
   });
-  Items.registerSheet(PF1KS.moduleId, EventSheet, {
+  foundry.documents.collections.Items.registerSheet(PF1KS.moduleId, EventSheet, {
     label: game.i18n.localize("PF1KS.Sheet.Event"),
     types: [PF1KS.kingdomEventId, PF1KS.settlementEventId],
     makeDefault: true,
   });
-  Items.registerSheet(PF1KS.moduleId, ImprovementSheet, {
+  foundry.documents.collections.Items.registerSheet(PF1KS.moduleId, ImprovementSheet, {
     label: game.i18n.localize("PF1KS.Sheet.Improvement"),
     types: [PF1KS.improvementId],
     makeDefault: true,
   });
-  Items.registerSheet(PF1KS.moduleId, FeatureSheet, {
+  foundry.documents.collections.Items.registerSheet(PF1KS.moduleId, FeatureSheet, {
     label: game.i18n.localize("PF1KS.Sheet.Feature"),
     types: [PF1KS.featureId],
     makeDefault: true,
   });
-  Items.registerSheet(PF1KS.moduleId, BoonSheet, {
+  foundry.documents.collections.Items.registerSheet(PF1KS.moduleId, BoonSheet, {
     label: game.i18n.localize("PF1KS.Sheet.Boon"),
     types: [PF1KS.boonId],
     makeDefault: true,
   });
-  Items.registerSheet(PF1KS.moduleId, SpecialSheet, {
+  foundry.documents.collections.Items.registerSheet(PF1KS.moduleId, SpecialSheet, {
     label: game.i18n.localize("PF1KS.Sheet.Special"),
     types: [PF1KS.specialId],
     makeDefault: true,
   });
-  Items.registerSheet(PF1KS.moduleId, TacticSheet, {
+  foundry.documents.collections.Items.registerSheet(PF1KS.moduleId, TacticSheet, {
     label: game.i18n.localize("PF1KS.Sheet.Tactic"),
     types: [PF1KS.tacticId],
     makeDefault: true,
@@ -388,7 +390,7 @@ Hooks.once("pf1PostReady", () => {
     ui.notifications.error("PF1KS.LibWrapperError");
   }
 
-  loadTemplates({
+  foundry.applications.handlebars.loadTemplates({
     "kingdom-sheet-armies": `modules/${PF1KS.moduleId}/templates/actors/kingdom/parts/armies.hbs`,
     "kingdom-sheet-settings": `modules/${PF1KS.moduleId}/templates/actors/kingdom/parts/settings.hbs`,
     "kingdom-sheet-events": `modules/${PF1KS.moduleId}/templates/actors/kingdom/parts/events.hbs`,
