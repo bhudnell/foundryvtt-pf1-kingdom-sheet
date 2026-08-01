@@ -348,6 +348,27 @@ Hooks.once("pf1PostInit", () => {
     group: "interface",
   };
 
+  Hooks.on("renderSceneConfig", (config, html) => {
+    const isChecked = config.document.getFlag(PF1KS.moduleId, "isKingdomMap");
+    const path = `flags.${PF1KS.moduleId}.isKingdomMap`;
+    const elem = document.createElement("fieldset");
+    elem.innerHTML = `
+      <legend>${game.i18n.localize("PF1KS.ModuleName")}</legend>
+      <div class="form-group">
+        <label for="${config.id}-${path}">${game.i18n.localize("PF1KS.IsKingdomMap")}</label>
+        <div class="form-fields">
+          <input type="checkbox" name="${path}" ${isChecked ? "checked" : ""} id="${config.id}-${path}">
+        </div>
+        <p class="hint">${game.i18n.localize("PF1KS.IsKingdomMapHint")}</p>
+      </div>
+    `;
+
+    const basicsTab = html.querySelector('div[data-tab="basics"]');
+    if (basicsTab) {
+      basicsTab.append(elem);
+    }
+  });
+
   game.settings.register(PF1KS.moduleId, PF1KS.viewInOtherLayersSetting, {
     scope: "user",
     config: false,

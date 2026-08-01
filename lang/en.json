@@ -482,6 +482,10 @@
       }
     },
 
+    "ModuleName": "PF1e Kingdom Sheet",
+    "IsKingdomMap": "Kingdom Map",
+    "IsKingdomMapHint": "When this option is checked, the scene is treated as a kingdom map and displays the kingdom hex layer and related tools.",
+
     "NoModuleItemsOnActor": "This actor cannot have Kingdom, Settlement, or Army items.",
     "OnlyKingdomItemsOnActor": "Kingdom actors can only have Kingdom Event and Terrain Improvement items.",
     "OnlySettlementItemsOnActor": "Settlement actors can only have Building, Settlement Feature, and Settlement Event items.",

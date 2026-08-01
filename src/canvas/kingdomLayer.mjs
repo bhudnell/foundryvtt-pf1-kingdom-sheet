@@ -4,6 +4,10 @@ import { renderCachedTemplate } from "../util/utils.mjs";
 import { HexRenderer } from "./hexRenderer.mjs";
 import { HexStore } from "./hexStore.mjs";
 
+export function isKingdomScene() {
+  return canvas.grid?.isHexagonal && canvas.scene?.getFlag(pf1ks.config.moduleId, "isKingdomMap") === true;
+}
+
 export class KingdomLayer extends foundry.canvas.layers.InteractionLayer {
   static get layerOptions() {
     return foundry.utils.mergeObject(super.layerOptions, {
@@ -26,7 +30,7 @@ export class KingdomLayer extends foundry.canvas.layers.InteractionLayer {
       canvas.app.ticker.add(this._hoverTicker);
     }
 
-    if (!canvas.grid.isHexagonal) {
+    if (!isKingdomScene()) {
       return;
     }
 
@@ -61,7 +65,7 @@ export class KingdomLayer extends foundry.canvas.layers.InteractionLayer {
   }
 
   _updateHover() {
-    if (!this.shouldDraw) {
+    if (!this.shouldDraw || !isKingdomScene()) {
       if (this._hoveredHexKey) {
         this._onPointerOut();
       }
@@ -175,6 +179,10 @@ export class KingdomLayer extends foundry.canvas.layers.InteractionLayer {
   }
 
   static prepareSceneControls() {
+    if (!isKingdomScene()) {
+      return;
+    }
+
     return {
       name: "kingdom",
       title: "Kingdom",
