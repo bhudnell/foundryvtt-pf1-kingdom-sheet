@@ -42,9 +42,7 @@ export class HexEditor extends HandlebarsApplicationMixin(DocumentSheetV2) {
   }
 
   get title() {
-    let title = game.i18n.localize("PF1KS.Application.HexEditor.Label");
-    title += `: ${this.hex.q}, ${this.hex.r}`;
-    return title;
+    return this.hex.name ?? "";
   }
 
   async _prepareContext() {
@@ -61,9 +59,10 @@ export class HexEditor extends HandlebarsApplicationMixin(DocumentSheetV2) {
     return {
       hex: {
         ...hex,
-        improvements: hex.improvements.map((i) => pf1ks.config.terrainImprovements[i].name),
-        specialTerrain: hex.specialTerrain.map((st) => pf1ks.config.specialTerrain[st].name),
+        improvements: hex.improvements?.map((i) => pf1ks.config.terrainImprovements[i].name) ?? [],
+        specialTerrain: hex.specialTerrain?.map((st) => pf1ks.config.specialTerrain[st].name) ?? [],
       },
+      statusOptions: pf1ks.config.hexStatuses, // TODO add logic where kingdom is only available if status is Claimed
       kingdomOptions,
       terrainOptions: pf1ks.config.terrainTypes,
       improvementPath: `flags.${pf1ks.config.moduleId}.hexes.${hex.q},${hex.r}.improvements`,
@@ -102,7 +101,7 @@ export class HexEditor extends HandlebarsApplicationMixin(DocumentSheetV2) {
 
   static _onSubmit(event, form, formData) {
     formData = formData.object;
-    const updateData = foundry.utils.expandObject(formData);
+    const updateData = { ...this.hex, ...foundry.utils.expandObject(formData) };
     if (!updateData.kingdomId) {
       updateData.kingdomId = null;
     }

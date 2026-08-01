@@ -222,6 +222,19 @@ export function log(msg) {
   console.log(`${pf1ks.config.moduleId} - ${msg}`);
 }
 
+export function renderCachedTemplate(path, data = {}) {
+  const template = Handlebars.partials[path];
+  if (!template) {
+    throw new Error(`Template ${path} not found in cache`);
+  }
+
+  return template(data, {
+    allowProtoMethodsByDefault: true,
+    allowProtoPropertiesByDefault: true,
+    preventIndent: true,
+  });
+}
+
 export function validateImprovement(improvement, context) {
   const failures = [];
 

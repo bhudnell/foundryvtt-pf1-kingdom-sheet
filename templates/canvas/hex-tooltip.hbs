@@ -1,0 +1,24 @@
+<h3>{{ name }}</h3>
+
+<div class="body">
+  <span>{{localize "PF1KS.TerrainLabel"}}</span>
+  <span class="value">{{ terrain }}</span>
+
+  <span>{{localize "PF1KS.HexStatusLabel"}}</span>
+  <span class="value">{{ status }}</span>
+
+  {{#if kingdom}}
+  <span>{{localize "PF1KS.Kingdom"}}</span>
+  <span class="value">{{ kingdom }}</span>
+  {{/if}}
+
+  {{#if improvements}}
+  <span>{{localize "PF1KS.Improvements"}}</span>
+  <span class="value">{{ improvements }}</span>
+  {{/if}}
+
+  {{#if specialTerrain}}
+  <span>{{localize "PF1KS.SpecialTerrain"}}</span>
+  <span class="value">{{ specialTerrain }}</span>
+  {{/if}}
+</div>

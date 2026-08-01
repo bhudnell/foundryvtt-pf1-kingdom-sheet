@@ -283,6 +283,16 @@
     },
 
     "TerrainLabel": "Terrain",
+    "DefaultHexName": "Hex {name}",
+
+    "HexStatusLabel": "Status",
+    "HexStatus": {
+      "Unexplored": "Unexplored",
+      "Explored": "Explored",
+      "Cleared": "Cleared",
+      "Claimed": "Claimed"
+    },
+
     "HexTypes": "Hex Types",
     "Terrain": {
       "Cavern": "Cavern",
@@ -416,7 +426,8 @@
       "GovernmentForms": "Forms of Government",
       "LeadershipSkills": "Leadership Skills",
       "SettlementSizes": "Alternative Settlement Size Modifiers",
-      "ExpandedSettlementStats": "Expanded Settlement Statistics"
+      "ExpandedSettlementStats": "Expanded Settlement Statistics",
+      "Color": "Color"
     },
 
     "Continuous": "Continuous",

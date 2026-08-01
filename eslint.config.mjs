@@ -25,6 +25,7 @@ export default [
         CONFIG: "readonly",
         CONST: "readonly",
         Collection: "readonly",
+        Handlebars: "readonly",
         Hooks: "readonly",
         fromUuid: "readonly",
         renderTemplate: "readonly",

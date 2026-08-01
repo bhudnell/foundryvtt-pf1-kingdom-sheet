@@ -1098,6 +1098,13 @@ export const itemSubTypes = {
 
 export const viewInOtherLayersSetting = "viewInOtherLayers";
 
+export const hexStatuses = {
+  unexplored: "PF1KS.HexStatus.Unexplored",
+  explored: "PF1KS.HexStatus.Explored",
+  cleared: "PF1KS.HexStatus.Cleared",
+  claimed: "PF1KS.HexStatus.Claimed",
+};
+
 export const terrainTypes = {
   cavern: "PF1KS.Terrain.Cavern",
   coast: "PF1KS.Terrain.Coast",

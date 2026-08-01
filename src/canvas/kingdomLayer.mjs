@@ -1,4 +1,5 @@
 import { HexEditor } from "../applications/hex-editor.mjs";
+import { renderCachedTemplate } from "../util/utils.mjs";
 
 import { HexRenderer } from "./hexRenderer.mjs";
 import { HexStore } from "./hexStore.mjs";
@@ -55,7 +56,6 @@ export class KingdomLayer extends foundry.canvas.layers.InteractionLayer {
     this.draw();
 
     if (!this.shouldDraw) {
-      pf1ks.tooltip.style.display = "none";
       this._hoveredHexKey = null;
     }
   }
@@ -126,26 +126,10 @@ export class KingdomLayer extends foundry.canvas.layers.InteractionLayer {
   }
 
   _onPointerOut() {
-    pf1ks.tooltip.style.display = "none";
     this._hoveredHexKey = null;
   }
 
   _showTooltip(hex) {
-    const tooltip = pf1ks.tooltip;
-
-    tooltip.innerHTML = `
-      <strong>
-        ${pf1ks.config.terrainTypes[hex.terrain]}
-      </strong>
-
-      <br>
-
-      Kingdom:
-      ${game.actors.get(hex.kingdomId)?.name ?? "Unclaimed"}
-    `;
-
-    tooltip.style.display = "block";
-
     const center = canvas.grid.getCenterPoint({
       i: hex.q,
       j: hex.r,
@@ -155,9 +139,25 @@ export class KingdomLayer extends foundry.canvas.layers.InteractionLayer {
     const screenX = center.x * wt.a + wt.tx;
     const screenY = center.y * wt.d + wt.ty;
 
+    const tooltip = pf1ks.tooltip;
     const rect = tooltip.getBoundingClientRect();
     tooltip.style.left = `${screenX - rect.width / 2}px`;
     tooltip.style.top = `${screenY - rect.height - 12}px`;
+
+    const context = {
+      name: hex.name,
+      terrain: pf1ks.config.terrainTypes[hex.terrain],
+      status: pf1ks.config.hexStatuses[hex.status],
+      kingdom: game.actors.get(hex.kingdomId)?.name,
+      improvements: (hex.improvements ?? []).map((i) => pf1ks.config.terrainImprovements[i].name).join(", "),
+      specialTerrain: (hex.specialTerrain ?? []).map((i) => pf1ks.config.specialTerrain[i].name).join(", "),
+    };
+
+    game.tooltip.activate(tooltip, {
+      html: renderCachedTemplate(`modules/${pf1ks.config.moduleId}/templates/canvas/hex-tooltip.hbs`, context),
+      direction: foundry.helpers.interaction.TooltipManager.implementation.TOOLTIP_DIRECTIONS.UP,
+      cssClass: "pf1ks hex-tooltip",
+    });
   }
 
   async _onClickLeft(event) {

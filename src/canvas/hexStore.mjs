@@ -8,10 +8,12 @@ export class HexStore {
       q,
       r,
 
+      name: game.i18n.format("PF1KS.DefaultHexName", { name: `${q},${r}` }),
+      status: "unexplored",
       terrain: "plains",
       kingdomId: null,
       improvements: [],
-      specialTerrain: [], // TODO hex status (unexplored, explored, cleared, claimed)
+      specialTerrain: [],
     };
   }
 

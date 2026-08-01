@@ -1,4 +1,17 @@
 <section class="form-body {{ cssClass }}" data-tooltip-class="pf1-v2">
+  <h1>
+    <input type="text" name="name" value="{{ hex.name }}" />
+  </h1>
+
+  <div class="form-group">
+    <label>{{localize "PF1KS.HexStatusLabel"}}</label>
+    <div class="form-fields">
+      <select name="status">
+        {{selectOptions statusOptions selected=hex.status}}
+      </select>
+    </div>
+  </div>
+
   <div class="form-group">
     <label>{{localize "PF1KS.Kingdom"}}</label>
     <div class="form-fields">

@@ -368,6 +368,9 @@ Hooks.once("pf1PostInit", () => {
       canvas.kingdom?.draw();
     },
   });
+
+  // load canvas tooltip template
+  foundry.applications.handlebars.loadTemplates([`modules/${pf1ks.config.moduleId}/templates/canvas/hex-tooltip.hbs`]);
 });
 
 Hooks.once("pf1PostSetup", async () => {
@@ -452,21 +455,10 @@ Hooks.once("pf1PostReady", () => {
   // canvas hex tooltip
   const tooltip = document.createElement("div");
 
-  tooltip.id = "kingmaker-tooltip";
-
+  tooltip.id = "pf1ks-hex-tooltip";
   tooltip.style.position = "fixed";
   tooltip.style.pointerEvents = "none";
-  tooltip.style.display = "none";
-
-  tooltip.style.background = "rgba(0,0,0,0.9)";
-  tooltip.style.border = "1px solid #999";
-  tooltip.style.borderRadius = "6px";
-
-  tooltip.style.padding = "8px";
-
-  tooltip.style.color = "white";
-
-  tooltip.style.zIndex = "10000";
+  tooltip.style.visibility = "hidden";
 
   document.body.appendChild(tooltip);
 
@@ -540,6 +532,7 @@ Hooks.once("i18nInit", () => {
     "districtBorders",
     "buildingErrors",
     "magicItemTypes",
+    "hexStatuses",
     "terrainTypes",
     "settings",
     "optionalRules",
