@@ -34,10 +34,9 @@
     remove item type in a later version
 
 - new terrain logic for kingdom sheet
-  - for all scenes, get the hexes flag and create changes based on that
+  - for all scenes, if isKingdomScene, get the hexes flag and create changes based on that
   - I think we can keep the same UI, it'll just be read only and be populated from hex data
 
-- make hex editing a setting
 - each terrain type should have a color associated with it to color the hex. Hex border should be kingdom's color
 - highlight all hexes in kingdom when hovering over?
 - create a log of the number of each terrain type and all improvements

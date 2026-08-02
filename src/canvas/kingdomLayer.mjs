@@ -4,8 +4,13 @@ import { renderCachedTemplate } from "../util/utils.mjs";
 import { HexRenderer } from "./hexRenderer.mjs";
 import { HexStore } from "./hexStore.mjs";
 
-export function isKingdomScene() {
-  return canvas.grid?.isHexagonal && canvas.scene?.getFlag(pf1ks.config.moduleId, "isKingdomMap") === true;
+// TODO move elsewhere?
+export function isKingdomScene(scene) {
+  if (!scene) {
+    return false;
+  }
+
+  return scene.grid.isHexagonal && scene.getFlag(pf1ks.config.moduleId, "isKingdomMap") === true;
 }
 
 export class KingdomLayer extends foundry.canvas.layers.InteractionLayer {
@@ -30,7 +35,7 @@ export class KingdomLayer extends foundry.canvas.layers.InteractionLayer {
       canvas.app.ticker.add(this._hoverTicker);
     }
 
-    if (!isKingdomScene()) {
+    if (!isKingdomScene(canvas.scene)) {
       return;
     }
 
@@ -65,7 +70,7 @@ export class KingdomLayer extends foundry.canvas.layers.InteractionLayer {
   }
 
   _updateHover() {
-    if (!this.shouldDraw || !isKingdomScene()) {
+    if (!this.shouldDraw || !isKingdomScene(canvas.scene)) {
       if (this._hoveredHexKey) {
         this._onPointerOut();
       }
@@ -179,7 +184,7 @@ export class KingdomLayer extends foundry.canvas.layers.InteractionLayer {
   }
 
   static prepareSceneControls() {
-    if (!isKingdomScene()) {
+    if (!isKingdomScene(canvas.scene)) {
       return;
     }
 
@@ -204,7 +209,9 @@ export class KingdomLayer extends foundry.canvas.layers.InteractionLayer {
           order: 2,
           title: "PF1KS.EditHexes",
           icon: "fa-solid fa-draw-polygon",
-          visible: game.user.isGM, // TODO maybe this is a setting?
+          visible:
+            game.user.role >=
+            CONST.USER_ROLES[game.settings.get(pf1ks.config.moduleId, pf1ks.config.hexEditorPermissionSetting)],
         },
         viewInOtherLayers: {
           name: "viewInOtherLayers",

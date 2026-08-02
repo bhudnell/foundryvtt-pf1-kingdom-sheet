@@ -486,6 +486,10 @@
     "IsKingdomMap": "Kingdom Map",
     "IsKingdomMapHint": "When this option is checked, the scene is treated as a kingdom map and displays the kingdom hex layer and related tools.",
 
+    "HexEditorPermission": "Hex Editor Permission",
+    "HexEditorPermissionHint": "Minimum user role required to edit hex data on kingdom maps.",
+    "NoGM": "A GM needs to be logged on to perform this update.",
+
     "NoModuleItemsOnActor": "This actor cannot have Kingdom, Settlement, or Army items.",
     "OnlyKingdomItemsOnActor": "Kingdom actors can only have Kingdom Event and Terrain Improvement items.",
     "OnlySettlementItemsOnActor": "Settlement actors can only have Building, Settlement Feature, and Settlement Event items.",

@@ -9,6 +9,7 @@ import { FeatureSheet } from "./applications/items/featureSheet.mjs";
 import { ImprovementSheet } from "./applications/items/improvementSheet.mjs";
 import { SpecialSheet } from "./applications/items/specialSheet.mjs";
 import { TacticSheet } from "./applications/items/tacticSheet.mjs";
+import { HexStore } from "./canvas/hexStore.mjs";
 import { KingdomLayer } from "./canvas/kingdomLayer.mjs";
 import * as Config from "./config/_module.mjs";
 import { BoonBrowser } from "./config/compendiumBrowser/boonBrowser.mjs";
@@ -388,8 +389,39 @@ Hooks.once("pf1PostInit", () => {
       tools.viewInOtherLayers.active = active;
       ui.controls.render();
       // redraw kingdom layer
-      canvas.kingdom?.draw();
+      canvas.kingdom.draw();
     },
+  });
+
+  game.settings.register(PF1KS.moduleId, PF1KS.hexEditorPermissionSetting, {
+    name: "PF1KS.HexEditorPermission",
+    hint: "PF1KS.HexEditorPermissionHint",
+    scope: "world",
+    config: true,
+    type: String,
+    default: "GAMEMASTER",
+    choices: {
+      NONE: "USER.RoleNone",
+      PLAYER: "USER.RolePlayer",
+      TRUSTED: "USER.RoleTrusted",
+      ASSISTANT: "USER.RoleAssistant",
+      GAMEMASTER: "USER.RoleGamemaster",
+    },
+    requiresReload: true,
+  });
+
+  async function handleUpdateHex({ sceneId, hex, updateData }) {
+    const scene = game.scenes.get(sceneId);
+
+    HexStore.set(hex.q, hex.r, updateData, scene);
+  }
+
+  CONFIG.queries[`${PF1KS.moduleId}.updateHex`] = handleUpdateHex;
+
+  Hooks.on("updateScene", (scene, updateData) => {
+    if (updateData.flags[PF1KS.moduleId].hexes) {
+      canvas.kingdom.draw();
+    }
   });
 
   // load canvas tooltip template

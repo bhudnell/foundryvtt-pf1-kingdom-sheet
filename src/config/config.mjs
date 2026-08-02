@@ -1097,6 +1097,7 @@ export const itemSubTypes = {
 };
 
 export const viewInOtherLayersSetting = "viewInOtherLayers";
+export const hexEditorPermissionSetting = "hexEditorPermission";
 
 export const hexStatuses = {
   unexplored: "PF1KS.HexStatus.Unexplored",

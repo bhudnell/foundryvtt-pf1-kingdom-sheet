@@ -24,6 +24,8 @@ export class HexEditor extends HandlebarsApplicationMixin(DocumentSheetV2) {
       width: 400,
     },
     sheetConfig: false,
+    editPermission: CONST.USER_ROLES.NONE,
+    viewPermission: CONST.USER_ROLES.NONE,
   };
 
   static PARTS = {
@@ -105,7 +107,13 @@ export class HexEditor extends HandlebarsApplicationMixin(DocumentSheetV2) {
     if (!updateData.kingdomId) {
       updateData.kingdomId = null;
     }
-    HexStore.set(this.hex.q, this.hex.r, updateData);
+
+    const gm = game.users.activeGM;
+    if (!gm) {
+      return ui.notifications.error("PF1KS.NoGM", { localize: true });
+    }
+
+    gm.query(`${pf1ks.config.moduleId}.updateHex`, { sceneId: canvas.scene.id, hex: this.hex, updateData });
   }
 
   _onImprovementSelector(event) {

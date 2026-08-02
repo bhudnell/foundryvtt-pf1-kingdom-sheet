@@ -27,12 +27,12 @@ export class HexStore {
     return stored ?? this.createDefault(q, r);
   }
 
-  static async set(q, r, data) {
-    await canvas.scene.update({
+  static async set(q, r, data, scene) {
+    scene ??= canvas.scene;
+
+    await scene.update({
       [`flags.${pf1ks.config.moduleId}.hexes.${q},${r}`]: data,
     });
-
-    await canvas.kingdom?.draw();
   }
 
   static async delete(q, r) {
@@ -41,7 +41,5 @@ export class HexStore {
     delete all[`${q},${r}`];
 
     await canvas.scene.setFlag(pf1ks.config.moduleId, "hexes", all);
-
-    await canvas.kingdom?.draw();
   }
 }
