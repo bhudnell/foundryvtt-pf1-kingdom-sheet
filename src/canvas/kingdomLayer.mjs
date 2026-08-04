@@ -71,14 +71,13 @@ export class KingdomLayer extends foundry.canvas.layers.InteractionLayer {
 
   _updateHover() {
     if (!this.shouldDraw || !isKingdomScene(canvas.scene)) {
-      if (this._hoveredHexKey) {
-        this._onPointerOut();
-      }
+      this._hoveredHexKey = null;
       return;
     }
 
     const mouse = pf1ks.mouse;
     if (!mouse) {
+      this._hoveredHexKey = null;
       return;
     }
 
@@ -92,9 +91,7 @@ export class KingdomLayer extends foundry.canvas.layers.InteractionLayer {
     // dont render when not over canvas
     const hoveredElement = document.elementFromPoint(mouse.x, mouse.y);
     if (hoveredElement !== canvas.app.view && !canvas.app.view.contains(hoveredElement)) {
-      if (this._hoveredHexKey) {
-        this._onPointerOut();
-      }
+      this._hoveredHexKey = null;
       return;
     }
 
@@ -103,16 +100,17 @@ export class KingdomLayer extends foundry.canvas.layers.InteractionLayer {
     const screenX = mouse.x - rect.left;
     const screenY = mouse.y - rect.top;
 
-    // Mouse is outside canvas
-    if (screenX < 0 || screenY < 0 || screenX >= rect.width || screenY >= rect.height) {
-      this._onPointerOut();
-      return;
-    }
-
     const world = canvas.stage.toLocal({
       x: screenX,
       y: screenY,
     });
+
+    // dont render when mouse is outside scene
+    if (!canvas.dimensions.sceneRect.contains(world.x, world.y)) {
+      this._hoveredHexKey = null;
+      game.tooltip.deactivate();
+      return;
+    }
 
     const coords = canvas.grid.getOffset(world);
 
@@ -126,16 +124,12 @@ export class KingdomLayer extends foundry.canvas.layers.InteractionLayer {
 
     const hex = HexStore.get(coords.i, coords.j);
 
-    if (!hex) {
-      this._onPointerOut();
+    if (!hex || hex.q < 0 || hex.r < 0) {
+      this._hoveredHexKey = null;
       return;
     }
 
     this._showTooltip(hex);
-  }
-
-  _onPointerOut() {
-    this._hoveredHexKey = null;
   }
 
   _showTooltip(hex) {
@@ -178,7 +172,7 @@ export class KingdomLayer extends foundry.canvas.layers.InteractionLayer {
     const coords = canvas.grid.getOffset(pos);
     const hex = HexStore.get(coords.i, coords.j);
 
-    if (hex) {
+    if (hex && hex.q >= 0 && hex.r >= 0) {
       HexEditor.wait({ hex, scene: canvas.scene });
     }
   }

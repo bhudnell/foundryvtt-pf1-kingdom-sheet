@@ -419,8 +419,11 @@ Hooks.once("pf1PostInit", () => {
   CONFIG.queries[`${PF1KS.moduleId}.updateHex`] = handleUpdateHex;
 
   Hooks.on("updateScene", (scene, updateData) => {
-    if (updateData.flags[PF1KS.moduleId].hexes) {
+    if (updateData.flags[PF1KS.moduleId]) {
       canvas.kingdom.draw();
+    }
+    if (updateData.flags[PF1KS.moduleId]?.isKingdomMap != null) {
+      ui.controls.render();
     }
   });
 
