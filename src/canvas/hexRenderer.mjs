@@ -2,10 +2,16 @@ import { HexStore } from "./hexStore.mjs";
 
 export class HexRenderer {
   static draw(container) {
-    const hexes = HexStore.getAll();
+    const max = canvas.grid.getOffset({
+      x: canvas.dimensions.sceneRect.width,
+      y: canvas.dimensions.sceneRect.height,
+    });
 
-    for (const [key, hex] of Object.entries(hexes)) {
-      this.drawHex(container, hex);
+    for (let q = 0; q <= max.i; q++) {
+      for (let r = 0; r <= max.j; r++) {
+        const hex = HexStore.get(q, r);
+        this.drawHex(container, hex);
+      }
     }
   }
 
@@ -24,6 +30,8 @@ export class HexRenderer {
     if (kingdom) {
       const fillColor = kingdom.system.settings.color ?? 0x00ff00;
       g.beginFill(fillColor, 0.25);
+    } else if (hex.status === "unexplored") {
+      g.beginFill(0x0b0a13);
     }
 
     g.moveTo(polygon[0].x, polygon[0].y);
