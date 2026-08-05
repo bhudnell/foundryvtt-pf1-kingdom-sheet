@@ -14,7 +14,7 @@
   - special edicts
 - read through items and see if any rolls can be automated (ie economic boom)
 - when event added, auto fill in turn with current kingdom turn
-- break up utils file and other giant ones
+- break up utils/main file and other giant ones
 
 ## Change editor dialog
 - maybe I can clean this up to hide unused fields
@@ -37,11 +37,12 @@
   - for all scenes, if isKingdomScene, get the hexes flag and create changes based on that
   - I think we can keep the same UI, it'll just be read only and be populated from hex data
 
-- each terrain type should have a color associated with it to color the hex. Hex border should be kingdom's color
-- highlight all hexes in kingdom when hovering over?
 - create a log of the number of each terrain type and all improvements
 - migration
 - localize all strings
+
+- optional settings
+  - FOW exploration (see fow-exploration branch)
 
 ## for kingdom improvement changes
 - get improvement changes
