@@ -15,7 +15,6 @@ import * as Config from "./config/_module.mjs";
 import { BoonBrowser } from "./config/compendiumBrowser/boonBrowser.mjs";
 import { BuildingBrowser } from "./config/compendiumBrowser/buildingBrowser.mjs";
 import { FeatureBrowser } from "./config/compendiumBrowser/featureBrowser.mjs";
-import { ImprovementBrowser } from "./config/compendiumBrowser/improvementBrowser.mjs";
 import { KingdomEventBrowser } from "./config/compendiumBrowser/kingdomEventBrowser.mjs";
 import { SettlementEventBrowser } from "./config/compendiumBrowser/settlementEventBrowser.mjs";
 import { SpecialBrowser } from "./config/compendiumBrowser/specialBrowser.mjs";
@@ -487,7 +486,6 @@ Hooks.once("pf1PostReady", () => {
   pf1.applications.compendiums.buildings = new BuildingBrowser();
   pf1.applications.compendiums.kingdomEvents = new KingdomEventBrowser();
   pf1.applications.compendiums.settlementEvents = new SettlementEventBrowser();
-  pf1.applications.compendiums.improvements = new ImprovementBrowser();
   pf1.applications.compendiums.features = new FeatureBrowser();
   pf1.applications.compendiums.tactics = new TacticBrowser();
   pf1.applications.compendiums.special = new SpecialBrowser();
@@ -496,7 +494,6 @@ Hooks.once("pf1PostReady", () => {
   pf1.applications.compendiumBrowser.buildings = BuildingBrowser;
   pf1.applications.compendiumBrowser.kingdomEvents = KingdomEventBrowser;
   pf1.applications.compendiumBrowser.settlementEvents = SettlementEventBrowser;
-  pf1.applications.compendiumBrowser.improvements = ImprovementBrowser;
   pf1.applications.compendiumBrowser.features = FeatureBrowser;
   pf1.applications.compendiumBrowser.tactics = TacticBrowser;
   pf1.applications.compendiumBrowser.special = SpecialBrowser;
