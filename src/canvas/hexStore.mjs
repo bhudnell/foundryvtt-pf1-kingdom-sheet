@@ -1,6 +1,11 @@
 export class HexStore {
-  static getAll() {
-    return canvas.scene.getFlag(pf1ks.config.moduleId, "hexes") ?? {};
+  static getAll(scene) {
+    scene ??= canvas.scene;
+    return scene.getFlag(pf1ks.config.moduleId, "hexes") ?? {};
+  }
+
+  static getKingdomHexes(kingdomId, scene) {
+    return Object.values(this.getAll(scene)).filter((hex) => hex.kingdomId === kingdomId);
   }
 
   static createDefault(q, r) {

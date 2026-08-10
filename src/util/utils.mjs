@@ -367,11 +367,43 @@ function validateRequirement(requirement, context) {
   }
 }
 
-export function applySpecialTerrainEffects(hex, context) {
+export function computeHexEffects(hex) {
+  const changes = [];
+
+  // 1. base improvement effects
+  for (const imp of hex.improvements ?? []) {
+    changes.push(...applyBaseMechanics(imp));
+  }
+
+  // 2. terrain-based modifiers
+  changes.push(...applySpecialTerrainEffects(hex));
+
+  const condensed = new Map();
+
+  for (const change of changes) {
+    const existing = condensed.get(change.target);
+
+    if (existing) {
+      existing.formula += change.formula;
+    } else {
+      condensed.set(change.target, { ...change });
+    }
+  }
+
+  return [...condensed.values()];
+}
+
+function applyBaseMechanics(improvementId) {
+  const improvement = pf1ks.config.terrainImprovements[improvementId];
+
+  return improvement.mechanics?.changes ?? [];
+}
+
+function applySpecialTerrainEffects(hex) {
   const results = [];
 
-  for (const feature of hex.features ?? []) {
-    const terrain = pf1ks.config.specialTerrain[feature];
+  for (const specialTerrainId of hex.specialTerrain ?? []) {
+    const terrain = pf1ks.config.specialTerrain[specialTerrainId];
     if (!terrain?.interactions) {
       continue;
     }
