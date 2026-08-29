@@ -557,9 +557,6 @@ export class KingdomSheet extends pf1.applications.actor.ActorSheetPF {
   _focusTabByItem(item) {
     let tabId;
     switch (item.type) {
-      case pf1ks.config.improvementId:
-        tabId = "terrain";
-        break;
       case pf1ks.config.kingdomEventId:
         tabId = "events";
         break;

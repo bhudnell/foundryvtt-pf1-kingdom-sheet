@@ -15,7 +15,7 @@ export const boonId = `${moduleId}.boon`;
 export const specialId = `${moduleId}.special`;
 export const tacticId = `${moduleId}.tactic`;
 
-export const kingdomItemTypes = [kingdomEventId, improvementId];
+export const kingdomItemTypes = [kingdomEventId];
 export const settlementItemTypes = [buildingId, featureId, settlementEventId];
 export const settlementLiteItemTypes = [featureId];
 export const armyItemTypes = [boonId, specialId, tacticId];

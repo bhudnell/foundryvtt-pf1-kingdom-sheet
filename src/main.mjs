@@ -322,7 +322,8 @@ Hooks.once("pf1PostInit", () => {
         ...PF1KS.kingdomItemTypes,
         ...PF1KS.settlementItemTypes,
         ...PF1KS.settlementLiteItemTypes,
-        ...PF1KS.armyItemTypes
+        ...PF1KS.armyItemTypes,
+        PF1KS.improvementId
       );
       pf1.config[prop][categoryKey] = category;
     }
@@ -502,7 +503,6 @@ Hooks.once("pf1PostReady", () => {
   game.model.Item[PF1KS.buildingId] = {};
   game.model.Item[PF1KS.kingdomEventId] = {};
   game.model.Item[PF1KS.settlementEventId] = {};
-  game.model.Item[PF1KS.improvementId] = {};
   game.model.Item[PF1KS.featureId] = {};
   game.model.Item[PF1KS.tacticId] = {};
   game.model.Item[PF1KS.specialId] = {};

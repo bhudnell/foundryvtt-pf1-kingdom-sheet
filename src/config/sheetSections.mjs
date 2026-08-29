@@ -4,7 +4,6 @@ import {
   buildingId,
   kingdomEventId,
   featureId,
-  improvementId,
   settlementEventId,
   specialId,
   tacticId,
