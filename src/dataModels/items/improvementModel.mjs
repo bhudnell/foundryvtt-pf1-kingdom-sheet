@@ -1,5 +1,6 @@
 import { ItemBaseModel } from "./itemBaseModel.mjs";
 
+// TODO whole class deprecated for v5, remove eventually
 export class ImprovementModel extends ItemBaseModel {
   static defineSchema() {
     const fields = foundry.data.fields;

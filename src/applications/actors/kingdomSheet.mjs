@@ -1,3 +1,5 @@
+import { HexStore } from "../../canvas/hexStore.mjs";
+import { isKingdomScene } from "../../canvas/kingdomLayer.mjs";
 import { findLargestSmallerNumber, keepUpdateArray, renameKeys } from "../../util/utils.mjs";
 
 const GRID_COLS = 6;
@@ -140,13 +142,6 @@ export class KingdomSheet extends pf1.applications.actor.ActorSheetPF {
     // settlements
     data.settlements = this._prepareSettlements();
 
-    // terrain
-    data.terrain = Object.entries(actorData.terrain).map(([key, value]) => ({
-      key,
-      value,
-      label: pf1ks.config.terrainTypes[key],
-    }));
-
     // events
     data.eventChance = actorData.eventLastTurn ? 25 : 75;
 
@@ -201,17 +196,14 @@ export class KingdomSheet extends pf1.applications.actor.ActorSheetPF {
   }
 
   _prepareItems() {
-    const terrainSections = Object.values(pf1.config.sheetSections.kingdomTerrain).map((data) => ({ ...data }));
-    this.actor.itemTypes[pf1ks.config.improvementId]
-      .map((i) => i)
-      .sort((a, b) => (a.sort || 0) - (b.sort || 0))
-      .forEach((i) => {
-        const section = terrainSections.find((section) => this._applySectionFilter(i, section));
-        if (section) {
-          section.items ??= [];
-          section.items.push({ ...i, id: i.id, isEmpty: i.system.quantity === 0 });
-        }
-      });
+    const terrainSections = game.scenes
+      .filter((scene) => isKingdomScene(scene))
+      .map((scene) => ({
+        ...scene,
+        id: scene.id,
+        label: scene.name,
+        items: HexStore.getKingdomHexes(this.actor.id, scene),
+      }));
 
     const eventsSections = Object.values(pf1.config.sheetSections.kingdomEvent).map((data) => ({ ...data }));
     this.actor.itemTypes[pf1ks.config.kingdomEventId]
@@ -759,5 +751,33 @@ export class KingdomSheet extends pf1.applications.actor.ActorSheetPF {
     context.paths = paths;
     context.sources = sources;
     context.notes = notes ?? [];
+  }
+
+  // needed to allow filtering of settlement items and hexes
+  // mostly the same, the only difference is i added a data.name field that skips getting the item
+  // and just usees the name directly
+  _searchFilterCommit(event) {
+    const search = this._filters.search[event.target.dataset.category].toLowerCase();
+    const category = event.target.dataset.category;
+
+    if (this.effectiveSearch[category] === search && !this.searchRefresh) {
+      return;
+    }
+
+    this.effectiveSearch[category] = search;
+    this.searchRefresh = false;
+
+    event.target
+      .closest(".tab")
+      ?.querySelectorAll(".item-list .item")
+      .forEach((el) => {
+        if (!search.length) {
+          el.classList.remove("hidden");
+          return;
+        }
+
+        const name = el.dataset.name?.toLowerCase() ?? "";
+        el.classList.toggle("hidden", !name.includes(search));
+      });
   }
 }
