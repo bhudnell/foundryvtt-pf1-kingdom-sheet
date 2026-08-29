@@ -71,8 +71,14 @@
     </li>
 
     {{#each section.items as |item iid|}}
+    {{#if section.interface.settlement}}
+    <li class="item flexrow" data-name="{{ item.name }}">
+      {{else}}
+    </li>
+
     <li class="item flexrow" data-item-id="{{ item.id }}" data-name="{{ item.name }}">
-      <div class="item-name rollable">
+      {{/if}}
+      <div class="item-name rollable{{#if section.interface.settlement}} no-events{{/if}}">
         <div
           class="item-image"
           style="background-image: url(&quot;{{ item.img }}&quot;)"

@@ -25,6 +25,7 @@
     "BPStorage": "BP Storage",
     "BonusBP": "Bonus Build Points",
     "BonusBPShort": "Bonus BP",
+    "Defense": "Defense",
     "Fame": "Fame",
     "Infamy": "Infamy",
     "FamyInfamyError": "Base fame + infamy is too high for the kingdom's size",
@@ -282,9 +283,7 @@
       }
     },
 
-    "TerrainLabel": "Terrain",
     "DefaultHexName": "Hex {name}",
-
     "HexStatusLabel": "Status",
     "HexStatus": {
       "Unexplored": "Unexplored",
@@ -293,6 +292,7 @@
       "Claimed": "Claimed"
     },
 
+    "TerrainLabel": "Terrain",
     "Terrain": {
       "Cavern": "Cavern",
       "Coast": "Coast",

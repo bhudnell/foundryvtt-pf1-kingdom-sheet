@@ -1,6 +1,6 @@
 import { HexStore } from "../../canvas/hexStore.mjs";
 import { isKingdomScene } from "../../canvas/kingdomLayer.mjs";
-import { findLargestSmallerNumber, keepUpdateArray, renameKeys } from "../../util/utils.mjs";
+import { computeHexEffects, findLargestSmallerNumber, keepUpdateArray, renameKeys } from "../../util/utils.mjs";
 
 const GRID_COLS = 6;
 const GRID_ROWS = 6;
@@ -202,7 +202,30 @@ export class KingdomSheet extends pf1.applications.actor.ActorSheetPF {
         ...scene,
         id: scene.id,
         label: scene.name,
-        items: HexStore.getKingdomHexes(this.actor.id, scene),
+        items: HexStore.getKingdomHexes(this.actor.id, scene).map((hex) => {
+          const item = {
+            name: hex.name,
+            terrain: pf1ks.config.terrainTypes[hex.terrain],
+            improvements: hex.improvements.map((i) => pf1ks.config.terrainImprovements[i].name).join(", "),
+            specialTerrain: hex.specialTerrain.map((i) => pf1ks.config.specialTerrain[i].name).join(", "),
+            economy: 0,
+            loyalty: 0,
+            stability: 0,
+            consumption: 0,
+            bonusBP: 0,
+            defense: 0,
+          };
+
+          computeHexEffects(hex).forEach((effect) => {
+            const target = effect.target.replace(`${pf1ks.config.changePrefix}_`, "");
+
+            if (target in item) {
+              item[target] += Math.floor(Number(effect.formula) || 0);
+            }
+          });
+
+          return item;
+        }),
       }));
 
     const eventsSections = Object.values(pf1.config.sheetSections.kingdomEvent).map((data) => ({ ...data }));

@@ -16,11 +16,31 @@
       <div class="item-name">
         <h3>{{ section.label }}</h3>
       </div>
+      <div class="item-detail item-terrain">
+        <label>{{localize "PF1KS.TerrainLabel"}}</label>
+      </div>
+      <div class="item-detail item-improvements">
+        <label>{{localize "PF1KS.Improvements"}}</label>
+      </div>
+      <div class="item-detail item-number" data-tooltip="PF1KS.Economy"><i class="fa-solid fa-coins"></i></div>
+      <div class="item-detail item-number" data-tooltip="PF1KS.Loyalty"><i class="ra ra-queen-crown"></i></div>
+      <div class="item-detail item-number" data-tooltip="PF1KS.Stability">
+        <i class="fa-solid fa-scale-balanced"></i>
+      </div>
+      <div class="item-detail item-number" data-tooltip="PF1KS.Consumption">
+        <i class="fa-solid fa-sack-dollar"></i>
+      </div>
+      <div class="item-detail item-number" data-tooltip="PF1KS.BonusBPShort">
+        <i class="fa-solid fa-boxes-stacked"></i>
+      </div>
+      <div class="item-detail item-number" data-tooltip="PF1KS.Defense">
+        <i class="fa-solid fa-chess-rook"></i>
+      </div>
     </li>
 
     {{#each section.items as |item iid|}}
     <li class="item flexrow{{#if isEmpty}} empty{{/if}}" data-name="{{ item.name }}">
-      <div class="item-name rollable">
+      <div class="item-name no-events">
         <div
           class="item-image"
           style="background-image: url(&quot;{{ item.img }}&quot;)"
@@ -28,6 +48,16 @@
         ></div>
         <h4>{{ item.name }}</h4>
       </div>
+      <span class="item-detail item-terrain">{{ item.terrain }}</span>
+      <div class="item-detail item-improvements" data-tooltip="{{ item.improvements }}">
+        <span>{{ item.improvements }}</span>
+      </div>
+      <span class="item-detail item-number">{{ item.economy }}</span>
+      <span class="item-detail item-number">{{ item.loyalty }}</span>
+      <span class="item-detail item-number">{{ item.stability }}</span>
+      <span class="item-detail item-number">{{ item.consumption }}</span>
+      <span class="item-detail item-number">{{ item.bonusBP }}</span>
+      <span class="item-detail item-number">{{ item.defense }}</span>
     </li>
     {{/each}}
   </ol>
