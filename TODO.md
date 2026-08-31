@@ -27,13 +27,13 @@
 - follows building limits (ie must be next to X, cannot be next to Y, limit Z per settlement/district)
 
 ## Hex map
+- When updating things not on the kingdom (scenes/hexes/settlements/armies) force the kingdom to reprepare
+
 - remove all improvement item things
   - compendium -> turn into rules since items are going bye bye
   - kingdom logic
   - will need to leave the item type/changes/context notes around so the migration can run
     remove item type in a later version
-
-  - I think we can keep the same UI, it'll just be read only and be populated from hex data
 
 - create a log of the number of each terrain type and all improvements
 - migration

@@ -21,7 +21,7 @@ export class HexRenderer {
 
     const kingdom = game.actors.get(hex.kingdomId);
 
-    if (kingdom) {
+    if (kingdom && hex.status === "claimed") {
       const fillColor = kingdom.system.settings.color ?? 0x00ff00;
       g.beginFill(fillColor, 0.25);
     }
@@ -45,14 +45,15 @@ function drawBorders(g, hex, polygon) {
   const neighbors = canvas.grid.getAdjacentOffsets({ i: hex.q, j: hex.r });
 
   const edgeToNeighbor = getEdgeToNeighborMap();
+  const hexKingdomId = hex.status === "claimed" ? hex.kingdomId : null;
 
   for (let edge = 0; edge < 6; edge++) {
     const neighborCoords = neighbors[edgeToNeighbor[edge]];
 
     const neighbor = neighborCoords ? HexStore.get(neighborCoords.i, neighborCoords.j) : null;
+    const neighborKingdomId = neighbor?.status === "claimed" ? neighbor?.kingdomId : null;
 
-    const differentOwner = neighbor?.kingdomId !== hex.kingdomId;
-    if (!differentOwner) {
+    if (hexKingdomId === neighborKingdomId) {
       continue;
     }
 

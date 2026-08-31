@@ -64,7 +64,8 @@ export class HexEditor extends HandlebarsApplicationMixin(DocumentSheetV2) {
         improvements: hex.improvements?.map((i) => pf1ks.config.terrainImprovements[i].name) ?? [],
         specialTerrain: hex.specialTerrain?.map((st) => pf1ks.config.specialTerrain[st].name) ?? [],
       },
-      statusOptions: pf1ks.config.hexStatuses, // TODO add logic where kingdom is only available if status is Claimed
+      showKingdom: hex.status === "claimed",
+      statusOptions: pf1ks.config.hexStatuses,
       kingdomOptions,
       terrainOptions: pf1ks.config.terrainTypes,
       improvementPath: `flags.${pf1ks.config.moduleId}.hexes.${hex.q},${hex.r}.improvements`,

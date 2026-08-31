@@ -6,7 +6,6 @@
     {{#each choices}}
     <li data-choice="{{@key}}" data-tooltip="{{ error }}">
       <label class="checkbox">
-        <!-- TODO tooltip with why disabled -->
         <input type="checkbox" name="choices.{{@key}}" data-dtype="Boolean" {{checked chosen}} {{disabled invalid}} />
         {{ label }}
       </label>

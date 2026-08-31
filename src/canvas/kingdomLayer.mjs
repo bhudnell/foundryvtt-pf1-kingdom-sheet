@@ -151,6 +151,7 @@ export class KingdomLayer extends foundry.canvas.layers.InteractionLayer {
       name: hex.name,
       terrain: pf1ks.config.terrainTypes[hex.terrain],
       status: pf1ks.config.hexStatuses[hex.status],
+      showKingdom: hex.status === "claimed",
       kingdom: game.actors.get(hex.kingdomId)?.name,
       improvements: (hex.improvements ?? []).map((i) => pf1ks.config.terrainImprovements[i].name).join(", "),
       specialTerrain: (hex.specialTerrain ?? []).map((i) => pf1ks.config.specialTerrain[i].name).join(", "),

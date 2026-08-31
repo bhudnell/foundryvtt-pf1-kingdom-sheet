@@ -1,4 +1,6 @@
-<h3>{{ name }}</h3>
+<div class="name-container">
+  <h3>{{ name }}</h3>
+</div>
 
 <div class="body">
   <span>{{localize "PF1KS.TerrainLabel"}}</span>
@@ -7,6 +9,7 @@
   <span>{{localize "PF1KS.HexStatusLabel"}}</span>
   <span class="value">{{ status }}</span>
 
+  {{#if showKingdom}}
   {{#if kingdom}}
   <span>{{localize "PF1KS.Kingdom"}}</span>
   <span class="value">{{ kingdom }}</span>
@@ -20,5 +23,6 @@
   {{#if specialTerrain}}
   <span>{{localize "PF1KS.SpecialTerrain"}}</span>
   <span class="value">{{ specialTerrain }}</span>
+  {{/if}}
   {{/if}}
 </div>

@@ -5,7 +5,7 @@ export class HexStore {
   }
 
   static getKingdomHexes(kingdomId, scene) {
-    return Object.values(this.getAll(scene)).filter((hex) => hex.kingdomId === kingdomId);
+    return Object.values(this.getAll(scene)).filter((hex) => hex.status === "claimed" && hex.kingdomId === kingdomId);
   }
 
   static createDefault(q, r) {
