@@ -158,7 +158,7 @@ export class KingdomLayer extends foundry.canvas.layers.InteractionLayer {
     };
 
     game.tooltip.activate(tooltip, {
-      html: renderCachedTemplate(`modules/${pf1ks.config.moduleId}/templates/canvas/hex-tooltip.hbs`, context),
+      html: renderCachedTemplate("hex-tooltip", context),
       direction: foundry.helpers.interaction.TooltipManager.implementation.TOOLTIP_DIRECTIONS.UP,
       cssClass: "pf1ks hex-tooltip",
     });

@@ -27,8 +27,6 @@
 - follows building limits (ie must be next to X, cannot be next to Y, limit Z per settlement/district)
 
 ## Hex map
-- When updating things not on the kingdom (scenes/hexes/settlements/armies) force the kingdom to reprepare
-
 - remove all improvement item things
   - compendium -> turn into rules since items are going bye bye
   - kingdom logic
@@ -38,8 +36,6 @@
 - create a log of the number of each terrain type and all improvements
 - migration
 - localize all strings
-
-- remove quantity code (appyChange, etc)
 
 - optional settings
   - FOW exploration (see fow-exploration branch)

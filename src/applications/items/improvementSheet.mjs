@@ -1,5 +1,6 @@
 import { ItemBaseSheet } from "./itemBaseSheet.mjs";
 
+// TODO whole class deprecated for v5, remove eventually
 export class ImprovementSheet extends ItemBaseSheet {
   async getData(options = {}) {
     const itemData = this.item.system;

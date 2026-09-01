@@ -90,6 +90,7 @@ export class DefaultChange extends pf1.components.ItemChange {
   }
 }
 
+// TODO quantity no longer needed as of v5, remove eventually
 export function applyChange(change, actor, targets = null, { applySourceInfo = true, rollData } = {}) {
   // Prepare change targets
   targets ??= change.getTargets(actor);

@@ -44,6 +44,7 @@ import { SpecialItem } from "./documents/items/specialItem.mjs";
 import { TacticItem } from "./documents/items/tacticItem.mjs";
 import { getChangeFlat } from "./hooks/getChangeFlat.mjs";
 import { migrate } from "./migrations/index.mjs";
+import { syncManager } from "./util/syncManager.mjs";
 import { applyChange, moduleToObject, rollEventTable } from "./util/utils.mjs";
 
 export { PF1KS as config };
@@ -157,6 +158,7 @@ Hooks.once("libWrapper.Ready", () => {
   );
 
   // lets changes be multiplied by quantity for module
+  // TODO quantity no longer needed as of v5, remove eventually
   libWrapper.register(
     PF1KS.moduleId,
     "pf1.components.ItemChange.prototype.applyChange",
@@ -417,28 +419,17 @@ Hooks.once("pf1PostInit", () => {
   }
 
   CONFIG.queries[`${PF1KS.moduleId}.updateHex`] = handleUpdateHex;
-
-  Hooks.on("updateScene", (scene, updateData) => {
-    if (updateData.flags[PF1KS.moduleId]) {
-      canvas.kingdom.draw();
-    }
-    if (updateData.flags[PF1KS.moduleId]?.isKingdomMap != null) {
-      ui.controls.render();
-    }
-  });
-
-  // load canvas tooltip template
-  foundry.applications.handlebars.loadTemplates([`modules/${pf1ks.config.moduleId}/templates/canvas/hex-tooltip.hbs`]);
 });
 
-Hooks.once("pf1PostSetup", async () => {
-  // re-prepare kingdoms since they rely on settlement changes for some things
-  const kingdomPromises = game.actors.filter((a) => a.type === pf1ks.config.kingdomId).map((a) => a.reset());
-  await Promise.all(kingdomPromises);
-
-  // re-prepare settlements since they rely on kingdom changes for some things
-  const settlementArmyPromises = game.actors.filter((a) => a.type === pf1ks.config.settlementId).map((a) => a.reset());
-  await Promise.all(settlementArmyPromises);
+Hooks.on("updateScene", (scene, updateData) => {
+  if (updateData.flags?.[PF1KS.moduleId]) {
+    console.error(updateData);
+    canvas.kingdom.draw();
+  }
+  if (updateData.flags?.[PF1KS.moduleId]?.isKingdomMap != null) {
+    ui.controls.render();
+  }
+  // TODO updating scene updates kingdom
 });
 
 Hooks.once("pf1PostReady", () => {
@@ -481,6 +472,8 @@ Hooks.once("pf1PostReady", () => {
     "item-sheet-tactic": `modules/${PF1KS.moduleId}/templates/items/parts/tactic-details.hbs`,
 
     "item-sheet-changes": `modules/${PF1KS.moduleId}/templates/items/parts/changes.hbs`,
+
+    "hex-tooltip": `modules/${pf1ks.config.moduleId}/templates/canvas/hex-tooltip.hbs`,
   });
 
   pf1.applications.compendiums.boons = new BoonBrowser();
