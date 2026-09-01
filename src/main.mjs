@@ -351,27 +351,6 @@ Hooks.once("pf1PostInit", () => {
     group: "interface",
   };
 
-  Hooks.on("renderSceneConfig", (config, html) => {
-    const isChecked = config.document.getFlag(PF1KS.moduleId, "isKingdomMap");
-    const path = `flags.${PF1KS.moduleId}.isKingdomMap`;
-    const elem = document.createElement("fieldset");
-    elem.innerHTML = `
-      <legend>${game.i18n.localize("PF1KS.ModuleName")}</legend>
-      <div class="form-group">
-        <label for="${config.id}-${path}">${game.i18n.localize("PF1KS.IsKingdomMap")}</label>
-        <div class="form-fields">
-          <input type="checkbox" name="${path}" ${isChecked ? "checked" : ""} id="${config.id}-${path}">
-        </div>
-        <p class="hint">${game.i18n.localize("PF1KS.IsKingdomMapHint")}</p>
-      </div>
-    `;
-
-    const basicsTab = html.querySelector('div[data-tab="basics"]');
-    if (basicsTab) {
-      basicsTab.append(elem);
-    }
-  });
-
   game.settings.register(PF1KS.moduleId, PF1KS.viewInOtherLayersSetting, {
     scope: "user",
     config: false,
@@ -419,23 +398,6 @@ Hooks.once("pf1PostInit", () => {
   }
 
   CONFIG.queries[`${PF1KS.moduleId}.updateHex`] = handleUpdateHex;
-});
-
-Hooks.on("updateScene", (scene, updateData) => {
-  if (updateData.flags?.[PF1KS.moduleId]) {
-    console.error(updateData);
-    canvas.kingdom.draw();
-  }
-  if (updateData.flags?.[PF1KS.moduleId]?.isKingdomMap != null) {
-    ui.controls.render();
-  }
-  // TODO updating scene updates kingdom
-});
-
-Hooks.once("pf1PostReady", () => {
-  if (!game.modules.get("lib-wrapper")?.active && game.user.isGM) {
-    ui.notifications.error("PF1KS.LibWrapperError");
-  }
 
   foundry.applications.handlebars.loadTemplates({
     "kingdom-sheet-armies": `modules/${PF1KS.moduleId}/templates/actors/kingdom/parts/armies.hbs`,
@@ -475,6 +437,83 @@ Hooks.once("pf1PostReady", () => {
 
     "hex-tooltip": `modules/${pf1ks.config.moduleId}/templates/canvas/hex-tooltip.hbs`,
   });
+});
+
+Hooks.on("renderSceneConfig", (config, html) => {
+  const isChecked = config.document.getFlag(PF1KS.moduleId, "isKingdomMap");
+  const path = `flags.${PF1KS.moduleId}.isKingdomMap`;
+  const elem = document.createElement("fieldset");
+  elem.innerHTML = `
+      <legend>${game.i18n.localize("PF1KS.ModuleName")}</legend>
+      <div class="form-group">
+        <label for="${config.id}-${path}">${game.i18n.localize("PF1KS.IsKingdomMap")}</label>
+        <div class="form-fields">
+          <input type="checkbox" name="${path}" ${isChecked ? "checked" : ""} id="${config.id}-${path}">
+        </div>
+        <p class="hint">${game.i18n.localize("PF1KS.IsKingdomMapHint")}</p>
+      </div>
+    `;
+
+  const basicsTab = html.querySelector('div[data-tab="basics"]');
+  if (basicsTab) {
+    basicsTab.append(elem);
+  }
+});
+
+const pendingSceneSyncs = new WeakMap();
+
+Hooks.on("preUpdateScene", (scene, updateData) => {
+  const moduleUpdates = updateData.flags?.[PF1KS.moduleId];
+  if (!moduleUpdates) {
+    return;
+  }
+
+  const kingdomIds = new Set(HexStore.getKingdomIds(scene));
+
+  if (kingdomIds.size) {
+    pendingSceneSyncs.set(scene, kingdomIds);
+  }
+});
+
+Hooks.on("updateScene", (scene, updateData) => {
+  const moduleUpdates = updateData.flags?.[PF1KS.moduleId];
+  if (!moduleUpdates) {
+    return;
+  }
+
+  canvas.kingdom.draw();
+
+  if (moduleUpdates.isKingdomMap != null) {
+    ui.controls.render({ reset: true });
+  }
+
+  // kingdom sync stuff
+  const kingdomIds = pendingSceneSyncs.get(scene) ?? new Set();
+  pendingSceneSyncs.delete(scene);
+
+  for (const kingdomId of HexStore.getKingdomIds(scene)) {
+    kingdomIds.add(kingdomId);
+  }
+
+  if (!kingdomIds.size || syncManager.active) {
+    return;
+  }
+
+  syncManager.run(scene, () => {
+    for (const kingdomId of kingdomIds) {
+      const kingdom = game.actors.get(kingdomId);
+
+      if (kingdom) {
+        syncManager.prepare(kingdom);
+      }
+    }
+  });
+});
+
+Hooks.once("pf1PostReady", () => {
+  if (!game.modules.get("lib-wrapper")?.active && game.user.isGM) {
+    ui.notifications.error("PF1KS.LibWrapperError");
+  }
 
   pf1.applications.compendiums.boons = new BoonBrowser();
   pf1.applications.compendiums.buildings = new BuildingBrowser();

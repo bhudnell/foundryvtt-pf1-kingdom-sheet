@@ -22,12 +22,14 @@ export class HexStore {
     };
   }
 
-  static has(q, r) {
-    return !!this.getAll()[`${q},${r}`];
+  static has(q, r, scene) {
+    scene ??= canvas.scene;
+    return !!this.getAll(scene)[`${q},${r}`];
   }
 
-  static get(q, r) {
-    const stored = this.getAll()[`${q},${r}`];
+  static get(q, r, scene) {
+    scene ??= canvas.scene;
+    const stored = this.getAll(scene)[`${q},${r}`];
 
     return stored ?? this.createDefault(q, r);
   }
@@ -40,11 +42,24 @@ export class HexStore {
     });
   }
 
-  static async delete(q, r) {
-    const all = this.getAll();
+  static async delete(q, r, scene) {
+    scene ??= canvas.scene;
+    const all = this.getAll(scene);
 
     delete all[`${q},${r}`];
 
-    await canvas.scene.setFlag(pf1ks.config.moduleId, "hexes", all);
+    await scene.setFlag(pf1ks.config.moduleId, "hexes", all);
+  }
+
+  static getKingdomIds(scene) {
+    scene ??= canvas.scene;
+    const kingdomIdSet = Object.values(this.getAll(scene)).reduce((kingdomIds, hex) => {
+      if (hex.status === "claimed") {
+        kingdomIds.add(hex.kingdomId);
+      }
+      return kingdomIds;
+    }, new Set());
+
+    return [...kingdomIdSet];
   }
 }
