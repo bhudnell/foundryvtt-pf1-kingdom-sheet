@@ -1,5 +1,6 @@
 import { HexStore } from "../../canvas/hexStore.mjs";
 import { isKingdomScene } from "../../canvas/kingdomLayer.mjs";
+import { syncManager } from "../../util/syncManager.mjs";
 import { DefaultChange, asSignedPercent, capitalize, computeHexEffects } from "../../util/utils.mjs";
 
 import { BaseActor } from "./baseActor.mjs";
@@ -396,5 +397,23 @@ export class KingdomActor extends BaseActor {
 
   prepareConditions() {
     this.system.conditions = {};
+  }
+
+  prepareData() {
+    super.prepareData();
+
+    if (!this.isToken && !syncManager.active) {
+      syncManager.run(this, () => {
+        this._syncSettlements();
+      });
+    }
+  }
+
+  _syncSettlements() {
+    this.system.settlementProxies?.forEach((proxy) => {
+      if (proxy.actor) {
+        syncManager.prepare(proxy.actor);
+      }
+    });
   }
 }

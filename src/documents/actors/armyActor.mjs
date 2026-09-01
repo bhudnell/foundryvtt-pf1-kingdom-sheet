@@ -1,3 +1,4 @@
+import { syncManager } from "../../util/syncManager.mjs";
 import { DefaultChange } from "../../util/utils.mjs";
 
 import { BaseActor } from "./baseActor.mjs";
@@ -265,6 +266,23 @@ export class ArmyActor extends BaseActor {
 
     for (const condition of Object.keys(pf1ks.config.armyConditions)) {
       conditions[condition] = this.statuses.has(condition);
+    }
+  }
+
+  prepareData() {
+    super.prepareData();
+
+    if (!this.isToken && !syncManager.active) {
+      syncManager.run(this, () => {
+        this._syncKingdom();
+      });
+    }
+  }
+
+  _syncKingdom() {
+    const kingdom = this.system.kingdom?.actor;
+    if (kingdom) {
+      syncManager.prepare(kingdom);
     }
   }
 }

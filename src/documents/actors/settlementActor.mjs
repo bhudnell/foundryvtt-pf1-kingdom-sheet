@@ -1,3 +1,4 @@
+import { syncManager } from "../../util/syncManager.mjs";
 import { DefaultChange, asSignedPercent, capitalize } from "../../util/utils.mjs";
 
 import { BaseActor } from "./baseActor.mjs";
@@ -71,6 +72,24 @@ export class SettlementActor extends BaseActor {
       }
     }
     this.updateEmbeddedDocuments("Item", updates);
+  }
+
+  prepareData() {
+    super.prepareData();
+
+    if (!this.isToken && !syncManager.active) {
+      syncManager.run(this, () => {
+        this._syncKingdom();
+      });
+    }
+  }
+
+  _syncKingdom() {
+    const kingdom = this.system.kingdom?.actor;
+    if (kingdom) {
+      syncManager.prepare(kingdom);
+      kingdom._syncSettlements();
+    }
   }
 
   // _prepareTypeChanges(changes) {
