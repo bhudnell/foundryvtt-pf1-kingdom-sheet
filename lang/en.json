@@ -426,7 +426,7 @@
       "LeadershipSkills": "Leadership Skills",
       "SettlementSizes": "Alternative Settlement Size Modifiers",
       "ExpandedSettlementStats": "Expanded Settlement Statistics",
-      "Color": "Color"
+      "Color": "Hex Color"
     },
 
     "Continuous": "Continuous",
@@ -496,6 +496,8 @@
     "OnlyArmyItemsOnActor": "Army actors can only have Boon, Special Ability, and Tactic items.",
     "LibWrapperError": "The PF1 Kingdom Sheet module requires the 'libWrapper' module. Please install and activate it.",
 
+    "SettlementAlreadyLinked": "This Settlement is already linked to a Kingdom.",
+    "ArmyAlreadyLinked": "This Army is already linked to a Kingdom.",
     "ClearedArmySettlementLinks": "Duplicated kingdoms dont maintain army and settlement links and have been cleared.",
     "MaintainKingdomLink": "Maintain Kingdom Link?",
     "MaintainKingdomLinkConfirmation": "This actor is currently linked to a kingdom. Would you like to keep that link?"

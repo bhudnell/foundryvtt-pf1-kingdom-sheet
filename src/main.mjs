@@ -732,3 +732,11 @@ Hooks.on("createActor", async (actor, options, userId) => {
     await actor.update({ "system.-=kingdom": null });
   }
 });
+
+Hooks.on("updateActor", async (actor, updates) => {
+  if (actor.type !== PF1KS.kingdomId || !updates.system.settings?.color) {
+    return;
+  }
+
+  canvas.kingdom.draw();
+});

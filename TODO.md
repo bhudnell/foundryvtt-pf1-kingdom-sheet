@@ -1,3 +1,22 @@
+# For this release
+
+## Hex map
+- remove all improvement item things
+  - compendium -> turn into rules since items are going bye bye
+  - kingdom logic
+  - will need to leave the item type/changes/context notes around so the migration can run
+    remove item type in a later version
+
+- create a log of the number of each terrain type and all improvements
+- migration
+- localize all strings
+
+## Misc
+- when event added, auto fill in turn with current kingdom turn
+- break up utils/main file and other giant ones
+- read through items and see if any rolls can be automated (ie economic boom)
+
+
 # For future releases
 
 ## Misc
@@ -12,9 +31,6 @@
   - abandoned buildings
   - deities and holy sites
   - special edicts
-- read through items and see if any rolls can be automated (ie economic boom)
-- when event added, auto fill in turn with current kingdom turn
-- break up utils/main file and other giant ones
 
 ## Change editor dialog
 - maybe I can clean this up to hide unused fields
@@ -27,16 +43,5 @@
 - follows building limits (ie must be next to X, cannot be next to Y, limit Z per settlement/district)
 
 ## Hex map
-- remove all improvement item things
-  - compendium -> turn into rules since items are going bye bye
-  - kingdom logic
-  - will need to leave the item type/changes/context notes around so the migration can run
-    remove item type in a later version
-
-- updating kingdom hex color should update active scene
-- create a log of the number of each terrain type and all improvements
-- migration
-- localize all strings
-
 - optional settings
   - FOW exploration (see fow-exploration branch)

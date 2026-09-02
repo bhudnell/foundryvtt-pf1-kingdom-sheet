@@ -552,8 +552,12 @@ export class KingdomSheet extends pf1.applications.actor.ActorSheetPF {
     }
 
     // settlement/army is already linked
-    if (actorData.kingdom) {
-      ui.notifications.warn("PF1KS.SettlementArmyAlreadyLinked", { localize: true });
+    if (actorData.system.kingdom) {
+      if (actorData.type === pf1ks.config.settlementId) {
+        ui.notifications.warn("PF1KS.SettlementAlreadyLinked", { localize: true });
+      } else {
+        ui.notifications.warn("PF1KS.ArmyAlreadyLinked", { localize: true });
+      }
       return false;
     }
 
