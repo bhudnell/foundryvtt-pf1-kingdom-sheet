@@ -412,7 +412,7 @@ export class SettlementSheet extends pf1.applications.actor.ActorSheetPF {
 
   // overrides
   // this function is almost identical to the system function on actor-sheet.mjs, except it allows
-  // the districtId of buildings to be pre-populated
+  // the districtId of buildings to be pre-populated and the turn of events to match the kingdom turn
   _onItemCreate(event) {
     event.preventDefault();
     const el = event.currentTarget;
@@ -430,6 +430,10 @@ export class SettlementSheet extends pf1.applications.actor.ActorSheetPF {
     if (districtId) {
       createData.system ??= {};
       createData.system.districtId = districtId;
+    }
+    if (type === pf1ks.config.settlementEventId) {
+      createData.system ??= {};
+      createData.system.turn = this.actor.system.kingdom?.actor.system.turn ?? null;
     }
     // End of added stuff
 
@@ -572,7 +576,8 @@ export class SettlementSheet extends pf1.applications.actor.ActorSheetPF {
   }
 
   // this function is almost identical to the system function on actor-sheet.mjs, except it
-  // handling of buildings when dropped, and removes some of the unnecessary stuff
+  // allows handling of buildings when dropped, the turn of events to match the kingdom turn
+  // when dropped, and removes some of the unnecessary stuff
   async _onDropItem(event, data) {
     // Prevents double building creation when dropping new items onto the grid
     event.stopPropagation();
@@ -595,6 +600,11 @@ export class SettlementSheet extends pf1.applications.actor.ActorSheetPF {
     // building handling
     if (itemData.type === pf1ks.config.buildingId) {
       return this._handleBuildings(event, itemData, sourceItem, sameActor);
+    }
+
+    // event handling
+    if (itemData.type === pf1ks.config.settlementEventId) {
+      itemData.system.turn = this.actor.system.kingdom?.actor.system.turn ?? null;
     }
     // end of new stuff
 

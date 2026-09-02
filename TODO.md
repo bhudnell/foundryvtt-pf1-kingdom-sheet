@@ -12,7 +12,6 @@
 - localize all strings
 
 ## Misc
-- when event added, auto fill in turn with current kingdom turn
 - break up utils/main file and other giant ones
 - read through items and see if any rolls can be automated (ie economic boom)
 

@@ -541,6 +541,89 @@ export class KingdomSheet extends pf1.applications.actor.ActorSheetPF {
   }
 
   // overrides
+  // this function is almost identical to the system function on actor-sheet.mjs, except it allows
+  // the turn of events to match the kingdom turn
+  _onItemCreate(event) {
+    event.preventDefault();
+    const el = event.currentTarget;
+
+    const [categoryId, sectionId] = el.dataset.create?.split(".") ?? [];
+    const createData = foundry.utils.deepClone(pf1.config.sheetSections[categoryId]?.[sectionId]?.create);
+    if (!createData) {
+      throw new Error(`No creation data found for "${categoryId}.${sectionId}"`);
+    }
+    const type = createData.type || el.dataset.type;
+    const subType = createData.system?.subType;
+
+    // This is the part I had to add
+    if (type === pf1ks.config.kingdomEventId) {
+      createData.system ??= {};
+      createData.system.turn = this.actor.system.turn;
+    }
+    // End of added stuff
+
+    createData.name = Item.implementation.defaultName({ type, subType, parent: this.actor });
+    const newItem = new Item.implementation(createData);
+
+    this._sortNewItem(newItem);
+
+    // Get old items of same general category
+    const oldItems = this.actor.itemTypes[type]
+      .filter((oldItem) => pf1.utils.isItemSameSubGroup(newItem, oldItem))
+      .sort((a, b) => b.sort - a.sort);
+
+    if (oldItems.length) {
+      // Ensure no duplicate names occur
+      const baseName = newItem.name;
+      let newName = baseName;
+      let i = 2;
+      const names = new Set(oldItems.map((i) => i.name));
+      while (names.has(newName)) {
+        newName = `${baseName} (${i++})`;
+      }
+
+      if (newName !== newItem.name) {
+        newItem.updateSource({ name: newName });
+      }
+    }
+
+    return Item.implementation.create(newItem.toObject(), { parent: this.actor, renderSheet: true });
+  }
+
+  // this function is almost identical to the system function on actor-sheet.mjs, except it
+  // allows the turn of events to match the kingdom turn when dropped, and removes some of the
+  // unnecessary stuff
+  async _onDropItem(event, data) {
+    if (!this.actor.isOwner) {
+      return void ui.notifications.warn("PF1.Error.NoActorPermission", { localize: true });
+    }
+
+    const sourceItem = await Item.implementation.fromDropData(data);
+
+    const sameActor = sourceItem.actor === this.actor;
+
+    const itemData = game.items.fromCompendium(sourceItem, {
+      clearFolder: true,
+      keepId: sameActor,
+      clearSort: !sameActor,
+    });
+
+    // this is the new stuff
+    // event handling
+    if (itemData.type === pf1ks.config.kingdomEventId) {
+      itemData.system.turn = this.actor.system.turn;
+    }
+    // end of new stuff
+
+    // Handle item sorting within the same actor
+    if (sameActor) {
+      return this._onSortItem(event, itemData);
+    }
+
+    // Create the owned item
+    return this._onDropItemCreate(itemData);
+  }
+
   // allows dropping settlements and armies onto kingdoms
   async _onDropActor(event, data) {
     event.preventDefault();
