@@ -6,9 +6,13 @@ import { BaseMigrate } from "./baseMigrate.mjs";
 
 export class MigrateV3 extends BaseMigrate {
   static improvementLog = null;
+  static changeTargets = {};
+  static noteTargets = {};
 
   static async preMigration() {
     this.improvementLog = await JournalEntry.create({ name: game.i18n.localize("PF1KS.Migration.ImprovementLog") });
+    this.changeTargets = Object.fromEntries(Object.entries(buffTargets).map(([key, value]) => [key, value.label]));
+    this.noteTargets = Object.fromEntries(Object.entries(contextNoteTargets).map(([key, value]) => [key, value.label]));
   }
 
   static async postMigration() {
@@ -35,15 +39,11 @@ export class MigrateV3 extends BaseMigrate {
       content += `<li><p>${item.name} (${item.system.quantity}):`;
 
       for (const change of item.system.changes) {
-        const changeTargets = Object.fromEntries(Object.entries(buffTargets).map(([key, value]) => [key, value.label]));
-        content += ` ${change.formula} ${game.i18n.localize(changeTargets[change.target])},`;
+        content += ` ${change.formula} ${game.i18n.localize(this.changeTargets[change.target])},`;
       }
 
       for (const note of item.system.contextNotes) {
-        const contextNoteTargets = Object.fromEntries(
-          Object.entries(contextNoteTargets).map(([key, value]) => [key, value.label])
-        );
-        content += ` ${note.text} to ${game.i18n.localize(contextNoteTargets[note.target])},`;
+        content += ` ${note.text} to ${game.i18n.localize(this.noteTargets[note.target])},`;
       }
 
       content += "</p></li>";
