@@ -34,6 +34,8 @@ export default [
         ChatMessage: "readonly",
         Tabs: "readonly",
         TooltipManager: "readonly",
+        JournalEntry: "readonly",
+        JournalEntryPage: "readonly",
         pf1: "readonly",
         pf1ks: "readonly",
         libWrapper: "readonly",

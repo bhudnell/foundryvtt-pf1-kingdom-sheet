@@ -7,8 +7,6 @@
   - will need to leave the item type/changes/context notes around so the migration can run
     remove item type in a later version
 
-- create a log of the number of each terrain type and all improvements
-- migration
 - localize all strings
 
 ## Misc

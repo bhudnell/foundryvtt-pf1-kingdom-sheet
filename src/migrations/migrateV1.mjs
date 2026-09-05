@@ -44,7 +44,7 @@ export class MigrateV1 extends BaseMigrate {
     if (item.type === pf1ks.config.buildingId) {
       const { width, height } = getLotDimensions(item.system.lotSize);
 
-      const settlement = item.parent?.system.settlements.find(
+      const settlement = item.parent?.system.settlements?.find(
         (settlement) => settlement.id === item.system.settlementId
       );
 
