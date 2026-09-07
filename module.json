@@ -109,16 +109,6 @@
       "system": "pf1"
     },
     {
-      "name": "improvement",
-      "label": "Terrain Improvements",
-      "path": "packs/improvement",
-      "type": "Item",
-      "ownership": {
-        "PLAYER": "OBSERVER"
-      },
-      "system": "pf1"
-    },
-    {
       "name": "feature",
       "label": "Settlement Features",
       "path": "packs/feature",
@@ -150,7 +140,7 @@
   "packFolders": [
     {
       "name": "Kingdom Building",
-      "packs": ["boon", "tactic", "special", "building", "event", "improvement", "feature", "rules", "roll-table"]
+      "packs": ["boon", "tactic", "special", "building", "event", "feature", "rules", "roll-table"]
     }
   ],
 

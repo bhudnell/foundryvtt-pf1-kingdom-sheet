@@ -9,7 +9,6 @@ export const armyId = `${moduleId}.army`;
 export const buildingId = `${moduleId}.building`;
 export const kingdomEventId = `${moduleId}.event`;
 export const settlementEventId = `${moduleId}.settlementEvent`;
-export const improvementId = `${moduleId}.improvement`;
 export const featureId = `${moduleId}.feature`;
 export const boonId = `${moduleId}.boon`;
 export const specialId = `${moduleId}.special`;
@@ -1079,11 +1078,6 @@ export const eventSubTypes = {
   misc: "PF1KS.Event.SubTypes.Misc",
 };
 
-export const improvementSubTypes = {
-  general: "PF1KS.Improvement.SubTypes.General",
-  special: "PF1KS.Improvement.SubTypes.Special",
-};
-
 export const featureSubTypes = {
   quality: "PF1KS.Feature.SubTypes.Quality",
   disadvantage: "PF1KS.Feature.SubTypes.Disadvantage",
@@ -1092,7 +1086,6 @@ export const featureSubTypes = {
 
 export const itemSubTypes = {
   ...eventSubTypes,
-  ...improvementSubTypes,
   ...featureSubTypes,
 };
 

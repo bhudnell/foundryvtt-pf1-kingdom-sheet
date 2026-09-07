@@ -309,11 +309,6 @@
     "Improvements": "Terrain Improvements",
     "SpecialTerrain": "Special Terrain",
     "Improvement": {
-      "SubTypes": {
-        "General": "General",
-        "Special": "Special"
-      },
-
       "Aqueduct": "Aqueduct",
       "Bridge": "Bridge",
       "Canal": "Canal",
@@ -456,7 +451,6 @@
       "Boons": "Browse Boons",
       "Buildings": "Browse Buildings",
       "Events": "Browse Events",
-      "Improvements": "Browse Terrain Improvements",
       "Features": "Browse Settlement Features",
       "Tactics": "Browse Tactics",
       "Special": "Browse Special Abilities"
@@ -469,7 +463,6 @@
       "Army": "Army Sheet",
       "Building": "Building",
       "Event": "Event",
-      "Improvement": "Terrain Improvement",
       "Feature": "Settlement Feature",
       "Boon": "Boon",
       "Special": "Special Ability",
@@ -522,7 +515,6 @@
         "building": "Building",
         "event": "Kingdom Event",
         "settlementEvent": "Settlement Event",
-        "improvement": "Terrain Improvement",
         "feature": "Settlement Feature",
         "boon": "Boon",
         "special": "Special Ability",
@@ -568,16 +560,6 @@
             "misc": {
               "Single": "Miscellaneous Settlement Event",
               "Plural": "Miscellaneous"
-            }
-          },
-          "improvement": {
-            "general": {
-              "Single": "Terrain Improvement",
-              "Plural": "Terrain Improvements"
-            },
-            "special": {
-              "Single": "Special Terrain",
-              "Plural": "Special Terrain"
             }
           },
           "feature": {

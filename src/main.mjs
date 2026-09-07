@@ -6,7 +6,6 @@ import { BoonSheet } from "./applications/items/boonSheet.mjs";
 import { BuildingSheet } from "./applications/items/buildingSheet.mjs";
 import { EventSheet } from "./applications/items/eventSheet.mjs";
 import { FeatureSheet } from "./applications/items/featureSheet.mjs";
-import { ImprovementSheet } from "./applications/items/improvementSheet.mjs";
 import { SpecialSheet } from "./applications/items/specialSheet.mjs";
 import { TacticSheet } from "./applications/items/tacticSheet.mjs";
 import { HexStore } from "./canvas/hexStore.mjs";
@@ -28,7 +27,6 @@ import { BoonModel } from "./dataModels/items/boonModel.mjs";
 import { BuildingModel } from "./dataModels/items/buildingModel.mjs";
 import { EventModel } from "./dataModels/items/eventModel.mjs";
 import { FeatureModel } from "./dataModels/items/featureModel.mjs";
-import { ImprovementModel } from "./dataModels/items/improvementModel.mjs";
 import { SpecialModel } from "./dataModels/items/specialModel.mjs";
 import { TacticModel } from "./dataModels/items/tacticModel.mjs";
 import { ArmyActor } from "./documents/actors/armyActor.mjs";
@@ -39,13 +37,12 @@ import { BoonItem } from "./documents/items/boonItem.mjs";
 import { BuildingItem } from "./documents/items/buildingItem.mjs";
 import { EventItem } from "./documents/items/eventItem.mjs";
 import { FeatureItem } from "./documents/items/featureItem.mjs";
-import { ImprovementItem } from "./documents/items/improvementItem.mjs";
 import { SpecialItem } from "./documents/items/specialItem.mjs";
 import { TacticItem } from "./documents/items/tacticItem.mjs";
 import { getChangeFlat } from "./hooks/getChangeFlat.mjs";
 import { migrate } from "./migrations/index.mjs";
 import { syncManager } from "./util/syncManager.mjs";
-import { applyChange, moduleToObject, rollEventTable } from "./util/utils.mjs";
+import { moduleToObject, rollEventTable } from "./util/utils.mjs";
 
 export { PF1KS as config };
 globalThis.pf1ks = moduleToObject({
@@ -128,7 +125,7 @@ Hooks.once("libWrapper.Ready", () => {
     libWrapper.MIXED
   );
 
-  // adds subtypes for improvement, event, and feature item creation
+  // adds subtypes for event and feature item creation
   libWrapper.register(
     PF1KS.moduleId,
     "pf1.applications.item.CreateDialog.prototype.getSubtypes",
@@ -144,29 +141,11 @@ Hooks.once("libWrapper.Ready", () => {
         case PF1KS.settlementEventId:
           return PF1KS.eventSubTypes;
 
-        case PF1KS.improvementId:
-          return PF1KS.improvementSubTypes;
-
         case PF1KS.featureId:
           return PF1KS.featureSubTypes;
 
         default:
           return wrapper(type);
-      }
-    },
-    libWrapper.MIXED
-  );
-
-  // lets changes be multiplied by quantity for module
-  // TODO quantity no longer needed as of v5, remove eventually
-  libWrapper.register(
-    PF1KS.moduleId,
-    "pf1.components.ItemChange.prototype.applyChange",
-    function (wrapper, actor, targets, options) {
-      if (actor.type.startsWith(PF1KS.moduleId)) {
-        applyChange(this, actor, targets, options);
-      } else {
-        return wrapper(actor, targets, options);
       }
     },
     libWrapper.MIXED
@@ -214,7 +193,6 @@ Hooks.once("pf1PostInit", () => {
   CONFIG.Item.documentClasses[PF1KS.buildingId] = BuildingItem;
   CONFIG.Item.documentClasses[PF1KS.kingdomEventId] = EventItem;
   CONFIG.Item.documentClasses[PF1KS.settlementEventId] = EventItem;
-  CONFIG.Item.documentClasses[PF1KS.improvementId] = ImprovementItem;
   CONFIG.Item.documentClasses[PF1KS.featureId] = FeatureItem;
   CONFIG.Item.documentClasses[PF1KS.boonId] = BoonItem;
   CONFIG.Item.documentClasses[PF1KS.specialId] = SpecialItem;
@@ -226,7 +204,6 @@ Hooks.once("pf1PostInit", () => {
   pf1.documents.actor.ArmyActor = ArmyActor;
   pf1.documents.item.BuildingItem = BuildingItem;
   pf1.documents.item.EventItem = EventItem;
-  pf1.documents.item.ImprovementItem = ImprovementItem;
   pf1.documents.item.FeatureItem = FeatureItem;
   pf1.documents.item.BoonItem = BoonItem;
   pf1.documents.item.SpecialItem = SpecialItem;
@@ -239,7 +216,6 @@ Hooks.once("pf1PostInit", () => {
   CONFIG.Item.dataModels[PF1KS.buildingId] = BuildingModel;
   CONFIG.Item.dataModels[PF1KS.kingdomEventId] = EventModel;
   CONFIG.Item.dataModels[PF1KS.settlementEventId] = EventModel;
-  CONFIG.Item.dataModels[PF1KS.improvementId] = ImprovementModel;
   CONFIG.Item.dataModels[PF1KS.featureId] = FeatureModel;
   CONFIG.Item.dataModels[PF1KS.boonId] = BoonModel;
   CONFIG.Item.dataModels[PF1KS.specialId] = SpecialModel;
@@ -251,7 +227,6 @@ Hooks.once("pf1PostInit", () => {
   pf1.applications.actor.ArmySheet = ArmySheet;
   pf1.applications.item.BuildingSheet = BuildingSheet;
   pf1.applications.item.EventSheet = EventSheet;
-  pf1.applications.item.ImprovementSheet = ImprovementSheet;
   pf1.applications.item.FeatureSheet = FeatureSheet;
   pf1.applications.item.BoonSheet = BoonSheet;
   pf1.applications.item.SpecialSheet = SpecialSheet;
@@ -287,11 +262,6 @@ Hooks.once("pf1PostInit", () => {
     types: [PF1KS.kingdomEventId, PF1KS.settlementEventId],
     makeDefault: true,
   });
-  foundry.documents.collections.Items.registerSheet(PF1KS.moduleId, ImprovementSheet, {
-    label: game.i18n.localize("PF1KS.Sheet.Improvement"),
-    types: [PF1KS.improvementId],
-    makeDefault: true,
-  });
   foundry.documents.collections.Items.registerSheet(PF1KS.moduleId, FeatureSheet, {
     label: game.i18n.localize("PF1KS.Sheet.Feature"),
     types: [PF1KS.featureId],
@@ -324,8 +294,7 @@ Hooks.once("pf1PostInit", () => {
         ...PF1KS.kingdomItemTypes,
         ...PF1KS.settlementItemTypes,
         ...PF1KS.settlementLiteItemTypes,
-        ...PF1KS.armyItemTypes,
-        PF1KS.improvementId
+        ...PF1KS.armyItemTypes
       );
       pf1.config[prop][categoryKey] = category;
     }
@@ -427,7 +396,6 @@ Hooks.once("pf1PostInit", () => {
 
     "item-sheet-building": `modules/${PF1KS.moduleId}/templates/items/parts/building-details.hbs`,
     "item-sheet-event": `modules/${PF1KS.moduleId}/templates/items/parts/event-details.hbs`,
-    "item-sheet-improvement": `modules/${PF1KS.moduleId}/templates/items/parts/improvement-details.hbs`,
     "item-sheet-feature": `modules/${PF1KS.moduleId}/templates/items/parts/feature-details.hbs`,
     "item-sheet-boon": `modules/${PF1KS.moduleId}/templates/items/parts/boon-details.hbs`,
     "item-sheet-special": `modules/${PF1KS.moduleId}/templates/items/parts/special-details.hbs`,
@@ -627,7 +595,6 @@ Hooks.once("i18nInit", () => {
     "armySizes",
     "armyStrategy",
     "eventSubTypes",
-    "improvementSubTypes",
     "featureSubTypes",
     "itemSubTypes",
   ];

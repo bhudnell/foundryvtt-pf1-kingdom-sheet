@@ -25,7 +25,7 @@ export class MigrateV3 extends BaseMigrate {
     }
 
     log(`migrating actor '${actor?.name}'`);
-    const improvementItems = actor.itemTypes[pf1ks.config.improvementId];
+    const improvementItems = actor.itemTypes[`${pf1ks.config.moduleId}.improvement`];
 
     let content = `<h2>${game.i18n.localize("PF1KS.TerrainLabel")}</h2><ul>`;
 

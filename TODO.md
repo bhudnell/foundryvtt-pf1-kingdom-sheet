@@ -3,9 +3,6 @@
 ## Hex map
 - remove all improvement item things
   - compendium -> turn into rules since items are going bye bye
-  - kingdom logic
-  - will need to leave the item type/changes/context notes around so the migration can run
-    remove item type in a later version
 
 ## Misc
 - break up utils/main file and other giant ones
