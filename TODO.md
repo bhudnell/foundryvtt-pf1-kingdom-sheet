@@ -1,3 +1,14 @@
+# For this release
+
+## Hex map
+- remove all improvement item things
+  - compendium -> turn into rules since items are going bye bye
+
+## Misc
+- break up utils/main file and other giant ones
+- read through items and see if any rolls can be automated (ie economic boom)
+
+
 # For future releases
 
 ## Misc
@@ -12,8 +23,6 @@
   - abandoned buildings
   - deities and holy sites
   - special edicts
-- read through items and see if any rolls can be automated (ie economic boom)
-- when event added, auto fill in turn with current kingdom turn
 
 ## Change editor dialog
 - maybe I can clean this up to hide unused fields
@@ -24,3 +33,7 @@
   - optional list to limit to certain building types
   - must be able to handle lotless and lotted buildings
 - follows building limits (ie must be next to X, cannot be next to Y, limit Z per settlement/district)
+
+## Hex map
+- optional settings
+  - FOW exploration (see fow-exploration branch) maybe opacity sliders for the states?

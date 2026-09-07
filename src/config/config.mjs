@@ -9,13 +9,12 @@ export const armyId = `${moduleId}.army`;
 export const buildingId = `${moduleId}.building`;
 export const kingdomEventId = `${moduleId}.event`;
 export const settlementEventId = `${moduleId}.settlementEvent`;
-export const improvementId = `${moduleId}.improvement`;
 export const featureId = `${moduleId}.feature`;
 export const boonId = `${moduleId}.boon`;
 export const specialId = `${moduleId}.special`;
 export const tacticId = `${moduleId}.tactic`;
 
-export const kingdomItemTypes = [kingdomEventId, improvementId];
+export const kingdomItemTypes = [kingdomEventId];
 export const settlementItemTypes = [buildingId, featureId, settlementEventId];
 export const settlementLiteItemTypes = [featureId];
 export const armyItemTypes = [boonId, specialId, tacticId];
@@ -825,22 +824,10 @@ export const magicItemTypes = {
   major: "PF1KS.MagicItem.Major",
 };
 
-export const terrainTypes = {
-  cavern: "PF1KS.Terrain.Cavern",
-  coast: "PF1KS.Terrain.Coast",
-  desert: "PF1KS.Terrain.Desert",
-  forest: "PF1KS.Terrain.Forest",
-  hills: "PF1KS.Terrain.Hills",
-  jungle: "PF1KS.Terrain.Jungle",
-  marsh: "PF1KS.Terrain.Marsh",
-  mountains: "PF1KS.Terrain.Mountains",
-  plains: "PF1KS.Terrain.Plains",
-  water: "PF1KS.Terrain.Water",
-};
-
 export const settings = {
   secondRuler: "PF1KS.Settings.SecondRuler",
   collapseTooltips: "PF1KS.Settings.CollapseTooltips",
+  color: "PF1KS.Settings.Color",
 };
 
 export const optionalRules = {
@@ -1091,11 +1078,6 @@ export const eventSubTypes = {
   misc: "PF1KS.Event.SubTypes.Misc",
 };
 
-export const improvementSubTypes = {
-  general: "PF1KS.Improvement.SubTypes.General",
-  special: "PF1KS.Improvement.SubTypes.Special",
-};
-
 export const featureSubTypes = {
   quality: "PF1KS.Feature.SubTypes.Quality",
   disadvantage: "PF1KS.Feature.SubTypes.Disadvantage",
@@ -1104,6 +1086,512 @@ export const featureSubTypes = {
 
 export const itemSubTypes = {
   ...eventSubTypes,
-  ...improvementSubTypes,
   ...featureSubTypes,
+};
+
+export const viewInOtherLayersSetting = "viewInOtherLayers";
+export const hexEditorPermissionSetting = "hexEditorPermission";
+
+export const hexStatuses = {
+  unexplored: "PF1KS.HexStatus.Unexplored",
+  explored: "PF1KS.HexStatus.Explored",
+  cleared: "PF1KS.HexStatus.Cleared",
+  claimed: "PF1KS.HexStatus.Claimed",
+};
+
+export const terrainTypes = {
+  cavern: "PF1KS.Terrain.Cavern",
+  coast: "PF1KS.Terrain.Coast",
+  desert: "PF1KS.Terrain.Desert",
+  forest: "PF1KS.Terrain.Forest",
+  hills: "PF1KS.Terrain.Hills",
+  jungle: "PF1KS.Terrain.Jungle",
+  marsh: "PF1KS.Terrain.Marsh",
+  mountains: "PF1KS.Terrain.Mountains",
+  plains: "PF1KS.Terrain.Plains",
+  water: "PF1KS.Terrain.Water",
+};
+
+export const improvementGroups = {
+  resourceExtraction: ["mine", "quarry", "sawmill"],
+  defensiveStructures: ["fort", "watchtower"],
+};
+
+const NOT_WATER = {
+  type: "not",
+  requirement: {
+    type: "terrain",
+    allowed: ["water"],
+  },
+};
+
+export const terrainImprovements = {
+  aqueduct: {
+    id: "aqueduct",
+    name: "PF1KS.Improvement.Aqueduct",
+    requirements: [
+      {
+        type: "networkSourceTerrain",
+        terrain: ["hills", "mountains"],
+      },
+    ],
+    mechanics: {
+      changes: [
+        {
+          formula: 1,
+          target: `${changePrefix}_loyalty`,
+          type: "untyped",
+        },
+        {
+          formula: 1,
+          target: `${changePrefix}_stability`,
+          type: "untyped",
+        },
+      ],
+    },
+  },
+
+  bridge: {
+    id: "bridge",
+    name: "PF1KS.Improvement.Bridge",
+    requirements: [
+      {
+        type: "specialTerrain",
+        specialTerrain: "river",
+      },
+      {
+        type: "not",
+        requirement: {
+          type: "specialTerrain",
+          specialTerrain: "bridge",
+        },
+      },
+    ],
+  },
+
+  canal: {
+    id: "canal",
+    name: "PF1KS.Improvement.Canal",
+    requirements: [
+      {
+        type: "terrain",
+        allowed: ["desert", "hills", "plains"],
+      },
+    ],
+  },
+
+  farm: {
+    id: "farm",
+    name: "PF1KS.Improvement.Farm",
+    requirements: [
+      {
+        type: "terrain",
+        allowed: ["desert", "hills", "plains"],
+      },
+      {
+        type: "ifTerrain",
+        terrain: ["desert"],
+        then: {
+          type: "oneOf",
+          requirements: [
+            { type: "specialTerrain", specialTerrain: "river" },
+            { type: "terrain", allowed: ["coast"] },
+            { type: "improvement", improvement: "canal" },
+          ],
+        },
+      },
+    ],
+    mechanics: {
+      changes: [
+        {
+          formula: -2,
+          target: `${changePrefix}_consumption`,
+          type: "untyped",
+        },
+      ],
+    },
+  },
+
+  fishery: {
+    id: "fishery",
+    name: "PF1KS.Improvement.Fishery",
+    requirements: [
+      {
+        type: "oneOf",
+        requirements: [
+          { type: "terrain", allowed: ["coast", "water", "marsh"] },
+          { type: "specialTerrain", specialTerrain: "river" },
+          { type: "improvement", improvement: "canal" },
+        ],
+      },
+    ],
+    mechanics: {
+      changes: [
+        {
+          formula: -1,
+          target: `${changePrefix}_consumption`,
+          type: "untyped",
+        },
+      ],
+    },
+  },
+
+  fort: {
+    id: "fort",
+    name: "PF1KS.Improvement.Fort",
+    requirements: [
+      NOT_WATER,
+      {
+        type: "exclusiveGroup",
+        group: "defensiveStructures",
+      },
+    ],
+    mechanics: {
+      changes: [
+        {
+          formula: 2,
+          target: `${changePrefix}_stability`,
+          type: "untyped",
+        },
+        {
+          formula: -1,
+          target: `${changePrefix}_unrestDrop`,
+          type: "untyped",
+        },
+        {
+          formula: 1,
+          target: `${changePrefix}_consumption`,
+          type: "untyped",
+        },
+        {
+          formula: 4,
+          target: `${changePrefix}_defense`,
+          type: "untyped",
+        },
+      ],
+    },
+  },
+
+  highway: {
+    id: "highway",
+    name: "PF1KS.Improvement.Highway",
+    requirements: [
+      NOT_WATER,
+      {
+        type: "improvement",
+        improvement: "road",
+      },
+      {
+        type: "kingdomSize",
+        min: 26,
+      },
+    ],
+    mechanics: {
+      changes: [
+        {
+          formula: 0.25,
+          target: `${changePrefix}_economy`,
+          type: "untyped",
+        },
+        {
+          formula: 0.125,
+          target: `${changePrefix}_stability`,
+          type: "untyped",
+        },
+      ],
+    },
+  },
+
+  mine: {
+    id: "mine",
+    name: "PF1KS.Improvement.Mine",
+    requirements: [
+      {
+        type: "terrain",
+        allowed: ["cavern", "desert", "hills", "mountains"],
+      },
+      {
+        type: "exclusiveGroup",
+        group: "resourceExtraction",
+      },
+    ],
+    mechanics: {
+      changes: [
+        {
+          formula: 1,
+          target: `${changePrefix}_economy`,
+          type: "untyped",
+        },
+        {
+          formula: 1,
+          target: `${changePrefix}_bonusBP`,
+          type: "untyped",
+        },
+      ],
+    },
+  },
+
+  quarry: {
+    id: "quarry",
+    name: "PF1KS.Improvement.Quarry",
+    requirements: [
+      {
+        type: "terrain",
+        allowed: ["cavern", "hills", "mountains"],
+      },
+      {
+        type: "exclusiveGroup",
+        group: "resourceExtraction",
+      },
+    ],
+    mechanics: {
+      changes: [
+        {
+          formula: 1,
+          target: `${changePrefix}_stability`,
+          type: "untyped",
+        },
+        {
+          formula: 1,
+          target: `${changePrefix}_bonusBP`,
+          type: "untyped",
+        },
+      ],
+    },
+  },
+
+  road: {
+    id: "road",
+    name: "PF1KS.Improvement.Road",
+    requirements: [NOT_WATER],
+    mechanics: {
+      changes: [
+        {
+          formula: 0.25,
+          target: `${changePrefix}_economy`,
+          type: "untyped",
+        },
+        {
+          formula: 0.125,
+          target: `${changePrefix}_stability`,
+          type: "untyped",
+        },
+      ],
+    },
+  },
+
+  sawmill: {
+    id: "sawmill",
+    name: "PF1KS.Improvement.Sawmill",
+    requirements: [
+      {
+        type: "terrain",
+        allowed: ["forest", "jungle"],
+      },
+      {
+        type: "exclusiveGroup",
+        group: "resourceExtraction",
+      },
+    ],
+    mechanics: {
+      changes: [
+        {
+          formula: 1,
+          target: `${changePrefix}_stability`,
+          type: "untyped",
+        },
+        {
+          formula: 1,
+          target: `${changePrefix}_bonusBP`,
+          type: "untyped",
+        },
+      ],
+    },
+  },
+
+  watchtower: {
+    id: "watchtower",
+    name: "PF1KS.Improvement.Watchtower",
+    requirements: [
+      NOT_WATER,
+      {
+        type: "exclusiveGroup",
+        group: "defensiveStructures",
+      },
+    ],
+    mechanics: {
+      changes: [
+        {
+          formula: 1,
+          target: `${changePrefix}_stability`,
+          type: "untyped",
+        },
+        {
+          formula: -1,
+          target: `${changePrefix}_unrestDrop`,
+          type: "untyped",
+        },
+        {
+          formula: 2,
+          target: `${changePrefix}_defense`,
+          type: "untyped",
+        },
+      ],
+    },
+  },
+};
+
+export const specialTerrain = {
+  bridge: {
+    name: "PF1KS.Improvement.Bridge",
+  },
+  building: {
+    name: "PF1KS.Improvement.Building",
+  },
+  freeCity: {
+    name: "PF1KS.Improvement.FreeCity",
+  },
+  lair: {
+    name: "PF1KS.Improvement.Lair",
+    interactions: [
+      {
+        type: "affectsImprovements",
+        improvements: ["fort", "watchtower"],
+        apply: [
+          {
+            formula: 1,
+            target: `${changePrefix}_defense`,
+            type: "untyped",
+          },
+        ],
+      },
+    ],
+    mechanics: {
+      changes: [
+        {
+          formula: 1,
+          target: `${changePrefix}_stability`,
+          type: "untyped",
+        },
+      ],
+    },
+  },
+  landmark: {
+    name: "PF1KS.Improvement.Landmark",
+    interactions: [
+      {
+        type: "requiresImprovementPresence",
+        improvements: ["road", "highway"],
+        apply: [
+          {
+            formula: 1,
+            target: `${changePrefix}_loyalty`,
+            type: "untyped",
+          },
+        ],
+      },
+    ],
+    mechanics: {
+      changes: [
+        {
+          formula: 1,
+          target: `${changePrefix}_loyalty`,
+          type: "untyped",
+        },
+      ],
+    },
+  },
+  resource: {
+    name: "PF1KS.Improvement.Resource",
+    interactions: [
+      {
+        type: "improvementMap",
+        map: {
+          mine: [
+            {
+              formula: 1,
+              target: `${changePrefix}_economy`,
+              type: "untyped",
+            },
+            {
+              formula: 1,
+              target: `${changePrefix}_bonusBP`,
+              type: "untyped",
+            },
+          ],
+
+          quarry: [
+            {
+              formula: 1,
+              target: `${changePrefix}_stability`,
+              type: "untyped",
+            },
+            {
+              formula: 1,
+              target: `${changePrefix}_bonusBP`,
+              type: "untyped",
+            },
+          ],
+
+          sawmill: [
+            {
+              formula: 1,
+              target: `${changePrefix}_stability`,
+              type: "untyped",
+            },
+            {
+              formula: 1,
+              target: `${changePrefix}_bonusBP`,
+              type: "untyped",
+            },
+          ],
+
+          farm: [
+            {
+              formula: -1,
+              target: `${changePrefix}_consumption`,
+              type: "untyped",
+            },
+          ],
+
+          fishery: [
+            {
+              formula: -1,
+              target: `${changePrefix}_consumption`,
+              type: "untyped",
+            },
+          ],
+        },
+      },
+    ],
+    mechanics: {
+      changes: [
+        {
+          formula: 1,
+          target: `${changePrefix}_economy`,
+          type: "untyped",
+        },
+      ],
+    },
+  },
+  river: {
+    name: "PF1KS.Improvement.River",
+    mechanics: {
+      changes: [
+        {
+          formula: 0.25,
+          target: `${changePrefix}_economy`,
+          type: "untyped",
+        },
+        {
+          formula: 0.125,
+          target: `${changePrefix}_stability`,
+          type: "untyped",
+        },
+      ],
+    },
+  },
+  ruin: {
+    name: "PF1KS.Improvement.Ruin",
+  },
 };

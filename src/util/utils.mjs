@@ -90,116 +90,6 @@ export class DefaultChange extends pf1.components.ItemChange {
   }
 }
 
-export function applyChange(change, actor, targets = null, { applySourceInfo = true, rollData } = {}) {
-  // Prepare change targets
-  targets ??= change.getTargets(actor);
-
-  rollData ??= change.parent ? change.parent.getRollData({ refresh: true }) : actor.getRollData({ refresh: true });
-
-  const overrides = actor.changeOverrides;
-  for (const t of targets) {
-    const override = overrides[t];
-    const operator = change.operator;
-
-    // HACK: Data prep change application creates overrides; only changes meant for manual comparison lack them,
-    // and those do not have to be applied to the actor.
-    // This hack enables calling applyChange on Changes that are not meant to be applied, but require a call to
-    // determine effective operator and/or value.
-    if (!override) {
-      continue;
-    }
-
-    let value = 0;
-    if (change.formula) {
-      if (!isNaN(change.formula)) {
-        value = parseFloat(change.formula);
-      } else if (change.isDeferred && pf1.dice.RollPF.parse(change.formula).some((t) => !t.isDeterministic)) {
-        value = pf1.dice.RollPF.replaceFormulaData(change.formula, rollData, { missing: 0 });
-      } else {
-        value = pf1.dice.RollPF.safeRollSync(
-          change.formula,
-          rollData,
-          { formula: change.formula, target: t, change, rollData },
-          { suppressError: change.parent && !change.parent.isOwner },
-          { maximize: true }
-        ).total;
-      }
-    }
-
-    // multiply change value by the parent item quantity
-    // These two lines are the only differences between this function and the system ItemChange.applyChange function
-    value *= change.parent?.system.quantity ?? 1;
-    value = Math.floor(value);
-
-    change.value = value;
-
-    if (!t) {
-      continue;
-    }
-
-    const prior = override[operator][change.type];
-
-    switch (operator) {
-      case "add":
-        {
-          let base = foundry.utils.getProperty(actor, t);
-
-          // Don't change non-existing ability scores
-          if (base == null) {
-            if (t.match(/^system\.abilities/)) {
-              continue;
-            }
-            base = 0;
-          }
-
-          // Deferred formula
-          if (typeof value === "string") {
-            break;
-          }
-
-          if (typeof base === "number") {
-            // Skip positive dodge modifiers if lose dex to AC is in effect
-            if (actor.changeFlags.loseDexToAC && value > 0 && change.type === "dodge" && change.isAC) {
-              continue;
-            }
-
-            if (pf1.config.stackingBonusTypes.includes(change.type)) {
-              // Add stacking bonus
-              foundry.utils.setProperty(actor, t, base + value);
-              override[operator][change.type] = (prior ?? 0) + value;
-            } else {
-              // Use higher value only
-              const diff = !prior ? value : Math.max(0, value - (prior ?? 0));
-              foundry.utils.setProperty(actor, t, base + diff);
-              override[operator][change.type] = Math.max(prior ?? 0, value);
-            }
-          }
-        }
-        break;
-
-      case "set":
-        foundry.utils.setProperty(actor, t, value);
-        override[operator][change.type] = value;
-        break;
-    }
-
-    if (applySourceInfo) {
-      change.applySourceInfo(actor);
-    }
-
-    // Adjust ability modifier
-    const modifierChanger = t.match(/^system\.abilities\.([a-zA-Z0-9]+)\.(?:total|penalty|base)$/);
-    const abilityTarget = modifierChanger?.[1];
-    if (abilityTarget) {
-      const ability = actor.system.abilities[abilityTarget];
-      ability.mod = pf1.utils.getAbilityModifier(ability.total, {
-        damage: ability.damage,
-        penalty: ability.penalty,
-      });
-    }
-  }
-}
-
 export function registerSetting(
   { config = true, defaultValue = null, key, scope = "world", settingType = String },
   { skipReady = false } = {}
@@ -220,4 +110,228 @@ export function registerSetting(
 
 export function log(msg) {
   console.log(`${pf1ks.config.moduleId} - ${msg}`);
+}
+
+export function renderCachedTemplate(path, data = {}) {
+  const template = Handlebars.partials[path];
+  if (!template) {
+    throw new Error(`Template ${path} not found in cache`);
+  }
+
+  return template(data, {
+    allowProtoMethodsByDefault: true,
+    allowProtoPropertiesByDefault: true,
+    preventIndent: true,
+  });
+}
+
+export function validateImprovement(improvement, context) {
+  const failures = [];
+
+  for (const requirement of improvement.requirements ?? []) {
+    const result = validateRequirement(requirement, { ...context, improvementId: improvement.id });
+
+    if (!result.valid) {
+      failures.push(...result.failures);
+    }
+  }
+
+  return {
+    valid: failures.length === 0,
+    failures,
+  };
+}
+
+function validateRequirement(requirement, context) {
+  switch (requirement.type) {
+    case "terrain":
+      return {
+        valid: requirement.allowed.includes(context.terrain),
+        failures: requirement.allowed.includes(context.terrain)
+          ? []
+          : [game.i18n.localize("PF1KS.Improvement.Error.InvalidTerrain")],
+      };
+
+    case "specialTerrain":
+      return {
+        valid: context.specialTerrain?.includes(requirement.specialTerrain),
+        failures: context.specialTerrain?.includes(requirement.specialTerrain)
+          ? []
+          : [game.i18n.format("PF1KS.Improvement.Error.Requires", { requirement: requirement.specialTerrain })],
+      };
+
+    case "improvement":
+      return {
+        valid: context.improvements?.includes(requirement.improvement),
+        failures: context.improvements?.includes(requirement.improvement)
+          ? []
+          : [game.i18n.format("PF1KS.Improvement.Error.Requires", { requirement: requirement.improvement })],
+      };
+
+    case "kingdomSize":
+      return {
+        valid: (context.kingdom?.system.size ?? 0) >= requirement.min,
+        failures:
+          (context.kingdom?.system.size ?? 0) >= requirement.min
+            ? []
+            : [game.i18n.format("PF1KS.Improvement.Error.KingdomSize", { min: requirement.min })],
+      };
+
+    case "exclusiveGroup": {
+      const group = pf1ks.config.improvementGroups[requirement.group] ?? [];
+
+      const conflict = context.improvements?.find((i) => i !== context.improvementId && group.includes(i));
+
+      return {
+        valid: !conflict,
+        failures: conflict ? [game.i18n.format("PF1KS.Improvement.Error.Conflict", { conflict })] : [],
+      };
+    }
+
+    case "ifTerrain": {
+      if (!requirement.terrain.includes(context.terrain)) {
+        return {
+          valid: true,
+          failures: [],
+        };
+      }
+
+      return validateRequirement(requirement.then, context);
+    }
+
+    case "not": {
+      const result = validateRequirement(requirement.requirement, context);
+
+      return {
+        valid: !result.valid,
+        failures: !result.valid ? [] : [game.i18n.localize("PF1KS.Improvement.Error.Not")],
+      };
+    }
+
+    case "allOf": {
+      const failures = [];
+
+      for (const req of requirement.requirements) {
+        const result = validateRequirement(req, context);
+        failures.push(...result.failures);
+      }
+
+      return {
+        valid: failures.length === 0,
+        failures,
+      };
+    }
+
+    case "oneOf": {
+      const results = requirement.requirements.map((req) => validateRequirement(req, context));
+
+      const valid = results.some((r) => r.valid);
+
+      if (valid) {
+        return {
+          valid: true,
+          failures: [],
+        };
+      }
+
+      return {
+        valid: false,
+        failures: results.flatMap((r) => r.failures),
+      };
+    }
+
+    case "networkSourceTerrain":
+      // TODO Placeholder for aqueduct path validation.
+      return {
+        valid: true,
+        failures: [],
+      };
+
+    default:
+      console.warn(`Unknown requirement type: ${requirement.type}`);
+
+      return {
+        valid: false,
+        failures: [game.i18n.localize("PF1KS.Improvement.Error.UnknownRequirement")],
+      };
+  }
+}
+
+export function computeHexEffects(hex) {
+  const changes = [];
+
+  // 1. base improvement effects
+  for (const imp of hex.improvements ?? []) {
+    changes.push(...applyBaseMechanics(imp));
+  }
+
+  // 2. terrain-based modifiers
+  changes.push(...applySpecialTerrainEffects(hex));
+
+  const condensed = new Map();
+
+  for (const change of changes) {
+    const existing = condensed.get(change.target);
+
+    if (existing) {
+      existing.formula += change.formula;
+    } else {
+      condensed.set(change.target, { ...change });
+    }
+  }
+
+  return [...condensed.values()];
+}
+
+function applyBaseMechanics(improvementId) {
+  const improvement = pf1ks.config.terrainImprovements[improvementId];
+
+  return improvement.mechanics?.changes ?? [];
+}
+
+function applySpecialTerrainEffects(hex) {
+  const results = [];
+
+  for (const specialTerrainId of hex.specialTerrain ?? []) {
+    const terrain = pf1ks.config.specialTerrain[specialTerrainId];
+    if (!terrain?.interactions) {
+      continue;
+    }
+
+    for (const interaction of terrain.interactions) {
+      switch (interaction.type) {
+        case "improvementMap": {
+          const map = interaction.map;
+
+          for (const imp of hex.improvements ?? []) {
+            const effects = map[imp];
+            if (effects) {
+              results.push(...effects);
+            }
+          }
+          break;
+        }
+
+        case "affectsImprovements": {
+          const set = new Set(interaction.improvements);
+
+          if ((hex.improvements ?? []).some((i) => set.has(i))) {
+            results.push(...interaction.apply);
+          }
+          break;
+        }
+
+        case "requiresImprovementPresence": {
+          const set = new Set(interaction.improvements);
+
+          if ((hex.improvements ?? []).some((i) => set.has(i))) {
+            results.push(...interaction.apply);
+          }
+          break;
+        }
+      }
+    }
+  }
+
+  return results;
 }

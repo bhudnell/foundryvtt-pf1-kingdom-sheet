@@ -20,6 +20,10 @@
     }
   }
 
+  .no-events {
+    pointer-events: none;
+  }
+
   .item-detail {
     > select {
       border-style: none;
@@ -29,6 +33,20 @@
 
     &.item-number {
       flex: 0 0 32px;
+    }
+
+    /* terrain stuff */
+    &.item-terrain {
+      flex: 0 0 70px;
+    }
+
+    &.item-improvements {
+      flex: 0 0 160px;
+
+      > span {
+        overflow: hidden;
+        text-overflow: ellipsis;
+      }
     }
 
     /* building stuff */

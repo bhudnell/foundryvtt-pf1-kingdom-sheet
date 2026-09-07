@@ -1,17 +1,3 @@
-<div class="info-box-header flex0">
-  <h3>{{localize "PF1KS.HexTypes"}}</h3>
-  <div class="info-box-joined">
-    {{#each terrain}}
-    <div class="info-box">
-      <h5>{{ label }}</h5>
-      <span class="value text-box direct" name="system.terrain.{{ key }}" data-dtype="Number">{{ value }}</span>
-    </div>
-    {{/each}}
-  </div>
-</div>
-
-<hr />
-
 <div class="inventory-filters flexrow">
   {{~> "systems/pf1/templates/internal/item-search.hbs" category="terrain"}}
 
@@ -30,40 +16,48 @@
       <div class="item-name">
         <h3>{{ section.label }}</h3>
       </div>
-
-      {{#if @root.owner}}
-      <div class="item-controls five-button">
-        <a class="item-control item-create" data-tooltip="PF1.CreateItem" data-create="{{ section.path }}">
-          <i class="fas fa-plus"></i>
-        </a>
-        <a data-action="browse" data-source="{{ path }}" data-tooltip="{{ section.browseLabel }}">
-          <i class="fas fa-folder-plus"></i>
-        </a>
+      <div class="item-detail item-terrain">
+        <label>{{localize "PF1KS.TerrainLabel"}}</label>
       </div>
-      {{/if}}
+      <div class="item-detail item-improvements">
+        <label>{{localize "PF1KS.Improvements"}}</label>
+      </div>
+      <div class="item-detail item-number" data-tooltip="PF1KS.Economy"><i class="fa-solid fa-coins"></i></div>
+      <div class="item-detail item-number" data-tooltip="PF1KS.Loyalty"><i class="ra ra-queen-crown"></i></div>
+      <div class="item-detail item-number" data-tooltip="PF1KS.Stability">
+        <i class="fa-solid fa-scale-balanced"></i>
+      </div>
+      <div class="item-detail item-number" data-tooltip="PF1KS.Consumption">
+        <i class="fa-solid fa-sack-dollar"></i>
+      </div>
+      <div class="item-detail item-number" data-tooltip="PF1KS.BonusBPShort">
+        <i class="fa-solid fa-boxes-stacked"></i>
+      </div>
+      <div class="item-detail item-number" data-tooltip="PF1KS.Defense">
+        <i class="fa-solid fa-chess-rook"></i>
+      </div>
     </li>
 
     {{#each section.items as |item iid|}}
-    <li class="item flexrow{{#if isEmpty}} empty{{/if}}" data-item-id="{{ item.id }}">
-      <div class="item-name rollable">
+    <li class="item flexrow{{#if isEmpty}} empty{{/if}}" data-name="{{ item.name }}">
+      <div class="item-name no-events">
         <div
           class="item-image"
           style="background-image: url(&quot;{{ item.img }}&quot;)"
           data-tooltip="PF1.DisplayInChat"
         ></div>
-        <span class="quantity">{{ item.system.quantity }}</span>
         <h4>{{ item.name }}</h4>
       </div>
-
-      {{#if @root.owner}}
-      <div class="item-controls five-button">
-        <a class="item-control item-quantity-add" data-tooltip="PF1.QuantityAdd"><i class="fas fa-plus"></i></a>
-        <a class="item-control item-quantity-subtract" data-tooltip="PF1.QuantitySub"><i class="fas fa-minus"></i></a>
-        <a class="item-control item-edit" data-tooltip="PF1.EditItem"><i class="fas fa-edit"></i></a>
-        <a class="item-control item-duplicate" data-tooltip="PF1.DuplicateItem"><i class="fas fa-copy"></i></a>
-        <a class="item-control item-delete" data-tooltip="PF1.DeleteItem"><i class="fas fa-trash"></i></a>
+      <span class="item-detail item-terrain">{{ item.terrain }}</span>
+      <div class="item-detail item-improvements" data-tooltip="{{ item.improvements }}">
+        <span>{{ item.improvements }}</span>
       </div>
-      {{/if}}
+      <span class="item-detail item-number">{{ item.economy }}</span>
+      <span class="item-detail item-number">{{ item.loyalty }}</span>
+      <span class="item-detail item-number">{{ item.stability }}</span>
+      <span class="item-detail item-number">{{ item.consumption }}</span>
+      <span class="item-detail item-number">{{ item.bonusBP }}</span>
+      <span class="item-detail item-number">{{ item.defense }}</span>
     </li>
     {{/each}}
   </ol>

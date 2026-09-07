@@ -145,6 +145,10 @@
       list-style: none;
       flex: 0;
     }
+
+    .hex-color {
+      width: fit-content;
+    }
   }
 
   .subdetails-body {

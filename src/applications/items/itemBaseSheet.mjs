@@ -17,17 +17,16 @@ export class ItemBaseSheet extends pf1.applications.item.ItemSheetPF {
     const item = this.item;
     context.isBuilding = item.type === pf1ks.config.buildingId;
     context.isEvent = [pf1ks.config.kingdomEventId, pf1ks.config.settlementEventId].includes(item.type);
-    context.isImprovement = item.type === pf1ks.config.improvementId;
     context.isFeature = item.type === pf1ks.config.featureId;
     context.isBoon = item.type === pf1ks.config.boonId;
     context.isSpecial = item.type === pf1ks.config.specialId;
     context.isTactic = item.type === pf1ks.config.tacticId;
-    context.showDetails = context.isBuilding || context.isEvent || context.isImprovement || context.isFeature;
+    context.showDetails = context.isBuilding || context.isEvent || context.isFeature;
 
     return context;
   }
 
   async _updateObject(event, formData) {
-    return ItemSheet.prototype._updateObject.call(this, event, formData);
+    return foundry.appv1.sheets.ItemSheet.prototype._updateObject.call(this, event, formData);
   }
 }
