@@ -1,4 +1,4 @@
-import { DefaultChange, asSignedPercent, capitalize } from "../../util/utils.mjs";
+import { asSignedPercent } from "../../util/utils.mjs";
 
 import { BaseActor } from "./baseActor.mjs";
 

@@ -42,7 +42,7 @@ import { TacticItem } from "./documents/items/tacticItem.mjs";
 import { getChangeFlat } from "./hooks/getChangeFlat.mjs";
 import { migrate } from "./migrations/index.mjs";
 import { syncManager } from "./util/syncManager.mjs";
-import { moduleToObject, rollEventTable } from "./util/utils.mjs";
+import { moduleToObject } from "./util/utils.mjs";
 
 export { PF1KS as config };
 globalThis.pf1ks = moduleToObject({
@@ -169,6 +169,13 @@ Hooks.once("libWrapper.Ready", () => {
 });
 
 Hooks.on("pf1GetChangeFlat", getChangeFlat);
+
+async function rollEventTable(event, message) {
+  event.preventDefault();
+
+  const table = await fromUuid(`Compendium.${pf1ks.config.moduleId}.roll-table.RollTable.veIcI8coYE6ZRqFG`);
+  return table.draw();
+}
 
 Hooks.on("renderChatMessageHTML", (message, html) => {
   if (message.getFlag(PF1KS.moduleId, "eventChanceCard")) {

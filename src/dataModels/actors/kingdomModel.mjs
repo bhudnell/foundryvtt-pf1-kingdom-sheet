@@ -1,5 +1,4 @@
 import { HexStore } from "../../canvas/hexStore.mjs";
-import { isKingdomScene } from "../../canvas/kingdomLayer.mjs";
 
 import { ActorProxyModel } from "./actorProxyModel.mjs";
 import { defineLeader } from "./leaderModel.mjs";
@@ -105,7 +104,7 @@ export class KingdomModel extends foundry.abstract.TypeDataModel {
     // summary
     this.size = game.scenes.reduce(
       (count, scene) =>
-        isKingdomScene(scene) ? count + HexStore.getKingdomHexes(this.parent.id, scene).length : count,
+        HexStore.isKingdomScene(scene) ? count + HexStore.getKingdomHexes(this.parent.id, scene).length : count,
       0
     );
 

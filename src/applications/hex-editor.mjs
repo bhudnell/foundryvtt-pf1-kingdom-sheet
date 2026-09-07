@@ -1,6 +1,6 @@
 import { HexStore } from "../canvas/hexStore.mjs";
 import { moduleId } from "../config/config.mjs";
-import { validateImprovement } from "../util/utils.mjs";
+import { validateImprovement } from "../util/terrain.mjs";
 
 import { ImprovementSelector } from "./improvement-selector.mjs";
 

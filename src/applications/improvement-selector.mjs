@@ -1,5 +1,5 @@
 import { moduleId } from "../config/config.mjs";
-import { validateImprovement } from "../util/utils.mjs";
+import { validateImprovement } from "../util/terrain.mjs";
 
 export class ImprovementSelector extends pf1.applications.ActorTraitSelector {
   static PARTS = foundry.utils.mergeObject(super.PARTS, {

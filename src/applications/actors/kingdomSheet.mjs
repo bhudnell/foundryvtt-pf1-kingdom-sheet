@@ -1,6 +1,6 @@
 import { HexStore } from "../../canvas/hexStore.mjs";
-import { isKingdomScene } from "../../canvas/kingdomLayer.mjs";
-import { computeHexEffects, findLargestSmallerNumber, keepUpdateArray, renameKeys } from "../../util/utils.mjs";
+import { computeHexEffects } from "../../util/terrain.mjs";
+import { findLargestSmallerNumber, renameKeys } from "../../util/utils.mjs";
 
 const GRID_COLS = 6;
 const GRID_ROWS = 6;
@@ -197,7 +197,7 @@ export class KingdomSheet extends pf1.applications.actor.ActorSheetPF {
 
   _prepareItems() {
     const terrainSections = game.scenes
-      .filter((scene) => isKingdomScene(scene))
+      .filter((scene) => HexStore.isKingdomScene(scene))
       .map((scene) => ({
         ...scene,
         id: scene.id,

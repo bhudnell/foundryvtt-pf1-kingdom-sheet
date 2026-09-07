@@ -1,5 +1,5 @@
 import { syncManager } from "../../util/syncManager.mjs";
-import { DefaultChange, asSignedPercent, capitalize } from "../../util/utils.mjs";
+import { asSignedPercent, capitalize } from "../../util/utils.mjs";
 
 import { BaseActor } from "./baseActor.mjs";
 

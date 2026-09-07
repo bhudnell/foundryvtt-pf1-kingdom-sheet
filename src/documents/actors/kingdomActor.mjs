@@ -1,7 +1,7 @@
 import { HexStore } from "../../canvas/hexStore.mjs";
-import { isKingdomScene } from "../../canvas/kingdomLayer.mjs";
 import { syncManager } from "../../util/syncManager.mjs";
-import { DefaultChange, asSignedPercent, capitalize, computeHexEffects } from "../../util/utils.mjs";
+import { computeHexEffects } from "../../util/terrain.mjs";
+import { DefaultChange } from "../../util/utils.mjs";
 
 import { BaseActor } from "./baseActor.mjs";
 
@@ -283,7 +283,7 @@ export class KingdomActor extends BaseActor {
     // terrain
     const condensedTerrainChanges = new Map();
     for (const scene of game.scenes) {
-      if (!isKingdomScene(scene)) {
+      if (!HexStore.isKingdomScene(scene)) {
         continue;
       }
 

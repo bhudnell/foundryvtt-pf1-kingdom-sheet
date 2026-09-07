@@ -51,6 +51,14 @@ export class HexStore {
     await scene.setFlag(pf1ks.config.moduleId, "hexes", all);
   }
 
+  static isKingdomScene(scene) {
+    if (!scene) {
+      return false;
+    }
+
+    return scene.grid.isHexagonal && scene.getFlag(pf1ks.config.moduleId, "isKingdomMap") === true;
+  }
+
   static getKingdomIds(scene) {
     scene ??= canvas.scene;
     const kingdomIdSet = Object.values(this.getAll(scene)).reduce((kingdomIds, hex) => {

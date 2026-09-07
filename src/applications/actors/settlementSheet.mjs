@@ -1,4 +1,4 @@
-import { findLargestSmallerNumber, keepUpdateArray, renameKeys } from "../../util/utils.mjs";
+import { keepUpdateArray } from "../../util/utils.mjs";
 
 const GRID_COLS = 6;
 const GRID_ROWS = 6;
