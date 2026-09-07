@@ -344,6 +344,7 @@
         "UnknownRequirement": "Unknown requirement"
       }
     },
+    "ImprovementSelector": "Improvement Selector",
 
     "ViewHexes": "View Hexes",
     "EditHexes": "Edit Hexes",

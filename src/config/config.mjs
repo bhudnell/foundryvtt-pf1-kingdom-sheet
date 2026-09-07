@@ -1163,14 +1163,14 @@ export const terrainImprovements = {
     name: "PF1KS.Improvement.Bridge",
     requirements: [
       {
-        type: "feature",
-        feature: "river",
+        type: "specialTerrain",
+        specialTerrain: "river",
       },
       {
         type: "not",
         requirement: {
-          type: "feature",
-          feature: "bridge",
+          type: "specialTerrain",
+          specialTerrain: "bridge",
         },
       },
     ],
@@ -1201,7 +1201,7 @@ export const terrainImprovements = {
         then: {
           type: "oneOf",
           requirements: [
-            { type: "feature", feature: "river" },
+            { type: "specialTerrain", specialTerrain: "river" },
             { type: "terrain", allowed: ["coast"] },
             { type: "improvement", improvement: "canal" },
           ],
@@ -1227,7 +1227,7 @@ export const terrainImprovements = {
         type: "oneOf",
         requirements: [
           { type: "terrain", allowed: ["coast", "water", "marsh"] },
-          { type: "feature", feature: "river" },
+          { type: "specialTerrain", specialTerrain: "river" },
           { type: "improvement", improvement: "canal" },
         ],
       },

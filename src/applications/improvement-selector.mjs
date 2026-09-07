@@ -38,7 +38,7 @@ export class ImprovementSelector extends pf1.applications.ActorTraitSelector {
         if (this.options.subject === "terrainImprovements") {
           improvementContext.improvements = Array.from(this.attributes.standard);
         } else {
-          improvementContext.features = Array.from(this.attributes.standard);
+          improvementContext.specialTerrain = Array.from(this.attributes.standard);
         }
 
         const { valid, failures } = validateImprovement(pf1ks.config[this.options.subject][choice], improvementContext);

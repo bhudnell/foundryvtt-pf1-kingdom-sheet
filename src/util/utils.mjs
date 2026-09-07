@@ -263,12 +263,12 @@ function validateRequirement(requirement, context) {
           : [game.i18n.localize("PF1KS.Improvement.Error.InvalidTerrain")],
       };
 
-    case "feature":
+    case "specialTerrain":
       return {
-        valid: context.features?.includes(requirement.feature),
-        failures: context.features?.includes(requirement.feature)
+        valid: context.specialTerrain?.includes(requirement.specialTerrain),
+        failures: context.specialTerrain?.includes(requirement.specialTerrain)
           ? []
-          : [game.i18n.format("PF1KS.Improvement.Error.Requires", { requirement: requirement.feature })],
+          : [game.i18n.format("PF1KS.Improvement.Error.Requires", { requirement: requirement.specialTerrain })],
       };
 
     case "improvement":

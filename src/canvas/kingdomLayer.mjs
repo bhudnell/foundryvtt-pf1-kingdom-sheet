@@ -185,7 +185,7 @@ export class KingdomLayer extends foundry.canvas.layers.InteractionLayer {
 
     return {
       name: "kingdom",
-      title: "Kingdom",
+      title: "PF1KS.Kingdom",
       icon: "fa-solid fa-crown",
       onChange: (event, active) => {
         if (active) {

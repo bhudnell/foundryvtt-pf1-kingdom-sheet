@@ -7,8 +7,6 @@
   - will need to leave the item type/changes/context notes around so the migration can run
     remove item type in a later version
 
-- localize all strings
-
 ## Misc
 - break up utils/main file and other giant ones
 - read through items and see if any rolls can be automated (ie economic boom)
@@ -41,4 +39,4 @@
 
 ## Hex map
 - optional settings
-  - FOW exploration (see fow-exploration branch)
+  - FOW exploration (see fow-exploration branch) maybe opacity sliders for the states?
