@@ -1,0 +1,292 @@
+name: Terrain
+_id: q6l0VrPV6h7k5u9J
+pages:
+  - sort: 100000
+    name: Terrain improvements
+    type: text
+    _id: w7TM2iUW4b734UF8
+    system: {}
+    title:
+      show: true
+      level: 1
+    image: {}
+    text:
+      format: 1
+      content: >-
+        <p>Terrain improvements are changes to a hex that improve the land for
+        your kingdom’s use, such as cultivating fields, digging mines, and
+        clearing forests for lumber. The following list describes common
+        improvements. An improvement marked with an asterisk (*) can share the
+        same hex as other improvements.</p><p>Some terrain improvements affect a
+        settlement’s Defense, which is used in the mass combat rules.
+        </p><p><strong>Terrain</strong>: This indicates what kind of hex you can
+        build this terrain improvement in.</p><p><strong>Effect</strong>: This
+        line states the effect the terrain improvement has on that hex (or in
+        some cases, your entire kingdom).</p><p>If an improvement says you can
+        upgrade it into another improvement, you can do so by paying the cost
+        difference between the two improvements. When the upgrade is complete,
+        you lose the benefit of the old improvement but gain the benefit of the
+        new improvement.</p><p><strong>Cost</strong>: This line gives the cost
+        in BP to build the terrain improvement.</p><p></p><h2>Table 4-6: Terrain
+        and Terrain
+        Improvements</h2><table><tbody><tr><td><p><strong>Terrain</strong></p></td><td><p><strong>Exploration
+        Time</strong><sup><strong>1</strong></sup></p></td><td><p><strong>Preparation
+        Time</strong><sup><strong>2</strong></sup></p></td><td><p><strong>Preparation
+        Cost</strong><sup><strong>3</strong></sup></p></td><td><p><strong>Farm
+        Cost</strong><sup><strong>4</strong></sup></p></td><td><p><strong>Road
+        Cost</strong><sup><strong>5,
+        6</strong></sup></p></td></tr><tr><td><p>Cavern<sup>7</sup></p></td><td><p>3
+        days</p></td><td><p>3 months</p></td><td><p>8
+        BP</p></td><td><p>—</p></td><td><p>4
+        BP</p></td></tr><tr><td><p>Coastline<sup>8</sup></p></td><td><p>Special</p></td><td><p>Special</p></td><td><p>Special</p></td><td><p>Special</p></td><td><p>Special</p></td></tr><tr><td><p>Desert</p></td><td><p>2
+        days</p></td><td><p>1 month</p></td><td><p>4 BP</p></td><td><p>8
+        BP</p></td><td><p>4 BP</p></td></tr><tr><td><p>Forest</p></td><td><p>2
+        days</p></td><td><p>2 months</p></td><td><p>4
+        BP</p></td><td><p>—</p></td><td><p>2
+        BP</p></td></tr><tr><td><p>Hills</p></td><td><p>1 day</p></td><td><p>1
+        month</p></td><td><p>2 BP</p></td><td><p>4 BP</p></td><td><p>3
+        BP</p></td></tr><tr><td><p>Jungle</p></td><td><p>2 days</p></td><td><p>4
+        months</p></td><td><p>12 BP</p></td><td><p>—</p></td><td><p>4
+        BP</p></td></tr><tr><td><p>Marsh</p></td><td><p>3 days</p></td><td><p>3
+        months</p></td><td><p>8 BP</p></td><td><p>—</p></td><td><p>4
+        BP</p></td></tr><tr><td><p>Mountains</p></td><td><p>3
+        days</p></td><td><p>4 months</p></td><td><p>12
+        BP</p></td><td><p>—</p></td><td><p>4
+        BP</p></td></tr><tr><td><p>Plains</p></td><td><p>1
+        day</p></td><td><p>Immediate</p></td><td><p>1 BP</p></td><td><p>2
+        BP</p></td><td><p>1 BP</p></td></tr><tr><td><p>Water</p></td><td><p>2
+        days</p></td><td><p>—</p></td><td><p>—</p></td><td><p>—</p></td><td><p>—</p></td></tr></tbody></table><p>1
+        Exploration time represents how many days a typical scouting party
+        requires to explore a hex of this type. These times assume a party speed
+        of 30 feet. For parties with different speeds, see Table 3–3:
+        Exploration Time (1 Hex) on the Movement Page. Treat Cavern as Mountain
+        and Jungle as Marsh for exploration time. Do not adjust the speed for
+        Water hexes; it’s assumed that the party is already using a boat or
+        other watercraft to explore.</p><p>2 Preparation time represents the
+        months of labor (beginning with the current turn) required to prepare
+        the hex for settlement. Construction of buildings can begin in the
+        current month for settlements built on plains.</p><p>3 Preparation cost
+        represents the BP cost to clear a hex of this type in preparation for
+        founding a settlement.</p><p>4 Farm cost represents the BP cost to
+        cultivate a hex for farming. A Farm must be within or adjacent to a hex
+        containing a river, lake, swamp, or Canal, or adjacent to at least 2
+        hexes that already contain Farms.</p><p>5 Road cost represents the BP
+        cost to establish a Road that crosses a hex and connects to all adjacent
+        hexes. The cost to build a Road doubles if the hex contains rivers. A
+        kingdom with a Size of 26 or greater can build a Highway (or upgrade a
+        Road to a Highway).</p><p>6 If the hex contains any rivers, double the
+        listed cost to reflect the need to build bridges.</p><p>7 This is a
+        large system of caves and underground passages and can be found in any
+        terrain type except Marsh. It functions as an additional hex that exists
+        underground, below the surface hex.</p><p>8 Treat this as the adjacent
+        land terrain type for all purposes.</p><h2>Aqueduct*</h2><p>An Aqueduct
+        brings water from alpine lakes and rivers to lowland cities where water
+        is scarce or insufficient for the local populace. A finished series of
+        Aqueduct hexes must connect to a hill or mountain hex (with a river or
+        lake) on one end and a settlement on the other end; otherwise, you do
+        not gain its benefit.</p><p><strong>Terrain</strong>: One end must be
+        hill or mountain hex; can pass through any type of hex.
+        </p><p><strong>Effect</strong>: Loyalty +1, Stability +1, allows
+        settlement to build water-dependent buildings.
+        </p><p><strong>Cost</strong>: As a Road, except the cost is not doubled
+        for hexes with rivers (see Table 4–6: Terrain and Terrain
+        Improvements).</p><p></p><h2>Bridge*</h2><p>A Bridge allows your Road
+        hexes to cross rivers.</p><p><strong>Cost</strong>: When you build a
+        Road in a hex that contains a river, the doubled coast of the Road
+        includes the cost of bridges needed to cross the river. You don’t need
+        to build a Bridge as a separate unit; it’s listed here for reference
+        only.</p><p></p><h2>Canal*</h2><p>A Canal is an artificial waterway that
+        allows barge traffic to haul heavy
+        commodities.</p><p><strong>Terrain</strong>: Desert, hill, or plain.
+        </p><p><strong>Effect</strong>: Settlements in a hex with a Canal treat
+        the hex as if it had a river.</p><p><strong>Cost</strong>: Twice the
+        cost of a Road (see Table 4–6: Terrain and Terrain
+        Improvements).</p><p></p><h2>Farm*</h2><p>A Farm helps feed your
+        kingdom.</p><p><strong>Terrain</strong>: Desert (requires canal,
+        coastline, or river), hill, or plain.</p><p><strong>Effect</strong>:
+        Consumption decreases by 2 BP.</p><p><strong>Cost</strong>: See Table
+        4–6: Terrain and Terrain Improvements.</p><p></p><h2>Fishery*</h2><p>A
+        Fishery is like a Farm, except it provides abundant fish rather than
+        planted crops.</p><p><strong>Terrain</strong>: Coastline, water, river,
+        or marsh.</p><p><strong>Effect</strong>: Consumption decreases by 1 BP.
+        </p><p><strong>Cost</strong>: 4 BP.</p><p></p><h2>Fort*</h2><p>A Fort is
+        a walled encampment for military forces outside a settlement. You can
+        upgrade a Watchtower to a Fort (Unrest decreases when you do so, just as
+        if you had built the Fort from scratch).
+        </p><p><strong>Terrain</strong>: Any land.
+        </p><p><strong>Effect</strong>: Stability +2, Defense +4, increase
+        Consumption by 1 BP; Unrest decreases by 1 when completed. If this hex
+        becomes a settlement, this improvement counts as one Barracks and one
+        Stables building.</p><p><strong>Cost</strong>: 24
+        BP.</p><p></p><h2>Highway*</h2><p>A highway is a paved and
+        well-maintained version of a Road. You may upgrade a Road into a
+        Highway. You must have a kingdom of Size 26 or greater to build a
+        Highway.</p><p><strong>Terrain</strong>: Any hex with a Road.
+        </p><p><strong>Effect</strong>: Economy +1 for every 4 hexes of Highway,
+        Stability +1 for every 8 hexes of Highway; improves overland travel
+        speed.</p><p><strong>Cost</strong>: Twice the cost of a Road (see Table
+        4–6: Terrain and Terrain Improvements).</p><p></p><h2>Mine</h2><p>A Mine
+        extracts metal, coal, salt, or other useful materials from the earth.
+        </p><p><strong>Terrain</strong>: Cavern, desert, hill, or mountain.
+        </p><p><strong>Effect</strong>: Economy +1, earn +1 BP per turn when
+        collecting taxes during the Income phase.</p><p><strong>Cost</strong>: 6
+        BP.</p><p></p><h2>Quarry</h2><p>A Quarry extracts workable stone from
+        the ground.</p><p><strong>Terrain</strong>: Cavern, hill, or mountain.
+        </p><p><strong>Effect</strong>: Stability +1, earn +1 BP per turn when
+        collecting taxes during the Income phase.</p><p><strong>Cost</strong>: 6
+        BP.</p><p></p><h2>Road*</h2><p>A Road speeds travel through your kingdom
+        and promotes trade. You can upgrade a Road to a Highway.
+        </p><p><strong>Terrain</strong>: Any land.
+        </p><p><strong>Effect</strong>: Economy +1 for every 4 hexes of Road,
+        Stability +1 for every 8 hexes of Road; improves overland travel speed.
+        </p><p><strong>Cost</strong>: See the Road column of Table 4–6: Terrain
+        and Terrain Improvements.</p><p></p><h2>Sawmill</h2><p>A sawmill
+        centralizes the activities of loggers and turns trees into lumber for
+        use in building and crafting.</p><p><strong>Terrain</strong>: Forest or
+        jungle.</p><p><strong>Effect</strong>: Stability +1, earn +1 BP per turn
+        when collecting taxes during the Income phase.
+        </p><p><strong>Cost</strong>: 3 BP.</p><p></p><h2>Watchtower*</h2><p>A
+        Watchtower flies your flag, is a safe place for your patrols, and
+        establishes your power on the frontier. A Watchtower cannot share a hex
+        with a Fort or another Watchtower.</p><p><strong>Terrain</strong>: Any
+        land.</p><p><strong>Effect</strong>: Stability +1, Defense +2; Unrest
+        decreases by 1 when completed. If this hex becomes a settlement, this
+        improvement counts as a Watchtower building.
+        </p><p><strong>Cost</strong>: 12 BP.</p>
+    video:
+      controls: true
+      volume: 0.5
+    src: null
+    category: null
+    _key: '!journal.pages!q6l0VrPV6h7k5u9J.w7TM2iUW4b734UF8'
+  - sort: 300000
+    name: Movement
+    type: text
+    _id: ZPFP3LG9HritkCUq
+    system: {}
+    title:
+      show: true
+      level: 1
+    image: {}
+    text:
+      format: 1
+      content: >-
+        <p>Each hex on the map is 12 miles across from corner to corner,
+        representing an area just under 95 square miles. The hexes are used to
+        track the party’s movement while exploring, and as a means to help
+        define the extent of different types of terrain. The exploration rates
+        presented in these rules differ from the travel rates found in the Core
+        Rulebook, since characters are also assumed to be taking time to fully
+        explore each area they enter, which takes a great deal longer than
+        simply walking through it.</p><p>To determine how long it takes the PCs
+        to travel through a hex or fully explore it, determine the group’s base
+        speed (set by the slowest member of the group) and consult Table 3–2:
+        Travel Time (1 Hex) or Table 3–3: Exploration Time (1 Hex). These times
+        represent the movement and exploration of a normal hex of the specified
+        terrain type; rules presented later in this section modify the amount of
+        time it takes to travel through or fully explore a hex.</p><p>A typical
+        wilderness hex is trackless (see Table 7–8). Though no humanoid-created
+        roads or trails pass through it, trails by game animals might. If a hex
+        contains more than one terrain type, treat it as the most prevalent
+        terrain for the purpose of travel times.</p><p></p><h2>Table 3-2: Travel
+        Time (1 Hex)</h2><table><tbody><tr><td><p><strong>Party
+        Speed</strong></p></td><td><p><strong>Plain</strong></p></td><td><p><strong>All
+        Other Terrain</strong></p></td></tr><tr><td><p>15 feet</p></td><td><p>11
+        hours</p></td><td><p>16 hours</p></td></tr><tr><td><p>20
+        feet</p></td><td><p>8 hours</p></td><td><p>12
+        hours</p></td></tr><tr><td><p>30 feet</p></td><td><p>5
+        hours</p></td><td><p>8 hours</p></td></tr><tr><td><p>40
+        feet</p></td><td><p>4 hours</p></td><td><p>6
+        hours</p></td></tr><tr><td><p>50 feet</p></td><td><p>3
+        hours</p></td><td><p>5
+        hours</p></td></tr></tbody></table><p></p><h2>Table 3-3: Exploration
+        Time</h2><table><tbody><tr><td><p><strong>Party
+        Speed</strong></p></td><td><p><strong>Plain or
+        Hill</strong></p></td><td><p><strong>Desert, Forest, or
+        Marsh</strong></p></td><td><p><strong>Mountain</strong></p></td></tr><tr><td><p>15
+        feet</p></td><td><p>3 days</p></td><td><p>4 days</p></td><td><p>5
+        days</p></td></tr><tr><td><p>20 feet</p></td><td><p>2
+        days</p></td><td><p>3 days</p></td><td><p>4
+        days</p></td></tr><tr><td><p>30 feet</p></td><td><p>1
+        day</p></td><td><p>2 days</p></td><td><p>3
+        days</p></td></tr><tr><td><p>40 feet</p></td><td><p>1
+        day</p></td><td><p>1 day</p></td><td><p>2
+        days</p></td></tr><tr><td><p>50 feet</p></td><td><p>1
+        day</p></td><td><p>1 day</p></td><td><p>1
+        day</p></td></tr></tbody></table>
+    video:
+      controls: true
+      volume: 0.5
+    src: null
+    category: null
+    _key: '!journal.pages!q6l0VrPV6h7k5u9J.ZPFP3LG9HritkCUq'
+  - sort: 200000
+    name: Special Terrain
+    type: text
+    _id: RWAMl4S9uVaopRZr
+    system: {}
+    title:
+      show: true
+      level: 1
+    image: {}
+    text:
+      format: 1
+      content: >-
+        <p>Some hexes contain features or resources that impact a kingdom’s
+        Economy, Loyalty, Stability, and other game statistics. These terrain
+        resources are placed by the GM—not by player characters—for you to
+        discover while exploring or adventuring, and may modify terrain
+        improvements or cities.</p><h2><strong>Bridge</strong></h2><p> The hex
+        contains an existing Bridge over a waterway. If you build a Road in this
+        hex, you do not have to double the cost of the Road.
+        </p><h2><strong>Building</strong></h2><p>The hex contains an abandoned
+        building in good repair (type determined by the GM). If you establish a
+        settlement at the building’s location in the hex, you can incorporate
+        the building into the settlement at no cost (this does not count toward
+        your building limit for that turn).</p><h2><strong>Free
+        City</strong></h2><p>A Free City is a settlement that is not part of any
+        established kingdom. Claiming a hex with a Free City is an excellent way
+        to add a fully functional settlement to your kingdom. In order to claim
+        a Free City hex peacefully, you must succeed at a Stability check.
+        Failure indicates radicals and upstarts in the settlement and Unrest
+        increases by 1d4.</p><h2><strong>Lair</strong></h2><p>A Lair is usually
+        a cave or defensible shelter that can be used as a defensive fallback
+        point, a storage location, or even a guardpost or prison. If you claim a
+        hex with a Lair, Stability increases by 1. If you construct a Fort or
+        Watchtower over a Lair, its Defense increases by 1. At the GM’s option,
+        a Lair may allow access to an underground cavern hex (see Table 4–6:
+        Terrain and Terrain Improvements on Terrain Improvements page).
+        </p><h2><strong>Landmark</strong></h2><p>A Landmark is a site of great
+        pride, mystery, and wonder, such as an outcropping in the shape of a
+        human face, a smoking volcano, or a lake with an unusual color or unique
+        properties. The Landmark bolsters your kingdom’s morale. If you claim a
+        hex with a Landmark, Loyalty increases by 1. If the hex also has a Road
+        or Highway, Loyalty increases by an additional 1.
+        </p><h2><strong>Resource</strong></h2><p>A Resource is a ready supply of
+        some kind of valuable commodity that offers a great economic boon to
+        your kingdom, such as exotic lumber, precious metal, gems, rare herbs,
+        incense, silk, ivory, furs, salt, dyes, and the like. If you claim a hex
+        with a Resource, Economy increases by 1. If you construct a Mine,
+        Quarry, or Sawmill in a hex with a Resource, all of its benefits
+        increase by 1. If you construct a Farm or Fishery in a hex with a
+        Resource, those improvements decrease Consumption by an additional 1 BP.
+        </p><h2><strong>River</strong></h2><p>A River allows water travel
+        through your kingdom, facilitating trade and allowing irrigation.
+        Economy increases by 1 for every 4 River hexes claimed, and Stability
+        increases by 1 for every 8 such hexes claimed.
+        </p><h2><strong>Ruin</strong></h2><p>A Ruin is a partially destroyed
+        building. If you claim a hex containing a Ruin and build a settlement at
+        the Ruin’s location, you can use the Ruin as the basis of an appropriate
+        type of building (as determined by the GM), reducing the cost of that
+        building by half. Alternatively, you can salvage building materials from
+        the Ruin, reducing the cost of 1 building in that hex by 1d4 BP.</p>
+    video:
+      controls: true
+      volume: 0.5
+    src: null
+    category: null
+    _key: '!journal.pages!q6l0VrPV6h7k5u9J.RWAMl4S9uVaopRZr'
+categories: []
+sort: 0
+_key: '!journal!q6l0VrPV6h7k5u9J'
+

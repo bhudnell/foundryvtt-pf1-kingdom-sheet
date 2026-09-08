@@ -1,9 +1,5 @@
 # For this release
 
-## Hex map
-- remove all improvement item things
-  - compendium -> turn into rules since items are going bye bye
-
 ## Misc
 - read through items and see if any rolls can be automated (ie economic boom)
 
