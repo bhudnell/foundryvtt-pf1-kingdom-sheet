@@ -5,7 +5,6 @@
   - compendium -> turn into rules since items are going bye bye
 
 ## Misc
-- break up utils/main file and other giant ones
 - read through items and see if any rolls can be automated (ie economic boom)
 
 
