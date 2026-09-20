@@ -1,9 +1,3 @@
-# For this release
-
-## Misc
-
-- read through items and see if any rolls can be automated (ie economic boom)
-
 # For future releases
 
 ## Misc
@@ -19,6 +13,7 @@
   - abandoned buildings
   - deities and holy sites
   - special edicts
+- read through items and see if any rolls can be automated (ie economic boom)
 
 ## Change editor dialog
 
