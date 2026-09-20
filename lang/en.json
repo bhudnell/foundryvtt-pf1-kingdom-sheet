@@ -481,11 +481,25 @@
     },
 
     "ModuleName": "PF1e Kingdom Sheet",
-    "IsKingdomMap": "Kingdom Map",
+    "IsKingdomMap": "Kingdom Map?",
     "IsKingdomMapHint": "When this option is checked, the scene is treated as a kingdom map and displays the kingdom hex layer and related tools.",
+    "Opacity": {
+      "Claimed": "Claimed Hex Opacity",
+      "ClaimedHint": "Controls how much of the map is visible through claimed hexes. Higher values make the hexes less see-through.",
+      "Cleared": "Cleared Hex Opacity",
+      "ClearedHint": "Controls how much of the map is visible through cleared hexes. Higher values make the hexes less see-through.",
+      "Explored": "Explored Hex Opacity",
+      "ExploredHint": "Controls how much of the map is visible through explored hexes. Higher values make the hexes less see-through.",
+      "Unexplored": "Unexplored Hex Opacity",
+      "UnexploredHint": "Controls how much of the map is visible through unexplored hexes. Higher values make the hexes less see-through."
+    },
 
     "HexEditorPermission": "Hex Editor Permission",
     "HexEditorPermissionHint": "Minimum user role required to edit hex data on kingdom maps.",
+    "HexFowColor": "Fog of War Hex Color",
+    "HexFowColorHint": "The color used to obscure unexplored, explored, and cleared hexes.",
+    "HexUnknownKingdomColor": "Unknown Kingdom Hex Color",
+    "HexUnknownKingdomColorHint": "The color used for claimed hexes that are not assigned to a kingdom.",
     "NoGM": "A GM needs to be logged on to perform this update.",
 
     "NoModuleItemsOnActor": "This actor cannot have Kingdom, Settlement, or Army items.",
