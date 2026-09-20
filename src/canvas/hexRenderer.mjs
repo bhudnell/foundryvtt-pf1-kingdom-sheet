@@ -1,15 +1,21 @@
 import { HexStore } from "./hexStore.mjs";
 
 export class HexRenderer {
-  static draw(container) {
-    const hexes = HexStore.getAll();
+  static draw(container, context) {
+    const max = canvas.grid.getOffset({
+      x: canvas.dimensions.sceneRect.width,
+      y: canvas.dimensions.sceneRect.height,
+    });
 
-    for (const [key, hex] of Object.entries(hexes)) {
-      this.drawHex(container, hex);
+    for (let q = 0; q <= max.i; q++) {
+      for (let r = 0; r <= max.j; r++) {
+        const hex = HexStore.get(q, r);
+        this.drawHex(container, hex, context);
+      }
     }
   }
 
-  static drawHex(container, hex) {
+  static drawHex(container, hex, { opacity, color }) {
     const g = new PIXI.Graphics();
 
     const topLeft = canvas.grid.getCenterPoint({
@@ -21,9 +27,18 @@ export class HexRenderer {
 
     const kingdom = game.actors.get(hex.kingdomId);
 
-    if (kingdom && hex.status === "claimed") {
-      const fillColor = kingdom.system.settings.color ?? 0x00ff00;
-      g.beginFill(fillColor, 0.25);
+    if (hex.status === "claimed") {
+      if (kingdom) {
+        g.beginFill(kingdom.system.settings.color, opacity.claimed);
+      } else {
+        g.beginFill(color.unknown, opacity.claimed);
+      }
+    } else if (hex.status === "cleared") {
+      g.beginFill(color.fow, opacity.cleared);
+    } else if (hex.status === "explored") {
+      g.beginFill(color.fow, opacity.explored);
+    } else {
+      g.beginFill(color.fow, opacity.unexplored);
     }
 
     g.moveTo(polygon[0].x, polygon[0].y);

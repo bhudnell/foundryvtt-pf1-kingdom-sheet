@@ -1091,12 +1091,26 @@ export const itemSubTypes = {
 
 export const viewInOtherLayersSetting = "viewInOtherLayers";
 export const hexEditorPermissionSetting = "hexEditorPermission";
+export const hexFowColorSetting = "hexFowColor";
+export const hexUnknownColorSetting = "hexUnknownColor";
 
 export const hexStatuses = {
   unexplored: "PF1KS.HexStatus.Unexplored",
   explored: "PF1KS.HexStatus.Explored",
   cleared: "PF1KS.HexStatus.Cleared",
   claimed: "PF1KS.HexStatus.Claimed",
+};
+
+export const defaultHexOpacity = {
+  unexplored: 1,
+  explored: 0.6,
+  cleared: 0.3,
+  claimed: 0.25,
+};
+
+export const defaultHexColor = {
+  fow: 0x0b0a13,
+  unknown: 0x6b6875,
 };
 
 export const terrainTypes = {

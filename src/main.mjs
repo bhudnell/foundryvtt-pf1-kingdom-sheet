@@ -407,6 +407,26 @@ Hooks.once("pf1PostInit", () => {
     requiresReload: true,
   });
 
+  game.settings.register(PF1KS.moduleId, PF1KS.hexFowColorSetting, {
+    name: "PF1KS.HexFowColor",
+    hint: "PF1KS.HexFowColorHint",
+    scope: "world",
+    config: true,
+    type: new foundry.data.fields.ColorField(),
+    default: PF1KS.defaultHexColor.fow,
+    onChange: () => canvas.kingdom.draw(),
+  });
+
+  game.settings.register(PF1KS.moduleId, PF1KS.hexUnknownColorSetting, {
+    name: "PF1KS.HexUnknownKingdomColor",
+    hint: "PF1KS.HexUnknownKingdomColorHint",
+    scope: "world",
+    config: true,
+    type: new foundry.data.fields.ColorField(),
+    default: PF1KS.defaultHexColor.unknown,
+    onChange: () => canvas.kingdom.draw(),
+  });
+
   async function handleUpdateHex({ sceneId, hex, updateData }) {
     const scene = game.scenes.get(sceneId);
 
@@ -417,24 +437,19 @@ Hooks.once("pf1PostInit", () => {
 });
 
 // add module settings to scene config UI
-Hooks.on("renderSceneConfig", (config, html) => {
-  const isChecked = config.document.getFlag(PF1KS.moduleId, "isKingdomMap");
-  const path = `flags.${PF1KS.moduleId}.isKingdomMap`;
-  const elem = document.createElement("fieldset");
-  elem.innerHTML = `
-      <legend>${game.i18n.localize("PF1KS.ModuleName")}</legend>
-      <div class="form-group">
-        <label for="${config.id}-${path}">${game.i18n.localize("PF1KS.IsKingdomMap")}</label>
-        <div class="form-fields">
-          <input type="checkbox" name="${path}" ${isChecked ? "checked" : ""} id="${config.id}-${path}">
-        </div>
-        <p class="hint">${game.i18n.localize("PF1KS.IsKingdomMapHint")}</p>
-      </div>
-    `;
+Hooks.on("renderSceneConfig", async (config, html) => {
+  const templateData = {
+    configId: config.id,
+    basePath: `flags.${PF1KS.moduleId}`,
+    isKingdomMap: config.document.getFlag(PF1KS.moduleId, "isKingdomMap"),
+    opacity: config.document.getFlag(PF1KS.moduleId, "opacity") ?? PF1KS.defaultHexOpacity,
+  };
+
+  const content = await renderTemplate(`modules/${pf1ks.config.moduleId}/templates/scene/settings.hbs`, templateData);
 
   const basicsTab = html.querySelector('div[data-tab="basics"]');
   if (basicsTab) {
-    basicsTab.append(elem);
+    basicsTab.insertAdjacentHTML("beforeEnd", content);
   }
 });
 

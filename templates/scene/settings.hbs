@@ -1,0 +1,73 @@
+<fieldset>
+  <legend>{{localize "PF1KS.ModuleName"}}</legend>
+  <div class="form-group">
+    <label for="{{ configId }}-{{ basePath }}.isKingdomMap">{{ localize "PF1KS.IsKingdomMap" }}</label>
+    <div class="form-fields">
+      <input
+        type="checkbox"
+        name="{{ basePath }}.isKingdomMap"
+        {{
+        checked
+        isKingdomMap}}
+        id="{{ configId }}-{{ basePath }}.isKingdomMap"
+      />
+    </div>
+    <p class="hint">{{ localize "PF1KS.IsKingdomMapHint" }}</p>
+  </div>
+  <div class="form-group">
+    <label for="{{ configId }}-{{ basePath }}.opacity.claimed">{{ localize "PF1KS.Opacity.Claimed" }}</label>
+    <div class="form-fields">
+      <range-picker
+        name="{{ basePath }}.opacity.claimed"
+        value="{{ opacity.claimed }}"
+        min="0"
+        max="1"
+        step="0.05"
+        id="{{ configId }}-{{ basePath }}.opacity.claimed"
+      />
+    </div>
+    <p class="hint">{{ localize "PF1KS.Opacity.ClaimedHint" }}</p>
+  </div>
+  <div class="form-group">
+    <label for="{{ configId }}-{{ basePath }}.opacity.cleared">{{ localize "PF1KS.Opacity.Cleared" }}</label>
+    <div class="form-fields">
+      <range-picker
+        name="{{ basePath }}.opacity.cleared"
+        value="{{ opacity.cleared }}"
+        min="0"
+        max="1"
+        step="0.05"
+        id="{{ configId }}-{{ basePath }}.opacity.cleared"
+      />
+    </div>
+    <p class="hint">{{ localize "PF1KS.Opacity.ClearedHint" }}</p>
+  </div>
+  <div class="form-group">
+    <label for="{{ configId }}-{{ basePath }}.opacity.explored">{{ localize "PF1KS.Opacity.Explored" }}</label>
+    <div class="form-fields">
+      <range-picker
+        name="{{ basePath }}.opacity.explored"
+        value="{{ opacity.explored }}"
+        min="0"
+        max="1"
+        step="0.05"
+        id="{{ configId }}-{{ basePath }}.opacity.explored"
+      />
+    </div>
+    <p class="hint">{{ localize "PF1KS.Opacity.ExploredHint" }}</p>
+  </div>
+  <div class="form-group">
+    <label for="{{ configId }}-{{ basePath }}.opacity.unexplored">{{ localize "PF1KS.Opacity.Unexplored" }}</label>
+    <div class="form-fields">
+      <range-picker
+        name="{{ basePath }}.opacity.unexplored"
+        value="{{ opacity.unexplored }}"
+        min="0"
+        max="1"
+        step="0.05"
+        id="{{ configId }}-{{ basePath }}.opacity.unexplored"
+      />
+    </div>
+    <p class="hint">{{ localize "PF1KS.Opacity.UnexploredHint" }}</p>
+  </div>
+</fieldset>

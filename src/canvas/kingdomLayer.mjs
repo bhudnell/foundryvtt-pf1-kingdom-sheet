@@ -33,7 +33,13 @@ export class KingdomLayer extends foundry.canvas.layers.InteractionLayer {
     // draw overlays only if visible
     if (this.shouldDraw) {
       this.hexContainer = this.addChild(new PIXI.Container());
-      HexRenderer.draw(this.hexContainer);
+      HexRenderer.draw(this.hexContainer, {
+        opacity: canvas.scene.getFlag(pf1ks.config.moduleId, "opacity"),
+        color: {
+          fow: game.settings.get(pf1ks.config.moduleId, pf1ks.config.hexFowColorSetting),
+          unknown: game.settings.get(pf1ks.config.moduleId, pf1ks.config.hexUnknownColorSetting),
+        },
+      });
     }
   }
 

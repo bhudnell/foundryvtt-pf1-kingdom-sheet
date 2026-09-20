@@ -4,6 +4,13 @@ import { ActorProxyModel } from "./actorProxyModel.mjs";
 import { defineLeader } from "./leaderModel.mjs";
 import { SettlementModelDeprecated } from "./settlementModelDeprecated.mjs";
 
+function randomColor() {
+  return `#${[0, 255, Math.floor(Math.random() * 255) + 1]
+    .sort(() => Math.random() - 0.5)
+    .map((v) => v.toString(16).padStart(2, "0"))
+    .join("")}`;
+}
+
 export class KingdomModel extends foundry.abstract.TypeDataModel {
   static defineSchema() {
     const fields = foundry.data.fields;
@@ -52,7 +59,7 @@ export class KingdomModel extends foundry.abstract.TypeDataModel {
       settings: new fields.SchemaField({
         secondRuler: new fields.BooleanField({ initial: false }),
         collapseTooltips: new fields.BooleanField({ initial: false }),
-        color: new fields.ColorField({ nullable: true }),
+        color: new fields.ColorField({ initial: () => randomColor() }),
         optionalRules: new fields.SchemaField({
           kingdomModifiers: new fields.BooleanField({ initial: false }),
           fameInfamy: new fields.BooleanField({ initial: false }),
