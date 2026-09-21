@@ -35,7 +35,7 @@ export class ImprovementSelector extends pf1.applications.ActorTraitSelector {
         };
 
         // replace the hex's data with the current selection
-        if (this.options.subject === "terrainImprovements") {
+        if (this.options.subject === "terrainImprovement") {
           improvementContext.improvements = Array.from(this.attributes.standard);
         } else {
           improvementContext.specialTerrain = Array.from(this.attributes.standard);

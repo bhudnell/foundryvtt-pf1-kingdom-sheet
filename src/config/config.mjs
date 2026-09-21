@@ -1115,7 +1115,6 @@ export const defaultHexColor = {
 
 export const terrainTypes = {
   cavern: "PF1KS.Terrain.Cavern",
-  coast: "PF1KS.Terrain.Coast",
   desert: "PF1KS.Terrain.Desert",
   forest: "PF1KS.Terrain.Forest",
   hills: "PF1KS.Terrain.Hills",
@@ -1139,7 +1138,7 @@ const NOT_WATER = {
   },
 };
 
-export const terrainImprovements = {
+export const terrainImprovement = {
   aqueduct: {
     id: "aqueduct",
     name: "PF1KS.Improvement.Aqueduct",
@@ -1209,7 +1208,7 @@ export const terrainImprovements = {
           type: "oneOf",
           requirements: [
             { type: "specialTerrain", specialTerrain: "river" },
-            { type: "terrain", allowed: ["coast"] },
+            { type: "specialTerrain", specialTerrain: "coast" },
             { type: "improvement", improvement: "canal" },
           ],
         },
@@ -1233,8 +1232,9 @@ export const terrainImprovements = {
       {
         type: "oneOf",
         requirements: [
-          { type: "terrain", allowed: ["coast", "water", "marsh"] },
+          { type: "terrain", allowed: ["water", "marsh"] },
           { type: "specialTerrain", specialTerrain: "river" },
+          { type: "specialTerrain", specialTerrain: "coast" },
           { type: "improvement", improvement: "canal" },
         ],
       },
@@ -1461,6 +1461,9 @@ export const specialTerrain = {
   },
   building: {
     name: "PF1KS.Improvement.Building",
+  },
+  coast: {
+    name: "PF1KS.Improvement.Coast",
   },
   freeCity: {
     name: "PF1KS.Improvement.FreeCity",

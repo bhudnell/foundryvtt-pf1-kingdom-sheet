@@ -61,7 +61,7 @@ export class HexEditor extends HandlebarsApplicationMixin(DocumentSheetV2) {
     return {
       hex: {
         ...hex,
-        improvements: hex.improvements?.map((i) => pf1ks.config.terrainImprovements[i].name) ?? [],
+        improvements: hex.improvements?.map((i) => pf1ks.config.terrainImprovement[i].name) ?? [],
         specialTerrain: hex.specialTerrain?.map((st) => pf1ks.config.specialTerrain[st].name) ?? [],
       },
       showKingdom: hex.status === "claimed",

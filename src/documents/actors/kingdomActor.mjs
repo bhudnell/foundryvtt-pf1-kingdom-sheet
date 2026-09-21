@@ -290,25 +290,26 @@ export class KingdomActor extends BaseActor {
       HexStore.getKingdomHexes(this.id, scene).forEach((hex) => {
         const hexChanges = computeHexEffects(hex);
         for (const change of hexChanges ?? []) {
-          if (!system.settings.collapseTooltips) {
-            const changeData = { ...change, flavor: hex.name };
-            const changeObj = new pf1.components.ItemChange(changeData);
-            changes.push(changeObj);
-            continue;
-          }
+          const key = system.settings.collapseTooltips
+            ? change.target
+            : `${change.sourceType}:${change.sourceId}:${change.target}`;
 
-          const existing = condensedTerrainChanges.get(change.target);
+          const existing = condensedTerrainChanges.get(key);
           if (existing) {
-            existing.formula = `(${existing.formula}) + (${change.formula})`;
+            existing.formula += change.formula;
           } else {
-            const changeData = { ...change, flavor: game.i18n.localize("PF1KS.Improvements") };
-            condensedTerrainChanges.set(changeData.target, new pf1.components.ItemChange(changeData));
+            condensedTerrainChanges.set(key, { ...change });
           }
         }
       });
     }
-    if (system.settings.collapseTooltips) {
-      changes.push(...condensedTerrainChanges.values());
+
+    for (const change of condensedTerrainChanges.values()) {
+      change.flavor = system.settings.collapseTooltips
+        ? game.i18n.localize("PF1KS.Improvements")
+        : pf1ks.config[change.sourceType][change.sourceId].name;
+      change.formula = Math.floor(change.formula);
+      changes.push(new pf1.components.ItemChange(change));
     }
 
     // settlements

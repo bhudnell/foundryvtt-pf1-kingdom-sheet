@@ -134,74 +134,79 @@ export function computeHexEffects(hex) {
   const changes = [];
 
   // 1. base improvement effects
-  for (const imp of hex.improvements ?? []) {
-    changes.push(...applyBaseMechanics(imp));
-  }
-
-  // 2. terrain-based modifiers
-  changes.push(...applySpecialTerrainEffects(hex));
-
-  const condensed = new Map();
-
-  for (const change of changes) {
-    const existing = condensed.get(change.target);
-
-    if (existing) {
-      existing.formula += change.formula;
-    } else {
-      condensed.set(change.target, { ...change });
+  for (const improvementId of hex.improvements ?? []) {
+    for (const change of applyBaseMechanics(improvementId)) {
+      changes.push({
+        ...change,
+        sourceType: "terrainImprovement",
+        sourceId: improvementId,
+      });
     }
   }
 
-  return [...condensed.values()];
+  // 2. terrain-based modifiers
+  for (const specialTerrainId of hex.specialTerrain ?? []) {
+    for (const change of applySpecialTerrainEffects(specialTerrainId, hex.improvements ?? [])) {
+      changes.push({
+        ...change,
+        sourceType: "specialTerrain",
+        sourceId: specialTerrainId,
+      });
+    }
+  }
+
+  return changes;
 }
 
 function applyBaseMechanics(improvementId) {
-  const improvement = pf1ks.config.terrainImprovements[improvementId];
+  const improvement = pf1ks.config.terrainImprovement[improvementId];
 
   return improvement.mechanics?.changes ?? [];
 }
 
-function applySpecialTerrainEffects(hex) {
+function applySpecialTerrainEffects(specialTerrainId, improvements) {
   const results = [];
 
-  for (const specialTerrainId of hex.specialTerrain ?? []) {
-    const terrain = pf1ks.config.specialTerrain[specialTerrainId];
-    if (!terrain?.interactions) {
-      continue;
-    }
+  const terrain = pf1ks.config.specialTerrain[specialTerrainId];
 
-    for (const interaction of terrain.interactions) {
-      switch (interaction.type) {
-        case "improvementMap": {
-          const map = interaction.map;
+  if (terrain?.mechanics?.changes?.length) {
+    results.push(...terrain.mechanics.changes);
+  }
 
-          for (const imp of hex.improvements ?? []) {
-            const effects = map[imp];
-            if (effects) {
-              results.push(...effects);
-            }
+  if (!terrain?.interactions?.length) {
+    return results;
+  }
+
+  for (const interaction of terrain.interactions) {
+    switch (interaction.type) {
+      case "improvementMap": {
+        const map = interaction.map;
+
+        for (const imp of improvements) {
+          const effects = map[imp];
+          if (effects) {
+            results.push(...effects);
           }
-          break;
         }
+        break;
+      }
 
-        case "affectsImprovements": {
-          const set = new Set(interaction.improvements);
+      case "affectsImprovements": {
+        const set = new Set(interaction.improvements);
 
-          if ((hex.improvements ?? []).some((i) => set.has(i))) {
-            results.push(...interaction.apply);
-          }
-          break;
+        if (improvements.some((i) => set.has(i))) {
+          results.push(...interaction.apply);
         }
+        break;
+      }
 
-        case "requiresImprovementPresence": {
-          const set = new Set(interaction.improvements);
+      case "requiresImprovementPresence": {
+        const set = new Set(interaction.improvements);
 
-          if ((hex.improvements ?? []).some((i) => set.has(i))) {
-            results.push(...interaction.apply);
-          }
-          break;
+        if (improvements.some((i) => set.has(i))) {
+          results.push(...interaction.apply);
         }
+        break;
       }
     }
   }

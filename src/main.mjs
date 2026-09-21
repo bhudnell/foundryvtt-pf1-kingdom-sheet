@@ -504,7 +504,7 @@ Hooks.on("updateScene", (scene, updateData) => {
   });
 });
 
-// module migrations, item browser and hex tooltip setup
+// module migrations, item browser, hex tooltip setup, final kingdom actor prep
 Hooks.once("pf1PostReady", () => {
   moduleDataMigration();
 
@@ -566,6 +566,15 @@ Hooks.once("pf1PostReady", () => {
       x: event.clientX,
       y: event.clientY,
     };
+  });
+
+  // forces re-preparation of kingdoms once scenes have been prepared
+  syncManager.run(canvas.scene, () => {
+    for (const kingdom of game.actors) {
+      if (kingdom.type === pf1ks.config.kingdomId) {
+        syncManager.prepare(kingdom);
+      }
+    }
   });
 });
 
@@ -635,7 +644,7 @@ Hooks.once("i18nInit", () => {
 
   doLocalizeKeys(pf1ks.config.armyConditions, ["name"]);
   doLocalizeKeys(pf1ks.config.buildingTypes, ["name"]);
-  doLocalizeKeys(pf1ks.config.terrainImprovements, ["name"]);
+  doLocalizeKeys(pf1ks.config.terrainImprovement, ["name"]);
   doLocalizeKeys(pf1ks.config.specialTerrain, ["name"]);
 });
 

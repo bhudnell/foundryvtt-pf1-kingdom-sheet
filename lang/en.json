@@ -295,7 +295,6 @@
     "TerrainLabel": "Terrain",
     "Terrain": {
       "Cavern": "Cavern",
-      "Coast": "Coast",
       "Desert": "Desert",
       "Forest": "Forest",
       "Hills": "Hills",
@@ -323,6 +322,7 @@
       "Watchtower": "Watchtower",
 
       "Building": "Building",
+      "Coast": "Coastline",
       "FreeCity": "Free City",
       "Lair": "Lair",
       "Landmark": "Landmark",
