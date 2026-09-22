@@ -227,23 +227,49 @@ export class KingdomSheet extends pf1.applications.actor.ActorSheetPF {
       };
 
       for (const hex of hexes) {
+        // Count every improvement present on the hex.
+        for (const improvementId of hex.improvements ?? []) {
+          let item = improvementItems.get(improvementId);
+
+          if (!item) {
+            item = {
+              name: pf1ks.config.terrainImprovement[improvementId].name,
+              quantity: 0,
+              ...createEffectTotals(),
+            };
+
+            improvementItems.set(improvementId, item);
+          }
+
+          item.quantity++;
+        }
+
+        // Count every special terrain present on the hex.
+        for (const specialTerrainId of hex.specialTerrain ?? []) {
+          let item = specialTerrainItems.get(specialTerrainId);
+
+          if (!item) {
+            item = {
+              name: pf1ks.config.specialTerrain[specialTerrainId].name,
+              quantity: 0,
+              ...createEffectTotals(),
+            };
+
+            specialTerrainItems.set(specialTerrainId, item);
+          }
+
+          item.quantity++;
+        }
+
+        // Apply effects to the scene and the appropriate source item.
         for (const effect of computeHexEffects(hex)) {
           addEffect(sceneItem, effect);
 
           const items = effect.sourceType === "terrainImprovement" ? improvementItems : specialTerrainItems;
-
-          let item = items.get(effect.sourceId);
-
-          if (!item) {
-            item = {
-              name: pf1ks.config[effect.sourceType][effect.sourceId].name,
-              ...createEffectTotals(),
-            };
-
-            items.set(effect.sourceId, item);
+          const item = items.get(effect.sourceId);
+          if (item) {
+            addEffect(item, effect);
           }
-
-          addEffect(item, effect);
         }
       }
 

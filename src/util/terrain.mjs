@@ -135,24 +135,12 @@ export function computeHexEffects(hex) {
 
   // 1. base improvement effects
   for (const improvementId of hex.improvements ?? []) {
-    for (const change of applyBaseMechanics(improvementId)) {
-      changes.push({
-        ...change,
-        sourceType: "terrainImprovement",
-        sourceId: improvementId,
-      });
-    }
+    changes.push(...applyBaseMechanics(improvementId));
   }
 
   // 2. terrain-based modifiers
   for (const specialTerrainId of hex.specialTerrain ?? []) {
-    for (const change of applySpecialTerrainEffects(specialTerrainId, hex.improvements ?? [])) {
-      changes.push({
-        ...change,
-        sourceType: "specialTerrain",
-        sourceId: specialTerrainId,
-      });
-    }
+    changes.push(...applySpecialTerrainEffects(specialTerrainId, hex.improvements ?? []));
   }
 
   return changes;
@@ -161,7 +149,11 @@ export function computeHexEffects(hex) {
 function applyBaseMechanics(improvementId) {
   const improvement = pf1ks.config.terrainImprovement[improvementId];
 
-  return improvement.mechanics?.changes ?? [];
+  return (improvement.mechanics?.changes ?? []).map((change) => ({
+    ...change,
+    sourceType: "terrainImprovement",
+    sourceId: improvementId,
+  }));
 }
 
 function applySpecialTerrainEffects(specialTerrainId, improvements) {
@@ -170,7 +162,13 @@ function applySpecialTerrainEffects(specialTerrainId, improvements) {
   const terrain = pf1ks.config.specialTerrain[specialTerrainId];
 
   if (terrain?.mechanics?.changes?.length) {
-    results.push(...terrain.mechanics.changes);
+    results.push(
+      ...terrain.mechanics.changes.map((change) => ({
+        ...change,
+        sourceType: "specialTerrain",
+        sourceId: specialTerrainId,
+      }))
+    );
   }
 
   if (!terrain?.interactions?.length) {
@@ -185,7 +183,13 @@ function applySpecialTerrainEffects(specialTerrainId, improvements) {
         for (const imp of improvements) {
           const effects = map[imp];
           if (effects) {
-            results.push(...effects);
+            results.push(
+              ...effects.map((change) => ({
+                ...change,
+                sourceType: "terrainImprovement",
+                sourceId: imp,
+              }))
+            );
           }
         }
         break;
@@ -194,9 +198,20 @@ function applySpecialTerrainEffects(specialTerrainId, improvements) {
       case "affectsImprovements": {
         const set = new Set(interaction.improvements);
 
-        if (improvements.some((i) => set.has(i))) {
-          results.push(...interaction.apply);
+        for (const imp of improvements) {
+          if (!set.has(imp)) {
+            continue;
+          }
+
+          results.push(
+            ...interaction.apply.map((change) => ({
+              ...change,
+              sourceType: "terrainImprovement",
+              sourceId: imp,
+            }))
+          );
         }
+
         break;
       }
 
@@ -204,7 +219,13 @@ function applySpecialTerrainEffects(specialTerrainId, improvements) {
         const set = new Set(interaction.improvements);
 
         if (improvements.some((i) => set.has(i))) {
-          results.push(...interaction.apply);
+          results.push(
+            ...interaction.apply.map((change) => ({
+              ...change,
+              sourceType: "specialTerrain",
+              sourceId: specialTerrainId,
+            }))
+          );
         }
         break;
       }

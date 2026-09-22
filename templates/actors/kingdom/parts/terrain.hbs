@@ -47,6 +47,9 @@
           style="background-image: url(&quot;{{ item.img }}&quot;)"
           data-tooltip="PF1.DisplayInChat"
         ></div>
+        {{#unless (eq section.id "scenes")}}
+        <span class="quantity">{{ item.quantity }}</span>
+        {{/unless}}
         <h4>{{ item.name }}</h4>
       </div>
 
