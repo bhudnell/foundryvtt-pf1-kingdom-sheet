@@ -33,6 +33,11 @@ export const contextNoteTargets = {
     acc[`${changePrefix}_${key}`] = { category: `${changePrefix}_kingdom_stats`, label };
     return acc;
   }, {}),
+  [`${changePrefix}_bonusBP`]: {
+    category: `${changePrefix}_misc`,
+    label: "PF1KS.BonusBP",
+    filters: { item: { include: [...kingdomItemTypes, ...settlementItemTypes] } },
+  },
 
   // settlement/settlementLite
   ...Object.entries(sharedSettlementAttributes).reduce((acc, [key, label]) => {
@@ -49,13 +54,6 @@ export const contextNoteTargets = {
     acc[`${changePrefix}_${key}`] = { category: `${changePrefix}_army_attributes`, label };
     return acc;
   }, {}),
-
-  // kingdom only
-  [`${changePrefix}_bonusBP`]: {
-    category: `${changePrefix}_misc`,
-    label: "PF1KS.BonusBP",
-    filters: { item: { include: kingdomItemTypes } },
-  },
 
   // settlement only
   ...Object.entries(settlementOnlyAttributes).reduce((acc, [key, label]) => {

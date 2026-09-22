@@ -446,6 +446,7 @@ export const altSettlementValues = {
 export const settlementKingdomStats = {
   ...kingdomStats,
   bpStorage: "PF1KS.BPStorage",
+  bonusBP: "PF1KS.BonusBP",
   fame: "PF1KS.Fame",
   infamy: "PF1KS.Infamy",
   consumption: "PF1KS.Consumption",

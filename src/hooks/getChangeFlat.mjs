@@ -68,6 +68,10 @@ const SHARED = {
     [kingdomId]: "system.bpStorage.max",
     [settlementId]: "system.kingdomStats.bpStorage",
   },
+  [`${changePrefix}_bonusBP`]: {
+    [kingdomId]: "system.bonusBP.total",
+    [settlementId]: "system.kingdomStats.bonusBP",
+  },
 
   // settlement/settlementLite
   [`${changePrefix}_danger`]: {
@@ -111,10 +115,6 @@ const TARGETS = {
     [`${changePrefix}_om`]: "system.om.total",
     [`${changePrefix}_damage`]: "system.damageBonus.total",
     [`${changePrefix}_morale`]: "system.morale.total",
-  },
-
-  [kingdomId]: {
-    [`${changePrefix}_bonusBP`]: "system.bonusBP.total",
   },
 
   [settlementId]: {
