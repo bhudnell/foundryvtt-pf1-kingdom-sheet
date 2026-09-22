@@ -196,39 +196,81 @@ export class KingdomSheet extends pf1.applications.actor.ActorSheetPF {
   }
 
   _prepareItems() {
-    const terrainSections = game.scenes
-      .filter((scene) => HexStore.isKingdomScene(scene))
-      .map((scene) => ({
-        ...scene,
-        id: scene.id,
-        label: scene.name,
-        items: HexStore.getKingdomHexes(this.actor.id, scene)
-          .map((hex) => {
-            const item = {
-              name: hex.name,
-              terrain: pf1ks.config.terrainTypes[hex.terrain],
-              improvements: hex.improvements.map((i) => pf1ks.config.terrainImprovement[i].name).join(", "),
-              specialTerrain: hex.specialTerrain.map((i) => pf1ks.config.specialTerrain[i].name).join(", "),
-              economy: 0,
-              loyalty: 0,
-              stability: 0,
-              consumption: 0,
-              bonusBP: 0,
-              defense: 0,
+    const createEffectTotals = () => ({
+      economy: 0,
+      loyalty: 0,
+      stability: 0,
+      consumption: 0,
+      bonusBP: 0,
+      defense: 0,
+    });
+
+    const addEffect = (item, effect) => {
+      const target = effect.target.replace(`${pf1ks.config.changePrefix}_`, "");
+
+      if (target in item) {
+        item[target] += effect.formula;
+      }
+    };
+
+    const sceneItems = [];
+    const improvementItems = new Map();
+    const specialTerrainItems = new Map();
+
+    for (const scene of game.scenes.filter((scene) => HexStore.isKingdomScene(scene))) {
+      const hexes = HexStore.getKingdomHexes(this.actor.id, scene);
+
+      const sceneItem = {
+        name: scene.name,
+        hexes: hexes.length,
+        ...createEffectTotals(),
+      };
+
+      for (const hex of hexes) {
+        for (const effect of computeHexEffects(hex)) {
+          addEffect(sceneItem, effect);
+
+          const items = effect.sourceType === "terrainImprovement" ? improvementItems : specialTerrainItems;
+
+          let item = items.get(effect.sourceId);
+
+          if (!item) {
+            item = {
+              name: pf1ks.config[effect.sourceType][effect.sourceId].name,
+              ...createEffectTotals(),
             };
 
-            computeHexEffects(hex).forEach((effect) => {
-              const target = effect.target.replace(`${pf1ks.config.changePrefix}_`, "");
+            items.set(effect.sourceId, item);
+          }
 
-              if (target in item) {
-                item[target] += Math.floor(Number(effect.formula) || 0);
-              }
-            });
+          addEffect(item, effect);
+        }
+      }
 
-            return item;
-          })
-          .sort((a, b) => a.name.localeCompare(b.name, undefined, { sensitivity: "base" })),
-      }));
+      sceneItems.push(sceneItem);
+    }
+
+    const terrainSections = [
+      {
+        id: "scenes",
+        label: game.i18n.localize("PF1KS.Scenes"),
+        items: sceneItems.sort((a, b) => a.name.localeCompare(b.name, undefined, { sensitivity: "base" })),
+      },
+      {
+        id: "improvements",
+        label: game.i18n.localize("PF1KS.Improvements"),
+        items: [...improvementItems.values()].sort((a, b) =>
+          a.name.localeCompare(b.name, undefined, { sensitivity: "base" })
+        ),
+      },
+      {
+        id: "specialTerrain",
+        label: game.i18n.localize("PF1KS.SpecialTerrain"),
+        items: [...specialTerrainItems.values()].sort((a, b) =>
+          a.name.localeCompare(b.name, undefined, { sensitivity: "base" })
+        ),
+      },
+    ];
 
     const eventsSections = Object.values(pf1.config.sheetSections.kingdomEvent).map((data) => ({ ...data }));
     this.actor.itemTypes[pf1ks.config.kingdomEventId]

@@ -35,18 +35,8 @@
       flex: 0 0 32px;
     }
 
-    /* terrain stuff */
-    &.item-terrain {
-      flex: 0 0 70px;
-    }
-
-    &.item-improvements {
-      flex: 0 0 160px;
-
-      > span {
-        overflow: hidden;
-        text-overflow: ellipsis;
-      }
+    &.item-number-large {
+      flex: 0 0 40px;
     }
 
     /* building stuff */

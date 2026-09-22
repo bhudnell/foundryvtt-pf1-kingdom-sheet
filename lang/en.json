@@ -283,6 +283,8 @@
       }
     },
 
+    "Scenes": "Scenes",
+    "Hexes": "Hexes",
     "DefaultHexName": "Hex {name}",
     "HexStatusLabel": "Status",
     "HexStatus": {
