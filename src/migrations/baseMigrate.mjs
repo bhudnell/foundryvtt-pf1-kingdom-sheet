@@ -20,6 +20,10 @@ export class BaseMigrate {
     throw new Error("must be overridden");
   }
 
+  static async preMigration() {}
+
+  static async postMigration() {}
+
   static async migrateActor(actor) {
     if (
       ![pf1ks.config.kingdomId, pf1ks.config.settlementId, pf1ks.config.settlementLiteId, pf1ks.config.armyId].includes(
@@ -102,9 +106,11 @@ export class BaseMigrate {
   }
 
   static async migrateWorld() {
+    await this.preMigration();
     await this.migrateWorldItems();
     await this.migratePacks();
     await this.migrateWorldActors();
     await this.migrateSyntheticActors();
+    await this.postMigration();
   }
 }

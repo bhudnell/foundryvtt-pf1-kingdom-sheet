@@ -1,6 +1,15 @@
+import { HexStore } from "../../canvas/hexStore.mjs";
+
 import { ActorProxyModel } from "./actorProxyModel.mjs";
 import { defineLeader } from "./leaderModel.mjs";
 import { SettlementModelDeprecated } from "./settlementModelDeprecated.mjs";
+
+function randomColor() {
+  return `#${[0, 255, Math.floor(Math.random() * 255) + 1]
+    .sort(() => Math.random() - 0.5)
+    .map((v) => v.toString(16).padStart(2, "0"))
+    .join("")}`;
+}
 
 export class KingdomModel extends foundry.abstract.TypeDataModel {
   static defineSchema() {
@@ -42,18 +51,6 @@ export class KingdomModel extends foundry.abstract.TypeDataModel {
         viceroys: new fields.ArrayField(new fields.EmbeddedDataField(defineLeader("viceroy", "economy", "kge"))),
       }),
       settlementProxies: new fields.ArrayField(new fields.EmbeddedDataField(ActorProxyModel)),
-      terrain: new fields.SchemaField({
-        cavern: new fields.NumberField({ integer: true, initial: 0, nullable: false }),
-        coast: new fields.NumberField({ integer: true, initial: 0, nullable: false }),
-        desert: new fields.NumberField({ integer: true, initial: 0, nullable: false }),
-        forest: new fields.NumberField({ integer: true, initial: 0, nullable: false }),
-        hills: new fields.NumberField({ integer: true, initial: 0, nullable: false }),
-        jungle: new fields.NumberField({ integer: true, initial: 0, nullable: false }),
-        marsh: new fields.NumberField({ integer: true, initial: 0, nullable: false }),
-        mountains: new fields.NumberField({ integer: true, initial: 0, nullable: false }),
-        plains: new fields.NumberField({ integer: true, initial: 0, nullable: false }),
-        water: new fields.NumberField({ integer: true, initial: 0, nullable: false }),
-      }),
       eventLastTurn: new fields.BooleanField(),
       armies: new fields.ArrayField(new fields.EmbeddedDataField(ActorProxyModel)),
       notes: new fields.SchemaField({
@@ -62,6 +59,7 @@ export class KingdomModel extends foundry.abstract.TypeDataModel {
       settings: new fields.SchemaField({
         secondRuler: new fields.BooleanField({ initial: false }),
         collapseTooltips: new fields.BooleanField({ initial: false }),
+        color: new fields.ColorField({ initial: () => randomColor() }),
         optionalRules: new fields.SchemaField({
           kingdomModifiers: new fields.BooleanField({ initial: false }),
           fameInfamy: new fields.BooleanField({ initial: false }),
@@ -76,6 +74,20 @@ export class KingdomModel extends foundry.abstract.TypeDataModel {
 
       // TODO deprecated for v4, remove eventually
       settlements: new fields.ArrayField(new fields.EmbeddedDataField(SettlementModelDeprecated)),
+
+      // TODO deprecated for v5, remove eventually
+      terrain: new fields.SchemaField({
+        cavern: new fields.NumberField({ integer: true, initial: 0, nullable: false }),
+        coast: new fields.NumberField({ integer: true, initial: 0, nullable: false }),
+        desert: new fields.NumberField({ integer: true, initial: 0, nullable: false }),
+        forest: new fields.NumberField({ integer: true, initial: 0, nullable: false }),
+        hills: new fields.NumberField({ integer: true, initial: 0, nullable: false }),
+        jungle: new fields.NumberField({ integer: true, initial: 0, nullable: false }),
+        marsh: new fields.NumberField({ integer: true, initial: 0, nullable: false }),
+        mountains: new fields.NumberField({ integer: true, initial: 0, nullable: false }),
+        plains: new fields.NumberField({ integer: true, initial: 0, nullable: false }),
+        water: new fields.NumberField({ integer: true, initial: 0, nullable: false }),
+      }),
     };
   }
 
@@ -97,7 +109,12 @@ export class KingdomModel extends foundry.abstract.TypeDataModel {
 
   prepareDerivedData() {
     // summary
-    this.size = Object.values(this.terrain).reduce((acc, curr) => acc + curr, 0);
+    this.size = game.scenes.reduce(
+      (count, scene) =>
+        HexStore.isKingdomScene(scene) ? count + HexStore.getKingdomHexes(this.parent.id, scene).length : count,
+      0
+    );
+
     this.population = this.settlementProxies.reduce((acc, proxy) => acc + proxy.actor.system.attributes.population, 0);
     this.totalDistricts = this.settlementProxies.reduce((acc, proxy) => acc + proxy.actor.system.districts.length, 0);
     this.controlDC = 20 + this.size + this.totalDistricts;

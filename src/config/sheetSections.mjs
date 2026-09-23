@@ -4,7 +4,6 @@ import {
   buildingId,
   kingdomEventId,
   featureId,
-  improvementId,
   settlementEventId,
   specialId,
   tacticId,
@@ -39,24 +38,6 @@ export const sheetSections = {
       browse: { category: "boons" },
       create: { type: boonId },
       browseLabel: "PF1KS.Browse.Boons",
-    },
-  },
-  kingdomTerrain: {
-    general: {
-      label: `PF1.Subtypes.Item.${improvementId}.general.Plural`,
-      filters: [{ type: improvementId, subTypes: ["general"] }],
-      interface: {},
-      browse: { category: "improvements", improvementType: ["general"] },
-      create: { type: improvementId, system: { subType: "general" } },
-      browseLabel: "PF1KS.Browse.Improvements",
-    },
-    special: {
-      label: `PF1.Subtypes.Item.${improvementId}.special.Plural`,
-      filters: [{ type: improvementId, subTypes: ["special"] }],
-      interface: {},
-      browse: { category: "improvements", improvementType: ["special"] },
-      create: { type: improvementId, system: { subType: "special" } },
-      browseLabel: "PF1KS.Browse.Improvements",
     },
   },
   kingdomEvent: {

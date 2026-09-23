@@ -1,4 +1,6 @@
-import { findLargestSmallerNumber, keepUpdateArray, renameKeys } from "../../util/utils.mjs";
+import { HexStore } from "../../canvas/hexStore.mjs";
+import { computeHexEffects } from "../../util/terrain.mjs";
+import { findLargestSmallerNumber, renameKeys } from "../../util/utils.mjs";
 
 const GRID_COLS = 6;
 const GRID_ROWS = 6;
@@ -40,7 +42,7 @@ export class KingdomSheet extends pf1.applications.actor.ActorSheetPF {
     const data = {
       ...this.actor,
       owner: isOwner,
-      enrichedNotes: await TextEditor.enrichHTML(actorData.notes.value ?? "", {
+      enrichedNotes: await foundry.applications.ux.TextEditor.implementation.enrichHTML(actorData.notes.value ?? "", {
         rolldata: actor.getRollData(),
         async: true,
         secrets: this.object.isOwner,
@@ -140,22 +142,19 @@ export class KingdomSheet extends pf1.applications.actor.ActorSheetPF {
     // settlements
     data.settlements = this._prepareSettlements();
 
-    // terrain
-    data.terrain = Object.entries(actorData.terrain).map(([key, value]) => ({
-      key,
-      value,
-      label: pf1ks.config.terrainTypes[key],
-    }));
-
     // events
     data.eventChance = actorData.eventLastTurn ? 25 : 75;
 
     // armies
     data.armies = this._prepareArmies();
 
-    // optional rules
+    // settings
     data.settings = this._prepareSettings();
     data.optionalRules = this._prepareOptionalRules();
+    data.hexColor = {
+      label: pf1ks.config.settings.color,
+      value: actorData.settings.color,
+    };
 
     // notifications
     if (actorData.unrest > 10 && actorData.unrest < 20) {
@@ -197,17 +196,107 @@ export class KingdomSheet extends pf1.applications.actor.ActorSheetPF {
   }
 
   _prepareItems() {
-    const terrainSections = Object.values(pf1.config.sheetSections.kingdomTerrain).map((data) => ({ ...data }));
-    this.actor.itemTypes[pf1ks.config.improvementId]
-      .map((i) => i)
-      .sort((a, b) => (a.sort || 0) - (b.sort || 0))
-      .forEach((i) => {
-        const section = terrainSections.find((section) => this._applySectionFilter(i, section));
-        if (section) {
-          section.items ??= [];
-          section.items.push({ ...i, id: i.id, isEmpty: i.system.quantity === 0 });
+    const createEffectTotals = () => ({
+      economy: 0,
+      loyalty: 0,
+      stability: 0,
+      consumption: 0,
+      bonusBP: 0,
+      defense: 0,
+    });
+
+    const addEffect = (item, effect) => {
+      const target = effect.target.replace(`${pf1ks.config.changePrefix}_`, "");
+
+      if (target in item) {
+        item[target] += effect.formula;
+      }
+    };
+
+    const sceneItems = [];
+    const improvementItems = new Map();
+    const specialTerrainItems = new Map();
+
+    for (const scene of game.scenes.filter((scene) => HexStore.isKingdomScene(scene))) {
+      const hexes = HexStore.getKingdomHexes(this.actor.id, scene);
+
+      const sceneItem = {
+        name: scene.name,
+        hexes: hexes.length,
+        ...createEffectTotals(),
+      };
+
+      for (const hex of hexes) {
+        // Count every improvement present on the hex.
+        for (const improvementId of hex.improvements ?? []) {
+          let item = improvementItems.get(improvementId);
+
+          if (!item) {
+            item = {
+              name: pf1ks.config.terrainImprovement[improvementId].name,
+              quantity: 0,
+              ...createEffectTotals(),
+            };
+
+            improvementItems.set(improvementId, item);
+          }
+
+          item.quantity++;
         }
-      });
+
+        // Count every special terrain present on the hex.
+        for (const specialTerrainId of hex.specialTerrain ?? []) {
+          let item = specialTerrainItems.get(specialTerrainId);
+
+          if (!item) {
+            item = {
+              name: pf1ks.config.specialTerrain[specialTerrainId].name,
+              quantity: 0,
+              ...createEffectTotals(),
+            };
+
+            specialTerrainItems.set(specialTerrainId, item);
+          }
+
+          item.quantity++;
+        }
+
+        // Apply effects to the scene and the appropriate source item.
+        for (const effect of computeHexEffects(hex)) {
+          addEffect(sceneItem, effect);
+
+          const items = effect.sourceType === "terrainImprovement" ? improvementItems : specialTerrainItems;
+          const item = items.get(effect.sourceId);
+          if (item) {
+            addEffect(item, effect);
+          }
+        }
+      }
+
+      sceneItems.push(sceneItem);
+    }
+
+    const terrainSections = [
+      {
+        id: "scenes",
+        label: game.i18n.localize("PF1KS.Scenes"),
+        items: sceneItems.sort((a, b) => a.name.localeCompare(b.name, undefined, { sensitivity: "base" })),
+      },
+      {
+        id: "improvements",
+        label: game.i18n.localize("PF1KS.Improvements"),
+        items: [...improvementItems.values()].sort((a, b) =>
+          a.name.localeCompare(b.name, undefined, { sensitivity: "base" })
+        ),
+      },
+      {
+        id: "specialTerrain",
+        label: game.i18n.localize("PF1KS.SpecialTerrain"),
+        items: [...specialTerrainItems.values()].sort((a, b) =>
+          a.name.localeCompare(b.name, undefined, { sensitivity: "base" })
+        ),
+      },
+    ];
 
     const eventsSections = Object.values(pf1.config.sheetSections.kingdomEvent).map((data) => ({ ...data }));
     this.actor.itemTypes[pf1ks.config.kingdomEventId]
@@ -522,6 +611,89 @@ export class KingdomSheet extends pf1.applications.actor.ActorSheetPF {
   }
 
   // overrides
+  // this function is almost identical to the system function on actor-sheet.mjs, except it allows
+  // the turn of events to match the kingdom turn
+  _onItemCreate(event) {
+    event.preventDefault();
+    const el = event.currentTarget;
+
+    const [categoryId, sectionId] = el.dataset.create?.split(".") ?? [];
+    const createData = foundry.utils.deepClone(pf1.config.sheetSections[categoryId]?.[sectionId]?.create);
+    if (!createData) {
+      throw new Error(`No creation data found for "${categoryId}.${sectionId}"`);
+    }
+    const type = createData.type || el.dataset.type;
+    const subType = createData.system?.subType;
+
+    // This is the part I had to add
+    if (type === pf1ks.config.kingdomEventId) {
+      createData.system ??= {};
+      createData.system.turn = this.actor.system.turn;
+    }
+    // End of added stuff
+
+    createData.name = Item.implementation.defaultName({ type, subType, parent: this.actor });
+    const newItem = new Item.implementation(createData);
+
+    this._sortNewItem(newItem);
+
+    // Get old items of same general category
+    const oldItems = this.actor.itemTypes[type]
+      .filter((oldItem) => pf1.utils.isItemSameSubGroup(newItem, oldItem))
+      .sort((a, b) => b.sort - a.sort);
+
+    if (oldItems.length) {
+      // Ensure no duplicate names occur
+      const baseName = newItem.name;
+      let newName = baseName;
+      let i = 2;
+      const names = new Set(oldItems.map((i) => i.name));
+      while (names.has(newName)) {
+        newName = `${baseName} (${i++})`;
+      }
+
+      if (newName !== newItem.name) {
+        newItem.updateSource({ name: newName });
+      }
+    }
+
+    return Item.implementation.create(newItem.toObject(), { parent: this.actor, renderSheet: true });
+  }
+
+  // this function is almost identical to the system function on actor-sheet.mjs, except it
+  // allows the turn of events to match the kingdom turn when dropped, and removes some of the
+  // unnecessary stuff
+  async _onDropItem(event, data) {
+    if (!this.actor.isOwner) {
+      return void ui.notifications.warn("PF1.Error.NoActorPermission", { localize: true });
+    }
+
+    const sourceItem = await Item.implementation.fromDropData(data);
+
+    const sameActor = sourceItem.actor === this.actor;
+
+    const itemData = game.items.fromCompendium(sourceItem, {
+      clearFolder: true,
+      keepId: sameActor,
+      clearSort: !sameActor,
+    });
+
+    // this is the new stuff
+    // event handling
+    if (itemData.type === pf1ks.config.kingdomEventId) {
+      itemData.system.turn = this.actor.system.turn;
+    }
+    // end of new stuff
+
+    // Handle item sorting within the same actor
+    if (sameActor) {
+      return this._onSortItem(event, itemData);
+    }
+
+    // Create the owned item
+    return this._onDropItemCreate(itemData);
+  }
+
   // allows dropping settlements and armies onto kingdoms
   async _onDropActor(event, data) {
     event.preventDefault();
@@ -533,8 +705,12 @@ export class KingdomSheet extends pf1.applications.actor.ActorSheetPF {
     }
 
     // settlement/army is already linked
-    if (actorData.kingdom) {
-      ui.notifications.warn("PF1KS.SettlementArmyAlreadyLinked", { localize: true });
+    if (actorData.system.kingdom) {
+      if (actorData.type === pf1ks.config.settlementId) {
+        ui.notifications.warn("PF1KS.SettlementAlreadyLinked", { localize: true });
+      } else {
+        ui.notifications.warn("PF1KS.ArmyAlreadyLinked", { localize: true });
+      }
       return false;
     }
 
@@ -561,9 +737,6 @@ export class KingdomSheet extends pf1.applications.actor.ActorSheetPF {
   _focusTabByItem(item) {
     let tabId;
     switch (item.type) {
-      case pf1ks.config.improvementId:
-        tabId = "terrain";
-        break;
       case pf1ks.config.kingdomEventId:
         tabId = "events";
         break;
@@ -755,5 +928,33 @@ export class KingdomSheet extends pf1.applications.actor.ActorSheetPF {
     context.paths = paths;
     context.sources = sources;
     context.notes = notes ?? [];
+  }
+
+  // needed to allow filtering of settlement items and hexes
+  // mostly the same, the only difference is i added a data.name field that skips getting the item
+  // and just usees the name directly
+  _searchFilterCommit(event) {
+    const search = this._filters.search[event.target.dataset.category].toLowerCase();
+    const category = event.target.dataset.category;
+
+    if (this.effectiveSearch[category] === search && !this.searchRefresh) {
+      return;
+    }
+
+    this.effectiveSearch[category] = search;
+    this.searchRefresh = false;
+
+    event.target
+      .closest(".tab")
+      ?.querySelectorAll(".item-list .item")
+      .forEach((el) => {
+        if (!search.length) {
+          el.classList.remove("hidden");
+          return;
+        }
+
+        const name = el.dataset.name?.toLowerCase() ?? "";
+        el.classList.toggle("hidden", !name.includes(search));
+      });
   }
 }

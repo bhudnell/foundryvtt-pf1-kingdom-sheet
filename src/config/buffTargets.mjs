@@ -49,6 +49,16 @@ export const buffTargets = {
     label: "PF1KS.BPStorage",
     filters: { item: { include: [...kingdomItemTypes, ...settlementItemTypes] } },
   },
+  [`${changePrefix}_bonusBP`]: {
+    category: `${changePrefix}_misc`,
+    label: "PF1KS.BonusBP",
+    filters: { item: { include: [...kingdomItemTypes, ...settlementItemTypes] } },
+  },
+  [`${changePrefix}_unrestContinuous`]: {
+    category: `${changePrefix}_misc`,
+    label: "PF1KS.UnrestContinuous",
+    filters: { item: { include: [...kingdomItemTypes, ...settlementItemTypes] } },
+  },
   [`${changePrefix}_unrestDrop`]: {
     category: `${changePrefix}_misc`,
     label: "PF1KS.UnrestOnDrop",
@@ -85,18 +95,6 @@ export const buffTargets = {
     acc[`${changePrefix}_${key}`] = { category: `${changePrefix}_army_attributes`, label };
     return acc;
   }, {}),
-
-  // kingdom only
-  [`${changePrefix}_bonusBP`]: {
-    category: `${changePrefix}_misc`,
-    label: "PF1KS.BonusBP",
-    filters: { item: { include: kingdomItemTypes } },
-  },
-  [`${changePrefix}_unrestContinuous`]: {
-    category: `${changePrefix}_misc`,
-    label: "PF1KS.UnrestContinuous",
-    filters: { item: { include: kingdomItemTypes } },
-  },
 
   // settlement only
   ...Object.entries(magicItemTypes).reduce((acc, [key, label]) => {

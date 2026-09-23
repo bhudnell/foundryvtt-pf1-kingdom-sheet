@@ -1,5 +1,6 @@
 {
   "PF1KS": {
+    "Kingdom": "Kingdom",
     "Turn": "Turn",
     "Population": "Population",
     "Treasury": "Treasury",
@@ -24,6 +25,7 @@
     "BPStorage": "BP Storage",
     "BonusBP": "Bonus Build Points",
     "BonusBPShort": "Bonus BP",
+    "Defense": "Defense",
     "Fame": "Fame",
     "Infamy": "Infamy",
     "FamyInfamyError": "Base fame + infamy is too high for the kingdom's size",
@@ -281,11 +283,20 @@
       }
     },
 
+    "Scenes": "Scenes",
+    "Hexes": "Hexes",
+    "DefaultHexName": "Hex {name}",
+    "HexStatusLabel": "Status",
+    "HexStatus": {
+      "Unexplored": "Unexplored",
+      "Explored": "Explored",
+      "Cleared": "Cleared",
+      "Claimed": "Claimed"
+    },
+
     "TerrainLabel": "Terrain",
-    "HexTypes": "Hex Types",
     "Terrain": {
       "Cavern": "Cavern",
-      "Coast": "Coast",
       "Desert": "Desert",
       "Forest": "Forest",
       "Hills": "Hills",
@@ -297,12 +308,45 @@
     },
 
     "Improvements": "Terrain Improvements",
+    "SpecialTerrain": "Special Terrain",
     "Improvement": {
-      "SubTypes": {
-        "General": "General",
-        "Special": "Special"
+      "Aqueduct": "Aqueduct",
+      "Bridge": "Bridge",
+      "Canal": "Canal",
+      "Farm": "Farm",
+      "Fishery": "Fishery",
+      "Fort": "Fort",
+      "Highway": "Highway",
+      "Mine": "Mine",
+      "Quarry": "Quarry",
+      "Road": "Road",
+      "Sawmill": "Sawmill",
+      "Watchtower": "Watchtower",
+
+      "Building": "Building",
+      "Coast": "Coastline",
+      "FreeCity": "Free City",
+      "Lair": "Lair",
+      "Landmark": "Landmark",
+      "Resource": "Resource",
+      "River": "River",
+      "Ruin": "Ruin",
+
+      "Error": {
+        "InvalidTerrain": "Invalid Terrain",
+        "Requires": "Requires {requirement}",
+        "KingdomSize": "Kingdom size must be {min}+",
+        "Conflict": "Cannot coexist with {conflict}",
+        "Not": "Placement requirement not met",
+        "UnknownRequirement": "Unknown requirement"
       }
     },
+    "ImprovementSelector": "Improvement Selector",
+
+    "ViewHexes": "View Hexes",
+    "EditHexes": "Edit Hexes",
+    "ShowInOtherLayers": "Show in Other Layers",
+    "UpdateHex": "Update Hex",
 
     "Events": "Events",
     "EventLabel": "Event",
@@ -379,7 +423,8 @@
       "GovernmentForms": "Forms of Government",
       "LeadershipSkills": "Leadership Skills",
       "SettlementSizes": "Alternative Settlement Size Modifiers",
-      "ExpandedSettlementStats": "Expanded Settlement Statistics"
+      "ExpandedSettlementStats": "Expanded Settlement Statistics",
+      "Color": "Hex Color"
     },
 
     "Continuous": "Continuous",
@@ -408,7 +453,6 @@
       "Boons": "Browse Boons",
       "Buildings": "Browse Buildings",
       "Events": "Browse Events",
-      "Improvements": "Browse Terrain Improvements",
       "Features": "Browse Settlement Features",
       "Tactics": "Browse Tactics",
       "Special": "Browse Special Abilities"
@@ -421,20 +465,54 @@
       "Army": "Army Sheet",
       "Building": "Building",
       "Event": "Event",
-      "Improvement": "Terrain Improvement",
       "Feature": "Settlement Feature",
       "Boon": "Boon",
       "Special": "Special Ability",
       "Tactic": "Tactic"
     },
 
+    "Application": {
+      "HexEditor": {
+        "Label": "Hex Editor"
+      }
+    },
+
+    "Migration": {
+      "ImprovementLog": "Improvement Log",
+      "ImprovementList": "Improvement List"
+    },
+
+    "ModuleName": "PF1e Kingdom Sheet",
+    "IsKingdomMap": "Kingdom Map?",
+    "IsKingdomMapHint": "When this option is checked, the scene is treated as a kingdom map and displays the kingdom hex layer and related tools.",
+    "Opacity": {
+      "Claimed": "Claimed Hex Opacity",
+      "ClaimedHint": "Controls how much of the map is visible through claimed hexes. Higher values make the hexes less see-through.",
+      "Cleared": "Cleared Hex Opacity",
+      "ClearedHint": "Controls how much of the map is visible through cleared hexes. Higher values make the hexes less see-through.",
+      "Explored": "Explored Hex Opacity",
+      "ExploredHint": "Controls how much of the map is visible through explored hexes. Higher values make the hexes less see-through.",
+      "Unexplored": "Unexplored Hex Opacity",
+      "UnexploredHint": "Controls how much of the map is visible through unexplored hexes. Higher values make the hexes less see-through."
+    },
+
+    "HexEditorPermission": "Hex Editor Permission",
+    "HexEditorPermissionHint": "Minimum user role required to edit hex data on kingdom maps.",
+    "HexFowColor": "Fog of War Hex Color",
+    "HexFowColorHint": "The color used to obscure unexplored, explored, and cleared hexes.",
+    "HexUnknownKingdomColor": "Unknown Kingdom Hex Color",
+    "HexUnknownKingdomColorHint": "The color used for claimed hexes that are not assigned to a kingdom.",
+    "NoGM": "A GM needs to be logged on to perform this update.",
+
     "NoModuleItemsOnActor": "This actor cannot have Kingdom, Settlement, or Army items.",
-    "OnlyKingdomItemsOnActor": "Kingdom actors can only have Kingdom Event and Terrain Improvement items.",
+    "OnlyKingdomItemsOnActor": "Kingdom actors can only have Kingdom Event items.",
     "OnlySettlementItemsOnActor": "Settlement actors can only have Building, Settlement Feature, and Settlement Event items.",
     "OnlySettlementLiteItemsOnActor": "Basic Settlement actors can only have Settlement Feature items.",
     "OnlyArmyItemsOnActor": "Army actors can only have Boon, Special Ability, and Tactic items.",
     "LibWrapperError": "The PF1 Kingdom Sheet module requires the 'libWrapper' module. Please install and activate it.",
 
+    "SettlementAlreadyLinked": "This Settlement is already linked to a Kingdom.",
+    "ArmyAlreadyLinked": "This Army is already linked to a Kingdom.",
     "ClearedArmySettlementLinks": "Duplicated kingdoms dont maintain army and settlement links and have been cleared.",
     "MaintainKingdomLink": "Maintain Kingdom Link?",
     "MaintainKingdomLinkConfirmation": "This actor is currently linked to a kingdom. Would you like to keep that link?"
@@ -453,7 +531,6 @@
         "building": "Building",
         "event": "Kingdom Event",
         "settlementEvent": "Settlement Event",
-        "improvement": "Terrain Improvement",
         "feature": "Settlement Feature",
         "boon": "Boon",
         "special": "Special Ability",
@@ -499,16 +576,6 @@
             "misc": {
               "Single": "Miscellaneous Settlement Event",
               "Plural": "Miscellaneous"
-            }
-          },
-          "improvement": {
-            "general": {
-              "Single": "Terrain Improvement",
-              "Plural": "Terrain Improvements"
-            },
-            "special": {
-              "Single": "Special Terrain",
-              "Plural": "Special Terrain"
             }
           },
           "feature": {

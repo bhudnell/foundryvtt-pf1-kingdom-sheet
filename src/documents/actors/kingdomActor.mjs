@@ -1,4 +1,7 @@
-import { DefaultChange, asSignedPercent, capitalize } from "../../util/utils.mjs";
+import { HexStore } from "../../canvas/hexStore.mjs";
+import { syncManager } from "../../util/syncManager.mjs";
+import { computeHexEffects } from "../../util/terrain.mjs";
+import { DefaultChange } from "../../util/utils.mjs";
 
 import { BaseActor } from "./baseActor.mjs";
 
@@ -277,6 +280,38 @@ export class KingdomActor extends BaseActor {
       );
     }
 
+    // terrain
+    const condensedTerrainChanges = new Map();
+    for (const scene of game.scenes) {
+      if (!HexStore.isKingdomScene(scene)) {
+        continue;
+      }
+
+      HexStore.getKingdomHexes(this.id, scene).forEach((hex) => {
+        const hexChanges = computeHexEffects(hex);
+        for (const change of hexChanges ?? []) {
+          const key = system.settings.collapseTooltips
+            ? change.target
+            : `${change.sourceType}:${change.sourceId}:${change.target}`;
+
+          const existing = condensedTerrainChanges.get(key);
+          if (existing) {
+            existing.formula += change.formula;
+          } else {
+            condensedTerrainChanges.set(key, { ...change });
+          }
+        }
+      });
+    }
+
+    for (const change of condensedTerrainChanges.values()) {
+      change.flavor = system.settings.collapseTooltips
+        ? game.i18n.localize("PF1KS.Improvements")
+        : pf1ks.config[change.sourceType][change.sourceId].name;
+      change.formula = Math.floor(change.formula);
+      changes.push(new pf1.components.ItemChange(change));
+    }
+
     // settlements
     if (system.settings.collapseTooltips) {
       for (const stat of Object.keys(pf1ks.config.settlementKingdomStats)) {
@@ -363,5 +398,23 @@ export class KingdomActor extends BaseActor {
 
   prepareConditions() {
     this.system.conditions = {};
+  }
+
+  prepareData() {
+    super.prepareData();
+
+    if (!this.isToken && !syncManager.active) {
+      syncManager.run(this, () => {
+        this._syncSettlements();
+      });
+    }
+  }
+
+  _syncSettlements() {
+    this.system.settlementProxies?.forEach((proxy) => {
+      if (proxy.actor) {
+        syncManager.prepare(proxy.actor);
+      }
+    });
   }
 }

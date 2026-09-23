@@ -117,10 +117,6 @@ export class BaseActor extends pf1.documents.actor.ActorBasePF {
       name: game.i18n.localize("PF1KS.Features"),
       value: 0,
     };
-    const improvements = {
-      name: game.i18n.localize("PF1KS.Improvements"),
-      value: 0,
-    };
     const events = {
       name: game.i18n.localize("PF1KS.Events"),
       value: 0,
@@ -148,8 +144,6 @@ export class BaseActor extends pf1.documents.actor.ActorBasePF {
             features.value += srcValue;
           } else if (collapse && [pf1ks.config.kingdomEventId, pf1ks.config.settlementEventId].includes(src.type)) {
             events.value += srcValue;
-          } else if (collapse && src.type === pf1ks.config.improvementId) {
-            improvements.value += srcValue;
           } else {
             const label = this.constructor._getSourceLabel(src);
             const info = { name: label.replace(/[[\]]/g, ""), value: srcValue, modifier: src.modifier || null };
@@ -167,9 +161,6 @@ export class BaseActor extends pf1.documents.actor.ActorBasePF {
     }
     if (events.value) {
       sources.push(events);
-    }
-    if (improvements.value) {
-      sources.push(improvements);
     }
 
     return sources;

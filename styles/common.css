@@ -20,6 +20,10 @@
     }
   }
 
+  .no-events {
+    pointer-events: none;
+  }
+
   .item-detail {
     > select {
       border-style: none;
@@ -29,6 +33,10 @@
 
     &.item-number {
       flex: 0 0 32px;
+    }
+
+    &.item-number-large {
+      flex: 0 0 40px;
     }
 
     /* building stuff */

@@ -6,14 +6,14 @@ import { BoonSheet } from "./applications/items/boonSheet.mjs";
 import { BuildingSheet } from "./applications/items/buildingSheet.mjs";
 import { EventSheet } from "./applications/items/eventSheet.mjs";
 import { FeatureSheet } from "./applications/items/featureSheet.mjs";
-import { ImprovementSheet } from "./applications/items/improvementSheet.mjs";
 import { SpecialSheet } from "./applications/items/specialSheet.mjs";
 import { TacticSheet } from "./applications/items/tacticSheet.mjs";
+import { HexStore } from "./canvas/hexStore.mjs";
+import { KingdomLayer } from "./canvas/kingdomLayer.mjs";
 import * as Config from "./config/_module.mjs";
 import { BoonBrowser } from "./config/compendiumBrowser/boonBrowser.mjs";
 import { BuildingBrowser } from "./config/compendiumBrowser/buildingBrowser.mjs";
 import { FeatureBrowser } from "./config/compendiumBrowser/featureBrowser.mjs";
-import { ImprovementBrowser } from "./config/compendiumBrowser/improvementBrowser.mjs";
 import { KingdomEventBrowser } from "./config/compendiumBrowser/kingdomEventBrowser.mjs";
 import { SettlementEventBrowser } from "./config/compendiumBrowser/settlementEventBrowser.mjs";
 import { SpecialBrowser } from "./config/compendiumBrowser/specialBrowser.mjs";
@@ -27,7 +27,6 @@ import { BoonModel } from "./dataModels/items/boonModel.mjs";
 import { BuildingModel } from "./dataModels/items/buildingModel.mjs";
 import { EventModel } from "./dataModels/items/eventModel.mjs";
 import { FeatureModel } from "./dataModels/items/featureModel.mjs";
-import { ImprovementModel } from "./dataModels/items/improvementModel.mjs";
 import { SpecialModel } from "./dataModels/items/specialModel.mjs";
 import { TacticModel } from "./dataModels/items/tacticModel.mjs";
 import { ArmyActor } from "./documents/actors/armyActor.mjs";
@@ -38,20 +37,19 @@ import { BoonItem } from "./documents/items/boonItem.mjs";
 import { BuildingItem } from "./documents/items/buildingItem.mjs";
 import { EventItem } from "./documents/items/eventItem.mjs";
 import { FeatureItem } from "./documents/items/featureItem.mjs";
-import { ImprovementItem } from "./documents/items/improvementItem.mjs";
 import { SpecialItem } from "./documents/items/specialItem.mjs";
 import { TacticItem } from "./documents/items/tacticItem.mjs";
 import { getChangeFlat } from "./hooks/getChangeFlat.mjs";
-import { migrate } from "./migrations/index.mjs";
-import { applyChange, moduleToObject, rollEventTable } from "./util/utils.mjs";
+import { migrate as moduleDataMigration } from "./migrations/index.mjs";
+import { syncManager } from "./util/syncManager.mjs";
+import { moduleToObject } from "./util/utils.mjs";
 
 export { PF1KS as config };
 globalThis.pf1ks = moduleToObject({
   config: PF1KS,
 });
 
-Hooks.once("pf1PostReady", () => migrate());
-
+// keeps module items/actors separate from non-module items/actors
 Hooks.on("preCreateItem", (item, data, context, user) => {
   if (!item.actor) {
     return;
@@ -96,6 +94,7 @@ Hooks.on("preCreateItem", (item, data, context, user) => {
   }
 });
 
+// register libwrapper stuff
 Hooks.once("libWrapper.Ready", () => {
   console.log(`${PF1KS.moduleId} | Registering LibWrapper Hooks`);
 
@@ -126,7 +125,7 @@ Hooks.once("libWrapper.Ready", () => {
     libWrapper.MIXED
   );
 
-  // adds subtypes for improvement, event, and feature item creation
+  // adds subtypes for event and feature item creation
   libWrapper.register(
     PF1KS.moduleId,
     "pf1.applications.item.CreateDialog.prototype.getSubtypes",
@@ -142,28 +141,11 @@ Hooks.once("libWrapper.Ready", () => {
         case PF1KS.settlementEventId:
           return PF1KS.eventSubTypes;
 
-        case PF1KS.improvementId:
-          return PF1KS.improvementSubTypes;
-
         case PF1KS.featureId:
           return PF1KS.featureSubTypes;
 
         default:
           return wrapper(type);
-      }
-    },
-    libWrapper.MIXED
-  );
-
-  // lets changes be multiplied by quantity for module
-  libWrapper.register(
-    PF1KS.moduleId,
-    "pf1.components.ItemChange.prototype.applyChange",
-    function (wrapper, actor, targets, options) {
-      if (actor.type.startsWith(PF1KS.moduleId)) {
-        applyChange(this, actor, targets, options);
-      } else {
-        return wrapper(actor, targets, options);
       }
     },
     libWrapper.MIXED
@@ -186,19 +168,31 @@ Hooks.once("libWrapper.Ready", () => {
   libWrapper.ignore_conflicts(PF1KS.moduleId, "ckl-roll-bonuses", "pf1.components.ItemChange.prototype.applyChange");
 });
 
+// assign change targets to data paths to update
 Hooks.on("pf1GetChangeFlat", getChangeFlat);
 
-Hooks.on("renderChatMessage", (message, html) => {
+// roll on the event table from chat card
+async function rollEventTable(event, message) {
+  event.preventDefault();
+
+  const table = await fromUuid(`Compendium.${pf1ks.config.moduleId}.roll-table.RollTable.veIcI8coYE6ZRqFG`);
+  return table.draw();
+}
+Hooks.on("renderChatMessageHTML", (message, html) => {
   if (message.getFlag(PF1KS.moduleId, "eventChanceCard")) {
-    html.find("button.roll-event").on("click", (e) => rollEventTable(e, message));
+    html.querySelectorAll("button.roll-event").forEach((button) => {
+      button.addEventListener("click", (e) => rollEventTable(e, message));
+    });
   }
 });
 
+// module actor/item/kingdomLayer/config/hex settings registration
 Hooks.once("pf1PostInit", () => {
   Object.defineProperty(pf1ks, "_temp", {
     value: {},
     enumerable: false,
     writable: false,
+    configurable: false,
   });
 
   CONFIG.Actor.documentClasses[PF1KS.kingdomId] = KingdomActor;
@@ -208,7 +202,6 @@ Hooks.once("pf1PostInit", () => {
   CONFIG.Item.documentClasses[PF1KS.buildingId] = BuildingItem;
   CONFIG.Item.documentClasses[PF1KS.kingdomEventId] = EventItem;
   CONFIG.Item.documentClasses[PF1KS.settlementEventId] = EventItem;
-  CONFIG.Item.documentClasses[PF1KS.improvementId] = ImprovementItem;
   CONFIG.Item.documentClasses[PF1KS.featureId] = FeatureItem;
   CONFIG.Item.documentClasses[PF1KS.boonId] = BoonItem;
   CONFIG.Item.documentClasses[PF1KS.specialId] = SpecialItem;
@@ -220,7 +213,6 @@ Hooks.once("pf1PostInit", () => {
   pf1.documents.actor.ArmyActor = ArmyActor;
   pf1.documents.item.BuildingItem = BuildingItem;
   pf1.documents.item.EventItem = EventItem;
-  pf1.documents.item.ImprovementItem = ImprovementItem;
   pf1.documents.item.FeatureItem = FeatureItem;
   pf1.documents.item.BoonItem = BoonItem;
   pf1.documents.item.SpecialItem = SpecialItem;
@@ -233,7 +225,6 @@ Hooks.once("pf1PostInit", () => {
   CONFIG.Item.dataModels[PF1KS.buildingId] = BuildingModel;
   CONFIG.Item.dataModels[PF1KS.kingdomEventId] = EventModel;
   CONFIG.Item.dataModels[PF1KS.settlementEventId] = EventModel;
-  CONFIG.Item.dataModels[PF1KS.improvementId] = ImprovementModel;
   CONFIG.Item.dataModels[PF1KS.featureId] = FeatureModel;
   CONFIG.Item.dataModels[PF1KS.boonId] = BoonModel;
   CONFIG.Item.dataModels[PF1KS.specialId] = SpecialModel;
@@ -245,63 +236,57 @@ Hooks.once("pf1PostInit", () => {
   pf1.applications.actor.ArmySheet = ArmySheet;
   pf1.applications.item.BuildingSheet = BuildingSheet;
   pf1.applications.item.EventSheet = EventSheet;
-  pf1.applications.item.ImprovementSheet = ImprovementSheet;
   pf1.applications.item.FeatureSheet = FeatureSheet;
   pf1.applications.item.BoonSheet = BoonSheet;
   pf1.applications.item.SpecialSheet = SpecialSheet;
   pf1.applications.item.TacticSheet = TacticSheet;
 
-  Actors.registerSheet(PF1KS.moduleId, KingdomSheet, {
+  foundry.documents.collections.Actors.registerSheet(PF1KS.moduleId, KingdomSheet, {
     label: game.i18n.localize("PF1KS.Sheet.Kingdom"),
     types: [PF1KS.kingdomId],
     makeDefault: true,
   });
-  Actors.registerSheet(PF1KS.moduleId, SettlementSheet, {
+  foundry.documents.collections.Actors.registerSheet(PF1KS.moduleId, SettlementSheet, {
     label: game.i18n.localize("PF1KS.Sheet.Settlement"),
     types: [PF1KS.settlementId],
     makeDefault: true,
   });
-  Actors.registerSheet(PF1KS.moduleId, SettlementLiteSheet, {
+  foundry.documents.collections.Actors.registerSheet(PF1KS.moduleId, SettlementLiteSheet, {
     label: game.i18n.localize("PF1KS.Sheet.SettlementLite"),
     types: [PF1KS.settlementLiteId],
     makeDefault: true,
   });
-  Actors.registerSheet(PF1KS.moduleId, ArmySheet, {
+  foundry.documents.collections.Actors.registerSheet(PF1KS.moduleId, ArmySheet, {
     label: game.i18n.localize("PF1KS.Sheet.Army"),
     types: [PF1KS.armyId],
     makeDefault: true,
   });
-  Items.registerSheet(PF1KS.moduleId, BuildingSheet, {
+  foundry.documents.collections.Items.registerSheet(PF1KS.moduleId, BuildingSheet, {
     label: game.i18n.localize("PF1KS.Sheet.Building"),
     types: [PF1KS.buildingId],
     makeDefault: true,
   });
-  Items.registerSheet(PF1KS.moduleId, EventSheet, {
+  foundry.documents.collections.Items.registerSheet(PF1KS.moduleId, EventSheet, {
     label: game.i18n.localize("PF1KS.Sheet.Event"),
     types: [PF1KS.kingdomEventId, PF1KS.settlementEventId],
     makeDefault: true,
   });
-  Items.registerSheet(PF1KS.moduleId, ImprovementSheet, {
-    label: game.i18n.localize("PF1KS.Sheet.Improvement"),
-    types: [PF1KS.improvementId],
-    makeDefault: true,
-  });
-  Items.registerSheet(PF1KS.moduleId, FeatureSheet, {
+  foundry.documents.collections.Items.registerSheet(PF1KS.moduleId, FeatureSheet, {
     label: game.i18n.localize("PF1KS.Sheet.Feature"),
     types: [PF1KS.featureId],
     makeDefault: true,
   });
-  Items.registerSheet(PF1KS.moduleId, BoonSheet, {
+  foundry.documents.collections.Items.registerSheet(PF1KS.moduleId, BoonSheet, {
     label: game.i18n.localize("PF1KS.Sheet.Boon"),
     types: [PF1KS.boonId],
     makeDefault: true,
   });
-  Items.registerSheet(PF1KS.moduleId, SpecialSheet, {
+  foundry.documents.collections.Items.registerSheet(PF1KS.moduleId, SpecialSheet, {
     label: game.i18n.localize("PF1KS.Sheet.Special"),
     types: [PF1KS.specialId],
     makeDefault: true,
   });
-  Items.registerSheet(PF1KS.moduleId, TacticSheet, {
+  foundry.documents.collections.Items.registerSheet(PF1KS.moduleId, TacticSheet, {
     label: game.i18n.localize("PF1KS.Sheet.Tactic"),
     types: [PF1KS.tacticId],
     makeDefault: true,
@@ -338,24 +323,8 @@ Hooks.once("pf1PostInit", () => {
       },
     }))
   );
-});
 
-Hooks.once("pf1PostSetup", async () => {
-  // re-prepare kingdoms since they rely on settlement changes for some things
-  const kingdomPromises = game.actors.filter((a) => a.type === pf1ks.config.kingdomId).map((a) => a.reset());
-  await Promise.all(kingdomPromises);
-
-  // re-prepare settlements since they rely on kingdom changes for some things
-  const settlementArmyPromises = game.actors.filter((a) => a.type === pf1ks.config.settlementId).map((a) => a.reset());
-  await Promise.all(settlementArmyPromises);
-});
-
-Hooks.once("pf1PostReady", () => {
-  if (!game.modules.get("lib-wrapper")?.active && game.user.isGM) {
-    ui.notifications.error("PF1KS.LibWrapperError");
-  }
-
-  loadTemplates({
+  foundry.applications.handlebars.loadTemplates({
     "kingdom-sheet-armies": `modules/${PF1KS.moduleId}/templates/actors/kingdom/parts/armies.hbs`,
     "kingdom-sheet-settings": `modules/${PF1KS.moduleId}/templates/actors/kingdom/parts/settings.hbs`,
     "kingdom-sheet-events": `modules/${PF1KS.moduleId}/templates/actors/kingdom/parts/events.hbs`,
@@ -383,20 +352,170 @@ Hooks.once("pf1PostReady", () => {
 
     "item-sheet-building": `modules/${PF1KS.moduleId}/templates/items/parts/building-details.hbs`,
     "item-sheet-event": `modules/${PF1KS.moduleId}/templates/items/parts/event-details.hbs`,
-    "item-sheet-improvement": `modules/${PF1KS.moduleId}/templates/items/parts/improvement-details.hbs`,
     "item-sheet-feature": `modules/${PF1KS.moduleId}/templates/items/parts/feature-details.hbs`,
     "item-sheet-boon": `modules/${PF1KS.moduleId}/templates/items/parts/boon-details.hbs`,
     "item-sheet-special": `modules/${PF1KS.moduleId}/templates/items/parts/special-details.hbs`,
     "item-sheet-tactic": `modules/${PF1KS.moduleId}/templates/items/parts/tactic-details.hbs`,
 
     "item-sheet-changes": `modules/${PF1KS.moduleId}/templates/items/parts/changes.hbs`,
+
+    "hex-tooltip": `modules/${pf1ks.config.moduleId}/templates/canvas/hex-tooltip.hbs`,
   });
+
+  CONFIG.Canvas.layers.kingdom = {
+    layerClass: KingdomLayer,
+    group: "interface",
+  };
+
+  game.settings.register(PF1KS.moduleId, PF1KS.viewInOtherLayersSetting, {
+    scope: "user",
+    config: false,
+    type: new foundry.data.fields.BooleanField({ initial: false }),
+    onChange: (active) => {
+      // Rerender scene controls button
+      if (!ui.controls) {
+        return;
+      }
+      const tools = ui.controls.controls.kingdom.tools;
+      if (!tools.viewInOtherLayers) {
+        return;
+      }
+      if (tools.viewInOtherLayers.active === active) {
+        return;
+      }
+      tools.viewInOtherLayers.active = active;
+      ui.controls.render();
+      // redraw kingdom layer
+      canvas.kingdom.draw();
+    },
+  });
+
+  game.settings.register(PF1KS.moduleId, PF1KS.hexEditorPermissionSetting, {
+    name: "PF1KS.HexEditorPermission",
+    hint: "PF1KS.HexEditorPermissionHint",
+    scope: "world",
+    config: true,
+    type: String,
+    default: "GAMEMASTER",
+    choices: {
+      NONE: "USER.RoleNone",
+      PLAYER: "USER.RolePlayer",
+      TRUSTED: "USER.RoleTrusted",
+      ASSISTANT: "USER.RoleAssistant",
+      GAMEMASTER: "USER.RoleGamemaster",
+    },
+    requiresReload: true,
+  });
+
+  game.settings.register(PF1KS.moduleId, PF1KS.hexFowColorSetting, {
+    name: "PF1KS.HexFowColor",
+    hint: "PF1KS.HexFowColorHint",
+    scope: "world",
+    config: true,
+    type: new foundry.data.fields.ColorField(),
+    default: PF1KS.defaultHexColor.fow,
+    onChange: () => canvas.kingdom.draw(),
+  });
+
+  game.settings.register(PF1KS.moduleId, PF1KS.hexUnknownColorSetting, {
+    name: "PF1KS.HexUnknownKingdomColor",
+    hint: "PF1KS.HexUnknownKingdomColorHint",
+    scope: "world",
+    config: true,
+    type: new foundry.data.fields.ColorField(),
+    default: PF1KS.defaultHexColor.unknown,
+    onChange: () => canvas.kingdom.draw(),
+  });
+
+  async function handleUpdateHex({ sceneId, hex, updateData }) {
+    const scene = game.scenes.get(sceneId);
+
+    HexStore.set(hex.q, hex.r, updateData, scene);
+  }
+
+  CONFIG.queries[`${PF1KS.moduleId}.updateHex`] = handleUpdateHex;
+});
+
+// add module settings to scene config UI
+Hooks.on("renderSceneConfig", async (config, html) => {
+  const templateData = {
+    configId: config.id,
+    basePath: `flags.${PF1KS.moduleId}`,
+    isKingdomMap: config.document.getFlag(PF1KS.moduleId, "isKingdomMap"),
+    opacity: config.document.getFlag(PF1KS.moduleId, "opacity") ?? PF1KS.defaultHexOpacity,
+  };
+
+  const content = await renderTemplate(`modules/${pf1ks.config.moduleId}/templates/scene/settings.hbs`, templateData);
+
+  const basicsTab = html.querySelector('div[data-tab="basics"]');
+  if (basicsTab) {
+    basicsTab.insertAdjacentHTML("beforeEnd", content);
+  }
+});
+
+// kingdom sync from scene hex updates
+const pendingSceneSyncs = new WeakMap();
+Hooks.on("preUpdateScene", (scene, updateData) => {
+  const moduleUpdates = updateData.flags?.[PF1KS.moduleId];
+  if (!moduleUpdates) {
+    return;
+  }
+
+  const kingdomIds = new Set(HexStore.getKingdomIds(scene));
+
+  if (kingdomIds.size) {
+    pendingSceneSyncs.set(scene, kingdomIds);
+  }
+});
+
+// scene/scene controls redraw and kingdom sync from scene hex updates
+Hooks.on("updateScene", (scene, updateData) => {
+  const moduleUpdates = updateData.flags?.[PF1KS.moduleId];
+  if (!moduleUpdates) {
+    return;
+  }
+
+  canvas.kingdom.draw();
+
+  if (moduleUpdates.isKingdomMap != null) {
+    ui.controls.render({ reset: true });
+  }
+
+  // kingdom sync stuff
+  const kingdomIds = pendingSceneSyncs.get(scene) ?? new Set();
+  pendingSceneSyncs.delete(scene);
+
+  for (const kingdomId of HexStore.getKingdomIds(scene)) {
+    kingdomIds.add(kingdomId);
+  }
+
+  if (!kingdomIds.size || syncManager.active) {
+    return;
+  }
+
+  syncManager.run(scene, () => {
+    for (const kingdomId of kingdomIds) {
+      const kingdom = game.actors.get(kingdomId);
+
+      if (kingdom) {
+        syncManager.prepare(kingdom);
+      }
+    }
+  });
+});
+
+// module migrations, item browser, hex tooltip setup, final kingdom actor prep
+Hooks.once("pf1PostReady", () => {
+  moduleDataMigration();
+
+  if (!game.modules.get("lib-wrapper")?.active && game.user.isGM) {
+    ui.notifications.error("PF1KS.LibWrapperError");
+  }
 
   pf1.applications.compendiums.boons = new BoonBrowser();
   pf1.applications.compendiums.buildings = new BuildingBrowser();
   pf1.applications.compendiums.kingdomEvents = new KingdomEventBrowser();
   pf1.applications.compendiums.settlementEvents = new SettlementEventBrowser();
-  pf1.applications.compendiums.improvements = new ImprovementBrowser();
   pf1.applications.compendiums.features = new FeatureBrowser();
   pf1.applications.compendiums.tactics = new TacticBrowser();
   pf1.applications.compendiums.special = new SpecialBrowser();
@@ -405,7 +524,6 @@ Hooks.once("pf1PostReady", () => {
   pf1.applications.compendiumBrowser.buildings = BuildingBrowser;
   pf1.applications.compendiumBrowser.kingdomEvents = KingdomEventBrowser;
   pf1.applications.compendiumBrowser.settlementEvents = SettlementEventBrowser;
-  pf1.applications.compendiumBrowser.improvements = ImprovementBrowser;
   pf1.applications.compendiumBrowser.features = FeatureBrowser;
   pf1.applications.compendiumBrowser.tactics = TacticBrowser;
   pf1.applications.compendiumBrowser.special = SpecialBrowser;
@@ -414,12 +532,53 @@ Hooks.once("pf1PostReady", () => {
   game.model.Item[PF1KS.buildingId] = {};
   game.model.Item[PF1KS.kingdomEventId] = {};
   game.model.Item[PF1KS.settlementEventId] = {};
-  game.model.Item[PF1KS.improvementId] = {};
   game.model.Item[PF1KS.featureId] = {};
   game.model.Item[PF1KS.tacticId] = {};
   game.model.Item[PF1KS.specialId] = {};
+
+  // canvas hex tooltip
+  const tooltip = document.createElement("div");
+
+  tooltip.id = "pf1ks-hex-tooltip";
+  tooltip.style.position = "fixed";
+  tooltip.style.pointerEvents = "none";
+  tooltip.style.visibility = "hidden";
+
+  document.body.appendChild(tooltip);
+
+  Object.defineProperties(pf1ks, {
+    tooltip: {
+      value: tooltip,
+      writable: false,
+      configurable: false,
+      enumerable: false,
+    },
+    mouse: {
+      value: null,
+      writable: true,
+      configurable: false,
+      enumerable: false,
+    },
+  });
+
+  document.addEventListener("mousemove", (event) => {
+    pf1ks.mouse = {
+      x: event.clientX,
+      y: event.clientY,
+    };
+  });
+
+  // forces re-preparation of kingdoms once scenes have been prepared
+  syncManager.run(canvas.scene, () => {
+    for (const kingdom of game.actors) {
+      if (kingdom.type === pf1ks.config.kingdomId) {
+        syncManager.prepare(kingdom);
+      }
+    }
+  });
 });
 
+// localize config strings
 Hooks.once("i18nInit", () => {
   const doLocalize = (obj, cat) => {
     // Create tuples of (key, localized object/string)
@@ -467,6 +626,7 @@ Hooks.once("i18nInit", () => {
     "districtBorders",
     "buildingErrors",
     "magicItemTypes",
+    "hexStatuses",
     "terrainTypes",
     "settings",
     "optionalRules",
@@ -474,7 +634,6 @@ Hooks.once("i18nInit", () => {
     "armySizes",
     "armyStrategy",
     "eventSubTypes",
-    "improvementSubTypes",
     "featureSubTypes",
     "itemSubTypes",
   ];
@@ -485,8 +644,11 @@ Hooks.once("i18nInit", () => {
 
   doLocalizeKeys(pf1ks.config.armyConditions, ["name"]);
   doLocalizeKeys(pf1ks.config.buildingTypes, ["name"]);
+  doLocalizeKeys(pf1ks.config.terrainImprovement, ["name"]);
+  doLocalizeKeys(pf1ks.config.specialTerrain, ["name"]);
 });
 
+// cleaning up links on kingdom/settlement/army deletion
 Hooks.on("deleteActor", async (actor, options, userId) => {
   if (userId !== game.users.activeGM?.id) {
     return;
@@ -517,6 +679,7 @@ Hooks.on("deleteActor", async (actor, options, userId) => {
   }
 });
 
+// remove settlement/army links on duplicated kingdoms
 Hooks.on("preCreateActor", async (actor, data, options, userId) => {
   // only for cloning
   if (!actor._stats.duplicateSource) {
@@ -535,6 +698,7 @@ Hooks.on("preCreateActor", async (actor, data, options, userId) => {
   }
 });
 
+// ask to also link duplicated settlement/army to kingdom
 Hooks.on("createActor", async (actor, options, userId) => {
   // only for cloning
   if (!actor._stats.duplicateSource) {
@@ -576,4 +740,13 @@ Hooks.on("createActor", async (actor, options, userId) => {
   } else {
     await actor.update({ "system.-=kingdom": null });
   }
+});
+
+// kingdom hex color updates scene
+Hooks.on("updateActor", async (actor, updates) => {
+  if (actor.type !== PF1KS.kingdomId || !updates.system.settings?.color) {
+    return;
+  }
+
+  canvas.kingdom.draw();
 });
