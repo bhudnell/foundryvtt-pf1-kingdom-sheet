@@ -1090,7 +1090,6 @@ export const itemSubTypes = {
   ...featureSubTypes,
 };
 
-export const viewInOtherLayersSetting = "viewInOtherLayers";
 export const hexGmVisionSetting = "hexGmVision";
 export const hexEditorPermissionSetting = "hexEditorPermission";
 export const hexFowColorSetting = "hexFowColor";

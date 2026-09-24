@@ -367,12 +367,6 @@ Hooks.once("pf1PostInit", () => {
     group: "interface",
   };
 
-  game.settings.register(PF1KS.moduleId, PF1KS.viewInOtherLayersSetting, {
-    scope: "user",
-    config: false,
-    type: new foundry.data.fields.BooleanField({ initial: false }),
-  });
-
   game.settings.register(PF1KS.moduleId, PF1KS.hexGmVisionSetting, {
     scope: "user",
     config: false,

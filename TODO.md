@@ -1,11 +1,5 @@
 # For future releases
 
-## Hex View
-
-- for hover tooltip
-  - GM always sees everything (maybe a setting to determine)
-  - everyone else gets special terrain once explored, terrain improvements once claimed
-
 ## Misc
 
 - clean up compendium extraction (especially journals)

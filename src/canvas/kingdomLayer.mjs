@@ -12,12 +12,6 @@ export class KingdomLayer extends foundry.canvas.layers.InteractionLayer {
     });
   }
 
-  constructor() {
-    super();
-
-    this.shouldDraw = game.settings.get(pf1ks.config.moduleId, pf1ks.config.viewInOtherLayersSetting);
-  }
-
   async _draw(options) {
     await super._draw(options);
 
@@ -30,18 +24,16 @@ export class KingdomLayer extends foundry.canvas.layers.InteractionLayer {
       return;
     }
 
-    // draw overlays only if visible
-    if (this.shouldDraw) {
-      this.hexContainer = this.addChild(new PIXI.Container());
-      HexRenderer.draw(this.hexContainer, {
-        opacity: canvas.scene.getFlag(pf1ks.config.moduleId, "opacity"),
-        color: {
-          fow: game.settings.get(pf1ks.config.moduleId, pf1ks.config.hexFowColorSetting),
-          unknown: game.settings.get(pf1ks.config.moduleId, pf1ks.config.hexUnknownColorSetting),
-        },
-        gmVision: game.settings.get(pf1ks.config.moduleId, pf1ks.config.hexGmVisionSetting),
-      });
-    }
+    // draw overlay
+    this.hexContainer = this.addChild(new PIXI.Container());
+    HexRenderer.draw(this.hexContainer, {
+      opacity: canvas.scene.getFlag(pf1ks.config.moduleId, "opacity"),
+      color: {
+        fow: game.settings.get(pf1ks.config.moduleId, pf1ks.config.hexFowColorSetting),
+        unknown: game.settings.get(pf1ks.config.moduleId, pf1ks.config.hexUnknownColorSetting),
+      },
+      gmVision: game.settings.get(pf1ks.config.moduleId, pf1ks.config.hexGmVisionSetting),
+    });
   }
 
   async _tearDown(options) {
@@ -53,22 +45,8 @@ export class KingdomLayer extends foundry.canvas.layers.InteractionLayer {
     return super._tearDown(options);
   }
 
-  _activate() {
-    this.shouldDraw = true;
-    this.draw();
-  }
-
-  _deactivate() {
-    this.shouldDraw = game.settings.get(pf1ks.config.moduleId, pf1ks.config.viewInOtherLayersSetting);
-    this.draw();
-
-    if (!this.shouldDraw) {
-      this._hoveredHexKey = null;
-    }
-  }
-
   _updateHover() {
-    if (!this.shouldDraw || !HexStore.isKingdomScene(canvas.scene)) {
+    if (!HexStore.isKingdomScene(canvas.scene)) {
       this._hoveredHexKey = null;
       return;
     }
@@ -145,14 +123,24 @@ export class KingdomLayer extends foundry.canvas.layers.InteractionLayer {
     tooltip.style.left = `${screenX - rect.width / 2}px`;
     tooltip.style.top = `${screenY - rect.height - 12}px`;
 
+    const kingdom = game.actors.get(hex.kingdomId);
+    const isGM = game.user.isGM;
+    const isExplored = hex.status !== "unexplored";
+    const isClaimed = hex.status === "claimed";
+    const isOwned = isClaimed && kingdom?.permission === CONST.DOCUMENT_OWNERSHIP_LEVELS.OWNER;
+    const improvements = hex.improvements?.map((i) => pf1ks.config.terrainImprovement[i].name).join(", ");
+    const specialTerrain = hex.specialTerrain?.map((i) => pf1ks.config.specialTerrain[i].name).join(", ");
+
     const context = {
       name: hex.name,
       terrain: pf1ks.config.terrainTypes[hex.terrain],
       status: pf1ks.config.hexStatuses[hex.status],
-      showKingdom: hex.status === "claimed",
-      kingdom: game.actors.get(hex.kingdomId)?.name,
-      improvements: (hex.improvements ?? []).map((i) => pf1ks.config.terrainImprovement[i].name).join(", "),
-      specialTerrain: (hex.specialTerrain ?? []).map((i) => pf1ks.config.specialTerrain[i].name).join(", "),
+      showKingdom: kingdom && (isGM || isClaimed),
+      kingdom: kingdom?.name,
+      showImprovements: improvements && (isGM || isOwned),
+      improvements,
+      showSpecialTerrain: specialTerrain && (isGM || isExplored || isOwned),
+      specialTerrain,
     };
 
     game.tooltip.activate(tooltip, {
@@ -206,20 +194,9 @@ export class KingdomLayer extends foundry.canvas.layers.InteractionLayer {
             game.user.role >=
             CONST.USER_ROLES[game.settings.get(pf1ks.config.moduleId, pf1ks.config.hexEditorPermissionSetting)],
         },
-        viewInOtherLayers: {
-          name: "viewInOtherLayers",
-          order: 3,
-          title: "PF1KS.ShowInOtherLayers",
-          icon: "fa-solid fa-layer-group",
-          toggle: true,
-          active: game.settings.get(pf1ks.config.moduleId, pf1ks.config.viewInOtherLayersSetting),
-          onChange: (event, active) => {
-            game.settings.set(pf1ks.config.moduleId, pf1ks.config.viewInOtherLayersSetting, active);
-          },
-        },
         hexGmVision: {
           name: "hexGmVision",
-          order: 4,
+          order: 3,
           title: "PF1KS.ToggleGMVision",
           icon: "fa-solid fa-eye-slash",
           toggle: true,
@@ -227,6 +204,7 @@ export class KingdomLayer extends foundry.canvas.layers.InteractionLayer {
           onChange: (event, active) => {
             game.settings.set(pf1ks.config.moduleId, pf1ks.config.hexGmVisionSetting, active);
           },
+          visible: game.user.role === CONST.USER_ROLES.GAMEMASTER,
         },
       },
       activeTool: "viewHexes",
