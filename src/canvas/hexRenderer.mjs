@@ -15,7 +15,7 @@ export class HexRenderer {
     }
   }
 
-  static drawHex(container, hex, { opacity, color }) {
+  static drawHex(container, hex, { opacity, color, gmVision }) {
     const g = new PIXI.Graphics();
 
     const topLeft = canvas.grid.getCenterPoint({
@@ -33,6 +33,8 @@ export class HexRenderer {
       } else {
         g.beginFill(color.unknown, opacity.claimed);
       }
+    } else if (gmVision) {
+      // gm vision has no opacity, so do nothing
     } else if (hex.status === "cleared") {
       g.beginFill(color.fow, opacity.cleared);
     } else if (hex.status === "explored") {

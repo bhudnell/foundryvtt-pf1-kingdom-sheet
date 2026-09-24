@@ -371,21 +371,22 @@ Hooks.once("pf1PostInit", () => {
     scope: "user",
     config: false,
     type: new foundry.data.fields.BooleanField({ initial: false }),
+  });
+
+  game.settings.register(PF1KS.moduleId, PF1KS.hexGmVisionSetting, {
+    scope: "user",
+    config: false,
+    type: new foundry.data.fields.BooleanField({ initial: false }),
     onChange: (active) => {
       // Rerender scene controls button
       if (!ui.controls) {
         return;
       }
       const tools = ui.controls.controls.kingdom.tools;
-      if (!tools.viewInOtherLayers) {
+      if (!tools.hexGmVision) {
         return;
       }
-      if (tools.viewInOtherLayers.active === active) {
-        return;
-      }
-      tools.viewInOtherLayers.active = active;
-      ui.controls.render();
-      // redraw kingdom layer
+
       canvas.kingdom.draw();
     },
   });

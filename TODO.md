@@ -1,5 +1,13 @@
 # For future releases
 
+## Hex View
+
+- can always edit special terrain
+- can only edit terrain improvements when claimed
+- for hover tooltip
+  - GM always sees everything (maybe a setting to determine)
+  - everyone else gets special terrain once explored, terrain improvements once claimed
+
 ## Misc
 
 - clean up compendium extraction (especially journals)

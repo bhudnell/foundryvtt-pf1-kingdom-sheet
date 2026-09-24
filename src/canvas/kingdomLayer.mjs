@@ -39,6 +39,7 @@ export class KingdomLayer extends foundry.canvas.layers.InteractionLayer {
           fow: game.settings.get(pf1ks.config.moduleId, pf1ks.config.hexFowColorSetting),
           unknown: game.settings.get(pf1ks.config.moduleId, pf1ks.config.hexUnknownColorSetting),
         },
+        gmVision: game.settings.get(pf1ks.config.moduleId, pf1ks.config.hexGmVisionSetting),
       });
     }
   }
@@ -214,6 +215,17 @@ export class KingdomLayer extends foundry.canvas.layers.InteractionLayer {
           active: game.settings.get(pf1ks.config.moduleId, pf1ks.config.viewInOtherLayersSetting),
           onChange: (event, active) => {
             game.settings.set(pf1ks.config.moduleId, pf1ks.config.viewInOtherLayersSetting, active);
+          },
+        },
+        hexGmVision: {
+          name: "hexGmVision",
+          order: 4,
+          title: "PF1KS.ToggleGMVision",
+          icon: "fa-solid fa-eye-slash",
+          toggle: true,
+          active: game.settings.get(pf1ks.config.moduleId, pf1ks.config.hexGmVisionSetting),
+          onChange: (event, active) => {
+            game.settings.set(pf1ks.config.moduleId, pf1ks.config.hexGmVisionSetting, active);
           },
         },
       },
