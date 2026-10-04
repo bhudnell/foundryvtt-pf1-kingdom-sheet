@@ -173,41 +173,35 @@ export class KingdomLayer extends foundry.canvas.layers.InteractionLayer {
       name: "kingdom",
       title: "PF1KS.Kingdom",
       icon: "fa-solid fa-crown",
+      visible:
+        game.user.role >=
+        CONST.USER_ROLES[game.settings.get(pf1ks.config.moduleId, pf1ks.config.hexEditorPermissionSetting)],
       onChange: (event, active) => {
         if (active) {
           canvas.kingdom.activate();
         }
       },
       tools: {
-        viewHexes: {
-          name: "viewHexes",
-          order: 1,
-          title: "PF1KS.ViewHexes",
-          icon: "fa-solid fa-eye",
-        },
         editHexes: {
           name: "editHexes",
-          order: 2,
+          order: 1,
           title: "PF1KS.EditHexes",
           icon: "fa-solid fa-draw-polygon",
-          visible:
-            game.user.role >=
-            CONST.USER_ROLES[game.settings.get(pf1ks.config.moduleId, pf1ks.config.hexEditorPermissionSetting)],
         },
         hexGmVision: {
           name: "hexGmVision",
-          order: 3,
+          order: 2,
           title: "PF1KS.ToggleGMVision",
           icon: "fa-solid fa-eye-slash",
           toggle: true,
+          visible: game.user.isGM,
           active: game.settings.get(pf1ks.config.moduleId, pf1ks.config.hexGmVisionSetting),
           onChange: (event, active) => {
             game.settings.set(pf1ks.config.moduleId, pf1ks.config.hexGmVisionSetting, active);
           },
-          visible: game.user.role === CONST.USER_ROLES.GAMEMASTER,
         },
       },
-      activeTool: "viewHexes",
+      activeTool: "editHexes",
     };
   }
 }
