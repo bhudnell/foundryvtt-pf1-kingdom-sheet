@@ -26,3 +26,24 @@
   - optional list to limit to certain building types
   - must be able to handle lotless and lotted buildings
 - follows building limits (ie must be next to X, cannot be next to Y, limit Z per settlement/district)
+
+## Kingdom Log
+
+- Things that log
+  - updating turm (creates a new entry)
+  - any other updates to kingdom or linked settlements
+  - dropping an event, building, or feature (linked settlements only)
+  - updating hexes -> adding/removing from kingdom or improvement changes while in kingdom
+- Should we create a journal and make each turn an entry? Or make it part of the kingdom data?
+
+## Building discounts
+
+- Each building can provide only 1 discount. Some buildings just have more options for the discount
+- discounts are held at the settlement level
+- world setting to turn on/off
+  - maybe under an automation settings button a la PF2
+- Create a discount data model
+  - used on
+  - options
+- dropping a building with a discount adds the discount to the discount list
+- dropping a building that can claim a discount does and updates the discount
