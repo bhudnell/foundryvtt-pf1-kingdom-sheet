@@ -351,6 +351,8 @@
     "Events": "Events",
     "EventLabel": "Event",
     "Event": {
+      "Kingdom": "Kingdom Event",
+      "Settlement": "Settlement Event",
       "SubTypes": {
         "Active": "Active",
         "Misc": "Miscellaneous",

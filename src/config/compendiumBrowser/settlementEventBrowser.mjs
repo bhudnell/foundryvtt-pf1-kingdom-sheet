@@ -13,6 +13,6 @@ class SettlementEventFilter extends pf1.applications.compendiumBrowser.filters.C
 }
 
 export class SettlementEventBrowser extends pf1.applications.compendiumBrowser.CompendiumBrowser {
-  static typeName = "PF1KS.Events.Settlement";
+  static typeName = "PF1KS.Event.Settlement";
   static filterClasses = [commonFilters.PackFilter, SettlementEventFilter, commonFilters.TagFilter];
 }

@@ -13,6 +13,6 @@ class KingdomEventFilter extends pf1.applications.compendiumBrowser.filters.Chec
 }
 
 export class KingdomEventBrowser extends pf1.applications.compendiumBrowser.CompendiumBrowser {
-  static typeName = "PF1KS.Events.Kingdom";
+  static typeName = "PF1KS.Event.Kingdom";
   static filterClasses = [commonFilters.PackFilter, KingdomEventFilter, commonFilters.TagFilter];
 }

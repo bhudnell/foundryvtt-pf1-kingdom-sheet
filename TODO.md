@@ -4,10 +4,6 @@
 
 - clean up compendium extraction (especially journals)
 - add `description.unidentified` to itemBaseModel and break description out like system items
-- Auto Unrest (on drop and continuous)
-  - add settings for each type
-  - add handling for each type
-  - add default continuous changes for vacancies
 - Print control DC on economy/loyalty/stability checks
 - other optional rules: https://aonprd.com/Rules.aspx?ID=1547
   - abandoned buildings
@@ -41,9 +37,16 @@
 - Each building can provide only 1 discount. Some buildings just have more options for the discount
 - discounts are held at the settlement level
 - world setting to turn on/off
-  - maybe under an automation settings button a la PF2
 - Create a discount data model
   - used on
   - options
 - dropping a building with a discount adds the discount to the discount list
 - dropping a building that can claim a discount does and updates the discount
+
+# Automations
+
+- Dropping buildings deducts BP
+- Auto Unrest (on drop and continuous)
+  - add settings for each type
+  - add handling for each type
+  - add default continuous changes for vacancies
