@@ -3,7 +3,7 @@ export class ActorProxyModel extends foundry.abstract.DataModel {
     const fields = foundry.data.fields;
 
     return {
-      id: new fields.StringField({ required: true, nullable: false, blank: false }),
+      id: new fields.StringField({ required: false, nullable: true, blank: true, initial: "" }),
       actor: new fields.ForeignDocumentField(pf1.documents.actor.ActorBasePF, { required: true }),
     };
   }
