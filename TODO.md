@@ -2,6 +2,13 @@
 
 ## Misc
 
+- add a note and gmNotes section to each hex
+- make hexData a data model
+- profession soldier and merchant keys should be configurable
+- make it so leadership related bonuses are configurable
+- add fame/infamy as context note target
+- add "all kingdom stats" to buff and context note targets
+- make it so treasury accepts relative changes (+23 or -5)
 - clean up compendium extraction (especially journals)
 - add `description.unidentified` to itemBaseModel and break description out like system items
 - Print control DC on economy/loyalty/stability checks
@@ -46,7 +53,7 @@
 # Automations
 
 - Dropping buildings deducts BP
-- Auto Unrest (on drop and continuous)
-  - add settings for each type
-  - add handling for each type
-  - add default continuous changes for vacancies
+- Auto Unrest
+  - on drop is easy, add unrest when dropped on sheet
+  - continuous is harder -> when to do? when turn updated and new turn > old turn?
+    - add default continuous changes for vacancies

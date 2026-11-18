@@ -180,9 +180,7 @@ async function rollEventTable(event, message) {
 }
 Hooks.on("renderChatMessageHTML", (message, html) => {
   if (message.getFlag(PF1KS.moduleId, "eventChanceCard")) {
-    html.querySelectorAll("button.roll-event").forEach((button) => {
-      button.addEventListener("click", (e) => rollEventTable(e, message));
-    });
+    html.querySelector("button.roll-event")?.addEventListener("click", (e) => rollEventTable(e, message));
   }
 });
 

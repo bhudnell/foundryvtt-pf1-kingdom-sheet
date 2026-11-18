@@ -131,6 +131,7 @@ export class HexEditor extends HandlebarsApplicationMixin(DocumentSheetV2) {
         Object.entries(pf1ks.config[a.dataset.options]).map(([key, value]) => [key, value.name])
       ),
       document: this.scene,
+      hexPath: `flags.${pf1ks.config.moduleId}.hexes.${this.hex.q},${this.hex.r}`,
       hex: this.hex,
       kingdom: game.actors.get(this.hex.kingdomId),
       sceneEditor: this,

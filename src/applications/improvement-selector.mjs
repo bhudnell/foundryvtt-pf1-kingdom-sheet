@@ -8,6 +8,12 @@ export class ImprovementSelector extends pf1.applications.ActorTraitSelector {
     },
   });
 
+  static DEFAULT_OPTIONS = foundry.utils.mergeObject(super.DEFAULT_OPTIONS, {
+    form: {
+      handler: ImprovementSelector._updateDocument,
+    },
+  });
+
   async _preparePartContext(partId) {
     if (partId === "footer") {
       if (!this.isEditable) {
@@ -48,5 +54,19 @@ export class ImprovementSelector extends pf1.applications.ActorTraitSelector {
     }
 
     return context;
+  }
+
+  // this is just a copy of the TraitSelector version but updateData is fixed
+  static async _updateDocument(event, form, formData) {
+    delete this.document.apps[this.appId];
+    const { standard, custom } = this.attributes;
+    const updateData = {
+      [this.options.hexPath]: {
+        ...this.options.hex,
+        [this.options.subject]: [...standard.union(custom)],
+      },
+    };
+    this.document.update(updateData);
+    this.close({ force: true });
   }
 }

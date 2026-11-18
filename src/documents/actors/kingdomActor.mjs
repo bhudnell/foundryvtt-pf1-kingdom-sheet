@@ -334,7 +334,10 @@ export class KingdomActor extends BaseActor {
     }
 
     // armies
-    const armyConsumption = this.system.armies.reduce((acc, proxy) => acc + proxy.actor.system.consumption.total, 0);
+    const armyConsumption = this.system.armies.reduce(
+      (acc, proxy) => acc + (proxy.actor.system.consumption?.total ?? 0),
+      0
+    );
     if (armyConsumption) {
       // multiply by 4 to go from weekly to monthly
       changes.push(new DefaultChange(armyConsumption * 4, `${pf1ks.config.changePrefix}_consumption`, "PF1KS.Armies"));

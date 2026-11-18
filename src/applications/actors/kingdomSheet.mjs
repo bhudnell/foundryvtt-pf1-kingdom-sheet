@@ -6,24 +6,19 @@ const GRID_COLS = 6;
 const GRID_ROWS = 6;
 
 export class KingdomSheet extends pf1.applications.actor.ActorSheetPF {
-  constructor(actor, options) {
-    options.tabs = [
-      {
-        navSelector: "nav.tabs[data-group='primary']",
-        contentSelector: "section.primary-body",
-        initial: "summary",
-        group: "primary",
-      },
-    ];
-
-    super(actor, options);
-  }
-
   static get defaultOptions() {
     const options = super.defaultOptions;
     return {
       ...options,
       classes: [...options.classes, "pf1ks", "kingdom"],
+      tabs: [
+        {
+          navSelector: "nav.tabs[data-group='primary']",
+          contentSelector: "section.primary-body",
+          initial: "summary",
+          group: "primary",
+        },
+      ],
       scrollY: [...options.scrollY, ".subdetails-body"],
       height: 740,
       width: 680,
@@ -466,10 +461,10 @@ export class KingdomSheet extends pf1.applications.actor.ActorSheetPF {
       "prototypeToken.actorLink": true,
     });
 
-    return this._createSettlement(newSettlement._id);
+    return this._createSettlement(event, newSettlement._id);
   }
 
-  async _createSettlement(actorId) {
+  async _createSettlement(event, actorId) {
     const settlements = foundry.utils.duplicate(this.actor.system.settlementProxies ?? []);
     settlements.push({
       id: foundry.utils.randomID(),
@@ -533,10 +528,10 @@ export class KingdomSheet extends pf1.applications.actor.ActorSheetPF {
       "prototypeToken.actorLink": true,
     });
 
-    return this._createArmy(newArmy._id);
+    return this._createArmy(event, newArmy._id);
   }
 
-  async _createArmy(actorId) {
+  async _createArmy(event, actorId) {
     const armies = foundry.utils.duplicate(this.actor.system.armies ?? []);
     armies.push({
       id: foundry.utils.randomID(),
@@ -725,10 +720,10 @@ export class KingdomSheet extends pf1.applications.actor.ActorSheetPF {
 
     let created;
     if (actor.type === pf1ks.config.settlementId) {
-      created = await this._createSettlement(actor._id);
+      created = await this._createSettlement(event, actor._id);
       this.activateTab("settlements", { group: "primary" });
     } else {
-      created = await this._createArmy(actor._id);
+      created = await this._createArmy(event, actor._id);
       this.activateTab("armies", { group: "primary" });
     }
     return created;
