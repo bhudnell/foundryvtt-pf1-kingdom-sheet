@@ -123,7 +123,7 @@ export class HexEditor extends HandlebarsApplicationMixin(DocumentSheetV2) {
     const label = a.parentElement.parentElement.querySelector("label");
 
     const options = {
-      name: a.dataset.for,
+      name: `flags.${pf1ks.config.moduleId}.hexes.${this.hex.q},${this.hex.r}.${a.dataset.for}`,
       title: label.innerText,
       subject: a.dataset.options,
       hasCustom: false,
@@ -132,6 +132,7 @@ export class HexEditor extends HandlebarsApplicationMixin(DocumentSheetV2) {
       ),
       document: this.scene,
       hexPath: `flags.${pf1ks.config.moduleId}.hexes.${this.hex.q},${this.hex.r}`,
+      target: a.dataset.for,
       hex: this.hex,
       kingdom: game.actors.get(this.hex.kingdomId),
       sceneEditor: this,

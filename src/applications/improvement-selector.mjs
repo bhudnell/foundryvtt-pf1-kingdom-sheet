@@ -63,7 +63,7 @@ export class ImprovementSelector extends pf1.applications.ActorTraitSelector {
     const updateData = {
       [this.options.hexPath]: {
         ...this.options.hex,
-        [this.options.subject]: [...standard.union(custom)],
+        [this.options.target]: [...standard.union(custom)],
       },
     };
     this.document.update(updateData);
