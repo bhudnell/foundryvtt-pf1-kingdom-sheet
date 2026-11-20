@@ -743,3 +743,17 @@ Hooks.on("updateActor", async (actor, updates) => {
 
   canvas.kingdom.draw();
 });
+
+// item piles integration
+Hooks.on("item-piles-preTransferItems", (src, srcUpdates, tgt, tgtUpdates, id) => {
+  if (tgt.type.startsWith(PF1KS.moduleId)) {
+    ui.notifications.error("PF1KS.ItemPilesInvalidActor", { localize: true });
+    return false;
+  }
+});
+Hooks.on("item-piles-preTransferAttributes", (src, srcUpdates, tgt, tgtUpdates, id) => {
+  if (tgt.type.startsWith(PF1KS.moduleId)) {
+    ui.notifications.error("PF1KS.ItemPilesInvalidActor", { localize: true });
+    return false;
+  }
+});

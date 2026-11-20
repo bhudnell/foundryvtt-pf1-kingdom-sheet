@@ -512,6 +512,7 @@
     "OnlySettlementLiteItemsOnActor": "Basic Settlement actors can only have Settlement Feature items.",
     "OnlyArmyItemsOnActor": "Army actors can only have Boon, Special Ability, and Tactic items.",
     "LibWrapperError": "The PF1 Kingdom Sheet module requires the 'libWrapper' module. Please install and activate it.",
+    "ItemPilesInvalidActor": "Cannot take from an item pile with a Kingdom Sheet actor",
 
     "SettlementAlreadyLinked": "This Settlement is already linked to a Kingdom.",
     "ArmyAlreadyLinked": "This Army is already linked to a Kingdom.",
